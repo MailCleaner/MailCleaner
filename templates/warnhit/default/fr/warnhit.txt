@@ -1,0 +1,22 @@
+Subject: MailCleaner: Avertissement de blocage
+
+Bonjour,
+
+vous recevez ce message afin de vous avertir qu'un message de l'exp=E9diteur __SENDER__, 
+pr=E9sent dans votre liste d'avertissement, a =E9t=E9 d=E9tect=E9 comme un spam.
+
+Si vous pensez qu'il s'agit d'une erreur et que vous souhaitez tout de m=EAme recevoir ce message,
+cliquez sur le lien suivant:
+
+Lib=E9rer: __BASEURL__/fm.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+Vous pouvez signaler l'erreur =E0 votre administrateur en cliquant sur le lien suivant:
+
+Analyse: __BASEURL__/send_to_analyse.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+Si vous pensez que ce message est r=E9ellement un spam, vous pouvez simplement ignorer ce message.
+
+------------------------------------------------------
+Ceci est un message automatique g=E9n=E9r=E9 par MailCleaner
+Merci de ne pas y r=E9pondre
+Pour plus d'informations: __BASEURL__

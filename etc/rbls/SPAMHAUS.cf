@@ -1,0 +1,4 @@
+name=SPAMHAUS
+type=IPRBL
+dnsname=zen.spamhaus.org
+sublist=127.0.0.\d+,SPAMHAUS,spamhaus.org list

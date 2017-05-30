@@ -1,0 +1,13 @@
+Subject: MailCleaner warn/white list hit
+
+Hello,
+
+You received this message because the sender of a message which as been detected as spam
+has been placed in __LEVEL__ __LIST__.
+
+Recipient: __TO__
+Sender: __SENDER__
+
+You will find attached a copy of this message for further analysis:
+
+

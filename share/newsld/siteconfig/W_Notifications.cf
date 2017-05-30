@@ -1,0 +1,61 @@
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2016 Florian Billebault <florian.billebault@gmail.com>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#   Whitelisted notifications (flat file list used in conjunction with
+#   MailCleaner newsletter RWL lists)
+
+header		MC_NEWS_EFRMFBMAIL1	From =~ /notification.*\@facebookmail\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMFBMAIL1	-10.0
+
+header		MC_NEWS_EFRMTWITTER1	From =~ /info\@twitter\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMTWITTER1	-10.0
+
+header		MC_NEWS_EFRMGGPLUS1	From =~ /noreply-.*\@plus\.google\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMGGPLUS1	-10.0
+
+header		MC_NEWS_EFRMINSTAGRAM1	From =~ /no-reply\@mail\.instagram\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMINSTAGRAM1	-10.0
+
+header		MC_NEWS_EFRMSNDCLOUD1	From =~ /notifications\@soundcloudmail\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMSNDCLOUD1	-10.0
+
+header		MC_NEWS_EFRMLINKEDIN1	From =~ /-reply\@linkedin\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMLINKEDIN1	-10.0
+
+header		MC_NEWS_EFRMLINKEDIN2	From =~ /jobs-listings\@linkedin\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMLINKEDIN2	-10.0
+
+header		MC_NEWS_EFRMLINKEDIN3	From =~ /\@bounce.linkedin\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMLINKEDIN3	-10.0
+
+header		MC_NEWS_EFRMJOBUP1	From =~ /notification_reply\@jobup\.ch/i
+score		MC_NEWS_EFRMJOBUP1	-10.0
+
+header		MC_NEWS_EFRMMEETUP1	From =~ /info\@meetup\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMMEETUP1	-10.0
+
+header		MC_NEWS_EFRMPAYPAL1	From =~ /paypal\@e\.paypal\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMPAYPAL1	-10.0
+
+header		MC_NEWS_EFRMPAYPAL2	From =~ /service\@paypal\.(eu|com|fr|ch|de)/i
+score		MC_NEWS_EFRMPAYPAL2	-10.0
+
+header		MC_NEWS_EFRMDOODLE1	From =~ /mailer\@doodle\.com/i
+score		MC_NEWS_EFRMDOODLE1	-10.0
+
+header		MC_NEWS_EFRMSTEAM1	From =~ /noreply\@steampowered\.com/i
+score		MC_NEWS_EFRMSTEAM1	-10.0

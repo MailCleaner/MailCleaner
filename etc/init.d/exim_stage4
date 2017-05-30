@@ -1,0 +1,87 @@
+#! /bin/sh
+
+PATH=$PATH:/usr/sbin:/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+DAEMON=/opt/exim4/bin/exim
+PIDFILE=$VARDIR/run/exim_stage4.pid
+CONFIGFILE=$SRCDIR/etc/exim/exim_stage4.conf
+if [ -f $VARDIR/spool/tmp/exim/exim_stage4.conf ]; then
+  CONFIGFILE=$VARDIR/spool/tmp/exim/exim_stage4.conf
+fi
+QUEUETIME=1m
+NAME="Exim stage 4"
+
+test -x $DAEMON || exit 0
+
+prepare () {
+  $SRCDIR/bin/dump_exim_config.pl 4 >/dev/null 2>&1
+  chown -R mailcleaner:mailcleaner $VARDIR/spool/tmp/mailcleaner/*.list >/dev/null 2>&1
+
+  # replace system config
+  cp $SRCDIR/etc/exim/exim_stage4.conf /opt/exim4/etc/exim.conf
+  if [ ! -f /etc/aliases ]; then
+    echo "root:  mailcleaner" > /etc/aliases
+  fi
+  chown -R mailcleaner:mailcleaner /var/mail >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+    touch $VARDIR/run/exim_stage4.start.rs
+    echo -n "  Starting $NAME: "
+    prepare
+    ## starting pref daemon first
+    $SRCDIR/etc/init.d/preftdaemon start >/dev/null 2>&1
+    ## spam handler daemon
+    $SRCDIR/etc/init.d/spamhandler start >/dev/null 2>&1
+    ## then Exim
+    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd -q$QUEUETIME
+    if [ -f $VARDIR/run/exim_stage4.rn ]; then
+      rm $VARDIR/run/exim_stage4.rn
+    fi
+    if [ -f $VARDIR/run/MTA4.rn ]; then
+      rm $VARDIR/run/MTA4.rn
+    fi
+    echo "started."
+    rm $VARDIR/run/exim_stage4.stopped >/dev/null 2>&1
+    rm $VARDIR/run/exim_stage4.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/exim_stage4.stop.rs
+    echo -n "  Stopping $NAME: "
+    start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
+    sleep 4
+    EXIMPID=`pgrep -f exim_stage4.conf`;
+    if [ ! "$EXIMPID" = "" ]; then
+      kill -KILL $EXIMPID >/dev/null 2>&1
+    fi
+    ## spam logger daemon
+    $SRCDIR/etc/init.d/spamloggerdaemon stop >/dev/null 2>&1
+    ## spam handler daemon
+    $SRCDIR/etc/init.d/spamhandler stop >/dev/null 2>&1
+    echo "stopped."
+    rm $VARDIR/run/exim_stage4.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/exim_stage4.stopped
+      ;;
+  restart)
+    touch $VARDIR/run/exim_stage4.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|reload}"
+    exit 1
+    ;;
+esac
+
+exit 0

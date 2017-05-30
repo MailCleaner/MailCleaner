@@ -1,0 +1,72 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div id="generalconfigpanel">
+  <p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
+  <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Domains')?></p>
+
+  <div id="domainnavigpanel">
+  <?php $user = Zend_Registry::get('user'); ?>
+  <?php if ($user && $user->getUserType() == 'administrator') {?>
+ 
+    <ul id="domainnavoptions">
+      <li id="domainoptiontop" class="domainoptiontop <?php if ($this->domain->getParam('name') == '__global__') { ?> globalsettingsselected <?php }?>" onclick="javascript:loadurl('<?php echo $this->globalurl?>')"><a href="<?php echo $this->globalurl?>"><?php echo $this->t->_('Domain default settings');?></a></li>
+      <li class="newdomain" onclick="javascript:loadurl('<?php echo $this->addurl?>')"><span><a href="<?php echo $this->addurl?>"><?php echo $this->t->_('New domain');?></a></span><img src="<?php echo $this->images_path?>/domainaddbutton.png" alt="add" /></li>
+    </ul>
+ <?php } elseif ($user && $user->getRight('allow_subdomains')) {?>
+    <ul id="domainnavoptions"> 
+       <li class="newdomain newdomaintop domainoptiontop" onclick="javascript:loadurl('<?php echo $this->addurl?>')"><span><a href="<?php echo $this->addurl?>"><?php echo $this->t->_('New domain');?></a></span><img src="<?php echo $this->images_path?>/domainaddbutton.png" alt="add" /></li>
+     </ul>
+ <?php } else {?> 
+    <div class="domainnavoptionreplace">&nbsp;</div>
+  <?php }?> 
+
+  
+    <div id="searchpanel">
+      <form id="searchform" action="">
+        <p id="searchlabel"><?php echo $this->t->_('Domain specific settings')?></p>
+        <div><input type="text" id="sname" value="<?php echo $this->sname?>" /></div>
+      </form>
+    </div>
+    <div id="resultpanel">
+<?php echo $this->partial('ajax/domain/search.phtml', array(
+                         'domains' => $this->domains,
+                         'domainscount' => $this->domainscount,
+                         'page' => $this->page,
+                         'lastpage' => $this->lastpage,
+                         'images_path' => $this->images_path,
+                         'sname' => $this->sname,
+                         'name' => $this->name,
+                         'searchurl' => $this->searchurl,
+                         't' => $this->t
+));?>
+    </div>
+  </div>
+ 
+  <div id="domaincontentpanel">
+    <div id="tasksconfigpanel" class="domainconfigpanel">
+      <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>"> 
+   <?php if ($this->domain->getParam('name') != '__global__') {?>
+   <h1 id ="domaincontentpaneltitle"><span id="domainname"><?php echo $this->domain->getParam('name');?></span>
+   <a id="removedomain" class="removedomain removedomaintitle" href="<?php echo $this->removeurl;?>"><?php echo $this->t->_('Remove from MailCleaner');?></a>
+   </h1>
+  <?php } else {?>
+        <h1 id ="domaincontentpaneltitle"><?php echo $this->t->_('Domain default settings');?></h1>
+  <?php } ?> 
+        <h2><span class="domainconfigselect"><?php echo $this->inputRow($this->form->getElement('domainpanel'),array('field_only'=>true,'nobox'=>true));?></span>
+            <span class="h2nextpreviouslinks" id="nextpreviouslinks">
+               <?php echo $this->partial('ajax/domain/panellink.phtml', array('panel' => $this->panel,'t' => $this->t, 'name' => $this->name, 'previouspanel' => $this->previouspanel, 'nextpanel' => $this->nextpanel, 'searchurl' => $this->searchurl)); ?>
+            </span>
+        </h2>
+
+        <div id="domainformcontent"><?php echo $this->partial('forms/domain'.strtolower($this->panel).'Form.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'domain' => $this->domain, 'images_path' => $this->images_path, 'request'=>$this->request)); ?>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

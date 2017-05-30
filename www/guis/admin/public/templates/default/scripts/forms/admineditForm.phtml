@@ -1,0 +1,31 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+    <div class="adminformcontent">
+   
+       <table class="ftable">
+          <?php foreach (array('password', 'confirm') as $f) {?>
+            <?php echo $this->InputRow($this->form->getElement($f)); ?>
+          <?php }?>
+          
+          <?php if ($this->form->_admin->getParam('username') != 'admin') {?>
+             <tr><td colspan="2"><hr /></td></tr>
+          
+             <?php echo $this->InputRow($this->form->getElement('role')); ?>
+
+
+            <?php if ($this->form->_admin->getUserType() == 'administrator') { $hideshowclass = 'hidden'; } else { $hideshowclass = 'shown'; } ?> 
+            <?php echo $this->InputRow($this->form->getElement('domains'),array('label_addclass'=>'flabeltextarea', 'row_class' => 'advanced_admin '.$hideshowclass)); ?>
+
+             <?php echo $this->InputRow($this->form->getElement('allow_subdomains'),array('row_class' => 'advanced_admin '.$hideshowclass)); ?>
+          <?php } ?>          
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+       
+       </div>

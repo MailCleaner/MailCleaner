@@ -1,0 +1,88 @@
+@CHARSET "UTF-8";
+
+body {
+
+}
+
+#allowed, #denied {
+	min-height: 500px;
+}
+
+#allowed {
+    float: left;
+    border-right: 1px solid #C6ADC6; 
+    width:50%;
+}
+
+#denied {
+     float: left; 
+     width:49%; 
+}
+
+#allowed table, #denied table {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+#allowed thead, #denied thead {
+	margin: 0px;
+	padding: 0px;
+	text-align: left;
+}
+
+#allowed tbody, #denied tbody {
+    margin-bottom: 10px;
+}
+
+#allowed caption, #denied caption {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+#allowed th, #denied th {
+	padding-left: 5px;
+    height: 40px;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+#allowed td, #denied td {
+	border-bottom: 1px solid #eee;
+	padding-left: 5px;
+	height: 40px;
+}
+
+#allowed caption {
+	color: green;
+}
+
+#denied caption {
+	color: red;
+}
+
+div.button {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#rules {
+	float: left; 
+	margin: 0px; 
+	padding: 0px;
+}
+.configpanel h1 {
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 0px !important;
+}
+
+.toggle {
+	vertical-align: bottom;
+}
+
+.hidden {
+	display: none;
+}

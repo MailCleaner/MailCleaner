@@ -1,0 +1,28 @@
+<?
+$template = $sysconf_->gui_prefs_['default_template'];
+
+$txt['SFALSENEGTITLE'] = "FALSCHMELDUNGEN - NEGATIV";
+$txt['SFALSENEGSUBTITLE'] = "Haben Sie eine Nachricht erhalten, die Sie als Spams betrachten  ?";
+$txt['SVERIFYPASS'] = "&Uuml;berpr&uuml;fen Sie, Ob die Nachricht auch wirklich von mailcleaner.net gefiltert wurde. Dazu kontrollieren Sir die Be
+treffzeile des E-Mails.";
+$txt['SMCLOGTITLE'] = "Best&auml;tigung der Filterung mit  mailcleaner.net :";
+$txt['SMCLOGLINE1'] = "Received: from mailcleaner.net (filtering daemon)";
+$txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
+$txt['SMCFILTERINGLOG'] = "Ergebnis des Filterprozesses : X-Mailcleaner-Spamscore: oooo";
+$txt['SFALSENEGTUTOR'] = "Falls Sie tats&auml;tlich der Meinung sind, dass Sie die Nachricht nicht h&auml;tten erhalten sollen, leiten Sie sie an <a href=\"mailto:analyse@mailcleaner.net\">analyse@mailcleaner.net</a> weiter. Noch besser w&auml;re es, wenn Sie die Nachricht als An&eacute;age weiterleiten - sofern dies mit Irhem Mailprogramm m&ouml;glich ist - damit die komplette Betreffzeile erhalten bleibt. Wir werden den Inhalt der Nachricht analysieren und die Filterkriterien von Mailcleaner f&uuml;r alle Benutzer dementsprechend anpassen.";
+$txt['SFALSEPOSTITLE'] = "FALSCHMELDUNGEN - POSITIV";
+$txt['SFALSEPOSSUB1TITLE'] = "Haben Sie ein E-Mail, das bei Ihnen h&auml;tte eingehen sollen, nicht erhalten ?";
+$txt['SFALSEPOSSUB1'] = "&Uuml;berprufen Sie, ob die Nachricht nicht in der Liste enthalten sein, &uuml;berpr&uuml;fen Sie folgende Punkte :";
+
+$txt['SFALSEPOSSUB1POINT1'] = "Die Empfangeradresse: Hat der Verfasser des E-Mails beim Schreiben Ihrer Adresse einen Felher gemacht ?";
+$txt['SFALSEPOSSUB1POINT2'] = "Die E-mails werden gerade abgerufen oder gefiltert. Die Bearbeitung Ihrer Nachricht kann mehrere Minuten in Anspruch nehmen..";
+
+$txt['SFALSEPOSSUB2TITLE'] = "Wurde ein E-Mail wurde als Spam eingestuft und Sie wissen nicht weshalb ?";
+$txt['SFALSEPOSSUB2'] = "Klicken Sie auf das Symbol <img src=\"/templates/".$template."/images/support/reasons.gif\" align=\"middle\" alt=\"\"> und sehen Sie im Register Quarant&auml;ne die Kriterien ein, die Mailcleaner.net versanlasst haben, die Nachricht als Spam einzustufen. Falls Sie der Meinung sind, dass diese Kriterien nicht gerechtfertigt sind, k&ouml;nnen Sie unser Team um eine Analyse bitten. Dazu klicken Sie auf <img src=\"/templates/".$template."/images/support/analyse.gif\" align=\"middle\" alt=\"\"> Sie k&ouml;nnen die Nachricht auch freizugeben, indem Sie auf das Symbol <img src=\"/templates/".$template."/images/support/force.gif\" align=\"middle\" alt=\"\"> klicken."; 
+
+$txt['SFALSEPOSSUB3TITLE'] = "Mailing-Listen";
+$txt['SFALSEPOSSUB3'] = "Es kann vorkommen, dass einige Mailng-Listen aufgrund ihres Formats, das demjenigen von Spams oft sehr &auml;hnlich ist, von Mailcleaner.net blockiert werden. Sie betroffene Mailing-Liste dann in die weissen Listen aufnehmen.";
+
+$txt['SOTHERTITLE'] = "ANDERE PROBLEME";
+$txt['SOTHER'] = "Falls sie ein Problem mit dem Empfang Ihrer E-Mails oder anderweitige Probleme haben, und diese Probleme trotz korrekter Durchf&uuml;hrung der oben erw&auml;hnten Anweisungen weiterbestehen, nehmen Sie &uuml;ber das folgende Formular Kontakt mit dem Supportcenter von Mailcleaner.net auf :";
+

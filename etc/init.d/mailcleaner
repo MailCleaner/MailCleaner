@@ -1,0 +1,113 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          mailcleaner
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start all MailCleaner services
+# Description:       MailCleaner
+### END INIT INFO
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+ISMASTER=`grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3`
+
+NAME=mailcleaner
+FW=firewall
+EXIM1=exim_stage1
+EXIM2=exim_stage2
+EXIM4=exim_stage4
+MS=mailscanner
+MYSLAVE=mysql_slave
+MYMASTER=mysql_master
+APACHE=apache
+SNMP=snmpd
+GREYLISTD=greylistd
+PREFDAEMON=prefdaemon
+PREFTDAEMON=preftdaemon
+SPAMLOGGER=spamloggerdaemon
+STATSDAEMON=statsdaemon
+
+INITDIR=$SRCDIR/etc/init.d
+
+test -x $DAEMON || exit 0
+
+case "$1" in
+  start)
+    echo "Starting $NAME: "
+
+    EDITION=`cat $SRCDIR/etc/edition.def`
+    VERSION=`cat $SRCDIR/etc/mailcleaner/version.def`
+    echo "MailCleaner $EDITION $VERSION (kernel \\\r on \\\m, \\\l)\n" > /etc/issue
+
+    ## checking for tmpfs dir
+    DF=`df | grep '/spool/tmp'`
+    if [ "$DF" = "" ]; then
+      echo -n "  Creating tmpfs partition... "
+      mount -t tmpfs tmpfs $VARDIR/spool/tmp >/dev/null 2>&1
+      echo "done"
+    fi
+
+    ## checking for opt binaries
+    for i in mysql4 mysql5 MailScanner bogofilter clamav exim4 mailcleaner php5; do
+     if [ ! -d /opt/$i ]; then
+      ln -s /usr/$i /opt/$i >/dev/null 2>&1
+     fi
+    done
+    if [ ! -d /opt/aoache2 ]; then
+      ln -s /usr/apache /opt/apache2 >/dev/null 2>&1
+    fi
+
+    $INITDIR/$MYMASTER start
+    $INITDIR/$MYSLAVE start
+    sleep 5
+    $INITDIR/$FW start
+    echo -n "  Resyncing DB... "
+    $INITDIR/$MYSLAVE restart 2>&1 > /dev/null
+    echo "done."
+    $INITDIR/$SNMP start
+    $INITDIR/$STATSDAEMON start
+    $INITDIR/$PREFTDAEMON start
+    $INITDIR/$MS start
+    $INITDIR/$EXIM4 start
+    $INITDIR/$EXIM2 start
+    $INITDIR/$EXIM1 start
+    $INITDIR/$GREYLISTD start
+    $INITDIR/$APACHE start
+     ;;
+  stop)
+    echo "Stopping $NAME: "
+    $INITDIR/$APACHE stop
+    $INITDIR/$EXIM1 stop
+    $INITDIR/$EXIM2 stop
+    $INITDIR/$EXIM4 stop
+    $INITDIR/$MS stop
+    $INITDIR/$SNMP stop
+    $INITDIR/$GREYLISTD stop
+    $INITDIR/$STATSDAEMON stop
+    $INITDIR/$PREFTDAEMON stop
+    $INITDIR/$SPAMLOGGER stop
+    $INITDIR/$FW stop
+    $INITDIR/$MYSLAVE stop
+    $INITDIR/$MYMASTER stop
+      ;;
+  restart)
+	$0 stop
+	sleep 4
+	$0 start
+    ;;
+    
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,150 @@
+<!-- SNFMulti V3.0 Configuration File, Setup: Typical of *nix Client / Server -->
+<!-- http://www.armresearch.com/support/articles/software/snfServer/config/snfEngine.jsp -->
+
+<snf>
+    <node identity='__SRCDIR__/etc/messagesniffer/identity.xml'>
+
+        <paths>
+            <log path='__VARDIR__/log/messagesniffer/'/>
+            <rulebase path='__VARDIR__/spool/messagesniffer/'/>
+            <workspace path='__VARDIR__/spool/messagesniffer/'/>
+        </paths>
+
+        <logs>
+
+            <rotation localtime='no'/>
+
+            <status>
+                <second log='yes' append='no'/>
+                <minute log='yes' append='no'/>
+                <hour log='no' append='no'/>
+            </status>
+
+            <scan>
+                <identifier force-message-id='no'/>
+                <classic mode='none' rotate='yes' matches='unique'/>
+                <xml mode='file' rotate='yes' matches='all' performance='yes' gbudb='yes'/>
+
+                <xheaders>
+                    <output mode='inject'/>
+
+                    <version on-off='off'>X-MessageSniffer-Version</version>
+                    <license on-off='off'>X-MessageSniffer-License</license>
+                    <rulebase on-off='off'>X-MessageSniffer-RulebaseUTC</rulebase>
+                    <identifier  on-off='off'>X-MessageSniffer-Identifier</identifier>
+                    <gbudb on-off='on'>X-GBUdb-Analysis</gbudb>
+                    <result on-off='off'>X-MessageSniffer-Scan-Result</result>
+                    <matches on-off='on'>X-MessageSniffer-Rules</matches>
+
+                    <black on-off='off'>X-MessageSniffer-Spam: Yes</black>
+                    <white on-off='off'>X-MessageSniffer-White: Yes</white>
+                    <clean on-off='off'>X-MessageSniffer-Clean: Yes</clean>
+                    <symbol on-off='off' n='0'>X-MessageSniffer-SNF-Group: OK</symbol>
+                    <symbol on-off='off' n='20'>X-MessageSniffer-SNF-Group: Truncated</symbol>
+                    <symbol on-off='off' n='40'>X-MessageSniffer-SNF-Group: Caution</symbol>
+                    <symbol on-off='off' n='63'>X-MessageSniffer-SNF-Group: Black</symbol>
+                    <symbol on-off='off' n='62'>X-MessageSniffer-SNF-Group: Obfuscation</symbol>
+                    <symbol on-off='off' n='61'>X-MessageSniffer-SNF-Group: Abstract</symbol>
+                    <symbol on-off='off' n='60'>X-MessageSniffer-SNF-Group: General</symbol>
+                    <symbol on-off='off' n='59'>X-MessageSniffer-SNF-Group: Casinos-Gambling</symbol>
+                    <symbol on-off='off' n='58'>X-MessageSniffer-SNF-Group: Debt-Credit</symbol>
+                    <symbol on-off='off' n='57'>X-MessageSniffer-SNF-Group: Get-Rich</symbol>
+                    <symbol on-off='off' n='56'>X-MessageSniffer-SNF-Group: Ink-Toner</symbol>
+                    <symbol on-off='off' n='55'>X-MessageSniffer-SNF-Group: Malware</symbol>
+                    <symbol on-off='off' n='54'>X-MessageSniffer-SNF-Group: Porn-Dating-Adult</symbol>
+                    <symbol on-off='off' n='53'>X-MessageSniffer-SNF-Group: Scam-Phishing</symbol>
+                    <symbol on-off='off' n='52'>X-MessageSniffer-SNF-Group: Snake-Oil</symbol>
+                    <symbol on-off='off' n='51'>X-MessageSniffer-SNF-Group: Spamware</symbol>
+                    <symbol on-off='off' n='50'>X-MessageSniffer-SNF-Group: Media-Theft</symbol>
+                    <symbol on-off='off' n='49'>X-MessageSniffer-SNF-Group: AV-Push</symbol>
+                    <symbol on-off='off' n='48'>X-MessageSniffer-SNF-Group: Insurance</symbol>
+                    <symbol on-off='off' n='47'>X-MessageSniffer-SNF-Group: Travel</symbol>
+
+                </xheaders>
+            </scan>
+        </logs>
+
+        <network>
+            <sync secs='30' host='sync.messagesniffer.net' port='25'/>
+            <update-script on-off='on' call='__SRCDIR__/etc/messagesniffer/getRulebase' guard-time='180'/>
+       </network>
+
+        <xci on-off='on' port='9001'/>
+
+        <gbudb>
+            <database>
+
+                <condense minimum-seconds-between='600'>
+                    <time-trigger on-off='on' seconds='86400'/>
+                    <posts-trigger on-off='off' posts='1200000'/>
+                    <records-trigger on-off='off' records='600000'/>
+                    <size-trigger on-off='on' megabytes='150'/>
+                </condense>
+
+                <checkpoint on-off='on' secs='3600'/>
+
+            </database>
+
+            <regions>
+            
+                <white on-off='on' symbol='0'>
+                    <edge probability='-1.0' confidence='0.4'/>
+                    <edge probability='-0.8' confidence='1.0'/>
+                    <panic on-off='on' rule-range='1000'/>
+                </white>
+            
+                <caution on-off='on' symbol='40'>
+                    <edge probability='0.4' confidence='0.0'/>
+                    <edge probability='0.8' confidence='0.5'/>
+                </caution>
+            
+                <black on-off='on' symbol='63'>
+                    <edge probability='0.8' confidence='0.2'/>
+                    <edge probability='0.8' confidence='1.0'/>
+                    <truncate on-off='on' probability='0.9' peek-one-in='5' symbol='20'/>
+                    <sample on-off='on' probability='0.8' grab-one-in='5' passthrough='no' passthrough-symbol='0'/>
+                </black>
+            
+            </regions>
+
+            <training on-off='on'>
+
+                <bypass>
+                    <!-- <header name='To:' find='spam@example.com'/> -->
+                    <!-- <header name='Received:' ordinal='1' find='friendlyhost.com'/> -->
+                </bypass>
+
+                <drilldown>
+                    <!-- <received ordinal='0' find='[12.34.56.'/> where we want to ignore 12.34.56.0/24 -->
+                    <!-- <received ordinal='0' find='mixed-source.com'/> -->
+                    <!-- <received ordinal='1' find='mixed-source-internal.com'/> -->
+                </drilldown>
+
+                <source>
+                    <!-- <header name='X-Use-This-Source:' received='mixedsource.com [' ordinal='0' /> -->
+                    <!-- <header name='X-Originating-IP:' received='hotmail.com [' ordinal='0' /> -->
+                </source>
+
+                <white>
+                    <result code='1'/>
+                    <!-- <header name='Received:' ordinal='0' find='.friendlyhost.com'/> -->
+                </white>
+
+            </training>
+
+        </gbudb>
+
+        <rule-panics>
+            <!--
+            <rule id='123456'/>
+            <rule id='123457'/>
+            -->
+        </rule-panics>
+
+        <platform/>
+
+        <msg-file type='rfc822'/>
+
+    </node>
+</snf>
+

@@ -1,0 +1,17 @@
+Dies ist eine Nachricht vom Mailcleaner
+---------------------------------------
+Der Dateianhang "$filename"
+ist von einem Virus verseucht und wurde durch diese Nachricht ersetzt.
+
+Wenn Sie eine Kopie der Original Nachricht wuenschen, wenden Sie sich bitte
+per Mail oder Telefon an Ihren Systemadministrator. Bitte halten Sie diese 
+Meldung bereit.
+
+Am $date meldete der Virenscanner folgendes:
+$report
+
+Hinweis an den Administrator: 
+Datei ist auf Rechner: $hostname im Verzeichnis $datenumber/$id
+
+-- 
+Mailcleaner

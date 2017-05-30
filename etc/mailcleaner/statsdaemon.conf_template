@@ -1,0 +1,11 @@
+runasuser=mailcleaner
+runasgroup=mailcleaner
+prefork=5
+reserve_set_socks=2
+syslog_facility=
+log_priority=info
+backend_type=db
+history_avoid_keys='domainunlicenseduser, domainlicenseduser, licenseduser, unlicenseduser'
+long_response_time=1
+purge_limit=0
+stabilize_every=120

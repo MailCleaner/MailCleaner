@@ -1,0 +1,38 @@
+.nav_primary {
+    font-family: Verdana, Arial, sans-serif; 
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 11px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    background: #CCCCCC;
+
+    border: solid;
+    border-width: 1px;
+    padding: 3px;
+}
+
+.nav_secondary {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 11px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    background: #EDEDED;
+    text-indent: 1em;
+
+    border: none;
+    border-width: 0px;
+    padding: 3px;
+}
+
+.nav_secondary_a:hover { 
+    color: #D03E43;
+    text-decoration: none;
+}
+ 

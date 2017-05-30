@@ -1,0 +1,18 @@
+Subject: =?iso-8859-1?Q?MailCleaner:_Anfrage_um_Zuf=FCgen_neuer_Adresse?=
+
+Anfrage um Best=E4tigung neuer Adresse an das MailCleaner Konto.
+
+Der Benutzer __USER__ hat das Zuf=FCgen der Adresse (__ALIAS__) von seinem MailCleaner Konto verlangt.
+Dies erfordert eine Best=E4tigung Ihrerseits:
+
+- Wenn Sie diese Anfrage best=E4tigen m=F6chten, klicken Sie hier: __WEBBASEURL____VALIDATEQUERY__
+
+- Wenn Sie diese Anfrage ablehnen m=F6chten, klicken Sie hier: __WEBBASEURL____REFUSEQUERY__
+
+
+Ohne Reaktion Ihrerseits, wird diese Anfrage automatisch innerhalb 24 Stunden abgelehnt.
+
+--------------------------------------------------------------------------------------
+Diese Meldung wurde von MailCleaner automatisch erstellt. Beantworten Sie es bitte nicht.
+F=FCr weitere Informationen: __BASEURL__
+

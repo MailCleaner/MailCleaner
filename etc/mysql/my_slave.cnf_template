@@ -1,0 +1,32 @@
+[mysqld]
+tmpdir		= /tmp
+port		= 3307
+user		= mysql
+expire-logs-days = 21
+
+skip-external-locking
+key_buffer_size = 384M
+max_allowed_packet = 1M
+table_open_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache_size = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 4
+relay-log=mysqldslave-relay-bin
+
+innodb_data_home_dir = __VARDIR__/spool/mysql_slave/
+innodb_file_per_table
+innodb_log_group_home_dir = __VARDIR__/spool/mysql_slave/
+innodb_log_file_size = 100M
+innodb_log_buffer_size = 8M
+innodb_flush_log_at_trx_commit = 1
+innodb_lock_wait_timeout = 10
+
+replicate-do-db=mc_config
+replicate-ignore-db=mc_spool
+replicate-ignore-table=mc_config.update_patch
+server-id=__SLAVEID__

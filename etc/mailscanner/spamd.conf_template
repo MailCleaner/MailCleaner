@@ -1,0 +1,10 @@
+socketpath=__VARDIR__/spool/spamassassin/spamd.sock
+max-children=__NBSAPROCESSES__
+pidfile=__VARDIR__/spool/spamassassin/spamd.pid
+syslog=__VARDIR__/log/mailscanner/spamd.log
+username=mailcleaner
+groupname=mailcleaner
+siteconfigpath=__SRCDIR__/share/spamassassin
+nouser-config=yes
+debug=no
+daemonize=yes

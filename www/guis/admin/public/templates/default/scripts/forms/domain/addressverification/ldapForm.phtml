@@ -1,0 +1,16 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<td colspan="2">
+<table class="callouttable">
+<?php foreach (array('ldapserver', 'basedn', 'binddn', 'bindpass', 'usessl') as $f) {?>
+<?php echo $this->InputRow($this->form->getElement($f));?>
+<?php }?>
+<?php echo $this->InputRow($this->form->getElement('group'),array('post_field_text'=>$this->t->_('(leave empty to ignore)')));?>
+</table>
+</td>

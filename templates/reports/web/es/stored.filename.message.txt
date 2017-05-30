@@ -1,0 +1,19 @@
+Este es un mensaje del Servicio de Protección de Virus para Correo
+Electrónico MailCleaner
+----------------------------------------------------------------------
+El archivo anexado original "$filename"
+está en la lista de anexos inaceptables para este sitio y el mismo
+ha sido reemplazado por este mensaje de aviso.
+
+
+El correo electrónico se ha mantenido en el puente. Puede ser que usted hizo por encargo.
+Para ello, le invitamos a visitar el siguiente enlace :
+<a href="http://www.mailcleaner.net/support/dangerous-content-release.html">Dangerous content release</a>
+
+El $date el analizador de virus dijo:
+$report
+
+Nota para el departamento de soporte: $hostname:$datenumber/$id
+
+----------- 
+Mailcleaner

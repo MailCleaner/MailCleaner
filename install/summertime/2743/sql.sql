@@ -1,0 +1,6 @@
+insert into dnslist values ("IXDNSBLMANITUNET", 'ix.dnsbl.manitu.net.', 'blacklist', 0, '<a target="_blank" href="http://www.dnsbl.manitu.net">http://www.dnsbl.manitu.net</a>' );
+insert into dnslist values ("BBARRACUDACENTRALORG", 'b.barracudacentral.org.', 'blacklist', 0, '<a target="_blank" href="http://www.barracudacentral.org/rbl/removal-request">http://www.barracudacentral.org/rbl/removal-request</a>' );
+insert into dnslist values ("UCEPROTECTA", 'dnsbl-1.uceprotect.net.', 'blacklist', 0, '<a target="_blank" href="http://www.uceprotect.net">http://www.uceprotect.net</a>' );
+insert into dnslist values ("UCEPROTECTB", 'dnsbl-2.uceprotect.net.', 'blacklist', 0, '<a target="_blank" href="http://www.uceprotect.net">http://www.uceprotect.net</a>' );
+insert into dnslist values ("UCEPROTECTC", 'dnsbl-3.uceprotect.net.', 'blacklist', 0, '<a target="_blank" href="http://www.uceprotect.net">http://www.uceprotect.net</a>' );
+insert into dnslist values ("IPSBACKSCATTERERORG", 'ips.backscatterer.org.', 'blacklist', 0, '<a target="_blank" href="http://www.backscatterer.org">http://www.backscatterer.org</a>' );

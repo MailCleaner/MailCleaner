@@ -1,0 +1,97 @@
+#! /bin/sh
+
+# set parameters for DCC start and cron scripts
+
+DCC_CONF_VERSION=3
+
+# don't set DCC_HOMEDIR since if we got here, it must be set
+DCC_LIBEXEC=/var/dcc/libexec
+DCC_RUNDIR=/var/run/dcc
+
+DCCUID=root
+
+# SRVR_ID must be set to run dccd.  Do not set it if you do not
+#   want to run the DCC server.  DCC server-IDS must be globally unique
+#   in a network of cooperating DCC servers.
+SRVR_ID=
+BRAND=
+
+# optionally set to something like "local5" or "local5.notice" for
+#   dccd, dbclean, and dccm
+DCC_INFO_LOG_FACILITY=
+DCC_ERROR_LOG_FACILITY=
+
+
+# used to start dccm
+DCCM_ENABLE=on
+#   a common value is
+#   DCCM_ARGS="-SHELO -SX-Habeas-SWE-3 -Smail_host -SSender -SList-ID"
+DCCM_ARGS=
+DCCM_LOGDIR=
+DCCM_WHITECLNT=whiteclnt
+DCCM_USERDIRS=userdirs
+# set DCCM_LOG_AT to a number that determines "bulk mail" for your situation.
+#   50 is a typical value.
+# Leave DCCM_REJECT_AT blank until you are confident that most sourced of
+#   solicited bulk mail have been white-listed.  Then set it to the number
+#   that defines "bulk mail" for your site.  Note that this rejection
+#   or "bulk" threshold does not affect the blacklisting effects of the
+#   DCCM_WHITECLNT white list file.
+# Add '-aIGNORE' to DCCM_ARGS to ignore the bulkiness of mail except to
+#   add X-DCC headers.
+DCCM_LOG_AT=
+DCCM_REJECT_AT=
+# override basic list of checksums controlling rejections or logging
+DCCM_CKSUMS=
+# additional checksums worthy of rejections or logging
+DCCM_XTRA_CKSUMS=
+
+# used to start dccd
+DCCD_ENABLE=on
+# A value for `dccd -t` computed from DCCM_REJECT_AT is assumed to set
+#   default flooding threshold.
+DCCD_ARGS=
+
+# used to start dccifd
+DCCIFD_ENABLE=on
+#   a common value is
+#   DCCIFD_ARGS="-SHELO -SX-Habeas-SWE-3 -Smail_host -SSender -SList-ID"
+DCCIFD_ARGS=
+DCCIFD_LOGDIR="$DCCM_LOGDIR"
+DCCIFD_WHITECLNT="$DCCM_WHITECLNT"
+DCCIFD_USERDIRS="$DCCM_USERDIRS"
+DCCIFD_LOG_AT="$DCCM_LOG_AT"
+DCCIFD_REJECT_AT="$DCCM_REJECT_AT"
+# override basic list of checksums controlling rejections or logging
+DCCIFD_CKSUMS="$DCCM_CKSUMS"
+# additional checksums worthy of rejections or logging
+DCCIFD_XTRA_CKSUMS="$DCCM_XTRA_CKSUMS"
+
+# days to keep files in DCC log directories
+DBCLEAN_LOGDAYS=
+# used to start dbclean, including -e and -E
+DBCLEAN_ARGS=
+
+
+# ensure that the log facilities include levels and that $DCC_LOGGER
+#   has a default.
+if test ! -z "$DCC_INFO_LOG_FACILITY"; then
+    if expr "$DCC_INFO_LOG_FACILITY" : '.*\..*' >/dev/null; then
+	:
+    else
+	DCC_INFO_LOG_FACILITY="$DCC_INFO_LOG_FACILITY.notice"
+    fi
+    DCC_LOG_ARGS="$DCC_LOG_ARGS -Linfo,$DCC_INFO_LOG_FACILITY"
+fi
+if test -z "$DCC_ERROR_LOG_FACILITY"; then
+    # for $DCC_LOGGER
+    DCC_ERROR_LOG_FACILITY=mail.err
+else
+    if expr "$DCC_ERROR_LOG_FACILITY" : '.*\..*' >/dev/null; then
+	:
+    else
+	DCC_ERROR_LOG_FACILITY="$DCC_ERROR_LOG_FACILITY.err"
+    fi
+    DCC_LOG_ARGS="$DCC_LOG_ARGS -Lerror,$DCC_ERROR_LOG_FACILITY"
+fi
+DCC_LOGGER="logger -s -p ${DCC_ERROR_LOG_FACILITY-mail.err} -t DCC"

@@ -1,0 +1,5 @@
+header=__HEADER__
+putHamHeader=__PUTHAMHEADER__
+putSpamHeader=__PUTSPAMHEADER__
+timeOut=__TIMEOUT__
+maxSize=__MAXSIZE__

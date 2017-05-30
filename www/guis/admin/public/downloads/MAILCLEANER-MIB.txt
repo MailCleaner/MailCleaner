@@ -1,0 +1,667 @@
+MAILCLEANER-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+        MODULE-IDENTITY,
+        OBJECT-IDENTITY,
+        enterprises
+                FROM SNMPv2-SMI
+        DisplayString
+                FROM SNMPv2-TC;
+
+mailcleaner MODULE-IDENTITY
+    LAST-UPDATED "201105300000Z"
+    ORGANIZATION "Fastnet SA"
+    CONTACT-INFO    
+        "Olivier Diserens (olivier@diserens.ch)"
+    DESCRIPTION
+        "This MIB module defines objects for MailCleaner statistics."
+    REVISION     "201105300000Z"
+    DESCRIPTION
+        "First try..."
+    ::= { enterprises 36661 }
+
+status OBJECT IDENTIFIER ::= { mailcleaner 1 }
+
+configuration OBJECT IDENTIFIER ::= { mailcleaner 2 }
+
+statistics OBJECT IDENTIFIER ::= { mailcleaner 3 }
+
+----------------
+-- status
+----------------
+version OBJECT IDENTIFIER ::= { status 1 }
+
+  --------------
+  -- version
+fullVersion OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner full string version"
+    ::= { version 1 }
+
+edition OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner edition"
+    ::= { version 2 }
+
+version OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner current software version"
+    ::= { version 3 }
+
+patchLevel OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner current patch level"
+    ::= { version 4 }
+
+  --------------
+  -- spools
+
+spools OBJECT IDENTIFIER ::= { status 2 }
+
+spoolIncoming OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner Incoming spool message count"
+    ::= { spools 1 }
+
+spoolFiltering OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner Filtering spool message count"
+    ::= { spools 2 }
+
+spoolOutgoing OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "MailCleaner Outgoing spool message count"
+    ::= { spools 4 }
+
+  --------------
+  -- processes
+
+ -- processes OBJECT IDENTIFIER ::= { status 3 }
+
+processTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF processEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "Table of MailCleaner internal processes."
+    ::= { status 3 }
+
+processEntry OBJECT-TYPE
+    SYNTAX      processEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry containing a process and its status."
+    INDEX       { processIndex }
+    ::= { processTable 1 }
+
+processEntry ::= SEQUENCE {
+    processIndex        Integer32,
+    processName         DisplayString,
+    processCount        Gauge32
+    processStatus       DisplayString
+}
+
+processIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..65535)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Reference index for each process."
+    ::= { processEntry 1 }
+
+processName OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The name of the process."
+    ::= { processEntry 2 }
+
+processCount OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The number of instances of the process."
+    ::= { processEntry 3 }
+
+processStatus OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The running status of the process."
+    ::= { processEntry 4 }
+
+
+-- configuration
+
+  --------------
+  -- master status
+
+configIsMaster OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "This host is a master or not."
+    ::= { configuration 1 }
+
+
+-- statistics
+
+  --------------
+  -- global
+globalStatistics OBJECT IDENTIFIER ::= { statistics 1 }
+
+globalProcessesStatistics OBJECT IDENTIFIER ::= { globalStatistics 1 }
+
+globalMsgCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of accepted messages"
+    ::= { globalProcessesStatistics 1 }
+    
+globalCleanCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of clean messages"
+    ::= { globalProcessesStatistics 2 }
+
+globalSpamCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of spams detected"
+    ::= { globalProcessesStatistics 3 }
+
+globalVirusCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of viruses detected"
+    ::= { globalProcessesStatistics 4 }
+
+globalNameCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of blocked filenames"
+    ::= { globalProcessesStatistics 5 }
+
+globalOtherCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of dangerous content blocked"
+    ::= { globalProcessesStatistics 6 }
+
+globalSizeCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's size of data processed"
+    ::= { globalProcessesStatistics 7 }
+
+globalUserCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of users"
+    ::= { globalProcessesStatistics 8 }
+
+globalDomainCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of domains"
+    ::= { globalProcessesStatistics 9 }
+
+
+globalRefusedStatistics OBJECT IDENTIFIER ::= { globalStatistics 2 }
+
+globalRefusedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused SMTP sessions"
+    ::= { globalRefusedStatistics 1 }
+
+globalRefusedRBLCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused blacklisted (DNS) SMTP sessions"
+    ::= { globalRefusedStatistics 2 }
+
+globalRefusedHostCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused blacklisted (host) SMTP sessions"
+    ::= { globalRefusedStatistics 3 }
+
+globalRefusedRelayCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused relayed SMTP sessions"
+    ::= { globalRefusedStatistics 4 }
+
+globalRefusedLocalpartCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of bad address localpart"
+    ::= { globalRefusedStatistics 5 }
+
+globalRefusedBATVCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of bad BATV signing sessions"
+    ::= { globalRefusedStatistics 6 }
+
+globalRefusedBlacklistedSenderCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused blacklisted (sender) SMTP sessions"
+    ::= { globalRefusedStatistics 7 }
+
+globalRefusedSpoofingCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused spoofing attempts"
+    ::= { globalRefusedStatistics 8 }
+
+globalRefusedCalloutCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of wrong recipient"
+    ::= { globalRefusedStatistics 9 }
+
+globalRefusedBadSenderCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of wrong sender address"
+    ::= { globalRefusedStatistics 10 }
+
+globalRefusedBackscatterCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused backscatterer SMTP sessions"
+    ::= { globalRefusedStatistics 11 }
+
+globalRefusedUnauthenticatedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused unauthenticated SMTP sessions"
+    ::= { globalRefusedStatistics 12 }
+
+globalRefusedUnencryptedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused unencrypted SMTP sessions"
+    ::= { globalRefusedStatistics 13 }
+
+globalRefusedBadDomainCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused forbidden destination domains"
+    ::= { globalRefusedStatistics 14 }
+    
+globalRefusedBadSPFCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused SPF checks"
+    ::= { globalRefusedStatistics 15 }
+    
+globalRefusedBadRDNSCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused invalid reverse DNS"
+    ::= { globalRefusedStatistics 16 }
+    
+globalDelayedStatistics OBJECT IDENTIFIER ::= { globalStatistics 3 }
+
+globalDelayedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of delayed SMTP sessions"
+    ::= { globalDelayedStatistics 1 }
+
+globalDelayedRatelimitCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of delayed SMTP sessions by rateliming"
+    ::= { globalDelayedStatistics 2 }
+
+globalDelayedGreylistCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of delayed SMTP sessions by greylisting"
+    ::= { globalDelayedStatistics 3 }
+
+
+globalRelayedStatistics OBJECT IDENTIFIER ::= { globalStatistics 4 }
+
+globalRelayedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of relayed SMTP sessions"
+    ::= { globalRelayedStatistics 1 }
+
+globalRelayedHostCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of relayed SMTP sessions authorized by host"
+    ::= { globalRelayedStatistics 2 }
+
+globalRelayedAuthenticatedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of relayed authenticated SMTP sessions"
+    ::= { globalRelayedStatistics 3 }
+
+globalRelayedRefusedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused relaying SMTP sessions"
+    ::= { globalRelayedStatistics 4 }
+
+globalRelayedVirusCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of Viruses detected and blocked for relaying SMTP sessions"
+    ::= { globalRelayedStatistics 5 }
+
+
+globalAcceptedStatistics OBJECT IDENTIFIER ::= { globalStatistics 5 }
+    
+globalAcceptedCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of accepted SMTP sessions"
+    ::= { globalAcceptedStatistics 1 }
+    
+  --------------
+  -- domains
+
+domainStatisticsTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF domainStatisticsEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "Table of domains statistics."
+    ::= { statistics 2 }
+
+domainStatisticsEntry OBJECT-TYPE
+    SYNTAX      domainStatisticsEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry containing a domain's statistics."
+    INDEX       { domainIndex }
+    ::= { domainStatisticsTable 1 }
+
+domainStatisticsEntry ::= SEQUENCE {
+    domainIndex         Integer32,
+    domainName		DisplayString,
+    domainMsgCount      Counter,
+    domainCleanCount    Counter,
+    domainSpamCount     Counter,
+    domainVirusCount    Counter,
+    domainNameCount     Counter,
+    domainOtherCount    Counter,
+    domainSizeCount     Counter,
+    domainUserCount     Counter,
+    domainRefused       Counter,
+    domainRefusedBATV   Counter,
+    domainRefusedSpoof  Counter,
+    domainRefusedCallout Counter,
+    domainRefusedSender Counter,
+    domainRefusedRBL    Counter,
+    domainRefusedBRBL   Counter,
+    domainDelayed       Counter,
+    domainDelagedGreylist Counter,
+    domainRefusedRNDS   Counter
+}
+
+domainIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..65535)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Reference index for each domain."
+    ::= { domainStatisticsEntry 1 }
+
+domainName OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The name of the domain."
+    ::= { domainStatisticsEntry 2 }
+
+domainMsgCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of accepted messages for domain"
+    ::= { domainStatisticsEntry 3 }
+    
+domainCleanCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of clean messages for domain"
+    ::= { domainStatisticsEntry 4 }
+
+domainSpamCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of spams detected for domain"
+    ::= { domainStatisticsEntry 5 }
+
+domainVirusCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of viruses detected for domain"
+    ::= { domainStatisticsEntry 6 }
+
+domainNameCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of blocked filenames for domain"
+    ::= { domainStatisticsEntry 7 }
+
+domainOtherCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of dangerous content blocked for domain"
+    ::= { domainStatisticsEntry 8 }
+
+domainSizeCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's size of data processed for domain"
+    ::= { domainStatisticsEntry 9 }
+
+domainUserCount OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of users for domain"
+    ::= { domainStatisticsEntry 10 }
+
+domainRefused OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused SMTP sessions for domain"
+    ::= { domainStatisticsEntry 11 }
+
+domainRefusedBATV OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Today's count of refused BATV signing for domain"
+    ::= { domainStatisticsEntry 12 }
+
+domainRefusedSpoof OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of spoofing attempts for domain"
+    ::= { domainStatisticsEntry 13 }
+
+domainRefusedCallout OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of wrong recipient sessions for domain"
+    ::= { domainStatisticsEntry 14 }
+
+domainRefusedSender OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of invalid sender for domain"
+    ::= { domainStatisticsEntry 15 }
+
+domainRefusedRBL OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of blacklisted connections for domain"
+    ::= { domainStatisticsEntry 16 }
+
+domainRefusedBRBL OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of refused BATV signing for domain"
+    ::= { domainStatisticsEntry 17 }
+
+domainDelayed OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of delayed SMTP sessions for domain"
+    ::= { domainStatisticsEntry 18 }
+
+domainDelayedGreylist OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of greylisted SMTP sessions for domain"
+    ::= { domainStatisticsEntry 19 }
+
+domainRefusedRDNS OBJECT-TYPE
+    SYNTAX      Counter
+    MAX-ACCESS  read-only
+    STATUS      current 
+    DESCRIPTION
+            "Today's count of refused invalid reverse DNS for domain"
+    ::= { domainStatisticsEntry 20 }
+    
+END

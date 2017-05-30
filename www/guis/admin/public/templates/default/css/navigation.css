@@ -1,0 +1,151 @@
+/* URL source ---> http://gate-pp2-jessie.mailcleaner.net/admin/templates/current/css/navigation.css */
+/* Page exemple ---> https://demo.mailcleaner.net/admin/ */
+
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+
+/* navigation bar */
+#main_navigation {
+  height: 75px;
+  overflow: hidden;
+}
+
+#navigation {
+  width: 100%;
+  height: 37px;
+  min-height: 37px;
+  margin: 0;
+  padding: 0;
+  line-height: 37px;
+  background-image:none;
+	background-color: #000000;
+  background-repeat: repeat-x;
+  color: #FFFFFF;
+  text-indent: 0.5em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* navigation menu */
+#buttonmenu {
+  text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#buttonmenu li {
+  display: inline;
+}
+
+#buttonmenu li .menubutton {
+  display: inline;
+  float: left;
+  background-image: none;
+  width: 100px;
+  line-height: 33px;
+  height: 32px;
+  text-align: center;
+  display: inline;
+	font-size: 1.05em;
+	padding: 3px;
+}
+#buttonmenu li .menuselected {
+  display: inline;
+  float: left;
+  background-image: none;
+	background-color: #E93A00;
+  width: 100px;
+  line-height: 33px;
+  height: 37px;
+  text-align: center;
+  display: inline;
+	font-size: 1.05em;
+	padding: 3px;
+}
+
+#navigation a {
+  color: white;
+  text-decoration: none;
+}
+#navigation a:hover {
+  color: #FF1500;
+  text-decoration: none;
+}
+
+.menuselected:hover {
+  color: white !important;
+}
+
+/* username informational field */
+#logged_username {
+  display: inline;
+  margin: 0px;
+  margin-right: 20px;
+  padding: 0px;
+  float: right;
+  line-height: 37px;
+  color: #FFFFFF;
+}
+
+/* logout button */
+#logoutbutton {
+  float: right;
+  width: 100px;
+  line-height: 33px;
+  height: 37px;
+  background-image:none;
+}
+
+/*  sub navigation */
+#subnavigation {
+  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+	padding-top: 10px;
+  height: 100%;
+  line-height: 20px;
+  background-image: none;
+	background-color: #E0E0E0;
+}
+
+#subnavigation ul {
+  margin: 0px;
+  padding: 0px;
+  height: 26px;
+}
+
+#subnavigation li {
+  display: inline;
+  line-height: 20px;
+  padding: 0 10px;
+}
+
+.submenu {
+  padding-left: 10px;
+}
+.submenuhidden {
+  display: none;
+}
+.submenuel {
+  padding: 0 5px;
+}
+.submenuel a {
+  color: #000000;
+  text-decoration: none;
+}
+.submenuel a:hover {
+  color: #F80000;
+  text-decoration: none;
+}
+
+.submenuelselected a {
+  color: #E93A00;
+  font-weight: bold;
+  }

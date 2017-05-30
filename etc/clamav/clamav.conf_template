@@ -1,0 +1,31 @@
+LogFile __VARDIR__/log/clamav/clamav.log
+DatabaseDirectory __VARDIR__/spool/clamav 
+LocalSocket __VARDIR__/run/clamav/clamd.sock
+
+#LogFileMaxSize 2M
+LogTime
+LogClean
+#LogSyslog
+#LogFacility LOG_MAIL
+LogVerbose
+
+TemporaryDirectory __VARDIR__/spool/tmp
+
+ScanOLE2
+#ScanMail
+ScanArchive
+#ScanRAR
+ArchiveMaxFileSize 10M
+ArchiveMaxRecursion 5
+MaxDirectoryRecursion 15
+ArchiveMaxFiles 1000
+ArchiveMaxCompressionRatio 1000
+#ArchiveLimitMemoryUsage
+#ArchiveBlockEncrypted
+
+ClamukoScanOnOpen
+ClamukoScanOnClose
+ClamukoScanOnExec
+ClamukoIncludePath /home
+ClamukoMaxFileSize 1M
+ClamukoScanArchive

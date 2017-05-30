@@ -1,0 +1,5 @@
+yahoo.com,.*\.yahoo\.com$
+yahoo.co.uk,.*\.yahoo\.com$
+hispeed.ch,.*\.upcmail\.net$
+bluewin.ch,.*\.bluewin\.ch$
+orange.fr,.*\.smtpout\.orange\.fr$

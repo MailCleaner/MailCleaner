@@ -1,0 +1,47 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div id="generalconfigpanel">
+<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
+ <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Domains')?></p>
+
+ <div id="domainnavigpanel">
+ <ul id="domainnavoptions">
+  <li id="domainoptiontop"><a href="#">global</a></li>
+  <li class="newdomain">new <img src="<?php echo $this->images_path?>/domainaddbutton.png" alt="add" /></li>
+ </ul>
+ 
+ <div id="searchpanel">
+ <form id="searchform" action="">
+ <p id="searchlabel">Search domain</p>
+ <div><input type="text" id="searchfield" /></div>
+ </form>
+ </div>
+ <div id="resultpanel">
+   <div id="resultcount">
+     Results: 60
+   </div>
+   <ul id="domainnavlist">
+      <li><a href="#">result1</a></li>
+      <li class="domainnavlistselected">result2</li>
+      <li><a href="#">result3</a></li>
+   </ul>
+ 
+   <div id="pagindomainlist"> 
+      1,2,3
+   </div>
+  </div>
+ </div>
+ 
+  <div id="domaincontentpanel">
+   <div id="tasksconfigpanel" class="domainconfigpanel">
+    dffd
+   </div>
+ </div>
+ 
+</div>

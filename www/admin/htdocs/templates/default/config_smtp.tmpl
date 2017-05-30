@@ -1,0 +1,197 @@
+<html>
+  <head>
+    <title>Base system configuration</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+  </head>
+<script language="javascript">
+</script>
+
+<body onLoad="javascript:__RELOAD_NAV_JS__">
+<center>
+<br/>
+<table width="90%" border="0" cellpadding="2" cellspacing="0">
+<tr valign="top">
+ <td width="50%">
+  <!-- ACCESS CONFIGRATION -->
+
+__FORM_BEGIN_ACCESS__
+   <table width="90%" border="0" cellpadding="2" cellspacing="0">
+    <tr class="infoBoxHeading">
+     <td width="40%" align="left" colspan="2">__LANG_SMTPACCES__&nbsp;&nbsp; __DOC_SMTPACCESS__</td>
+    </tr>
+    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__ACCESS_SAVE_STATUS__</font></td></tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxContent" valign="top">
+      <td width="40%" align="right">__LANG_SMTPRELAY__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTSMTPRELAY__</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top">
+      <td width="40%" align="right"><nobr>__LANG_SMTPHOSTSACCESS__:&nbsp;</nobr></td>
+      <td width="60%" align="left">__FORM_INPUTHOSTSACCESS__</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top">
+      <td width="40%" align="right">__LANG_HOSTREJECT__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTHOSTREJECT__</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top">
+      <td width="40%" align="right">__LANG_SENDERREJECT__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTSENDERREJECT__</td>
+    </tr>
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_VERIFYSENDER__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTVERIFYSENDER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_ENABLEINCOMINGTLS__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTENABLETLS__&nbsp;&nbsp;__LANG_TLSCERTIFICATE__: __FORM_INPUTTLSCERT__</td>
+    </tr>
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_SMTPBANNER__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTSMTPBANNER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_GLOBALMAXMSGSIZE__:&nbsp;</td>
+      <td width="60%" align="left">__INPUT_GLOBALMAXMSGSIZE__</td>
+    </tr>
+
+<!--
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_ENABLESYSLOG__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTENABLESYSLOG__</td>
+    </tr>
+    <tr class="infoBoxContent">
+      <td width="40%" align="right">__LANG_SYSLOGHOST__:&nbsp;</td>
+      <td width="60%" align="left">__FORM_INPUTSYSLOGHOST__</td>
+    </tr>
+-->    
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+
+   </table>
+__FORM_CLOSE_ACCESS__
+<br/>
+__FORM_BEGIN_LDAPCALLOUT__
+   <table width="90%" border="0" cellpadding="2" cellspacing="0">
+    <tr class="infoBoxHeading">
+     <td align="left" colspan="2">__LANG_LDAPCALLOUT__&nbsp;&nbsp; __DOC_SMTPLDAPCALLOUT__</td>
+    </tr>
+    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__LDAPCALLOUT_SAVE_STATUS__</font></td></tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+    <tr class="infoBoxContent">
+      <td width="40%" align="right"><nobr>__LANG_SERVER__:</nobr></td>
+      <td width="60%" align="left">__FORM_INPUTLDAPSERVER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_BASEDN__:</td>
+       <td width="60%" align="left">__FORM_INPUTBASEDN__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_BINDUSER__:</td>
+       <td width="60%" align="left">__FORM_INPUTBINDDN__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_BINDPASS__:</td>
+       <td width="60%" align="left">__FORM_INPUTBINDPASSWORD__</td>
+    </tr>
+
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+   </table>
+  __FORM_CLOSE_LDAPCALLOUT__
+  
+ <br/>
+__FORM_BEGIN_GREYCONFIG__
+   <table width="90%" border="0" cellpadding="2" cellspacing="0">
+    <tr class="infoBoxHeading">
+     <td align="left" colspan="2">__LANG_GREYLISTCONFIG__&nbsp;&nbsp; __DOC_GREYLISTCONFIG__</td>
+    </tr>
+    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__GREYLIST_SAVE_STATUS__</font></td></tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+    <tr class="infoBoxContent">
+      <td width="40%" align="right"><nobr>__LANG_GREYRETRYMIN__:</nobr></td>
+      <td width="60%" align="left">__FORM_INPUTRETRYMIN__ __LANG_SECONDS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_GREYRETRYMAX__:</td>
+       <td width="60%" align="left">__FORM_INPUTRETRYMAX__ __LANG_SECONDS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_GREYEXPIRE__:</td>
+       <td width="60%" align="left">__FORM_INPUTEXPIRE__ __LANG_SECONDS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td width="40%" align="right">__LANG_AVOIDGREYDOMAINS__:</td>
+       <td width="60%" align="left">__FORM_INPUTAVOIDGREYDOMAINS__</td>
+    </tr>
+
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+   </table>
+  __FORM_CLOSE_GREYCONFIG__
+  
+ </td>
+ <td width="50%">
+ __FORM_BEGIN_ADVANCED__
+<table width="90%" border="0" cellpadding="2" cellspacing="0">
+    <tr class="infoBoxHeading">
+     <td align="left" colspan="2">__LANG_SMTPADVANCEDCONFIGURATION__&nbsp;&nbsp; __DOC_SMTPADVANCEDCONFIG__</td>
+    </tr>
+    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__ADVANCED_SAVE_STATUS__</font></td></tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+    <tr class="infoBoxContent">
+       <td align="center" colspan="2">__LANG_STAGE__: __FORM_INPUTSTAGE__</td>
+    </tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+    <tr class="infoBoxContent">
+       <td width="60%" align="right"><nobr>__LANG_CONNECTIONTIMEOUT__:</nobr></td>
+       <td width="40%" align="left">__FORM_INPUTIMEOUT__</td>
+    </tr>
+   <tr class="infoBoxContent">
+       <td align="right"><nobr>__LANG_MAXCONNECTIONS__:</nobr></td>
+       <td align="left">__FORM_INPUTMAXCONNECTIONS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td align="right">__LANG_MAXCONNECTIONSPERHOSTS__:</td>
+       <td align="left">__FORM_INPUTMAXCONNECTIONSPERHOSTS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td align="right"><nobr>__LANG_IGNOREBOUNCEAFTER__:</nobr></td>
+       <td align="left">__FORM_INPUTINGOREBOUNCEAFTER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td align="right"><nobr>__LANG_TIMEOUTEFROZENAFTER__:</nobr></td>
+       <td align="left">__FORM_INPUTTIEMOUTFROZENAFTER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+       <td align="right"><nobr>__LANG_MAXRCPT__:</nobr></td>
+       <td align="left">__FORM_INPUTMAXRCPT__</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top"><td colspan="2" align="center">
+      <table border="0"><tr valign="top">
+       <td align="right">__LANG_HEADER__:</td><td align="left">__FORM_INPUTHEADER__</td>
+      </tr></table>
+    </tr>
+    <tr class="infoBoxContent" valign="top"><td colspan="2" align="center">
+      <table border="0"><tr>
+       <td align="right">__LANG_ENABLESYSLOG__:</td><td align="left">__FORM_INPUTENABLESYSLOG__</td>
+      </tr></table>
+    </tr>
+    
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+ 
+   </table>
+__FORM_CLOSE_ADVANCED__
+ </td>
+</tr>
+</table>
+</body>
+</html>

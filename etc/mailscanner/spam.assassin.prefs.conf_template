@@ -1,0 +1,96 @@
+dns_available yes
+
+ok_locales		all
+
+ifplugin Mail::SpamAssassin::Plugin::Bayes
+use_bayes __USE_BAYES__
+bayes_path __VARDIR__/spool/spamassassin/bayes
+bayes_file_mode 0660
+
+bayes_learn_during_report 0
+bayes_auto_learn __BAYES_AUTOLEARN__
+bayes_auto_learn_threshold_spam 10.0
+bayes_auto_learn_threshold_nonspam 0.1
+
+bayes_ignore_header X-MailCleaner
+bayes_ignore_header X-MailCleaner-ID
+bayes_ignore_header X-MailCleaner-SpamCheck 
+bayes_ignore_header X-MailCleaner-SpamScore 
+bayes_ignore_header X-MailCleaner-Information
+bayes_ignore_header X-MailCleaner-SPF
+bayes_ignore_header X-Newsl
+bayes_ignore_header X-Nicebayes
+bayes_ignore_header X-PreRBLs
+bayes_ignore_header X-Spamc
+
+bayes_ignore_header X-Commtouch-ctIPd-RefID
+bayes_ignore_header X-Commtouch-ctasd-RefID
+bayes_ignore_header X-Commtouch
+
+bayes_ignore_header X-Barracuda-Connect
+bayes_ignore_header X-Barracuda-Start-Time
+bayes_ignore_header X-Barracuda-URL
+bayes_ignore_header X-Barracuda-Scan-Msg-Size
+bayes_ignore_header X-Barracuda-BRTS-Status
+bayes_ignore_header X-Barracuda-Spam-Score
+bayes_ignore_header X-Barracuda-Spam-Status
+bayes_ignore_header X-Barracuda-Envelope-From
+bayes_ignore_header X-Barracuda-Effective-Source-IP
+bayes_ignore_header X-Barracuda-Apparent-Source-IP
+
+bayes_use_hapaxes 1
+bayes_use_chi2_combining 1
+bayes_auto_expire 0
+lock_method flock
+bayes_file_mode 777
+endif
+
+internal_networks __SYSTEMIP__
+
+trusted_networks __SYSTEMIP__ __TRUSTEDIPS__
+
+use_auto_whitelist 0
+
+ifplugin Mail::SpamAssassin::Plugin::DNSEval
+skip_rbl_checks	__SKIP_RBLS__
+rbl_timeout __RBLS_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::Pyzor
+pyzor_path /usr/bin/pyzor
+pyzor_timeout __PYZOR_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::Razor2
+razor_timeout __RAZOR_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::DCC
+dcc_path /opt/dcc/bin/dccproc
+dcc_dccifd_path __VARDIR__/run/dcc/dcc.sock
+dcc_timeout __DCC_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::DomainKeys
+domainkeys_timeout __DKIM_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::DKIM
+dkim_timeout __DKIM_TIMEOUT__
+endif
+
+ifplugin Mail::SpamAssassin::Plugin::SPF
+spf_timeout __SPF_TIMEOUT__
+endif
+
+__IF__ QUARANTINE_DMARC
+header   MC_DMARC_QUARANTINE   X-MailCleaner-DMARC =~ /quarantine/i
+describe MC_DMARC_QUARANTINE   Message failed sender's DMARC policy, quarantine
+score    MC_DMARC_QUARANTINE   50.0
+__FI__
+
+envelope_sender_header X-MailCleaner-From
+
+ifplugin FuzzyOcr
+focr_global_wordlist __SRCDIR__/share/spamassassin/FuzzyOcr.words
+endif

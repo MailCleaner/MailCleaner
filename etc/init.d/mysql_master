@@ -1,0 +1,118 @@
+#!/bin/sh
+# MySQL daemon start/stop script.
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+basedir=
+
+# The following variables are only set for letting mysql.server find things.
+
+# Set some defaults
+datadir=/var/mysql5
+pid_file=
+if test -z "$basedir"
+then
+  basedir=/opt/mysql5
+  bindir=/opt/mysql5/bin
+else
+  bindir="$basedir/bin"
+fi
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:$basedir/bin
+export PATH
+
+mode=$1    # start or stop
+skip=$2
+
+SKIPGRANT=
+if [ "$skip" = "nopass" ]; then
+  SKIPGRANT="--skip-grant-table"
+fi
+
+conf=$SRCDIR/etc/mysql/my_master.cnf
+datadir=$VARDIR/spool/mysql_master
+pid_file=$VARDIR/run/mysql_master/mysqld.pid
+log_file=$VARDIR/log/mysql_master/mysql.log
+binlog=$VARDIR/log/mysql_master/mysql_bin.log
+socket=$VARDIR/run/mysql_master/mysqld.sock
+
+prepare () {
+  $SRCDIR/bin/dump_mysql_config.pl >/dev/null 2>&1
+}
+
+case "$mode" in
+  'start')
+    touch $VARDIR/run/mysql_master.start.rs
+    # Start daemon
+    echo -n "  Starting master DB: "
+    prepare
+    if test -x $bindir/mysqld_safe
+    then
+#$bindir/mysqld_safe --defaults-file=$conf --datadir=$datadir --pid-file=$pid_file --log=$log_file --socket=$socket >/dev/null 2>&1 &
+	$bindir/mysqld_safe --defaults-file=$conf --datadir=$datadir --pid-file=$pid_file --log-bin=$binlog --log-error=$log_file --socket=$socket $SKIPGRANT >/dev/null 2>&1 &
+    else
+      echo "Can't execute $bindir/mysqld_safe from dir $basedir"
+    fi
+    if [ -f $VARDIR/run/mysql_master.rn ]; then
+      rm $VARDIR/run/mysql_master.rn
+    fi
+    echo "started."
+    rm $VARDIR/run/mysql_master.stopped >/dev/null 2>&1
+    rm $VARDIR/run/mysql_master.*.rs >/dev/null 2>&1
+    ;;
+
+  'stop')
+    touch $VARDIR/run/mysql_master.stop.rs
+    # Stop daemon. We use a signal here to avoid having to know the
+    # root password.
+    echo -n "  Stopping master DB: "
+    if test -s "$pid_file"
+    then
+      mysqld_pid=`cat $pid_file`
+      #echo "Killing mysqld with pid $mysqld_pid"
+      kill $mysqld_pid
+      # mysqld should remove the pid_file when it exits, so wait for it.
+
+      sleep 1
+      while [ -s $pid_file -a "$flags" != aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ]
+      do
+	[ -z "$flags" ] && echo $echo_n "Wait for mysqld to exit$echo_c" || echo $echo_n ".$echo_c"
+        flags=a$flags
+        sleep 1
+      done
+      if [ -s $pid_file ]
+         then echo -n " gave up waiting! "
+      elif [ -n "$flags" ]
+         then echo " stopped."
+      fi
+    else
+      echo -n "No mysqld pid file found. Looked for $pid_file. "
+    fi
+    kill -KILL $(pgrep -f my_master.cnf) >/dev/null 2>&1
+    sleep 2
+    echo "stopped."
+    rm $VARDIR/run/mysql_master.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/mysql_master.stopped
+    ;;
+
+  'restart')
+    touch $VARDIR/run/mysql_master.restart.rs
+    # Stop the service and regardless of whether it was
+    # running or not, start it again.
+    $0 stop
+    $0 start $skip
+		;;
+
+  *)
+    # usage
+    echo "Usage: $0 start|stop|restart"
+    exit 1
+    ;;
+esac

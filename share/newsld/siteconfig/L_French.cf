@@ -1,0 +1,69 @@
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2016 Florian Billebault <florian.billebault@gmail.com>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#   Specific Newsletter rules: French
+
+body		MC_NEWS_FRWSINSCRI		/sincri/i
+score		MC_NEWS_FRWSINSCRI		1.00
+
+body		MC_NEWS_FRWSEDESINSCRIRE	/dösincrire/i
+score		MC_NEWS_FRWSEDESINSCRIRE	1.00
+
+body		MC_NEWS_FRWDESABO		/sabonne/i
+score		MC_NEWS_FRWDESABO		1.00
+
+body		MC_NEWS_FRWCOURRIEL		/\bcourriels?\b/i
+score		MC_NEWS_FRWCOURRIEL		1.00
+
+body		MC_NEWS_FRWDERANGE		/email vous dérange\b/i
+score		MC_NEWS_FRWDERANGE		1.00
+
+body		MC_NEWS_FRWEZRECEV		/ez plus recevoir\b/i
+score		MC_NEWS_FRWEZRECEV		2.00
+
+body		MC_NEWS_FRWVOIRENLIGNE		/(voir|visualise(r|z)) .* en ligne\b/i
+score		MC_NEWS_FRWVOIRENLIGNE		1.00
+
+body		MC_NEWS_FRWVOIRNAV		/(voir|visualise(r|z)) .* dans le navigateur\b/i
+score		MC_NEWS_FRWVOIRNAV		1.00
+
+body		MC_NEWS_FRWCORRECTEMENT		/\bce message ne s'affiche pas correctement\b/i
+score		MC_NEWS_FRWCORRECTEMENT		1.00
+
+body		MC_NEWS_FRWDELNEWSL		/\bsupprimer .* newsletter\b/i
+score		MC_NEWS_FRWDELNEWSL		2.00
+
+body		MC_NEWS_FRWPLUSRECEV		/\bplus recevoir\b/i
+score		MC_NEWS_FRWPLUSRECEV		2.00
+
+body		MC_NEWS_FRWPLUSRECEV		/\bcesser .* recevoir\b/i
+score		MC_NEWS_FRWPLUSRECEV		1.00
+
+body		MC_NEWS_FRWDIFFUSION		/\bliste de diffusion\b/i
+score		MC_NEWS_FRWDIFFUSION		2.00
+
+body		MC_NEWS_FRWRECEVNEWSL		/\brecevoir .* newsletter\b/i
+score		MC_NEWS_FRWRECEVNEWSL		1.50
+
+body		MC_NEWS_FRWSIRETRCS		/\b[0-9]{3} [0-9]{3} [0-9]{3}.*RCS\b/i
+score		MC_NEWS_FRWSIRETRCS		2.00
+
+body		MC_NEWS_FRWRCSSIRET		/\bRCS.*[0-9]{3} [0-9]{3} [0-9]{3}\b/i
+score		MC_NEWS_FRWRCSSIRET		2.00
+
+body		MC_NEWS_FRWLOIINFO		/\b0?6 janvier 1978\b/i
+score		MC_NEWS_FRWLOIINFO		2.00

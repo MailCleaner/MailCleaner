@@ -1,0 +1,371 @@
+# <@LICENSE>
+#
+# Free as in beer.  Free as in speech.  You get the picture...
+#
+# If you find it useful, consider adding to the SARE Beer Fund...
+# https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40rulesemporium%2ecom&item_name=SARE%20Beer%20Fund&item_number=69
+#
+# </@LICENSE>
+#
+#
+# File: pdfinfo.cf
+# Version: 0.6
+# Info: $Id: pdfinfo.cf 895 2007-07-27 10:31:08Z alexb $
+# Created: 2007-06-25
+# Modified: 2007-07-19
+# Site URL: http://www.rulesemporium.com/plugins.htm#PDFinfo
+# Author: Dallas Engelken <dallase@uribl.com>
+# Rules contributed by Alex Broens <alexb@uribl.com>
+# Requires: PDFInfo.pm plugin
+# License: None
+# Description: This plugin/ruleset combination will help you alleviate the new 
+#              PDF based stock spam which began to appear mid-June, 2007.
+#
+#
+# Changes:
+#
+#   0.6 - added easypdf producer rule and more no body text metas
+#       - tags support added, see USING TAGS below.
+#   0.5 - added fuzzy test 7
+#   0.4 - added new fuzzy for encyprted pdf image spams.
+#       - added rule to check for encryption
+#   0.3 - added rules based on the new pdf_match_details() function
+#       - added additional fuzzy md5 rules 
+#       - disabled static md5 rules as they are no longer hitting.
+#   0.2 - added static md5 to hit full page stock spam.
+#   0.1 - initial ruleset.
+#
+
+############################################
+# USING TAGS
+############################################
+
+# The follow tags can be defined in an add_header line
+#
+# _PDFCOUNT_	- total number of pdf mime parts in the email
+# _PDFIMGCOUNT_	- total number of images found inside pdf mime parts
+# _PDFVERSION_ 	- PDF Version, space seperated if there are > 1 pdf attachments
+# _PDFNAME_     - Filenames as found in the mime headers of PDF parts
+# _PDFPRODUCER_ - Producer/Application that created the PDF(s)
+# _PDFAUTHOR_   - Author of the PDF
+# _PDFCREATOR_  - Creator/Program that created the PDF(s)
+# _PDFTITLE_    - Title of the PDF File, if available
+# _PDFIMGDIM_   - If PDF Contains images, the dimensions of them will be put here
+# _PDFIMGAREA_  - The total area of all combined images inside the PDF(s)
+# _PDFMD5_      - MD5 checksum of PDF(s) - space seperated
+# _PDFMD5FUZZY1_- Fuzzy1 MD5 checksum of PDF(s) - space seperated
+# _PDFMD5FUZZY2_- Fuzzy2 MD5 checksum of PDF(s) - space seperated
+#
+# Example add_header lines
+#
+# add_header all PDF-Info pdf=_PDFCOUNT_, pdfimg=_PDFIMGCOUNT_, ver=_PDFVERSION_, name=_PDFNAME_
+# add_header all PDF-Details producer=_PDFPRODUCER_, author=_PDFAUTHOR_, creator=_PDFCREATOR_, title=_PDFTITLE_
+# add_header all PDF-ImageInfo dim=_PDFIMGDIM_, area=_PDFIMGAREA_
+# add_header all PDF-Md5 md5=_PDFMD5_, fuzzy1=_PDFMD5FUZZY1_, fuzzy2=_PDFMD5FUZZY2_
+#
+
+############################################
+# GENERIC RULE EXAMPLES SHOWING EVAL USAGE
+############################################
+
+# you can match by name
+# body          MY_TEST_PDF             eval:pdf_named('mytest.pdf')
+
+# or you can write a regex to match dynamic file names.
+# body          MY_TEST_PDF             eval:pdf_name_regex('/^(?:my|your)test\.pdf$/')
+
+# you can make it case insensitive by using modifiers 
+# body          PDF_IMGXXXXX            eval:pdf_name_regex('/^IMG\D+\.\.PDF$/i')
+
+# you can do exact image size matches 
+# body          PDF_DEMS_150_400        eval:pdf_image_size_exact(150,400)
+
+# you can do image to text, or image to html ratios 
+# rawbody       PDF_TO_HTML_RATIO       eval:pdf_image_to_text_ratio(0.000, 0.015)
+# body          PDF_TO_TEXT_RATIO       eval:pdf_image_to_text_ratio(0.000, 0.008)
+
+# you can do minimum demension matches
+# body          PDF_SIZE_RANGE_1        eval:pdf_image_size_range(300,300)
+
+# you can do ranged demension matches
+# body          PDF_SIZE_RANGE_2        eval:pdf_image_size_range(200, 300, 250, 350)
+
+# you can count the number of pdf mime partts
+# body          PDF_MIME_COUNT_1        eval:pdf_count(1,1)
+# body          PDF_MIME_COUNT_2_PLUS   eval:pdf_count(2)
+
+# you can count the number of images inside the pdfs
+# body          PDF_IMG_COUNT_1         eval:pdf_image_count(1,1)
+# body          PDF_IMG_COUNT_2_PLUS    eval:pdf_image_count(2)
+
+# you can determine pixel coverage
+# body          PDF_AREA_SMALL          eval:pdf_pixel_coverage(1,100000)
+
+
+# match a md5 or fuzzy md5 signature of the pdf
+#
+# body          PDF_BAD_MD5             eval:pdf_match_md5('C359F8F89B290DA99DC997ED50117CDF')
+# body          PDF_BAD_FUZZY           eval:pdf_match_fuzzy_md5('7340821445D975EEF6F5BDE2EC257900')
+
+# Now you can match against certain details if they are found in the PDF.
+# A regex match is used on the value specified, so if you want to do an
+# exact match, use anchors  ^value$
+#
+# body          GMD_AUTHOR_MOBILE       eval:pdf_match_details('author','/^mobile$/')
+# body          GMD_PRODUCER_GPL        eval:pdf_match_details('producer','/(?i)^gpl ghostscript/')
+# body          GMD_CREATOR_PSCRIPT5    eval:pdf_match_details('creator','/^PScript5/')
+# body          GMD_TITLE_WORD_DOC1     eval:pdf_match_details('title','/^Microsoft Word \- Document1$/)
+# body          GMD_CREATED_JULY07      eval:pdf_match_details('created','/^200707/')
+# body          GMD_MODIFIED_JULY07     eval:pdf_match_details('modified','/^200707/')
+ 
+####################################### 
+# DISABLED RULES, ENABLE IF YOU WANT
+#######################################
+
+# Small area
+# Disabled - Hits Ham
+# body          GMD_PDF_SMALL_AREA      eval:pdf_pixel_coverage(1,100000)
+# describe      GMD_PDF_SMALL_AREA      PDF Area covers 150k pixels or less
+# score         GMD_PDF_SMALL_AREA      0.75
+# counts        GMD_PDF_SMALL_AREA      51s/15h of 10615 corpus (5652s/4963h AxB) 06/25/07
+
+# NOTE - people do send pdf's without message bodies!
+# Disabled - Hits Ham
+# body          GMD_PDF_NO_TXT          eval:pdf_image_to_text_ratio(0.000, 0.005)
+# describe      GMD_PDF_NO_TXT          Low rawbody to pixel area ratio
+# score         GMD_PDF_NO_TXT          0.01
+# counts        GMD_PDF_NO_TXT          64s/3h of 10615 corpus (5652s/4963h AxB) 06/25/07
+
+# Static full page stock spam (report.pdf), easily hit with md5
+# body          __GMD_PDF_MD5_1         eval:pdf_match_md5('2E4B2158909F276942DADF6A0B621B1A')
+# 6/28 full page static pdf
+# body          __GMD_PDF_MD5_2         eval:pdf_match_md5('94822C6FAAAC466A301E473392AC6F38')
+# 7/03 full page static pdf
+# body          __GMD_PDF_MD5_3         eval:pdf_match_md5('33E8BB22BA848E090B2C1E4FFA636E51')
+# meta          GMD_PDF_STATIC_MD5      (__GMD_PDF_MD5_1 || __GMD_PDF_MD5_2 || __GMD_PDF_MD5_3 )
+# describe      GMD_PDF_STATIC_MD5      PDF spam with static MD5 checksum
+# score         GMD_PDF_STATIC_MD5      10.00
+
+####################################
+# HERE ARE THE LIVE RULES
+####################################
+
+ifplugin Mail::SpamAssassin::Plugin::PDFInfo
+
+######################################################################################################
+# pdf image dimensions
+
+# thin horizontal, common stox.
+body            GMD_PDF_HORIZ           eval:pdf_image_size_range(100, 450, 240, 800)
+describe        GMD_PDF_HORIZ           Contains pdf 100-240 (high) x 450-800 (wide)
+score           GMD_PDF_HORIZ           0.25    
+# counts        GMD_PDF_HORIZ           135s/0h of 6132 corpus (4555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_HORIZ           278s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# near square, and small.  common stox.
+body            GMD_PDF_SQUARE          eval:pdf_image_size_range(180, 180, 360, 360)
+describe        GMD_PDF_SQUARE          Contains pdf 180-360 (high) x 180-360 (wide)
+score           GMD_PDF_SQUARE          0.50
+# counts        GMD_PDF_SQUARE          36s/0h of 6132 corpus (4555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_SQUARE          46s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# thin vertical, very tall.  common stox.
+body            GMD_PDF_VERT            eval:pdf_image_size_range(450, 100, 800, 240)
+describe        GMD_PDF_VERT            Contains pdf 450-800 (high) x 100-240 (wide)
+score           GMD_PDF_VERT            0.90
+# counts        GMD_PDF_VERT            24s/0h of 6132 corpus (4555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_VERT            10s/0h of 11773 corpus (10988s/785h AxB2-TRAPS) 07/11/07
+
+######################################################################################################
+# static checksums
+
+# all static md5 spam runs are complete as of 7/11
+# if there are more, we'll add new rules.
+
+######################################################################################################
+# fuzzy1 signatures
+
+# fuzzy checksum for bad stox
+body            GMD_PDF_FUZZY1_T1       eval:pdf_match_fuzzy_md5('57EBC1FFB1A24CC14AE23E1E227C3484')
+describe        GMD_PDF_FUZZY1_T1       Fuzzy MD5 Match 57EBC1FFB1A24CC14AE23E1E227C3484
+score           GMD_PDF_FUZZY1_T1       3.99
+# counts        GMD_PDF_FUZZY1_T1       591s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_FUZZY1_T1       199s/0h of 11773 corpus (10988s/785h AxB2-TRAPS) 07/11/07
+
+######################################################################################################
+# fuzzy2 signatures
+
+# same as rule above using fuzzy md5 of pdf structure
+body            GMD_PDF_FUZZY2_T1       eval:pdf_match_fuzzy_md5('653C8AA9FDFD03D382523488058360A2')
+describe        GMD_PDF_FUZZY2_T1       Fuzzy MD5 Match 653C8AA9FDFD03D382523488058360A2
+score           GMD_PDF_FUZZY2_T1       1.99
+# counts        GMD_PDF_FUZZY2_T1       624s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+# counts        GMD_PDF_FUZZY2_T1       591s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+
+# DDFFCC40889F44C0C1D218163A39689D
+body            GMD_PDF_FUZZY2_T2       eval:pdf_match_fuzzy_md5('DDFFCC40889F44C0C1D218163A39689D')
+describe        GMD_PDF_FUZZY2_T2       Fuzzy MD5 Match DDFFCC40889F44C0C1D218163A39689D
+score           GMD_PDF_FUZZY2_T2       1.99
+# counts        GMD_PDF_FUZZY2_T2       118s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_FUZZY2_T2       1s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+
+# 3D4E25DE4A05695681D694716D579474
+body            GMD_PDF_FUZZY2_T3       eval:pdf_match_fuzzy_md5('3D4E25DE4A05695681D694716D579474')
+describe        GMD_PDF_FUZZY2_T3       Fuzzy MD5 Match 3D4E25DE4A05695681D694716D579474
+score           GMD_PDF_FUZZY2_T3       1.99
+# counts        GMD_PDF_FUZZY2_T3       0s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+# counts        GMD_PDF_FUZZY2_T3       25s/0h of 5641 corpus (4064s/1577h AxB-MANUAL) 07/11/07
+
+# 4349559AF03A18ABDAE50A54DCCDA527
+body            GMD_PDF_FUZZY2_T4       eval:pdf_match_fuzzy_md5('4349559AF03A18ABDAE50A54DCCDA527')
+describe        GMD_PDF_FUZZY2_T4       Fuzzy tags Match 4349559AF03A18ABDAE50A54DCCDA527
+score           GMD_PDF_FUZZY2_T4       1.99
+# counts        GMD_PDF_FUZZY2_T4       105s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_FUZZY2_T4       28s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+
+# pdf spam using encryption - 1AF87ABAF88F3C2A80577BE2E3A5886E
+body            GMD_PDF_FUZZY2_T5       eval:pdf_match_fuzzy_md5('1AF87ABAF88F3C2A80577BE2E3A5886E')
+describe        GMD_PDF_FUZZY2_T5       Fuzzy tags Match 1AF87ABAF88F3C2A80577BE2E3A5886E
+score           GMD_PDF_FUZZY2_T5       1.99
+# counts        GMD_PDF_FUZZY2_T5       8s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# pdf spam using encryption - 9DCD805AA4A38FBD8CF841BFFF210C29
+body            GMD_PDF_FUZZY2_T6       eval:pdf_match_fuzzy_md5('9DCD805AA4A38FBD8CF841BFFF210C29')
+describe        GMD_PDF_FUZZY2_T6       Fuzzy tags Match 1AF87ABAF88F3C2A80577BE2E3A5886E
+score           GMD_PDF_FUZZY2_T6       1.99
+# counts        GMD_PDF_FUZZY2_T6       5s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# pdf spam using encryption - 73A3A5E8D8048EC599EDE1D045345A87
+body            GMD_PDF_FUZZY2_T7       eval:pdf_match_fuzzy_md5('73A3A5E8D8048EC599EDE1D045345A87')
+describe        GMD_PDF_FUZZY2_T7       Fuzzy tags Match 73A3A5E8D8048EC599EDE1D045345A87
+score           GMD_PDF_FUZZY2_T7       1.99
+
+# pdf spam using encryption - 24EE98188F3BE8C6D3C7FE6190985ED8
+body            GMD_PDF_FUZZY2_T8        eval:pdf_match_fuzzy_md5('24EE98188F3BE8C6D3C7FE6190985ED8')
+describe        GMD_PDF_FUZZY2_T8        Fuzzy tags Match 24EE98188F3BE8C6D3C7FE6190985ED8
+score           GMD_PDF_FUZZY2_T8        1.99
+
+# 875C8F0810E6524EF0C3A7C4221A4C28
+body            GMD_PDF_FUZZY2_T9        eval:pdf_match_fuzzy_md5('875C8F0810E6524EF0C3A7C4221A4C28')
+describe        GMD_PDF_FUZZY2_T9        Fuzzy tags Match 875C8F0810E6524EF0C3A7C4221A4C28
+score           GMD_PDF_FUZZY2_T9        1.99
+
+# C47FC4E71CEFDEA4F334AEC8E26F647B
+body            GMD_PDF_FUZZY2_T10       eval:pdf_match_fuzzy_md5('C47FC4E71CEFDEA4F334AEC8E26F647B')
+describe        GMD_PDF_FUZZY2_T10       Fuzzy tags Match C47FC4E71CEFDEA4F334AEC8E26F647B
+score           GMD_PDF_FUZZY2_T10       1.99
+
+# 4699681F1A72CE43000B2716DB8C2259
+body            GMD_PDF_FUZZY2_T11       eval:pdf_match_fuzzy_md5('4699681F1A72CE43000B2716DB8C2259')
+describe        GMD_PDF_FUZZY2_T11       Fuzzy tags Match 5A4CB7600371063164BB7AFA6EDE7FE9
+score           GMD_PDF_FUZZY2_T11       1.99
+
+# BB7030054D848151C6C4C0D905592BAD
+body            GMD_PDF_FUZZY2_T12       eval:pdf_match_fuzzy_md5('BB7030054D848151C6C4C0D905592BAD')
+describe        GMD_PDF_FUZZY2_T12       Fuzzy tags Match BB7030054D848151C6C4C0D905592BAD
+score           GMD_PDF_FUZZY2_T12       1.99
+
+######################################################################################################
+# pdf_match_details()
+
+# from embedded link spam
+body            GMD_AUTHOR_COLET        eval:pdf_match_details('author','/^colet$/')
+describe        GMD_AUTHOR_COLET        PDF author was 'colet'
+score           GMD_AUTHOR_COLET        4.50
+# counts        GMD_AUTHOR_COLET        1s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+# counts        GMD_AUTHOR_COLET        2s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+
+# from full page pdf stock spammer.
+body            GMD_AUTHOR_MOBILE       eval:pdf_match_details('author','/^mobile$/')
+describe        GMD_AUTHOR_MOBILE       PDF author was 'mobile'
+score           GMD_AUTHOR_MOBILE       2.75    
+# counts        GMD_AUTHOR_MOBILE       2s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_AUTHOR_MOBILE       55s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+
+# txt only stock spam 
+body            GMD_AUTHOR_OOO          eval:pdf_match_details('author','/^openofficeuser$/')
+describe        GMD_AUTHOR_OOO          PDF author was 'openofficeuser'
+score           GMD_AUTHOR_OOO          1.75
+# counts        GMD_AUTHOR_OOO          1s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+# counts        GMD_AUTHOR_OOO          118s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+
+# txt only stock spam 
+body            GMD_AUTHOR_HPADMIN      eval:pdf_match_details('author','/^HP_Administrator/')
+describe        GMD_AUTHOR_HPADMIN      PDF author was 'HP_Administrator'
+score           GMD_AUTHOR_HPADMIN      0.25
+# counts        GMD_AUTHOR_HPADMIN      105s/0h of 6132 corpus (4555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_AUTHOR_HPADMIN      27s/0h of 11773 corpus (10988s/785h AxB2-TRAPS) 07/11/07
+
+# generic rule for software used to produce the pdf.
+body            GMD_PRODUCER_GPL        eval:pdf_match_details('producer','/^(?:gnu|gpl) ghostscript/i')
+describe        GMD_PRODUCER_GPL        PDF producer was GPL Ghostscript
+score           GMD_PRODUCER_GPL        0.25
+# counts        GMD_PRODUCER_GPL        227s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PRODUCER_GPL        85s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+
+# generic rule for software used to produce the pdf.
+body            GMD_PRODUCER_POWERPDF   eval:pdf_match_details('producer','/^PowerPdf 0\./')
+describe        GMD_PRODUCER_POWERPDF   PDF producer was PowerPDF
+score           GMD_PRODUCER_POWERPDF   0.25
+# counts        GMD_PRODUCER_POWERPDF   0s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+# counts        GMD_PRODUCER_POWERPDF   0s/0h of 5641 corpus (4064s/1577h AxB-MANUAL) 07/11/07
+
+# producer is bcl
+body            GMD_PRODUCER_EASYPDF    eval:pdf_match_details('producer','/^BCL easyPDF/')
+describe        GMD_PRODUCER_EASYPDF    PDF producer was BCL easyPDF
+score           GMD_PRODUCER_EASYPDF    0.25
+
+# simple check for encryption used inside pdf.
+# recommend meta with something else...
+body            GMD_PDF_ENCRYPTED       eval:pdf_is_encrypted()
+describe        GMD_PDF_ENCRYPTED       Attached PDF is encrypted
+score           GMD_PDF_ENCRYPTED       0.60
+# counts        GMD_PDF_ENCRYPTED       13s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# simple check for empty msg body when there is one or more pdf attachments present.
+body            GMD_PDF_EMPTY_BODY      eval:pdf_is_empty_body()
+describe        GMD_PDF_EMPTY_BODY      Attached PDF with empty message body
+score           GMD_PDF_EMPTY_BODY      0.25
+# counts        GMD_PDF_EMPTY_BODY      1638s/20h of 27034 corpus (24636s/2398h AxB-MANUAL) 07/19/07
+
+######################################################################################################
+# metas
+meta            __GMD_PDF_CHECKSUM      ( GMD_PDF_FUZZY1_T1 || GMD_PDF_FUZZY2_T1 || GMD_PDF_FUZZY2_T2 || GMD_PDF_FUZZY2_T3 || GMD_PDF_FUZZY2_T4 || GMD_PDF_FUZZY2_T5 || GMD_PDF_FUZZY2_T6 || GMD_PDF_FUZZY2_T7 ||GMD_PDF_FUZZY2_T9 || GMD_PDF_FUZZY2_T10 || GMD_PDF_FUZZY2_T11 || GMD_PDF_FUZZY2_T12 )
+meta            __GMD_PDF_DETAIL        ( GMD_AUTHOR_COLET || GMD_AUTHOR_MOBILE || GMD_AUTHOR_OOO || GMD_AUTHOR_HPADMIN || GMD_PRODUCER_GPL || GMD_PRODUCER_POWERPDF || GMD_PRODUCER_EASYPDF )
+meta            __GMD_PDF_DIMS          ( GMD_PDF_VERT || GMD_PDF_HORIZ || GMD_PDF_SQUARE )
+meta            __GMD_PDF_PRODUCERS     ( GMD_PRODUCER_GPL || GMD_PRODUCER_POWERPDF || GMD_PRODUCER_EASYPDF )
+
+# rule hits ham by itself, so use just to meta.
+body            __GMD_PDF_NO_TXT        eval:pdf_image_to_text_ratio(0.000, 0.005)
+
+# meta checksum hit with image dimensions
+meta            GMD_PDF_STOX_M1         ( __GMD_PDF_CHECKSUM && __GMD_PDF_DIMS)
+describe        GMD_PDF_STOX_M1         PDF Stox spam
+score           GMD_PDF_STOX_M1         3.25
+# counts        GMD_PDF_STOX_M1         159s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_STOX_M1         40s/0h of 11773 corpus (10988s/785h AxB2-TRAPS) 07/11/07
+
+# meta checksum hit to pdf details
+meta            GMD_PDF_STOX_M2         ( __GMD_PDF_CHECKSUM && __GMD_PDF_DETAIL )
+describe        GMD_PDF_STOX_M2         PDF Stox spam
+score           GMD_PDF_STOX_M2         2.95
+# counts        GMD_PDF_STOX_M2         223s/0h of 6132 corpus (555s/1577h AxB-MANUAL) 07/11/07
+# counts        GMD_PDF_STOX_M2         29s/0h of 10767 corpus (9986s/781h AxB2-TRAPS) 07/11/07
+
+# meta dimensions and encryption
+meta            GMD_PDF_STOX_M3         ( __GMD_PDF_DIMS && GMD_PDF_ENCRYPTED )
+describe        GMD_PDF_STOX_M3         PDF Stox spam
+score           GMD_PDF_STOX_M3         2.25
+# counts        GMD_PDF_STOX_M3         12s/0h of 34051 corpus (33259s/792h AxB2-TRAPS) 07/13/07
+
+# meta checksum with no text
+meta            GMD_PDF_STOX_M4         ( __GMD_PDF_CHECKSUM && (__GMD_PDF_NO_TXT || GMD_PDF_EMPTY_BODY))
+describe        GMD_PDF_STOX_M4         PDF Stox spam
+score           GMD_PDF_STOX_M4         2.95
+
+# meta no body text along with automated pdf production.
+meta            GMD_PDF_STOX_M5         ( __GMD_PDF_PRODUCERS &&  (__GMD_PDF_NO_TXT || GMD_PDF_EMPTY_BODY))
+describe        GMD_PDF_STOX_M5         PDF Stox Spam
+score           GMD_PDF_STOX_M5         1.00
+
+endif

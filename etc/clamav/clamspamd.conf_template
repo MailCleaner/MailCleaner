@@ -1,0 +1,38 @@
+LogFile __VARDIR__/log/clamav/clamspamd.log
+PidFile __VARDIR__/run/clamav/clamspamd.pid
+TemporaryDirectory __VARDIR__/spool/tmp
+DatabaseDirectory __VARDIR__/spool/clamspam
+LocalSocket __VARDIR__/run/clamav/clamspamd.sock
+
+LogFileMaxSize 200M
+LogTime yes
+#LogClean yes
+#LogVerbose yes
+
+FixStaleSocket 1
+#TCPSocket 3311
+#TCPAddr 127.0.0.1
+#MaxConnectionQueueLength 30
+#MaxThreads 20
+#ReadTimeout 300
+#IdleTimeout 60
+
+MaxDirectoryRecursion 10
+#Debug
+
+SelfCheck 1800
+
+User clamav
+
+ScanPE yes
+DetectBrokenExecutables yes
+ScanOLE2 yes
+ScanMail yes
+ScanHTML yes
+ScanArchive yes
+
+#ArchiveMaxFileSize 15M
+#ArchiveMaxRecursion 9
+#ArchiveMaxFiles 1500
+#ArchiveMaxCompressionRatio 300
+#ArchiveBlockEncrypted

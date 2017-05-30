@@ -1,0 +1,122 @@
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+ 
+/* local overrides */
+html, body {
+  background-color: #FCFCFC;
+  text-align: center;
+  font-size: 12px;
+  color: #000000;
+}
+
+img {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+	
+/* main panel */
+#loginpanel {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10%;
+  padding: 0px;
+  width: 530px;
+  max-width: 530px;
+  border: 1px solid #D4D3D2;
+  white-space: nowrap;
+  background-position: 0px 75px;
+  background-repeat: repeat-x;
+  font-size: 12px;
+  color: #000000;
+  background-color: #F5F5F5;
+  text-align: left;
+}
+
+#mclogo {
+  vertical-align: top;
+  background-color: #5C6D99; /*__MAINHEADERBG__*/
+}
+
+/* footer */
+#loginfooter {
+   margin: 0px;
+   margin-top: 5px;
+   padding: 0px;
+   padding-top: 1px;
+   background-repeat: repeat-x;
+   color: #4A4A4A;
+   height: 22px;
+}
+
+.copyright {
+   float: left;
+   margin-left: 7px;
+   color: #4A4A4A;
+   font-size: 11px;
+   display: inline;
+   line-height: 22px;
+}
+
+.copyright a {
+   text-decoration: none;
+   color: #4A4A4A;
+}
+
+/* form */
+#username, #password {
+  font-size: 11px;
+  border: 1px solid #999999;
+  padding: 0px;
+  padding-left: 3px;
+  height: 20px;
+  width: 342px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.element {
+  padding-left: 10px;
+  text-align: left;
+}
+
+#password-label, #username-label {
+  text-align: right;
+  width: 115px;
+  max-width: 115px;
+  overflow: hidden;	
+}
+
+#submit {
+   float: right;
+   margin-top: 13px;
+   margin-bottom: 5px;
+   width: 65px;
+   font-size: 11px;
+   vertical-align: bottom;
+}
+
+/* interactive texts */
+#badlogin {
+	margin: 0px;
+	margin-top: 0px;
+	margin-left: 130px;
+	width: 300px;
+	height: 24px;
+	line-height: 24px;
+	white-space: normal;
+	text-align: left;
+	font-weight: bolder;
+	padding: 0px;
+	padding-top: 4px;
+	color: #FF0000;
+}
+
+.errors ul {
+	
+}
+

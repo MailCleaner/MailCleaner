@@ -1,0 +1,48 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+<?php
+   $connector = $this->domain->getAuthConnector();
+   if ($this->request->isPost() && $this->request->getParam('connector') && $this->form->getMessages()) {
+      $connector = $this->request->getParam('connector');
+   }
+?>
+<fieldset>
+      <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
+      <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
+      <table class="ftable">
+          <?php echo $this->InputRow($this->form->getElement('connector'));?>
+          <tr id="connectorform">
+          <?php echo $this->partial('forms/domain/userauthentication/'.strtolower($connector).'Form.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'domain' => $this->domain, 'images_path' => $this->images_path)); ?>
+           </tr>
+           
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
+          <?php foreach (array('usernameformat', 'addresslookup') as $f) {?>
+          <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
+          <?php foreach (array('testusername', 'testpassword') as $f) {?>
+          <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          <?php echo $this->SubmitRow($this->form->getElement('testuserauth'));?>
+          <tr id="settingstestwaitingtr">
+            <td colspan="2" id="settingstestwaiting"></td>
+          </tr>
+          <tr id="settingstest">
+            <td colspan="2"></td>
+          </tr>
+          
+       </table>
+</fieldset>

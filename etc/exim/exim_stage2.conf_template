@@ -1,0 +1,134 @@
+######################################################################
+#                    MAIN CONFIGURATION SETTINGS                     #
+######################################################################
+
+VARDIR = __VARDIR__
+
+smtp_active_hostname = __HELO_NAME__
+qualify_recipient = __QUALIFY_RECIPIENT__
+
+message_logs = false
+exim_user = mailcleaner
+exim_group = mailcleaner
+log_file_path = VARDIR/log/exim_stage2/%slog
+pid_file_path = VARDIR/run/exim_stage2.pid
+spool_directory = VARDIR/spool/exim_stage2
+never_users = root
+
+local_interfaces = 127.0.0.1
+daemon_smtp_port = 2424
+smtp_accept_max = 0
+
+rfc1413_hosts =
+rfc1413_query_timeout = 0s
+acl_smtp_rcpt = acl_check_rcpt
+ignore_bounce_errors_after = __IGNORE_BOUNCE_ERROR_AFTER__
+timeout_frozen_after = __TIMEOUT_FROZEN_AFTER__
+accept_8bitmime = true
+message_size_limit = __GLOBAL_MAXMSGSIZE__
+
+received_headers_max = __MAX_RECEIVED__
+received_header_text = __RECEIVED_HEADER_TEXT__
+
+domainlist local_domains = @
+domainlist relay_to_domains = ! local_domains : *
+hostlist   relay_from_hosts = 127.0.0.1
+
+queue_only = true
+
+######################################################################
+#                       ACL CONFIGURATION                            #
+#         Specifies access control lists for incoming SMTP mail      #
+######################################################################
+begin acl
+
+acl_check_rcpt:
+
+  accept  hosts = :
+  warn    control = dkim_disable_verify
+  deny    domains       = +local_domains
+          local_parts   = ^[.] : ^.*[@%!/|]
+  deny    domains       = !+local_domains
+          local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
+  accept  domains       = +local_domains
+          endpass
+  accept  domains       = +relay_to_domains
+          endpass
+  deny    message       = relay not permitted
+
+######################################################################
+#                      ROUTERS CONFIGURATION                         #
+#               Specifies how addresses are handled                  #
+######################################################################
+begin routers
+
+system_aliases:
+  driver = redirect
+  allow_fail
+  allow_defer
+  data = ${lookup{$local_part}lsearch{/etc/aliases}}
+  file_transport = address_file
+  pipe_transport = address_pipe
+
+userforward:
+  driver = redirect
+  check_local_user
+  file = $home/.forward
+  no_verify
+  no_expn
+  check_ancestor
+  file_transport = address_file
+  pipe_transport = address_pipe
+  reply_transport = address_reply
+
+localuser:
+  driver = accept
+  check_local_user
+  transport = local_delivery
+  cannot_route_message = Unknown user
+
+######################################################################
+#                      TRANSPORTS CONFIGURATION                      #
+######################################################################
+begin transports
+
+local_delivery:
+  driver = appendfile
+  file = /var/mail/$local_part
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+
+address_pipe:
+  driver = pipe
+  return_output
+
+address_file:
+  driver = appendfile
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+
+address_reply:
+  driver = autoreply
+
+######################################################################
+#                      RETRY CONFIGURATION                           #
+######################################################################
+begin retry
+
+# Domain               Error       Retries
+# ------               -----       -------
+
+*                      *           F,2h,15m; G,16h,1h,1.5; F,4d,6h
+
+######################################################################
+#                      REWRITE CONFIGURATION                         #
+######################################################################
+begin rewrite
+
+######################################################################
+#                   AUTHENTICATION CONFIGURATION                     #
+######################################################################
+begin authenticators
+

@@ -1,0 +1,33 @@
+bogofilter_dir=__VARDIR__/spool/bogofilter/database/
+db_transaction=no
+spam_header_name=X-Bogosity
+stats_in_header=Yes	
+db_cachesize=25
+db_log_autoremove=yes
+#timestamp=Yes
+#spamicity_tags = Spam, Ham, Unsure
+#spamicity_formats = %0.6f, %0.6f, %0.6f
+##spamicity_tags = Yes, No, Unsure
+##spamicity_formats = %0.6f, %0.6f, %0.6f
+#header_format = %h: %c, tests=bogofilter, spamicity=%p, version=%v
+#terse_format = %1.1c %f
+#log_header_format = %h: %c, spamicity=%p, version=%v
+#log_update_format = register-%r, %w words, %m messages
+##log_header_format = %h: %c, spamicity=%f, ipaddr=%A, queueID=%Q, msgID=%I, version=%v
+#terse=no
+#block_on_subnets=no
+charset_default=iso-8859-1
+#replace_nonascii_characters=N
+#unicode=yes
+#min-token-len=3
+#max-token-len=30
+#multi-token-count=1
+#max-multi-token-len=0
+#min_dev=0.375
+#robs=0.0178
+#robx=0.52
+ham_cutoff = 0.45
+spam_cutoff= 0.90
+#ns_esf = 1.000
+#sp_esf = 1.000
+## thresh_update=0.01

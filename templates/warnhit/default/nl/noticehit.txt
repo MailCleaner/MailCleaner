@@ -1,0 +1,12 @@
+Onderwerp: MailCleaner waarschuw/white list hit
+
+Hallo,
+
+Je hebt dit bericht gekregen omdat de verzender van een bericht, dat als spam gededecteerd werd,
+geplaatst werd in __LEVEL__ __LIST__.
+
+Ontvanger: __TO__
+Zender: __SENDER__
+
+Je vindt in bijlage een kopie van dit bericht voor verdere analyse:
+

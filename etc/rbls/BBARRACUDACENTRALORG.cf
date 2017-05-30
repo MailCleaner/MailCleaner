@@ -1,0 +1,4 @@
+name=BBARRACUDACENTRALORG
+type=IPRBL
+dnsname=b.barracudacentral.org
+sublist=127.0.0.d+,BBARRACUDACENTRALORG,b.barracudacentral.org list

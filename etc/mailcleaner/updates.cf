@@ -1,0 +1,5 @@
+[service-check]
+httpURL=http://services-check.mailcleaner.net
+httpsURL=https://services-check.mailcleaner.net
+dnsDomain=services-check.mailcleaner.net
+sshURL=https://services-check.mailcleaner.net:22

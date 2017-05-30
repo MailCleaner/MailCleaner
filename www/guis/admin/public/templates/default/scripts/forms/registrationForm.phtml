@@ -1,0 +1,30 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<p></p>
+<p></p>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="localesettings">
+       <table class="ftable">
+	  <tr><td colspan="2"><p style="font-size:14px"><strong>Register as an Enterprise Edition:</strong></p></td></tr>
+	  <tr><td colspan="2">An Enterprise Edition license provides following benefits: </td></tr>
+          <tr><td colspan="2"><ul style="margin-left: 4%; list-style-type: disc;"><li>Every 15 minutes updates of Spamc rules, ClamAV signatures, ClamSpam signatures and Newsletters detection rules. </li>
+                <li>Access to all MailCleaner RBLs and partner's RBLs</li>
+                <li>Regular updates of bayesian's databases</li>
+		<li>Access to our technical support (Basic or Premium offers)</li>
+		<li>Access to optional modules: (i.e. Kaspersky, Cyren, MessageSniffer, ...)</li>
+          </ul></td></tr>
+          <?php echo $this->InputRow($this->form->getElement('resellerid'));?>
+          <?php echo $this->InputRow($this->form->getElement('resellerpwd'));?>
+          <?php echo $this->InputRow($this->form->getElement('clientid'));?>
+          
+          <?php echo $this->SubmitRow($this->form->getElement('register'));?>
+       </table>
+     </fieldset>
+ </form>

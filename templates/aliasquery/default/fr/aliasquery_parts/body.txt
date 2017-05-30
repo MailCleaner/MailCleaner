@@ -1,0 +1,18 @@
+Subject: MailCleaner: Demande d'ajout d'adresse
+
+Demande de confirmation pour l'ajout d'adresse au compte MailCleaner
+
+L'utilisateur __USER__ a sollicit=E9 l'ajout de cette adresse (__ALIAS__) =E0 son compte MailCleaner.
+Ceci requiert une validation de votre part :
+
+
+- Si vous souhaitez valider cette demande, cliquez ici: __WEBBASEURL____VALIDATEQUERY__
+
+- Si vous souhaitez refuser cette demande, cliquez ici: __WEBBASEURL____REFUSEQUERY__
+
+
+Sans action de votre part, cette demande sera automatiquement refus=E9e sous 24 heures.
+
+--------------------------------------------------------------------------------------
+Ceci est un message automatique g=E9n=E9r=E9 par MailCleaner, merci de ne pas y r=E9pondre.
+Pour plus d'informations: __BASEURL__

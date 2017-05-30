@@ -1,0 +1,66 @@
+
+use strict;
+use lib "__SRCDIR__/lib";
+use SMTPAuthenticator;
+use SMTPCalloutConnector;
+
+sub authenticate {
+  my $account = shift;
+  my $password = shift;
+
+  my $auth = SMTPAuthenticator::create($account);
+  my $ip = Exim::expand_string('$sender_host_address');
+
+  if (!$auth) {
+    Exim::log_write("Could not create authenticator for account: $account");
+    return 0;
+  }
+
+  if ($auth->authenticate($password, $ip)) {
+    return 1;
+  }
+  my $error = $auth->getErrorText();
+  return 0;
+}
+
+sub Auth_log {
+  my $text = shift;
+
+  Exim::log_write($text);
+}
+
+
+sub external_callout_verify {
+  my $local_part = shift;
+  my $domain = shift;
+  my $rcpt = $local_part.'@'.$domain;
+
+  my $connector = SMTPCalloutConnector::create($domain);
+  if (!$connector) {
+    Exim::log_write("Could not create callout connector for domain: $domain");
+    return external_callout_build_return(1, "callout connector cannot be create");
+  }
+
+  if (!$connector->verify($rcpt)) {
+    if ($connector->lastMessage() ne '') {
+      Exim::log_write("External callout last message for recipient $rcpt: ".$connector->lastMessage());
+    }
+    return external_callout_build_return(0, $connector->lastMessage());
+  }
+
+  if ($connector->lastMessage() ne '') { 
+    Exim::log_write("External callout last message for recipient $rcpt: ".$connector->lastMessage()); 
+  }
+  return external_callout_build_return(1, $connector->lastMessage());
+}
+
+sub external_callout_build_return {
+  my $result = shift;
+  my $message = shift;
+  
+  my $str = 'result='.$result;
+  $str .= ' message="'.$message.'"';
+  
+  return $str;
+ }
+

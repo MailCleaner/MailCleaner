@@ -1,0 +1,15 @@
+header=__HEADER__
+putHamHeader=__PUTHAMHEADER__
+putSpamHeader=__PUTSPAMHEADER__
+timeOut=__TIMEOUT__
+maxSize=__MAXSIZE__
+rbls=__RBLS__
+rblsDefsPath=__SRCDIR__/etc/rbls
+whitelistDomainsFile=__SRCDIR__/etc/rbls/whitelisted_domains.txt
+TLDsFiles=__SRCDIR__/etc/rbls/two-level-tlds.txt __SRCDIR__/etc/rbls/tlds.txt
+localDomainsFile=__VARDIR__/spool/tmp/mailcleaner/domains.list
+temporarydir=__VARDIR__/spool/tmp/mailscanner
+debug=0
+listeduristobespam=__LISTEDURISTOBESPAM__
+listedemailtobespam=__LISTEDEMAILTOBESPAM__
+resolveShorteners=__RESOLVE_SHORTENERS__

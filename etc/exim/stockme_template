@@ -1,0 +1,14 @@
+if $header_x-mailcleaner-id: contains -
+then
+  logfile __VARDIR__/spool/learningcenter/trace_report.log
+  logwrite "$tod_full|$header_x-mailcleaner-id:|$sender_address|${md5:${substr{0}{50}{${sg{$header_To:}{[\r\n\t]}{}}}}}|$header_x-mailcleaner-senderip:|${sg{$header_x-mailcleaner-spamcheck:}{[\r\n\t]}{}}"
+
+__IF__ STOCK 
+if $header_X-MailCleaner-SpamCheck begins "spam"
+then
+  unseen save __VARDIR__/spool/learningcenter/stockspam/tmp/$message_id
+else
+  unseen save __VARDIR__/spool/learningcenter/stockham/tmp/$message_id
+endif
+__FI__
+endif

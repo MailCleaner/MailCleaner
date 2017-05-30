@@ -1,0 +1,114 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php if ($this->loading) {?>
+ <table id="quarantinetable"> 
+ 
+   <tr id="quarantinebanner">
+     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
+     <p><strong><?php echo $this->t->_('In spam quarantine')?> :</strong></p></td>
+   </tr>
+   
+   <tr id="quarantineheader">
+   <?php foreach ($this->columns as $cname => $c) {?>
+      <td class="c_<?php echo $cname?> c_title"><?php echo $this->t->_($c['label'])?></td>
+      <?php }?>
+   <tr>
+     <td class="loadingrow" colspan="<?php echo count($this->columns);?>">
+        <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
+        <p><?php echo $this->t->_('Searching...')?></p>
+     </td>
+   </tr>
+ </table>
+<?php } else {?>
+<table id="quarantinetable">
+ 
+   <tr id="quarantinebanner">
+     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
+     <p><strong><?php echo $this->t->_('In spam quarantine')?> :</strong> 
+         <?php echo $this->nbspams?> <?php echo $this->t->_('messages')?>
+         (<?php echo $this->t->_('sorted by')?> <?php echo $this->t->_($this->columns[$this->orderfield]['label2'])?>)</p></td>
+   </tr>
+   
+   <tr id="quarantineheader">
+   <?php foreach ($this->columns as $cname => $c) {?>
+      <td class="c_<?php echo $cname?> c_title<?php if ($cname == $this->orderfield) { echo " c_selected"; }?>">
+        <?php if (isset($c['order'])) {?>
+          <a href="javascript:setOrder('<?php if ($cname == $this->orderfield) { if ($c['order'] == 'asc') { echo $cname."_desc"; } else { echo $cname."_asc"; } } else { echo $cname."_".$c['order']; }?>');">
+            <?php echo $this->t->_($c['label'])?>
+          </a>
+          <?php if ($cname == $this->orderfield) {?>
+          <img src="<?php echo $this->images_path?>/orderby_<?php echo $c['order']?>.png" alt="" />
+          <?php }?>
+          
+        <?php } else {?>
+          <?php echo $this->t->_($c['label'])?>
+        <?php }?>
+      </td>
+   <?php }?>
+   </tr>
+   
+<?php $i=1; foreach ($this->spams as $spam) {?>
+<tr class="quarantine_content<?php if ($spam->getParam('forced')) { echo ' msgforced';}?>" onmouseover="highlightActionIcon('<?php echo $i?>', <?php echo $spam->getParam('forced')?>, '', '<?php echo $this->images_path?>'); return true;" onmouseout="highlightActionIcon('<?php echo $i?>', <?php echo $spam->getParam('forced')?>, '_off', '<?php echo $this->images_path?>'); return true;">
+  <td class="c_action">
+     <a href="javascript:force(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/<?php if ($spam->getParam('forced')) { echo "released_off.png"; } else { echo "release_off.png"; }?>" id="r<?php echo $i;?>" alt="release" /></a>
+     <a href="javascript:infos(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/info_off.png" id="v<?php echo $i;?>" class="middleactionincon" alt="info" /></a>
+     <a href="javascript:analyse(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');" onmouseover="showHideToolTip(event, true, 'sa', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/analyse_off.png" id="a<?php echo $i;?>" alt="analyse" /></a>
+  </td>
+  <td onclick="javascript:infos(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');;"><?php echo $spam->getParam('date_in')?>&nbsp;&nbsp;&nbsp;<?php echo $spam->getParam('time_in')?></td>
+  <td onclick="javascript:infos(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');"><a href="javascript:;"><?php echo $spam->getCleanAddress($spam->getDestination())?></a></td>
+  <td onclick="javascript:infos(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');"><a href="javascript:;"><?php echo $spam->getCleanAddress($spam->getParam('sender'))?></a></td>
+  <td onclick="javascript:infos(encodeURIComponent('<?php echo addslashes($spam->getDestination()) ?>'),'<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');"><a style="float: left;" href="javascript:;"><?php echo $spam->getCleanParam('M_subject')?></a><?php if ($spam->getCleanParam('is_newsletter') == 1): ?> <span class="newsletter" style="float: right;">Newsletter</span><?php endif; ?></td></td>
+  <td class="c_globalscore" onmouseover="showHideToolTip(event, true, '<?php echo $spam->getParam('M_globalscore')?>', 'R'); return true;" onmouseout="showHideToolTip(event, false, '', 'R'); return true;" onclick="javascript:infos('<?php echo $spam->getDestination();?>','<?php echo $spam->getParam('exim_id')?>','<?php echo $spam->getParam('store_slave')?>');">
+<?php for ($j=1; $j <= 4; $j++) {
+  if ($j <= $spam->getParam('M_globalscore')) { ?><img src="<?php echo $this->images_path?>/dot_on.png" alt="" class="bullet_on" /><?php } else {?><img src="<?php echo $this->images_path?>/dot_off.png" alt="" class="bullet_off" /><?php } ?><?php $spam->getParam('M_globalscore')?>
+<?php }?>
+     <span class="hiddenscore"><?php echo $spam->getParam('M_globalscore')?></span>
+  </td>
+</tr>
+<?php $i++; }?>
+   
+   <tr id="pagination">
+       <td id="actual_page" colspan="2"><?php echo $this->t->_('Page')." ".$this->page." ".$this->t->_('of')." ".$this->nbpages?></td>
+       <td id="pages_navigation" colspan="<?php echo count($this->columns)-2?>">
+
+<?php $nbprevnext = 5;?>
+  <?php if ($this->nbpages > 1) {?>
+    <?php if ($this->page > 1) {?>
+      <a href="javascript:setPage(1);"><img src="<?php echo $this->images_path;?>/pagefirst.png" alt="first" class="pagefirstimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagefirsthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagefirst.png';" /></a>
+      <a href="javascript:setPage(<?php echo $this->page-1?>);"><img src="<?php echo $this->images_path;?>/pageprevious.png" alt="previous" class="pagepreviousimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pageprevioushover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pageprevious.png';" /></a> 
+    <?php }?>
+     
+    <?php $i=$this->page-$nbprevnext; $c=0; while ($c++ < $nbprevnext) { if ($i > 0) { ?><a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a> |
+    <?php }$i++;}?>
+        
+    <?php echo $this->page?>
+
+    <?php $i=$this->page; $c=0; while ($i++ < $this->nbpages && $c++ < $nbprevnext) { ?>
+        | <a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a>
+    <?php }?>     
+      
+    <?php if ($this->page < $this->nbpages) {?>
+      <a href="javascript:setPage(<?php echo $this->page+1?>);"><img src="<?php echo $this->images_path;?>/pagenext.png" alt="next" class="pagepnextimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagenexthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagenext.png';" /></a>
+      <a href="javascript:setPage(<?php echo $this->nbpages?>);"><img src="<?php echo $this->images_path;?>/pagelast.png" alt="last" class="pagelastimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagelasthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagelast.png';" /></a> 
+    <?php }?>
+  <?php }?>
+
+
+       </td>
+   </tr>
+</table>
+<?php }?>

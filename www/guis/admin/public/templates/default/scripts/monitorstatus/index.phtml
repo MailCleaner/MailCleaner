@@ -1,0 +1,24 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div class="hoststatusbloc"> 
+<?php foreach ($this->slaves as $slave) {?>
+<div class="hostbloc" id='hostbloc_<?echo $slave->getId();?>'>
+ <?php  echo $this->partial('ajax/monitorstatus/hoststatus.phtml', array(
+                         'slave' => $slave,
+                         'images_path' => $this->images_path,
+                         't' => $this->t,
+                         'columns' => $this->columns,
+                         'pieLink' => $this->pieLink,
+                         'initial_loading' => $this->initial_loading,
+                         'salt' => $this->salt
+)); ?>
+</div>
+<div class="hidden" id="hostbloc_<?echo $slave->getId();?>_hidden"></div>
+<?php }?>
+</div>

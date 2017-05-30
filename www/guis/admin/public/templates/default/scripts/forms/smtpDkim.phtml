@@ -1,0 +1,42 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="dkimsettings">
+       <table class="ftable">
+       
+          <?php foreach (array('dkim_default_domain', 'dkim_default_selector') as $f) {?>
+             <?php echo $this->InputRow($this->form->getElement($f),array('label_addclass'=>'flabelstrict'));?>
+          <?php }?>
+          
+          <?php echo $this->InputRow($this->form->getElement('dkim_default_pkey'),array('label_addclass'=>'flabeltextarea flabelstrict'));?>
+
+          <tr>
+            <td class="flabel flabelstrict"></td>
+            <td class="fvalue fieldnote"><a id="generatepkey" href="javascript:generatePKI('rsa',1024);"><?php echo $this->t->_('Generate new private key')?>...</a></td>
+          </tr>
+          
+          <tr><td colspan="2"><hr /></td></tr>
+          <?php if (isset($this->form->domain) && isset($this->form->selector) && isset($this->form->pubkey)) {?>
+          <tr>
+            <td colspan="2">
+              <p><?php echo $this->t->_('The domain ')." <strong>".$this->form->domain."</strong> ".$this->t->_('should have a TXT record like this in its DNS')?> :</p>
+              <pre class="code"><?php echo $this->form->selector?>._domainkey.<?php echo $this->form->domain?>. IN TXT "v=DKIM1;k=rsa;p=<?php echo $this->form->pubkey?>"</pre>
+            </td>
+          </tr>
+          <?php } else {?>
+          <tr>
+            <td colspan="2" class="centered"><?php echo $this->t->_('Domain, selector and/or private key are currently not set or not saved.');?></td>
+          <?php }?>
+          
+           <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+     </fieldset>
+ </form>

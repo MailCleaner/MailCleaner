@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <title>Content quarantine</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+  </head>
+<script language="javascript">
+function open_popup(link) {
+  window.open(link, '', 'width=500,height=201,toolbar=0,resizable=0,scrollbars=0');
+}
+
+__PAGE_JS__
+
+</script>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="10">
+__BEGIN_FILTER_FORM__
+
+<!-- MAIN ROW -->
+  <tr><td>
+   <!-- FILTER BLOCK -->
+   <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333"><tr><td>
+   <table width="100%" border="0" cellpadding="4" cellspacing="2" bgcolor="#FFFFFF" class="blocktext">
+    <tr bgcolor="#CCCCCC" class="blocktitle">
+      <td colspan="4">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+         <tr>
+           <td align="left" class="blocktitle">__LANG_FILTER__&nbsp;&nbsp;__DOC_CONTENTFILTERTITLE__</td>
+           <td align="right" class="blocktext"><b>&gt;&nbsp;<a href="__LINK_EMAILPREFS__">__LANG_GOTOEMAILPREFS__</a>&nbsp;&lt;</b></td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+    <tr>
+     <td colspan="4" align="left">__LANG_ENTERCONTENTID__: __SEARCHCONTENTID_FIELD__&nbsp;&nbsp;&nbsp;&nbsp;<a href="__LINK_DOIDSEARCH__"><img src="templates/default/images/dosearch.gif" border="0" align="absbottom"></a>&nbsp;&nbsp;<font color="red">__SEARCHID_MSG__</font></td>
+    </tr>
+    <tr bgcolor="#CCCCCC" class="blocktitle">
+      <td colspan="4"><font color="white">__LANG_OR__</font></td>
+    </tr>
+    <tr>
+     <td>__LAST_NBDAYS__</td>
+     <td>__LANG_HOST__: __SEARCHHOST_FIELD__</td>
+     <td>__LANG_FROM__:&nbsp;&nbsp;&nbsp;__SEARCHFROM_FIELD__</td>
+     <td>__LANG_TO__: __SEARCHTOLOCAL_FIELD__@__SEARCHTODOMAIN_FIELD__</td>
+    </tr>
+    <tr>
+     <td colspan="2">__NBMSGAS_SELECT__ __LANG_MSGSPERPAGE__</td>
+     <td colspan="2" align="left">__LANG_SUBJECT__: __SEARCHSUBJECT_FIELD__</td>
+    </tr>
+    <tr bgcolor="#CCCCCC" class="blocktitle">
+      <td align="center" colspan="4">__REFRESH_BUTTON__</td>
+    </tr>
+   </table></td></tr>
+   </table>
+  </td>
+  </tr>
+
+__DEFAULT__ ASC_IMG = <img src="templates/default/images/asc.gif" border="0">
+__DEFAULT__ DESC_IMG = <img src="templates/default/images/desc.gif" border="0">
+  <tr>
+   <!-- MAIN QUARANTINE -->
+   <td width="100%" valign="top">
+     <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+       <tr><td> 
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC" class="blocktext">
+          <tr class="quartitle">
+            <td width="100px" colspan="2"><nobr><a href="__LINK_ORDERDATE__">__LANG_TIME__ __ASCDESC_DATE_IMG__</a></nobr></td>
+	    <td width="100px"><nobr><a href="__LINK_ORDERTO__">__LANG_TO__ __ASCDESC_TO_IMG__</a></nobr></td>
+            <td width="100px"><nobr><a href="__LINK_ORDERFROM__">__LANG_FROM__ __ASCDESC_FROM_IMG__</a></nobr></td>
+            <td><nobr><a href="__LINK_ORDERSUBJECT__">__LANG_SUBJECT__ __ASCDESC_SUBJECT_IMG__</a></nobr></td>
+	    <td width="50px" align="center"><nobr>__LANG_CONTENTFOUND__</nobr></td>
+            <td width="50px" align="center">__LANG_ACTION__</td>
+          </tr>
+
+__DEFAULT__ VIRUS_IMG = <img src="templates/default/images/virus.gif" border="0" alt="__LANG_VIRUSFOUND__">&nbsp;
+__DEFAULT__ NAME_IMG = <img src="templates/default/images/name.gif" border="0" alt="__LANG_FILENAMEFOUND__">&nbsp;
+__DEFAULT__ OTHER_IMG = <img src="templates/default/images/other.gif" border="0" alt="__LANG_OTHERFOUND__">&nbsp;
+__DEFAULT__ SPAM_IMG = <img src="templates/default/images/isspam.gif" border="0" alt="__LANG_SPAMFOUND__">&nbsp;
+__TMPL_QUARANTINE_START__
+<tr bgcolor="__COLOR1__#ededed__COLOR2__#ffffff">
+ <td align="left" width="50px"><nobr>__DATE__</nobr></td>
+ <td align="left" width="50px"><nobr>__TIME__</nobr></td>
+ <td align="left" width="100px"><nobr>__TO_ADD__</nobr></td>
+ <td align="left" width="100px"><nobr>__FROM__</nobr></td>
+ <td align="left"><nobr>__SUBJECT__</nobr></td>
+ <td align="center" width="50px"><nobr>__CONTENT_FOUND_IMAGES__</nobr></td>
+ <td align="center" width="50px"><nobr>
+   <a href="javascript:open_popup('__FORCETARGET__')"><img border="0" src="templates/default/images/force.gif" alt="__LANG_FORCESPAM__"></a>
+   <a href="javascript:open_popup('__REASONSTARGET__')"><img border="0" src="templates/default/images/reasons.gif" alt="__LANG_ASKREASON__"></a>
+   </nobr>
+ </td>
+</tr>
+__TMPL_QUARANTINE_STOP__
+
+__QUARANTINE_LIST__
+
+          <!-- TOTAL ROW -->
+          <tr>
+            <td colspan="4" align="left" class="blocktext">__TOTAL_CONTENTS__</td>
+__DEFAULT__ sep = |
+            <td colspan="4" align="right" class="blocktext"><nobr>__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__</td>
+          </tr>
+        </table>
+       </td></tr>
+      </table>
+     <table border="0" width="100%" cellpadding="2" cellspacing="0"> 
+        <tr><td height="3px" class="blocktext"></td></tr>
+	<tr><td class="blocktext" valign="middle" align="center">
+	        <img border="0" src="templates/default/images/virus.gif" align="absmiddle"> = __LANG_VIRUSFOUND__&nbsp;&nbsp;|&nbsp;&nbsp;
+		<img border="0" src="templates/default/images/name.gif" align="absmiddle"> = __LANG_FILENAMEFOUND__&nbsp;&nbsp;|&nbsp;&nbsp;
+		<img border="0" src="templates/default/images/other.gif" align="absmiddle"> = __LANG_OTHERFOUND__&nbsp;&nbsp;|&nbsp;&nbsp;
+		<img border="0" src="templates/default/images/isspam.gif" align="absmiddle"> = __LANG_SPAMFOUND__
+	</td></tr>
+        <tr><td class="blocktext" valign="middle" align="center">
+                <img border="0" src="templates/default/images/force.gif" align="absmiddle"> = __LANG_FORCESPAM__&nbsp;&nbsp;|&nbsp;&nbsp;
+                <img border="0" src="templates/default/images/reasons.gif" align="absmiddle"> = __LANG_ASKINFO__&nbsp;&nbsp;
+        </td></tr>
+        </table>
+   </td>
+  </tr>
+__END_FILTER_FORM__
+
+
+</table>
+</body>
+</html>

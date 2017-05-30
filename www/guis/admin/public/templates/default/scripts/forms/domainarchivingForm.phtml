@@ -1,0 +1,24 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>&nbsp;
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+<fieldset>
+       <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
+       <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
+       <table class="ftable">
+       
+         <?php if ($this->form->canArchive()) {
+           echo $this->InputRow($this->form->getElement('archive_mail'));?>
+           <tr><td colspan="2"><hr /></td></tr>
+         <?php  }?>
+       
+          <?php echo $this->InputRow($this->form->getElement('copyto_mail'));?>
+
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+       </table>
+</fieldset>

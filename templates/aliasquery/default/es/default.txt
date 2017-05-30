@@ -1,0 +1,23 @@
+Subject: [Mailcleaner] direcciòn/Alias activation
+
+Hola
+
+este mensaje es una confirmation de la activación de dirección/alias:
+
+__ALIAS__
+
+para el usuario:
+
+__USER__
+
+Si désea activarlo, por favor pulse el siguiente enlace:
+
+__VALIDATEURL__
+
+Si no désea activarlo, por favor pulse el siguiente enlace:
+
+__REFUSEURL__
+
+---------------
+Mailcleaner
+

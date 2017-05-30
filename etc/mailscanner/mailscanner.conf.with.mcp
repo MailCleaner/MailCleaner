@@ -1,0 +1,1233 @@
+# Main configuration file for the MailScanner E-Mail Virus Scanner
+#
+# It's good practice to check through configuration files to make sure
+# they fit with your system and your needs, whatever you expect them to
+# contain.
+#
+# Note: If your directories are symlinked (soft-linked) in any way,
+#       please put their *real* location in here, not a path that
+#       includes any links. You may get some very strange error
+#       messages from some of the virus scanners if you don't.
+#
+# Note for Version 4.00 and above:
+#       A lot of the settings can take a ruleset as well as just simple
+#       values. These rulesets are files containing rules which are applied
+#       to the current message to calculate the value of the configuration
+#       option. The rules are checked in the order they appear in the ruleset.
+#
+# Note for Version 4.03 and above:
+#       As well as rulesets, you can now include your own functions in
+#       here. Look at the directory containing Config.pm and you will find
+#       CustomConfig.pm. In here, you can add your own "value" function and
+#       an Initvalue function to set up any global state you need such as
+#       database connections. Then for a setting below, you can put:
+#               Configuration Option = &ValueFunction
+#       where "ValueFunction" is the name of the function you have
+#       written in CustomConfig.pm.
+#
+
+#
+# Definition of variables which are substituted into definitions below
+#
+
+# Set the directory containing all the reports in the required language
+%report-dir% = /opt/MailScanner/etc/reports/en
+
+# Configuration directory containing this file
+%etc-dir% = /opt/MailScanner/etc
+
+# Rulesets directory containing your ".rules" files
+%rules-dir% = /opt/MailScanner/etc/rules
+
+# Configuration directory containing files related to MCP
+# (Text Content Protection)
+%mcp-dir% = /opt/MailScanner/etc/mcp
+
+#
+# System settings
+# ---------------
+#
+
+# How many MailScanner processes do you want to run at a time?
+# There is no point increasing this figure if your MailScanner server
+# is happily keeping up with your mail traffic.
+# If you are running on a server with more than 1 CPU, or you have a
+# high mail load (and/or slow DNS lookups) then you should see better
+# performance if you increase this figure.
+# If you are running on a small system with limited RAM, you should
+# note that each child takes just over 20MB.
+#
+# As a rough guide, try 5 children per CPU. But read the notes above.
+Max Children = 5
+
+# User to run as (not normally used for sendmail)
+#Run As User = mail
+#Run As User = postfix
+Run As User =
+
+# Group to run as (not normally used for sendmail)
+#Run As Group = mail
+#Run As Group = postfix
+Run As Group =
+
+# How often (in seconds) should each process check the incoming mail
+# queue for new messages? If you have a quiet mail server, you might
+# want to increase this value so it causes less load on your server, at
+# the cost of slightly increasing the time taken for an average message
+# to be processed.
+Queue Scan Interval = 5
+
+# Set location of incoming mail queue
+#
+# This can be any one of
+# 1. A directory name
+#    Example: /var/spool/mqueue.in
+# 2. A wildcard giving directory names
+#    Example: /var/spool/mqueue.in/*
+# 3. The name of a file containing a list of directory names,
+#    which can in turn contain wildcards.
+#    Example: /opt/MailScanner/etc/mqueue.in.list.conf
+#
+Incoming Queue Dir = /var/spool/mqueue.in
+
+# Set location of outgoing mail queue.
+# This can also be the filename of a ruleset.
+Outgoing Queue Dir = /var/spool/mqueue
+
+# Set where to unpack incoming messages before scanning them
+Incoming Work Dir = /var/spool/MailScanner/incoming
+
+# Set where to store infected and message attachments (if they are kept)
+# This can also be the filename of a ruleset.
+Quarantine Dir = /var/spool/MailScanner/quarantine
+
+# Set where to store the process id number so you can stop MailScanner
+PID file = /opt/MailScanner/var/MailScanner.pid
+
+# To avoid resource leaks, re-start periodically
+Restart Every = 14400
+
+# Set whether to use postfix, sendmail, exim or zmailer.
+# If you are using postfix, then see the "SpamAssassin User State Dir"
+# setting near the end of this file
+MTA = sendmail
+
+# Set how to invoke MTA when sending messages MailScanner has created
+# (e.g. to sender/recipient saying "found a virus in your message")
+# This can also be the filename of a ruleset.
+Sendmail = /usr/lib/sendmail
+
+# Sendmail2 is provided for Exim users.
+# It is the command used to attempt delivery of outgoing cleaned/disinfected
+# messages.
+# This is not usually required for sendmail.
+# This can also be the filename of a ruleset.
+#For Exim users: Sendmail2 = /usr/sbin/exim -C /etc/exim/exim_send.conf
+#For sendmail users: Sendmail2 = /usr/lib/sendmail
+#Sendmail2 = /usr/sbin/sendmail -C /etc/exim/exim_send.conf
+Sendmail2 = /usr/lib/sendmail
+
+#
+# Processing Incoming Mail
+# ------------------------
+#
+
+# In every batch of virus-scanning, limit the maximum
+# a) number of unscanned messages to deliver
+# b) number of potentially infected messages to unpack and scan
+# c) total size of unscanned messages to deliver
+# d) total size of potentially infected messages to unpack and scan
+
+Max Unscanned Bytes Per Scan = 100000000
+Max Unsafe Bytes Per Scan = 50000000
+Max Unscanned Messages Per Scan = 30
+Max Unsafe Messages Per Scan = 30
+
+# Expand TNEF attachments using an external program (or a Perl module)?
+# This should be "yes" unless the scanner you are using (Sophos, McAfee) has
+# the facility built-in. However, if you set it to "no", then the filenames
+# within the TNEF attachment will not be checked against the filename rules.
+Expand TNEF = yes
+
+# Some versions of Microsoft Outlook generate unparsable Rich Text
+# format attachments. Do we want to deliver these bad attachments anyway?
+# Setting this to yes introduces the slight risk of a virus getting through,
+# but if you have a lot of troubled Outlook users you might need to do this.
+# We are working on a replacement for the TNEF decoder.
+# This can also be the filename of a ruleset.
+Deliver Unparsable TNEF = no
+
+# Where the MS-TNEF expander is installed.
+# This is EITHER the full command (including maxsize option) that runs
+# the external TNEF expander binary,
+# OR the keyword "internal" which will make MailScanner use the Perl
+# module that does the same job.
+# They are both provided as I am unsure which one is faster and which
+# one is capable of expanding more file formats (there are plenty!).
+#
+# The --maxsize option limits the maximum size that any expanded attachment
+# may be. It helps protect against Denial Of Service attacks in TNEF files.
+#TNEF Expander    = internal
+# This can also be the filename of a ruleset.
+TNEF Expander = /opt/MailScanner/bin/tnef --maxsize=100000000
+
+# The maximum length of time the TNEF Expander is allowed to run for 1 message.
+# (in seconds)
+TNEF Timeout = 120
+
+# Where the "file" command is installed.
+# This is used for checking the content type of files, regardless of their
+# filename.
+# To disable Filetype checking, set this value to blank.
+File Command = /usr/bin/file
+
+# The maximum length of time the "file" command is allowed to run for 1
+# batch of messages (in seconds)
+File Timeout = 20
+
+# The maximum size of any message including the headers. If this is set to
+# zero, then no size checking is done.
+# This can also be the filename of a ruleset, so you can have different
+# settings for different users. You might want to set this quite small for
+# dialup users so their email applications don't time out downloading huge
+# messages.
+Maximum Message Size = 0
+
+
+#
+# Virus Scanning and Vulnerability Testing
+# ----------------------------------------
+#
+
+# Do you want to scan email for viruses?
+# A few people don't have a virus scanner licence and so want to disable
+# all the virus scanning.
+# NOTE: This switch actually switches on/off all processing of the email
+#       messages. If you just want to switch off actual virus scanning,
+#       then set "Virus Scanners = none" instead.
+#
+# If you want to be able to switch scanning on/off for different users or
+# different domains, set this to the filename of a ruleset.
+# This can also be the filename of a ruleset.
+Virus Scanning = yes
+
+# Which Virus Scanning package to use:
+# sophos    from www.sophos.com, or
+# sophossavi (also from www.sophos.com, using the SAVI perl module), or
+# mcafee    from www.mcafee.com, or
+# command   from www.command.co.uk, or
+# kaspersky from www.kaspersky.com, or
+# kavdaemonclient from www.kaspersky.com, or
+# etrust    from http://www3.ca.com/Solutions/Product.asp?ID=156, or
+# inoculate from www.cai.com/products/inoculateit.htm, or
+# inoculan  from ftp.ca.com/pub/getbbs/linux.eng/inoctar.LINUX.Z, or
+# nod32     from www.nod32.com, or
+# f-secure  from www.f-secure.com, or
+# f-prot    from www.f-prot.com, or
+# panda     from www.pandasoftware.com, or
+# rav       from www.ravantivirus.com, or
+# antivir   from www.antivir.de, or
+# clamav    from www.clamav.net, or
+# trend     from www.trendmicro.com, or
+# none      (no virus scanning at all)
+#
+# Note for McAfee users: do not use any symlinks with McAfee at all. It is
+#                        very strange but may not detect all viruses when
+#                        started from a symlink or scanning a directory path
+#                        including symlinks.
+#
+# Note: If you want to use multiple virus scanners, then this should be a
+# space-separated list of virus scanners. For example:
+# Virus Scanners = sophos f-prot mcafee
+#
+# Note: Make sure that you check that the base installation directory in the
+#       3rd column of virus.scanners.conf matches the location you have
+#       installed each of your virus scanners. The supplied
+#       virus.scanners.conf file assumes the default installation locations
+#       recommended by each of the virus scanner installation guides.
+#
+Virus Scanners = none
+
+# The maximum length of time the commercial virus scanner is allowed to run
+# for 1 batch of messages (in seconds).
+Virus Scanner Timeout = 300
+
+# Should I attempt to disinfect infected attachments and then deliver
+# the clean ones. "Disinfection" involves removing viruses from files
+# (such as removing macro viruses from documents). "Cleaning" is the
+# replacement of infected attachments with "VirusWarning.txt" text
+# attachments.
+# This can also be the filename of a ruleset.
+Deliver Disinfected Files = yes
+
+# Strings listed here will be searched for in the output of the virus scanners.
+# It is used to list which viruses should be handled differently from other
+# viruses. If a virus name is given here, then
+# 1) The sender will not be warned that he sent it
+# 2) No attempt at true disinfection will take place
+#    (but it will still be "cleaned" by removing the nasty attachments
+#     from the message)
+# 3) The recipient will not receive the message,
+#    unless the "Still Deliver Silent Viruses" option is set
+# Other words that can be put in this list are the 3 special keywords
+#    HTML-IFrame   : inserting this will stop senders being warned about
+#                    HTML Iframe tags, when they are not allowed.
+#    HTML-Codebase : inserting this will stop senders being warned about
+#                    HTML Object Codebase tags, when they are not allowed.
+#    HTML-Form     : inserting this will stop senders being warned about
+#                    HTML Form tags, when they are not allowed.
+#    All-Viruses   : inserting this will stop senders being warned about
+#                    any virus, while still allowing you to warn senders
+#                    about HTML-based attacks.
+#
+# This can also be the filename of a ruleset.
+Silent Viruses = HTML-IFrame Klez Yaha-E Bugbear Braid-A WinEvar Palyh Sobig Fizzer Ganda Mimail
+
+# Still deliver (after cleaning) messages that contained viruses listed
+# in the above option ("Silent Viruses") to the recipient?
+# Setting this to "yes" is good because it shows management that MailScanner
+# is protecting them, but it is bad because they have to filter/delete all
+# the incoming virus warnings.
+# This can also be the filename of a ruleset.
+Still Deliver Silent Viruses = yes
+
+# Should encrypted messages be blocked?
+# This is useful if you are wary about your users sending encrypted
+# messages to your competition.
+# This can be a ruleset so you can block encrypted message to certain domains.
+Block Encrypted Messages = no
+
+# Should unencrypted messages be blocked?
+# This could be used to ensure all your users send messages outside your
+# company encrypted to avoid snooping of mail to your business partners.
+# This can be a ruleset so you can just check mail to certain users/domains.
+Block Unencrypted Messages = no
+
+#
+# Options specific to Sophos Anti-Virus
+# -------------------------------------
+#
+
+# Anything on the next line that appears in brackets at the end of a line
+# of output from Sophos will cause the error/infection to be ignored.
+# Use of this option is dangerous, and should only be used if you are having
+# trouble with lots of corrupt PDF files, for example.
+# If you need to specify more than 1 string to find in the error message,
+# then put each string in quotes and separate them with a comma.
+# For example:
+#Allowed Sophos Error Messages = "corrupt", "format not supported"
+Allowed Sophos Error Messages =
+
+# The directory (or a link to it) containing all the Sophos *.ide files.
+# This is only used by the "sophossavi" virus scanner, and is irrelevant
+# for all other scanners.
+Sophos IDE Dir = /usr/local/Sophos/ide
+
+# The directory (or a link to it) containing all the Sophos *.so libraries.
+# This is only used by the "sophossavi" virus scanner, and is irrelevant
+# for all other scanners.
+Sophos Lib Dir = /usr/local/Sophos/lib
+
+# SophosSAVI only: monitor each of these files for changes in size to
+# detect when a Sophos update has happened. The date of the Sophos Lib Dir
+# is also monitored.
+# This is only used by the "sophossavi" virus scanner, not the "sophos"
+# scanner setting.
+Monitors For Sophos Updates = /usr/local/Sophos/ide/*ides.zip
+
+#
+# Removing/Logging dangerous or potentially offensive content
+# -----------------------------------------------------------
+#
+
+# Do you want to allow partial messages, which only contain a fraction of
+# the attachments, not the whole thing? There is absolutely no way to
+# scan these "partial messages" properly for viruses, as MailScanner never
+# sees all of the attachment at the same time. Enabling this option can
+# allow viruses through. You have been warned.
+# This can also be the filename of a ruleset so you can, for example, allow
+# them in outgoing mail but not in incoming mail.
+Allow Partial Messages = no
+
+# Do you want to allow messages whose body is stored somewhere else on the
+# internet, which is downloaded separately by the user's email package?
+# There is no way to guarantee that the file fetched by the user's email
+# package is free from viruses, as MailScanner never sees it.
+# This feature is dangerous as it can allow viruses to be fetched from
+# other Internet sites by a user's email package. The user would just
+# think it was a normal email attachment and would have been scanned by
+# MailScanner.
+# It is only currently supported by Netscape 6 anyway, and the only people
+# who it are the IETF. So I would strongly advise leaving this switched off.
+# This can also be the filename of a ruleset.
+Allow External Message Bodies = no
+
+# Do you want to allow <IFrame> tags in email messages? This is not a good
+# idea as it allows various Microsoft Outlook security vulnerabilities to
+# remain unprotected, but if you have a load of mailing lists sending them,
+# then you will want to allow them to keep your users happy.
+# This can also be the filename of a ruleset, so you can allow them from
+# known mailing lists but ban them from everywhere else.
+Allow IFrame Tags = no
+
+# Banning <IFrame> tags completely is likely to break some common HTML
+# mailing lists, such as Dilbert and other important things like that.
+# So before you implement any restriction on them, you can log the sender
+# of any message containing an <IFrame>, so that you can set the option
+# above to be a ruleset allowing IFrame tags from named "From" addresses
+# and banning all others.
+# This can also be the filename of a ruleset.
+Log IFrame Tags = no
+
+# Do you want to allow <Form> tags in email messages? This is a bad idea
+# as these are used as scams to pursuade people to part with credit card
+# information and other personal data.
+# This can also be the filename of a ruleset.
+Allow Form Tags = no
+
+# Do you want to allow <Object Codebase=...> tags in email messages?
+# This is a bad idea as it leaves you unprotected against various
+# Microsoft-specific security vulnerabilities. But if your users demand
+# it, you can do it.
+# This can also be the filename of a ruleset, so you can allow them just
+# for specific users or domains.
+Allow Object Codebase Tags = no
+
+# Do you want to convert HTML messages containing <IFrame> or
+# <Object Codebase=...> tags into plain text?
+# This will only apply if you are also allowing the tags to be present
+# using the configuration options above. You can allow messages
+# that contain the tags, but convert them to plain text. This makes
+# the HTML harmless, while still allowing your users to see the text
+# content of the messages.
+# This can also be the filename of a ruleset, so you can make this apply
+# only to specific users or domains.
+Convert Dangerous HTML To Text = no
+
+# Do you want to convert all HTML messages into plain text?
+# This is very useful for users who are children or are easily offended
+# by nasty things like pornographic spam.
+# This can also be the filename of a ruleset, so you can switch this
+# feature on and off for particular users or domains.
+Convert HTML To Text = no
+
+#
+# Attachment Filename Checking
+# ----------------------------
+#
+
+# Set where to find the attachment filename ruleset.
+# The structure of this file is explained elsewhere, but it is used to
+# accept or reject file attachments based on their name, regardless of
+# whether they are infected or not.
+#
+# This can also point to a ruleset, but the ruleset filename must end in
+# ".rules" so that MailScanner can determine if the filename given is
+# a ruleset or not!
+Filename Rules = %etc-dir%/filename.rules.conf
+
+# Set where to find the attachment filetype ruleset.
+# The structure of this file is explained elsewhere, but it is used to
+# accept or reject file attachments based on their content as determined
+# by the "file" command, regardless of whether they are infected or not.
+#
+# This can also point to a ruleset, but the ruleset filename must end in
+# ".rules" so that MailScanner can determine if the filename given is
+# a ruleset or not!
+Filetype Rules = %etc-dir%/filetype.rules.conf
+
+#
+# Reports and Responses
+# ---------------------
+#
+
+# Do you want to store copies of the infected attachments and messages?
+# This can also be the filename of a ruleset.
+Quarantine Infections = yes
+
+# Do you want to quarantine the original *entire* message as well as
+# just the infected attachments?
+# This can also be the filename of a ruleset.
+Quarantine Whole Message = no
+
+# When you quarantine an entire message, do you want to store it as
+# raw mail queue files (so you can easily send them onto users) or
+# as human-readable files (header then body in 1 file)?
+Quarantine Whole Messages As Queue Files = no
+
+# Set where to find all the strings used so they can be translated into
+# your local language.
+# This can also be the filename of a ruleset so you can produce different
+# languages for different messages.
+Language Strings = %report-dir%/languages.conf
+
+# Set where to find the message text sent to users when one of their
+# attachments has been deleted from a message.
+# These can also be the filenames of rulesets.
+Deleted Bad Content Message Report  = %report-dir%/deleted.content.message.txt
+Deleted Bad Filename Message Report = %report-dir%/deleted.filename.message.txt
+Deleted Virus Message Report        = %report-dir%/deleted.virus.message.txt
+
+# Set where to find the message text sent to users when one of their
+# attachments has been deleted from a message and stored in the quarantine.
+# These can also be the filenames of rulesets.
+Stored Bad Content Message Report  = %report-dir%/stored.content.message.txt
+Stored Bad Filename Message Report = %report-dir%/stored.filename.message.txt
+Stored Virus Message Report        = %report-dir%/stored.virus.message.txt
+
+# Set where to find the message text sent to users explaining about the
+# attached disinfected documents.
+# This can also be the filename of a ruleset.
+Disinfected Report = %report-dir%/disinfected.report.txt
+
+# Set where to find the HTML and text versions that will be added to the
+# end of all clean messages, if "Sign Clean Messages" is set.
+# These can also be the filenames of rulesets.
+Inline HTML Signature = %report-dir%/inline.sig.html
+Inline Text Signature = %report-dir%/inline.sig.txt
+
+# Set where to find the HTML and text versions that will be inserted at
+# the top of messages that have had viruses removed from them.
+# These can also be the filenames of rulesets.
+Inline HTML Warning = %report-dir%/inline.warning.html
+Inline Text Warning = %report-dir%/inline.warning.txt
+
+# Set where to find the messages that are delivered to the sender, when they
+# sent an email containing either an error, banned content, a banned filename
+# or a virus infection.
+# These can also be the filenames of rulesets.
+Sender Content Report        = %report-dir%/sender.content.report.txt
+Sender Error Report        = %report-dir%/sender.error.report.txt
+Sender Bad Filename Report = %report-dir%/sender.filename.report.txt
+Sender Virus Report        = %report-dir%/sender.virus.report.txt
+
+# Hide the directory path from all virus scanner reports sent to users.
+# The extra directory paths give away information about your setup, and
+# tend to just confuse users.
+# This can also be the filename of a ruleset.
+Hide Incoming Work Dir = yes
+
+# Include the name of the virus scanner in each of the scanner reports.
+# This also includes the translation of "MailScanner" in each of the report
+# lines resulting from one of MailScanner's own checks such as filename,
+# filetype or dangerous HTML content. To change the name "MailScanner", look
+# in reports/...../languages.conf.
+#
+# Very useful if you use several virus scanners, but a bad idea if you
+# don't want to let your customers know which scanners you use.
+Include Scanner Name In Reports = yes
+
+#
+# Changes to Message Headers
+# --------------------------
+#
+
+# Add this extra header to all mail as it is processed.
+# This *must* include the colon ":" at the end.
+# This can also be the filename of a ruleset.
+Mail Header = X-MailScanner:
+
+# Add this extra header to all messages found to be spam.
+# This can also be the filename of a ruleset.
+Spam Header = X-MailScanner-SpamCheck:
+
+# Add this extra header if "Spam Score" = yes. The header will
+# contain 1 character for every point of the SpamAssassin score.
+Spam Score Header = X-MailScanner-SpamScore:
+
+# Add this extra header to all mail as it is processed.
+# The contents is set by "Information Header Value" and is intended for
+# you to be able to insert a help URL for your users.
+# If you don't want an information header at all, just comment out this
+# setting or set it to be blank.
+# This can also be the filename of a ruleset.
+Information Header = X-MailScanner-Information:
+
+# The character to use in the "Spam Score Header".
+# Don't use: x as a score of 3 is "xxx" which the users will think is porn,
+#            # as it will cause confusion with comments in procmail as well
+#              as MailScanner itself,
+#            * as it will cause confusion with pattern matches in procmail,
+#            . as it will cause confusion with pattern matches in procmail,
+#            ? as it will cause the users to think something went wrong.
+# "s" is nice and safe and stands for "spam".
+Spam Score Character = s
+
+# Set the "Mail Header" to these values for clean/infected/disinfected messages.
+# This can also be the filename of a ruleset.
+Clean Header Value       = Found to be clean
+Infected Header Value    = Found to be infected
+Disinfected Header Value = Disinfected
+
+# Set the "Information Header" to this value.
+# This can also be the filename of a ruleset.
+Information Header Value = Please contact the ISP for more information
+
+# Do you want the full spam report, or just a simple "spam / not spam" report?
+Detailed Spam Report = yes
+
+# Do you want to include the numerical scores in the detailed SpamAssassin
+# report, or just list the names of the scores
+Include Scores In SpamAssassin Report = yes
+
+# What to do when you get several MailScanner headers in one message,
+# from multiple MailScanner servers. Values are
+#      "append"  : Append the new data to the existing header
+#      "add"     : Add a new header
+#      "replace" : Replace the old data with the new data
+# Default is "append"
+# This can also be the filename of a ruleset.
+Multiple Headers = append
+
+# Name of this host, or a name like "the MailScanner" if you want to hide
+# the real hostname. It is used in the Help Desk note contained in the
+# virus warnings sent to users.
+# This can also be the filename of a ruleset.
+Hostname = the MailScanner
+
+# If this is "no", then (as far as possible) messages which have already
+# been processed by another MailScanner server will not have the clean
+# signature added to the message. This prevents messages getting many
+# copies of the signature as they flow through your site.
+# This can also be the filename of a ruleset.
+Sign Messages Already Processed = no
+
+# Add the "Inline HTML Signature" or "Inline Text Signature" to the end
+# of uninfected messages?
+# This can also be the filename of a ruleset.
+Sign Clean Messages = no
+
+# Add the "Inline HTML Warning" or "Inline Text Warning" to the top of
+# messages that have had attachments removed from them?
+# This can also be the filename of a ruleset.
+Mark Infected Messages = yes
+
+# When a message is to not be virus-scanned (which may happen depending
+# upon the setting of "Virus Scanning", especially if it is a ruleset),
+# do you want to add the header advising the users to get their email
+# virus-scanned by you?
+# Very good for advertising your MailScanning service and encouraging
+# users to give you some more money and sign up to virus scanning.
+# This can also be the filename of a ruleset.
+Mark Unscanned Messages = yes
+
+# This is the text used by the "Mark Unscanned Messages" option above.
+# This can also be the filename of a ruleset.
+Unscanned Header Value = Not scanned: please contact your Internet E-Mail Service Provider for details
+
+# Do you want to deliver messages once they have been cleaned of any
+# viruses?
+# By making this a ruleset, you can re-create the "Deliver From Local"
+# facility of previous versions.
+Deliver Cleaned Messages = yes
+
+# Do you want to notify the people who sent you messages containing
+# viruses or badly-named filenames?
+# The default value has been changed to "no" as most viruses now fake
+# sender addresses and therefore should be on the "Silent Viruses" list.
+# This can also be the filename of a ruleset.
+Notify Senders = no
+
+# If you supply a space-separated list of message "precedence" settings,
+# then senders of those messages will not be warned about anything you
+# rejected. This is particularly suitable for mailing lists, so that any
+# MailScanner responses do not get sent to the entire list.
+Never Notify Senders Of Precedence = list bulk
+
+#
+# Changes to the Subject: line
+# ----------------------------
+#
+
+# When the message has been scanned but no other subject line changes
+# have happened, do you want modify the subject line?
+# This can be 1 of 3 values:
+#      no    = Do not modify the subject line, or
+#      start = Add text to the start of the subject line, or
+#      end   = Add text to the end of the subject line.
+# This makes very good advertising of your MailScanning service.
+# This can also be the filename of a ruleset.
+Scanned Modify Subject = no # end
+
+# This is the text to add to the start/end of the subject line if the
+# "Scanned Modify Subject" option is set.
+# This can also be the filename of a ruleset.
+Scanned Subject Text = {Scanned}
+
+# If the message contained a virus, do you want to modify the subject line?
+# This makes filtering in Outlook very easy.
+# This can also be the filename of a ruleset.
+Virus Modify Subject = yes
+
+# This is the text to add to the start of the subject if the
+# "Virus Modify Subject" option is set.
+# This can also be the filename of a ruleset.
+Virus Subject Text = {Virus?}
+
+# If an attachment triggered a filename check, but there was nothing
+# else wrong with the message, do you want to modify the subject line?
+# This makes filtering in Outlook very easy.
+# This can also be the filename of a ruleset.
+Filename Modify Subject = yes
+
+# This is the text to add to the start of the subject if the
+# "Filename Modify Subject" option is set.
+# You might want to change this so your users can see at a glance
+# whether it just was just the filename that MailScanner rejected.
+# This can also be the filename of a ruleset.
+Filename Subject Text = {Filename?}
+
+# If an attachment triggered a content check, but there was nothing
+# else wrong with the message, do you want to modify the subject line?
+# This makes filtering in Outlook very easy.
+# This can also be the filename of a ruleset.
+Content Modify Subject = yes
+
+# This is the text to add to the start of the subject if the
+# "Content Modify Subject" option is set.
+# You might want to change this so your users can see at a glance
+# whether it just was just the content that MailScanner rejected.
+# This can also be the filename of a ruleset.
+Content Subject Text = {Dangerous Content?}
+
+# If the message is spam, do you want to modify the subject line?
+# This makes filtering in Outlook very easy.
+# This can also be the filename of a ruleset.
+Spam Modify Subject = yes
+
+# This is the text to add to the start of the subject if the
+# "Spam Modify Subject" option is set.
+# This can also be the filename of a ruleset.
+Spam Subject Text = {Spam?}
+
+# This is just like the "Spam Modify Subject" option above, except that
+# it applies then the score from SpamAssassin is higher than the
+# "High SpamAssassin Score" value.
+High Scoring Spam Modify Subject = yes
+
+# This is just like the "Spam Subject Text" option above, except that
+# it applies then the score from SpamAssassin is higher than the
+# "High SpamAssassin Score" value.
+High Scoring Spam Subject Text = {Spam?}
+
+#
+# Changes to the Message Body
+# ---------------------------
+#
+
+# When a virus or attachment is replaced by a plain-text warning,
+# should the warning be in an attachment? If "no" then it will be
+# placed in-line. This can also be the filename of a ruleset.
+Warning Is Attachment = yes
+
+# When a virus or attachment is replaced by a plain-text warning,
+# and that warning is an attachment, this is the filename of the
+# new attachment.
+# This can also be the filename of a ruleset.
+Attachment Warning Filename = VirusWarning.txt
+
+# What character set do you want to use for the attachment that
+# replaces viruses (VirusWarning.txt)?
+# The default is "us-ascii" but if you speak anything other than
+# English, you will probably want "ISO-8859-1" instead.
+# This can also be the filename of a ruleset.
+Attachment Encoding Charset = us-ascii
+
+#
+# Mail Archiving and Monitoring
+# -----------------------------
+#
+
+# Space-separated list of any combination of
+# 1. email addresses to which mail should be forwarded,
+# 2. directory names where you want mail to be stored,
+# 3. file names (they must already exist!) to which mail will be appended
+#    in "mbox" format suitable for most Unix mail systems.
+#
+# If you give this option a ruleset, you can control exactly whose mail
+# is archived or forwarded. If you do this, beware of the legal implications
+# as this could be deemed to be illegal interception unless the police have
+# asked you to do this.
+#Archive Mail = /var/spool/MailScanner/archive
+Archive Mail =
+
+#
+# Notices to System Administrators
+# --------------------------------
+#
+
+# Notify the local system administrators ("Notices To") when any infections
+# are found?
+# This can also be the filename of a ruleset.
+Send Notices = yes
+
+# Include the full headers of each message in the notices sent to the local
+# system administrators?
+# This can also be the filename of a ruleset.
+Notices Include Full Headers = no
+
+# Hide the directory path from all the system administrator notices.
+# The extra directory paths give away information about your setup, and
+# tend to just confuse users but are still useful for local sys admins.
+# This can also be the filename of a ruleset.
+Hide Incoming Work Dir in Notices = no
+
+# What signature to add to the bottom of the notices.
+# To insert a line-break in there, use the sequence "\n".
+Notice Signature = -- \nMailScanner\nEmail Virus Scanner\nwww.mailscanner.info
+
+# The visible part of the email address used in the "From:" line of the
+# notices. The <user@domain> part of the email address is set to the
+# "Local Postmaster" setting.
+Notices From = MailScanner
+
+# Where to send the notices.
+# This can also be the filename of a ruleset.
+Notices To = postmaster
+
+# Address of the local Postmaster, which is used as the "From" address in
+# virus warnings sent to users.
+# This can also be the filename of a ruleset.
+Local Postmaster = postmaster
+
+#
+# Spam Detection and Virus Scanner Definitions
+# --------------------------------------------
+#
+
+# This is the name of the file that translates the names of the "Spam List"
+# values to the real DNS names of the spam blacklists.
+Spam List Definitions = %etc-dir%/spam.lists.conf
+
+# This is the name of the file that translates the names of the virus
+# scanners into the commands that have to be run to do the actual scanning.
+Virus Scanner Definitions = %etc-dir%/virus.scanners.conf
+
+#
+# Spam Detection and Spam Lists (DNS blocklists)
+# ----------------------------------------------
+#
+
+# Do you want to check messages to see if they are spam?
+# Note: If you switch this off then *no* spam checks will be done at all.
+#       This includes both MailScanner's own checks and SpamAssassin.
+#       If you want to just disable the "Spam List" feature then set
+#       "Spam List =" (i.e. an empty list) in the setting below.
+# This can also be the filename of a ruleset.
+Spam Checks = yes
+
+# This is the list of spam blacklists (RBLs) which you are using.
+# See the "Spam List Definitions" file for more information about what
+# you can put here.
+# This can also be the filename of a ruleset.
+Spam List = ORDB-RBL Infinite-Monkeys # MAPS-RBL+ costs money (except .ac.uk)
+
+# This is the list of spam domain blacklists which you are using
+# (such as the "rfc-ignorant" domains). See the "Spam List Definitions"
+# file for more information about what you can put here.
+# This can also be the filename of a ruleset.
+Spam Domain List =
+
+# If a message appears in at least this number of "Spam Lists" (as defined
+# above), then the message will be treated as "High Scoring Spam" and so
+# the "High Scoring Spam Actions" will happen. You probably want to set
+# this to 2 if you are actually using this feature. 5 is high enough that
+# it will never happen unless you use lots of "Spam Lists".
+# This can also be the filename of a ruleset.
+Spam Lists To Reach High Score = 5
+
+# If an individual "Spam List" or "Spam Domain List" check takes longer
+# that this (in seconds), the check is abandoned and the timeout noted.
+Spam List Timeout = 10
+
+# The maximum number of timeouts caused by any individual "Spam List" or
+# "Spam Domain List" before it is marked as "unavailable". Once marked,
+# the list will be ignored until the next automatic re-start (see
+# "Restart Every" for the longest time it will wait).
+# This can also be the filename of a ruleset.
+Max Spam List Timeouts = 7
+
+# Spam Whitelist:
+# Make this point to a ruleset, and anything in that ruleset whose value
+# is "yes" will *never* be marked as spam.
+# This can also be the filename of a ruleset.
+#Is Definitely Not Spam = no
+Is Definitely Not Spam = %rules-dir%/spam.whitelist.rules
+
+# Spam Blacklist:
+# Make this point to a ruleset, and anything in that ruleset whose value
+# is "yes" will *always* be marked as spam.
+# This can also be the filename of a ruleset.
+Is Definitely Spam = no
+
+# Setting this to yes means that spam found in the blacklist is treated
+# as "High Scoring Spam" in the "Spam Actions" section below. Setting it
+# to no means that it will be treated as "normal" spam.
+# This can also be the filename of a ruleset.
+Definite Spam Is High Scoring = no
+
+#
+# SpamAssassin
+# ------------
+#
+
+# Do you want to find spam using the "SpamAssassin" package?
+# This can also be the filename of a ruleset.
+Use SpamAssassin = no
+
+# SpamAssassin is not very fast when scanning huge messages, so messages
+# bigger than this value will be truncated to this length for SpamAssassin
+# testing. The original message will not be affected by this. This value
+# is a good compromise as very few spam messages are bigger than this.
+Max SpamAssassin Size = 90000
+
+# This replaces the SpamAssassin configuration value 'required_hits'.
+# If a message achieves a SpamAssassin score higher than this value,
+# it is spam. See also the High SpamAssassin Score configuration option.
+# This can also be the filename of a ruleset, so the SpamAssassin
+# required_hits value can be set to different values for different messages.
+Required SpamAssassin Score = 5
+
+# If a message achieves a SpamAssassin score higher than this value,
+# then the "High Scoring Spam Actions" are used. You may want to use
+# this to deliver moderate scores, while deleting very high scoring messsages.
+# This can also be the filename of a ruleset.
+High SpamAssassin Score = 20
+
+# Set this option to "yes" to enable the automatic whitelisting functions
+# available within SpamAssassin. This will cause addresses from which you
+# get real mail, to be marked so that it will never incorrectly spam-tag
+# messages from those addresses.
+SpamAssassin Auto Whitelist = no
+
+# Set the location of the SpamAssassin user_prefs file. If you want to
+# stop SpamAssassin doing all the RBL checks again, then you can add
+# "skip_rbl_checks = 1" to this prefs file.
+SpamAssassin Prefs File = %etc-dir%/spam.assassin.prefs.conf
+
+# If SpamAssassin takes longer than this (in seconds), the check is
+# abandoned and the timeout noted.
+SpamAssassin Timeout = 40
+
+# If SpamAssassin times out more times in a row than this, then it will be
+# marked as "unavailable" until MailScanner next re-starts itself.
+# This means that remote network failures causing SpamAssassin trouble will
+# not mean your mail stops flowing.
+Max SpamAssassin Timeouts = 20
+
+# If the message sender is on any of the Spam Lists, do you still want
+# to do the SpamAssassin checks? Setting this to "no" will reduce the load
+# on your server, but will stop the High Scoring Spam Actions from ever
+# happening.
+# This can also be the filename of a ruleset.
+Check SpamAssassin If On Spam List = yes
+
+# Do you want to always include the Spam Report in the SpamCheck
+# header, even if the message wasn't spam?
+# This can also be the filename of a ruleset.
+Always Include SpamAssassin Report = no
+
+# Do you want to include the "Spam Score" header. This shows 1 character
+# (Spam Score Character) for every point of the SpamAssassin score. This
+# makes it very easy for users to be able to filter their mail using
+# whatever SpamAssassin threshold they want. For example, they just look
+# for "sssss" for every message whose score is > 5, for example.
+# This can also be the filename of a ruleset.
+Spam Score = yes
+
+#
+# What to do with spam
+# --------------------
+#
+
+# This is a list of actions to take when a message is spam.
+# It can be any combination of the following:
+#    deliver                 - deliver the message as normal
+#    delete                  - delete the message
+#    store                   - store the message in the quarantine
+#    bounce                  - send a rejection message back to the sender
+#    forward user@domain.com - forward a copy of the message to user@domain.com
+#    striphtml               - convert all in-line HTML content to plain text.
+#                              You need to specify "deliver" as well for the
+#                              message to reach the original recipient.
+#    attachment              - Convert the original message into an attachment
+#                              of the message. This means the user has to take
+#                              an extra step to open the spam, and stops "web
+#                              bugs" very effectively.
+#
+# Note that the bounce message is created in such a way as to stop it
+# bouncing back to your site.
+#
+# This can also be the filename of a ruleset.
+#Spam Actions = store forward anonymous@ecs.soton.ac.uk bounce
+Spam Actions = deliver
+
+# This is just like the "Spam Actions" option above, except that it applies
+# then the score from SpamAssassin is higher than the "High SpamAssassin Score"
+# value.
+#    deliver                 - deliver the message as normal
+#    delete                  - delete the message
+#    store                   - store the message in the quarantine
+#    bounce                  - send a rejection message back to the sender
+#    forward user@domain.com - forward a copy of the message to user@domain.com
+#    striphtml               - convert all in-line HTML content to plain text.
+#                              You need to specify "deliver" as well for the
+#                              message to reach the original recipient.
+#    attachment              - Convert the original message into an attachment
+#                              of the message. This means the user has to take
+#                              an extra step to open the spam, and stops "web
+#                              bugs" very effectively.
+#
+# Note that the bounce message is created in such a way as to stop it
+# bouncing back to your site.
+#
+# This can also be the filename of a ruleset.
+High Scoring Spam Actions = deliver
+
+# This is just like the "Spam Actions" option above, except that it applies
+# to messages that are *NOT* spam.
+# The available options are the same as for "Spam Actions" except that it
+# makes no sense to bounce non-spam.
+#    deliver                 - deliver the message as normal
+#    delete                  - delete the message
+#    store                   - store the message in the quarantine
+#    forward user@domain.com - forward a copy of the message to user@domain.com
+#    striphtml               - convert all in-line HTML content to plain text
+#
+# This can also be the filename of a ruleset.
+Non Spam Actions = deliver
+
+# Set where to find the messages that are delivered to the sender,
+# when they have sent a message that was detected as spam and caused the
+# "bounce" action to happen. This message is sent with its envelope
+# constructed so that the message cannot bounce.
+#
+# There are 3 reports:
+#   Sender Spam Report         -  sent when a message triggers both a Spam
+#                                 List and SpamAssassin,
+#   Sender Spam List Report    -  sent when a message triggers a Spam List,
+#   Sender SpamAssassin Report -  sent when a message triggers SpamAssassin.
+#
+# These can also be the filenames of rulesets.
+Sender Spam Report         = %report-dir%/sender.spam.report.txt
+Sender Spam List Report    = %report-dir%/sender.spam.rbl.report.txt
+Sender SpamAssassin Report = %report-dir%/sender.spam.sa.report.txt
+
+# If you use the 'attachment' Spam Action or High Scoring Spam Action
+# then this is the location of inline spam report that is inserted at
+# the top of the message.
+Inline Spam Warning = %report-dir%/inline.spam.warning.txt
+
+#
+# MCP (Text Content Protection)
+# -----------------------------
+#
+# This scans text and HTML messages segments for any banned text, using
+# a 2nd copy of SpamAssassin to provide the searching abilities.
+# This 2nd copy has its own entire set of rules, preferences and settings.
+#
+
+MCP Checks = no
+
+MCP Required SpamAssassin Score = 1
+MCP High SpamAssassin Score = 10
+MCP Error Score = 1
+
+MCP Header = X-MailScanner-MCPCheck:
+Non MCP Actions = deliver
+MCP Actions = deliver
+High Scoring MCP Actions = deliver
+
+Log MCP = yes
+Is Definitely MCP = no
+Is Definitely Not MCP = no
+Definite MCP Is High Scoring = no
+Always Include MCP Report = no
+Detailed MCP Report = yes
+Include Scores In MCP Report = no
+
+MCP Max SpamAssassin Timeouts = 20
+MCP Max SpamAssassin Size = 100000
+MCP SpamAssassin Timeout = 10
+
+MCP SpamAssassin Prefs File = %mcp-dir%/mcp.spam.assassin.prefs.conf
+MCP SpamAssassin User State Dir =
+MCP SpamAssassin Local Rules Dir = %mcp-dir%
+MCP SpamAssassin Default Rules Dir = %mcp-dir%
+MCP SpamAssassin Install Prefix = %mcp-dir%
+Sender MCP Report = %report-dir%/sender.mcp.report.txt
+
+
+#
+# Logging
+# -------
+#
+
+# This is the syslog "facility" name that MailScanner uses. If you don't
+# know what a syslog facility name is, then either don't change this value
+# or else go and read "man syslog.conf". The default value of "mail" will
+# cause the MailScanner logs to go into the same place as all your other
+# mail logs.
+Syslog Facility = mail
+
+# Do you want all spam to be logged? Useful if you want to gather
+# spam statistics from your logs, but can increase the system load quite
+# a bit if you get a lot of spam.
+Log Spam = no
+
+# Log all the filenames that are allowed by the Filename Rules, or just
+# the filenames that are denied?
+# This can also be the filename of a ruleset.
+Log Permitted Filenames = no
+
+# Log all the filenames that are allowed by the Filetype Rules, or just
+# the filetypes that are denied?
+# This can also be the filename of a ruleset.
+Log Permitted Filetypes = no
+
+#
+# Advanced SpamAssassin Settings
+# ------------------------------
+#
+# If you are using Postfix you may well need to use some of the settings
+# below, as the home directory for the "postfix" user cannot be written
+# to by the "postfix" user.
+# You may also need to use these if you have installed SpamAssassin
+# somewhere other than the default location.
+#
+
+# The per-user files (bayes, auto-whitelist, user_prefs) are looked
+# for here and in ~/.spamassassin/. Note the files are mutable.
+# If this is unset then no extra places are searched for.
+# If using Postfix, you probably want to set this as shown in the example
+# line at the end of this comment, and do
+#      mkdir /var/spool/MailScanner/spamassassin
+#      chown postfix.postfix /var/spool/MailScanner/spamassassin
+#SpamAssassin User State Dir = /var/spool/MailScanner/spamassassin
+SpamAssassin User State Dir =
+
+# This setting is useful if SpamAssassin is installed in an unusual place,
+# e.g. /opt/MailScanner. The install prefix is used to find some fallback
+# directories if neither of the following two settings work.
+# If this is set then it adds to the list of places that are searched;
+# otherwise it has no effect.
+#SpamAssassin Install Prefix = /opt/MailScanner
+SpamAssassin Install Prefix =
+
+# The site-local rules are searched for here, and in prefix/etc/spamassassin,
+# prefix/etc/mail/spamassassin, /usr/local/etc/spamassassin, /etc/spamassassin,
+# /etc/mail/spamassassin, and maybe others.
+# If this is set then it adds to the list of places that are searched;
+# otherwise it has no effect.
+#SpamAssassin Local Rules Dir = /opt/MailScanner/etc/mail/spamassassin
+SpamAssassin Local Rules Dir =
+
+# The default rules are searched for here, and in prefix/share/spamassassin,
+# /usr/local/share/spamassassin, /usr/share/spamassassin, and maybe others.
+# If this is set then it adds to the list of places that are searched;
+# otherwise it has no effect.
+#SpamAssassin Default Rules Dir = /opt/MailScanner/share/spamassassin
+SpamAssassin Default Rules Dir =
+
+# 
+# Advanced Settings
+# -----------------
+#
+# Don't bother changing anything below this unless you really know
+# what you are doing, or else if MailScanner has complained about
+# your "Minimum Code Status" setting.
+#
+
+# When trying to work out the value of configuration parameters which are
+# using a ruleset, this controls the behaviour when a rule is checking the
+# "To:" addresses.
+# If this option is set to "yes", then the following happens when checking
+# the ruleset:
+#   a) 1 recipient. Same behaviour as normal.
+#   b) Several recipients, but all in the same domain (domain.com for example).
+#      The rules are checked for one that matches the string "*@domain.com".
+#   c) Several recipients, not all in the same domain.
+#      The rules are checked for one that matches the string "*@*".
+#
+# If this option is set to "no", then some rules will use the result they
+# get from the first matching rule for any of the recipients of a message,
+# so the exact value cannot be predicted for messages with more than 1
+# recipient.
+#
+# This value *cannot* be the filename of a ruleset.
+Use Default Rules With Multiple Recipients = no
+
+# Set Debug to "yes" to stop it running as a daemon and just process
+# one batch of messages and then exit.
+Debug = no
+
+# Do you want to debug SpamAssassin from within MailScanner?
+Debug SpamAssassin = no
+
+# This option is intended for people who want to log more information
+# about messages than what is put in syslog. It is intended to be used
+# with a Custom Function which has the side-effect of logging information,
+# perhaps to an SQL database, or any other processing you want to do
+# after each message is processed.
+# Its value is completely ignored, it is purely there to have side
+# effects.
+# If you want to use it, read CustomConfig.pm.
+Always Looked Up Last = no
+
+# When attempting delivery of outgoing messages, should we do it in the
+# background or wait for it to complete? The danger of doing it in the
+# background is that the machine load goes ever upwards while all the
+# slow sendmail processes run to completion. However, running it in the
+# foreground may cause the mail server to run too slowly.
+Deliver In Background = yes
+
+# Attempt immediate delivery of messages, or just place them in the outgoing
+# queue for the MTA to deliver when it wants to?
+#      batch -- attempt delivery of messages, in batches of up to 20 at once.
+#      queue -- just place them in the queue and let the MTA find them.
+# This can also be the filename of a ruleset. For example, you could use a
+# ruleset here so that messages coming to you are immediately delivered,
+# while messages going to any other site are just placed in the queue in
+# case the remote delivery is very slow.
+Delivery Method = batch
+
+# Are you using Exim with split spool directories? If you don't understand
+# this, the answer is probably "no". Refer to the Exim documentation for
+# more information about split spool directories.
+Split Exim Spool = no
+
+# Where to put the virus scanning engine lock files.
+# These lock files are used between MailScanner and the virus signature
+# "autoupdate" scripts, to ensure that they aren't both working at the
+# same time (which could cause MailScanner to let a virus through).
+Lockfile Dir = /tmp
+
+# How to lock spool files.
+# Don't set this unless you *know* you need to.
+# For sendmail, it defaults to "flock".
+# For Exim, it defaults to "posix".
+# No other type is implemented.
+#Lock Type = flock
+
+# Minimum acceptable code stability status -- if we come across code
+# that's not at least as stable as this, we barf.
+# This is currently only used to check that you don't end up using untested
+# virus scanner support code without realising it.
+# Levels used are:
+# none          - there may not even be any code.
+# unsupported   - code may be completely untested, a contributed dirty hack,
+#                 anything, really.
+# alpha         - code is pretty well untested. Don't assume it will work.
+# beta          - code is tested a bit. It should work.
+# supported     - code *should* be reliable.
+#
+# Don't even *think* about setting this to anything other than "beta" or
+# "supported" on a system that receives real mail until you have tested it
+# yourself and are happy that it is all working as you expect it to.
+# Don't set it to anything other than "supported" on a system that could
+# ever receive important mail.
+#
+# READ and UNDERSTAND the above text BEFORE changing this.
+#
+Minimum Code Status = supported
+

@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <title>Quarantine</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+  </head>
+<script language="javascript">
+function open_popup(link) {
+  window.open(link, '', 'width=500,height=201,toolbar=0,resizable=0,scrollbars=0');
+}
+function open_summary() {
+  window.open('__SENDDUMMARY_LINK__', '', 'width=500,height=201,toolbar=0,resizable=0,scrollbars=0');
+}
+
+__PAGE_JS__
+
+</script>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="10">
+__BEGIN_FILTER_FORM__
+<!-- ADDRESS ROW -->
+  <tr>
+    <td width="150px"></td>
+    <td width="100%" class="blocktext">
+       <table border="0" width="100%">
+          <tr class="blocktext">
+	    <td align="left"><nobr><b>__LANG_ADDRESS__: __ADDRESS_SELECTOR__</b></nobr></td>
+	    <td align="right"><a href="javascript:window.close();">close</a></td>
+	  </tr>
+       </table>
+    </td>
+  </tr>
+
+<!-- MAIN ROW -->
+  <tr>
+   <!-- MENU COLUMN -->
+    <td valign="top">
+        <!-- FILTER BLOCK -->
+        <table width="165px" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+          <tr><td>
+                <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                  <tr>
+                    <td bgcolor="#CCCCCC" class="blocktitle">__LANG_FILTER__</td>
+                  </tr>
+                  <tr>
+                    <td>__LAST_NBDAYS__</td>
+                  </tr>
+                  <tr>
+                    <td>__MASK_FORCED_BOX__ __LANG_HIDEFORCED__</td>
+                  </tr>
+                  <tr>
+                    <td>__NBMSGAS_SELECT__ __LANG_MSGSPERPAGE__</td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#CCCCCC" class="blocksubtitle">__LANG_ADVANCEDSEARCH__</td>
+                  </tr>
+                  <tr>
+                    <td>__LANG_COMINGFROM__<br/>__SEARCHFROM_FIELD__</td>
+                  </tr>
+                  <tr>
+                    <td>__LANG_SUBJECT__<br/>__SEARCHSUBJECT_FIELD__</td>
+                  </tr>
+                  <tr>
+                    <td align="center" bgcolor="#CCCCCC">__REFRESH_BUTTON__</td>
+                  </tr>
+                </table>
+          </td></tr>
+        </table>
+        <br/>
+        <!-- ACTION BLOCK -->
+	<!--
+        <table width="165px" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+          <tr><td>
+                <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                  <tr>
+                    <td bgcolor="#CCCCCC" class="blocktitle">__LANG_ACTION__</td>
+                  </tr>
+                  <tr>
+                    <td align="left"><br/>&nbsp;&nbsp;<a href="javascript:open_popup('__PURGE_LINK__')"><img src="/templates/default/images/trash.gif" border="0">__LANG_PURGESELECTEDSPAMS__</a></td>
+                  </tr>
+                  <tr>
+                    <td align="left">&nbsp;&nbsp;<a href="javascript:open_popup('__SEND_SUMMARY_LINK__')"><img src="/templates/default/images/summary.gif" border="0">__LANG_SENDSUM__</a></td>
+                  </tr>
+                </table>
+          </td></tr>
+        </table>
+	-->
+
+    </td>
+
+   <!-- MAIN QUARANTINE -->
+   <td width="100%" valign="top">
+     <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+       <tr><td> 
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC" class="blocktext">
+          <tr class="quartitle">
+            <td width="70px">__LANG_DATE__</td>
+            <td width="55px">__LANG_HOUR__</td>
+            <td width="80px">__LANG_FROM__</td>
+            <td>__LANG_SUBJECT__</td>
+            <td width="40px">__LANG_FORCED__</td>
+            <td width="50px" align="center">__LANG_ACTION__</td>
+          </tr>
+
+__TMPL_QUARANTINE_START__
+<tr bgcolor="__COLOR1__#ededed__COLOR2__#ffffff">
+ <td align="left" width="70px"><nobr>__DATE__</nobr></td>
+ <td align="left" width="55px"><nobr>__TIME__</nobr></td>
+ <td align="left" width="80px"><nobr>__FROM__</nobr></td>
+ <td align="left"><nobr>__SUBJECT__</nobr></td>
+ <td align="center" width="40px">__FORCE__<img src="/templates/default/images/forced.gif">__FORCE__</td>
+ <td align="center" width="50px"><nobr>
+   <a href="javascript:open_popup('__FORCETARGET__')"><img border="0" src="/templates/default/images/force.gif" alt="__LANG_FORCESPAM__"></a>
+   <a href="javascript:open_popup('__REASONSTARGET__')"><img border="0" src="/templates/default/images/reasons.gif" alt="__LANG_ASKREASON__"></a>
+   <a href="javascript:open_popup('__ANALYSETARGET__')"><img border="0" src="/templates/default/images/analyse.gif" alt="__LANG_ASKANALYSE__"></a>
+   </nobr>
+ </td>
+</tr>
+__TMPL_QUARANTINE_STOP__
+
+__QUARANTINE_LIST__
+
+          <!-- TOTAL ROW -->
+          <tr>
+            <td colspan="3" align="left" class="blocktext">__TOTAL_SPAMS__</td>
+__DEFAULT__ sep = |
+            <td colspan="3" align="right" class="blocktext"><nobr>__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__</td>
+          </tr>
+        </table>
+       </td></tr>
+      </table>
+     <table border="0" width="100%" cellpadding="0" cellspacing="0"> 
+        <tr><td height="3px" class="blocktext"></td></tr>
+        <tr><td class="blocktext" valign="middle" align="center">
+                <img border="0" src="/templates/default/images/force.gif" align="absmiddle"> = __LANG_FORCESPAM__&nbsp;&nbsp;|&nbsp;&nbsp;
+                <img border="0" src="/templates/default/images/reasons.gif" align="absmiddle"> = __LANG_ASKREASON__&nbsp;&nbsp;|&nbsp;&nbsp;
+                <img border="0" src="/templates/default/images/analyse.gif" align="absmiddle"> = __LANG_ASKANALYSE__
+        </td></tr>
+        </table>
+   </td>
+  </tr>
+__END_FILTER_FORM__
+
+
+</table>
+</body>
+</html>

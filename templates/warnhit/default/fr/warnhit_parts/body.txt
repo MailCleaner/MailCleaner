@@ -1,0 +1,15 @@
+Subject: MailCleaner: Avertissement de blocage
+
+Un message  en provenance de __SENDER__ a =E9t=E9 retenu dans la quarantaine MailCleaner.
+
+
+Si vous pensez qu'il s'agit d'une erreur et souhaitez recevoir ce message, cliquez ici: __BASEURL__/fm.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+(Pour en informer l'administrateur, cliquez ici: __BASEURL__/send_to_analyse.php?id=2D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__)
+
+
+Sans action de votre part, le message restera en quarantaine.
+
+--------------------------------------------------------------------------------------
+Ceci est un message automatique g=E9n=E9r=E9 par MailCleaner, merci de ne pas y r=E9pondre.
+Pour plus d'informations: __BASEURL__

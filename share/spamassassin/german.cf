@@ -1,0 +1,127 @@
+#
+# Quick ruleset to block the german (Sober) spamflood (C) Prolocation
+# V0.2
+
+# 01 Subject: Gegen das Vergessen
+# 02 Subject: Verbrechen der deutschen Frau
+# 03 Subject: Dresden Bombing Is To Be Regretted Enormously
+# 04 Subject: Graeberschaendung auf bundesdeutsche Anordnung
+# 05 Subject: Deutsche Buerger trauen sich nicht ...
+# 06 Subject: S.O.S. Kiez! Polizei schlaegt Alarm
+# 07 Subject: Schily ueber Deutschland
+# 08 Subject: Massenhafter Steuerbetrug durch auslaendische Arbeitnehmer
+# 09 Subject: The Whore Lived Like a German
+# 10 Subject: Transparenz ist das Mindeste
+# 11 Subject: Volk wird nur zum zahlen gebraucht!
+# 12 Subject: Trotz Stellenabbau
+# 13 Subject: Augen auf
+# 14 Subject: Armenian Genocide Plagues Ankara 90 Years On
+# 15 Subject: Du wirst ausspioniert ....!
+# 16 Subject: Dresden 1945
+# 17 Subject: Blutige Selbstjustiz
+# 18 Subject: Turkish Tabloid Enrages Germany with Nazi Comparisons
+# 19 Subject: Multi-Kulturell = Multi-Kriminell
+# 20 Subject: 60 Jahre Befreiung: Wer feiert mit?
+# 21 Subject: Vorbildliche Aktion
+# 22 Subject: Auf Streife durch den Berliner Wedding
+# 23 Subject: Tuerkei in die EU
+# 24 Subject: Paranoider Deutschenmoerder kommt in Psychiatrie
+# 25 Subject: Hier sind wir Lehrer die einzigen Auslaender
+# 26 Subject: 4,8 Mill. Osteuropaeer durch Fischer-Volmer Erlass
+# 27 Subject: Du wirst zum Sklaven gemacht!!!
+# 28 Subject: Deutsche werden kuenftig beim Arzt abgezockt
+# 29 Subject: Auslaenderpolitik
+# 30 Subject: Auslaender bevorzugt
+
+header PROLO_GSPAM01 Subject =~ /Gegen das Vergessen/i
+header PROLO_GSPAM02 Subject =~ /Verbrechen der deutschen Frau/i
+header PROLO_GSPAM03 Subject =~ /Dresden Bombing Is To Be Regretted Enormously/i
+header PROLO_GSPAM04 Subject =~ /Graeberschaendung auf bundesdeutsche Anordnung/i
+header PROLO_GSPAM05 Subject =~ /Deutsche Buerger trauen sich nicht \.\.\./i
+header PROLO_GSPAM06 Subject =~ /S\.O\.S. Kiez\! Polizei schlaegt Alarm/i
+header PROLO_GSPAM07 Subject =~ /Schily ueber Deutschland/i
+header PROLO_GSPAM08 Subject =~ /Massenhafter Steuerbetrug durch auslaendische Arbeitnehmer/i
+header PROLO_GSPAM09 Subject =~ /The Whore Lived Like a German/i
+header PROLO_GSPAM10 Subject =~ /Transparenz ist das Mindeste/i
+header PROLO_GSPAM11 Subject =~ /Volk wird nur zum zahlen gebraucht!/i
+header PROLO_GSPAM12 Subject =~ /Trotz Stellenabbau/i
+header PROLO_GSPAM13 Subject =~ /Augen auf/i
+header PROLO_GSPAM14 Subject =~ /Armenian Genocide Plagues Ankara 90 Years On/i
+header PROLO_GSPAM15 Subject =~ /Du wirst ausspioniert \.\.\.\.\!/i
+header PROLO_GSPAM16 Subject =~ /Dresden 1945/i
+header PROLO_GSPAM17 Subject =~ /Blutige Selbstjustiz/i
+header PROLO_GSPAM18 Subject =~ /Turkish Tabloid Enrages Germany with Nazi Comparisons/i
+header PROLO_GSPAM19 Subject =~ /Multi-Kulturell \= Multi-Kriminell/i
+header PROLO_GSPAM20 Subject =~ /60 Jahre Befreiung: Wer feiert mit?/i
+header PROLO_GSPAM21 Subject =~ /Vorbildliche Aktion/i
+header PROLO_GSPAM22 Subject =~ /Auf Streife durch den Berliner Wedding/i
+header PROLO_GSPAM23 Subject =~ /Tuerkei in die EU/i
+header PROLO_GSPAM24 Subject =~ /Paranoider Deutschenmoerder kommt in Psychiatrie/i
+header PROLO_GSPAM25 Subject =~ /Hier sind wir Lehrer die einzigen Auslaender/i
+header PROLO_GSPAM26 Subject =~ /4\,8 Mill\. Osteuropaeer durch Fischer-Volmer Erlass/i
+header PROLO_GSPAM27 Subject =~ /Du wirst zum Sklaven gemacht\!\!\!/i
+header PROLO_GSPAM28 Subject =~ /Deutsche werden kuenftig beim Arzt abgezockt/i
+header PROLO_GSPAM29 Subject =~ /Auslaenderpolitik/i
+header PROLO_GSPAM30 Subject =~ /Auslaender bevorzugt/i
+
+score PROLO_GSPAM01 8
+score PROLO_GSPAM02 8
+score PROLO_GSPAM03 8
+score PROLO_GSPAM04 8
+score PROLO_GSPAM05 8
+score PROLO_GSPAM06 8
+score PROLO_GSPAM07 8
+score PROLO_GSPAM08 8
+score PROLO_GSPAM09 8
+score PROLO_GSPAM10 8
+score PROLO_GSPAM11 8
+score PROLO_GSPAM12 8
+score PROLO_GSPAM13 8
+score PROLO_GSPAM14 8
+score PROLO_GSPAM15 8
+score PROLO_GSPAM16 8
+score PROLO_GSPAM17 8
+score PROLO_GSPAM18 8
+score PROLO_GSPAM19 8
+score PROLO_GSPAM20 8
+score PROLO_GSPAM21 8
+score PROLO_GSPAM22 8
+score PROLO_GSPAM23 8
+score PROLO_GSPAM24 8
+score PROLO_GSPAM25 8
+score PROLO_GSPAM26 8
+score PROLO_GSPAM27 8
+score PROLO_GSPAM28 8
+score PROLO_GSPAM29 8
+score PROLO_GSPAM30 8
+
+describe PROLO_GSPAM01 German Spam from Sober virus
+describe PROLO_GSPAM02 German Spam from Sober virus
+describe PROLO_GSPAM03 German Spam from Sober virus
+describe PROLO_GSPAM04 German Spam from Sober virus
+describe PROLO_GSPAM05 German Spam from Sober virus
+describe PROLO_GSPAM06 German Spam from Sober virus
+describe PROLO_GSPAM07 German Spam from Sober virus
+describe PROLO_GSPAM08 German Spam from Sober virus
+describe PROLO_GSPAM09 German Spam from Sober virus
+describe PROLO_GSPAM10 German Spam from Sober virus
+describe PROLO_GSPAM11 German Spam from Sober virus
+describe PROLO_GSPAM12 German Spam from Sober virus
+describe PROLO_GSPAM13 German Spam from Sober virus
+describe PROLO_GSPAM14 German Spam from Sober virus
+describe PROLO_GSPAM15 German Spam from Sober virus
+describe PROLO_GSPAM16 German Spam from Sober virus
+describe PROLO_GSPAM17 German Spam from Sober virus
+describe PROLO_GSPAM18 German Spam from Sober virus
+describe PROLO_GSPAM19 German Spam from Sober virus
+describe PROLO_GSPAM20 German Spam from Sober virus
+describe PROLO_GSPAM21 German Spam from Sober virus
+describe PROLO_GSPAM22 German Spam from Sober virus
+describe PROLO_GSPAM23 German Spam from Sober virus
+describe PROLO_GSPAM24 German Spam from Sober virus
+describe PROLO_GSPAM25 German Spam from Sober virus
+describe PROLO_GSPAM26 German Spam from Sober virus
+describe PROLO_GSPAM27 German Spam from Sober virus
+describe PROLO_GSPAM28 German Spam from Sober virus
+describe PROLO_GSPAM29 German Spam from Sober virus
+describe PROLO_GSPAM30 German Spam from Sober virus

@@ -1,0 +1,14 @@
+Dit is een bericht van Mailcleaner
+----------------------------------
+De originele bijlage "$filename" wordt ervan verdacht geïnfecteerd te zijn door
+een virus en werd vervangen door deze waarschuwing.
+
+Als je een kopie van de *geïnfecteerde* bijlage wilt ontvangen,
+gelieve dan de beheerder te mailen en dit bericht er aan toe te voegen.
+Je kan hem ook bellen met de inhoud van dit bericht bij de hand.
+
+Op $date zei de virus scanner:
+$report
+Bericht aan de administrator: $hostname in $datenumber/$id
+-- 
+Mailcleaner

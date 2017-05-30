@@ -1,0 +1,133 @@
+#
+# See Botnet.txt for explanations
+
+######################################################################
+#
+# THE PLUGIN
+#
+######################################################################
+
+
+######################################################################
+#
+# CONFIGURATION SETTINGS
+#
+######################################################################
+
+ifplugin Mail::SpamAssassin::Plugin::Botnet
+
+# I don't think SA is properly setting the 'auth=' field in the
+# untrusted-relay's pseudoheader anyway, so I don't think this matters
+botnet_pass_auth		0
+
+# If there are trusted relays, then look to see if there's a
+# public IP address; if so, then pass the message through.
+botnet_pass_trusted		public
+
+# look past Untrusted Relays with these IP's at the next Untrusted Relay
+# I've included ip-v4 loopback, and the RFC 1918 reserved IP blocks.
+botnet_skip_ip			^127\.0\.0\.1$
+botnet_skip_ip			^10\..*$
+botnet_skip_ip			^172\.1[6789]\..*$
+botnet_skip_ip			^172\.2[0-9]\..*$
+botnet_skip_ip			^172\.3[01]\..*$
+botnet_skip_ip			^192\.168\..*$
+
+# pass messages entirely (no botnet rules triggered) if you come to an
+# untrusted relay with these IP addresses. (example only, unless you're
+# using that block locally, you probably don't want to uncomment this
+# next line)
+#botnet_pass_ip			^10\.0\.0\..*$
+botnet_pass_ip			^128\.223\.98\.16$ # dynamic.uoregon.edu
+
+# domain names we pass; note: if the RDNS owner tricks this, by putting
+# this domain in their PTR record, then:
+# a) it's probably a direct spammer and not a botnet anyway, and
+# b) there are other spam assassin rules for dealing with those
+#    issues.
+botnet_pass_domains		amazon\.com # they use IP in Hostname; dorks
+botnet_pass_domains		apple\.com  # special test case
+botnet_pass_domains		ebay\.com   # pool in hostname
+botnet_pass_domains             static\.cablecom\.ch
+
+# basic substrings (regular expressions) for "client-like hostnames"
+botnet_clientwords	.*dsl.* cable catv ddns dhcp dial(-?up)? dip docsis
+botnet_clientwords	dyn(amic)?(ip)? modem ppp(oe)? res(net|ident(ial)?)?
+botnet_clientwords	bredband
+
+# slightly more controversial client words
+botnet_clientwords	client fixed ip pool static user
+
+# basic substrings (regular expressions) for "mail server-like hostnames"
+botnet_serverwords	e?mail(out)? mta mx(pool)? relay smtp static-ip
+
+# used by many exchange servers
+botnet_serverwords	exch(ange)?
+
+
+######################################################################
+#
+# THE RULES
+#
+######################################################################
+
+describe	BOTNET			Relay might be a spambot or virusbot
+header		BOTNET			eval:botnet()
+score		BOTNET			0.0
+
+describe	BOTNET_SOHO		Relay might be a SOHO mail server
+header		BOTNET_SOHO		eval:botnet_soho()
+score		BOTNET_SOHO		0.0
+
+describe	BOTNET_NORDNS		Relay's IP address has no PTR record
+header		BOTNET_NORDNS		eval:botnet_nordns()
+score		BOTNET_NORDNS		0.001
+
+describe	BOTNET_BADDNS		Relay doesn't have full circle DNS
+header		BOTNET_BADDNS		eval:botnet_baddns()
+score		BOTNET_BADDNS		1.5
+
+describe	BOTNET_CLIENT		Relay has a client-like hostname
+header		BOTNET_CLIENT		eval:botnet_client()
+score		BOTNET_CLIENT		0.8
+
+describe	BOTNET_IPINHOSTNAME	Hostname contains its own IP address
+header		BOTNET_IPINHOSTNAME	eval:botnet_ipinhostname()
+score		BOTNET_IPINHOSTNAME	1.0
+
+describe	BOTNET_CLIENTWORDS	Hostname contains client-like substrings
+header		BOTNET_CLIENTWORDS	eval:botnet_clientwords()
+score		BOTNET_CLIENTWORDS	0.4
+
+describe	BOTNET_SERVERWORDS	Hostname contains server-like substrings
+header		BOTNET_SERVERWORDS	eval:botnet_serverwords()
+score		BOTNET_SERVERWORDS	0.0
+
+
+######################################################################
+#
+# NON-MODULE RULES
+#
+######################################################################
+
+# Botnet rules that don't make direct or indirect use of the Botnet.pm module
+
+
+# shawcable.net uses customer hostnames that don't match other botnet patterns
+describe	BOTNET_SHAWCABLE	Shawcable.net customer address
+meta		BOTNET_SHAWCABLE	(__BOTNET_SHAWCABLE && __BOTNET_NOTRUST)
+header		__BOTNET_SHAWCABLE	X-Spam-Relays-Untrusted =~ /^[^\]]+ rdns=s[0-9a-f]*\...\.shawcable\.net\b/i
+score		BOTNET_SHAWCABLE	5.0
+
+# ocn.ne.jp uses customer hostnames that don't match other botnet patterns
+describe	BOTNET_OCNNEJP		Ocn.ne.jp customer address
+meta		BOTNET_OCNNEJP		(__BOTNET_OCNNEJP && __BOTNET_NOTRUST)
+header		__BOTNET_OCNNEJP	X-Spam-Relays-Untrusted =~ /^[^\]]+ rdns=p\d{4}-ip\S*\.ocn\.ne\.jp\b/i
+score		BOTNET_OCNNEJP		5.0
+
+# If the message was authenticated or hit a trusted host, then we want to
+# exempt these 'non-module' rules.
+describe	__BOTNET_NOTRUST	Message has no trusted relays
+header		__BOTNET_NOTRUST	X-Spam-Relays-Trusted !~ /ip=/i
+
+endif

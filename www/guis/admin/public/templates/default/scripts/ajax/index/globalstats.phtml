@@ -1,0 +1,37 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php if ($this->stats_total > 0 || $this->stats_type == 'global') {?>
+<h1><?php echo $this->t->_('Today\'s counts');?>
+<?php if ($this->stats_type != '') {?>
+ - <?php echo $this->t->_($this->stats_type."_title")?>
+<?php }?>
+</h1>
+
+<div id="statstablebloc" class="globalsubbloc globalstatsbloc">
+ <table class="globalstatstable">
+ <?php foreach ($this->stats as $key => $value) {?>
+  <tr>
+    <td class="globalstatstablekey"><?php echo $this->t->_($key."_header")?></td>
+    <td class='statsbullet' style='background-color: <?php printf('#%02x%02x%02x',$this->colors[$key]['R'],$this->colors[$key]['G'],$this->colors[$key]['B'])?>'>&nbsp;</td>
+    <td class="globalstatstablevalue"><?php echo (int)$value?></td>
+  </tr>
+ <?php }?>
+  <tr>
+    <td class="globalstatstablekey sumrow"><?php echo $this->t->_($this->stats_type."_total")?></td>
+    <td class='statsbullet sumrow'>&nbsp;</td>
+    <td class="globalstatstablevalue sumrow"><?php echo (int)$this->stats_total?></td>
+  </tr>
+ 
+ </table>
+</div>
+
+<div class="globalsubbloc">
+    <img src="<?php echo $this->graphlink;?>" alt="stats" />
+</div>
+<?php } ?>

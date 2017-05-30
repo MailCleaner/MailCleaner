@@ -1,0 +1,22 @@
+${lookup ldap 
+  {user="__AD_BINDDN__"
+  pass="__AD_PASS__"
+  ldap://__AD_SERVERS__/__AD_BASEDN__
+  ?mail?sub?
+  (|
+    (&
+      (|
+        (objectClass=user)
+        (objectClass=publicFolder)
+        (objectClass=group)
+      )
+      (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})
+    )
+    (mail=${quote_ldap:${local_part}}@${quote_ldap:${domain}})
+    (otherMailbox=smtp:${quote_ldap:${local_part}}@${quote_ldap:${domain}})
+    (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})
+    (uid=${quote_ldap:${local_part}})
+    (cn=${quote_ldap:${local_part}}@${quote_ldap:${domain}})
+  )}
+  {${local_part}@${domain}}{:fail: User unknown}
+}

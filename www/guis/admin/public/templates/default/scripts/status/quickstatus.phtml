@@ -1,0 +1,37 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<ul id="statuslist">
+     <li>
+      <?php if ($this->hardware_status != 'healthy') {?>
+         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_red.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
+         <a href="#"><?php echo $this->t->_($this->hardware_status)?></a>
+       <?php } else { ?>
+          <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
+         <?php echo $this->t->_($this->hardware_status)?>
+       <?php } ?>
+     </li>
+     <li>
+       <?php if ($this->spools_status != 'spoolslow') {?>
+         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_red.png" alt="" /><strong><?php echo $this->t->_('Spools')?> :</strong> 
+         <a href="#"><?php echo $this->t->_($this->spools_status)?></a>
+       <?php } else { ?>
+         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Spools')?> :</strong> 
+         <?php echo $this->t->_($this->spools_status)?>
+       <?php } ?>
+     </li>
+     <li>
+       <?php if ($this->load_status != 'loadlow') {?>
+         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_red.png" alt="" /><strong><?php echo $this->t->_('Load')?> :</strong>
+         <a href="#"><?php echo $this->t->_($this->load_status)?></a>
+       <?php } else { ?>
+         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Load')?> :</strong>
+         <?php echo $this->t->_($this->load_status)?>
+       <?php } ?>
+     </li>
+</ul>

@@ -1,0 +1,114 @@
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2006, Olivier Diserens
+ */
+
+html,body {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 11px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #666666;
+    margin: 0;
+    height: 100%;
+    padding: 0;
+}
+
+.smallblacktext {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 9px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #000000;
+    margin: 0px;
+}
+
+.blocktitle {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    margin: 0px;
+}
+
+.blocktext {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 10px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    margin: 0px;
+}
+
+.blocktextbig {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    margin: 0px;
+}
+
+.blocksubtitle {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 10px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #000000;
+    margin: 0px;
+}
+
+.quartitle {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #333333;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #333333;
+}
+
+.loginfields {
+    font-family: Verdana, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: none;
+    word-spacing: normal;
+    color: #000000;
+    margin: 2px;
+}

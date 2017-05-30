@@ -1,0 +1,11 @@
+name=SURBL
+type=URIRBL
+dnsname=multi.surbl.org.
+sublist=127.0.0.2,SC_SURBL,SC SURBL blocklist
+sublist=127.0.0.4,WS_SURBL,WS SURBL blocklist
+sublist=127.0.0.8,PH_SURBL,PH SURBL blocklist
+sublist=127.0.0.16,OB_SURBL,OB SURBL blocklist
+sublist=127.0.0.32,AB_SURBL,AB SURBL blocklist
+sublist=127.0.0.64,JP_SURBL,JP SURBL blocklist
+sublist=127.0.0.\d+,SURBL,SURBL combined
+callonip=1

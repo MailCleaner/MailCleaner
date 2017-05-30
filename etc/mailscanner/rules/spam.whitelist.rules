@@ -1,0 +1,6 @@
+# This is where you can build a Spam WhiteList
+# Addresses matching in here, with the value
+# "yes" will never be marked as spam.
+#From:		152.78.		yes
+#From:		130.246.	yes
+FromOrTo:	default		no

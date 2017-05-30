@@ -1,0 +1,10 @@
+--- OO.pm.orig	2009-01-31 14:34:15.000000000 +0100
++++ OO.pm	2009-01-31 14:57:05.000000000 +0100
+@@ -1003,6 +1003,7 @@
+         } elsif($p->{type} eq "stack") {
+               # modified for backwards compatibility
+             push @$options, "AREA$draw_attributes:STACK";
++        } elsif ($p->{type} eq "none") { 
+         } else {
+             die "Invalid graph type: $p->{type}";
+         }

@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2015 Florian Billebault <florian.billebault@gmail.com>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#
+#   This script is a wrapper for mc_counts-cleaner allowing cleaning of old
+#   mailcleaner counts file smoothly over time.
+#
+#   Usage:
+#           mc_wrapper_auto-counts-cleaner
+#
+#   Notice: Should be called by cron every day and launched with a timeout as
+#   it could cause the load increase.
+
+weekday=`date +%-u`
+dayofmonth=`date +%-d`
+dayofmonth=$(( $dayofmonth-1 )) 
+alphamin=('a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z' '' '' '' '' '')
+
+dfilt=${alphamin[$dayofmonth]}
+ufilt=''
+
+case $weekday in
+"1") ufilt='[a-dA-D]';;
+"2") ufilt='[e-hE-H]';;
+"3") ufilt='[i-lI-L]';;
+"4") ufilt='[m-pM-P]';;
+"5") ufilt='[q-tQ-T]';;
+"6") ufilt='[u-zU-Z]';;
+"7") ufilt='';;
+"*") exit 1;;
+esac
+
+delay=$[ ( $RANDOM % 10 ) + 1 ]
+echo "`date`: Sleeping $delay minutes before cleaning of counts files" >> /var/mailcleaner/log/mailcleaner/mc_counts-cleaner.log
+sleep "$delay"m
+echo "`date`: Cleaning started" >> /var/mailcleaner/log/mailcleaner/mc_counts-cleaner.log
+( time timeout 5m /usr/mailcleaner/bin/mc_counts-cleaner -d "$dfilt*" -u "$ufilt" -o 365 -x ) >> /var/mailcleaner/log/mailcleaner/mc_counts-cleaner.log 2>&1 |wc -l >> /var/mailcleaner/log/mailcleaner/mc_counts-cleaner.log
+echo "`date`: Cleaning terminated" >> /var/mailcleaner/log/mailcleaner/mc_counts-cleaner.log
+exit 0

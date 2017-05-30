@@ -1,0 +1,45 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <?php echo $this->headTitle() ?>
+  <?php echo $this->headLink() ?>
+  
+  <?php echo $this->jQuery(); ?>
+
+
+<script type="text/javascript">
+//<![CDATA[
+           var lastline = <?php echo $this->lastline;?>;
+           var message = '';
+           var baseurl = '<?php echo $this->baseurl;?>';
+           var loadinghtml = '<img src="<?php echo $this->images_path;?>/loading.gif" alt="loading..." id="statusloadingimg" />';
+           var statusreload = 10000;
+           var quickstatusurl = '<?php echo $this->statusUrl;?>';
+           var statusrequest;
+           var initial_search = '<?php echo $this->initial_search?>';
+//]]>
+</script>
+  
+  <?php echo $this->headScript() ?>
+  
+</head> 
+<body>
+<div id="container">
+
+<div id="logviewpanel">
+<?php echo $this->t->_('loading...')?>
+</div>
+
+</div>
+</body>
+</html>

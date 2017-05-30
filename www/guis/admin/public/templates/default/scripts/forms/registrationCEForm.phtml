@@ -1,0 +1,38 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="localesettings">
+       <table class="ftable">
+	  <tr><td colspan="2"><p style="font-size:14px"><strong>Register as a Community Edition:</strong></p></td></tr>
+	  <tr><td colspan="2">You can get a free trial of our Enterprise Edition at any time. Don’t hesitate, visit us at: <a href="https://www.mailcleaner.net/antispam/test.html?own=Yes&premise=premises&trialvirtap=Yes" target="_blank">www.mailcleaner.net</a></td></tr>
+	  <tr><td colspan="2">By registering your MailCleaner you can:</td></tr>
+	  <tr><td colspan="2"><ul style="margin-left: 4%; list-style-type: disc;">
+		<li>Subscribe to our general newsletter</li>
+		<li>Subscribe to our technical newsletter (updates and releases)</li>
+		<li>Receive on a regular basis a <strong>free</strong> bayesian database (no real time update)</li>
+	  </ul></td></tr>
+	  <tr><td colspan="2"><strong>Your data will be treated as strictly confidential and not used commercially or redistributed.</strong></td></tr>
+          <?php echo $this->InputRow($this->form->getElement('first_name'));?>
+          <?php echo $this->InputRow($this->form->getElement('last_name'));?>
+          <?php echo $this->InputRow($this->form->getElement('email'));?>
+	  <?php echo $this->InputRow($this->form->getElement('company_name'));?>
+	  <?php echo $this->InputRow($this->form->getElement('address'));?>
+          <?php echo $this->InputRow($this->form->getElement('postal_code'));?>
+          <?php echo $this->InputRow($this->form->getElement('city'));?>
+          <?php echo $this->InputRow($this->form->getElement('country'));?>
+          <?php echo $this->InputRow($this->form->getElement('accept_newsletters'));?>
+          <?php echo $this->InputRow($this->form->getElement('accept_releases'));?>
+          <?php echo $this->InputRow($this->form->getElement('accept_send_statistics'));?>
+
+          <?php echo $this->SubmitRow($this->form->getElement('register_ce'));?>
+        
+       </table>
+     </fieldset>
+</form>

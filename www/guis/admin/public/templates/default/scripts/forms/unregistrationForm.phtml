@@ -1,0 +1,26 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="localesettings">
+       <table class="ftable">
+          <tr><td colspan="2"><p style="font-size:14px"><strong>Unregister your MailCleaner:</strong></p></td></tr>
+	  <?php if ($this->registered == 1) {?>
+		<tr><td colspan="2"><font color="red"><strong>WARNING:</strong></font> By unregistering your MailCleaner, you will lose all Enterprise Edition elements like RBLs, bayesians, spamassassin rules, etc...</td></tr>
+          <?php } else { ?>
+		<tr><td colspan="2"><font color="red"><strong>WARNING:</strong></font> By unregister your MailCleaner, you will lose all your custom elements !</td></tr>
+          <?php } ?>
+
+          <?php if ($this->registered == 1) {?>
+	  	<?php echo $this->InputRow($this->form->getElement('rsp'));?>
+	  <?php } ?>
+          <?php echo $this->SubmitRow($this->form->getElement('unregister'));?>
+       </table>
+     </fieldset>
+</form>

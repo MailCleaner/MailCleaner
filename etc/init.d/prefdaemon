@@ -1,0 +1,62 @@
+#!/usr/bin/perl -w
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#
+#   This script will compare the actual slave or master database with
+#   the up-to-date database from Mailcleaner Update Services
+#
+
+use strict;
+if ($0 =~ m/(\S*)\/prefdaemon$/) {
+  my $path = $1."/../../lib";
+  unshift (@INC, $path);
+}
+require ReadConfig;
+require DB;
+require PrefDaemon;
+
+my $command = shift;
+if (!defined($command)) {
+ printUsage();
+}
+
+if ($command eq "start") {
+  my $daemon = PrefDaemon::create();
+  $daemon->startDaemon();
+#  $daemon->getPref('HELO', 'starter');
+} elsif ($command eq "stop") {
+  my $daemon = PrefDaemon::create();
+  my $res = $daemon->getPref('EXIT', 'null');
+  my $pids = `pgrep -f PrefDaemon`;
+  exit if (!defined($pids) || $pids eq "");
+  foreach my $pid (split(/\n/, $pids)) {
+    `kill -KILL $pid 2>&1 > /dev/null`;
+  }
+  exit();
+} else {
+  printUsage();
+}
+
+
+
+sub printUsage {
+  print "Usage:\n";
+  print "prefdaemon (stop|start)\n";
+  exit 1;
+}

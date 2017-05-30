@@ -1,0 +1,328 @@
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+ 
+.hoststatusbloc {
+  margin-left: 16px;
+  margin-right: 16px;
+  min-width: 1058px;
+  max-width: 1200px;
+}
+
+.hoststatustable {
+  width: 100%;
+  border-top: solid 1px #C6ADC6;
+  border-left: solid 1px #C6ADC6;
+  padding: 0px;
+  white-space: nowrap;
+  border-spacing: 0px;
+  margin: 0px;
+  margin-bottom: 7px;
+  margin-top: 15px;
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+}
+
+.hoststatustable td {
+  padding: 0px;
+  white-space: nowrap;
+  border-bottom: solid 1px #C6ADC6;
+  border-right: solid 1px #C6ADC6;
+  border-spacing: 0px;
+  margin: 0px;
+  padding-left: 9px;
+  padding-right: 9px;
+  font-size: 11px;
+  font-weight: normal;
+  height: 18px;
+  line-height: 18px !important;
+  color: #535353;
+  vertical-align: top;
+}
+
+.hoststatushead {
+  height: 48px;
+  background-image:url(../images/quar_contentheader_bg.png);
+  overflow: hidden;
+  white-space: nowrap; 
+  text-align: left;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hoststatushead td {
+  margin: 0px !important;
+  padding: 0px !important;
+  line-height: 48px;
+  color: #552056;
+  font-size: 12px;
+  text-align: center;
+}
+
+.hoststatuscolumnhead td {
+  text-align:left;
+  line-height: 20px;
+  font-size: 11px;
+  font-weight: normal;
+  background-color: #F4F0F2;
+  height: 23px;
+  line-height: 23px !important;
+}
+
+.c_stats {
+  width: 350px !important;
+}
+
+.c_load {
+  width: 90px !important;
+}
+
+.c_disks {
+  width: 140px !important;
+}
+
+.c_memory {
+  width: 182px !important;
+}
+
+.c_spools {
+  width: 89px !important;
+}
+.c_processes {
+  width: 242px !important;
+}
+
+.statusdescr {
+  float: left;
+}
+.statusvalue {
+  display: block;
+  float: right;
+  min-width: 25px;
+  text-align: right !important;
+}
+.versionstatus {
+  min-width: 100px;
+  display: block;
+  text-align: right !important;
+}
+
+.procadvanced {
+  display: none;
+}
+
+.stopstartvalue {
+  min-width: 50px;
+}
+.stopstartvalue img {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+    vertical-align: middle;
+    margin-bottom: 1px;
+}
+	
+.diskusagebar {
+   display: block;
+   clear: none;
+   margin-left: auto;
+   margin-right: 5px;
+   margin-top: 4px;
+   width: 50px !important;
+   min-width: 50px !important;
+   height: 6px;
+   min-height: 6px;
+   border: 1px solid  #C6ADC6;
+}
+.diskused {
+  display: block;
+  float: left;
+  height: 6px;
+}
+
+.warningvalue {
+  color: #F48C30;
+}
+.criticalvalue {
+  color: #FF0000;
+}
+.normalvalue {
+  color: #000000;
+}
+.okvalue {
+  color: #58B737;
+}
+
+.showmorerow td {
+   text-align: center;
+   color: #BBBBBB;
+}
+.graprowresc p {
+	text-align: right;
+}
+.graprowrescp {
+    font-weight: bold;
+}
+	
+.statusvaluesrow td {
+   border-bottom: 0px !important;
+}
+
+.graphimg {
+}
+
+.pstatus {
+  text-align: center !important;
+  min-width: 60px;
+}
+.pstatus img {
+  width: 12px;
+  line-height: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+
+.spoolbloc {
+  margin-left: 15px;
+  margin-right: 16px;
+  min-width: 768px;
+}
+
+.c_spooldate {
+  width: 50px !important;
+  text-align: center;
+}
+.c_spoolfrom {
+  width: 200px !important;
+}
+.c_spoolsize {
+  width: 50px !important;
+  text-align: center !important;
+}
+.c_spoolstatus {
+  width: 100px !important;
+  text-align: center !important;
+}
+.c_spoolaction {
+  width: 50px !important;
+  text-align: center !important;
+}
+.c_spoolaction img {
+  width: 11px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+}
+.lastaction {
+  margin-right: 0px !important;
+}
+
+.spoolfrozen {
+   color: #FF0000;;
+}
+.spoolsending {
+   color: #000000;
+}
+.spoolfirstdelivery {
+   color: #0000CC;
+}
+.spoolinretries {
+   color: #00CC00;
+}
+
+.host_status_head {
+	width: 100%;
+}
+.host_status_head td {
+    border: none;
+}
+.host_status_head_info {
+	width: 55%;
+    text-align: right !important;
+}
+.host_status_head_value {
+    width: 45%;
+    text-align: left !important;
+}
+.stophoststatusimg {
+	width: 10px;
+	height: 10px;
+	border: none;
+	margin-left: 3px;
+}
+.hostbloc {
+  margin-left: 16px;
+  margin-right: 16px;
+  min-width: 1199px;
+  max-width: 1200px;
+}
+
+.hostpiegraph {
+  width: 150px;
+  margin-top: 25px;
+  margin-left: 15px;
+}
+.hostpiegraphbox {
+  float: left;
+  min-height: 200px;
+}
+.hostpiestatsbox {
+  max-width: 215px;
+  overflow: hidden;
+  min-height: 200px;
+}
+.hoststatstable {
+  float: right;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  line-height: 16px;
+}
+.hoststatstable td {
+  margin: 0px;
+  padding: 0px;
+}
+
+.hoststatsbullet td {
+  margin: 0px !important;
+  padding: 0px !important;
+  width: 2px !important;
+}
+.hoststatsbullet {
+  border-right: none !important;
+}
+
+.hoststatstablekey {
+  text-align: right;
+  border-right: 1px solid #C6ADC6;
+  padding: 1px !important;
+  padding-right: 7px !important;
+}
+.hoststatstablevalue {
+  text-align: left;
+  padding: 1px !important;
+  padding-left: 7px !important;
+  min-width: 50px;
+  border-right: none !important;
+}
+.hostsumrow {
+  border-top: 1px solid #C6ADC6 !important;
+  font-weight: bold !important;
+}
+
+.status_graph_img {
+  margin-top: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 5px;
+  border: 1px solid #AAAAAA;
+}
+
+.graph_place {
+  text-align: left;
+}
+
+.version {
+}

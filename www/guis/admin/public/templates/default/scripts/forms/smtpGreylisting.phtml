@@ -1,0 +1,33 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="companysettings">
+       <table class="ftable">
+ 
+          <tr>
+            <td class="flabel"><?php echo $this->t->_('Allowed retry interval')?> : </td>
+            <td class="fvalue">
+              <?php echo $this->t->_('between')?> 
+                <?php echo $this->InputRow($this->form->getElement('retry_min'),array('field_only'=>true,'nobox'=>true,'post_field_text'=>$this->t->_('seconds')));?>
+                <?php echo $this->t->_('and')?> 
+                <?php echo $this->InputRow($this->form->getElement('retry_max'),array('field_only'=>true,'nobox'=>true,'post_field_text'=>$this->t->_('seconds')));?>
+            </td>
+          </tr>
+          
+          <?php echo $this->InputRow($this->form->getElement('expire'),array('post_field_text'=>$this->t->_('seconds')));?>
+          
+          
+          <?php echo $this->InputRow($this->form->getElement('avoid_domains'),array('label_addclass'=>'flabeltextarea'));?>
+          
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+     </fieldset>
+ </form>

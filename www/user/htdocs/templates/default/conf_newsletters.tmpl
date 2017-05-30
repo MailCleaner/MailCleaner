@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>MailCleaner &ndash; __LANG_CONFIGURATIONMENU__</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+__INCLUDE__(config_meta.tmpl)
+    
+<!--[if gt IE 5]>
+<link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" />
+<![endif]-->
+        <link rel="stylesheet" href="templates/default/newsletters/js/jquery-ui.min.css">
+        <link rel="stylesheet" href="templates/default/newsletters/css/newsletters.css">
+        <script src="templates/default/newsletters/js/external/jquery/jquery.js"></script>
+        <script src="templates/default/newsletters/js/jquery-ui.min.js"></script>
+        <script src="templates/default/newsletters/js/newsletters.js"></script>            
+    </head>
+<body >
+__INCLUDE__(header.tmpl)
+<div id="pagecontent">
+<div id="generalconfigpanel">
+__INCLUDE__(config_menu.tmpl)
+
+<div id="generalconfigcontent">
+  <h3>__LANG_NEWSLETTERSSHORTHELP__</h3>
+    <table>
+        <tr>
+            <td>__LANG_NEWSLETTERSALLOW__</td>
+            <td><input type="checkbox" class="switch" name="allowNewsletters" id="allowNewsletters" disabled="disabled" /></td>
+        </tr>
+    </table>
+</div>
+__INCLUDE__(footer.tmpl)
+
+
+</body>
+</html>

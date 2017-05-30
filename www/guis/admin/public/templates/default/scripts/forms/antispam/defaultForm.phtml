@@ -1,0 +1,30 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="defaultssettings">
+       <table class="ftable">
+          <?php foreach (array('active', 'decisive', 'position') as $f) {?>
+            <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <?php echo $this->InputRow($this->form->getElement('timeOut'),array('post_field_text'=>$this->t->_('seconds')));?>
+          <?php echo $this->InputRow($this->form->getElement('maxSize'),array('post_field_text'=>$this->t->_('bytes')));?>
+                    
+          <tr>
+           <td colspan="2"><hr /></td>
+          </tr>
+          
+          <?php if ($this->form->getViewScriptFile() != '' ) { echo $this->partial($this->form->getViewScriptFile(), array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'images_path'=>$this->images_path)); }?>
+          
+           <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+     </fieldset>
+ </form>

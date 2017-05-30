@@ -1,0 +1,19 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php if ($this->previouspanel) { ?>
+<a href="<?php echo $this->searchurl?>/name/<?php echo $this->name?>/panel/<?php echo $this->previouspanel?>"
+ onclick="javascript:loadDomainPanel('<?php echo $this->previouspanel?>');return false;" >&lt;&lt; <?php echo $this->t->_('Previous step')?></a>
+<?php }?> 
+<?php if ($this->previouspanel && $this->nextpanel) {?>
+| 
+<?php }?>
+<?php if ($this->nextpanel) {?>
+<a href="<?php echo $this->searchurl?>/name/<?php echo $this->name?>/panel/<?php echo $this->nextpanel?>"
+ onclick="javascript:loadDomainPanel('<?php echo $this->nextpanel?>');return false;" ><?php echo $this->t->_('Next step')?> &gt;&gt;</a>
+<?php }?>

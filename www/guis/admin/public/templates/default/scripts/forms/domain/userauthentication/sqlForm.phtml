@@ -1,0 +1,15 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<td colspan="2">
+<table class="callouttable">
+<?php foreach (array('authserver', 'sqlusername', 'sqlpassword') as $f) {?>
+<?php echo $this->InputRow($this->form->getElement($f));?>
+<?php }?>
+</table>
+</td>

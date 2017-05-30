@@ -1,0 +1,19 @@
+Subject: =?iso-8859-1?Q?MailCleaner:_Solicitud_para_a=F1adir_una_direcci=F3n?=
+
+Solicitud para a=F1adir una direcci=F3na la cuenta MailCleaner
+
+El usuario __USER__ pide la adici=F3n de esta direcci=F3n (__ALIAS__) a su cuenta MailCleaner.
+Necesitamos una confirmaci=F3n para seguir tratanto su solicitud:
+
+- Si accepta la petici=F3n, por favor haga click aqu=ED: =
+__WEBBASEURL____VALIDATEQUERY__
+
+- Si rechaza la petici=F3n, por favor haga click aqu=ED: =
+__WEBBASEURL____REFUSEQUERY__
+
+Sin ninguna acci=F3n, esta solicitud ser=E1 suprimida de manera =
+autom=E1tica en los 24 horas.
+
+--------------------------------------------------------------------------------------
+Es un mensaje autom=E1tico generado por MailCleaner. Por favor no responde.
+M=E1s informaci=F3n en: __BASEURL__

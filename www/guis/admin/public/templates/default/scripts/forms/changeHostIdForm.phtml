@@ -1,0 +1,26 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="localesettings">
+       <table class="ftable">
+          <tr><td colspan="2"><p style="font-size:14px"><strong>Change Host ID:</strong></p></td></tr>
+	  <tr><td colspan="2"><font color="red"><strong>WARNING:</strong></font> Previously quarantined messages on THIS host will not be deliverable anymore. </td></tr>
+	  <tr><td colspan="2"><strong>REMINDER:</strong> Host ID should be unique in a MailCleaner cluster ! You have to remove your MailCleaner from the cluster before changing the Host ID</td></tr>
+          <?php echo $this->InputRow($this->form->getElement('host_id'));?>
+	  <?php if ($this->form->_registered == '1') {?>
+		<tr><td colspan="2">
+          		<span class="nokregister"><p style="text-align: center">Host ID can only be changed when MailCleaner is unregistered</p></span>
+		</td></tr>
+          <?php } ?>
+          <?php echo $this->SubmitRow($this->form->getElement('changehostid'));?>
+       </table>
+     </fieldset>
+</form>

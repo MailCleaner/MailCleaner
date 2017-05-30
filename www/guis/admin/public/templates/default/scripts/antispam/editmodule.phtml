@@ -1,0 +1,44 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div id="generalconfigpanel">
+<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
+ <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->module->getParam('name')?></p>
+
+
+<div class="subconfigmenu globalsubconfigmenu">
+ <ul>
+   <?php foreach ($this->config_menu as $menu) {?>
+  <li <?php if ($menu->class) { ?>class="<?php echo $menu->class?>"<?php }?> onclick="javascript:goTo('<?php echo $menu->getHref()?>');"><a href="<?php echo $menu->getHref()?>"><?php echo $menu->label;?></a></li>
+   <?php }?>
+ </ul>
+
+
+ <ul>
+ <li class="submenutitle"><?php echo $this->t->_('Anti-Spam modules'); ?></li>
+   <?php foreach ($this->modules as $module) {?>
+      <?php if ($module->getParam('visible') != 0) {?>
+         <li onclick="javascript:goTo('<?php echo $this->url(array('controller'=>'antispam','action'=>'editmodule','prefilter' => $module->getParam('name')))?>');" 
+	        class="<?php if ($module->getParam('active') < 1) { ?>disabledsubmenuitem<?php }?>
+		       <?php if ($module->getParam('name') == $this->module->getParam('name')) {?> generalconfigmenuselected<?php }?>"
+		              id="antispammodule_<?php echo $module->getParam('name');?>">
+			             <a href="<?php echo $this->url(array('controller'=>'antispam','action'=>'editmodule','prefilter' => $module->getParam('name')))?>">
+				              <?php echo  $module->getParam('position')?> - <?php echo $module->getParam('name');?>
+					             </a>
+						        </li>
+							   <?php }?>
+   <?php }?>
+ </ul>
+</div>
+    
+ <div id="generalconfigcontent">   
+    <div class="configpanel">
+       <?php echo $this->partial('forms/antispam/defaultForm.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'images_path'=>$this->images_path)); ?>
+   </div>
+ </div>
+</div>

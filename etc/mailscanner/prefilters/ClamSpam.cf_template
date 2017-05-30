@@ -1,0 +1,6 @@
+header=X-ClamSpam
+putHamHeader=1
+putSpamHeader=1
+clamdb=__SRCDIR__/share/clamspam
+configFile=__SRCDIR__/etc/clamav/clamspamd.conf
+maxSize=__MAXSIZE__

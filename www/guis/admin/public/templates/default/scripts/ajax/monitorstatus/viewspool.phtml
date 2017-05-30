@@ -1,0 +1,111 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+
+$spools = array(1 => 'incoming', 2 => 'filtering', 4 => 'outgoing');
+?>
+
+<?php echo $this->formatPeriod();?>
+<table class="hoststatustable spooltable" id='mainspooltable'>
+   
+  <tr class="hoststatushead spoolhead">
+   <td colspan="7">
+     <p><?php echo $this->t->_('Spool')?> : <strong><?php echo $this->t->_($spools[$this->spool]);?></strong> 
+        <?php echo $this->t->_('on host')?> : <?php echo $this->slave->getId()?> (<?php echo $this->slave->getHostname();?>)</p>
+   </td>
+ </tr>
+  <tr class="hoststatuscolumnhead">
+    <td colspan="6" class="c_title"><?php echo $this->nbmsgs." ".$this->t->_('messages')?><span id="reloading"></span>
+    </td>
+  </tr>
+  <tr class="hoststatuscolumnhead">
+      <td class="c_spooldate c_title"><?php echo $this->t->_('Time in queue')?></td>
+      <td class="c_spoolfrom c_title"><?php echo $this->t->_('From')?></td>
+      <td class="c_spoolto c_title"><?php echo $this->t->_('To')?></td>
+      <td class="c_spoolsize c_title"><?php echo $this->t->_('Size')?></td>
+      <td class="c_spoolstatus c_title"><?php echo $this->t->_('Status')?></td>
+      <td class="c_spoolaction c_title"><?php echo $this->t->_('Action')?></td>
+   </tr>
+   
+   <?php foreach ($this->msgs as $msg) {?>
+   
+   <tr>
+      <td class="c_spooldate"><?php echo $this->formatPeriod($msg['time_in_queue'])?></td>
+      <td class="c_spoolfrom"><span class="tooltipped"><?php echo $this->formatEmail($msg['from'])?>
+      <span class="tooltiptext">
+      <?php echo $this->formatEmail($msg['from'], array('global_length' => 0, 'localpart_length' => 0, 'domainpart_length' => 0));?></span>
+      </td>
+      <td class="c_spoolto"><span class="tooltipped"><?php echo $this->formatEmail($msg['to'], array('max_addresses' => 3, 'global_length' => 70))?>
+       <span class="tooltiptext"><?php echo $this->formatEmail($msg['to'], array('max_addresses' => 300, 'global_length' => 0, 'localpart_length' => 0, 'domainpart_length' => 0));?></span></span>
+      </td>
+      <td class="c_spoolsize"><?php echo $this->formatSize($msg['size'])?></td>
+      <td class="c_spoolstatus tooltipped" id='<?php echo $msg['id']?>'>
+          <?php if ($msg['sending']) { ?>
+                <span class="spoolsending"><?php  echo $this->t->_('sending'); ?>...</span>
+           <?php  } elseif ($msg['frozen']) { ?>
+                 <span class="spoolfrozen"><?php echo $this->t->_('frozen'); ?></span>
+           <?php  } elseif ($msg['first_delivery']) { ?>
+                  <span class="spoolfirstdelivery"><?php echo $this->t->_('first delivery'); ?></span>
+           <?php } else { ?> 
+                   <span class="spoolinretries"><?php echo $this->t->_('in retries');?></span>
+            <?php }
+          ?>
+          <span class="tooltiptext" id='log_<?php echo $msg['id'];?>'><?php echo implode('<br />', $msg['log']);?></span>
+      </td>
+      <td class="c_spoolaction">
+      <?php if (! $msg['sending']) {?>
+        <span id="d_<?php echo $msg['id'];?>" class="queuedelete tooltipped clickeable" ><img src="<?php echo $this->images_path?>/trash.png" />
+          <span class="tooltiptext"><?php echo $this->t->_('Delete message')?></span>
+        </span>
+    <!-- <span id="l_<?php echo $msg['id'];?>" class="queuelog tooltipped clickeable" ><img src="<?php echo $this->images_path?>/info.png" />
+          <span class="tooltiptext"><?php echo $this->t->_('View message log')?></span>
+        </span>
+    -->
+        <?php if ($this->spool != 2) {?>
+        <span id="t_<?php echo $msg['id'];?>" class="queuetry tooltipped clickeable" ><img class="lastaction" src="<?php echo $this->images_path?>/release.png" />
+          <span class="tooltiptext"><?php echo $this->t->_('Try to deliver')?></span>
+        </span>
+        <?php }?>
+       <?php }?>
+      </td>
+   </tr>
+   
+   <?php }?>
+ 
+   <?php if ($this->pages > 1) { ?>
+   <?php $nbprevnext = 5;?>
+   <tr class="spoolpagination">
+    <td colspan="2" class="pagenb">
+      <?php echo $this->t->_('Page')." ".$this->page." ".$this->t->_('of')." ".$this->pages?>
+    </td>
+    <td colspan="4" class="pagination">
+      <?php if ($this->prevoffset > -1) {?>
+        <?php if ($this->page > 2) { ?>
+           <a href="javascript:setPage(1);">&lt;&lt;</a>&nbsp;
+        <?php }?>
+        <a href="javascript:setPage(<?php echo $this->page-1;?>);">&lt;</a>&nbsp;
+      <?php }?>
+      
+    <?php $i=$this->page-$nbprevnext; $c=0;
+          while ($c++ < $nbprevnext) { if ($i > 0) { ?><a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a> | <?php } $i++;}
+     ?>      
+    <?php echo $this->page?>
+
+    <?php $i=$this->page; $c=0; while ($i++ < $this->pages && $c++ < $nbprevnext) { ?>
+        | <a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a>
+    <?php }?>   
+      
+      <?php if ($this->nextoffset > 0) {?> 
+        &nbsp;<a href="javascript:setPage(<?php echo $this->page + 1; ?>);">&gt;</a>
+        <?php if ($this->page < $this->pages - 1) { ?>
+          &nbsp;<a href="javascript:setPage(<?php echo $this->pages;?>);">&gt;&gt;</a>
+        <?php }?>
+      <?php }?>
+    </td>
+   </tr>
+   <?php }?>
+ </table>

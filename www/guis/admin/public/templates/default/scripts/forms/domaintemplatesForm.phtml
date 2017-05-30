@@ -1,0 +1,20 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+<fieldset>
+       <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
+       <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
+       <table class="ftable">
+          <?php foreach (array('web_template', 'summary_template', 'report_template') as $f) {?>
+            <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+       </table>
+</fieldset>

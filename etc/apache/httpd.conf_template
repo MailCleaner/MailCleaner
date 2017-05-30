@@ -1,0 +1,189 @@
+ServerRoot "/opt/apache2"
+PidFile __VARDIR__/run/httpd.pid
+
+ScoreBoardFile __VARDIR__/log/apache/httpd.scoreboard
+
+ServerSignature Off
+ServerTokens Prod
+
+Timeout __TIMEOUT__
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout __KEEPALIVETIMEOUT__
+HostnameLookups On
+
+<IfModule prefork.c>
+
+    Mutex posixsem mpm-accept
+
+    StartServers __STARTSERVERS__
+    MinSpareServers __MINSERVERS__
+    MaxSpareServers __MAXSERVERS__
+    # MaxClients (2.2) => MaxRequestWorkers (2.4)
+    MaxRequestWorkers 250
+    # MaxRequestsPerChild (2.2) => MaxConnectionsPerChild (2.4)
+    MaxConnectionsPerChild 20
+</IfModule>
+
+<IfModule worker.c>
+    StartServers __STARTSERVERS__
+    MinSpareThreads 75
+    MaxSpareThreads 250
+    ThreadsPerChild 25
+    # MaxClients (2.2) => MaxRequestWorkers (2.4)
+    MaxRequestWorkers 400
+    # MaxRequestsPerChild (2.2) => MaxConnectionsPerChild (2.4)
+    MaxConnectionsPerChild 20
+</IfModule>
+
+<IfModule event.c>
+    StartServers __STARTSERVERS__
+    MinSpareThreads 75
+    MaxSpareThreads 250
+    ThreadsPerChild 25
+    # MaxClients (2.2) => MaxRequestWorkers (2.4)
+    MaxRequestWorkers 400
+    # MaxRequestsPerChild (2.2) => MaxConnectionsPerChild (2.4)
+    MaxConnectionsPerChild 20
+</IfModule>
+
+User mailcleaner
+Group mailcleaner
+
+#LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+LoadModule mpm_itk_module modules/mpm_itk.so
+
+LoadModule php5_module		modules/libphp5.so
+#AddHandler php5-script php
+#AddModule mod_php5.c
+
+LoadModule alias_module			modules/mod_alias.so
+LoadModule auth_basic_module		modules/mod_auth_basic.so
+LoadModule auth_digest_module		modules/mod_auth_digest.so
+LoadModule authz_core_module		modules/mod_authz_core.so
+LoadModule authz_host_module		modules/mod_authz_host.so
+LoadModule authz_groupfile_module	modules/mod_authz_groupfile.so
+LoadModule authz_user_module		modules/mod_authz_user.so
+LoadModule cache_module			modules/mod_cache.so
+LoadModule charset_lite_module		modules/mod_charset_lite.so
+LoadModule dir_module			modules/mod_dir.so
+LoadModule env_module			modules/mod_env.so
+LoadModule log_config_module		modules/mod_log_config.so
+LoadModule mime_module			modules/mod_mime.so
+LoadModule mime_magic_module		modules/mod_mime_magic.so
+LoadModule rewrite_module		modules/mod_rewrite.so
+LoadModule setenvif_module		modules/mod_setenvif.so
+LoadModule socache_dbm_module		modules/mod_socache_dbm.so
+LoadModule ssl_module			modules/mod_ssl.so
+LoadModule unique_id_module		modules/mod_unique_id.so
+LoadModule unixd_module			modules/mod_unixd.so
+
+ServerAdmin __SERVERADMIN__
+ServerName __SERVERNAME__
+
+LimitUIDRange 0 2000
+LimitGIDRange 0 2000
+
+<Directory />
+    Options FollowSymLinks
+    AllowOverride None
+</Directory>
+
+<Directory "__SRCDIR__/www/user/htdocs">
+    Options -Indexes +FollowSymLinks +MultiViews
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<Directory "__SRCDIR__/www/guis">
+    AllowOverride All
+</Directory>
+<Directory "__SRCDIR__/www/api">
+    AllowOverride All
+</Directory>
+
+<IfModule mod_dir.c>
+    DirectoryIndex index.html index.php
+</IfModule>
+
+AccessFileName .htaccess
+
+<Files ~ "^\.ht">
+    Require all denied
+</Files>
+
+<Files ~ "\.phtml$">
+    Require all denied
+</Files>
+
+UseCanonicalName On
+
+<IfModule mod_mime_magic.c>
+    MIMEMagicFile /etc/opt/apache2/magic
+</IfModule>
+
+ErrorLog __VARDIR__/log/apache/error.log
+LogLevel warn
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" [pid %P]" combined
+LogFormat "%h %l %u %t \"%r\" %>s %b" common
+LogFormat "%{Referer}i -> %U" referer
+LogFormat "%{User-agent}i" agent
+
+CustomLog __VARDIR__/log/apache/access.log combined
+
+ServerSignature On
+
+<IfModule mod_mime.c>
+    AddLanguage en .en
+    AddCharset UTF-8        .utf8
+    <IfModule mod_negotiation.c>
+        LanguagePriority en
+    </IfModule>
+    AddType application/x-tar .tgz
+    AddEncoding x-compress .Z
+    AddEncoding x-gzip .gz .tgz
+</IfModule>
+<IfModule mod_setenvif.c>
+    BrowserMatch "Mozilla/2" nokeepalive
+    BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+    BrowserMatch "RealPlayer 4\.0" force-response-1.0
+    BrowserMatch "Java/1\.0" force-response-1.0
+    BrowserMatch "JDK/1\.0" force-response-1.0
+</IfModule>
+
+AddType application/x-httpd-php .php
+php_flag session.auto_start on
+php_value include_path ".:/opt/php5/lib/php:__SRCDIR__/www/classes:__SRCDIR__/www/includes:__SRCDIR__/www/framework"
+php_admin_flag safe_mode off
+php_value arg_separator.input "&;"
+php_value short_open_tag On
+php_value memory_limit 500M
+php_value soap.wsdl_cache_enabled 0
+#php_admin_value session.save_handler mm
+php_admin_value session.save_handler files
+php_admin_value session.save_path "/tmp/php_sessions"
+php_admin_value session.gc_maxlifetime 86400
+
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
+#AssignUserId mailcleaner mailcleaner
+
+Listen 5132
+<VirtualHost *:5132>
+    AssignUserId root mailcleaner
+
+    DocumentRoot "__SRCDIR__/www/soap/htdocs"
+    ErrorLog __VARDIR__/log/apache/error_soap.log
+    CustomLog __VARDIR__/log/apache/access_soap.log combined
+
+    KeepAlive Off
+    Alias /soap __SRCDIR__/www/soap/public
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+    RewriteRule .* - [F]
+</VirtualHost>
+
+Include __SRCDIR__/etc/apache/sites/*.conf

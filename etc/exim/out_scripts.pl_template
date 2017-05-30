@@ -1,0 +1,105 @@
+#!/usr/bin/perl
+
+use strict;
+use lib "__SRCDIR__/lib";
+use Email;
+use Digest::MD5 qw(md5_hex);
+require ReadConfig;
+
+
+sub wantTag {
+  my $local_part = shift;
+  my $domain_part = shift;
+  my $user = $local_part."@".$domain_part;
+
+  my $email = Email::create($user);
+  my $delivery_type = $email->getPref('delivery_type', 1);
+  if ($delivery_type == 1) {
+    return 1;
+  }
+  return 0;
+}
+
+sub getTaggedSubject {
+  my $local_part = Exim::expand_string('$local_part');
+  my $domain_part = Exim::expand_string('$domain');
+  my $subject = Exim::expand_string('$header_subject');
+  my $user = $local_part."@".$domain_part;
+  
+  my $email = Email::create($user);
+  my $tag = $email->getPref('spam_tag', '{Spam?}');
+  
+  $subject =~ s/{MC_SPAM}/$tag/;
+  return "Subject: ".$subject;
+}
+
+sub getPlainSubject {
+  my $subject = Exim::expand_string('$header_subject');
+  
+  $subject =~ s/{MC_SPAM}//;
+  return "Subject: ".$subject;
+}
+
+sub getNoNewsTagSubject {
+  my $subject = Exim::expand_string('$rh_subject');
+  
+  $subject =~ s/{MC_NEWS}//;
+  return "Subject:".$subject;
+}
+
+sub isBlacklisted {
+  # Get parameters values
+  my $local_part  = shift;
+  my $domain_part = shift;
+  my $sender      = Exim::expand_string('$sender_address');
+  my $sender_body = Exim::expand_string('$header_From');
+  my $user        = $local_part . "@" . $domain_part;
+
+  my $email = Email::create($user);
+  my $blacklisted = ($email->hasInWhiteWarnList('blacklist', $sender) || $email->hasInWhiteWarnList('blacklist', $sender_body));
+  my $header_status = Exim::expand_string('$header_X-MailCleaner-Status'); 
+  my $blacklist_hash = getBlacklistedFlag($local_part, $domain_part);
+
+  if ($header_status =~ m/\Q$blacklist_hash/ && $blacklisted) {
+	return 0;
+  } 
+  else {
+	return $blacklisted;
+  }
+
+}
+
+## Generate md5 sum flag for blacklisted
+sub getBlacklistedFlag {
+  my $local_part  = shift;
+  my $domain_part = shift;
+  my $sender      = Exim::expand_string('$sender_address');
+  my $sender_body = Exim::expand_string('$header_From');
+  my $user        = $local_part . "@" . $domain_part;
+
+  my $email = Email::create($user);
+
+  # The blacklist works on MAIL FROM (SMTP) and FROM Body
+  my $blacklisted = $email->hasInWhiteWarnList('blacklist', $sender_body);
+  if ($blacklisted)  {
+     $sender = $sender_body; 
+  }
+
+  my $conf = ReadConfig::getInstance();
+  my $client_id = $conf->getOption('CLIENTID');
+  my $blacklist_digest = $client_id . $sender . $client_id;
+
+  return md5_hex($blacklist_digest);
+}
+
+sub quarantineBounce {
+  my $local_part = shift;
+  my $domain_part = shift;
+  my $user = $local_part."@".$domain_part;
+  
+  my $email = Email::create($user);
+  my $quarbounce = $email->getPref('quarantine_bounces', 0);  
+
+  return $quarbounce;
+}
+

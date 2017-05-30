@@ -1,0 +1,51 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+ <fieldset id="filter" class="statfiler">
+<div class="addressselectpanel">
+    <?php echo $this->t->_('Analyzed data')?> :
+    <span id="searchfields">
+      <?php echo $this->InputRow($this->form->getElement('search'),array('field_only'=>true,'nobox'=>true));?> @ </span>
+      <?php echo $this->InputRow($this->form->getElement('domain'),array('field_only'=>true,'nobox'=>true));?>
+
+  <div class="subadvsearch">
+    <div>
+    <?php echo $this->InputRow($this->form->getElement('top'),array('nobox'=>true));?>
+    </div>
+   </div>
+</div>
+
+<div class="searchpanel contentsearchpanel">
+  <div class="searchfields searchsubmit">
+    <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+  </div>
+  <div class="searchfields">
+    <div class="subsearch subsearchdate">
+        <img src="<?php echo $this->images_path;?>/loupe.png" alt="<?php echo $this->t->_('search');?>" />
+      <?php echo $this->t->_('From')?> 
+      <?php echo $this->InputRow($this->form->getElement('fd'),array('field_only'=>true,'nobox'=>true));?>
+      <?php echo $this->InputRow($this->form->getElement('fm'),array('field_only'=>true,'nobox'=>true));?>
+      <?php echo $this->t->_('to')?> 
+      <?php echo $this->InputRow($this->form->getElement('td'),array('field_only'=>true,'nobox'=>true));?>
+      <?php echo $this->InputRow($this->form->getElement('tm'),array('field_only'=>true,'nobox'=>true));?>
+    </div>
+    <div class="subsearch subsearchdate">
+      <?php echo $this->InputRow($this->form->getElement('sort'),array('nobox'=>true));?>
+    </div>
+
+  </div>
+</div>
+</fieldset>
+
+</form>
+
+
+<div id="statsbloc" class='stats'>
+<p class="descmessage"><?php echo $this->t->_('Please select request parameters in the filter panel above')?>.</p>
+</div>

@@ -1,0 +1,19 @@
+From: $to
+To: $from
+Subject: Ongevraagde mail geweigerdUnrequested mail rejected
+X-%org-name%-MailScanner: generated
+
+U hebt naar ons een mail bericht verstuurd dat niet gevraagd werd en werd
+daarom verworpen. Gelieve geen mails meer naar ons te sturen naar dit adres:
+  To: $to
+  Subject: $subject
+  Date: $date
+
+Als je vragen hebt hierover, of als je denkt dat je dit bericht niet voor jou bestemd is,
+gelieve dan de systeembeheerder te contacteren.
+
+-- 
+MailScanner
+Email Virus Scanner
+%org-long-name%
+%web-site%

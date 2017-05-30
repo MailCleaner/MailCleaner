@@ -1,0 +1,16 @@
+DatabaseDirectory __VARDIR__/spool/clamav
+UpdateLogFile __VARDIR__/log/clamav/freshclam.log
+
+#LogVerbose
+#LogSyslog
+#LogFacility LOG_MAIL
+
+DatabaseMirror database.clamav.net
+MaxAttempts 3
+Checks 12
+
+#HTTPProxyServer __HTTPPROXY__
+#HTTPProxyPort __HTTPPROXYPORT__
+#HTTPProxyUsername __HTTPPROXYUSER__
+#HTTPProxyPassword __HTTPPROXYPASSWORD__
+

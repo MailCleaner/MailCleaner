@@ -1,0 +1,13 @@
+Subject: MailCleaner: Blockierungswarnung
+
+Eine Meldung aus __SENDER__ wurde in der MailCleaner Quarant=E4ne zurückgehalten.
+
+Wenn Sie meinen, es sei ein Fehler und Sie diese Meldung erhalten m=F6chten, klicken Sie bitte hier: __BASEURL__/fm.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+(Um den Administrator zu informieren, klicken Sie bitte hier: __BASEURL__/send_to_analyse.php?id=2D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__)
+
+Ohne Reaktion Ihrerseits, wird die Meldung in der Quarant=E4ne bleiben.
+
+--------------------------------------------------------------------------------------
+Diese Meldung wurde von MailCleaner automatisch erstellt. Beantworten Sie es bitte nicht.
+F=FCr weitere Informationen: __BASEURL__

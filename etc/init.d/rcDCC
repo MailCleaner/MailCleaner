@@ -1,0 +1,122 @@
+#!/bin/sh
+
+# chkconfig: 2345 40 80
+# description: rcDCC is a startup script for DCC  \
+#	       http://www.rhyolite.com/anti-spam/dcc
+# processname: dccd
+# processname: dccm
+# processname: dccifd
+
+# start or stop dccd, dccifd, and dccm for Solaris, System V, IRIX, 
+#   Redhat Linux, or FreeBSD
+
+# dccm must be started before sendmail and stopped after sendmail to avoid
+#   complaints from sendmail
+# dccd must be should before the first mail message arrives
+# Thus on some Solaris systems, this script can be installed as
+#   rc0.d/K37DCC  rc1.d/K37DCC  rc2.d/S88DCC  rcS.d/K37DCC
+# On some Linux systems it can be installed as rc.d/init.d/DCC and linked
+#   to rc.d/rc0.d/K31DCC rc.d/rc1.d/K31DCC rc.d/rc2.d/S80DCC rc.d/rc3.d/S80DCC
+#   rc.d/rc4.d/S80DCC rc.d/rc5.d/S80DCC and rc.d/rc6.d/K31DCC
+# On older FreeBSD systems a line like
+#	    /var/dcc/libexec/rcDCC start
+#	can be added to /etc/rc just before sendmail is started and a line like
+#	    /var/dcc/libexec/rcDCC stop
+#	can be added to /etc/rc.shutdown.
+#   On 4.5 and newer FreeBSD systems, make a symbolic link from this file 
+#	to /etc/rc.d/rcDCC.sh
+
+
+# This script is suitable only for simple installations with no or a single
+#   dccd process listening to the default port.
+
+
+# Copyright (c) 2004 by Rhyolite Software
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND RHYOLITE SOFTWARE DISCLAIMS ALL
+# WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL RHYOLITE SOFTWARE
+# BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES
+# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+# WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+# ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+# SOFTWARE.
+#	Generated automatically from rcDCC.in by configure.
+
+
+if [ ! -e /etc/init.d/dcc-client ]; then
+DCC_HOMEDIR=/var/opt/dcc
+if [ ! -d /var/opt/dcc ]; then
+  DCC_HOMEDIR=/var/dcc
+fi
+
+  . $DCC_HOMEDIR/dcc_conf
+  if test -z "$DCC_RUNDIR" -a ! -z "$DCCM_RUNDIR"; then
+    # deal with old dcc_conf files
+    DCC_RUNDIR="$DCCM_RUNDIR"
+  fi
+fi
+
+DEBUG=
+if test "X$1" = "X-x"; then
+    set -x
+    DEBUG=-x
+    shift
+fi
+
+case "$1" in
+start)
+    if [ -e /etc/init.d/dcc-client ]; then
+      /etc/init.d/dcc-client start
+      exit $?
+    fi
+    echo -n "  Starting DCC daemon: "
+#	$DCC_LIBEXEC/start-dccd $DEBUG
+	$DCC_LIBEXEC/start-grey $DEBUG >/dev/null 2>&1
+#	$DCC_LIBEXEC/start-dccm $DEBUG
+	$DCC_LIBEXEC/start-dccifd $DEBUG >/dev/null 2>&1
+	echo "started."
+	;;
+
+stop)
+    if [ -e /etc/init.d/dcc-client ]; then
+      /etc/init.d/dcc-client stop
+      exit $?
+    fi
+	# stop dccm and dccifd
+	echo -n "  Stopping DCC daemon: "
+	for PID in `cat $DCC_RUNDIR/dcc*.pid $DCC_HOMEDIR/dcc*.pid \
+		    2>/dev/null`; do
+#	    signal the process group because on Linux systems it does not work
+#	    to signal the main process.  See `man sigwait` on a Linux system.
+	    /bin/kill -15 $PID >/dev/null 2>&1
+	done
+	# stop dccd
+	$DCC_LIBEXEC/stop-dccd $DEBUG >/dev/null 2>&1
+	$DCC_LIBEXEC/stop-dccd -G $DEBUG >/dev/null 2>&1
+	echo "stopped."
+	;;
+
+restart|reload)
+	# for Linux
+	$0 $DEBUG stop
+	$0 $DEBUG start
+	exit $?
+	;;
+
+probe)
+	# for Linux
+	echo $DEBUG restart
+	;;
+
+*)
+	echo "Usage: $0 {start|stop|restart|reload|probe}"
+	exit 1
+	;;
+
+esac
+exit 0

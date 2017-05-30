@@ -1,0 +1,66 @@
+#! /bin/sh
+# /etc/init.d/snmpd: start snmp daemon.
+
+export PATH=$PATH:/sbin:/usr/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+DAEMON=/usr/snmp/sbin/snmpd
+if [ ! -e $DAEMON ]; then
+  DAEMON=/usr/sbin/snmpd
+fi
+
+SNMPDOPTS='-Lsd -Lf /tmp/snmpd.log -c '$SRCDIR'/etc/snmp/snmpd.conf -C udp6:161 udp:161'
+
+prepare () {
+   if [ -f /etc/init.d/snmpd ]; then
+     /etc/init.d/snmpd stop 2>&1 >/dev/null
+   fi
+   $SRCDIR/bin/dump_snmpd_config.pl 2 >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+    touch $VARDIR/run/snmpd.start.rs
+    echo -n "  Starting SNMP daemon: "
+    prepare
+    start-stop-daemon --quiet --start --exec $DAEMON \
+            -- $SNMPDOPTS >/dev/null 2>&1
+    echo "started."
+    if [ -f $VARDIR/run/snmpd.rn ]; then
+      rm $VARDIR/run/snmpd.rn
+    fi
+    rm $VARDIR/run/snmpd.stopped >/dev/null 2>&1
+    rm $VARDIR/run/snmpd.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/snmpd.stop.rs
+    echo -n "  Stopping SNMP daemon: "
+    start-stop-daemon --quiet --stop --exec $DAEMON
+    SNMPDPID=`pgrep -f snmpd.conf`
+    if [ ! "$SNMPDPID" = "" ]; then
+      kill -KILL $SNMPDPID >/dev/null 2>&1
+    fi
+    echo "stopped."
+    rm $VARDIR/run/snmpd.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/snmpd.stopped
+    ;;
+  restart|reload|force-reload)
+    touch $VARDIR/run/snmpd.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/snmpd {start|stop|restart|reload|force-reload}"
+    exit 1
+esac
+
+exit 0

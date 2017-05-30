@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>mailcleaner</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+  </head>
+<body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+<center>
+<br/>
+<table  border="0" cellpadding="1" cellspacing="0" bgcolor="#333333"><tr><td>
+<table width="100%" border="0" cellpadding="1" cellspacing="2" class="blocktitle" bgcolor="#FFFFFF">
+<tr>
+ <td align="right">__LANG_HOST__:</td>
+ <td align="left" bgcolor="#FFFFFF">__HOSTNAME__</td>
+</tr>
+<tr>
+ <td align="right">__LANG_LASTPATCH__:</td>
+ <td align="left" bgcolor="#FFFFFF">__LASTPATCH__</td>
+</tr>
+<tr>
+ <td colspan="2" align="center" bgcolor="#FFFFFF"><a href="__LINK_REFRESH__" target="_self">__LANG_REFRESH__</a> |
+ <a href="__LINK_FORCEUPDATE__" target="_self">__LANG_FORCEUPDATE__</a></td>
+</tr>
+</table></td></tr></table>
+<font color="red">__ERROR__</font><br/><font color="red">__MESSAGE__</font><br/>
+<!--<table width="90%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333" id="bigblock"><tr><td> 
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="blocktitle">
+<tr>
+  <td align="center">-->
+  <center>
+__DEFAULT__ LOG_LINES = 10
+__BEGIN_VIEW_FORM__
+<textarea cols="60" rows="14">__VIEW_PATCHES_LOG__</textarea>
+__CLOSE_VIEW_FORM__
+
+<!--  </td>
+</tr>
+</table></td></tr>
+</table><br/>-->
+<form><input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__"></form>
+<br/>
+
+</body>
+</html>

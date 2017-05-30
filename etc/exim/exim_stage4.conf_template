@@ -1,0 +1,351 @@
+######################################################################
+#                    MAIN CONFIGURATION SETTINGS                     #
+######################################################################
+
+VARDIR = __VARDIR__
+SRCDIR = __SRCDIR__
+
+ARCHIVERDIR = VARDIR/spool/tmp/exim_stage1/archiver
+COPYTODIR = VARDIR/spool/tmp/exim_stage1/copyto
+
+hide mysql_servers = localhost::(VARDIR/run/mysql_slave/mysqld.sock)/mc_config/mailcleaner/__DBPASSWD__
+
+primary_hostname = mailcleaner
+qualify_domain = __HELO_NAME__
+smtp_active_hostname = __HELO_NAME__
+smtp_banner = __SMTP_BANNER__
+__IF__ ERRORS_REPLY_TO
+errors_reply_to = __ERRORS_REPLY_TO__
+__FI__
+
+log_selector = +smtp_confirmation +delivery_size
+message_logs = true
+exim_user = mailcleaner
+exim_group = mailcleaner
+log_file_path = __IF_USE_SYSLOGENABLED__ VARDIR/log/exim_stage4/%slog
+pid_file_path = VARDIR/run/exim_stage4.pid
+spool_directory = VARDIR/spool/exim_stage4
+never_users = root
+__IF_USE_SYSLOG__
+
+host_lookup = 
+rfc1413_hosts = 
+rfc1413_query_timeout = 0s
+acl_smtp_rcpt = acl_check_rcpt
+ignore_bounce_errors_after = 0s
+timeout_frozen_after = 1h
+
+__IF__ USETLS
+tls_advertise_hosts = *
+tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+tls_require_ciphers = ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2
+__FI__
+
+local_interfaces = 127.0.0.1
+daemon_smtp_port = 2525
+return_path_remove = true
+accept_8bitmime = true
+message_size_limit = __GLOBAL_MAXMSGSIZE__
+
+received_headers_max = __MAX_RECEIVED__
+received_header_text = "Received: \
+        ${if def:sender_rcvhost {from ${sender_rcvhost}\n\t}\
+         {${if def:sender_ident {from ${sender_ident} }}\
+         ${if def:sender_helo_name {(helo=${sender_helo_name})\n\t}}}}\
+         by $primary_hostname stage4 \
+         ${if def:received_protocol {with ${received_protocol}}} \n\t\
+         with id ${message_id} ${if def:received_for {\n\tfor <$received_for>}} ${if def:sender_address {\n\tfrom <$sender_address>}}"
+
+domainlist local_domains = @
+domainlist relay_to_domains = wildlsearch;VARDIR/spool/tmp/mailcleaner/domains.list
+domainlist forward_by_mx = wildlsearch;VARDIR/spool/tmp/mailcleaner/domains_to_mx.list
+domainlist domains_require_tls_to = VARDIR/spool/tmp/mailcleaner/domains_require_tls_to.list
+hostlist   relay_from_hosts = 127.0.0.1
+
+perl_at_start = true
+perl_startup = do '__SRCDIR__/etc/exim/out_scripts.pl'
+
+######################################################################
+#                       ACL CONFIGURATION                            #
+#         Specifies access control lists for incoming SMTP mail      #
+######################################################################
+
+begin acl
+
+acl_check_rcpt:
+
+  accept  hosts = 127.0.0.1 :
+  deny    domains       = +local_domains
+          local_parts   = ^[.] : ^.*[@%!/|]
+  deny    domains       = !+local_domains
+          local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
+  accept  domains       = +local_domains
+          endpass
+#          verify        = recipient
+  accept  domains       = +relay_to_domains
+          endpass
+  accept  hosts         = +relay_from_hosts
+  accept  authenticated = *
+  deny    message       = relay not permitted
+          
+######################################################################
+#                      ROUTERS CONFIGURATION                         #
+#               Specifies how addresses are handled                  #
+######################################################################
+begin routers
+
+filter_newsletter:
+  driver = accept
+  transport = spam_store
+  condition = ${if  match {$header_subject:}{\{MC_NEWS\}} {yes}{no} }
+  headers_remove = Subject
+  headers_add = "${perl{getNoNewsTagSubject}}"
+  headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
+
+filter_blacklist:
+  driver = accept
+  condition = ${if >{${perl{isBlacklisted}{$local_part}{$domain}}}{0} }
+  #condition = ${if ! match {$header_X-MailCleaner-Status:}{\{${perl{getBlacklistedFlag}{$local_part}{$domain}}\}} {yes}{no} }
+  transport = spam_store
+  headers_add = X-MailCleaner-Status: Blacklisted (${perl{getBlacklistedFlag}{$local_part}{$domain}})
+  headers_remove = X-MailCleaner-Status
+
+__IF__ TAGMODEBYPASSWHITELISTS
+filter_checktag_mx:
+  driver = dnslookup
+  transport = remote_smtp
+  domains = !@ : +forward_by_mx
+  condition = ${if and \
+                  { \
+                     {match {$header_subject:}{^\{MC_SPAM\}}} \
+                     { >{${perl{wantTag}{$local_part}{$domain}}}{0} } \
+                  }{yes}{no} \
+                }
+                
+  headers_remove = X-MailCleaner-Bounce:subject
+  headers_add = "${perl{getTaggedSubject}}"
+  headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
+#  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+
+filter_checktag:
+  driver = manualroute
+  transport = remote_smtp
+  domains = !@ : +relay_to_domains
+  route_data = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains.list}}
+  hosts_randomize = true
+  condition = ${if and \
+                  { \
+                     {match {$header_subject:}{^\{MC_SPAM\}}} \
+                     { >{${perl{wantTag}{$local_part}{$domain}}}{0} } \
+                  }{yes}{no} \
+                }
+  headers_remove = X-MailCleaner-Bounce:subject
+  headers_add = "${perl{getTaggedSubject}}"
+  headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
+#  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+__FI__
+    
+filter_checkspam:
+  driver = accept
+  transport = spam_store
+  condition = ${if  match {$header_subject:}{^\{MC_SPAM\}} {yes}{no} }
+  headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
+
+filter_checkbounces:
+  driver = accept
+  transport = spam_store
+  condition = ${if and \
+                   { \
+                     { eq {$sender_address}{} } \
+                     { >{${perl{quarantineBounce}{$local_part}{$domain}}}{0} } \
+                   }{yes}{no} \
+               }
+  headers_add = X-MailCleaner-Bounce: bounce message
+
+__IF__ USEARCHIVER
+archiver_route:
+  debug_print = "R: archiver_route for $domain"
+  driver = manualroute  
+  condition = ${if eq{${local_part}@${domain}}{$original_local_part@$original_domain}}
+  local_parts = ${if exists{ARCHIVERDIR/${domain}} {nwildlsearch;ARCHIVERDIR/${domain}} {} }
+  transport = archiver_smtp_transport
+  route_list = * __ARCHIVER_HOST__
+  self = send
+  unseen
+  no_verify
+__FI__ 
+
+copyto_route:
+  debug_print = "R: copyto_route for ${local_part}@${domain}"
+  driver = redirect
+  check_ancestor
+  qualify_preserve_domain
+  headers_add = X-MailCleaner-CopyTo: this is a message copy (original recipient: ${original_local_part}@${original_domain})
+  data = ${if \
+            exists{COPYTODIR/${domain}} \
+             {${lookup{$local_part}nwildlsearch{COPYTODIR/${domain}}} } \
+             {}\
+          }
+  condition = ${if and { \
+                  { exists{COPYTODIR/${domain}} } \
+                  { !eq{${local_part}@${domain}}{${lookup{$local_part}nwildlsearch{COPYTODIR/${domain}}}} } } \
+                }}
+  unseen
+  repeat_use = false
+  no_verify
+
+filter_forward_mx:
+  driver = dnslookup
+  transport = remote_smtp
+  domains = !@ : +forward_by_mx
+  headers_remove = X-MailCleaner-Bounce
+  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+
+filter_forward:
+  driver = manualroute
+  transport = remote_smtp
+  domains = !@ : +relay_to_domains
+  route_data = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains.list}}
+  hosts_randomize = true
+  headers_remove = X-MailCleaner-Bounce
+  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+
+dnslookup_gateway:
+  driver = manualroute 
+  domains = ! +local_domains : ! +relay_to_domains
+  condition = ${if exists{VARDIR/spool/mailcleaner/smtp_proxy.conf}{yes}{no}}
+  transport = remote_smtp
+  route_list = wildlsearch;;VARDIR/spool/mailcleaner/smtp_proxy.conf $value
+  ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+
+dnslookup:
+  driver = dnslookup
+  domains = ! +local_domains : ! +relay_to_domains
+  transport = remote_smtp
+  ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+
+####################
+## local deliveries
+system_aliases:
+  driver = redirect
+  allow_fail
+  allow_defer
+  data = ${lookup{$local_part}lsearch{/etc/aliases}}
+  file_transport = address_file
+  pipe_transport = address_pipe
+  
+userforward:
+  driver = redirect
+  check_local_user
+  file = $home/.forward
+  no_verify
+  no_expn
+  check_ancestor
+  file_transport = address_file
+  pipe_transport = address_pipe
+  reply_transport = address_reply
+  
+localuser:
+  driver = accept
+  check_local_user
+  transport = local_delivery
+  cannot_route_message = Unknown user
+  
+######################################################################
+#                      TRANSPORTS CONFIGURATION                      #
+######################################################################
+begin transports
+
+stockme:
+  driver = appendfile
+  create_directory = yes
+  user = mailcleaner
+  group = mailcleaner
+  
+spam_pipe:
+  driver = pipe
+  user = mailcleaner
+  group = mailcleaner
+  log_output = true
+  environment = "PERLLIB=__SRCDIR__/lib"
+  command = "__OUTSCRIPT__ $message_id $local_part $domain $sender_address"
+
+spam_store:
+  driver = appendfile
+  user = mailcleaner
+  group = mailcleaner
+  mode = 640
+  mailstore_format
+  create_directory = true
+  directory = VARDIR/spool/exim_stage4/spamstore
+
+spam_transport:
+  driver = appendfile
+  user = mailcleaner
+  group = mailcleaner 
+  mode = 640
+
+remote_smtp:
+  driver = smtp
+  helo_data = __HELO_NAME__
+  max_rcpt = __MAX_RCPT__
+  multi_domain = false
+  final_timeout = 120s
+  data_timeout = 120s
+  connect_timeout = 30s
+__IF__ USETLS
+  hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to} {*}{__HOSTS_REQUIRE_TLS__} }
+__FI__
+
+####################
+## local deliveries
+local_delivery:
+  driver = appendfile
+  file = /var/mail/$local_part
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+
+address_pipe:
+  driver = pipe
+  return_output
+  
+address_file:
+  driver = appendfile
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+  
+address_reply:
+  driver = autoreply
+
+archiver_smtp_transport:
+  debug_print = "T: archiving mail for $local_part@$domain"
+  driver = smtp
+  helo_data = __HELO_NAME__
+  port = __ARCHIVER_PORT__
+  allow_localhost 
+__IF__ USETLS
+  hosts_require_tls = __HOSTS_REQUIRE_TLS__
+__FI__
+  
+######################################################################
+#                      RETRY CONFIGURATION                           #
+######################################################################
+
+begin retry
+
+*                      tls_required
+*                      *           __RETRY_RULE__
+
+######################################################################
+#                      REWRITE CONFIGURATION                         #
+######################################################################
+begin rewrite
+
+######################################################################
+#                   AUTHENTICATION CONFIGURATION                     #
+######################################################################
+begin authenticators
+

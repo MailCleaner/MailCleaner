@@ -1,0 +1,55 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="companysettings">
+       <table class="ftable">
+          <?php foreach (array('verify_sender', 'smtp_enforce_sync') as $f) {?>
+           <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <?php echo $this->InputRow($this->form->getElement('callout_timeout'),array('post_field_text'=>$this->t->_('seconds').'<input type="button" id="clearcalloutbutton" value="'.$this->t->_('Clear cache now...').'" />'));?>
+          
+          <?php foreach (array('allow_mx_to_ip') as $f) {?>
+           <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
+          
+          <?php foreach (array('reject_bad_spf', 'reject_bad_rdns', 'dmarc_follow_reject_policy') as $f) {?>
+           <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <tr>
+            <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Check connecting hosts against RBLs')?> : </td>
+            <td class="fvalue fvaluechecklist">
+             <?php foreach ($this->form->_rbl_checks as $check) {?>
+               <?php echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()."<br />"))?>
+             <?php }?>
+            </td>
+          </tr>
+          
+          <?php echo $this->InputRow($this->form->getElement('rbls_ignore_hosts'),array('label_addclass'=>'flabeltextarea'));?>
+          
+          <?php echo $this->InputRow($this->form->getElement('rbls_timeout'),array('post_field_text'=>$this->t->_('seconds')));?>
+          
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
+          <?php foreach (array('outgoing_virus_scan', 'mask_relayed_ip', 'masquerade_outgoing_helo', 'dmarc_enable_reports') as $f) {?>
+           <?php echo $this->InputRow($this->form->getElement($f));?>
+          <?php }?>
+          
+          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+     </fieldset>
+ </form>

@@ -1,0 +1,16 @@
+Dit is een bericht van Mailcleaner
+----------------------------------
+De originele bijlage "$filename" staat op de lijst
+van niet-toegelaten attachments voor deze site en werd vervangen
+door deze waarschuwing.
+
+Als je een kopie wilt ontvangen van de originele bijlage, gelieve dan de
+beheerder op $localpostmaster te mailen en het volledige bericht mee te sturen
+in je aanvraag. Je kan hen ook bellen, maar zorg dan dat je de inhoud
+van dit bericht bij de hand hebt.
+
+Op $date zei de virus scanner:
+$report
+Bericht aan Administrator: $hostname in $datenumber/$id
+-- 
+Mailcleaner

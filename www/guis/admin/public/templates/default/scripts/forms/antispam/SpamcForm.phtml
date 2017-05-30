@@ -1,0 +1,51 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+
+<?php foreach (array('use_bayes', 'use_fuzzyocr', 'use_imageinfo', 'use_pdfinfo', 'use_botnet', 'dmarc_follow_quarantine_policy') as $f) {?>
+<?php echo $this->InputRow($this->form->getElement($f));?>
+<?php }?>
+
+    <?php echo $this->InputRow($this->form->getElement('use_rbls'),
+         array('post_field_text'=> 
+                    $this->InputRow($this->form->getElement('rbls_timeout'), array('label_only'=>true,'nobox'=>true)).
+                    $this->InputRow($this->form->getElement('rbls_timeout'), array('field_only'=>true,'nobox'=>true,'post_field_text'=>$this->t->_('seconds'))))
+    );?>
+    
+<tr id="iprbls" class="<?php echo $this->form->_rbls_class?>">
+    <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Using these DNS RBLs')?> : </td>
+    <td class="fvalue fvaluechecklist">
+    <?php foreach ($this->form->_ip_rbls as $check) {?>
+      <?php echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()));?><br />
+    <?php }?>
+    </td>
+</tr>
+
+<tr id="urirbls" class="<?php echo $this->form->_rbls_class?>">
+    <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Using these URI RBLs')?> : </td>
+    <td class="fvalue fvaluechecklist">
+    <?php foreach ($this->form->_uri_rbls as $check) {?>
+      <?php echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()))?><br />
+    <?php }?>
+    </td>
+</tr>
+
+<?php foreach (array(
+        'use_dcc' => 'dcc_timeout', 
+        'use_razor' => 'razor_timeout',
+        'use_pyzor' => 'pyzor_timeout',
+        'use_spf' => 'spf_timeout', 
+        'use_dkim' => 'dkim_timeout',
+       ) as $f => $tf) {?>
+       
+     <?php echo $this->InputRow($this->form->getElement($f),
+         array('post_field_text'=> 
+                    $this->InputRow($this->form->getElement($tf), array('label_only'=>true,'nobox'=>true)).
+                    $this->InputRow($this->form->getElement($tf), array('field_only'=>true,'nobox'=>true,'post_field_text'=>$this->t->_('seconds'))))
+      );?>
+<?php }?>

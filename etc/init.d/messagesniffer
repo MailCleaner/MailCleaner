@@ -1,0 +1,329 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          SNFServer
+# Required-Start:    $syslog $remote_fs $network $named
+# Should-Start: $time ypbind smtp
+# Required-Stop:     $syslog $remote_fs
+# Should-Stop: $time ypbind smtp
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: SNFServer providing email filtering.
+# Description:       Start SNFServer to filter email for spam,
+#	blacklist IP addresses, etc.
+### END INIT INFO
+#
+# snf-server	Starts and stops the SNFServer daemon (Ubuntu).
+#
+# Author: Alban Deniz
+#
+# Copyright (C) 2008 ARM Research Labs, LLC.
+# See www.armresearch.com for the copyright terms.
+#
+
+####
+## Olivier Diserens, for MailCleaner
+###
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+if [ ! -d $VARDIR/spool/messagesniffer ];then 
+  mkdir $VARDIR/spool/messagesniffer
+  chown snfuser:snfuser $VARDIR/spool/messagesniffer
+fi
+
+if [ ! -d $VARDIR/log/messagesniffer ];then 
+  mkdir $VARDIR/log/messagesniffer
+  chown snfuser:snfuser $VARDIR/log/messagesniffer
+fi
+
+if [ ! -d $VARDIR/run/messagesniffer ];then
+  mkdir $VARDIR/run/messagesniffer
+  chown snfuser:snfuser $VARDIR/run/messagesniffer
+fi
+
+prepare () {
+  $SRCDIR/bin/dump_messagesniffer_config.pl >/dev/null 2>&1
+
+  if [ ! -f $VARDIR/spool/messagesniffer/GBUdbIgnoreList.txt ]; then
+    cp /opt/messagesniffer/share/snf-server/GBUdbIgnoreList.txt.sample $VARDIR/spool/messagesniffer/GBUdbIgnoreList.txt
+  fi
+  cp /opt/messagesniffer/share/snf-server/*.snf $VARDIR/spool/messagesniffer/
+}
+## End Mailcleaner
+
+# Directory to run in.
+runDir=$VARDIR/spool/messagesniffer
+
+# Define mode files.
+debugModeFile=$runDir/debug_mode
+productionModeFile=$runDir/production_mode
+
+# Set debug mode flag.
+if [ -f $debugModeFile ]
+then
+    debugMode=true
+fi
+
+# Debug output file.
+debugOutputFile=$VARDIR/log/messagesniffer/debug.log
+
+# Location of installation.
+installedDir="/opt/messagesniffer"
+
+# Location of programs.
+dir="$installedDir/sbin"
+
+# Name of config file.
+configFile="$SRCDIR/etc/messagesniffer/SNFServer.xml"
+
+# Name of daemon.
+debugProg="SNFDebugServer"
+productionProg="SNFServer"
+
+# Name of client.
+clientProg="SNFClient"
+
+# Name of user to run as.
+userName="snfuser"
+
+# Name of group.
+groupName=$userName
+
+# Name of lockfile.
+lockFile="$VARDIR/run/messagesniffer/$productionProg"
+
+# Name of client.
+clientProg="SNFClient"
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+DESC="SNFServer providing email filtering"
+NAME="snf-server"
+
+DEBUG_DAEMON="/usr/bin/strace"
+DEBUG_DAEMON_ARGS="-r -tt -v $dir/$debugProg $configFile"
+
+PRODUCTION_DAEMON=$dir/$productionProg
+PRODUCTION_DAEMON_ARGS="$configFile"
+
+SCRIPTNAME=/etc/init.d/$NAME
+
+# Exit if the package is not installed
+[ -x "$PRODUCTION_DAEMON" ] || exit 0
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+# Load the VERBOSE setting and other rcS variables
+[ -f /etc/default/rcS ] && . /etc/default/rcS
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+
+#
+# Function to create the mode file.
+#
+createModeFile()
+{
+    fileName=$1
+
+    # Remove any existing mode files.
+    rm -f $productionModeFile $debugModeFile $fileName
+    (
+	echo "snf-server mode file"
+	echo
+	echo "This file specifies whether snf-server is configured to run in"
+	echo "production mode or debug mode.  If the name of this file is"
+        echo "'production_mode', then snf-server is configured to run in"
+        echo "production mode.  If the name is 'debug_mode', then snf-server is"
+        echo "configured to run in debug mode."
+	echo
+	echo "To run in debug mode:"
+	echo
+	echo "    1) Run 'snf-server debug_mode'"
+	echo
+	echo "    2) Run 'snf-server restart' (if snf-server is already running),"
+	echo "       or 'snf-server start' (to start snf-server)"
+	echo
+	echo "To run in production mode:"
+	echo
+	echo "    1) Run 'snf-server production_mode'"
+	echo
+	echo "    2) Run 'snf-server restart' (if snf-server is already running),"
+	echo "       or 'snf-server start' (to start snf-server)"
+	echo
+	echo "By default, snf-server is configured to run in production mode."
+	) > $fileName
+
+}
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+	# Return
+	#   0 if daemon has been started
+	#   1 if daemon was already running
+	#   2 if daemon could not be started
+
+	start-stop-daemon --chuid $userName --start --quiet \
+	    --exec $PRODUCTION_DAEMON --test > /dev/null 2>&1 \
+	    || return 1
+
+	if [ $debugMode ]
+	then
+
+	    # Enable core dumps.
+	    ulimit -c unlimited
+
+	    # Add date to the debug file.
+	    echo "Starting $DEBUG_DAEMON $DEBUG_DAEMON_ARGS on " $(date) >> \
+		$debugOutputFile
+            chown $userName:$groupName $debugOutputFile
+
+	    # Start with output redirected.
+	    start-stop-daemon --chuid $userName --start --quiet \
+		--chdir $runDir \
+		--exec $DEBUG_DAEMON -- $DEBUG_DAEMON_ARGS >> \
+		$debugOutputFile 2>&1 \
+		|| return 2 &
+	else
+echo $PRODUCTION_DAEMON $PRODUCTION_DAEMON_ARGS
+	    start-stop-daemon --chuid $userName --start --quiet \
+		--chdir $runDir \
+		--background --exec $PRODUCTION_DAEMON -- \
+		$PRODUCTION_DAEMON_ARGS > /dev/null 2>&1 || return 2
+	fi
+
+	# Check that process started.
+	$dir/$clientProg -status.second > /dev/null 2>&1
+	RETVAL=$?
+	if [ $RETVAL -ne 0 ]; then
+	    RETVAL=2
+	fi
+	return $RETVAL
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+	# Return
+	#   0 if daemon has been stopped
+	#   1 if daemon was already stopped
+	#   2 if daemon could not be stopped
+	#   other if a failure occurred
+        # Check whether SNFServer is running.
+	start-stop-daemon --chuid $userName --start --quiet \
+	    --exec $PRODUCTION_DAEMON --test > /dev/null
+	RETVAL=$?
+
+	if [ $RETVAL -ne 1 ]; then
+	    return 1
+	fi
+
+	# Issue shutdown command
+	$dir/$clientProg -shutdown > /dev/null 2>&1
+	sleep 10
+
+        # Check again whether SNFServer is running.
+	start-stop-daemon --chuid $userName --start --quiet \
+	    --exec $PRODUCTION_DAEMON --test > /dev/null
+	RETVAL=$?
+
+	if [ $RETVAL -eq 1 ] ; then
+	    # Send TERM signal to stop SNFServer.
+	    start-stop-daemon --stop --quiet --retry=TERM/5 --exec $PRODUCTION_DAEMON
+	    RETVAL="$?"
+	    [ "$RETVAL" = 2 ] && return 2
+	    return "$RETVAL"
+	fi
+
+	# SNFServer isn't running.
+	return 0
+
+}
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "  Starting $DESC" "$NAME"
+        prepare
+	do_start
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  stop)
+	[ "$VERBOSE" != no ] && log_daemon_msg "  Stopping $DESC" "$NAME"
+	do_stop
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  status)
+	start-stop-daemon --chuid $userName --start --quiet \
+	    --exec $PRODUCTION_DAEMON --test > /dev/null
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+	    # Stopped
+	    echo "$productionProg is stopped"
+	else
+	    # Running
+	    echo "$productionProg (pid $(pidof $PRODUCTION_DAEMON)) is running"
+	fi
+	;;
+  restart|force-reload)
+	#
+	# If the "reload" option is implemented then remove the
+	# 'force-reload' alias
+	#
+	log_daemon_msg "Restarting $DESC" "$NAME"
+	do_stop
+	case "$?" in
+	  0|1)
+		prepare
+		do_start
+		case "$?" in
+			0) log_end_msg 0 ;;
+			1) log_end_msg 1 ;; # Old process is still running
+			*) log_end_msg 1 ;; # Failed to start
+		esac
+		;;
+	  *)
+	  	# Failed to stop
+		log_end_msg 1
+		;;
+	esac
+	;;
+  debug_mode)
+	#
+	# Remove any mode flags, and create the debug_mode file.
+	#
+	log_daemon_msg "Switching to debug mode $DESC" "$NAME"
+	createModeFile $debugModeFile
+	;;
+  production_mode)
+	#
+	# Remove any mode flags, and create the production_mode file.
+	#
+	log_daemon_msg "Switching to production mode $DESC" "$NAME"
+	createModeFile $productionModeFile
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload|production_mode|debug_mode}" >&2
+	exit 3
+	;;
+esac

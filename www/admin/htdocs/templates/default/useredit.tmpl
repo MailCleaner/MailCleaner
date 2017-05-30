@@ -1,0 +1,55 @@
+__FORM_BEGIN_USEREDIT__
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+ <tr class="infoBoxHeading">
+  <td width="40%" align="left" colspan="2">__LANG_USER__: __USER__&nbsp;&nbsp;__DOC_USERSETTINGS__</td>
+ </tr>
+ <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__SAVE_STATUS____USER_STATUS__</font></td></tr>
+
+ <tr class="infoBoxContent"><td colspan="2"><b>__LANG_PREFERENCES__</b></td></tr>
+
+ <tr class="infoBoxContent" valign="middle">
+  <td width="20%" align="right">__LANG_LANGUAGE__:&nbsp;</td>
+  <td width="80%" align="left">__FORM_INPUTLANGUAGE__</td>
+ </tr>
+
+ __IF__ LOCALUSER
+ <tr class="infoBoxContent" valign="middle">
+  <td width="20%" align="right">__LANG_PASSWORD__:&nbsp;</td>
+  <td width="80%" align="left">__FORM_INPUTPASSWORD__</td>
+ </tr>
+ <tr class="infoBoxContent" valign="middle">
+  <td width="20%" align="right">__LANG_REALNAME__:&nbsp;</td>
+  <td width="80%" align="left">__FORM_INPUTREALNAME__</td>
+ </tr>
+ __FI__ LOCALUSER
+ <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+ <tr class="infoBoxContent"><td colspan="2"><b>__LANG_EMAILS__</b></td></tr>
+
+ <tr class="infoBoxContent" valign="middle">
+   <td width="20%" align="right">__LANG_ADDRESSES__:&nbsp;</td>
+   <td width="80%" align="left">__FORM_INPUTADDRESSES__
+__IF__ CANMODIFYADDRESSLIST
+<a href="__LINK_SETASMAIN__"><img src="/templates/default/images/analyse.gif" border="0" alt="__LANG_SETASMAIN__" valign="abs_middle"></a>   
+<a href="__LINK_REMOVEADDRESS__"><img src="templates/default/images/erase.gif" border="0" alt="__LANG_REMOVEADDRESS__" valign="abs_middle"></a>
+__FI__ CANMODIFYADDRESSLIST
+   
+   </td>
+ </td>
+
+__IF__ CANMODIFYADDRESSLIST
+ <tr class="infoBoxContent" valign="middle">
+   <td width="20%" align="right">__LANG_ADDADDRESS__:&nbsp;</td>
+   <td width="80%" align="left">__FORM_INPUTADDADDRESS__</td>
+ </tr>
+__FI__ CANMODIFYADDRESSLIST
+ 
+ <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+ <tr class="infoBoxContent"><td colspan="2" align="center" valign="middle"><a href="__RESETUSER_LINK__"><img src="templates/default/images/erase.gif" border="0" alt="__LANG_RESETUSER__" valign="abs_middle">__LANG_RESETUSER__</a>
+ <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+ <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif">&nbsp;</td></tr>
+
+</table>
+__FORM_CLOSE_USEREDIT__

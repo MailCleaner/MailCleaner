@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <title>Antispam configuration</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+    
+    <script language="javascript">
+    function openWhite() {
+        window.document.open('__LINK_EDITWHITELIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+    }
+    function openWarn() {
+        window.document.open('__LINK_EDITWARNLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+    }
+    function openBlack() {
+        window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+    }
+
+    function disableRow(row) {
+      classtype = "infoBoxContentDisabled";
+      rowid = 'module_'+row;
+      negid = 'modules_neg_decisive_'+row+'_cb';
+      posid = 'modules_pos_decisive_'+row+'_cb';
+      if (window.document.getElementById(rowid).className == classtype) {
+        classtype="infoBoxContent";
+       // window.document.getElementsByName(negid)[0].disabled=false;
+       // window.document.getElementsByName(posid)[0].disabled=false;
+     }
+      window.document.getElementById(rowid).className = classtype;
+       // window.document.getElementsByName(negid)[0].disabled = true;
+       // window.document.getElementsByName(posid)[0].disabled = true;
+     }
+     
+     function editpf(pf) {
+        window.document.open('__LINK_EDITPREFILTER__'+pf, '', 'width=750,height=700,toolbar=no,resizable=yes');
+     }
+</script>
+    
+  </head>
+
+<body onLoad="javascript:__RELOAD_NAV_JS__">
+<center>
+<br/>
+__FORM_BEGIN_GLOBAL__
+<table width="60%" border="0" cellpadding="2" cellspacing="0">
+
+  <tr class="infoBoxHeading">
+    <td width="40%" align="left" colspan="2">__LANG_ANTISPAMSETTINGS__&nbsp;&nbsp; __DOC_ANTISPAMTITLE__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__GLOBALSSAVE_STATUS__</font></td></tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+ 
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_FRIENLDYLANGUAGES__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTFRIENDLYLANGUAGES__</td>
+  </tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right" valign="top">__LANG_TRUSTEDIPS__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTTRUSTEDIPS__</td>
+  </tr>
+    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ENABLEWHITELIST__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTENABLEWHITELIST__&nbsp;&nbsp;&nbsp;<a href="javascript:openWhite();">__LANG_EDITSYSTEMWHITELIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
+  </tr>
+   <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ENABLEBLACKLIST__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTENABLEBLACKLIST__&nbsp;&nbsp;&nbsp;<a href="javascript:openBlack();">__LANG_EDITSYSTEMBLACKLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
+  </tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ENABLEWARNLIST__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTENABLEWARNLIST__&nbsp;&nbsp;&nbsp;<a href="javascript:openWarn();">__LANG_EDITSYSTEMWARNLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ENABLESYSLOG__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTUSESYSLOG__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+</table>
+__FORM_CLOSE_GLOBAL__
+
+
+__DEFAULT__ EMPTYARROW_IMG = <img src="templates/default/images/rankempty.gif" border="0">
+__DEFAULT__ UPARROW_IMG = <img src="templates/default/images/rankup.gif" border="0">
+__DEFAULT__ DOWNARROW_IMG = <img src="templates/default/images/rankdown.gif" border="0">
+
+__TMPL_MODULESSLIST_START__
+<tr id="__ROWID__" class="__ROWSTYLE__">
+  <td width="10%">&nbsp;</td>
+  <td width="20px" align="center">__ACTIVE__</td>
+  <td align="left"><b>__POSITION__</b>&nbsp;<a href="__DOWNLINK__">__DOWN_ARROW__</a><a href="__UPLINK__">__UP_ARROW__</a></td>
+  <td width="30%" align="left">__NAME__</td>
+  <td align="center">__NEG_DECISIVE__</td>
+  <td align="center">__POS_DECISIVE__</td>
+  <td width="20px" align="right"><nobr><a href="javascript:editpf('__POSITION__')"><img src="images/pencil.gif"></a></nobr></td>
+  <td width="10%">&nbsp;</td>
+</tr>
+__TMPL_MODULESSLIST_STOP__ 
+
+
+__FORM_BEGIN_MODULES__
+<table width="60%" border="0" cellpadding="5" cellspacing="0">
+
+  <tr class="infoBoxHeading">
+    <td width="40%" align="left" colspan="8">__LANG_MODULES__&nbsp;&nbsp;__DOC_ANTISPAMMODULES__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="8" align="center"><font color="red">__MODULESMESSAGE__</font></td></tr>
+  <tr class="infoBoxContent">   
+    <td>&nbsp;</td>
+    <td width="50px" align="center">__LANG_MACTIVE__</td>
+    <td align="left">__LANG_POSITION__</td>
+    <td align="left">__LANG_MODULE__</td>
+    <td width="20px" align="center">__LANG_NEGDECISIVE__</td>
+    <td width="20px" align="center">__LANG_POSDECISIVE__</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+ <tr class="infoBoxContent"><td></td><td colspan="6" background="images/hline.gif"></td><td></td></tr>
+__MODULESLIST_DRAW__
+
+  <tr class="infoBoxContent"><td colspan="8">&nbsp;</td></tr>
+  <tr class="infoBoxHeading"><td colspan="8" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+</table>
+__FORM_CLOSE_MODULES__
+</body>
+</html>

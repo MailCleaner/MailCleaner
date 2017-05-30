@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+
+## pushed format must be
+## address(,user)
+
+use strict;
+use lib "__SRCDIR__/lib";
+use Net::SMTP;
+require ReadConfig;
+require DB;
+
+my $ret = '';
+my $domain = shift;
+my $sender = shift;
+my $recipient = shift;
+
+my $conf = ReadConfig::getInstance();
+
+my $afile = $conf->getOption('VARDIR')."/spool/mailcleaner/addresses/".$domain.".addresslist";
+
+open AFILE, ">".$afile or die "Cannot open destination file: $afile";
+
+my $in_headers = 1;
+my $full_text = '';
+while (<>) {
+  if (/^\s*$/) {
+    $in_headers = 0;
+  }
+  next if $in_headers;
+
+  $full_text .= $_;
+
+  if (/([^@,]+)\@$domain([,;])?(\S+)?/) {
+    print AFILE $1;
+#    if ($2 && $3) {
+#      print AFILE ",".$3;
+#    }
+    print AFILE "\n";
+  }
+}  
+close AFILE;
+
+print "OK ".$ret." - address list saved in $afile\n";
+
+if ($conf->getOption('ISMASTER') =~ m/^(Y|y|yes|YES)$/) {
+  my $slave_db = DB::connect('slave', 'mc_config');
+  my @masters = $slave_db->getListOfHash("SELECT hostname from master");
+  my @slaves = $slave_db->getListOfHash("SELECT hostname from slave");
+  foreach my $s (@slaves) {
+    my $do = 1;
+    foreach my $m (@masters) {
+      if ($m->{'hostname'} eq $s->{'hostname'}) {
+        $do = 0;
+      }
+      if ($do) {
+        sendToSlave($s->{'hostname'});
+      }
+    }
+  }
+}
+
+exit 0;
+
+sub sendToSlave {
+  my $slave = shift;
+
+  my $smtp = Net::SMTP->new($slave);
+  if (!$smtp) {
+    print STDERR "Cannot connect to $slave for propagating address list\n";
+    return 0;
+  }
+  $smtp->mail($sender);
+  $smtp->to($recipient);
+  my $err = $smtp->code();
+  if ($err > 299) {
+    print STDERR "Cannot send propagation message to $slave, error code: $err\n";
+    return 0;
+  }
+  $smtp->data();
+  $smtp->datasend($full_text);
+  $smtp->dataend();
+  $err = $smtp->code();
+  if ($err < 300) {
+    print "Porpagation done to $slave\n";
+    return 1;
+  }
+  print STDERR "Propagation failed to $slave\n";
+  return 0;
+}

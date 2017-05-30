@@ -1,0 +1,20 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php echo $this->InputRow($this->form->getElement('spamhits'));?>
+
+<tr>
+    <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Using these RBLs')?> : </td>
+    <td class="fvalue fvaluechecklist">
+    <?php foreach ($this->form->_rbl_checks as $check) {?>
+      <?php echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()))?><br />
+    <?php }?>
+    </td>
+    <?php echo $this->InputRow($this->form->getElement('avoidgoodspf'),array('label_addclass'=>'flabeltextarea'));?>
+    <?php echo $this->InputRow($this->form->getElement('avoidhosts'),array('label_addclass'=>'flabeltextarea'));?>
+</tr>

@@ -1,0 +1,51 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div id="generalconfigpanel">
+  <p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
+  <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Users')?></p>
+
+  <div id="domainnavigpanel">
+     <div id="searchpanel" class="addbutton usersearchpanel">
+      <form method="<?php echo $this->searchForm->getMethod() ?>" action="<?php echo $this->searchForm->getAction()?>" id="<?php echo $this->searchForm->getId()?>">
+        <p id="searchlabel"><?php echo $this->t->_('Search by')?> : <?php echo $this->inputRow($this->searchForm->getElement('type'), array('field_only'=>true,'nobox'=>true));?></p>
+        <p id="usersearchlabel"><?php echo $this->t->_('Enter username and select domain')?> : </p>
+        <p id="emailsearchlabel"><?php echo $this->t->_('Enter email address')?> : </p>
+        <p>
+           <?php echo $this->inputRow($this->searchForm->getElement('search'),array('field_only'=>true,'nobox'=>true));?> @ <?php echo $this->inputRow($this->searchForm->getElement('domain'),array('field_only'=>true,'nobox'=>true));?>
+        </p>
+        <p id="useraddbutton">
+          <?php echo $this->SubmitRow($this->searchForm->getElement('submit'),array('nobox'=>true,'field_only'=>true))?>
+        </p>
+      </form>
+    </div>
+    <div id="resultpanel">
+   <?php echo $this->partial('ajax/user/search.phtml', array(
+                         'elements' => $this->elements,
+                         'search' => $this->search,
+                         'username' => $this->username,
+                         'elementscount' => $this->elementscount,
+                         'page' => $this->page,
+                         'lastpage' => $this->lastpage,
+                         'images_path' => $this->images_path,
+                         'domain' => $this->domain,
+                         'searchurl' => $this->searchurl,
+                         't' => $this->t,
+                         'type' => $this->type,
+                         'elementdatafield' => $this->elementdatafield )); ?>
+    </div>
+  </div>
+ 
+  <div id="domaincontentpanel">
+    <div id="userconfigpanel" class="domainconfigpanel">
+    <p class="descmessage"><?php echo $this->t->_('Please select or add a user using the navigation panel on the left')?>.</p>
+ <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+    </div>
+  </div>
+ 
+</div>

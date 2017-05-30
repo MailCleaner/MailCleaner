@@ -1,0 +1,61 @@
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2016 Florian Billebault <florian.billebault@gmail.com>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#   General Newsletter rules: language independant rules
+
+uri		MC_NEWS_URINEWSL	/\bnewsletter?\b/i
+score		MC_NEWS_URINEWSL	2.00
+
+uri		MC_NEWS_URIUNSUB	/unsubscribe/i
+score		MC_NEWS_URIUNSUB	2.00
+
+uri		MC_NEWS_URILISTMNG	/list-manage/i
+score		MC_NEWS_URILISTMNG	2.00
+
+uri		MC_NEWS_URICAMPAIGN	/campaign/i
+score		MC_NEWS_URICAMPAIGN	2.00
+
+uri		MC_NEWS_URIPHPLIST	/php?list/i
+score		MC_NEWS_URIPHPLIST	2.00
+
+header		MC_NEWS_HSBJNEWS	Subject =~ /\bnews\b/i
+score		MC_NEWS_HSBJNEWS	2.0
+
+header		MC_NEWS_HFRMNEWSL	From =~ /newsletter/i
+score		MC_NEWS_HFRMNEWSL	3.0
+
+header		MC_NEWS_HFRMNEWS	From =~ /news/i
+score		MC_NEWS_HFRMNEWS	2.0
+
+header		MC_NEWS_HFRMNOREPLY	From =~ /no?reply/i
+score		MC_NEWS_HFRMNOREPLY	2.0
+
+header		MC_NEWS_HLISTUNSUB1	List-Unsubscribe =~ /mailto:/i
+score		MC_NEWS_HLISTUNSUB1	1.0
+
+header		MC_NEWS_HLISTUNSUB2	List-Unsubscribe =~ /http:/i
+score		MC_NEWS_HLISTUNSUB2	1.0
+
+header		MC_NEWS_HREPLYTO	Reply-To =~ /no?reply@/i
+score		MC_NEWS_HREPLYTO	2.0
+
+header		MC_NEWS_HSBJANSWERS	Subject =~ /^(RE|SV|Antw|VS|AW|R|RIF|SV|YNT):/i
+score		MC_NEWS_HSBJANSWERS	-3.0
+
+header		MC_NEWS_HSBJFORWARD	Subject =~ /^(FWD|FW|VS|Doorst|VL|TR|WG|I|FS|TRS|VS|VB|RV|ENC|PD):/i
+score		MC_NEWS_HSBJFORWARD	-3.0
+

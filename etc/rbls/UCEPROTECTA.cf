@@ -1,0 +1,4 @@
+name=UCEPROTECTA
+type=IPRBL
+dnsname=dnsbl-1.uceprotect.net
+sublist=127.0.0.d+,UCEPROTECTA,dnsbl-1.uceprotect.net list

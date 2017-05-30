@@ -1,0 +1,20 @@
+This is a message from the Mailcleaner
+--------------------------------------
+The original e-mail message contained potentially dangerous content,
+which has been removed for your safety.
+
+The content is dangerous as it is often used to spread viruses or to gain
+personal or confidential information from you, such as passwords or credit
+card numbers.
+
+If you wish to receive a copy of the original email, please folow
+this link : <a href="http://www.mailcleaner.net/support/support-request.html">MailCleaner Support</a> and provide :
+- Domain protected name
+- Your email address
+- Retrieval code
+
+At $date the content filters said:
+$report
+Note to Help Desk: $hostname in $datenumber/$id
+-- 
+Mailcleaner

@@ -1,0 +1,49 @@
+[mysqld]
+tmpdir		= /tmp
+port		= 3306
+user		= mysql
+expire-logs-days = 21
+
+skip-external-locking
+key_buffer_size = 384M
+max_allowed_packet = 1M
+table_open_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache_size = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 4
+
+innodb_data_home_dir = __VARDIR__/spool/mysql_master/
+innodb_file_per_table
+innodb_log_group_home_dir = __VARDIR__/spool/mysql_master/
+innodb_log_file_size = 100M
+innodb_log_buffer_size = 8M
+innodb_flush_log_at_trx_commit = 1
+innodb_lock_wait_timeout = 10
+
+binlog-do-db=mc_config
+binlog-ignore-db=mc_stats
+binlog-ignore-db=mc_spool
+server-id=__MASTERID__
+log-bin=mc___MASTERID__-bin
+
+[isamchk]
+key_buffer = 128M
+sort_buffer_size = 128M
+read_buffer = 2M
+write_buffer = 2M
+
+[myisamchk]
+key_buffer = 128M
+sort_buffer_size = 128M
+read_buffer = 2M
+write_buffer = 2M
+
+[mysqldump]
+quick
+max_allowed_packet = 16M
+

@@ -1,0 +1,4 @@
+<!-- Change licenseid and authentication attributes to match your license info -->
+<snf><identity licenseid='__LICENSEID__' authentication='__AUTHENTICATION__'/></snf>
+
+

@@ -1,0 +1,114 @@
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+ 
+#logviewpanel {
+  width: 1030px;
+  height: 380px;
+  margin: 10px;
+  padding-right: 21px;
+}
+#logviewpanel p {
+   margin: 0px;
+   padding: 5px;
+   font-family: "Courier New";
+   font-size: 12px !important;
+   line-height: 14px;
+   white-space: nowrap;
+   overflow: auto;
+   background-color: #FFFFFF;
+   border: 1px solid #000000;
+   border-left: none;
+}
+
+#logviewpanel strong {
+  background-color: yellow;
+}
+.firstmatch {
+  background-color: #FF9966 !important;	
+}
+
+#logviewnavig {
+  float:right;
+  margin-right: -21px;
+  height: 376px;
+  width: 21px;
+  background-color: #DDD6DD;
+  border-left: 1px solid #000000;
+  padding: 2px;
+}
+
+#logviewnavig img {
+   border: 0px;
+   margin: 0px;
+   margin-bottom: 3px;
+   padding: 0px;
+}
+
+#pageupfirst {
+   position: absolute;
+   top: 6px;
+}
+#pageup {
+   position: absolute;
+   top: 31px;
+}
+#pagedownlast {
+   position: absolute;
+   bottom: 3px;
+}
+#pagedown {
+   position: absolute;
+   bottom: 27px;
+}
+
+#logtextsearch {
+   float: left;
+}
+#logtextsearch_value {
+   width: 250px;
+}
+
+#linesshown {
+   float: right;
+   text-align: right;
+}
+#loglinefrom_value {
+   width: 50px;
+   text-align: right;
+}
+#logpercent_value {
+   width: 25px;
+   text-align: right;
+}
+#loglines {
+   float: left;
+   margin: 0px;
+   padding: 5px;
+   font-family: "Courier New";
+   font-size: 12px !important;
+   line-height: 14px;
+   white-space: nowrap;
+   overflow: hidden;
+   color: #777777;
+   background-color: #EEEEEE;
+   border: 1px solid #000000;
+   border-right: none;
+   height: 40px;
+}
+#linesnavig {
+}
+#searchpanel {
+   border: 1px solid black;
+   padding: 7px;
+   margin-top: 10px;
+   height: 50px;
+   line-height: 20px;
+   background-color: #F2F0F3;
+}
+.matchedline {
+   background-color: #DDDDFF;
+}

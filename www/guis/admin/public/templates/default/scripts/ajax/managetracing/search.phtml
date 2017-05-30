@@ -1,0 +1,175 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php if ($this->loading) {?>
+ <table id="quarantinetable"> 
+ 
+   <tr id="quarantinebanner">
+     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
+     <p><strong><?php echo $this->t->_('Message traces found')?> :</strong></p></td>
+   </tr>
+   
+   <tr id="quarantineheader">
+   <?php foreach ($this->columns as $cname => $c) {?>
+      <td class="c_<?php echo $cname?> c_title"><?php echo $this->t->_($c['label'])?></td>
+      <?php }?>
+   <tr>
+     <?php if ($this->canceled) {?>
+     <td colspan="<?php echo count($this->columns);?>" id="dataloading">
+       <p><?php echo $this->t->_('Search canceled')?></p>
+     </td>
+     
+     <?php } else { ?>
+     <td class="loadingrow" colspan="<?php echo count($this->columns);?>" id="dataloading">
+        <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
+        <p><?php echo $this->t->_('Gathering log traces, this may take a while...')?>
+            <?php if ($this->nbrows) {?>
+                <br /><?php echo $this->t->_('Already found')." ".$this->nbrows." ".$this->t->_('occurences')?>.
+            <?php }?>
+        </p>
+        <p><input type="submit" onclick="javascript:cancelSearch();" id="cacncelsearch" value="<?php echo $this->t->_('Cancel search');?>" /></p>
+     </td>
+     <?php }?>
+   </tr>
+ </table>
+<?php } else {?>
+<form id="tracelist">
+<table id="quarantinetable">
+ 
+   <tr id="quarantinebanner">
+     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
+     <p><strong><?php echo $this->t->_('Message traces found')?> :</strong> 
+         <?php echo $this->nbelements?> <?php echo $this->t->_('messages')?>
+     </p></td>
+   </tr>
+   
+   <tr id="quarantineheader">
+   <?php foreach ($this->columns as $cname => $c) {?>
+      <td class="c_<?php echo $cname?> c_title<?php if ($cname == $this->orderfield) { echo " c_selected"; }?>">
+        <?php if (isset($c['order'])) {?>
+          <a href="javascript:setOrder('<?php if ($cname == $this->orderfield) { if ($c['order'] == 'asc') { echo $cname."_desc"; } else { echo $cname."_asc"; } } else { echo $cname."_".$c['order']; }?>');">
+            <?php echo $this->t->_($c['label'])?>
+          </a>
+          <?php if ($cname == $this->orderfield) {?>
+          <img src="<?php echo $this->images_path?>/orderby_<?php echo $c['order']?>.png" alt="" />
+          <?php }?>
+          
+        <?php } else {?>
+          <?php if ($cname == 'taction') { ?>
+               <input type="checkbox" name="checklog_action" value="1" class="checklog_box checklog_action" />
+          <?php } ?>
+          <?php echo $this->t->_($c['label'])?>
+        <?php }?>
+      </td>
+   <?php }?>
+   </tr>
+   
+<?php $i=1; foreach ($this->elements as $element) {?>
+<tr class="quarantine_content" >
+   <td class="c_taction">
+         <input type="checkbox" name="checklog_<?php echo $element->getCleanParam('slave_id').'_'.$element->getCleanParam('outid');?>" value="1" class="checklog_box" />
+         <img src="<?php echo $this->images_path;?>/logextract_up.png" alt="showlog" onclick="javascript:showLogExtract(<?php echo $element->getCleanParam('slave_id');?>,'<?php echo $element->getCleanParam('outid');?>')" class="img_logextract_<?php echo $element->getCleanParam('slave_id').'_'.$element->getCleanParam('outid');?>"/></td>
+   <td class="c_in_date" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $this->t->_('Received on host ID');?>: <?php echo $element->getCleanParam('slave_id');?>, <?php echo $this->t->_('from remote host');?>: <?php echo $element->getCleanParam('senderhostip');?> (<?php
+             if (preg_match('/(.*)\/U$/', $element->getCleanParam('senderhostname'), $matches)) { 
+                     echo $this->t->_('Unverified hostname').': '.$matches[1]; 
+             } else { 
+                     echo $element->getCleanParam('senderhostname'); 
+             }?>)', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;"><?php echo $element->getCleanParam('date_in')?></td>
+   <td class="c_in_status" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanParam('inreport')?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;">
+     <?php if ($element->getParam('relayed')) {?>
+       <span class="m_relayed"><?php echo $this->t->_('Relayed')?></span> 
+     <?php } else if ($element->getParam('accepted')) {
+                if ($element->getParam('accepted') == 2) {?>
+       <span class="m_warning"><?php echo $this->t->_('Bounced')?></span>
+                <?php } else { ?>
+       <span class="m_accepted"><?php echo $this->t->_('Accepted')?></span>
+		<?php } ?>
+     <?php } else { ?>
+       <span class="m_rejected"><?php echo $this->t->_('Rejected')?></span>
+     <?php }?>
+   </td>  
+   <td class="c_from" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanAddress($element->getParam('from'), 1)?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;"><?php echo $element->getCleanParam('from')?></td>  
+   <td class="c_tos" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanAddress($element->getParam('tos'), 1)?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;"><?php echo $element->getCleanParam('tos')?></td>  
+   <td class="c_spam" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanParam('spamreport')?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;">
+     <?php if ($element->getParam('spam')) {?>
+       <span class="m_rejected"><?php echo $this->t->_('spam')?></span>
+     <?php } else { ?>
+       <span>-</span>
+     <?php }?>   
+   </td>  
+   <td class="c_content" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanParam('contentreport')?>', 'R'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'R'); return true;">
+     <?php if ($element->getParam('content') != '') {?>
+       <span class="m_rejected"><?php echo $this->t->_($element->getParam('content'))?></span>
+     <?php } else { ?>
+       <span>-</span>
+     <?php }?>
+   </td>  
+   <td class="c_out_status" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanParam('outmessage')?>', 'R'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'R'); return true;">
+      <?php if ($element->getParam('outreport') == 'Completed') {?>
+       <span class="m_accepted"><?php echo $this->t->_($element->getParam('outreport'))?></span>
+     <?php } elseif ($element->getParam('outreport') == 'Pending') {?>
+       <span class="m_pending"><?php echo $this->t->_($element->getParam('outreport'))?>...</span>
+     <?php } elseif (in_array($element->getParam('outreport'), array('Quarantined', 'Tagged', 'Dropped', 'Warnlisted', 'Whitelisted', 'Blacklisted'))) { ?>
+       <span class="m_accepted"><?php echo $this->t->_($element->getParam('outreport'))?></span>
+     <?php } elseif (in_array($element->getParam('outreport'), array('Failed'))) { ?>
+       <span class="m_failed"><?php echo $this->t->_($element->getParam('outreport'))?></span>
+     <?php } elseif (in_array($element->getParam('outreport'), array('Rejected'))) { ?>
+       <span class="m_warning"><?php echo $this->t->_($element->getParam('outreport'))?></span>
+     <?php } elseif ($element->getParam('outreport') != '') { ?>
+       <span><?php echo $this->t->_($element->getParam('outreport'))?></span> 
+     <?php } else { ?>
+       <span>-</span>
+     <?php }?>
+   </td>  
+   <td class="c_out_dates" <?php if ($element->getCleanParam('outhost') != '-' ) { ?>onmouseover="javascript:showHideToolTip(event, true, '<?php if ($element->getParam('outreport') == 'Completed') { echo $this->t->_('Accepted by host').': ';} echo $element->getCleanParam('outhost');?>', 'R'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'R'); return true;"<?php }?>><?php echo $element->getCleanParam('date_out')?></td> 
+</tr>
+<tr class="quarantine_content hidden tracelog_<?php echo $element->getCleanParam('slave_id').'_'.$element->getCleanParam('outid');?>">
+  <td class="tracelogmsg_<?php echo $element->getCleanParam('slave_id').'_'.$element->getCleanParam('outid');?>" colspan="<?php echo count($this->columns); ?>"></td>
+</tr>
+<?php $i++; }?>
+  <tr class="hidden download_row"><td class="download_link" colspan="<?php echo count($this->columns);?>"><img class="download_link_img" src="<?php echo $this->images_path;?>/download_arrow.png" alt="download" /><a href="javascript:downloadTrace('<?php echo $this->downloadFilename;?>');"><?php echo $this->t->_('Download selected traces');?></a></td></tr>
+   <tr id="pagination" class="tracepagination">
+       <td id="actual_page" colspan="2"><?php echo $this->t->_('Page')." ".$this->page." ".$this->t->_('of')." ".$this->nbpages?></td>
+       <td id="pages_navigation" colspan="<?php echo count($this->columns)-2?>">
+
+<?php $nbprevnext = 5;?>
+  <?php if ($this->nbpages > 1) {?>
+    <?php if ($this->page > 1) {?>
+      <a href="javascript:setPage(1);"><img src="<?php echo $this->images_path;?>/pagefirst.png" alt="first" class="pagefirstimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagefirsthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagefirst.png';" /></a>
+      <a href="javascript:setPage(<?php echo $this->page-1?>);"><img src="<?php echo $this->images_path;?>/pageprevious.png" alt="previous" class="pagepreviousimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pageprevioushover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pageprevious.png';" /></a> 
+    <?php }?>
+     
+    <?php $i=$this->page-$nbprevnext; $c=0; while ($c++ < $nbprevnext) { if ($i > 0) { ?><a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a> |
+    <?php }$i++;}?>
+        
+    <?php echo $this->page?>
+
+    <?php $i=$this->page; $c=0; while ($i++ < $this->nbpages && $c++ < $nbprevnext) { ?>
+        | <a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a>
+    <?php }?>     
+      
+    <?php if ($this->page < $this->nbpages) {?>
+      <a href="javascript:setPage(<?php echo $this->page+1?>);"><img src="<?php echo $this->images_path;?>/pagenext.png" alt="next" class="pagepnextimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagenexthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagenext.png';" /></a>
+      <a href="javascript:setPage(<?php echo $this->nbpages?>);"><img src="<?php echo $this->images_path;?>/pagelast.png" alt="last" class="pagelastimg" 
+                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagelasthover.png';"
+                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagelast.png';" /></a> 
+    <?php }?>
+  <?php }?>
+
+
+       </td>
+   </tr>
+</table>
+</form>
+<?php }?>

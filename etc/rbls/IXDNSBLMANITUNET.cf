@@ -1,0 +1,4 @@
+name=IXDNSBLMANITUNET
+type=IPRBL
+dnsname=ix.dnsbl.manitu.net
+sublist=127.0.0.d+,IXDNSBLMANITUNET,ix.dnsbl.manitu.net list

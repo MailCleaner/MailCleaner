@@ -1,0 +1,43 @@
+Subject: Mailcleaner Quarantaenenbericht
+Guten Tag,
+
+Dies ist der Bericht von MailCleaner f=FCr die letzten ??NBDAYS Tage.
+
+F=FCr die Adresse: ??ADDRESS
+
+Diese Meldung informiert Sie =FCber E-Mails, die von MailCleaner gesperrt wurden.
+Wenn Sie meinen, dass eines dieser E-Mails kein Spam ist, k=F6nnen Sie es befreien, 
+indem Sie auf Link klicken "Befreien:".
+
+Die nachstehend aufgef=FChrte E-Mails werden in ??SPAMNBDAYS Tage vernichtet. 
+Es ist daher wichtig, die gew=F6nschte E-Mails vor Ablauf dieser Frist zu befreien.
+
+Wenn Sie die Einstellungen der Berichte =E4ndern, die aktuellen Stand der Quarant=E4ne 
+einsehen oder eine Support-Anfrage erstellen m=F6chten, gehen Sie bitte auf die 
+MailCleaner Web-Schnittstelle unter der Adresse:
+
+??WEBBASEURL
+
+----
+
+Hier ist die Liste der Meldungen als Spam erkannt:
+
+??START_LIST
+------------------------------------------------------
+Meldung ID: ??ID
+        Von: ??TEXTFROM
+        Datum: ??DATE
+        Betreff: ??TEXTSUBJECT
+        Befreien: ??FORCEURL/fm.php?id=3D??ID&a=3D??ADDRESS&s=3D??STOREID&lang=3D??LANGUAGE
+        ??NEWSLETTER_TXT
+??END_LIST
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+Diese Meldung wurde von MailCleaner automatisch erstellt. Beantworten Sie es bitte nicht. 
+F=FCr weitere Informationen
+
+??MAILCLEANERURL
+
+??SUMSIGNATURE

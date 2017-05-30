@@ -1,0 +1,425 @@
+%report-dir% = __SRCDIR__/templates/reports/default/en
+%etc-dir% = __SRCDIR__/etc/mailscanner
+%rules-dir% = __SRCDIR__/etc/mailscanner/rules
+%mcp-dir% = __SRCDIR__/etc/mailscanner/mcp
+
+%org-name% = __ORGNAME__
+%org-long-name% = __ORGNAME__
+%web-site% = __ORGNAME__
+ 
+###############################
+## system wide configuration ##
+###############################
+
+Max Children = __NBPROCESSES__
+Run As User = mailcleaner
+Run As Group = mailcleaner
+
+Additional Library Paths = __SRCDIR__/lib
+
+Queue Scan Interval = 5
+Restart Every = 14400
+
+Incoming Queue Dir = __VARDIR__/spool/exim_stage2/input
+Outgoing Queue Dir = __VARDIR__/spool/exim_stage4/input
+Incoming Work Dir = __VARDIR__/spool/tmp/mailscanner/incoming
+Incoming Work User =
+Incoming Work Group =
+Incoming Work Permissions = 0666
+Quarantine Dir = __VARDIR__/spool/mailscanner/quarantine
+Quarantine User =
+Quarantine Group =
+Quarantine Permissions = 0664
+
+PID file = __VARDIR__/run/mailscanner.pid
+
+MTA = exim
+Sendmail = /opt/exim4/bin/exim -C __VARDIR__/spool/tmp/exim/exim_stage4.conf
+Sendmail2 = /opt/exim4/bin/exim -C __VARDIR__/spool/tmp/exim/exim_stage4.conf
+
+####################################
+## system optimisation
+
+Max Unscanned Bytes Per Scan = 100m
+Max Unsafe Bytes Per Scan = 50m
+Max Unscanned Messages Per Scan = 30
+Max Unsafe Messages Per Scan = 30
+Max Normal Queue Size = 1000
+Maximum Attachments Per Message = __MAXATTACHMENTS__
+
+Expand TNEF = __EXPANDTNEF__
+Use TNEF Contents = __USETNEFCONTENT__
+Deliver Unparsable TNEF = __DELIVERBADTNEF__
+TNEF Expander = internal
+TNEF Timeout = __TNEFTIMEOUT__
+
+File Command = /opt/file/bin/mc2-file
+File Timeout = __FILETIMEOUT__
+Gunzip Command = /bin/gunzip
+Gunzip Timeout = 50
+Unrar Command = /usr/bin/unrar
+Unrar Timeout = 50
+Find UU-Encoded Files = no
+
+Maximum Message Size = __MAXMSGSIZE__
+Maximum Attachment Size = __MAXATTACHSIZE__
+Minimum Attachment Size = -1
+Maximum Archive Depth = __MAXARCDEPTH__
+Find Archives By Content = yes
+
+Unpack Microsoft Documents = no
+
+Zip Attachments = no
+Attachments Zip Filename = MessageAttachments.zip
+Attachments Min Total Size To Zip = 100k
+Attachment Extensions Not To Zip = .zip .rar .gz .tgz .jpg .jpeg .mpg .mpe .mpeg .mp3 .rpm .htm .html .eml
+
+Add Text Of Doc = no
+Antiword = /usr/bin/antiword -f
+Antiword Timeout = 50
+
+Unzip Maximum Files Per Archive = 0
+Unzip Maximum File Size = 50k
+Unzip Filenames = *.txt *.ini *.log *.csv
+Unzip MimeType = text/plain
+
+###################################
+## per domain configuration
+
+Virus Scanning = &VirusWall
+Virus Scanners = __VIRUSSCANNERS__
+
+Virus Scanner Timeout = __SCANNERTIMEOUT__
+Deliver Disinfected Files = no
+
+Silent Viruses = __SILENT__
+Still Deliver Silent Viruses = no
+Non-Forging Viruses = Joke/ OF97/ WM97/ W97M/ eicar Zip-Password
+Spam-Virus Header = X-%org-name%-MailCleaner-SpamVirus-Report:
+Virus Names Which Are Spam = Sane.Auction*UNOFFICIAL Sane.Casino*UNOFFICIAL Sane.Doc*UNOFFICIAL Sane.Phishing*UNOFFICIAL Sane.PhishingTestSig*UNOFFICIAL Sane.TestSig_Type3_Bdy*UNOFFICIAL Sane.TestSig_Type4_Bdy*UNOFFICIAL Sane.TestSig_Type4_Hdr*UNOFFICIAL HTML/* *Phish*
+
+Block Encrypted Messages = __BLOCKENCRYPT__
+Block Unencrypted Messages = __BLOCKUNENCRYPT__
+Allow Password-Protected Archives = __ALLOWPWDARCHIVES__
+Check Filenames In Password-Protected Archives = no
+
+Allowed Sophos Error Messages = 
+Sophos IDE Dir = /usr/local/Sophos/ide
+Sophos Lib Dir = /usr/local/Sophos/lib
+Monitors For Sophos Updates = /usr/local/Sophos/ide/*ides.zip
+
+Monitors for ClamAV Updates = __VARDIR__/spool/clamav/daily.inc/ __VARDIR__/spool/clamav/*.cvd
+ClamAVmodule Maximum Recursion Level = 8
+ClamAVmodule Maximum Files = 1000
+ClamAVmodule Maximum File Size = 10000000 # (10 Mbytes)
+ClamAVmodule Maximum Compression Ratio = 250
+
+Clamd Port = 3310
+Clamd Socket = __VARDIR__/run/clamav/clamd.sock
+Clamd Lock File = # /var/lock/subsys/clamd
+Clamd Use Threads = yes
+ClamAV Full Message Scan = no
+
+Fpscand Port = 10200
+
+Dangerous Content Scanning = &VirusWall
+Allow Partial Messages = __ALLOWPARTIAL__
+Allow External Message Bodies = __ALLOWEXTERNAL__
+Find Phishing Fraud = yes
+Also Find Numeric Phishing = yes
+Use Stricter Phishing Net = no
+Phishing Safe Sites File = %etc-dir%/phishing.safe.sites.conf
+Phishing Bad Sites File = %etc-dir%/phishing.bad.sites.conf
+Country Sub-Domains List = %etc-dir%/country.domains.conf
+Phishing Modify Subject = no
+Phishing Subject Text = {Fraud?}
+Highlight Phishing Fraud = no
+Allow IFrame Tags = __ALLOWIFRAME__
+Allow Form Tags = __ALLOWFORM__
+Allow Script Tags = __ALLOWSCRIPT__
+Allow WebBugs = __ALLOWWEBBUGS__
+Ignored Web Bug Filenames = spacer pixel.gif pixel.png gap shim
+Known Web Bug Servers = msgtag.com
+Web Bug Replacement = 
+Allow Object Codebase Tags = __ALLOWCODEBASE__
+Convert Dangerous HTML To Text = no
+Convert HTML To Text = no
+
+Archives Are = zip rar ole
+
+Allow Filenames =
+Deny Filenames =
+Filename Rules = %etc-dir%/filename.rules.conf
+Allow Filetypes =
+Allow File MIME Types =
+Deny Filetypes =
+Deny File MIME Types =
+Filetype Rules = %etc-dir%/filetype.rules.conf
+
+Archives: Allow Filenames =
+Archives: Deny Filenames =
+Archives: Filename Rules = %etc-dir%/filename.rules.conf
+Archives: Allow Filetypes =
+Archives: Allow File MIME Types =
+Archives: Deny Filetypes =
+Archives: Deny File MIME Types =
+Archives: Filetype Rules = %etc-dir%/filetype.rules.conf
+
+Default Rename Pattern = __FILENAME__.disarmed
+
+Quarantine Infections = %rules-dir%/virus.quarantine.rules
+Quarantine Modified Body = no
+Quarantine Silent Viruses = no
+Quarantine Whole Message = yes
+Quarantine Whole Messages As Queue Files = yes
+Keep Spam And MCP Archive Clean = no
+Language Strings = %report-dir%/languages.conf
+Rejection Report = %report-dir%/rejection.report.txt
+
+Deleted Bad Content Message Report = %report-dir%/deleted.content.message.txt
+Deleted Bad Filename Message Report = %report-dir%/deleted.filename.message.txt
+Deleted Virus Message Report = %report-dir%/deleted.virus.message.txt
+Deleted Size Message Report = %report-dir%/deleted.content.message.txt
+Stored Bad Content Message Report = &StoredContentReport
+Stored Bad Filename Message Report = &StoredFilenameReport
+Stored Virus Message Report = &StoredVirusReport
+Stored Size Message Report = &StoredContentReport
+
+Disinfected Report = %report-dir%/disinfected.report.txt
+Inline HTML Signature = %report-dir%/inline.sig.html
+Inline Text Signature = %report-dir%/inline.sig.txt
+Signature Image Filename = 
+Signature Image <img> Filename = 
+Inline HTML Warning = %report-dir%/inline.warning.html
+Inline Text Warning = %report-dir%/inline.warning.txt
+Sender Content Report = %report-dir%/sender.content.report.txt
+Sender Error Report = %report-dir%/sender.error.report.txt
+Sender Bad Filename Report = %report-dir%/sender.filename.report.txt
+Sender Virus Report = %report-dir%/sender.virus.report.txt
+Sender Size Report = %report-dir%/sender.content.report.txt
+Hide Incoming Work Dir = yes
+Include Scanner Name In Reports = yes
+
+Mail Header = X-MailCleaner:
+Spam Header = X-MailCleaner-SpamCheck:
+Spam Score Header = X-MailCleaner-SpamScore:
+Information Header = X-MailCleaner-Information:
+Add Envelope From Header = no
+Add Envelope To Header = no
+Envelope From Header = X-MailCleaner-From:
+Envelope To Header = X-MailCleaner-To:
+ID Header = X-MailCleaner-ID:
+IP Protocol Version Header = # X-MailCleaner-IP-Protocol:
+Spam Score Character = o
+SpamScore Number Instead Of Stars = no
+Minimum Stars If On Spam List = 0
+Clean Header Value = Found to be clean
+Infected Header Value = Found to be infected
+Disinfected Header Value = Disinfected
+Information Header Value = Please contact __SYSADMIN__ for more information
+Detailed Spam Report = yes
+Include Scores In SpamAssassin Report = yes
+Always Include SpamAssassin Report = yes
+Multiple Headers = append
+Place New Headers At Top Of Message = no
+Hostname = __HOSTNAME__
+Sign Messages Already Processed = no
+Sign Clean Messages = no
+Attach Image To Signature = no
+Attach Image To HTML Message Only = yes
+Allow Multiple HTML Signatures = no
+Dont Sign HTML If Headers Exist = # In-Reply-To: References:
+Mark Infected Messages = yes
+Mark Unscanned Messages = yes
+Unscanned Header Value = Not scanned: please contact __SYSADMIN__ for details
+Remove These Headers = X-Mozilla-Status: X-Mozilla-Status2:
+Deliver Cleaned Messages = yes
+Notify Senders = no
+Notify Senders Of Viruses = no
+Notify Senders Of Blocked Filenames Or Filetypes = __NOTIFYSENDER__
+Notify Senders Of Blocked Size Attachments = no
+Notify Senders Of Other Blocked Content = __NOTIFYSENDER__
+Never Notify Senders Of Precedence = list bulk
+Scanned Modify Subject = no
+Scanned Subject Text = {Scanned}
+Virus Modify Subject = yes
+Virus Subject Text = &VirusSubject
+Filename Modify Subject = yes
+Filename Subject Text = &ContentSubject
+Content Modify Subject = yes
+Content Subject Text = &ContentSubject
+Size Modify Subject = no
+Size Subject Text = &ContentSubject
+Disarmed Subject Text = 
+Disarmed Modify Subject = no
+Spam Modify Subject = yes
+Spam Subject Text = {MC_SPAM}
+High Scoring Spam Modify Subject = yes
+High Scoring Spam Subject Text = {MC_SPAM}
+Warning Is Attachment = yes
+Attachment Warning Filename = AttentionVirus.txt
+Attachment Encoding Charset = ISO-8859-1
+Archive Mail = 
+Missing Mail Archive Is = directory
+
+Send Notices = __SENDNOTICE__
+Notices Include Full Headers = no
+Hide Incoming Work Dir in Notices = no
+Notice Signature =
+Notices From = MailCleaner
+Notices To = __NOTICETO__
+Local Postmaster = &LocalPostmaster
+
+Pre Filters = __PREFILTERS__
+Pre Filter Timeout = 100
+Pre Filter Configurations = %etc-dir%/prefilters/
+
+Use Spam Cache = yes
+Spam Cache Database File = __VARDIR__/spool/tmp/mailscanner/spam.cache.db
+Spam Cache Timings = 300,600
+
+Spam List Definitions = %etc-dir%/dnsblacklists.conf
+Virus Scanner Definitions = %etc-dir%/virus.scanners.conf
+
+Spam Checks = &SpamWall
+Spam List = __SPAMLISTS__
+Spam Domain List = 
+Trusted IPs = __TRUSTEDIPS__
+Spam Lists To Reach High Score = __HIGHSPAMHITS__
+Spam List Timeout = 10
+Max Spam List Timeouts = 7
+Spam List Timeouts History = 10
+Spam Lists To Be Spam = __SPAMHITS__
+Is Definitely Not Spam = %rules-dir%/spam.whitelist.rules
+Is Definitely Spam = no
+Definite Spam Is High Scoring = no
+Ignore Spam Whitelist If Recipients Exceed = 20
+Max Spam Check Size = 500k
+
+Use Watermarking = no
+Add Watermark = yes
+Check Watermarks With No Sender = yes
+Treat Invalid Watermarks With No Sender as Spam = nothing
+Check Watermarks To Skip Spam Checks = yes
+Watermark Secret = %org-name%-Secret
+Watermark Lifetime = 604800
+Watermark Header = X-MailCleaner-Watermark:
+
+Use SpamAssassin = no
+Use Custom Spam Scanner = no
+Custom Spam Scanner Timeout = 20
+Max Custom Spam Scanner Timeouts = 10
+Custom Spam Scanner Timeout History = 20
+Scan Messages = yes
+Reject Message = no
+Maximum Processing Attempts = 0
+Processing Attempts Database = __VARDIR__/spool/tmp/mailscanner/incoming/Processing.db
+Max Custom Spam Scanner Size = 20k
+Max SpamAssassin Size = 500k
+Required SpamAssassin Score = 5
+High SpamAssassin Score = 20
+SpamAssassin Auto Whitelist = no
+SpamAssassin Timeout = 100
+Max SpamAssassin Timeouts = 20
+SpamAssassin Timeouts History = 30
+Check SpamAssassin If On Spam List = no
+Include Binary Attachments In SpamAssassin = no
+Spam Score = yes
+Cache SpamAssassin Results = yes
+SpamAssassin Cache Database File = __VARDIR__/spool/tmp/mailscanner/incoming/SpamAssassin.cache.db
+Rebuild Bayes Every = 86400
+Wait During Bayes Rebuild = no
+Spam Actions = deliver
+High Scoring Spam Actions = deliver
+Non Spam Actions = deliver
+SpamAssassin Rule Actions =
+Sender Spam Report = %report-dir%/sender.spam.report.txt
+Sender Spam List Report = %report-dir%/sender.spam.rbl.report.txt
+Sender SpamAssassin Report = %report-dir%/sender.spam.sa.report.txt
+Inline Spam Warning = %report-dir%/inline.spam.warning.txt
+Recipient Spam Report = %report-dir%/recipient.spam.report.txt
+Enable Spam Bounce = %rules-dir%/bounce.rules
+Bounce Spam As Attachment = no
+
+MCP Checks = no
+First Check = mcp
+MCP Required SpamAssassin Score = 1
+MCP High SpamAssassin Score = 10
+MCP Error Score = 1
+MCP Header = X-%org-name%-MailCleaner-MCPCheck:
+Non MCP Actions = deliver
+MCP Actions = deliver
+High Scoring MCP Actions = deliver
+Bounce MCP As Attachment = no
+MCP Modify Subject = yes
+MCP Subject Text = {MCP?}
+High Scoring MCP Modify Subject = yes
+High Scoring MCP Subject Text = {MCP?}
+Is Definitely MCP = no
+Is Definitely Not MCP = no
+Definite MCP Is High Scoring = no
+Always Include MCP Report = no
+Detailed MCP Report = yes
+Include Scores In MCP Report = no
+Log MCP = no
+MCP Max SpamAssassin Timeouts = 20
+MCP Max SpamAssassin Size = 100k
+MCP SpamAssassin Timeout = 10
+MCP SpamAssassin Prefs File = %mcp-dir%/mcp.spam.assassin.prefs.conf
+MCP SpamAssassin User State Dir =
+MCP SpamAssassin Local Rules Dir = %mcp-dir%
+MCP SpamAssassin Default Rules Dir = %mcp-dir%
+MCP SpamAssassin Install Prefix = %mcp-dir%
+Recipient MCP Report = %report-dir%/recipient.mcp.report.txt
+Sender MCP Report = %report-dir%/sender.mcp.report.txt
+
+Syslog Facility = local0
+Syslog Socket Type =
+Log Speed = no
+Log Spam = yes
+Log Non Spam = yes
+Log Delivery And Non-Delivery = no
+Log Permitted Filenames = no
+Log Permitted Filetypes = no
+Log Permitted File MIME Types = no
+Log Silent Viruses = yes
+Log Dangerous HTML Tags = yes
+Log SpamAssassin Rule Actions = no
+
+SpamAssassin Temporary Dir = __VARDIR__/spool/tmp/mailscanner/spamassassin
+SpamAssassin User State Dir =  __VARDIR__/mailscanner/users
+SpamAssassin Install Prefix = 
+SpamAssassin Site Rules Dir = /etc/mail/spamassassin
+SpamAssassin Local Rules Dir = __SRCDIR__/share/spamassassin
+SpamAssassin Local State Dir = 
+SpamAssassin Default Rules Dir =  /usr/local/share/spamassassin
+
+DB DSN =
+DB Username =
+DB Password =
+SQL Serial Number =
+SQL Quick Peek =
+SQL Config =
+SQL Ruleset =
+SQL SpamAssassin Config =
+SQL Debug = no
+
+Use Default Rules With Multiple Recipients = no
+Read IP Address From Received Header = no
+MailScanner Version Number = 4.84.6
+SpamAssassin Cache Timings = 1800,300,10800,172800,600
+Spam Score Number Format = %d
+Debug = no
+Debug SpamAssassin = no
+Profile = yes
+Run In Foreground = no
+Always Looked Up Last = &MailWatchLogging
+Always Looked Up Last After Batch = no
+Deliver In Background = yes
+Delivery Method = batch
+Split Exim Spool = no
+Lockfile Dir = __VARDIR__/spool/tmp/mailscanner/incoming/Locks
+Custom Functions Dir = /opt/MailScanner/lib/MailScanner/CustomFunctions
+Lock Type =
+Minimum Code Status = supported
+Automatic Syntax Check = yes

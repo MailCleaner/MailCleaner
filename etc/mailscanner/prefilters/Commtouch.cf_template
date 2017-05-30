@@ -1,0 +1,7 @@
+header=__HEADER__
+putHamHeader=__PUTHAMHEADER__
+putSpamHeader=__PUTSPAMHEADER__
+timeOut=__TIMEOUT__
+maxSize=__MAXSIZE__
+ctasdLicense=__CTASDLICENSE__
+ctipdLicense=__CTIPDLICENSE__

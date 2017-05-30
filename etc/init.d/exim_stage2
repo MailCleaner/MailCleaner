@@ -1,0 +1,71 @@
+#! /bin/sh
+
+PATH=$PATH:/usr/sbin:/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "$SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "$VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+DAEMON=/opt/exim4/bin/exim
+PIDFILE=$VARDIR/run/exim_stage2.pid
+CONFIGFILE=$SRCDIR/etc/exim/exim_stage2.conf
+if [ -f $VARDIR/spool/tmp/exim/exim_stage2.conf ]; then
+  CONFIGFILE=$VARDIR/spool/tmp/exim/exim_stage2.conf
+fi
+QUEUETIME=5m
+NAME="Exim stage 2"
+
+test -x $DAEMON || exit 0
+
+prepare () {
+  $SRCDIR/bin/dump_exim_config.pl 2 >/dev/null 2>&1
+  chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/*.list >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+    touch $VARDIR/run/exim_stage2.start.rs
+    echo -n "  Starting $NAME: "
+    prepare
+    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd
+    if [ -f $VARDIR/run/exim_stage2.rn ]; then
+      rm $VARDIR/run/exim_stage2.rn
+    fi
+    if [ -f $VARDIR/run/MTA2.rn ]; then
+      rm $VARDIR/run/MTA2.rn
+    fi
+    echo "started."
+    rm $VARDIR/run/exim_stage2.stopped >/dev/null 2>&1
+    rm $VARDIR/run/exim_stage2.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/exim_stage2.stop.rs
+    echo -n "  Stopping $NAME: "
+    start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
+    sleep 4
+    EXIMPID=`pgrep -f exim_stage2.conf`;
+    if [ ! "$EXIMPID" = "" ]; then
+      kill -KILL $EXIMPID >/dev/null 2>&1
+    fi
+    echo "stopped."
+    rm $VARDIR/run/exim_stage2.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/exim_stage2.stopped
+      ;;
+  restart)
+    touch $VARDIR/run/exim_stage2.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|reload}"
+    exit 1
+    ;;
+esac
+
+exit 0

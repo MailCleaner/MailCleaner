@@ -1,0 +1,22 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php if (count($this->informationals) ) {?>
+<div class="infotitle"><?php echo $this->t->_('Informations')?></div>
+<ul>
+<?php foreach ($this->informationals as $message) {?>
+    <li>
+    <strong><?php echo $message->getTitle();?></strong>
+      <?php if ($message->getSlavesList() != '') { ?>(<?php echo $this->t->_('on hosts: ').$message->getSlavesList();?>)<?php }?>
+      : <?php echo $message->getDescription();?>
+    <?php if ($message->getLink() != '') {?> ( <a href="<?php echo $this->url($message->getLink());?>"><?php echo $this->t->_('Click here to resolve');?></a> )
+    <?php }?>
+    </li>
+<?php }?>
+</ul>
+<?php }?>

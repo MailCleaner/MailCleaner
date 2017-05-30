@@ -1,0 +1,55 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <?php echo $this->headTitle() ?>
+  <?php echo $this->headLink() ?>
+  
+  <?php echo $this->jQuery(); ?>
+
+
+<script type="text/javascript">
+//<![CDATA[
+           var message = '';
+           var thisurl = '<?php echo $this->baseurl?>';
+           
+           var slave = '<?php echo $this->slave->getId() ?>';
+           var spool = '<?php echo $this->spool ?>';
+           
+           var limit = 25;
+           
+           var loadingimg = '<img src="<?php echo $this->images_path;?>/loadingwhitebg.gif" alt="loading..." />';
+//]]>
+</script>
+  
+  <?php echo $this->headScript() ?>
+  
+</head> 
+<body>
+<div id="container">
+
+<div id="tooltip">empty</div>
+
+<div class="spoolbloc">
+<?php echo $this->partial('ajax/monitorstatus/viewspool.phtml', array(
+                         'slave' => $this->slave,
+                         'spool' => $this->spool,
+                         'msgs' => $this->msgs,
+                         'nbmsgs' => $this->nbmsgs,
+                         'page' => $this->page,
+                         'pages' => $this->pages,
+                         'loading' => 1,
+                         't' => $this->t,
+)); ?>
+</div>
+</div>
+</body>
+</html>

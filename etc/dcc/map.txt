@@ -1,0 +1,9 @@
+# map.txt is merely the output of `cdcc info`
+IPv6 off
+dcc1.dcc-servers.net,-      RTT+1000 ms  anon
+dcc2.dcc-servers.net,-      RTT+1000 ms  anon
+dcc3.dcc-servers.net,-      RTT+1000 ms  anon
+dcc4.dcc-servers.net,-      RTT+1000 ms  anon
+dcc5.dcc-servers.net,-      RTT+1000 ms  anon
+127.0.0.1,-                 RTT-1000 ms  32768 269994906y731
+127.0.0.1,-                 Greylist 32768 269994906y731

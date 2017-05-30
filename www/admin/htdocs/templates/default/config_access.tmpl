@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>External access configuration</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+  </head>
+
+<body  onLoad="javascript:__RELOAD_NAV_JS__">
+<center>
+<br/>
+__FORM_BEGIN_ACCESS__
+<table width="60%" border="0" cellpadding="2" cellspacing="0">
+
+  <tr class="infoBoxHeading">
+    <td width="40%" align="left" colspan="2">__LANG_EXTERNALACCESSCONFIGURATION__&nbsp;&nbsp; __DOC_ACCESSTITLE__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__SAVE_STATUS__</font></td></tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_WEBGUIACCESS__</b>
+  (__LANG_PORT__ __WEBGUIPORT__, __WEBGUIPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+    <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+    <td width="50%" align="left">__FORM_INPUTWEBGUIIPS__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_DBACCESS__</b>
+  (__LANG_PORT__ __DBPORT__, __DBPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTDBIPS__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_SNMPACCESS__</b>
+ (__LANG_PORT__ __SNMPDPORT__, __SNMPPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTSNMPIPS__</td>
+  </tr>
+  <!--<tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_SNMPCOMMUNITY__:&nbsp;</td>
+     <td width="50%" align="left">__FORM_INPUTSNMPCOMMUNITY__</td>
+  </tr>-->
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_SSHACCESS__</b>
+  (__LANG_PORT__ __SSHPORT__, __SSHPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+     <td width="50%" align="left"> __FORM_INPUTSSHIPS__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_MAILACCESS__</b>
+  (__LANG_PORT__ __MAILPORT__, __MAILPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+      <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+      <td width="50%" align="left"> __FORM_INPUTMAILIPS__</td>
+  </tr>
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxContent"><td colspan="2"><b>__LANG_WEBSERVICES__</b>
+  (__LANG_PORT__ __SOAPPORT__, __SOAPPROTOCOL__)</td></tr>
+  <tr class="infoBoxContent">
+      <td width="50%" align="right">__LANG_ALLOWEDIPS__:&nbsp;</td>
+      <td width="50%" align="left"> __FORM_INPUTSOAPIPS__</td>
+  </tr>
+
+  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+  <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+</table>
+__FORM_CLOSE_ACCESS__
+</body>
+</html>

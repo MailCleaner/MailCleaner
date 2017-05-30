@@ -1,0 +1,4 @@
+name=SPAMCOP
+type=IPRBL
+dnsname=bl.spamcop.net
+sublist=127.0.0.\d+,SPAMCOP,spamcop list

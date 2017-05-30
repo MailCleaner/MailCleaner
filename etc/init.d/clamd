@@ -1,0 +1,60 @@
+#! /bin/sh
+# /etc/init.d/clamd: start ClamAV daemon.
+
+export PATH=$PATH:/sbin:/usr/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+DAEMON=/opt/clamav/sbin/clamd
+CLAMDDOPTS="--config-file=$SRCDIR/etc/clamav/clamd.conf"
+prepare () {
+    $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
+    $SRCDIR/bin/dump_clamav_config.pl >/dev/null 2>&1
+}
+
+chown -R clamav:clamav $VARDIR/log/clamav
+
+case "$1" in
+  start)
+    touch $VARDIR/run/clamd.start.rs
+    echo -n "  Starting ClamAV daemon: "
+    prepare
+    $DAEMON $CLAMDDOPTS >/dev/null 2>&1
+    echo "started."
+    if [ -f $VARDIR/run/clamd.rn ]; then
+      rm $VARDIR/run/clamd.rn
+	fi    
+    rm $VARDIR/run/clamd.stopped >/dev/null 2>&1
+    rm $VARDIR/run/clamd.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/clamd.stop.rs
+    echo -n "  Stopping ClamAV daemon: "
+    CLAMDPID=`pgrep -f clamd.conf`
+    if [ ! "$CLAMDPID" = "" ]; then
+      kill -KILL $CLAMDPID >/dev/null 2>&1
+      sleep 3
+    fi
+    echo "stopped."
+    touch $VARDIR/run/clamd.stopped
+    rm $VARDIR/run/clamd.stop.rs >/dev/null 2>&1
+    ;;
+  restart|reload|force-reload)
+    touch $VARDIR/run/clamd.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/clamd {start|stop|restart}"
+    exit 1
+esac
+
+exit 0

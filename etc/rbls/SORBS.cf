@@ -1,0 +1,4 @@
+name=SORBS
+type=IPRBL
+dnsname=dnsbl.sorbs.net
+sublist=127.0.0.\d+,SORBS,sorbs aggregate list

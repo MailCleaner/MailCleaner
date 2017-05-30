@@ -1,0 +1,4 @@
+runasuser=mailcleaner
+runasgroup=mailcleaner
+prefork=5
+syslog_facility=

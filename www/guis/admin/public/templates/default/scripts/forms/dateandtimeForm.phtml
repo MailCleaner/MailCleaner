@@ -1,0 +1,48 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+ 
+ <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+      <fieldset id="dnssettings">
+       <table class="ftable">
+          <tr>
+          <td colspan="2"><?php echo $this->t->_('Setup time and date automatically')?> :</td>
+          </tr>
+          <?php echo $this->InputRow($this->form->getElement('usentp'));?>
+          <?php echo $this->InputRow($this->form->getElement('ntpserver'));?>
+          
+          <tr>
+            <td colspan="2" class="fvalue fsubmit" id="saveandsynccontainer">
+               <?php echo $this->InputRow($this->form->getElement('hsaveandsync'),array('field_only'=>true,'nobox'=>true));?>
+               <?php echo $this->InputRow($this->form->getElement('saveandsync'),array('field_only'=>true,'nobox'=>true));?>
+            </td>
+          </tr>
+          <tr>
+          <td colspan="2"><hr /></td>
+          </tr>
+          <tr>
+          <td colspan="2"><?php echo $this->t->_('Setup time and date manually')?> :</td>
+          </tr>
+          <?php  echo $this->InputRow($this->form->getElement('date'));?>
+          <tr>
+            <td class="flabel"><?php echo $this->t->_('Time');?> : </td>
+            <td class="fvalue">
+               <?php echo $this->InputRow($this->form->getElement('hour'),array('field_only'=>true,'nobox'=>true));?>
+                : 
+                <?php echo $this->InputRow($this->form->getElement('minute'),array('field_only'=>true,'nobox'=>true));?>
+                :
+               <?php echo $this->InputRow($this->form->getElement('second'),array('field_only'=>true,'nobox'=>true));?>
+               
+               <a href="<?php echo  $this->form->getAction()?>" id="reloadtime"><img src="<?php echo $this->images_path?>/reload_white.png" alt="reload"></a>
+            </td>
+          </tr>
+            <?php echo $this->SubmitRow($this->form->getElement('datetimesubmit'));?>
+       </table>
+     </fieldset>
+ </form>

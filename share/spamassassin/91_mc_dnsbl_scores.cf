@@ -1,0 +1,76 @@
+### RBLS scores
+
+
+## BLACKLISTS
+
+# UCEPROTECT
+score	RCVD_IN_UCEPROTECT1	2.0
+score	RCVD_IN_UCEPROTECT2	1.0
+score	RCVD_IN_UCEPROTECT3	0.5
+
+# IX MANITU
+score	RCVD_IN_NIX_SPAM	2.0
+
+# BARRACUDA (BRBL) : Free subscribtion needed - FB
+score RCVD_IN_BRBL_LASTEXT	       2.0
+
+# SORBS : Free until 5 request per second or more than 100000 users - zone transfer available (paid???) - FB
+score RCVD_IN_SORBS_BLOCK 0.001
+score RCVD_IN_SORBS_DUL 0.3
+score RCVD_IN_SORBS_HTTP 1.5
+score RCVD_IN_SORBS_MISC 1.5
+score RCVD_IN_SORBS_SMTP 2.0
+score RCVD_IN_SORBS_SOCKS 1.5
+score RCVD_IN_SORBS_WEB 1.5
+score RCVD_IN_SORBS_ZOMBIE 1.5
+score RCVD_IN_SORBS_SPAM 2.0
+
+# SPAMHAUS : Free until 100000 request - rsync probably available on subscription - FB
+score RCVD_IN_SBL 2.4
+score RCVD_IN_XBL 2.4
+score RCVD_IN_PBL 2.0
+score RCVD_IN_SBL_CSS 2.0
+
+# Spamcop : Free, donate system - rsync available but charge 1000$/year - FB
+score RCVD_IN_BL_SPAMCOP_NET 2.4
+
+# INVALUEMENT
+score	RCVD_IN_SIPINV		2.4
+score	RCVD_IN_SIP24INV  	2.4
+
+# MCIPRBL
+score	RCVD_IN_MCIPRBL		3.0
+
+## WHITELISTS
+
+# DNSWL : Free until 100000 request - rsync available (paid subscription)- FB
+score RCVD_IN_DNSWL_NONE    -0.0001
+score RCVD_IN_DNSWL_LOW	    -0.0001
+score RCVD_IN_DNSWL_MED	    -0.0001
+score RCVD_IN_DNSWL_HI	    -1.0
+score RCVD_IN_DNSWL_BLOCKED 0.001
+
+# EDU WHITELIST
+score	RCVD_IN_EDUWHITELIST	-1.0
+
+# MCIPRWL
+score	RCVD_IN_MCIPRWL		-1.5
+
+
+## URI RBLS
+
+# URIBL
+score URIBL_SC_SURBL 1.5
+score URIBL_JP_SURBL 1.5
+score URIBL_AB_SURBL 1.5
+score URIBL_WS_SURBL 1.5
+score URIBL_OB_SURBL 1.5
+score URIBL_PH_SURBL 1.5
+
+score URIBL_GREY 0.0
+
+# MCURIBL
+score MCURIBL	2.5
+
+# URI Invaluement (uri-inv)
+score MCURIINSIP	2.5

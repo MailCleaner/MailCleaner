@@ -1,0 +1,23 @@
+Subject: [Mailcleaner] Demande d'ajout d'adresse
+
+Bonjour
+
+ce message est une demande de confirmation pour l'activation de l'alias: 
+
+__ALIAS__
+
+pour l'utilisateur: 
+
+__USER__
+
+Pour activer cet alias, veuillez cliquer sur le lien suivant: 
+
+__VALIDATEURL__
+
+Si vous ne souhaitez pas inscrire cet alias pour ce compte, veuillez cliquer sur le lien suivant: 
+
+__REFUSEURL__
+
+---------------
+Mailcleaner
+

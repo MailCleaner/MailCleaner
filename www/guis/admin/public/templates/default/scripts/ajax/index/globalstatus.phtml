@@ -1,0 +1,56 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<h1><?php echo $this->t->_('Overall system\'s status')?></h1>
+
+<div class="globalsubbloc">
+  <table class="globalstatustableversion">
+    <tr>
+      <td colspan="2" class="versionrow"><?php echo $this->t->_('MailCleaner')?> : <?php echo $this->t->_($this->mcedition)?></td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td class="globalstatuskey"><img src="<?php echo $this->images_path;?>/status_domains.gif" alt="domains" /></td>
+      <td class="globalstatusvalue"><strong><?php echo $this->domains?></strong> <?php echo $this->t->_('domains');?> 
+          <?php if ($this->domains != $this->distinctdomains) { ?> (<?php echo $this->distinctdomains?> <?php echo $this->t->_('distincts')?>) <?php } ?></td>
+    </tr>
+    <tr>
+      <td class="globalstatuskey"><img src="<?php echo $this->images_path;?>/status_users.gif" alt="users" /></td>
+      <td class="globalstatusvalue"><strong><?php echo $this->users?></strong> <?php echo $this->t->_('users');?></td>
+    </tr>   
+    <tr>
+      <td class="globalstatuskey"><img src="<?php echo $this->images_path;?>/status_hosts.gif" alt="hosts" /></td>
+      <td class="globalstatusvalue"><strong><?php echo $this->hosts?></strong> <?php echo $this->t->_('host(s) in cluster');?></td>
+    </tr>
+    
+  </table>
+</div>
+
+<div class="globalsubbloc">
+ <table class="globalstatustable">
+ <?php foreach ($this->status as $statusname => $status) {?>
+  <tr>
+    <td class="globalstatuskey">
+      <img src="<?php echo $this->images_path?>/<?php if ($status['status'] == 'ok') {
+         echo "status_ok.png";
+      } else if ($status['status'] == 'warning') {
+      	 echo "status_warning.png";
+      } else {
+      	 echo "status_critical.png";
+      } ?>" alt="<?php echo $status['status'];?>" />
+    </td>
+    
+    <td class="globalstatusvalue">
+      <?php echo $this->t->_($statusname.' status is');?> <strong><?php echo $this->t->_($status['message'])?></strong>
+    </td>
+  </tr>
+  <?php }?>
+  
+ </table>
+
+</div>

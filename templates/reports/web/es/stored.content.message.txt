@@ -1,0 +1,21 @@
+Este es un mensaje del Servicio de Protección de Virus para Correo
+Electrónico MailCleaner
+----------------------------------------------------------------------
+El mensaje de correo electrónico original tenía contenido
+potencialmente peligroso que ha sido eliminado para su seguridad.
+
+El contenido es peligroso ya que suele ser utilizado para distribuir
+virus o conseguir acceso a información personal y/o confidencial,
+tales como claves de acceso o números de tarjetas de crédito.
+
+El correo electrónico se ha mantenido en el puente. Puede ser que usted hizo por encargo.
+Para ello, le invitamos a visitar el siguiente enlace :
+<a href="http://www.mailcleaner.net/support/dangerous-content-release.html">Dangerous content release</a>
+
+El $date los filtros de contenido dijeron:
+$report
+
+Nota para el departamento de soporte: $hostname:$datenumber/$id
+
+----------- 
+Mailcleaner

@@ -1,0 +1,100 @@
+#!/bin/sh
+
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "$VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "$SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+
+COMMAND=/opt/dcc/libexec/dccifd
+HOME=/opt/dcc/var
+
+test_dcc () {
+
+ echo "not yet implemented..."
+}
+
+
+case "$1" in
+start|restart|reload)
+  
+  if [ "$1" = "start" ]; then
+    RES=`pgrep -f $COMMAND`
+    if [ "$RES" = "" ]; then
+      $0 stop s
+      echo -n "  Starting DCC client daemon: "
+    else
+      echo -n "  Starting DCC client daemon: "
+      echo "already running."
+      exit 0
+    fi
+  else
+    $0 stop
+    echo -n "  Starting DCC client daemon: "
+  fi
+
+  if [ ! -f $HOME/map ]; then
+    echo -n "    generating map file (from $SRCDIR/etc/dcc/map.txt)..."
+    chmod og-rw $SRCDIR/etc/dcc/map.txt
+    /opt/dcc/bin/cdcc "load $SRCDIR/etc/dcc/map.txt" >/dev/null 2>&1
+    chmod og+r $SRCDIR/etc/dcc/map.txt
+    chown dcc:dcc $HOME/map
+    echo -n "done. "
+  fi 
+  if [ -f $HOME/whiteclnt ]; then
+   rm $HOME/whiteclnt
+  fi
+  ln -s $SRCDIR/etc/dcc/whiteclnt $HOME/whiteclnt
+  chown dcc:dcc $HOME >/dev/null 2>&1
+  chown dcc:dcc $HOME/* >/dev/null 2>&1
+
+  $COMMAND -h$HOME -Idcc -p$VARDIR/run/dcc/dcc.sock -R$VARDIR/run/dcc -T$VARDIR/spool/dcc 
+
+  RES=`pgrep -f $COMMAND`
+  if [ "$RES" = "" ]; then
+    echo "Error, no daemon started.";
+  else
+    echo "started."
+  fi
+  ;;
+
+stop)
+  RES=`pgrep -f $COMMAND`
+  if [ "$2" != "s" ]; then
+    echo -n "  Stopping DCC client daemon: "
+  fi
+  if [ "$RES" != "" ]; then
+    kill -15 $RES >/dev/null 2>&1
+    sleep 1
+    pkill -s SIGKILL -f $COMMAND >/dev/null 2>&1
+  else 
+    if [ "$2" != "s" ]; then
+      echo "already stopped."
+      exit 0
+    fi
+  fi
+
+  RES=`pgrep -f $COMMAND`
+  if [ "$RES" = "" ]; then
+     if [ "$2" != "s" ]; then
+       echo "stopped."
+     fi
+  fi
+  ;;
+
+status)
+  test_dcc
+  ;;
+
+*)
+   echo "`basename $0`: start|stop|restart" 1>&2
+   exit 1
+   ;;
+
+esac
+
+exit 0
+

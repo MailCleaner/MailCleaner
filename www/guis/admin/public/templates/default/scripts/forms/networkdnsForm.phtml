@@ -1,0 +1,26 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+ 
+ <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+   <fieldset id="dnssettings">
+       <table class="ftable">
+          <?php foreach (array('domainsearch', 'primarydns', 'secondarydns', 'tertiarydns') as $el) {?>
+            <?php echo $this->InputRow($this->form->getElement($el));?>
+          <?php }?>
+          
+          <tr><td colspan="2"><hr /></td></tr>
+          
+          <?php foreach (array('heloname') as $el) {?>
+            <?php echo $this->InputRow($this->form->getElement($el));?>
+          <?php }?>
+          <?php echo $this->SubmitRow($this->form->getElement('dnssubmit'));?>
+       </table>
+     </fieldset>
+ </form>

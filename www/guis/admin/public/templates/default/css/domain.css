@@ -1,0 +1,553 @@
+/* URL source ---> http://gate-pp2-jessie.mailcleaner.net/admin/templates/current/css/domain.css */
+
+/* Page exemple ---> https://demo.mailcleaner.net/admin/manageuser */
+
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+
+/*
+ * Navigation
+ */
+
+#domainnavigpanel {
+	float: left;
+	width: 171px;
+}
+
+/* options panel */
+#domainnavoptions {
+  float: left;
+  list-style:none;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 42px;
+  width: 200px;
+  line-height: 18px;
+  overflow: hidden;
+}
+
+#domainnavoptions li {
+  height: 24px;
+  margin: 0px;
+  padding: 0px;
+  line-height: 24px;
+  padding-left: 13px;
+  background-image:url(../images/domainnavoptionsbg.png);
+  overflow: hidden;
+}
+
+.domainoptiontop {
+  height: 25px !important;
+  background-image:url(../images/domainnavoptionstopbg.png) !important;
+}
+
+#domainnavoptions li span {
+	float: left;
+}
+#domainnavoptions li a {
+  color: #000000;
+  text-decoration: none;
+}
+#domainnavoptions li:hover {
+  cursor: pointer;
+/*  font-weight: bold; */
+}
+
+.globalsettingsselected {
+   background-image:url(../images/domainlistselectedbg.png) !important;
+}
+
+.domainoptiontop:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+.globalsettingsselected:hover {
+  cursor: pointer;
+  background-image:url(../images/domainlistselectedbg.png) !important;
+}
+
+#domainnavoptions img {
+   float: right;
+   line-height: 24px;
+   padding-right: 30px;
+   padding-top: 4px;
+}
+
+.newdomainselected {
+  font-weight: bold;
+  background-image:url(../images/domainlistselectedbg.png) !important;
+}
+
+.newdomaintop {
+	margin-top: 25px !important;
+}
+
+.newdomain:hover {
+    font-weight: bold;
+}
+
+#mdomainname {
+	margin-bottom: -5px;
+}
+
+/* search panel */
+#searchpanel {
+  float: left;
+  width: 100%;
+  height: 65px;
+  margin-top: 15px;
+  background-image:none;
+  background-color: #F5F5F5;
+  background-position: top left;
+  background-repeat: no-repeat;
+  padding-left: 13px;
+  color: #535353;
+  border-right: 1px solid #D4D3D2;
+  border-top: 1px solid #D4D3D2;
+}
+
+#searchform p {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 14px;
+	padding-bottom: 8px;
+}
+
+#searchform input {
+   width: 153px;
+}
+
+.searchempty {
+	color: #666666;
+}
+
+/* result panel */
+#resultpanel {
+  float: left;
+  width: 185px;
+  height: 350px;
+}
+
+#resultpanel img {
+  margin-top: 10px;
+  margin-left: 85px;
+}
+/* result line */
+#resultcount {
+  padding: 0px;
+  margin: 0px;
+  float: left;
+  width: 171px;
+  height: 24px;
+  margin: 0px;
+  padding: 0px;
+  border-bottom:1px solid #D4D3D2;
+  border-right: 1px solid #D4D3D2;
+  border-top:1px solid #D4D3D2;
+  line-height: 24px;
+  padding-left: 13px;
+  overflow: hidden;
+  font-weight: bold;
+  color: #898989;
+  background: #FFFFFF;
+}
+
+/* domain list panel */
+#domainnavlist {
+  float: left;
+  list-style:none;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 0px;
+  width: 100%;
+  line-height: 18px;
+  overflow: hidden;
+	background-image: none;
+	background-color:#FFFFFF;
+	border-right: solid 1px #d4d3d2;
+}
+
+#domainnavlist li {
+  height: 24px;
+  margin: 0px;
+  padding: 0px;
+  line-height: 24px;
+  padding-left: 13px;
+  background-image: none;
+	background-color: #FFFFFF;
+  width: 172px;
+  overflow: hidden;
+	border-bottom: 1px solid #D4D3D1;
+}
+
+.domainnavlistselected {
+  font-weight: bold;
+  background-image:none !important;
+	background-color: #F5F5F5 !important;
+  width: 200px !important;
+}
+
+#domainnavlist li a {
+  color: #000000;
+  text-decoration: none;
+}
+#domainnavlist li:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* pagination */
+#pagindomainlist {
+  position: absolute;
+  bottom: 50px;
+  background-image:none;
+  width: 185px;
+  text-align: center;
+  line-height: 16px;
+  font-size: 9px;
+  padding-top: 10px;
+}
+
+#pagindomainlist img {
+	display: inline;
+    height: 16px;
+    width: 16px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align:middle;
+}
+
+.pagepreviousimg {
+	margin-right: 5px !important;
+}
+
+.pagepnextimg {
+	margin-left: 5px !important;
+}
+
+/**
+ * content
+ */
+#domaincontentpanel {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 238px;
+  margin-top: 42px;
+  min-height: 450px;
+  color: #666666;
+  overflow: visible;
+  white-space: normal;
+  max-width: 630px;
+  font-size: 12px;
+}
+
+#domaincontentpanel a {
+  text-decoration: none;
+}
+
+#domaincontentpanel h1 {
+  margin: 0px;
+  padding: 0px;
+  padding-left: 16px;
+  height: 47px;
+  line-height: 47px;
+  border: 1px solid #D4D3D2;
+  background-image:none;
+	background-color: #F5F5F5;
+  font-size: 14px;
+  font-weight: bolder;
+  color: #000000;
+  margin-bottom: 15px;
+  text-shadow:0px 1px #FFF;
+}
+
+#tasksconfigpanel {
+  float: right;
+  width: 630px;
+}
+
+#generalsettingspaneltitle {
+	margin-bottom: 26px !important;
+}
+
+.importantimg {
+  line-height: 47px;
+  vertical-align: middle;
+  margin-right: 30px;
+}
+
+.removedomain {
+   display: block;
+   height: 26px;
+   line-height: 26px;
+   text-align: left;
+   padding-left: 37px;
+   width: 182px;
+   background-image:url(../images/domainremove.png);
+   background-position: center left;
+   background-repeat: no-repeat;
+   color: #000000;
+   margin: 0px;
+   font-size: 11px;
+   font-weight: normal;
+}
+.removedomaintitle {
+  float: right;
+  left: 390px;
+  margin-top: 10px;
+}
+
+.removedomain a {
+  color: #000000;
+}
+
+.removedomain:hover {
+  cursor: pointer;
+  background-image:url(../images/domainremovehover.png);
+}
+
+.removedomainlink {
+  float: right;
+  display: block
+}
+
+.removedomainlink a {
+  text-decoration: underline !important;
+  font-size: 12px;
+  font-weight: normal;
+  margin-right: 30px;
+}
+
+#domaincontentpanel h2 {
+  margin: 0px;
+  padding: 0px;
+  padding-left: 15px;
+  border: 1px solid #D4D3D2;
+  height: 41px;
+  line-height: 41px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: normal;
+  background-image:none;
+	background-color: #F5F5F5;
+  width: 613px;
+}
+
+.domainconfigselect {
+}
+
+.domainconfigselect select {
+	margin: 0px;
+	padding: 0px;
+	display: span;
+}
+
+.h2nextpreviouslinks {
+  float: right;
+  font-size: 11px;
+  font-weight: normal;
+  margin-right: 15px;
+}
+
+.h2nextpreviouslinks a {
+  text-decoration: underline !important;
+}
+
+#domainformcontent {
+  margin: 0px;
+  border: 1px solid #D4D3D2;
+  border-top: none;
+}
+
+#domainalertcontent {
+  border: 1px solid #CAB4BE;
+  border-top: 0px;
+  line-height: 24px;
+  margin-top: -15px;
+  padding: 15px;
+}
+
+#domainalertcontent {
+  font-weight: normal;
+  padding-top: 10px;
+  color: #000000;
+}
+
+#domainalertcontent a {
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+#domainalertcontent .removedomain {
+	position: static;
+	margin-top: 15px;
+	text-decoration: none;
+}
+
+#domainalertcontent .removedomain a {
+	text-decoration: none;
+}
+
+#settingstest {
+	display: none;
+	text-align: center;
+	border: 1px solid red;
+}
+
+#testingtable {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  border-collapse: collapse;
+}
+#testingtable td {
+  border-spacing:0px;
+  padding: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin: 0px;
+  line-height: 16px;
+}
+.testingwhat {
+  width: 50%;
+  text-align: right;
+  vertical-align: top;
+}
+.testingresult {
+  text-align: left;
+  vertical-align: top;
+}
+
+.passedtest {
+  color: #00AA00;
+}
+.failedtest {
+  color: #AA0000;
+}
+
+.callouttable {
+  width: 100%;
+}
+
+.callouttesttable {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  border-collapse: collapse;
+}
+.callouttesttable td {
+  width: 50%;
+  border-spacing:0px;
+  padding: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin: 0px;
+  line-height: 16px;
+  vertical-align: top;
+}
+
+#settingstestwaiting {
+  text-align: center;
+}
+
+#domainfilteringtable .flabel {
+   width:50%;
+}
+#domainfilteringtable .fsubmit {
+   text-align: center;
+}
+
+#domainaddtable .flabel {
+	width: 40%;
+}
+#domainaddtable .fvalue {
+	width: 60%;
+}
+#domainaddtable .fsubmit {
+   text-align: center;
+}
+
+.adddomaincontentpaneltitle {
+   background-color: #FBE9E7;
+   background-image: none !important;
+   min-height: 42px;
+   padding-bottom: 5px !important;
+   font-size: 12px !important;
+}
+.adddomaincontentpaneltitle span {
+   vertical-align: top;
+}
+.adddomaincontentpaneltitle textarea {
+	margin-top: 10px;
+	height: 80px;
+}
+
+.adddomaincontentpaneltitlearea {
+   min-height: 100px;
+}
+
+#mdomainname {
+	display: none;
+}
+
+.adddomaincontentpaneltitle a {
+   color: #666666;
+   font-weight: normal;
+}
+
+.adddomainformcontent {
+  border-top: 1px solid #CAB4BE !important;
+}
+
+#domainformcontent {
+	margin-bottom: 20px;
+}
+
+#domainnavlist {
+    background-image:none;
+    overflow: hidden;
+    height: 1000px;
+}
+.adminformcontent {
+  border: 1px solid #CAB4BE;
+}
+
+label {
+  text-align: left;
+}
+
+.searchtyperadio {
+  margin: 2px;
+  width: 20px !important;
+}
+
+.domainnavoptionreplace {
+  float: left;
+  min-height: 91px !important;
+}
+
+#testdestinationSMTP,#testcallout,#testuserauth {
+	height: 24px;
+	line-height: 16px;
+}
+
+ul#domainnavlist {
+	width:184px;
+}
+
+/* management > users > sidebar */
+#domainnavigpanel > .addbutton {
+    width: 266px;
+}
+
+#domainnavigpanel div.addbutton:first-of-type + div #resultcount{
+	width: 266px;
+}
+
+#domainnavigpanel div.addbutton:first-of-type + div #domainnavlist{
+	width: 279px;
+}

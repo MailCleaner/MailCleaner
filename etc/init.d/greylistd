@@ -1,0 +1,108 @@
+#!/bin/sh
+########################################################################
+### FILE:	/etc/init.d/greylist
+### PURPOSE:	Start/stop the greylistd(8) daemon.
+########################################################################
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+config=$SRCDIR/etc/greylistd/greylistd.conf
+client=/opt/greylistd/bin/greylist
+daemon=/opt/greylistd/sbin/greylistd
+rundir=$VARDIR/run/greylistd
+datadir=$VARDIR/spool/greylistd
+pidfile=$rundir/pid
+socket=$rundir/socket
+user=mailcleaner
+
+export PATH=$PATH:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
+
+# See if the daemon is present
+test -x "$daemon" || exit 0
+
+prepare () {
+  if [ ! -d $VARDIR/spool/greylistd ]; then
+    mkdir $VARDIR/spool/greylistd;
+  fi
+  if [ ! -d $VARDIR/run/greylistd ]; then
+    mkdir $VARDIR/run/greylistd;
+  fi
+  chown -R mailcleaner:mailcleaner $VARDIR/spool/greylistd >/dev/null 2>&1
+  chown -R mailcleaner:mailcleaner $VARDIR/run/greylistd >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+    touch $VARDIR/run/greylistd.start.rs
+    prepare
+    $SRCDIR/bin/dump_greylistd_config.pl >/dev/null 2>&1
+	if [ -e "$socket" ]
+	then
+	    echo "$0:"
+	    echo "  Another instance of \`${daemon##*/}' seems to be running."
+	    echo "  If this is not the case, please remove \"$socket\"."
+	    exit 1
+	fi
+
+	echo -n "  Starting greylisting daemon: "
+	start-stop-daemon --start --background \
+	    --chuid "$user" \
+	    --pidfile "$pidfile" --make-pidfile \
+	    --exec "$daemon"  -- $config
+	if [ -f $VARDIR/run/greylistd.rn ]; then
+      rm $VARDIR/run/greylistd.rn
+    fi
+    echo "started.";
+    rm $VARDIR/run/greylistd.stopped >/dev/null 2>&1
+    rm $VARDIR/run/greylistd.*.rs >/dev/null 2>&1
+	;;
+
+
+    stop)
+    touch $VARDIR/run/greylistd.stop.rs
+	echo -n "  Stopping greylisting daemon: "
+	if [ -f $pidfile ]; then
+    	start-stop-daemon --stop --pidfile "$pidfile" &&
+	      rm -f "$pidfile"
+	fi
+	if [ -e $VARDIR/run/greylistd/socket ]; then
+      rm -rf $VARDIR/run/greylistd/socket >/dev/null 2>&1
+    fi
+    echo "stopped."
+    rm $VARDIR/run/greylistd.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/greylistd.stopped
+	;;
+
+
+    reload|force-reload)
+	"$client" $config reload
+	;;
+
+    status)
+	"$client" $config stats
+	;;
+
+
+    restart)
+    touch $VARDIR/run/greylistd.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+	;;
+
+
+    *)
+	echo "Usage: $0 {start|stop|restart|reload|force-reload|status}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+

@@ -1,0 +1,91 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<div id="generalconfigpanel">
+  <p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
+  <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Emails')?></p>
+
+  <div id="domainnavigpanel">
+     <div id="searchpanel" class="addbutton">
+      <form method="<?php echo $this->searchForm->getMethod() ?>" action="<?php echo $this->searchForm->getAction()?>" id="<?php echo $this->searchForm->getId()?>">
+       <p id="searchlabel"><?php echo $this->t->_('Search by')?> : <?php echo $this->InputRow($this->searchForm->getElement('type'),array('field_only'=>true,'nobox'=>true));?></p>
+        <p id="usersearchlabel"><?php echo $this->t->_('Enter username and select domain')?> : </p>
+        <p id="emailsearchlabel"><?php echo $this->t->_('Enter email address')?> : </p>
+        <p>
+           <?php echo $this->inputRow($this->searchForm->getElement('search'),array('field_only'=>true,'nobox'=>true));?> @ <?php echo $this->inputRow($this->searchForm->getElement('domain'),array('field_only'=>true,'nobox'=>true));?>
+        </p>
+        <p id="useraddbutton"> 
+          <?php echo $this->SubmitRow($this->searchForm->getElement('submit'),array('nobox'=>true,'field_only'=>true))?>
+        </p>
+      </form>
+    </div>
+    <div id="resultpanel">
+   <?php echo $this->partial('ajax/user/search.phtml', array(
+                         'elements' => $this->elements,
+                         'search' => $this->search,
+                         'elementscount' => $this->elementscount,
+                         'page' => $this->page,
+                         'lastpage' => $this->lastpage,
+                         'images_path' => $this->images_path,
+                         'domain' => $this->domain,
+                         'type' => $this->type,
+                         'editurl' => $this->editurl,
+                         't' => $this->t,
+                         'username' => $this->username,
+                         'elementdatafield' => $this->elementdatafield )); ?>
+    </div>
+  </div>
+ 
+  <div id="domaincontentpanel">
+    <div id="userconfigpanel" class="domainconfigpanel">
+ <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+
+    <?php if ($this->address != '') {?>
+   
+        <h1 id ="domaincontentpaneltitle"><?php echo $this->address;?>
+       <?php if ($this->emailobject->getId()) {?>
+        <div id="removedomain" class="removedomain removedomaintitle"><a href="<?php echo $this->removeurl;?>">
+          <?php if ($this->emailobject->getDomainObject()->isFetcherExhaustive()) { 
+                   echo $this->t->_('Reset to default settings');
+                } else {
+                   echo $this->t->_('Remove from MailCleaner');
+                }?>
+          </a></div>
+        <?php }?>
+        </h1>
+    <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+   
+        <h2><span>
+        <?php if ($this->emailobject->getId()) {?>
+          <?php echo $this->InputRow($this->form->getElement('emailpanel'),array('field_only'=>true,'nobox'=>true));?>
+        <?php }?>
+        </span>
+        </h2>
+        <div id="domainformcontent">
+<?php foreach (array('panel', 'address') as $f) {
+ echo $this->InputRow($this->form->getElement($f),array('field_only'=>true,'nobox'=>true));
+  }?>
+<?php echo $this->partial('forms/manageuser/email'.strtolower($this->panel).'Form.phtml', array(
+                                        'form' => $this->form,
+                                        't' => $this->t, 
+                                        'images_path' => $this->images_path,
+                                        'message' => $this->message, 
+                                        'email' => $this->email,
+                                        'urls' => $this->urls,
+                                        'address' => $this->address ) ); ?>
+
+        </div>
+      </form>
+     <?php } else {?>
+       <?php $this->t->_('Please search or enter an email address.');?>
+     <?php }?>
+    </div>
+    
+  </div>
+ 
+</div>

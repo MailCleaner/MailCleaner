@@ -1,0 +1,666 @@
+<?xml version ='1.0' encoding ='UTF-8' ?> 
+<definitions name='Mailcleaner' 
+  targetNamespace='urn:Mailcleaner' 
+  xmlns:tns='urn:Mailcleaner'
+  xmlns:typens='urn:Mailcleaner' 
+  xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
+  xmlns:xsd='http://www.w3.org/2001/XMLSchema' 
+  xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/' 
+  xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' 
+  xmlns='http://schemas.xmlsoap.org/wsdl/'> 
+
+<types>
+  <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Mailcleaner">
+    <xsd:complexType name="spools">
+      <xsd:all>
+         <xsd:element name="incoming" type="xsd:int"/>
+	 <xsd:element name="filtering" type="xsd:int"/>
+	 <xsd:element name="outgoing" type="xsd:int"/>
+      </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="processes">
+      <xsd:all>
+         <xsd:element name="mtaincoming" type="xsd:int"/>
+         <xsd:element name="mtafiltering" type="xsd:int"/>
+         <xsd:element name="mtaoutgoing" type="xsd:int"/>
+         <xsd:element name="httpd" type="xsd:int"/>
+         <xsd:element name="engine" type="xsd:int"/>
+         <xsd:element name="masterdb" type="xsd:int"/>
+         <xsd:element name="slavedb" type="xsd:int"/>
+         <xsd:element name="snmpd" type="xsd:int"/>
+         <xsd:element name="greylistd" type="xsd:int"/>
+         <xsd:element name="cron" type="xsd:int"/>
+         <xsd:element name="newsld" type="xsd:int"/>
+         <xsd:element name="firewall" type="xsd:int"/>
+      </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="load">
+      <xsd:all>
+         <xsd:element name="avg5" type="xsd:float"/>
+         <xsd:element name="avg10" type="xsd:float"/>
+         <xsd:element name="avg15" type="xsd:float"/>
+      </xsd:all>
+    </xsd:complexType> 
+
+    <xsd:complexType name="diskusage">
+      <xsd:all>
+        <xsd:element name="root" type="xsd:float"/>
+        <xsd:element name="var" type="xsd:float"/>
+      </xsd:all>
+    </xsd:complexType> 
+
+    <xsd:complexType name="memusage">
+      <xsd:all>
+        <xsd:element name="total" type="xsd:int"/>
+        <xsd:element name="free" type="xsd:int"/>
+        <xsd:element name="swaptotal" type="xsd:int"/>
+        <xsd:element name="swapfree" type="xsd:int"/>
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:schema>
+
+  <xsd:complexType name="stats">
+    <xsd:all>
+      <xsd:element name="bytes" type="xsd:int"/>
+      <xsd:element name="msg" type="xsd:int"/>
+      <xsd:element name="spam" type="xsd:int"/>
+      <xsd:element name="pspam" type="xsd:float"/>
+      <xsd:element name="virus" type="xsd:int"/>
+      <xsd:element name="pvirus" type="xsd:float"/>
+      <xsd:element name="content" type="xsd:int"/>
+      <xsd:element name="pcontent" type="xsd:float"/>
+      <xsd:element name="user" type="xsd:int"/>
+      <xsd:element name="clean" type="xsd:int"/>
+      <xsd:element name="pclean" type="xsd:float"/>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="servicestatus">
+    <xsd:all>
+      <xsd:element name="status" type="xsd:string"/>
+      <xsd:element name="result" type="xsd:string"/>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="reasons">
+   <complexContent>
+     <restriction base="SOAP-ENC:Array">
+       <attribute name="reasons" ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+     </restriction>
+   </complexContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="messagelines">
+    <complexContent>
+     <restriction base="SOAP-ENC:Array">
+       <attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+     </restriction>
+   </complexContent>
+  </xsd:complexType>
+  
+</types>
+<message name='forceContentRequest'> 
+  <part name='sid' type='xsd:string'/>
+  <part name='mid' type='xsd:string'/> 
+</message> 
+<message name='forceContentResponse'> 
+  <part name='Result' type='xsd:string'/> 
+</message>
+<message name='getHeadersRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+</message>
+<message name='getHeadersResponse'>
+  <part name='Result' type='typens:messagelines'/>
+</message> 
+<message name='getMIMEPartRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+  <part name='part' type='xsd:string'/>
+</message>
+<message name='getMIMEPartResponse'>
+  <part name='Result' type='typens:messagelines'/>
+</message>
+<message name='getBodyRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+  <part name='nblines' type='xsd:string'/>
+</message>
+<message name='getBodyResponse'>
+  <part name='Result' type='typens:messagelines'/>
+</message>
+<message name='forceSpamRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+</message> 
+<message name='forceSpamResponse'>
+  <part name='Result' type='xsd:string'/>
+</message> 
+<message name='getReasonsRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+  <part name='lang' type='xsd:string'/>
+</message>
+<message name='getReasonsResponse'>
+  <part name='Result' type='typens:reasons'/>
+</message>
+<message name='sendToAnalyseRequest'>
+  <part name='mid' type='xsd:string'/>
+  <part name='dest' type='xsd:string'/>
+</message>
+<message name='sendToAnalyseResponse'>
+  <part name='Result' type='xsd:string'/>
+</message>
+<message name='setAuthenticatedRequest'>
+  <part name='username' type='xsd:string'/>
+  <part name='usertype' type='xsd:string'/>
+  <part name='host' type='xsd:string'/>
+</message>
+<message name='setAuthenticatedResponse'>
+  <part name='id' type='xsd:string'/>
+</message>
+<message name='checkAuthenticatedRequest'>
+  <part name='sid' type='xsd:string'/>
+  <part name='type' type='xsd:string'/>
+</message>
+<message name='checkAuthenticatedResponse'>
+  <part name='result' type='xsd:string'/>
+</message>
+<message name='getProcessesStatusRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getProcessesStatusResponse'>
+   <part name='status' type='typens:processes'/>
+</message>
+<message name='getSpoolsRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getSpoolsResponse'>
+  <part name="status" type="typens:spools"/>
+</message>
+<message name='getLoadRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getLoadResponse'>
+  <part name="status" type="typens:load"/>
+</message>
+<message name='getDiskUsageRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getDiskUsageResponse'>
+  <part name="status" type="typens:diskusage"/>
+</message>
+<message name='getMemUsageRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getMemUsageResponse'>
+  <part name="status" type="typens:memusage"/>
+</message>
+<message name='getQueueTimeRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getQueueTimeResponse'>
+  <part name="status" type="xsd:string"/>
+</message>
+<message name='getTodaysCountsRequest'>
+  <part name='sid' type='xsd:string'/>
+  <part name='spec' type='xsd:string'/>
+</message>
+<message name='getTodaysCountsResponse'>
+  <part name="status" type="typens:stats"/>
+</message>
+<message name='getStatsRequest'>
+  <part name='what' type='xsd:string'/>
+  <part name='start' type='xsd:string'/>
+  <part name='stop' type='xsd:string'/>
+</message>
+<message name='getStatsResponse'>
+  <part name="status" type="typens:stats"/>
+</message>
+<message name='getLastPatchRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getLastPatchResponse'>
+  <part name="status" type="xsd:string"/>
+</message>
+<message name='startServiceRequest'>
+  <part name='sid' type='xsd:string'/>
+  <part name='service' type='xsd:string'/> 
+</message>
+<message name='startServiceResponse'>
+  <part name="status" type="typens:servicestatus"/>
+</message>
+<message name='restartServiceRequest'>
+  <part name='sid' type='xsd:string'/>
+  <part name='service' type='xsd:string'/> 
+</message>
+<message name='restartServiceResponse'>
+  <part name="status" type="typens:servicestatus"/>
+</message>
+<message name='stopServiceRequest'>
+  <part name='sid' type='xsd:string'/>
+  <part name='service' type='xsd:string'/>
+</message>
+<message name='stopServiceResponse'>
+  <part name="status" type="typens:servicestatus"/>
+</message>
+<message name='getAdminNameRequest'>
+  <part name='sid' type='xsd:string'/>
+</message>
+<message name='getAdminNameResponse'>
+  <part name='login' type='xsd:string'/>
+</message>
+<message name='dumpConfigurationRequest'>
+  <part name="config" type='xsd:string'/>
+  <part name="params" type='xsd:string'/>
+</message>
+<message name='dumpConfigurationResponse'>
+  <part name="status" type='xsd:string'/>
+</message>
+<message name='processNeedsRestartRequest'>
+  <part name="process" type='xsd:string'/>
+</message>
+<message name='processNeedsRestartResponse'>
+  <part name="status" type='xsd:string'/>
+</message>
+<message name='setRestartStatusRequest'>
+  <part name="process" type='xsd:string'/>
+  <part name="status" type='xsd:int'/>
+</message>
+<message name='setRestartStatusResponse'>
+  <part name="success" type='xsd:string'/>
+</message>
+
+
+
+<portType name='mcPortType'> 
+  <operation name='forceContent'> 
+    <input message='tns:forceContentRequest'/> 
+    <output message='tns:forceContentResponse'/> 
+  </operation>
+  <operation name='getHeaders'>
+    <input message='tns:getHeadersRequest'/>
+    <output message='tns:getHeadersResponse'/>
+  </operation>
+  <operation name='getMIMEPart'>
+    <input message='tns:getMIMEPartRequest'/>
+    <output message='tns:getMIMEPartResponse'/>
+  </operation>
+  <operation name='getBody'>
+    <input message='tns:getBodyRequest'/>
+    <output message='tns:getBodyResponse'/>
+  </operation>
+  <operation name='forceSpam'>
+    <input message='tns:forceSpamRequest'/>
+    <output message='tns:forceSpamResponse'/>
+  </operation>
+  <operation name='getReasons'>
+    <input message='tns:getReasonsRequest'/>
+    <output message='tns:getReasonsResponse'/>
+  </operation>
+  <operation name='sendToAnalyse'>
+    <input message='tns:sendToAnalyseRequest'/>
+    <output message='tns:sendToAnalyseResponse'/>
+  </operation>
+  <operation name='setAuthenticated'>
+    <input message='tns:setAuthenticatedRequest'/>
+    <output message='tns:setAuthenticatedResponse'/>
+  </operation>
+  <operation name='checkAuthenticated'>
+    <input message='tns:checkAuthenticatedRequest'/>
+    <output message='tns:checkAuthenticatedResponse'/>
+  </operation>
+  <operation name='getProcessesStatus'>
+    <input message='tns:getProcessesStatusRequest'/>
+    <output message='tns:getProcessesStatusResponse'/>
+  </operation>
+  <operation name='getSpools'>
+    <input message='tns:getSpoolsRequest'/>
+    <output message='tns:getSpoolsResponse'/>
+  </operation>
+  <operation name='getLoad'>
+    <input message='tns:getLoadRequest'/>
+    <output message='tns:getLoadResponse'/>
+  </operation>
+  <operation name='getDiskUsage'>
+    <input message='tns:getDiskUsageRequest'/>
+    <output message='tns:getDiskUsageResponse'/>
+  </operation>
+  <operation name='getMemUsage'>
+    <input message='tns:getMemUsageRequest'/>
+    <output message='tns:getMemUsageResponse'/>
+  </operation>
+  <operation name='getQueueTime'>
+    <input message='tns:getQueueTimeRequest'/>
+    <output message='tns:getQueueTimeResponse'/>
+  </operation>
+  <operation name='getTodaysCounts'>
+    <input message='tns:getTodaysCountsRequest'/>
+    <output message='tns:getTodaysCountsResponse'/>
+  </operation>
+  <operation name='getStats'>
+    <input message='tns:getStatsRequest'/>
+    <output message='tns:getStatsResponse'/>
+  </operation>
+  <operation name='getLastPatch'>
+    <input message='tns:getLastPatchRequest'/>
+    <output message='tns:getLastPatchResponse'/>
+  </operation>
+  <operation name='startService'>
+    <input message='tns:startServiceRequest'/>
+    <output message='tns:stopServiceResponse'/>
+  </operation>
+  <operation name='stopService'>
+    <input message='tns:stopServiceRequest'/>
+    <output message='tns:stopServiceResponse'/>
+  </operation>
+  <operation name='restartService'>
+    <input message='tns:restartServiceRequest'/>
+    <output message='tns:restartServiceResponse'/>
+  </operation>
+  <operation name='getAdminName'>
+    <input message='tns:getAdminNameRequest'/>
+    <output message='tns:getAdminNameResponse'/>
+  </operation>
+  <operation name='dumpConfiguration'>
+    <input message='tns:dumpConfigurationRequest'/>
+    <output message='tns:dumpConfigurationResponse'/>
+  </operation>
+  <operation name='processNeedsRestart'>
+    <input message='tns:processNeedsRestartRequest'/>
+    <output message='tns:processNeedsRestartResponse'/>
+  </operation>
+  <operation name='setRestartStatus'>
+    <input message='tns:setRestartStatusRequest'/>
+    <output message='tns:setRestartStatusResponse'/>
+  </operation>
+</portType>
+
+<binding name='mcBinding' type='tns:mcPortType'> 
+  <soap:binding style='rpc' 
+    transport='http://schemas.xmlsoap.org/soap/http'/> 
+  <operation name='forceContent'> 
+    <soap:operation soapAction='urn:localhost-mailcleaner#forceContent'/> 
+    <input> 
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/> 
+    </input> 
+    <output> 
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/> 
+    </output> 
+  </operation> 
+  <operation name='getHeaders'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getHeaders'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getMIMEPart'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getMIMEPart'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getBody'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getBody'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='forceSpam'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#forceSpam'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getReasons'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getReasons'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='sendToAnalyse'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#sendToAnalyse'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='setAuthenticated'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#setAuthenticated'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='checkAuthenticated'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#checkAuthenticated'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getProcessesStatus'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getProcessesStatus'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getSpools'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getSpools'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getLoad'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getLoad'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getDiskUsage'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getDiskUsage'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getMemUsage'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getMemUsage'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getQueueTime'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getQueueTime'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getTodaysCounts'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getTodaysCounts'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getStats'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getStats'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getLastPatch'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getLastPatch'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='startService'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#startService'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='stopService'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#stopService'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='restartService'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#restartService'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='getAdminName'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#getAdminName'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='dumpConfiguration'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#dumpConfiguration'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='processNeedsRestart'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#processNeedsRestart'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='setRestartStatus'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#setRestartStatus'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner' 
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+</binding> 
+
+<service name='MailcleanerService'> 
+  <port name='mcPort' binding='mcBinding'> 
+    <soap:address location='http://__HOST__:5132/mailcleaner.php'/> 
+  </port> 
+</service>
+</definitions>

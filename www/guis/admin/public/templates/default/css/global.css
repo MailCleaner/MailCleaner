@@ -1,0 +1,220 @@
+/* URL source ---> https://gate-pp2-jessie.mailcleaner.net/admin/templates/default/css/global.css */
+/* Page exemple ---> https://gate-pp2-jessie.mailcleaner.net/admin/monitorstatus */
+
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+
+html, body {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-family:  Arial;
+   font-weight: normal;
+   font-size: 0.85em;
+   background-color: #FCFCFC;
+			color: #363636;
+}
+
+a {
+  color: #4A4A4A;
+  text-decoration: underline;
+}
+a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+img {
+  border: 0px;
+}
+
+select {
+ font-size: 11px;
+}
+
+form {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+input {
+  font-size: 11px;
+}
+
+textarea {
+  font-family:  Arial;
+  font-weight: normal;
+  font-size: 11px;
+}
+
+.fieldrighted {
+  text-align: right;
+}
+
+.flabelchecklist {
+  line-height: 16px;
+}
+.fvaluechecklist {
+  line-height: 12px;
+  padding-bottom: 20px;
+}
+
+.descmessage {
+   text-align: center;
+   border: 1px solid #D4D3D2 !important;
+   padding: 30px;
+   font-size: 12px;
+   color: #666666;
+   max-width: 600px;
+   margin-left: auto;
+   margin-right: auto;
+}
+.welcome {
+   text-align: center;
+   border: 1px solid #D4D3D2 !important;
+   padding: 0px;
+   max-width: 600px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 20px;
+   margin-bottom: 10px;
+   font-size: 18px;
+   text-shadow:0px 2px #FFF;
+   line-height: 48px;
+   background-image: none;
+	background-color: #f5f5f5;
+   color: #E93A00;
+}
+
+.globalbloc {
+   max-width: 600px;
+   margin-left: auto;
+   margin-right: auto;
+   background-color: #FFFFFF;
+   border: 1px solid #D4D3D2 !important;
+   margin-bottom: 10px;
+   min-height: 240px;
+}
+
+.globalstatusbloc {
+   min-height: 190px;
+}
+
+.globalbloc h1 {
+   margin: 0px;
+   color: #000000;
+   padding-left: 12px;
+   font-weight: normal;
+   text-decoration: none;
+   font-size: 12px;
+   text-shadow:0px 2px #FFF;
+   height: 23px;
+   line-height: 24px;
+   border: 0px;
+   border-bottom: 1px solid #D4D3D2;
+   background-image:none;
+	background-color: #F5F5F5;
+   font-weight: bold;
+   text-align: left;
+}
+
+.globalsubbloc {
+   float: right;
+   width: 278px;
+   padding: 10px;
+   text-align: center;
+}
+
+.countsbloc {
+	position: absolute;
+	width: 600px;
+}
+.globalstatstable {
+  float: right;
+  margin-right: 70px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  line-height: 16px;
+}
+
+.globalstatstablekey {
+  text-align: right;
+  border-right: 1px solid #C6ADC6;
+  padding: 3px;
+  padding-right: 7px;
+}
+
+.globalstatstablevalue {
+  text-align: left;
+  padding: 3px;
+  padding-left: 7px;
+  min-width: 50px;
+}
+
+.statsbullet {
+  width: 2px;
+}
+.sumrow {
+  border-top: 1px solid #C6ADC6;
+  font-weight: bold;
+}
+.globaldataloading {
+  text-align: center !important;
+  height: 206px;
+  line-height: 206px;
+  width: 600px !important;
+}
+#globalstatusloaading {
+  height: 166px;
+  line-height: 166px;
+}
+
+.globalstatuskey {
+  text-align: right;
+}
+.globalstatuskey img {
+   width: 16px;
+    vertical-align: middle;
+}
+
+.globalstatusvalue {
+  padding-left: 10px;
+  text-align: left;
+}
+.globalstatusvalue img {
+   width: 16px;
+   vertical-align: middle;
+}
+
+.globalstatustable {
+	line-height: 18px;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+
+.globalstatustableversion {
+    line-height: 18px;
+    margin-top: 11px;
+    margin-right: 50px;
+}
+.versionrow {
+  border-bottom: 1px solid #C6ADC6;
+}
+
+.registerstatus {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.okregister {
+  color: #00AA00;
+}
+.nokregister {
+  color: #AA0000;
+}
+
+.addselectbox {
+  overflow: auto !important;
+}

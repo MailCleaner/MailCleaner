@@ -1,0 +1,4 @@
+name=IPSBACKSCATTERERORG
+type=IPRBL
+dnsname=ips.backscatterer.org
+sublist=127.0.0.d+,IPSBACKSCATTERERORG,ips.backscatterer.org list

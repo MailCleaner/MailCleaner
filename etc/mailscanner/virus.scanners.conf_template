@@ -1,0 +1,51 @@
+# This is a list of the names of the virus scanning engines, along with the
+# filename of the command or script to run to invoke each one.
+# Three fields:
+#  1.  Name of virus scanner as known by MailScanner. Do not change this.
+#  2.  Location of -wrapper script. You should not need to change this.
+#  3.  Installation directory of virus scanner. This does not usually include
+#      any "bin" directory in the path to the scanner program itself.
+# You can test a -wrapper script with a command like this:
+#      /opt/MailScanner/lib/f-secure-wrapper /opt/f-secure/fsav /tmp
+# That command will attempt to scan /tmp using F-Secure. If it works you
+# should see some sensible output. If it fails, you will probably just see
+# an error message such as "Command not found" or similar.
+#
+antivir		/opt/MailScanner/lib/antivir-wrapper	/usr/lib/AntiVir
+avast		/opt/MailScanner/lib/avast-wrapper	/usr
+avastd		/opt/MailScanner/lib/avastd-wrapper	/usr
+avg		/opt/MailScanner/lib/avg-wrapper	/usr/local
+bitdefender	/opt/MailScanner/lib/bitdefender-wrapper /opt/bdc
+clamav		/opt/MailScanner/lib/clamav-wrapper	/opt/clamav
+clamd		/bin/false				/opt/clamav
+clamavmodule	/bin/false				/tmp
+command		/opt/MailScanner/lib/command-wrapper	/usr
+css		/opt/MailScanner/lib/css-wrapper	/opt/SYMCScan
+drweb		/opt/MailScanner/lib/drweb-wrapper	/opt/drweb
+esets		/opt/MailScanner/lib/esets-wrapper	/usr/sbin
+etrust		/opt/MailScanner/lib/etrust-wrapper	/opt/eTrustAntivirus
+f-prot		/opt/MailScanner/lib/f-prot-wrapper	/usr/local/f-prot
+f-prot-6	/opt/MailScanner/lib/f-prot-6-wrapper	/opt/f-prot
+f-protd-6	/bin/false				/opt/f-prot
+f-secure	/opt/MailScanner/lib/f-secure-wrapper	/opt/f-secure/fsav
+generic		/opt/MailScanner/lib/generic-wrapper	/
+inoculan	/opt/MailScanner/lib/inoculan-wrapper	/usr/local/inoculan
+inoculate	/opt/MailScanner/lib/inoculate-wrapper	/usr/local/av
+kaspersky	/opt/MailScanner/lib/kaspersky-mc-wrapper	/opt/kaspersky
+mcafee		/opt/MailScanner/lib/mcafee-wrapper	/usr/local/uvscan
+mcafee6		/opt/MailScanner/lib/mcafee6-wrapper	/usr/local/uvscan
+# Now updated to handle nod32 2.01 and upwards
+#nod32-1.99	/opt/MailScanner/lib/nod32-wrapper	/usr/local/nod32
+nod32-1.99	/opt/MailScanner/lib/nod32-wrapper	/usr/sbin
+nod32		/opt/MailScanner/lib/nod32-wrapper	/usr/local/nod32
+none		/bin/false				/tmp
+norman		/opt/MailScanner/lib/norman-wrapper	/usr/bin
+panda		/opt/MailScanner/lib/panda-wrapper	/usr
+rav		/opt/MailScanner/lib/rav-wrapper	/usr/local/rav8
+sophos		/opt/MailScanner/lib/sophos-wrapper	/opt/sophos-av
+sophossavi	/bin/false				/tmp
+symscanengine	/opt/MailScanner/lib/symscanengine-wrapper /opt/SYMCScan
+trend		/opt/MailScanner/lib/trend-wrapper	/pack/trend
+vba32		/opt/MailScanner/lib/vba32-wrapper	/opt/vba/vbacl
+vexira		/opt/MailScanner/lib/vexira-wrapper	/usr/local/vexira
+

@@ -1,0 +1,44 @@
+<?php 
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2009, Olivier Diserens
+ */
+?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+ <fieldset id="smtltls">
+       <table class="ftable">
+         
+         <?php echo $this->InputRow($this->form->getElement('use_incoming_tls'));?>
+          
+         <?php echo $this->InputRow($this->form->getElement('forbid_clear_auth'),array('row_class'=>'tls_row '.$this->ssl_display_class));?>
+         <?php echo $this->InputRow($this->form->getElement('tls_use_ssmtp_port'),array('row_class'=>'tls_row '.$this->ssl_display_class));?>
+         <?php
+           $certdata = ''; 
+           if ($this->certdata['valid'] && !$this->certdata['expired']) {
+             $certdata = '<div class="divnote tooltipped" id="smtp_tls_cert_infos"><img class="divnote" src="'.$this->images_path.'/ok_mini.png" alt="valid" />'.$this->t->_('certificate is valid').'</div>';
+           } elseif ($this->certdata['expired'] && $this->certdata['valid']) {
+             $certdata = '<div class="divnote tooltipped" id="smtp_tls_cert_infos"><img class="divnote" src="'.$this->images_path.'/warning_mini.png" alt="invalid" />'.$this->t->_('certificate has expired').'</div>';
+           } else {
+             $certdata = '<div class="divnote tooltipped" id="smtp_tls_cert_infos"><img class="divnote" src="'.$this->images_path.'/warning_mini.png" alt="invalid" />'.$this->t->_('certificate is invalid').'</div>';
+           }
+         ?>
+         
+         <?php echo $this->InputRow($this->form->getElement('tls_certificate_data'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea', 'post_field_text'=>$certdata));?>
+     
+         <?php echo $this->InputRow($this->form->getElement('tls_certificate_key'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea'));?>
+         <?php echo $this->InputRow($this->form->getElement('hosts_require_tls'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea'));?>
+         
+         <?php echo $this->InputRow($this->form->getElement('hosts_require_incoming_tls'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea'));?>
+  
+         <?php echo $this->InputRow($this->form->getElement('domains_require_tls_to'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea'));?>
+         <?php echo $this->InputRow($this->form->getElement('domains_require_tls_from'),array('row_class'=>'tls_row '.$this->ssl_display_class,'label_addclass'=>'flabeltextarea'));?>
+           
+         <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+          
+       </table>
+     </fieldset>
+ </form>
+<?php echo $this->partial('pki/certificatedata.phtml', array('t' => $this->t, 'images_path'=>$this->images_path, 'certdata'=>$this->certdata, 'id'=>'smtp_tls_cert_infos_data')); ?>

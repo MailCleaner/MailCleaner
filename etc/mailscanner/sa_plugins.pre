@@ -1,0 +1,43 @@
+loadplugin Mail::SpamAssassin::Plugin::Check
+loadplugin Mail::SpamAssassin::Plugin::BodyEval
+loadplugin Mail::SpamAssassin::Plugin::DNSEval
+loadplugin Mail::SpamAssassin::Plugin::HTMLEval
+loadplugin Mail::SpamAssassin::Plugin::HeaderEval
+loadplugin Mail::SpamAssassin::Plugin::MIMEEval
+loadplugin Mail::SpamAssassin::Plugin::RelayEval
+loadplugin Mail::SpamAssassin::Plugin::URIEval
+loadplugin Mail::SpamAssassin::Plugin::WLBLEval
+loadplugin Mail::SpamAssassin::Plugin::VBounce
+loadplugin Mail::SpamAssassin::Plugin::Rule2XSBody
+loadplugin Mail::SpamAssassin::Plugin::Hashcash
+loadplugin Mail::SpamAssassin::Plugin::AWL
+loadplugin Mail::SpamAssassin::Plugin::AutoLearnThreshold
+loadplugin Mail::SpamAssassin::Plugin::WhiteListSubject
+loadplugin Mail::SpamAssassin::Plugin::MIMEHeader
+loadplugin Mail::SpamAssassin::Plugin::ReplaceTags
+loadplugin Mail::SpamAssassin::Plugin::HTTPSMismatch
+loadplugin Mail::SpamAssassin::Plugin::URIDetail
+loadplugin Mail::SpamAssassin::Plugin::TextCat
+loadplugin Mail::SpamAssassin::Plugin::VBounce
+
+#loadplugin Mail::SpamAssassin::Plugin::ASN
+#loadplugin Mail::SpamAssassin::Plugin::SpamCop
+#loadplugin Mail::SpamAssassin::Plugin::AccessDB
+#loadplugin Mail::SpamAssassin::Plugin::Shortcircuit
+#loadplugin Mail::SpamAssassin::Plugin::RelayCountry
+#loadplugin Mail::SpamAssassin::Plugin::AntiVirus
+
+__IF_DCC__loadplugin Mail::SpamAssassin::Plugin::DCC
+__IF_PYZOR__loadplugin Mail::SpamAssassin::Plugin::Pyzor
+__IF_RAZOR__loadplugin Mail::SpamAssassin::Plugin::Razor2
+__IF_BAYES__loadplugin Mail::SpamAssassin::Plugin::Bayes
+__IF_IMAGEINFO__loadplugin Mail::SpamAssassin::Plugin::ImageInfo
+__IF_DKIM__loadplugin Mail::SpamAssassin::Plugin::DKIM
+__IF_URIDNSBL__loadplugin Mail::SpamAssassin::Plugin::URIDNSBL
+#__IF_SPF__loadplugin Mail::SpamAssassin::Plugin::SPF
+__IF_FUZZYOCR__loadplugin FuzzyOcr __SRCDIR__/share/spamassassin/plugins/FuzzyOcr.pm
+#__IF_OSCAR__loadplugin OscarOcr __SRCDIR__/share/spamassassin/plugins/OscarOcr.pm
+#__IF_PDFINFO__loadplugin Mail::SpamAssassin::Plugin::PDFInfo  __SRCDIR__/share/spamassassin/plugins/PDFInfo.pm
+__IF_BOTNET__loadplugin Mail::SpamAssassin::Plugin::Botnet __SRCDIR__/share/spamassassin/plugins/Botnet.pm
+#loadplugin PhishPatrol __SRCDIR__/share/spamassassin/plugins/PhishPatrol/PhishPatrol.pm
+loadplugin Mail::SpamAssassin::Plugin::iXhash  __SRCDIR__/share/spamassassin/plugins/iXhash/iXhash.pm

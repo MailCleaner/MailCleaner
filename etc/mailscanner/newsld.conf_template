@@ -1,0 +1,11 @@
+socketpath=/var/mailcleaner/spool/newsld/newsld.sock
+max-children=11
+pidfile=/var/mailcleaner/spool/newsld/newsld.pid
+syslog=/var/mailcleaner/log/mailscanner/newsld.log
+username=mailcleaner
+groupname=mailcleaner
+configpath=/usr/mailcleaner/share/newsld/siteconfig/
+siteconfigpath=/usr/mailcleaner/share/newsld/siteconfig/
+nouser-config=yes
+debug=no
+daemonize=yes

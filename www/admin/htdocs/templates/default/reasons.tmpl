@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>mailcleaner</title>
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Olivier Diserens">
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
+<script language="JavaScript">
+
+__DEFAULT__ heightfactor = 20
+__DEFAULT__ heightlimit = 500
+  var new_height=__HEIGHT__ + 150;
+  var win_width=500;
+
+  window.resizeTo(win_width, new_height);
+
+</script>
+
+  </head>
+<body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr valign="center"><td align="center">
+    <table width="100%" height="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+      <tr><td>
+        <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+
+          <tr valign="middle" align="center" bgcolor="#CCCCCC"><td height="35px">__LANG_GETREASONSTITLE__</td></tr>
+          <tr align="center" valign="center" bgcolor="#FFFFFF" class="blocktextbig">
+            <td align="center">
+             <!-- REASONS TABLE -->
+
+              <table width="100%" height="100%" border="0" cellpadding="2" cellspacing="0">
+                <tr bgcolor="black">
+                  <td width="80%" align="left" class="blocktext"><font color="white">&nbsp;&nbsp;__LANG_HITRULE__</font></td>
+                  <td width="20%" align="right" class="blocktext"><font color="white">__LANG_SCORE__&nbsp;&nbsp;</font></td>
+                </tr>
+
+__TMPL_REASON_START__
+<tr bgcolor="__COLOR1__#ededed__COLOR2__#ffffff">
+  <td width="80%" align="left" class="blocktext">&nbsp;&nbsp;__REASON__</td>
+  <td width="20%" align="right" class="blocktext">__REASON_SCORE__&nbsp;&nbsp;</td>
+</tr>
+__TMPL_REASON_STOP__
+		
+		__REASONS_LIST__
+
+                <tr bgcolor="black">
+                  <td width="80%" align="left" class="blocktext"><font color="white">&nbsp;&nbsp;__LANG_TOTAL__</font></td>
+                  <td width="20%" align="right" class="blocktext"><font color="white">__TOTAL_SCORE__&nbsp;&nbsp;</font></td>
+                </tr>
+              </table>
+             <!-- END REASONS TABLE -->
+            </td>
+          </tr>
+          <tr valign="middle" align="center" bgcolor="#CCCCCC">
+             <td height="55px"><form><input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__"></form>
+             </td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+
+ </td></tr>
+</table>
+
+</body>
+</html> 
+

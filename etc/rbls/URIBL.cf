@@ -1,0 +1,7 @@
+name=URIBL
+type=URIRBL
+dnsname=multi.uribl.com.
+sublist=127.0.0.2,URIBL_BLACK,URIBL blacklist
+sublist=127.0.0.8,URIBL_RED,URIBL redlist
+sublist=127.0.0.14,URIBL_TEST,URIBL testlist
+callonip=1

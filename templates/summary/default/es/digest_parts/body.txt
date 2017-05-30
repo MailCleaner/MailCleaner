@@ -1,0 +1,11 @@
+Subject: Cuarentena MailCleaner
+
+Su cuarentena MailCleaner contiene nuevos mensajes que se han detectado como spam desde el =FAltimo __NBDAYS__ d=EDas.
+
+Haga clic aqu=ED para revisar su cuarentena: __BASEURL__/?d=__DIGEST_ID__
+
+Sin su intervenci=F3n, los mensajes en cuarentena ser=E1n autom=E1ticamente eliminados, transcurridos __SPAMNBDAYS__ d=EDas desde su recepci=F3n.
+
+--------------------------------------------------------------------------------------
+Este mensaje fue enviado autom=E1ticamente por MailCleaner. Por favor, no responda.
+Para obtener m=E1s informaci=F3n: __BASEURL__/?d=__DIGEST_ID__

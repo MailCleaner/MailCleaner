@@ -1,0 +1,45 @@
+Subject: Bericht von Mailcleaner
+Sehr geehrte Kundin, sehr geehrter Kunde
+
+Hiermit erhalten Sie den Bericht von Mailcleander.net f=FCr die ??NBDAYS letzten 
+Tage.
+
+Diese Nachricht informiert Sie =FCber die E-Mails, die von Mailcleaner.net 
+blockiert wurden.
+Sollten Sie der Meinung sein, dass es sich bei dem ein oder anderen E-Mail
+nicht um eine Spam-Mitteilung handelt, geben Sie es frei, indem Sie auf den
+Link  "Freigeben" klicken.
+
+Die unten aufgelisteten E-Mails werden in 30 Tagen gel=F6scht. Erw=FCnschte und
+f=E4lschlicherweise blockierte Nachrichten m=FCssen deshalb unbedingt vorher
+freigegeben werden.
+
+Falls Sie die Einstellungen der Berichte =E4ndern, den aktuellen Stand der
+Quarantane einsehen oder den Support kontaktieren m=F6chten, begeben Sie sich
+auf die Homepage von Mailcleaner unter der Adresse: 
+
+??WEBBASEURL
+
+----
+
+Liste der als Spams identifizierten Nachrichten:
+
+??START_LIST
+------------------------------------------------------
+Identifikator: ??ID
+        Von: ??TEXTFROM
+        Datum: ??DATE
+        Betreff: ??TEXTSUBJECT
+        Freigeben: ??FORCEURL/fm.php?id=3D??ID&a=3D??RECIPIENT&s=3D??STOREID&lang=3D??LANGUAGE
+        ??NEWSLETTER_TXT
+??END_LIST
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+Diese Nachricht wurden von Mailcleaner.net automatisch erzeugt.
+Bitte antworten Sie nicht darauf. Mehr Infos auf:
+
+??MAILCLEANERURL
+
+??SUMSIGNATURE

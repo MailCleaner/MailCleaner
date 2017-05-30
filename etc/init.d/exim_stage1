@@ -1,0 +1,113 @@
+#! /bin/sh
+
+PATH=$PATH:/usr/sbin:/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+DAEMON=/opt/exim4/bin/exim
+PIDFILE=$VARDIR/run/exim_stage1.pid
+CONFIGFILE=$SRCDIR/etc/exim/exim_stage1.conf
+if [ -f $VARDIR/spool/tmp/exim/exim_stage1.conf ]; then
+  CONFIGFILE=$VARDIR/spool/tmp/exim/exim_stage1.conf
+fi
+QUEUETIME=5m
+NAME="Exim stage 1"
+
+test -x $DAEMON || exit 0
+
+prepare () {
+    if [ -f $VARDIR/spool/exim_stage1/db/callout ]; then
+        rm $VARDIR/spool/exim_stage1/db/callout*
+    fi
+
+    if [ ! -d $VARDIR/spool/tmp/exim_stage1 ]; then
+        mkdir $VARDIR/spool/tmp/exim_stage1
+    fi
+
+    if [ ! -d $VARDIR/spool/tmp/exim_stage1/auth_cache ]; then
+        mkdir $VARDIR/spool/tmp/exim_stage1/auth_cache
+        chown mailcleaner:mailcleaner $VARDIR/spool/tmp/exim_stage1/auth_cache
+    fi
+
+    if [ ! -d $VARDIR/spool/tmp/exim/blacklists ]; then
+        mkdir $VARDIR/spool/tmp/exim/blacklists
+    fi
+
+    touch $VARDIR/spool/tmp/exim/frozen_senders
+    chown mailcleaner:mailcleaner $VARDIR/spool/tmp/exim/frozen_senders
+
+    if [ ! -f $VARDIR/spool/tmp/exim/dmarc.history ]; then
+        touch $VARDIR/spool/tmp/exim/dmarc.history
+        chown mailcleaner:mailcleaner $VARDIR/spool/tmp/exim/dmarc.history
+    fi
+
+    for f in hosts senders; do
+        touch $VARDIR/spool/tmp/exim/blacklists/$f
+    done
+
+    ## copy certs
+    if [ ! -d $VARDIR/spool/tmp/exim ]; then
+        mkdir $VARDIR/spool/tmp/exim >/dev/null 2>&1
+    fi
+    if [ ! -d $VARDIR/spool/tmp/exim/certs ]; then
+        mkdir $VARDIR/spool/tmp/exim/certs >/dev/null 2>&1
+    fi
+    rm $VARDIR/spool/tmp/exim/certs/*.* >/dev/null 2>&1
+    cp $SRCDIR/etc/exim/certs/*.* $VARDIR/spool/tmp/exim/certs/
+
+    $SRCDIR/bin/dump_exim_config.pl 1 >/dev/null 2>&1
+    chown -R mailcleaner:mailcleaner $VARDIR/spool/tmp/mailcleaner/*.list >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+    touch $VARDIR/run/exim_stage1.start.rs
+    echo -n "  Starting $NAME: "
+    prepare
+    $SRCDIR/bin/dump_domains.pl -a >/dev/null 2>&1
+    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd -q$QUEUETIME 
+    if [ -f $VARDIR/run/exim_stage1.rn ]; then
+      rm $VARDIR/run/exim_stage1.rn
+    fi
+    if [ -f $VARDIR/run/MTA1.rn ]; then
+      rm $VARDIR/run/MTA1.rn
+    fi
+    echo "started."
+    rm $VARDIR/run/exim_stage1.stopped >/dev/null 2>&1
+    rm $VARDIR/run/exim_stage1.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/exim_stage1.stop.rs
+    echo -n "  Stopping $NAME: "
+    start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
+    sleep 4
+    EXIMPID=`pgrep -f exim_stage1.conf`
+    if [ ! "$EXIMPID" = "" ]; then
+    #echo "trying to kill $EXIMPID"
+      kill -KILL $EXIMPID >/dev/null 2>&1
+    fi
+    echo "stopped."
+    rm $VARDIR/run/exim_stage1.stop.rs >/dev/null 2>&1
+    touch $VARDIR/run/exim_stage1.stopped
+      ;;
+  restart)
+    touch $VARDIR/run/exim_stage1.restart.rs
+	$0 stop 
+	sleep 1
+	$0 start
+	;;
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|reload}"
+    exit 1
+    ;;
+esac
+
+
+exit 0

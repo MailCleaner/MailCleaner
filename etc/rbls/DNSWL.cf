@@ -1,0 +1,4 @@
+name=DNSWL
+type=IPRWL
+dnsname=list.dnswl.org
+sublist=127.0.\d+.[123]$,DNSWL,dnswl list

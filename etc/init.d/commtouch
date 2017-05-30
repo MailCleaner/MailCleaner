@@ -1,0 +1,83 @@
+#! /bin/sh
+# /etc/init.d/commtouch: start Commtouch daemons.
+
+export PATH=$PATH:/sbin:/usr/sbin
+
+COMMTOUCH_BASEDIR=/opt/commtouch
+CTASD_STARTER=$COMMTOUCH_BASEDIR/etc/init.d/ctasd_initd
+CTIPD_STARTER=$COMMTOUCH_BASEDIR/etc/init.d/ctipd.init_d
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+if [ ! -f $CTASD_STARTER ]; then
+     echo "ctasd daemon not installed."
+     exit 1
+fi
+if [ ! -f $CTIPD_STARTER ]; then
+     echo "ctipd daemon not installed."
+     exit 1
+fi
+
+prepare () {
+  PREFILTER_CT=`grep 'Pre Filters' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'Commtouch'`
+  if [ "$PREFILTER_CT" = "" ]; then
+     echo "Commtouch module not enabled"
+     exit 0
+  fi  
+}
+
+
+case "$1" in
+  start)
+    touch $VARDIR/run/commtouch.start.rs
+    echo "  Starting Commtouch daemons: "
+    prepare
+    echo -n "    Ctasd daemon..." 
+    $CTASD_STARTER start > /dev/null
+    echo " started."
+    echo -n "    Ctipd daemon..." 
+    $CTIPD_STARTER start > /dev/null
+    echo " started."
+
+    if [ -f $VARDIR/run/commtouch.rn ]; then
+      rm $VARDIR/run/commtouch.rn
+	fi    
+    rm $VARDIR/run/commtouch.stopped >/dev/null 2>&1
+    rm $VARDIR/run/commtouch.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/commtouch.stop.rs
+    echo "  Stopping Commtouch daemons: "
+    echo -n "    Ctasd daemon..." 
+    $CTASD_STARTER stop > /dev/null
+    echo " stopped."
+    echo -n "    Ctipd daemon..." 
+    $CTIPD_STARTER stop > /dev/null
+    echo " stopped."
+
+    sleep 5
+    killall -q -KILL ctasd.bin
+    killall -q -KILL ctipd.bin
+
+    touch $VARDIR/run/commtouch.stopped
+    rm $VARDIR/run/commtouch.stop.rs >/dev/null 2>&1
+    ;;
+  restart|reload|force-reload)
+    touch $VARDIR/run/commtouch.restart.rs
+	$0 stop
+	sleep 3
+	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/commtouch {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
