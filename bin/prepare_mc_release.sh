@@ -214,9 +214,11 @@ touch "${VARDIR}/run/configurator/welcome"
 echo Enable Configurator redirections
 cdel -f "${SRCDIR}/etc/apache/sites/configurator.conf.disabled"
 
+echo Delete all useless dirs and files of /root
+find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -o -path /root/.pyzor -o -path /root/starters \) -prune -o -print | while read dirdata; do cdel -rf "$dirdata"; done
+
 echo Enable installer.pl redirection
-sed -i '/firstcmdlogin.*installer\.pl/d' ~/.bashrc
-echo 'if ! [ -f "/var/mailcleaner/spool/mailcleaner/firstcmdlogin" ]; then /usr/mailcleaner/scripts/installer/installer.pl; touch "/var/mailcleaner/spool/mailcleaner/firstcmdlogin"; fi' >> ~/.bashrc
+echo 'if ! [ -f "/var/mailcleaner/spool/mailcleaner/firstcmdlogin" ]; then /usr/mailcleaner/scripts/installer/installer.pl; touch "/var/mailcleaner/spool/mailcleaner/firstcmdlogin"; fi' > ~/.bashrc
 rm -f /var/mailcleaner/spool/mailcleaner/firstcmdlogin
 
 # Others data installation goes here ->
@@ -270,9 +272,6 @@ ${SRCDIR}/etc/init.d/mailcleaner stop
 
 echo Delete Others data files not useful anymore
 cdel -rf "${STARTERSPATH}/others"
-
-echo Delete all useless dirs and files of /root
-find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -o -path /root/.pyzor -o -path /root/starters \) -prune -o -print | while read dirdata; do cdel -rf "$dirdata"; done
 
 echo Delete MC logs
 cdel -rf "${VARDIR}/log/"{apache,clamav,exim_stage1,exim_stage2,exim_stage4,mailcleaner,mailscanner,mysql_slave}"/*"
