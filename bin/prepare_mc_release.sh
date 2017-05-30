@@ -197,12 +197,12 @@ sleep 5s
 echo Update db.root file for bind
 wget --user=ftp --password=ftp ftp://ftp.rs.internic.net/domain/db.cache -O /etc/bind/db.root
 
-echo Stop MailCleaner
-${SRCDIR}/etc/init.d/mailcleaner stop
-
 echo Delete or replace DevMode Tag in specified files
 [ "$devMode" == "false" ] && sed -i "s/#\[DEVMODEDEL\]//g" "$SRCDIR/bin/unregister_mailcleaner.sh"
 ${SRCDIR}/bin/unregister_mailcleaner.sh --no-rsp -b
+
+echo Stop MailCleaner
+${SRCDIR}/etc/init.d/mailcleaner stop
 
 echo Delete Configurator step files
 cdel -f "${VARDIR}/run/configurator/"{adminpass,baseurl,dbpass,hostid,identify,rootpass}
