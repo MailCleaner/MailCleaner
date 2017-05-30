@@ -270,6 +270,8 @@ ${SRCDIR}/etc/init.d/mailcleaner stop
 # CleanUp in MC SRCDIR
 # Things to do to add !
 
+apt-get clean
+
 echo Delete Others data files not useful anymore
 cdel -rf "${STARTERSPATH}/others"
 
