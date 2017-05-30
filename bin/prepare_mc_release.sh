@@ -228,6 +228,9 @@ cp -f "${STARTERSPATH}/magic.mgc" /opt/file/share/misc/magic.mgc
 
 ${SRCDIR}/etc/init.d/mailcleaner start
 
+echo Create file for backup IF 192.168.1.42
+echo -e 'auto eth0:0\nallow-hotplug eth0:0\niface eth0:0 inet static\n\taddress 192.168.1.42\n\tnetmask 255.255.255.0\n' > /etc/network/interfaces.d/configif.conf
+
 echo Set port access for the configurator
 echo "DELETE FROM external_access where service='configurator'" |${SRCDIR}/bin/mc_mysql -m mc_config
 echo "INSERT INTO external_access values(NULL, 'configurator', '4242', 'TCP', '0.0.0.0/0', 'NULL')" |${SRCDIR}/bin/mc_mysql -m mc_config
@@ -265,10 +268,10 @@ cdel -rf "${VARDIR}/log/mysql_master/*.log*"
 
 echo Delete old system logs and Empty recent logs files
 find /var/log/ -type f -name "*.*gz" | while read logdata; do cdel -f "$logdata"; done
-[ "$devMode" == "false" ] && for logs in $(find /var/log/ -type f); do truncate -s0 "$logs"; done
+[ "$devMode" == "false" ] && find /var/log/ -type f -exec truncate -s0 {} \;
 
 echo Shrink VM
-[ "$devMode" == "false" ] && dd if=/dev/zero of=/tmp/spaceuseless
+[ "$devMode" == "false" ] && time dd if=/dev/zero of=/tmp/spaceuseless
 rm -f /tmp/spaceuseless
 [ "$devMode" == "false" ] && fstrim -av
 
