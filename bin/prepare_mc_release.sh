@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
@@ -250,6 +251,17 @@ echo "PURGE BINARY LOGS BEFORE NOW();" |/opt/mysql5/bin/mysql -uroot -p"$dbPassw
 sleep 5s
 echo Delete old not aligned binary logs
 ls -1 ${VARDIR}/log/mysql_master/mysql_bin.[0-9]* | sort ${VARDIR}/log/mysql_master/mysql_bin.index ${VARDIR}/log/mysql_master/mysql_bin.index - |uniq -u |xargs rm -f
+
+echo "Delete messages in queues"
+/opt/exim4/bin/exiqgrep -C ${SRCDIR}/etc/exim/exim_stage1.conf -i |xargs /opt/exim4/bin/exim -Mrm
+/opt/exim4/bin/exiqgrep -C ${SRCDIR}/etc/exim/exim_stage2.conf -i |xargs /opt/exim4/bin/exim -Mrm
+/opt/exim4/bin/exiqgrep -C ${SRCDIR}/etc/exim/exim_stage4.conf -i |xargs /opt/exim4/bin/exim -Mrm
+
+echo "Delete Watchdog files"
+cdel -f ${VARDIR}/spool/watchdog/watchdogs*
+cdel -f ${VARDIR}/spool/watchdog/reports/*
+cdel -f ${VARDIR}/spool/watchdog/reports.wrk/*
+
 
 ${SRCDIR}/etc/init.d/mailcleaner stop
 
