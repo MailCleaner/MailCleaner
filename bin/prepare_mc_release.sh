@@ -165,7 +165,7 @@ randomize=false;
 
 echo Update ClamAV starters files
 [ ! -d "${STARTERSPATH}/clamd" ] && mkdir "${STARTERSPATH}/clamd"
-cp -f "${VARDIR}/spool/clamav/"{bytecode.cvd,daily.cvd,main.cvd} "${STARTERSPATH}/clamd/"
+cp -f "${VARDIR}/spool/clamav/"{bytecode.c[vl]d,daily.c[vl]d,main.c[vl]d} "${STARTERSPATH}/clamd/"
 downloadDatas "${STARTERSPATH}/clamd/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/clamd/dbs.md5"
 
