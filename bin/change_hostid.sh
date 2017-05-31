@@ -78,6 +78,6 @@ done
 fi
 
 sed -i "s/^HOSTID.*$/HOSTID = $NEWID/g" $CONFFILE
-echo "update slave set id=$NEWID where id=$OLDID;" | mc_mysql -m mc_config
+echo "update slave set id=$NEWID where id=$OLDID;" |/usr/mailcleaner/bin/mc_mysql -m mc_config
 echo "SUCCESS"
 exit 0
