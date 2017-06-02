@@ -5,10 +5,9 @@ git ls-files -d | xargs git checkout --
 
 # Check git stash result
 git stash save "MC:STASHORNOT"
+git pull
 git stash list |grep 'MC:STASHORNOT'
 [ $? == 1 ] && echo "NoChanges: Nothing to do" && exit 0
-
-git pull
 
 res=$(git stash pop | grep 'CONFLICT')
 retcod=$?
