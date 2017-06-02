@@ -16,15 +16,19 @@
 #   along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #
-#   Base Url page change of MailCleaner "Configurator" wizard
+#   HostID change page of MailCleaner "Configurator" wizard
 #
 -->
+<?php
+if ('hostid.inc' == basename($_SERVER['SCRIPT_FILENAME']))
+  die ('Try again later.');
+?>
 	<h2 class="text-center">Step: <?php echo $validStep['title'] ?></h2>
-	<p>Set the MailCleaner Base URL. This is the URL users and administrators will use to access MailCleaner. This should be the associated address in your DNS server too.</p>
+	<p>Set a unique host ID. This ID will be needed when you use MailCleaner in Cluster.</p>
         <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']."?step=".$_GET['step']; ?>" method="post">
 	  <div class="form-group">
-	    <label class="col-md-5 control-label" for="burl">Base URL :</label>
-	    <div class="col-md-4"><input type="text" class="form-control" name="burl" placeholder="mailcleaner.mycompany.com"></div>
+	    <label class="col-md-5 control-label" for="hid">Host ID :</label>
+	    <div class="col-md-4"><input type="number" min="1" max="1000" class="form-control" name="hid" placeholder="Between 1 and 1000. Must be unique."></div>
 	  </div>
 	  <div class="form-group">
 	    <div class="col-md-offset-5 col-md-4">
@@ -34,13 +38,16 @@
           <div class="form-group">
             <div class="col-md-offset-5 col-md-4">
             <?php
-	    if (isset($_POST['submit_baseurl'])) {
-  	      if (!empty($_POST['burl'])) {
-		  exec("echo \"UPDATE httpd_config SET servername='".$_POST['burl']."';\" |/usr/mailcleaner/bin/mc_mysql -m mc_config", $outputburl, $retburl);
-     		  touch('/var/mailcleaner/run/configurator/baseurl');
-          $_SESSION['burl'] = $_POST['burl'];
-		  ($retburl == 0) ? $retburl = "<span class='text-success'>MailCleaner Base URL changed</span>" : $retburl = "<span class='text-danger'>Failed to change MailCleaner Base URL</span>";
-		  echo $retburl;	          
+	    if (isset($_POST['submit_hostid'])) {
+  	      if (!empty($_POST['hid'])) {
+	        if (preg_match('/^\d+$/', $_POST['hid'])) {
+		  exec("sudo /usr/mailcleaner/bin/change_hostid.sh ".$_POST['hid']." -f", $outputhid, $rethid);
+       		  touch('/var/mailcleaner/run/configurator/hostid');
+($rethid == 0) ? $rethid = "<span class='text-success'>MailCleaner ID changed</span>" : $rethid = "<span class='text-danger'>Failed to change MailCleaner ID</span>";
+                  echo $rethid;
+	        } else {
+	          echo "<span class='text-danger'>Not a valid value.</span>";
+	        }
 	      } else {
 	        echo "<span class='text-danger'>No field should stay empty !</span>";
 	      }

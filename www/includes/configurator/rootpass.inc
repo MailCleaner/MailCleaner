@@ -19,6 +19,10 @@
 #   Root password change page of MailCleaner "Configurator" wizard
 #
 -->
+<?php
+if ('rootpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
+  die ('Try again later.');
+?>
 	<h2 class="text-center">Step: <?php echo $validStep['title'] ?></h2>
 	<p>This password will be set for root account.</p>
         <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']."?step=".$_GET['step']; ?>" method="post">

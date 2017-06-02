@@ -116,15 +116,16 @@
       if (session_status() == PHP_SESSION_NONE) {
        session_start();
        }
-       
-       $infoPage = array('welcome' => array('page' => 'welcome.php', 'prev' => '', 'next' => 'identify', 'sesstep' => 'welcome', 'title' => 'Welcome', 'progress' => '0'),
-  'identify' => array('page' => 'identify.php', 'prev' => 'welcome', 'next' => 'adminpass', 'sesstep' => 'identify', 'title' => 'Configurator Identification', 'progress' => '14'),
-  'adminpass' => array('page' => 'adminpass.php', 'prev' => 'identify', 'next' => 'rootpass', 'sesstep' => 'adminpass', 'title' => 'Change Admin (Web) Password', 'progress' => '28'),
-  'rootpass' => array('page' => 'rootpass.php', 'prev' => 'adminpass', 'next' => 'dbpass', 'sesstep' => 'rootpass', 'title' => 'Change Root Password', 'progress' => '42'),
-  'dbpass' => array('page' => 'dbpass.php', 'prev' => 'rootpass', 'next' => 'hostid', 'sesstep' => 'dbpass', 'title' => 'Change Database Password', 'progress' => '56'),
-  'hostid' => array('page' => 'hostid.php', 'prev' => 'dbpass', 'next' => 'baseurl', 'sesstep' => 'hostid', 'title' => 'Change Host ID', 'progress' => '70'),
-  'baseurl' => array('page' => 'baseurl.php', 'prev' => 'hostid', 'next' => 'ending', 'sesstep' => 'baseurl', 'title' => 'Change Base URL', 'progress' => '84'),
-  'ending' => array('page' => 'ending.php', 'prev' => 'baseurl', 'next' => '', 'sesstep' => 'ending', 'title' => 'Some tips before you go !', 'progress' => '100')
+
+       $pagePath = '../includes/configurator/';
+       $infoPage = array('welcome' => array('page' => 'welcome.inc', 'prev' => '', 'next' => 'identify', 'sesstep' => 'welcome', 'title' => 'Welcome', 'progress' => '0'),
+  'identify' => array('page' => 'identify.inc', 'prev' => 'welcome', 'next' => 'adminpass', 'sesstep' => 'identify', 'title' => 'Configurator Identification', 'progress' => '14'),
+  'adminpass' => array('page' => 'adminpass.inc', 'prev' => 'identify', 'next' => 'rootpass', 'sesstep' => 'adminpass', 'title' => 'Change Admin (Web) Password', 'progress' => '28'),
+  'rootpass' => array('page' => 'rootpass.inc', 'prev' => 'adminpass', 'next' => 'dbpass', 'sesstep' => 'rootpass', 'title' => 'Change Root Password', 'progress' => '42'),
+  'dbpass' => array('page' => 'dbpass.inc', 'prev' => 'rootpass', 'next' => 'hostid', 'sesstep' => 'dbpass', 'title' => 'Change Database Password', 'progress' => '56'),
+  'hostid' => array('page' => 'hostid.inc', 'prev' => 'dbpass', 'next' => 'baseurl', 'sesstep' => 'hostid', 'title' => 'Change Host ID', 'progress' => '70'),
+  'baseurl' => array('page' => 'baseurl.inc', 'prev' => 'hostid', 'next' => 'ending', 'sesstep' => 'baseurl', 'title' => 'Change Base URL', 'progress' => '84'),
+  'ending' => array('page' => 'ending.inc', 'prev' => 'baseurl', 'next' => '', 'sesstep' => 'ending', 'title' => 'Some tips before you go !', 'progress' => '100')
   );
   
   $validStep = $infoPage['welcome'];
@@ -168,7 +169,7 @@
       </div>
       <div class="col-md-8">
 	<div class="jumbotron">  
-	  <?php require($validStep['page']); ?>
+	  <?php require($pagePath . $validStep['page']); ?>
 	</div>
 	<div class="progress" style="height: 3vh">
 	  <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $validStep['progress'] ?>" aria-valuemin="0" aria-valuemax=100 style="min-width: 2em; width: <?php echo $validStep['progress'] ?>%">

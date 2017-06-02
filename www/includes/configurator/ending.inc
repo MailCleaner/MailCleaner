@@ -19,6 +19,10 @@
 #   Last page with advices of MailCleaner "Configurator" wizard
 #
 -->
+<?php
+if ('ending.inc' == basename($_SERVER['SCRIPT_FILENAME']))
+  die ('Try again later.');
+?>
 	<h2 class="text-center">Step: <?php echo $validStep['title'] ?>
 	<br/>
 	<small>Configuration done !</small>

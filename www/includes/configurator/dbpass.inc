@@ -19,6 +19,10 @@
 #   DB password change page of MailCleaner "Configurator" wizard
 #
 -->
+<?php
+if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
+  die ('Try again later.');
+?>
 	<h2 class="text-center">Step: <?php echo $validStep['title'] ?></h2>
 	<p>This password will be set for mysql root and mailcleaner account.</p>
 	<p class="text-danger">Please change this password only before setting a cluster. Otherwise, unset your cluster and reset it after this change.</p>

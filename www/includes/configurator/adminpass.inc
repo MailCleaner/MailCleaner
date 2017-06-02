@@ -19,6 +19,10 @@
 #   Admin password change page of MailCleaner "Configurator" wizard
 #
 -->
+<?php
+if ('adminpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
+  die ('Try again later.');
+?>
 	<h2 class="text-center">Step: <?php echo $validStep['title'] ?></h2>
 	<p>This password will be the admin account password used to access the MailCleaner admin web interface.</p>
         <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']."?step=".$_GET['step']; ?>" method="post">
@@ -45,7 +49,7 @@
                     $cryptedaw = crypt($_POST['newpassaw'], $saltaw);
 		    $mymcpass = shell_exec("grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3");
                     $qryaw = "UPDATE administrator SET password=\"$cryptedaw\" WHERE username=\"admin\";";
-		    $qryfull = "/opt/mysql5/bin/mysql --socket='/var/mailcleaner/run/mysql_master/mysqld.sock' -umailcleaner -p'MCPassw0rd' -e '".$qryaw."' mc_config";
+		    $qryfull = "/opt/mysql5/bin/mysql --socket='/var/mailcleaner/run/mysql_master/mysqld.sock' -umailcleaner -p'".trim($mymcpass)."' -e '".$qryaw."' mc_config";
                     exec($qryfull, $outputaw, $retaw);
 		    touch('/var/mailcleaner/run/configurator/adminpass');
                     ($retaw == 0) ? $retaw = "<span class='text-success'>Admin password changed</span>" : $retaw = "<span class='text-danger'>Failed to change Admin password</span>";
