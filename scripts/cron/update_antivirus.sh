@@ -21,9 +21,9 @@ fi
 #/opt/MailScanner/bin/update_virus_scanners
 
 CLAMDPID=`pgrep -f clamd.conf`
-if [ "$CLAMDPID" = "" ]; then
-	exit;
-fi
+#if [ "$CLAMDPID" = "" ]; then
+#	exit;
+#fi
 
 echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Starting ClamAV update..." >> $VARDIR/log/clamav/freshclam.log
 /opt/clamav/bin/freshclam --user=clamav --config-file=$SRCDIR/etc/clamav/freshclam.conf --daemon-notify=$SRCDIR/etc/clamav/clamd.conf >> $VARDIR/log/clamav/freshclam.log 2>&1
