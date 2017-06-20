@@ -747,7 +747,7 @@ sub log {
 			$this->{env_sender}, $this->{exim_id},
 			$this->{sc_spamc},   $this->{sc_prerbls},
 			$this->{prefilters}, $this->{headers}{subject},
-			$this->{sc_global},  $$inmasterh
+			$this->{sc_global},  $$inmasterh, $isNewsletter
 		);
 
 		if ( !$res ) {
