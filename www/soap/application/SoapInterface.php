@@ -196,13 +196,31 @@ class SoapInterface
 
 
 /**
-   * This function will register this host
+   * This function will change the host id
    * @param  array   registration data
    * @return string
    */
         static public function Config_hostid($data) {
             return MCSoap_Config::Config_hostid($data);
        }
+
+/**
+   * This function will enable auto-configuration on MailCleaner
+   * @param  array data
+   * @return string
+   */
+	static public function Config_autoconfiguration($data) {
+	    return MCSoap_Config::Config_autoconfiguration($data);
+	}
+
+/**
+   * This function will download and set one time the MailCleaner reference configuration
+   * @param  array data
+   * @return string
+   */
+        static public function Config_autoconfigurationDownload($data) {
+            return MCSoap_Config::Config_autoconfigurationDownload($data);
+        }
 
   /**
    * This function restart syslog services

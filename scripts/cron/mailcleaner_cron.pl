@@ -410,6 +410,18 @@ if ($itsmidnight) {
     print "done generating and sending DMARC reports...\n";
     exit;
   }
+
+  ##################################
+  ## get the autoconf
+  ##################################
+  print "getting the last conf for autoconf...\n";
+  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+	if ( -e $config{'VARDIR'}."/spool/mailcleaner/mc-autoconf") {
+	        system($config{'SRCDIR'}."/bin/fetch_autoconf.sh &>> /dev/null");
+		system($config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh &>> /dev/null");
+	}
+  }
+
 }
 
 if ($itstime) {

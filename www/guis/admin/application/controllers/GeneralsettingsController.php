@@ -26,6 +26,13 @@ class GeneralsettingsController extends Zend_Controller_Action
     	
     	$this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Defaults', 'id' => 'defaults', 'action' => 'defaults', 'controller' => 'generalsettings')));
         $this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Company', 'id' => 'company', 'action' => 'company', 'controller' => 'generalsettings')));
+
+	// Autoconfiguration is available only for EE edition
+        $sysconf = MailCleaner_Config::getInstance();
+        if ($sysconf->getOption('REGISTERED') == 1) {
+		$this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Auto-configuration', 'id' => 'autoconfiguration', 'action' => 'autoconfiguration', 'controller' => 'generalsettings')));
+        }
+
         $this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Quarantines', 'id' => 'quarantines', 'action' => 'quarantines', 'controller' => 'generalsettings')));
         $this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Periodic tasks', 'id' => 'tasks', 'action' => 'tasks', 'controller' => 'generalsettings')));
         $this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Logging', 'id' => 'logging', 'action' => 'logging', 'controller' => 'generalsettings')));
@@ -118,7 +125,40 @@ class GeneralsettingsController extends Zend_Controller_Action
         $view->form = $form;
     	$view->message = $message;
     }
-    
+
+    public function autoconfigurationAction() {
+        $this->config_menu->findOneBy('id', 'autoconfiguration')->class = 'generalconfigmenuselected';
+        $layout = Zend_Layout::getMvcInstance();
+        $view=$layout->getView();
+        $view->selectedConfigMenuLabel = $this->config_menu->findOneBy('id', 'autoconfiguration')->label;
+
+        $message = '';
+        $autoconfmgr = new Default_Model_AutoconfigurationManager();
+        $autoconfmgr->load();
+        $form = new Default_Form_Autoconfiguration($autoconfmgr);
+
+	$request = $this->getRequest();
+
+        if ($request->isPost()) {
+		// Download and set once the reference configuration
+		$isDownload = $request->getParam('download');
+		if(isset($isDownload) && $isDownload) {
+			$message = $autoconfmgr->download();
+		}
+
+		// Enable daily auto-configuration
+                if ($form->isValid($request->getPost())) {
+                        $autoconfmgr->setAutoconfenabled($request->getParam('autoconfiguration'));
+                        $message = $autoconfmgr->save();
+                } else {
+                        $message = 'NOK an error occured';
+                }
+        }
+
+        $view->form = $form;
+        $view->message = $message;
+    }
+
     public function quarantinesAction() {
     	$t = Zend_Registry::get('translate');
     	$this->config_menu->findOneBy('id', 'quarantines')->class = 'generalconfigmenuselected';

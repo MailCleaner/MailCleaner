@@ -363,6 +363,12 @@ class MCSoap_Config
                 return 'NOK '.$res;
         }
 
+	/**
+        * This function will unregister this host
+        *
+        * @param  array of data for unregister this host
+        * @return string
+        */
 	static public function Config_unregister($data) {
                 require_once('MailCleaner/Config.php');
                 $sysconf = MailCleaner_Config::getInstance();
@@ -378,6 +384,13 @@ class MCSoap_Config
                 return 'NOK '.$res;
         }
 
+
+	 /**
+        * This function will set the host id
+        *
+        * @param  array of data for changing the host id
+        * @return string
+        */
 	static public function Config_hostid($data) {
                 require_once('MailCleaner/Config.php');
                 $sysconf = MailCleaner_Config::getInstance();
@@ -392,5 +405,64 @@ class MCSoap_Config
                 }
                 return 'NOK '.$res;
         }
+
+	/**
+        * This function will enable auto-configuration
+        *
+        * @param  array of data with a single boolean variable autoconfenabled
+        * @return string
+        */
+	static public function Config_autoconfiguration($data) {
+		require_once('MailCleaner/Config.php');
+                $sysconf = MailCleaner_Config::getInstance();
+                $mc_autoconf = $sysconf->getOption('VARDIR').'/spool/mailcleaner/mc-autoconf';
+		$msg='OK';
+                if(isset($data['autoconfenabled']) && $data['autoconfenabled']) {
+			if (!file_exists($mc_autoconf)) {
+                        	$result = fopen($mc_autoconf, "w");
+				if ($result)
+					$msg='OK Auto-configuration enabled';
+				fclose($result);
+			}
+                } else {
+			if(file_exists($mc_autoconf)) {
+				$result = unlink($mc_autoconf);
+				if($result)
+					$msg='OK Auto-configuration disabled';
+			}
+		}
+
+                return $msg;
+	}
+
+
+	/**
+        * This function will download and set in one shot the reference configuration
+        *
+        * @param  array of data for download the auto-configuration
+        * @return string
+        */
+	static public function Config_autoconfigurationDownload($data) {
+                if(isset($data['download']) && $data['download']) {
+			require_once('MailCleaner/Config.php');
+                	$sysconf = MailCleaner_Config::getInstance();
+        	        $cmd_autoconf = $sysconf->getOption('SRCDIR').'/bin/fetch_autoconf.sh';
+			$res = `$cmd_autoconf`;
+
+			// Check if the autoconf is downloaded then run prepare_sqlconf.sh
+			if (file_exists($sysconf->getOption('SRCDIR').'/etc/autoconf/prepare_sqlconf.sh')) {
+	                	$cmd_prepare  = $sysconf->getOption('SRCDIR').'/etc/autoconf/prepare_sqlconf.sh';
+				$res = `$cmd_prepare`;
+				// When updating the mc_config, need to restart MC
+				$cmd = "touch ".$sysconf->getOption('VARDIR')."/run/exim_stage1.rn";
+				$cmd2 ="touch ".$sysconf->getOption('VARDIR')."/run/mailscanner.rn";
+				`$cmd`;
+				`$cmd2`;
+	                	return 'OK Configuraton downloaded and setted';
+			}
+                }
+
+		return 'NOK Internal error';
+	}
 
 }
