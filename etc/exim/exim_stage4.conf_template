@@ -40,7 +40,11 @@ tls_advertise_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2
+__ELSE__ USETLS
+tls_advertise_hosts =
 __FI__
+
+chunking_advertise_hosts =
 
 local_interfaces = 127.0.0.1
 daemon_smtp_port = 2525
@@ -297,7 +301,8 @@ remote_smtp:
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to} {*}{__HOSTS_REQUIRE_TLS__} }
 __FI__
-
+  hosts_try_chunking =
+  
 ####################
 ## local deliveries
 local_delivery:
@@ -329,6 +334,7 @@ archiver_smtp_transport:
 __IF__ USETLS
   hosts_require_tls = __HOSTS_REQUIRE_TLS__
 __FI__
+  hosts_try_chunking =
   
 ######################################################################
 #                      RETRY CONFIGURATION                           #

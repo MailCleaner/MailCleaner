@@ -19,6 +19,18 @@ local_interfaces = 127.0.0.1
 daemon_smtp_port = 2424
 smtp_accept_max = 0
 
+__IF__ USETLS
+tls_advertise_hosts = *
+tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+tls_require_ciphers = ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2
+openssl_options = +no_sslv2 +no_sslv3
+__ELSE__ USETLS
+tls_advertise_hosts =
+__FI__
+
+chunking_advertise_hosts =
+
 rfc1413_hosts =
 rfc1413_query_timeout = 0s
 acl_smtp_rcpt = acl_check_rcpt

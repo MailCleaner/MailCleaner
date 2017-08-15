@@ -37,7 +37,11 @@ tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2
 openssl_options = +no_sslv2 +no_sslv3
+__ELSE__ USETLS
+tls_advertise_hosts =
 __FI__
+
+chunking_advertise_hosts =
 
 smtp_active_hostname = __HELO_NAME__
 qualify_domain = __HELO_NAME__
@@ -1054,6 +1058,7 @@ bypass_smtp:
   hosts = localhost
   interface = 127.0.0.1
   port = 2525
+  hosts_try_chunking =
   return_path = ${if and { \
                              {def:return_path} \
                              {match_domain{${domain:$return_path}}{+domains_to_check_batv}} \
@@ -1062,7 +1067,7 @@ bypass_smtp:
                      {${prvscheck {$return_path} {}}} \
                      {$return_path} \
                  }
-
+  
 to_engine:
   driver = appendfile
   user = mailcleaner
@@ -1102,7 +1107,9 @@ local_smtp:
                           {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
-
+  hosts_avoid_tls = localhost
+  hosts_try_chunking =
+  
 remote_smtp:
   driver = smtp
 __IF__ MASQUERADE_OUTGOING_HELO
@@ -1115,6 +1122,7 @@ __FI__
   final_timeout = 120s
   data_timeout = 120s
   connect_timeout = 30s
+  hosts_try_chunking =
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
 __FI__
@@ -1136,7 +1144,8 @@ callout_transport:
   driver = smtp
   helo_data = __HELO_NAME__
   multi_domain = false
-
+  hosts_try_chunking =
+  
 archiver_smtp_transport:
   debug_print = "T: archiving mail for $local_part@$domain"
   driver = smtp
@@ -1146,7 +1155,8 @@ archiver_smtp_transport:
 __IF__ USETLS
   hosts_require_tls = <; __HOSTS_REQUIRE_TLS__
 __FI__
-
+  hosts_try_chunking =
+  
 address_list_transport:
   driver = pipe
   command = SRCDIR/etc/exim/address_list.pl ${domain} ${sender_address} ${local_part}@${domain}
