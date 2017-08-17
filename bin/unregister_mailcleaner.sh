@@ -262,7 +262,9 @@ sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #5C6D99; \/\*__MAINHE
 
 echo "delete from administrator where username='mailcleaner-support';" | $SRCDIR/bin/mc_mysql -m mc_config &> /dev/null
 echo "delete from external_access where service='ssh' AND port='22' AND protocol='TCP' AND (allowed_ip='193.246.63.0/24' OR allowed_ip='195.176.194.0/24');" | $SRCDIR/bin/mc_mysql -m mc_config &> /dev/null
- 
+
+echo "Community Edition" > $SRCDIR/etc/edition.def
+
 if [ "$batch" = 0 ]; then
 echo "*****************"
 echo "UNREGISTRATION SUCCESSFULL !"

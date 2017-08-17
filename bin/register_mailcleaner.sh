@@ -283,6 +283,8 @@ sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHE
 sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHEADERBG__\*\//g' $SRCDIR/www/user/htdocs/templates/default/css/navigation.css
 sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHEADERBG__\*\//g' $SRCDIR/www/user/htdocs/templates/default/css/login.css
 
+
+echo "Enterprise Edition" > $SRCDIR/etc/edition.def
 echo "REGISTERED = 1" >> $CONFFILE
 
 if [ "$batch" = 0 ]; then
