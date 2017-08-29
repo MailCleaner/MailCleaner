@@ -99,7 +99,12 @@ if [ -f "/tmp/mc_registerce.out" ]; then
 		# Registration done, we update the local db
 		# First, we check if the mc_community DB exists if not we create it
                 # And secondly we check if the table registration exists also
-                echo "CREATE DATABASE IF NOT EXISTS mc_community;" | $SRCDIR/bin/mc_mysql -m
+		$SRCDIR/etc/init.d/mysql_master restart nopass
+		sleep 5s
+		echo "CREATE DATABASE IF NOT EXISTS mc_community;" | /opt/mysql5/bin/mysql -S ${VARDIR}/run/mysql_master/mysqld.sock &>> /dev/null
+		echo "USE mysql; INSERT INTO db VALUES('%', 'mc_community', 'mailcleaner', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y')" | /opt/mysql5/bin/mysql -S ${VARDIR}/run/mysql_master/mysqld.sock &>> /dev/null
+		$SRCDIR/etc/init.d/mysql_master restart
+		sleep 5s
                 cat $SRCDIR/install/dbs/t_ce_registration.sql | $SRCDIR/bin/mc_mysql -m mc_community
 		sql="SELECT id FROM registration;"
 	        rep=$(echo $sql | $SRCDIR/bin/mc_mysql -m mc_community)
