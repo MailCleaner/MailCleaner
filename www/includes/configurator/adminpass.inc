@@ -48,9 +48,14 @@ if ('adminpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
                     $saltaw = '$6$rounds=1000$'.dechex(rand(0,15)).dechex(rand(0,15)).'$';
                     $cryptedaw = crypt($_POST['newpassaw'], $saltaw);
 		    $mymcpass = shell_exec("grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3");
-                    $qryaw = "UPDATE administrator SET password=\"$cryptedaw\" WHERE username=\"admin\";";
-		    $qryfull = "/opt/mysql5/bin/mysql --socket='/var/mailcleaner/run/mysql_master/mysqld.sock' -umailcleaner -p'".trim($mymcpass)."' -e '".$qryaw."' mc_config";
-                    exec($qryfull, $outputaw, $retaw);
+
+		    require_once('db_functions.php');
+		    if($db = getDb('mc_config', 'mailcleaner', trim($mymcpass))) {
+			$sth = $db->prepare("UPDATE administrator SET password=:mcpass WHERE username='admin'");
+			$retaw = $sth->execute(array(':mcpass' => $cryptedaw)) == true ? 0 : 1;
+		    } else {
+			$retaw = 1;
+		    }
 		    touch('/var/mailcleaner/run/configurator/adminpass');
                     ($retaw == 0) ? $retaw = "<span class='text-success'>Admin password changed</span>" : $retaw = "<span class='text-danger'>Failed to change Admin password</span>";
                 echo $retaw;

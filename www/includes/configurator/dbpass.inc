@@ -54,23 +54,57 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
          if (isset($_POST['submit_dbpass'])) {
   	      if (!empty($_POST['oldpassdb']) && !empty($_POST['newpassdb']) && !empty($_POST['confnewpassdb'])) {
 	        if ($_POST['newpassdb'] == $_POST['confnewpassdb']) {
-                exec("echo \"SET PASSWORD FOR 'mailcleaner'@'%' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdb3, $retdb3);
-                exec("echo \"SET PASSWORD FOR 'mailcleaner'@'%' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdb4, $retdb4);
-                exec("sudo /usr/mailcleaner/scripts/configuration/set_pass_in_db.sh ".$_POST['newpassdb'], $outputdbconf, $retdbconf);
-                exec("echo \"SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdb5, $retdb5);
-                exec("echo \"SET PASSWORD FOR 'root'@'::1' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdb6, $retdb6);
-                exec("echo \"SET PASSWORD FOR 'root'@'mailcleaner' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdb7, $retdb7);
-                exec("echo \"SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdb8, $retdb8);
-                exec("echo \"SET PASSWORD FOR 'root'@'::1' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdb9, $retdb9);
-                exec("echo \"SET PASSWORD FOR 'root'@'mailcleaner' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdb10, $retdb10);
-                exec("echo \"STOP SLAVE; CHANGE MASTER TO MASTER_PASSWORD='".$_POST['newpassdb']."'; START SLAVE;\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdbreplic, $retdbreplic);
-                $actual_hostid = shell_exec("grep HOSTID /etc/mailcleaner.conf |cut -d' ' -f3");
-                exec("echo \"UPDATE mc_config.master SET password='".$_POST['newpassdb']."';\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdbmaster, $retdbmaster);
-                exec("echo \"UPDATE mc_config.slave SET password='".$_POST['newpassdb']."' WHERE id='".$actual_hostid."';\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdbslave, $retdbslave);
-                exec("echo \"SET PASSWORD FOR 'root'@'localhost' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_master/mysqld.sock", $outputdb1, $retdb1);
-                exec("echo \"SET PASSWORD FOR 'root'@'localhost' = PASSWORD('".$_POST['newpassdb']."');\" |/opt/mysql5/bin/mysql -uroot -p'".$_POST['oldpassdb']."' --socket=/var/mailcleaner/run/mysql_slave/mysqld.sock", $outputdb2, $retdb2);
-                touch('/var/mailcleaner/run/configurator/dbpass');
-		
+		require_once('db_functions.php');
+		$master = getDb('', 'root', $_POST['oldpassdb']);
+                if($master) {
+		      $users = array("'mailcleaner'@'%'", "'root'@'127.0.0.1'", "'root'@'::1'", "'root'@'mailcleaner'", "'root'@'localhost'");
+		     
+		      $sql = "SET PASSWORD FOR ".$users[0]." = PASSWORD(:newpassdb)";
+		      $sth = $master->prepare($sql);
+		      $retdb3 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sql = "SET PASSWORD FOR ".$users[0]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+                      $sth = $slave->prepare($sql);
+                      $retdb4 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      exec("sudo /usr/mailcleaner/scripts/configuration/set_pass_in_db.sh ".$_POST['newpassdb'], $outputdbconf, $retdbconf);
+		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)"; $master = getDb('', 'root', $_POST['oldpassdb']);
+                      $sth = $master->prepare($sql);
+                      $retdb5 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sql = "SET PASSWORD FOR ".$users[2]." = PASSWORD(:newpassdb)";
+                      $sth = $master->prepare($sql);
+                      $retdb6 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sql = "SET PASSWORD FOR ".$users[3]." = PASSWORD(:newpassdb)";
+                      $sth = $master->prepare($sql);
+                      $retdb7 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+                      $sth = $slave->prepare($sql);
+                      $retdb8 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sql = "SET PASSWORD FOR ".$users[2]." = PASSWORD(:newpassdb)";
+                      $sth = $slave->prepare($sql);
+                      $retdb9 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+                      $sql = "SET PASSWORD FOR ".$users[3]." = PASSWORD(:newpassdb)";
+                      $sth = $slave->prepare($sql);
+                      $retdb10 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+		      $sth = $slave->prepare("STOP SLAVE; CHANGE MASTER TO MASTER_PASSWORD=:masterpass; START SLAVE;");
+                      $retdbreplic = $sth->execute(array(':masterpass' => $_POST['newpassdb'])) == true ? 0 : 1;		      
+		      $actual_hostid = shell_exec("grep HOSTID /etc/mailcleaner.conf |cut -d' ' -f3"); $master = getDb('', 'root', $_POST['oldpassdb']);
+                      $sth = $master->prepare("UPDATE mc_config.master SET password=:newpassdb");
+                      $retdbmaster = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+                      $sth = $master->prepare("UPDATE mc_config.slave SET password=:newpassdb where id=:hostid");
+                      $retdbslave = $sth->execute(array(':newpassdb' => $_POST['newpassdb'], ':hostid' => $actual_hostid)) == true ? 0 : 1;	
+                      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)";
+                      $sth = $master->prepare($sql);
+		      $retdb1 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+                      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+                      $sth = $slave->prepare($sql);
+		      $retdb2 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+
+                      touch('/var/mailcleaner/run/configurator/dbpass');
+                } else {
+                      $retdb1 = $retdbconf = $retdbreplic = $retdbmaster = $retdbslave = 1;
+		      for($i = 1; $i <= 10; $i++)
+			  ${'retdb' . $i} = 1;
+                }
+
                 ($retdb1 == 0) ? $retdb1 = "<span class='text-success'>Master instance Database root@localhost password changed</span>" : $retdb1 = "<span class='text-danger'>Failed to change Master instance Database root@localhost password</span>";
                 ($retdb2 == 0) ? $retdb2 = "<span class='text-success'>Slave instance Database root@localhost password changed</span>" : $retdb2 = "<span class='text-danger'>Failed to change Slave instance Database root@localhost password</span>";
                 ($retdb3 == 0) ? $retdb3 = "<span class='text-success'>Master instance Database mailcleaner@% password changed</span>" : $retdb3 = "<span class='text-danger'>Failed to change Master instance Database mailcleaner@% password</span>";
