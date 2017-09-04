@@ -278,6 +278,9 @@ rm -f $SRCDIR/www/user/htdocs/templates/default/images/login_header.png
 ln -s $SRCDIR/www/user/htdocs/templates/default/images/login_header_ee.png $SRCDIR/www/user/htdocs/templates/default/images/login_header.png
 rm -f $SRCDIR/www/user/htdocs/templates/default/images/logo_name.png
 ln -s $SRCDIR/www/user/htdocs/templates/default/images/logo_name_ee.png $SRCDIR/www/user/htdocs/templates/default/images/logo_name.png
+rm -f $SRCDIR/templates/summary/default/en/summary_parts/banner.jpg
+ln -s $SRCDIR/templates/summary/default/en/summary_parts/banner_ee.jpg $SRCDIR/templates/summary/default/en/summary_parts/banner.jpg
+
 sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHEADERBG__\*\//g' $SRCDIR/www/guis/admin/public/templates/default/css/main.css
 sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHEADERBG__\*\//g' $SRCDIR/www/guis/admin/public/templates/default/css/login.css
 sed -ri 's/^(\s+).*__MAINHEADERBG__.*$/\1background-color: #741864; \/\*__MAINHEADERBG__\*\//g' $SRCDIR/www/user/htdocs/templates/default/css/navigation.css
