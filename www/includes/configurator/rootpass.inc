@@ -45,7 +45,10 @@ if ('rootpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 	    if (isset($_POST['submit_rootpass'])) {
   	      if (!empty($_POST['newpass']) && !empty($_POST['confnewpass'])) {
 	        if ($_POST['newpass'] == $_POST['confnewpass']) {
-	          exec("sudo /usr/mailcleaner/bin/setpassword root ".$_POST['newpass'], $outputrp, $retrp);
+		  $cmdrp = "sudo /usr/mailcleaner/bin/setpassword root ".$_POST['newpass'];
+		  $cmdrp = escapeshellcmd($cmdrp);
+		  $cmdrp = str_replace('!', '\!', $cmdrp);
+	          exec($cmdrp, $outputrp, $retrp);
 		  touch('/var/mailcleaner/run/configurator/rootpass');
 		  ($retrp == 0) ? $retrp = "<span class='text-success'>Root password changed</span>" : $retrp = "<span class='text-danger'>Failed to change Root password</span>";
 		  echo $retrp;
