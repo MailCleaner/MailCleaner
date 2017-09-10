@@ -337,7 +337,6 @@ class Default_Form_RegistrationCE extends ZendX_JQuery_Form
 	    for ($i = 0; $i < count($countries); $i++)
 		$country->addMultiOption($countries[$i], $countries[$i]);
             $country->setValue($res['country']);
-            $country->addValidator(new Zend_Validate_Alnum());
             $this->addElement($country);
 
             $accept_newsletters = new  Zend_Form_Element_Checkbox('accept_newsletters', array(
