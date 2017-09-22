@@ -422,6 +422,15 @@ if ($itsmidnight) {
 	}
   }
 
+  ##################################
+  ## send anon
+  ##################################
+  print "sending anon ...\n";
+  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "2") {
+        system($config{'SRCDIR'}."/bin/send_anon.sh &>> /dev/null");
+  }
+
+
 }
 
 if ($itstime) {
