@@ -10,7 +10,7 @@
 $txt['NEWSLETTERMODULE']        = "Newsletter";
 $txt['NEWSLETTERSTOPIC']        = "Newsletters";
 $txt['NEWSLETTERSTOPICTITLE']   = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP']    = "Here you can manage your newsletters.";
+$txt['NEWSLETTERSSHORTHELP']    = "Ici vous pouvez g&eacute;rer vos newsletters.";
 $txt['NEWSLETTERSALLOW']        = "Delivrer";
 $txt['NEWSLETTERACCEPT']        = "Accepter cette newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
@@ -187,7 +187,7 @@ $txt['PARTS']                   = "Parties&nbsp;";
 $txt['STORESLAVE']              = "Stockage&nbsp;";
 $txt['SPAMCSCORE']              = "Score des r&egrave;gles";
 $txt['DESCRIPTION']             = "Description";
-$txt['MESSAGEPREVIEW']          = "Aper&ccedil;u du message";
+$txt['MESSAGEPREVIEW']          = "Voir le contenu du message";
 $txt['ID']                      = "Identifiant&nbsp;";
 
 /*
@@ -421,9 +421,9 @@ $txt['TODAY']                   = "Aujourd'hui";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP']       = "La liste d'avertissement comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles tout message bloqu&eacute; en 
-								   quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.
-								   Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
-								   Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
+\t\t\t\t\t\t\t\t   quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.
+\t\t\t\t\t\t\t\t   Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
+\t\t\t\t\t\t\t\t   Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
 $txt['WARNLISTFORADDRESS']      = "Liste d'avertissement pour l'adresse&nbsp;";
 $txt['ADDAWARNENTRY']           = "Ajouter une adresse &agrave; la liste";
 $txt['WARNLISTENTRYTOADD']      = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste d'avertissement. Vous pouvez y associer un commentaire optionnel.";
