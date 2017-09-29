@@ -439,7 +439,7 @@ $txt['WHITELISTSHORTHELP']      = "La liste blanche comporte des adresses d'exp&
 ";
 $txt['BLACKLISTSHORTHELP'] 	= "La liste noire comporte des addresses d'exp&eacute;diteurs que vous voulez bloquer. En ajoutant une addresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.";
 $txt['WHITELISTFORADDRESS']     = "Liste blanche pour l'adresse&nbsp;";
-$txt['BLACKLISTFORADDRESS']     = "Liste noire  pour l'adresse&nbsp;";
+$txt['BLACKLISTFORADDRESS']     = "Liste noire  pour l'adresse";
 $txt['ADDAWHITEENTRY']          = "Ajouter une adresse &agrave; la liste";
 $txt['WHITELISTENTRYTOADD']     = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste blanche. Vous pouvez y associer un commentaire optionnel.";
 $txt['BLACKLISTENTRYTOADD']     = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste noire. Vous pouvez y associer un commentaire optionnel.";
