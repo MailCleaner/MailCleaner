@@ -7,18 +7,18 @@
  */
 
 ### newsl
-$txt['NEWSLETTERMODULE']        = "Newsletter";
-$txt['NEWSLETTERSTOPIC']        = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE']   = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP']    = "Ici vous pouvez g&eacute;rer vos newsletters.";
+$txt['NEWSLETTERMODULE']        = "Lettre d'information";
+$txt['NEWSLETTERSTOPIC']        = "Lettres d'information";
+$txt['NEWSLETTERSTOPICTITLE']   = "Lettres d'information";
+$txt['NEWSLETTERSSHORTHELP']    = "Ici vous pouvez g&eacute;rer vos lettres d'information.";
 $txt['NEWSLETTERSALLOW']        = "Delivrer";
-$txt['NEWSLETTERACCEPT']        = "Accepter cette newsletter";
+$txt['NEWSLETTERACCEPT']        = "Accepter cette lettre d'information";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
 
 /* 
  * generic buttons
  */
-$txt['SUBMIT']                  = "OK";
+$txt['SUBMIT']                  = "Envoyer";
 $txt['CANCEL']                  = "Annuler";
 $txt['CLOSE']                   = "Fermer";
 $txt['ADD']                     = "ajouter"; // old
@@ -70,10 +70,10 @@ $txt['BADLOGIN']                = "Nom d'utilisateur ou mot de passe erron&eacut
 $txt['SESSIONEXPIRED']          = "Pour des raisons de s&eacute;curit&eacute;, votre session MailClenaer a automatiquement expir&eacute;.";
 $txt['LOGININFO']               = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte e-mail.";
 
-$txt['USERNAME']                = "Utilisateur&nbsp;";
-$txt['PASSWORD']                = "Mot de passe&nbsp;";
+$txt['USERNAME']                = "Utilisateur";
+$txt['PASSWORD']                = "Mot de passe";
 $txt['ASKLOGIN']                = "Veuillez entrer votre nom d'utilisateur et votre mot de passe pour acc&eacute;der aux outils clients: <span class=\"important\">(il s'agit du nom d'utilisateur et du mot de passe de votre compte e-mail)</span>"; //old
-$txt['ORGANIZATIONUNIT']        = "Unit&eacute; ou d&eacute;partement;";
+$txt['ORGANIZATIONUNIT']        = "Unit&eacute; ou d&eacute;partement";
 $txt['FORGOTPASSWORD']          = "Mot de passe perdu ?";
 
 $txt['PASSWORDRESET']           = "Le mot de passe a &eacute;t&eacute; r&eacute;initialis&eacute; et vous a &eacute;t&eacute; envoy&eacute; par e-mail.";
@@ -81,7 +81,7 @@ $txt['PASSWORDRESET']           = "Le mot de passe a &eacute;t&eacute; r&eacute;
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU']       = "Configuration&nbsp;";
+$txt['CONFIGURATIONMENU']       = "Configuration";
 $txt['HELPMENU']                = "Aide";
 $txt['QUARANTINEMENU']          = "Quarantaine";
 $txt['STATISTICSMENU']          = "Statistiques";
@@ -95,7 +95,7 @@ $txt['NAVSUPPORT']              = "Support";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS']         = "Adresse examin&eacute;e&nbsp;";
+$txt['SELECTEDADDRESS']         = "Adresse examin&eacute;e";
 $txt['QUARANTINESUMMARY']       = "<strong>En quarantaine :</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY']           = "<strong>Recherche :</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM']          = "tri&eacute;s par __PARAM__";
@@ -128,13 +128,13 @@ $txt['FILTER']                  = "Filtre"; //old
 $txt['ADVANCEDSEARCH']          = "recherche avanc&eacute;e"; //old
 $txt['SHOWEDMESSAGES']          = "messages affich&eacute;s"; //old
 $txt['COMINGFROM']              = "provenance"; //old
-$txt['DATE']                    = "Date&nbsp;";
+$txt['DATE']                    = "Date";
 $txt['HOUR']                    = "Heure";
 $txt['FROM']                    = "De";
-$txt['TO']                      = "Destinataire&nbsp;";
-$txt['SUBJECT']                 = "Objet&nbsp;";
+$txt['TO']                      = "Destinataire";
+$txt['SUBJECT']                 = "Objet";
 $txt['SENDER']                  = "Exp&eacute;diteur&nbsp;";
-$txt['FORCED']                  = "Lib&eacute;r&nbsp;";
+$txt['FORCED']                  = "Lib&eacute;r";
 $txt['ACTION']                  = "Action";
 $txt['TOTALSPAMS']              = "Total: __PARAM__ spam(s)"; //old
 $txt['FORTHEXLASTDAYS']         = "__PARAM__ derniers jours"; //old
@@ -177,18 +177,18 @@ $txt['GROUPQUARANTINES']   = "Toutes";
  * preview panel
  */
 $txt['INFORMATIONSABOUTMSG']    = "Contenu du message et des en-t&ecirc;tes";
-$txt['PREFILTERHITS']           = "Pr&eacute;-filtres&nbsp;";
-$txt['BLACKLISTS']              = "Listes noires&nbsp;";
-$txt['FITLERSCORE']             = "Score&nbsp;";
+$txt['PREFILTERHITS']           = "Pr&eacute;-filtres";
+$txt['BLACKLISTS']              = "Listes noires";
+$txt['FITLERSCORE']             = "Score";
 $txt['NONE']                    = "aucun";
 $txt['HEADERS']                 = "En-t&ecirc;tes";
 $txt['BODY']                    = "Corps";
-$txt['PARTS']                   = "Parties&nbsp;";
-$txt['STORESLAVE']              = "Stockage&nbsp;";
+$txt['PARTS']                   = "Parties";
+$txt['STORESLAVE']              = "Stockage";
 $txt['SPAMCSCORE']              = "Score des r&egrave;gles";
 $txt['DESCRIPTION']             = "Description";
 $txt['MESSAGEPREVIEW']          = "Voir le contenu du message";
-$txt['ID']                      = "Identifiant&nbsp;";
+$txt['ID']                      = "Identifiant";
 
 /*
  * logout page
@@ -202,7 +202,7 @@ $txt['PARAMTITLE']              = "Param&eacute;trage personnel de Mailcleaner";
 $txt['USERPARAM']               = "Param&egrave;tres de l'utilisateur"; //old
 $txt['ADDRESSPARAM']            = "Param&egrave;tres de l'adresse"; //old
 $txt['LANGUAGE']                = "Langue"; //old
-$txt['ADDRESS']                 = "Adresse&nbsp;";
+$txt['ADDRESS']                 = "Adresse";
 $txt['ADDRALIASTITLE']          = "Adresses et aliases"; //old
 $txt['FILTERACTIONTITLE']       = "Action du filtre"; //old
 $txt['SUMMARYPARAMSTITLE']      = "Rapports automatiques"; //old
@@ -232,7 +232,7 @@ $txt['EDITWARNLIST']            = "gestion liste d'avertissement"; //old
  * wwlist management
  */
 $txt['SENDER']                  = "Exp&eacute;diteur&nbsp;"; //old
-$txt['COMMENT']                 = "Commentaire&nbsp;";
+$txt['COMMENT']                 = "Commentaire";
 $txt['ACTIONS']                 = "Actions"; //old
 $txt['ACTIVE']                  = "activ&eacute;e"; //old
 $txt['INNACTIVE']               = "d&eacute;sactiv&eacute;e"; //old
@@ -409,7 +409,7 @@ $txt['INVALIDSUMMARYTO']        = "L'adresse de destination des rapports n'est p
 /* 
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP']     = "L'affichage de la quarantaine (nombre de jours et de lignes) peut &ecirc;tre configur&eacute; en fonction de vos besoins et de vos habitudes. ";
+$txt['CONFIGQUARSHORTHELP']     = "L'affichage de la quarantaine (nombre de jours et de lignes) peut &ecirc;tre configur&eacute; en fonction de vos besoins et de vos habitudes.";
 $txt['QUARNBLINESDISPLAYED']    = "Nombre de lignes affich&eacute;es&nbsp;";
 $txt['QUARNBDAYSDISAPLYED']     = "Nombre de jours affich&eacute;s&nbsp;";
 $txt['MASKEALREADYFORCED']      = "Masquer les messages d&eacute;j&agrave; lib&eacute;r&eacute;s";
