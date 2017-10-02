@@ -7,10 +7,10 @@
  */
 
 ### newsl
-$txt['NEWSLETTERMODULE']        = "Lettre d'information";
-$txt['NEWSLETTERSTOPIC']        = "Lettres d'information";
-$txt['NEWSLETTERSTOPICTITLE']   = "Lettres d'information";
-$txt['NEWSLETTERSSHORTHELP']    = "Ici vous pouvez g&eacute;rer vos lettres d'information.";
+$txt['NEWSLETTERMODULE']        = "Newsletter";
+$txt['NEWSLETTERSTOPIC']        = "Newsletters";
+$txt['NEWSLETTERSTOPICTITLE']   = "Newsletters";
+$txt['NEWSLETTERSSHORTHELP']    = "Ici vous pouvez g&eacute;rer vos newsletters.";
 $txt['NEWSLETTERSALLOW']        = "Delivrer";
 $txt['NEWSLETTERACCEPT']        = "Accepter cette lettre d'information";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
@@ -68,7 +68,7 @@ $txt['MONTH12']     = 'd&eacute;cembre';
  */
 $txt['BADLOGIN']                = "Nom d'utilisateur ou mot de passe erron&eacute;.";
 $txt['SESSIONEXPIRED']          = "Pour des raisons de s&eacute;curit&eacute;, votre session MailClenaer a automatiquement expir&eacute;.";
-$txt['LOGININFO']               = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte e-mail.";
+$txt['LOGININFO']               = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte e-mail";
 
 $txt['USERNAME']                = "Utilisateur";
 $txt['PASSWORD']                = "Mot de passe";
@@ -314,9 +314,9 @@ $txt['WHATCANWEDO']             = "Que peut-on faire pour vous ?"; //old
 $txt['NEEDEDFIELDS']            = "Champs obligatoires"; //old
 
 $txt['SUPPORT']                 = "Support"; //old
-$txt['SUPFORMSENT']             = "Votre message a bien &eacute;t&eacute; envoy&eacute;"; //old
+$txt['SUPFORMSENT']             = "Votre message a bien &eacute;t&eacute; envoy&eacute;."; //old
 $txt['CANNOTSENDSUPFORM']       = "Votre message n'a pas pu &ecirc;tre envoy&eacute;. Consultez votre administrateur syst&egrave;me."; //old
-$txt['BADFORMFIELDS']           = "Veuillez contr&ocirc;ler les valeurs des champs obligatoires"; //old
+$txt['BADFORMFIELDS']           = "Veuillez contr&ocirc;ler les valeurs des champs obligatoires."; //old
 
 
 /*
@@ -433,11 +433,14 @@ $txt['REMOVEAWARNENTRYSHORTHELP']  = "Cochez dans la liste d'avertissement l'adr
 $txt['REMTHEENTRY']             = "Supprimer la s&eacute;lection";
 $txt['DISABLETHEENTRY']         = "D&eacute;sactiver/R&eacute;activer la s&eacute;lection";
 
-$txt['WHITELISTSHORTHELP']      = "La liste blanche comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles aucune retenue en 
-                                   quarantaine ne sera effectu&eacute;e. Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire 
-                                   car elle diminue votre protection. Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e. 
+$txt['WHITELISTSHORTHELP']      = "La liste blanche comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles aucune retenue en quarantaine ne sera effectu&eacute;e.<br />
+Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
+Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e. 
 ";
-$txt['BLACKLISTSHORTHELP'] 	= "La liste noire comporte des addresses d'exp&eacute;diteurs que vous voulez bloquer. En ajoutant une addresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.";
+$txt['BLACKLISTSHORTHELP'] 	= "La liste noire comporte des adresses d'exp&eacute;diteurs que vous voulez bloquer. 
+En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.
+Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste noire de mani&egrave;re avis&eacute;e.
+";
 $txt['WHITELISTFORADDRESS']     = "Liste blanche pour l'adresse&nbsp;";
 $txt['BLACKLISTFORADDRESS']     = "Liste noire  pour l'adresse";
 $txt['ADDAWHITEENTRY']          = "Ajouter une adresse &agrave; la liste";
@@ -445,7 +448,7 @@ $txt['WHITELISTENTRYTOADD']     = "Indiquez l'adresse que vous souhaitez ajouter
 $txt['BLACKLISTENTRYTOADD']     = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste noire. Vous pouvez y associer un commentaire optionnel.";
 $txt['REMOVEAWHITEENTRYSHORTHELP']  = "Cochez dans la liste blanche l'adresse ou les adresses que vous souhaitez modifier puis cliquez sur le bouton qui correspond &agrave; l'action d&eacute;sir&eacute;e.";
 
-$txt['RECORDALREADYEXISTS']     = "Cette adresse figure d&eacute;j&agrave; dans la liste blanche";          
+$txt['RECORDALREADYEXISTS']     = "Cette adresse figure d&eacute;j&agrave; dans la liste blanche.";          
 
 /*
  * logout (new)
