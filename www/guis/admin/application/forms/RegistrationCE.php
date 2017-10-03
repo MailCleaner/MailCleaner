@@ -40,14 +40,20 @@ class Default_Form_RegistrationCE extends ZendX_JQuery_Form
 	            'label' => $t->_('First Name'). " :",
                     'required' => true));
             $first_name->setValue($res['first_name']);
-            $first_name->addValidator(new Zend_Validate_Alnum());
+	    $first_name->addValidator(new Zend_Validate_Regex(array('pattern' => '/^[a-z]{2,}[a-z\-\s]+$/i')));
+	    $first_name->setErrorMessages(array('regexInvalid' => 'Only accept alphabet, spaces and "-" characters.',
+                                                'regexNotMatch' => 'Only accept alphabet, spaces and "-" characters.',
+                                                'regexErrorous' => 'Only accept alphabet, spaces and "-" characters.'));
             $this->addElement($first_name);
 
 	    $last_name = new  Zend_Form_Element_Text('last_name', array(
                     'label' => $t->_('Last Name'). " :",
                     'required' => true));
             $last_name->setValue($res['last_name']);
-            $last_name->addValidator(new Zend_Validate_Alnum());
+            $last_name->addValidator(new Zend_Validate_Regex(array('pattern' => '/^[a-z]{2,}[a-z\-\s]+$/i')));
+            $last_name->setErrorMessages(array('regexInvalid' => 'Only accept alphabet, spaces and "-" characters.',
+                                                'regexNotMatch' => 'Only accept alphabet, spaces and "-" characters.',
+                                                'regexErrorous' => 'Only accept alphabet, spaces and "-" characters.'));
             $this->addElement($last_name);
 
 
