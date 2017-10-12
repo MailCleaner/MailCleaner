@@ -6,14 +6,14 @@
  * @copyright 2006, Olivier Diserens
  */
  
-$htxt['EINLEITUNG'] = '
+$htxt['INTRODUCTION'] = '
 <h1>Willkommen in der Welt der Nachrichten,... die Sie wirklich erhalten m&ouml;chten.</h1>
 <p>MailCleaner ist ein m&auml;chtiges Antivirus- und Antispam-Programm.</p>
 <p>Dieser Filter der letzten Generation wird nicht auf Ihrem Computer installiert, sondern ist der Lieferkette der Meldungen vorgeschaltet, an der Spitze der technischen Infrastruktur Ihres Unternehmens, Ihrer Einrichtung oder Ihres Webhosters. Er wendet ausgekl&uuml;gelte Regeln an, die t&auml;glich durch die Ingenieure des Analysezentrums von MailCleaner aktualisiert werden, je nach den Strategien der Spammer und dem Erscheinen neuer Viren.  Dank diesem Grundsatz der st&auml;ndigen &Uuml;berwachung verf&uuml;gen Sie 24 Stunden am Tag &uuml;ber die besten Tr&uuml;mpfe zum Schutz gegen Virenangriffe, gef&auml;hrliche Inhalte und unerw&uuml;nschte Nachrichten.</p>
 <p>Dieses Handbuch dient dazu, Ihnen das Funktionieren von MailCleaner, seine Integration in Ihr E-Mail Programm und die verschiedenen bestehenden M&ouml;glichkeiten der benutzerdefinierten Gestaltung zu erkl&auml;ren.</p>
 ';
 
-$htxt['SCHNELLSTART'] = '
+$htxt['FIRSTCONTACT'] = '
 <h1>Nehmen Sie sich ein paar Minuten Zeit, um zu entdecken, wie sich MailCleaner in Ihre E-Mails integriert.</h1>
 <p>Die in diesem Kapitel enthaltenen Anweisungen erm&ouml;glichen es Ihnen, in wenigen Minuten Ihr neues Antivirus- und Antispamprogramm zu beherrschen. Sie beruhen auf der Standardkonfiguration des Filters, die Ihnen sogleich einen maximalen Schutz bietet.</p>
 <p>MailCleaner erfordert nur wenig Beachtung durch Sie: es merzt die Viren aus, behandelt die gef&auml;hrlichen Inhalte und entfernt die Spams aus Ihren E-Mails, jederzeit und ohne Ihr Zutun. Im Sinne der Transparenz informiert es Sie &uuml;ber seine Aktionen durch Quarant&auml;neberichte, die Sie regelm&auml;ssig in Ihrem Postfach finden.</p>
