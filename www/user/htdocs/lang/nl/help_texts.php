@@ -156,7 +156,7 @@ $htxt['FAQ'] = '
 <p>Voor elk, door MailCleaner, gefilterd adres, zijn je gebruikersnaam en paswoord dezelfde als deze die gebruikt worden voor je e-mail account in je standaard e-mail programma.</p>
 <h2>Spam en quarantine</h2>
 <h3>Wat is een quarantine?</h3>
-<p>Een quarantine is een geïsoleerde zone, buiten je mailbox, die de berichten, geïdentificeerd als spam, apart houdt.</p>
+<p>Een quarantine is een geÃ¯soleerde zone, buiten je mailbox, die de berichten, geÃ¯dentificeerd als spam, apart houdt.</p>
 <h4>Filter aanpassing</h4>
 <h3>Wat is een filter aanpassing?</h3>
 <p>Een filter aanpassing valt voor op een verzoek dat je maakt wanneer het gebeurt wanneer een geldige mail verkeerdelijk in quarantaine geplaatst wordt, 
@@ -171,7 +171,7 @@ of als een spam bericht verkeerdelijk in je mailbox geleverd wordt. In het eerst
 <p>Zo een situtatie kan gebeuren als het bericht werd doorgegeven door een mail server, die tijdelijk een slechte reputatie had, veroorzaakt door bijvoorbeeld spammers die het gebruiken als een
 spam relay. Of een specifiek, ongebruikelijk format van het bericht, kan een anti-spam regel geactiveerd hebben. 
 Het betekent niet dat MailCleaner defect is, maar gewoonweg dat het systeem voorzichtig reageert wanneer het ongebruikelijke eigenschappen van een e-mail bericht tegenkomt en deze
-niet correct geïnterpreteerd kunnen worden door een eenvoudige scan van de bericht inhoud.</p>
+niet correct geÃ¯nterpreteerd kunnen worden door een eenvoudige scan van de bericht inhoud.</p>
 <h3>Hoe laat ik een bericht los?</h3>
 <p>Klik op de pijl, op de zelfde lijn als het bericht, om het los te laten. Dit kan zowel in het quarantaine rapport als binnen het Management Center.</p>
 <h3>Ik heb een bericht losgelaten, maat wordt nog altijd getoond in de quarantine. Is dat normaal?</h3>
@@ -183,7 +183,7 @@ Als je kiest om de rapportage uit te schakelen, moet je het Management Center be
 <h3>Een spam werd niet gefilterd. Wat doe ik?</h3>
 <p>Gebruik je e-mail programma om een Filter Aanpassing, die de filter regels zal versterken, aan te vragen.</p>
 <h3>Waarom liet MailCleaner spam in mijn mailbox komen?</h3>
-<p>Sommige spam berichten spelen het klaar om door de filter te glippen omdat geen enkele mathematische analyses, die op dat moment van kracht waren, in staat waren om deze de differentiëren van een geldige e-mail. 
+<p>Sommige spam berichten spelen het klaar om door de filter te glippen omdat geen enkele mathematische analyses, die op dat moment van kracht waren, in staat waren om deze de differentiÃ«ren van een geldige e-mail. 
 Daarom is het zeer belangrijk dat je deze fout meldt aan het <em>MailCleaner Analysis Center</em>, die dan de gepaste filter regels zullen versterken. 
 In grensgevallen kiest MailCleaner om het bericht in je mailbox af te leveren, omdat het beter is om spam te ontvangen in uitzonderlijke gevallen, dan een mogelijk belangrijk bericht te missen.</p>
 <h2>Virussen en gevaarlijke berichten</h2>
@@ -197,7 +197,7 @@ kan vragen om het volledige bericht toch te kunnen ontvangen.</p>
 <p>Het onderwerp van zo een bericht bevat een sleutelwoord&mdash;usually "{DANGEROUS CONTENT}"&mdash; en ook een bijlage met een uitleg over hoe het te moeten loslaten.</p>
 <h3>Hoe krijg ik deze gevaarlijke inhoud van mijn my e-mail administrator?</h3>
 <p>Volg de instructies in het bericht. Om de weerhouden inhoud te verkrijgen, heb je de ID van het geblokkeerde bericht nodig. 
-Als je administrator gelooft dat de oorspronkelijke bijlage een reële bedreiging vormt, kan hij/zij weigeren om het naar jou door te sturen.</p>
+Als je administrator gelooft dat de oorspronkelijke bijlage een reÃ«le bedreiging vormt, kan hij/zij weigeren om het naar jou door te sturen.</p>
 ';
 
 $htxt['GLOSSARY'] = '
@@ -211,7 +211,7 @@ $htxt['GLOSSARY'] = '
 <h3>Domeinen in bescherming</h3> 
 <p>Alle Internet-domeinen behandeld door dezelfde instantie van MailCleaner (voorbeelden: company.com, enterprise.com).</p>
 <h3>Vals negatief</h3>
-<p>Spam dat niet als dusdaning geïdentificeerd werd door de MailCleaner filter. Alle valse negatieven moeten gemeld worden aan het Analysis Center om de gepaste actie te ondernemen.</p>
+<p>Spam dat niet als dusdaning geÃ¯dentificeerd werd door de MailCleaner filter. Alle valse negatieven moeten gemeld worden aan het Analysis Center om de gepaste actie te ondernemen.</p>
 <h3>Vals postief</h3>
 <p>Een geldig bericht beschouwd als spam door Malcleaner. Alle valse positieven moeten gemeld worden door middel van een filter aanpassingsvraag.</p>
 <h3>Fastnet SA</h3>
@@ -223,11 +223,11 @@ $htxt['GLOSSARY'] = '
 <h3>ISP</h3>
 <p>Internet Service Provider, een bedrijf dat toegang geeft tot Internet en e-mail diensten aanbiedt.</p>
 <h3>Management Center</h3>
-<p>Een privé Internet zone waar je binnenkomende, in quarantaine geplaatste, berichten kan onderzoeken en verzschillende MailCleaner opties kan configureren.</p>
+<p>Een privÃ© Internet zone waar je binnenkomende, in quarantaine geplaatste, berichten kan onderzoeken en verzschillende MailCleaner opties kan configureren.</p>
 <h3>Plug-in</h3>
 <p>Een extensie die kan toegeveogd worden aan een reeds bestaande software toepassing. De MailCleaner plug-in voor Microsoft Outlook vereenvoudigt het proces van valse negatieve te melden.</p>
 <h3>Quarantine</h3>
-<p>Een isolatie plaats, buiten je mailbox, om als spam geïdentificeerde berichten te bawaren.</p>
+<p>Een isolatie plaats, buiten je mailbox, om als spam geÃ¯dentificeerde berichten te bawaren.</p>
 <h3>Quarantine rapport</h3>
 <p>Een automatisch gegenereerd periodiek rapport dat een sopsomming geeft van alle geblokkeerde berichten en die hulpmiddelen aanbiedt om de inhoud ervan te bekijken en indien nodig berichten uit de quarantaine te verwijderen en ze toch naar de inbox te laten sturen.</p>
 <h3>RBL</h3>
@@ -337,12 +337,12 @@ Dit voorkomt de transmissie van de lange hoofding in het originele bericht en de
 
 $htxt['SUPPORT'] = '
 <h1>Ondersteuning en hulp</h1>
-<h6>Onze support en commerciële diensten zijn beschikbaar tijdens de werkuren, van maandag tot vrijdag.</h6>
+<h6>Onze support en commerciÃ«le diensten zijn beschikbaar tijdens de werkuren, van maandag tot vrijdag.</h6>
 <h2>In geval van problemen</h2>
 <p>__SUPPORT_EMAIL__</p>
 <p>Vooraleer je de ondersteuningsdienst contacteert, zorg ervoor dat je probleem niet voorkomt in de __LINKHELP_usermanual__user manual__LINK__ 
 of in de __LINKHELP_faq__frequently asked questions__LINK__.</p>
-<h2>Voor commerciële vragen</h2>
+<h2>Voor commerciÃ«le vragen</h2>
 <p>__SALES_EMAIL__</p>
 ';
 ?>

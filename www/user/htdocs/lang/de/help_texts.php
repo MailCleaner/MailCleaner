@@ -19,8 +19,8 @@ $htxt['SCHNELLSTART'] = '
 <p>MailCleaner erfordert nur wenig Beachtung durch Sie: es merzt die Viren aus, behandelt die gef&auml;hrlichen Inhalte und entfernt die Spams aus Ihren E-Mails, jederzeit und ohne Ihr Zutun. Im Sinne der Transparenz informiert es Sie &uuml;ber seine Aktionen durch Quarant&auml;neberichte, die Sie regelm&auml;ssig in Ihrem Postfach finden.</p>
 
 <h2>Die Quarant&auml;neberichte</h2>
-<p>Ein Mal pro Tag, Woche oder Monat &mdash; je nach der Konfiguration durch Ihren Administrator oder Provider &mdash; erhalten Sie einen Bericht &uuml;ber jede Ihrer pers&ouml;nlichen Adressen, die von MailCleaner gefiltert wurde. In dieser Liste finden Sie alle E-Mails, die in der letzten Periode als Spam betrachtet und folglich in Quarant&auml;ne behalten wurden, d. h. in einer besonderen Isolationszone ausserhalb Ihres E-Mail Programms.</p>
-<p>Kontrollieren Sie in den ersten Wochen der Verwendung diese Quarant&auml;neberichte sehr aufmerksam, um sich zu vergewissern, dass &mdash; was sehr selten ist &mdash; kein erw&uuml;nschtes E-Mail, d. h. keines, das Sie h&auml;tte erreichen sollen, irrt&uuml;mlich blockiert worden ist.</p>
+<p>Ein Mal pro Tag, Woche oder Monat &mdash; je nach der Konfiguration durch Ihren Administrator oder Provider &mdash; erhalten Sie einen Bericht &uuml;ber jede Ihrer pers&ouml;nlichen Adressen, die von MailCleaner gefiltert wurde. In dieser Liste finden Sie alle E-Mails, die in der letzten Periode als Spam betrachtet und folglich in Quarant&auml;ne behalten wurden, d.Â h. in einer besonderen Isolationszone ausserhalb Ihres E-Mail Programms.</p>
+<p>Kontrollieren Sie in den ersten Wochen der Verwendung diese Quarant&auml;neberichte sehr aufmerksam, um sich zu vergewissern, dass &mdash; was sehr selten ist &mdash; kein erw&uuml;nschtes E-Mail, d.Â h. keines, das Sie h&auml;tte erreichen sollen, irrt&uuml;mlich blockiert worden ist.</p>
 <p>Anschliessend k&ouml;nnen Sie den Empfang der Berichte deaktivieren oder sie weiter beziehen und periodisch &uuml;ber die Wirkungen des Filters informiert werden.</p>
 
 <h2>Was tun wenn ein E-Mail irrt&uuml;mlich blokiert wurde</h2>
@@ -56,7 +56,7 @@ $htxt['SCHNELLSTART'] = '
 <p>Wenn ein Spam durch die Maschen des Netzes f&auml;llt und den Weg in Ihr Postfach findet, so bedeutet dies, dass der Unterschied zu einem erw&uuml;nschten E-Mail sehr gering ist. In diesem Fall nimmt MailCleaner die Zustellung in der Annahme vor, dass es weniger schlimm ist, ein Spam zu erhalten als eine m&ouml;glicherweise wichtige Meldung nicht zu bekommen.</p>
 <p>Wenn Sie feststellen, dass es sich in der Tat um Spam handelt, m&uuml;ssen Sie eine Anpassung des Filters verlangen, um die Regeln der Spamerkennung zu verfeinern.</p>
 <h3>Spam mit Microsoft Outlook nicht blockiert</h3>
-<p>Sie k&ouml;nnen dem E-Mail Programm Microsoft Outlook f&uuml;r Windows eine Erweiterung (ein Plug-in) hinzuf&uuml;gen, damit von Ihrem E-Mail Programm aus ein nicht gefiltertes Spam einfach mitgeteilt werden kann. Es wird in der Men&uuml;leiste eine Schaltfl&auml;che mit dem Logo von MailCleaner und dem Text „Unerw&uuml;nscht“ installiert.</p> 
+<p>Sie k&ouml;nnen dem E-Mail Programm Microsoft Outlook f&uuml;r Windows eine Erweiterung (ein Plug-in) hinzuf&uuml;gen, damit von Ihrem E-Mail Programm aus ein nicht gefiltertes Spam einfach mitgeteilt werden kann. Es wird in der Men&uuml;leiste eine Schaltfl&auml;che mit dem Logo von MailCleaner und dem Text Â„Unerw&uuml;nschtÂ“ installiert.</p> 
 
 <p>Um ein Spam mit der MailCleaner Erweiterung mitzuteilen:</p>
 <ul>
