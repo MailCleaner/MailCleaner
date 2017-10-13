@@ -48,3 +48,57 @@ $txt['MONTH9'] = 'Setembro';
 $txt['MONTH10'] = 'Outubro';
 $txt['MONTH11'] = 'Novembro';
 $txt['MONTH12'] = 'Dezembro';
+/*
+ * login page
+ */
+$txt['BADLOGIN'] = "Nome de usuário";
+$txt['SESSIONEXPIRED'] = "A sessão expirou.";
+$txt['LOGININFO'] = "Lembrete: o vosso nome de usuário e palavra passe são iguais a conta e-mail.";
+$txt['USERNAME'] = "Usuário";
+$txt['PASSWORD'] = "Palavra passe";
+//old
+$txt['ASKLOGIN'] = "Por favor insira o seu nome de usuário et palavra passe:";
+$txt['ORGANIZATIONUNIT'] = "Unidade de organização";
+$txt['FORGOTPASSWORD'] = "Palavra passe perdida?";
+$txt['PASSWORDRESET'] = "A palavra passe foi restabelecida. Foi enviada para o seu endereço de e-mail.";
+/*
+ * menu
+ */
+$txt['CONFIGURATIONMENU'] = "Configuração";
+$txt['HELPMENU'] = "Ajuda";
+$txt['QUARANTINEMENU'] = "Quarentena";
+$txt['STATISTICSMENU'] = "Estatisticas";
+$txt['LOGOUT'] = "Desconectar";
+//old
+$txt['LOGGEDAS'] = "Está conectado como:";
+// old
+$txt['MAINADDRESS'] = "Endereço principal";
+$txt['PARAMETERS'] = "Parâmetros";
+$txt['QUARANTINE'] = "Quarentena";
+$txt['NAVSUPPORT'] = "Supporte";
+/*
+ * quarantaine
+ */
+$txt['SELECTEDADDRESS'] = "Endereço examinado";
+$txt['QUARANTINESUMMARY'] = "<strong>Em quarentena:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Pesquizar:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "ordenado by __PARAM__";
+$txt['RESETSEARCH'] = "Mostrar toda a lista de quarentena";
+$txt['ODATE'] = "data";
+$txt['OTIME'] = "hora";
+$txt['ODESTINATION'] = "destinatário";
+$txt['OSENDER'] = "remetente";
+$txt['OSCORE'] = "score";
+$txt['OSUBJECT'] = "sujeito";
+//old
+$txt['CRITERIAS'] = "Critérios";
+$txt['FORCEMESSAGE'] = "Libertar a messagem";
+$txt['MESSAGEFORCING'] = "Mensagem liberada";
+$txt['ANALYSEREQUEST'] = "Pedido de ajustamento do filtro";
+$txt['ANALYSEREQUESTV'] = "Pedir o ajustamento do filtro";
+$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['CLOSEWINDOW'] = "Fechar a página";
+$txt['CURRENTPAGE'] = "Página __PARAM1__ de __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>Purga automática após:</strong> __PARAM__ dias";
+$txt['DISPLAYEDINFOS'] = "<strong>Mensagems mostradas: </strong> __PARAM1__ últimos dias (<a href=\"__PARAM2__\">Modificar...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Mensagems mostradas: </strong> __PARAM__ últimos dias. ";
