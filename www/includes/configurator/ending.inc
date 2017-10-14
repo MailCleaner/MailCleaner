@@ -49,7 +49,7 @@ if ('ending.inc' == basename($_SERVER['SCRIPT_FILENAME']))
             <div class="col-md-offset-5 col-md-4">
             <?php
 	    if (isset($_POST['submit_ending'])) {
-	      $myfile = fopen("/var/mailcleaner/run/mailcleaner.rn", "w") or die("Unable to open file!");	
+	      $myfile = fopen("/var/mailcleaner/run/mailcleaner.rn", "w") or die("A problem occurred preventing the restart of MailCleaner services.");	
 	      echo "<script type='text/javascript'>";
           if (!empty($_SESSION['burl'])) {
               echo "window.location.href = 'https://".$_SESSION['burl']."/admin/'";
