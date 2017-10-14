@@ -47,3 +47,17 @@ $txt['MONTH9'] = 'Shtator';
 $txt['MONTH10'] = 'Tetor';
 $txt['MONTH11'] = 'Nëntor';
 $txt['MONTH12'] = 'Dhjetor';
+$txt['LOGOUT'] = "Ç'kyçu";
+//old
+$txt['LOGGEDAS'] = "ju jeni kyçur si:";
+// old
+$txt['MAINADDRESS'] = "adresa kryesore";
+$txt['PARAMETERS'] = "Parametrat";
+$txt['QUARANTINE'] = "Karantinë";
+$txt['NAVSUPPORT'] = "Ndihmë";
+/*
+ * quarantaine
+ */
+$txt['SELECTEDADDRESS'] = "Adresa e shfaqur";
+$txt['QUARANTINESUMMARY'] = "<strong> Në karantinë: </strong> __PARAM__ mesazhes";
+$txt['SEARCHSUMMARY'] = "<strong>Kerko :</strong> __PARAM__ mesazhes";
