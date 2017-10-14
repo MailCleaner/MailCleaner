@@ -30,7 +30,7 @@ if ('ending.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 	<p>After leaving this configurator, you should :
 	<ol>
 	<li>Check your MailCleaner network configuration</li>
-	<li>Disable Configuration interface once you are sure you can access your MailCleaner</li>
+	<li>Disable Configuration interface once you are sure you can access your MailCleaner at <strong> Configuration > Base system > Network settings</strong> and uncheck <strong>Enable configurator interface (192.168.1.42)</strong></li>
 	<li>Read the documentation</li>
 	<li>Consult the KnowledgeBase</li>
 	<li>[Optionnal] Setup some MailCleaner slaves to setup a Cluster</li>
@@ -38,6 +38,7 @@ if ('ending.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 	<li>Drink a beer and watch spam to be catch in Tracing !</li>
 	</ol>
 	</p>
+	<p><span style="color:red">/!\</span> Your MailCleaner services will be restarted next 15 minutes.</p>
         <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']."?step=".$_GET['step']; ?>" method="post">
 	  <div class="form-group">
 	    <div class="col-md-12">
@@ -48,6 +49,7 @@ if ('ending.inc' == basename($_SERVER['SCRIPT_FILENAME']))
             <div class="col-md-offset-5 col-md-4">
             <?php
 	    if (isset($_POST['submit_ending'])) {
+	      $myfile = fopen("/var/mailcleaner/run/mailcleaner.rn", "w") or die("Unable to open file!");	
 	      echo "<script type='text/javascript'>";
           if (!empty($_SESSION['burl'])) {
               echo "window.location.href = 'https://".$_SESSION['burl']."/admin/'";
