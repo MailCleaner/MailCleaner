@@ -131,7 +131,9 @@ if  ($mode_given =~ /s/) {
 		$st = 5;
 	} elsif (-f $restartdir."firewall.start.rs") {
 		$st = 4;
-	}
+	} elsif (-f $restartdir."firewall.rn") {
+                $st = 3;
+        }
     print '|'.$st;
 	print "\n";
 }
