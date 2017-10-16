@@ -100,5 +100,20 @@ $txt['SCORETEXT'] = "Score: __PARAM__";
 $txt['CLOSEWINDOW'] = "Fechar a página";
 $txt['CURRENTPAGE'] = "Página __PARAM1__ de __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Purga automática após:</strong> __PARAM__ dias";
-$txt['DISPLAYEDINFOS'] = "<strong>Mensagems mostradas: </strong> __PARAM1__ últimos dias (<a href=\"__PARAM2__\">Modificar...</a>). ";
+$txt['DISPLAYEDINFOS'] = "<strong>Mensagems mostradas: </strong> __PARAM1__ últimos dias (<a href="__PARAM2__">Modificar...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Mensagems mostradas: </strong> __PARAM__ últimos dias. ";
+//old
+$txt['QUARANTINETITLE'] = "Lista da quarentena para __PARAM__";
+//old
+$txt['FILTER'] = "Filtro";
+//old
+$txt['ADVANCEDSEARCH'] = "Pesquisa avançada";
+//old
+$txt['SHOWEDMESSAGES'] = "mensagens mostradas";
+//old
+$txt['COMINGFROM'] = "remetente";
+$txt['DATE'] = "Data";
+$txt['HOUR'] = "Hora";
+$txt['FROM'] = "De";
+$txt['TO'] = "Destinatário";
+$txt['SUBJECT'] = "Sujeito";
