@@ -42,6 +42,7 @@ tls_advertise_hosts =
 __FI__
 
 chunking_advertise_hosts =
+keep_environment =
 
 smtp_active_hostname = __HELO_NAME__
 qualify_domain = __HELO_NAME__

@@ -45,6 +45,7 @@ tls_advertise_hosts =
 __FI__
 
 chunking_advertise_hosts =
+keep_environment =
 
 local_interfaces = 127.0.0.1
 daemon_smtp_port = 2525
