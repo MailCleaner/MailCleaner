@@ -56,17 +56,18 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 	        if ($_POST['newpassdb'] == $_POST['confnewpassdb']) {
 		require_once('db_functions.php');
 		$master = getDb('', 'root', $_POST['oldpassdb']);
+		$slave = getDb('', 'root', $_POST['oldpassdb'], false);
                 if($master) {
 		      $users = array("'mailcleaner'@'%'", "'root'@'127.0.0.1'", "'root'@'::1'", "'root'@'mailcleaner'", "'root'@'localhost'");
 		     
 		      $sql = "SET PASSWORD FOR ".$users[0]." = PASSWORD(:newpassdb)";
 		      $sth = $master->prepare($sql);
 		      $retdb3 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
-		      $sql = "SET PASSWORD FOR ".$users[0]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+		      $sql = "SET PASSWORD FOR ".$users[0]." = PASSWORD(:newpassdb)";
                       $sth = $slave->prepare($sql);
                       $retdb4 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
 		      exec("sudo /usr/mailcleaner/scripts/configuration/set_pass_in_db.sh ".$_POST['newpassdb'], $outputdbconf, $retdbconf);
-		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)"; $master = getDb('', 'root', $_POST['oldpassdb']);
+		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)";
                       $sth = $master->prepare($sql);
                       $retdb5 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
 		      $sql = "SET PASSWORD FOR ".$users[2]." = PASSWORD(:newpassdb)";
@@ -75,7 +76,7 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 		      $sql = "SET PASSWORD FOR ".$users[3]." = PASSWORD(:newpassdb)";
                       $sth = $master->prepare($sql);
                       $retdb7 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
-		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+		      $sql = "SET PASSWORD FOR ".$users[1]." = PASSWORD(:newpassdb)";
                       $sth = $slave->prepare($sql);
                       $retdb8 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
 		      $sql = "SET PASSWORD FOR ".$users[2]." = PASSWORD(:newpassdb)";
@@ -84,19 +85,25 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
                       $sql = "SET PASSWORD FOR ".$users[3]." = PASSWORD(:newpassdb)";
                       $sth = $slave->prepare($sql);
                       $retdb10 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
-		      $sth = $slave->prepare("STOP SLAVE; CHANGE MASTER TO MASTER_PASSWORD=:masterpass; START SLAVE;");
-                      $retdbreplic = $sth->execute(array(':masterpass' => $_POST['newpassdb'])) == true ? 0 : 1;		      
-		      $actual_hostid = shell_exec("grep HOSTID /etc/mailcleaner.conf |cut -d' ' -f3"); $master = getDb('', 'root', $_POST['oldpassdb']);
+		      $actual_hostid = shell_exec("grep HOSTID /etc/mailcleaner.conf |cut -d' ' -f3"); 
                       $sth = $master->prepare("UPDATE mc_config.master SET password=:newpassdb");
                       $retdbmaster = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
                       $sth = $master->prepare("UPDATE mc_config.slave SET password=:newpassdb where id=:hostid");
-                      $retdbslave = $sth->execute(array(':newpassdb' => $_POST['newpassdb'], ':hostid' => $actual_hostid)) == true ? 0 : 1;	
-                      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)";
+                      $retdbslave = $sth->execute(array(':newpassdb' => $_POST['newpassdb'], ':hostid' => $actual_hostid)) == true ? 0 : 1;               
+		      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)";
                       $sth = $master->prepare($sql);
 		      $retdb1 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
-                      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)"; $slave = getDb('', 'root', $_POST['oldpassdb'], false);
+                      $sql = "SET PASSWORD FOR ".$users[4]." = PASSWORD(:newpassdb)"; 
                       $sth = $slave->prepare($sql);
 		      $retdb2 = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+
+		      $sth = $slave->prepare("UPDATE mc_config.master SET password=:newpassdb");
+                      $retdbslavemaster = $sth->execute(array(':newpassdb' => $_POST['newpassdb'])) == true ? 0 : 1;
+                      $sth = $slave->prepare("UPDATE mc_config.slave SET password=:newpassdb where id=:hostid");
+                      $retdbslaveslave = $sth->execute(array(':newpassdb' => $_POST['newpassdb'], ':hostid' => $actual_hostid)) == true ? 0 : 1;
+
+		      $sth = $slave->prepare("STOP SLAVE; CHANGE MASTER TO MASTER_PASSWORD=:masterpass; START SLAVE;");
+                      $retdbreplic = $sth->execute(array(':masterpass' => $_POST['newpassdb'])) == true ? 0 : 1;
 
                       touch('/var/mailcleaner/run/configurator/dbpass');
                 } else {
@@ -117,13 +124,15 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
                 ($retdb10 == 0) ? $retdb10 = "<span class='text-success'>Slave instance Database root@mailcleaner password changed</span>" : $retdb10 = "<span class='text-danger'>Failed to change Slave instance Database root@mailcleaner password</span>";
                 ($retdbconf == 0) ? $retdbconf = "<span class='text-success'>Master and Slave instance Database passwords changed in configuration</span>" : $retdbconf = "<span class='text-danger'>Failed to change Master and Slave instance Database password in conf</span>";
                 ($retdbreplic == 0) ? $retdbreplic = "<span class='text-success'>Mysql Replication password changed</span>" : $retdbreplic = "<span class='text-danger'>Failed to change Mysql Replication password</span>";
-                ($retdbmaster == 0) ? $retdbmaster = "<span class='text-success'>Mysql password changed in table master</span>" : $retdbmaster = "<span class='text-danger'>Failed to change Mysql password in table master</span>";
-                ($retdbslave == 0) ? $retdbslave = "<span class='text-success'>Mysql password changed in table slave</span>" : $retdbslave = "<span class='text-danger'>Failed to change Mysql password in table slave</span>";
+                ($retdbmaster == 0) ? $retdbmaster = "<span class='text-success'>Mysql password changed in table master on instance master</span>" : $retdbmaster = "<span class='text-danger'>Failed to change Mysql password in table master on instance master</span>";
+                ($retdbslavemaster == 0) ? $retdbslavemaster = "<span class='text-success'>Mysql password changed in table master on instance slave</span>" : $retdbslavemaster = "<span class='text-danger'>Failed to change Mysql password in table master on instance slave</span>";
+                ($retdbslave == 0) ? $retdbslave = "<span class='text-success'>Mysql password changed in table slave on instance master</span>" : $retdbslave = "<span class='text-danger'>Failed to change Mysql password in table slave on instance master</span>";
+                ($retdbslaveslave == 0) ? $retdbslaveslave = "<span class='text-success'>Mysql password changed in table slave on instance slave</span>" : $retdbslaveslave = "<span class='text-danger'>Failed to change Mysql password in table slave on instance slave</span>";
                 echo $retdb1;
                 echo "<br/>";
                 echo $retdb2;
-         		echo "<br/>";
-		        echo $retdb3;
+         	echo "<br/>";
+		echo $retdb3;
                 echo "<br/>";
                 echo $retdb4;
                 echo "<br/>";
@@ -146,6 +155,10 @@ if ('dbpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
                 echo $retdbmaster;
                 echo "<br/>";
                 echo $retdbslave;
+		echo "<br/>";
+                echo $retdbslavemaster;
+                echo "<br/>";
+                echo $retdbslaveslave;
 		} else {
 	          echo "<span class='text-danger'>New Password and Re-type Password field have to be identical !</span>";
 	        }
