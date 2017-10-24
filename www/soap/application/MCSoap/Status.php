@@ -413,6 +413,12 @@ class MCSoap_Status
     	if ($ser->shouldShow()) {
     		$messages[] = base64_encode(serialize($ser));
     	}
+	require_once('InformationalMessage/PasswordReset.php');
+        $ser = new Default_Model_InformationalMessage_PasswordReset();
+        $ser->check();
+        if ($ser->shouldShow()) {
+                $messages[] = base64_encode(serialize($ser));
+        }
     	return $messages;
     }
 }
