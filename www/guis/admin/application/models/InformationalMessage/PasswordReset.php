@@ -21,8 +21,6 @@ class Default_Model_InformationalMessage_PasswordReset extends Default_Model_Inf
 			// We're building custom link when configurator is enabled
 			// Check in DB if use_ssl is true and configurator enabled
 			$url=".";
-			require_once('system/SystemConfig.php');
-			$sysconf_ = SystemConfig :: getInstance();
 			require_once ('helpers/DataManager.php');
 			$db_masterconf = DM_MasterConfig :: getInstance();
 			$configurator_enabled=$db_masterconf->getHash("select * from external_access where service='configurator' AND protocol='TCP' AND port='4242'");
