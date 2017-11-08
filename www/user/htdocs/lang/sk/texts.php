@@ -10,108 +10,108 @@ $txt['NEWSLETTERMODULE'] = "Newsletter";
 $txt['NEWSLETTERSTOPIC'] = "Newsletters";
 $txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
 $txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
+$txt['NEWSLETTERSALLOW'] = "doručiť";
 $txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['SPAM_WHITELIST_DISABLED'] = "Zoznam nieje aktivovaný pre túto doménu (Kontaktujte Vášho administrátora).";
 /* 
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Potvrdiť";
+$txt['CANCEL'] = "Zrušiť";
+$txt['CLOSE'] = "Zavrieť";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "pridať";
+$txt['CONFIRM'] = "Potvrdiť";
+$txt['REFRESH'] = "Obnoviť";
+$txt['SEARCH'] = "Hľadať";
+$txt['SEND'] = "Odoslať";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "vyčistiť";
 /*
  * generic texts
  */
 $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
-$txt['BYTES'] = "bytes";
-$txt['DATEFORMAT'] = "_D__M__Y_";
+$txt['BYTES'] = "bytov";
+$txt['DATEFORMAT'] = "_D__M__R_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
 $txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
+$txt['MONTHAB5'] = 'Máj';
+$txt['MONTHAB6'] = 'Jún';
+$txt['MONTHAB7'] = 'Júl';
 $txt['MONTHAB8'] = 'Aug.';
 $txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
+$txt['MONTHAB10'] = 'Okt.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
+$txt['MONTH1'] = 'Január';
+$txt['MONTH2'] = 'Február';
+$txt['MONTH3'] = 'Marec';
+$txt['MONTH4'] = 'Apríl';
+$txt['MONTH5'] = 'Máj';
+$txt['MONTH6'] = 'Jún';
+$txt['MONTH7'] = 'Júl';
 $txt['MONTH8'] = 'August';
 $txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
+$txt['MONTH10'] = 'Október';
 $txt['MONTH11'] = 'November';
 $txt['MONTH12'] = 'December';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect user name or password.";
-$txt['SESSIONEXPIRED'] = "Session has expired.";
-$txt['LOGININFO'] = "Reminder : Your user name and password are the same as your email account";
-$txt['USERNAME'] = "User name";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "Nespávne meno alebo heslo.";
+$txt['SESSIONEXPIRED'] = "Relácia vypršala.";
+$txt['LOGININFO'] = "Pamätajte : Vaše meno a heslo je rovnaké ako emailový účet";
+$txt['USERNAME'] = "Prihlasovacie meno";
+$txt['PASSWORD'] = "Heslo";
 //old
-$txt['ASKLOGIN'] = "Please enter your user name and password:";
+$txt['ASKLOGIN'] = "Prosím zadajte Vaše meno a heslo:";
 $txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reseted. It has been sent to your mail address.";
+$txt['FORGOTPASSWORD'] = "Zabudnuté heslo?";
+$txt['PASSWORDRESET'] = "Heslo bolo zmenené. Bolo poslané na Vašu mailovú adresu.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Logout";
+$txt['CONFIGURATIONMENU'] = "Konfigurácia";
+$txt['HELPMENU'] = "Pomoc";
+$txt['QUARANTINEMENU'] = "Karanténa";
+$txt['STATISTICSMENU'] = "Štatistiky";
+$txt['LOGOUT'] = "Odhlásiť";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "Ste prihlásený ako:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "hlavná adresa";
+$txt['PARAMETERS'] = "Nastavenia";
+$txt['QUARANTINE'] = "Karanténa";
+$txt['NAVSUPPORT'] = "Podpora";
 /*
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Address displayed";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
+$txt['SEARCHSUMMARY'] = "<strong>Hľadať:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "zoradené podľa __PARAM__";
 $txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['ODATE'] = "dátum";
+$txt['OTIME'] = "čas";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "príjemca";
+$txt['OSENDER'] = "odosielateľ";
+$txt['OSCORE'] = "hodnotenie";
+$txt['OSUBJECT'] = "predmet";
 //old
-$txt['CRITERIAS'] = "Filter rules";
+$txt['CRITERIAS'] = "Pravidlá filtra";
 $txt['FORCEMESSAGE'] = "Release the message";
 $txt['MESSAGEFORCING'] = "Message release";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Filter adjustment request";
 $txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
-$txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
+$txt['SCORETEXT'] = "Hodnotenie: __PARAM__";
+$txt['CLOSEWINDOW'] = "Zavrieť okno";
+$txt['CURRENTPAGE'] = "Strana __PARAM1__ z __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
@@ -120,21 +120,21 @@ $txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
 //old
 $txt['FILTER'] = "Filter";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "rozšírené vyhľadávanie";
 //old
 $txt['SHOWEDMESSAGES'] = "displayed messages";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "odosielateľ";
+$txt['DATE'] = "dátum";
+$txt['HOUR'] = "čas";
+$txt['FROM'] = "Od";
+$txt['TO'] = "Pre";
+$txt['SUBJECT'] = "Predmet";
 $txt['SENDER'] = "Sender";
 $txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['ACTION'] = "Akcia";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Celkom: __PARAM__ spam (ov)";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
 $txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
@@ -143,16 +143,16 @@ $txt['HIDEFORCED'] = "Hide user-released messages";
 //old
 $txt['FORCESPAM'] = "release the message";
 //old
-$txt['ASKREASON'] = "display filtering rules";
+$txt['ASKREASON'] = "zobraziť filtrovacie pravidlá";
 $txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
 $txt['ASKANALYSE'] = "Filter adjustment request";
 $txt['PAGE'] = "Page";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['NEXTPAGE'] = "Ďaľej";
+$txt['PREVIOUSPAGE'] = "Predchádzajuce";
 //old
 $txt['GETREASONSTITLE'] = "Filtering reasons";
-$txt['HITRULE'] = "Rule";
+$txt['HITRULE'] = "Pravidlo";
 $txt['SCORE'] = "Score";
 $txt['TOTAL'] = "Total";
 //old
