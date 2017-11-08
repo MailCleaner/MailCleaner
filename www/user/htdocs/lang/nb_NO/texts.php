@@ -7,3 +7,4 @@
  */
 ### newsl
 $txt['NEWSLETTERMODULE'] = "Nyhetsbrev";
+$txt['NEWSLETTERSTOPIC'] = "Nyhetsbrev";
