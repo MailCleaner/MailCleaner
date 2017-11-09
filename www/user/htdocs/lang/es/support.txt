@@ -1,6 +1,4 @@
-<?
-$template = $sysconf_->gui_prefs_['default_template'];
-
+<?php
 $txt['SFALSENEGTITLE'] = "FALSO-NEGATIVO";
 $txt['SFALSENEGSUBTITLE'] = "Usted recibi&oacute; un mensaje que considera como spam ?";
 $txt['SVERIFYPASS'] = "Verifique que el mensaje fue filtrado por mailcleaner.net mirando la cabecera del correo ";
@@ -8,21 +6,15 @@ $txt['SMCLOGTITLE'] = "Menci&oacute;n que pas&oacute; por mailcleaner.net:";
 $txt['SMCLOGLINE1'] = "Received: from mailcleaner.net (filtering daemon)";
 $txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
 $txt['SMCFILTERINGLOG'] = "Resultado de la filtraci&oacute;n : X-Mailcleaner-Spamscore: oooo";
-$txt['SFALSENEGTUTOR'] = "Si le parece anormal haber recibido este mensaje, transfieralo a la direcci&oacute;n analyse@mailcleaner.net. Si vuestro programa e-mail lo permite, transfieralo vinculado a un correo paraconservar la cabecera completa del mensaje.  Nosotros analisaremos el contenido de su mensaje y adaptaremos los criterios de filtraje de mailcleaner cosa que los dem&acute;s utilisadores tambien beneficien.";
-
+$txt['SFALSENEGTUTOR'] = "Si le parece anormal haber recibido este mensaje, transfieralo a la direcci&oacute;n analyse@mailcleaner.net. Si vuestro programa e-mail lo permite, transfieralo vinculado a un correo paraconservar la cabecera completa del mensaje. Nosotros analisaremos el contenido de su mensaje y adaptaremos los criterios de filtraje de mailcleaner cosa que los dem&acute;s utilisadores tambien beneficien.";
 $txt['SFALSEPOSTITLE'] = "FALSO-POSITIVO";
 $txt['SFALSEPOSSUB1TITLE'] = "Usted no recibi&oacute; un correo que esperaba ?";
 $txt['SFALSEPOSSUB1'] = "Usted puede controlar si el mensaje no fue retenido por MailCleaner, verificando en la interfaz web disponible bajo el enlace cuarentena.  Si usted no encuentra el correo en la lista, verifique los puntos siguientes:";
-
 $txt['SFALSEPOSSUB1POINT1'] = "la direcci&oacute;n del destinatario escrita por el expedidor tiene un error.";
 $txt['SFALSEPOSSUB1POINT2'] = "El correo est&aacute; en tr&aacute;nsito o est&aacute; siendo procesado por el filtro. El tratamiento de vuestro mensaje puede durar varios minutos.";
-
 $txt['SFALSEPOSSUB2TITLE'] = "Un correo ha sido considerado como spam y usted no entiende porque?";
-$txt['SFALSEPOSSUB2'] = "Bajo el enlace cuarentena, usted puede visualisar los criterios por los cuales Mailcleaner ha considerado el mensaje como un spam pulsando bajo el siguiente icono <img src=\"/templates/".$template."/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Si usted estima que los criterios no son justificados, usted nos puede pedir el analisis pulsando el siguiente enlace <img src=\"/templates/".$template."/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Usted puede liberar el mensaje pulsando el icono <img src=\"/templates/".$template."/images/support/force.gif\" align=\"middle\" alt=\"\"> .";
-
+$txt['SFALSEPOSSUB2'] = "Bajo el enlace cuarentena, usted puede visualisar los criterios por los cuales Mailcleaner ha considerado el mensaje como un spam pulsando bajo el siguiente icono <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Si usted estima que los criterios no son justificados, usted nos puede pedir el analisis pulsando el siguiente enlace <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Usted puede liberar el mensaje pulsando el icono <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\"> .";
 $txt['SFALSEPOSSUB3TITLE'] = "Las listas de correos";
 $txt['SFALSEPOSSUB3'] = "Puede suceder que ciertas listas sean bloqueadas por Mailcleaner.  Es debido al formato de la lista muy parecida a los spams.  Usted puede pedir el an&aacute;lisis de estos mensajes de la misma manera que precedentemente, nos encargaremos de poner la lista en las listas-blancas.";
-
 $txt['SOTHERTITLE'] = "OTROS PROBLEMAS";
 $txt['SOTHER'] = "Usted tiene otros problemas con la recepci&oacute;n de vuestros correos, usted sigui&oacute; el procedimiento sin resultado o tiene otro problema?  Entonces tome contacto con nuestra division de ayuda  Mailcleaner  llenando el siguiente formulario.";
-
