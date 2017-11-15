@@ -1,5 +1,5 @@
 <?php
-$txt['NEWSLETTERSTOPIC'] = "Информационные бюллетени";
+$txt['NEWSLETTERSTOPIC'] = "Оповещения";
 $txt['NEWSLETTERACCEPT'] = "Одобрить эту рассылку";
 $txt['SPAM_WHITELIST_DISABLED'] = "Список не активирован для этого домена (обратитесь к администратору).";
 /* 
