@@ -64,7 +64,7 @@ $txt['MONTH12'] = 'Desember';
  */
 $txt['BADLOGIN'] = "Feil brukernavn eller passord.";
 $txt['SESSIONEXPIRED'] = "Økt utløpt.";
-$txt['LOGININFO'] = "Påminnelse: Ditt brukernavn og passord er det samme som e-postkontoen din.";
+$txt['LOGININFO'] = "Påminnelse: Ditt brukernavn og passord er det samme som e-postkontoen din";
 $txt['USERNAME'] = "Brukernavn";
 $txt['PASSWORD'] = "Passord";
 //old
