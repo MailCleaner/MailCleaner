@@ -124,3 +124,4 @@ $txt['FORTHEXLASTDAYS'] = "__PARAM__ последних дней";
  */
 $txt['INFORMATIONSABOUTMSG'] = "Содержание сообщения";
 $txt['RECORDALREADYEXISTS'] = "Этот адрес уже содержится в списке.";
+$txt['NEWSLETTERSTOPICTITLE'] = "Оповещения";
