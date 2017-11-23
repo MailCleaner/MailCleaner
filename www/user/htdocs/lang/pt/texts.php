@@ -123,3 +123,14 @@ $txt['ACTION'] = "";
 $txt['TOTALSPAMS'] = "";
 //old
 $txt['FORTHEXLASTDAYS'] = "";
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2006, Olivier Diserens
+ */
+### newsl
+$txt['NEWSLETTERMODULE'] = "Newsletter";
+$txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
+$txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
+$txt['NEWSLETTERSSHORTHELP'] = "Aqui pode gerir os vossos boletins informativos.";
