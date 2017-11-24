@@ -64,7 +64,7 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$VARDIR/spool/spamassassin/" "bayes_packs" $randomize "mailcleaner" "\|bayes.mutex\|bayes_seen\|spamd.pid\|spamd.sock"
+downloadDatas "$VARDIR/spool/spamassassin/" "bayes_packs" $randomize "mailcleaner" "\|bayes.mutex\|bayes_seen\|spamd.pid\|spamd.sock\|bayes_journal"
 
 log "SpamAssassin - bayes_packs updated"
 
