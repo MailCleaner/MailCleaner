@@ -125,3 +125,28 @@ $txt['FORTHEXLASTDAYS'] = "__PARAM__ последних дней";
 $txt['INFORMATIONSABOUTMSG'] = "Содержание сообщения";
 $txt['RECORDALREADYEXISTS'] = "Этот адрес уже содержится в списке.";
 $txt['NEWSLETTERSTOPICTITLE'] = "Оповещения";
+$txt['PURGESELECTEDSPAMS'] = "Ручная очистка карантина";
+//old
+$txt['HIDEFORCED'] = "Скрыть освобожденные сообщения";
+//old
+$txt['FORCESPAM'] = "освободить сообщение";
+//old
+$txt['ASKREASON'] = "отобразить правила фильтрации";
+$txt['CONFSENDANALYSE'] = "Запрос корректировки фильтра будет отправлен в MailCleaner Analysis Center; он будет включать копию сообщения, которое было неправильно заблокировано.";
+$txt['AREYOUSURE'] = "<span class=\"question\">Вы уверены, что фильтры должны быть скорректированы на основе анализа этого сообщения?</span>";
+$txt['ASKANALYSE'] = "Запрос на корректировку фильтра";
+$txt['PAGE'] = "Страница";
+$txt['NEXTPAGE'] = "Далее";
+$txt['PREVIOUSPAGE'] = "Назад";
+$txt['HITRULE'] = "Правило";
+$txt['SCORE'] = "Оценка";
+$txt['TOTAL'] = "Всего";
+$txt['SENTTOANALYSE'] = "Запрос на корректировку фильтра был отправлен в MailCleaner Analysis Center; это сообщение будет рассмотрено и фильтр будет скорректирован в течение дня.";
+$txt['ADDABLACKENTRY'] = "Добавить адрес в список";
+$txt['BLACKLISTENTRYTOADD'] = "Введите адрес, который вы хотите добавить в черный список. Вы также можете добавить необязательный комментарий.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Выберите адрес или адреса, которые вы хотите изменить, и нажмите нужную кнопку действия.";
+/*
+ * logout (new)
+ */
+$txt['SESSIONTERMINATED'] = "Ваш сеанс завершен.";
+$txt['BEENLOGGEDOUT'] = "Если вы хотите начать новую сессию, перейдите по ссылке:<a href=\"__PARAM__\" >__PARAM__</a>";
