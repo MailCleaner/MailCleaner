@@ -15,3 +15,7 @@ $txt['SOTHERTITLE'] = "ДРУГИЕ ПРОБЛЕМЫ";
 $txt['SOTHER'] = "У вас есть проблема другого типа с приемом электронной почты и вам не помогли вышеуказанные процедуры? Если это так, обратитесь в Mailcleaner Analysis Center, заполнив эту форму.";
 $txt['DOCTITLE'] = "Справка по интерфейсу пользователя";
 $txt['WEBDOCTITLE'] = "Онлайн-документация";
+$txt['SFALSEPOSSUB2'] = "Из списка карантина вы можете просмотреть критерии, которые Mailcleaner использовал для оценки сообщения как спам, нажав на <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Если вы считаете, что эти критерии не оправданы, вы можете запросить анализ в нашем аналитическом центре, нажав на <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Также вы можете освободить сообщение, нажав на <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\">.";
+$txt['WEBDOC'] = "<ul><li>Ищите больше информации и документацию на нашем сайте:
+<a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Mailcleaner user documentation</a>
+</li></ul>";
