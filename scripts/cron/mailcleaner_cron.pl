@@ -381,7 +381,7 @@ if ($itsmidnight) {
   }
 
   if (my $pid_pushstats = fork) {
-  } elsif (defined $pid_pushstats) {
+  } elsif (defined $pid_pushstats && defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
     print "pushing stats...\n";
     system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
     system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
