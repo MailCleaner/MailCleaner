@@ -7,11 +7,11 @@
  */
 ### newsl
 $txt['NEWSLETTERMODULE'] = "Nyhetsbrev";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['NEWSLETTERSTOPIC'] = "Nyhetsbrev";
+$txt['NEWSLETTERSTOPICTITLE'] = "Nyhetsbrev";
+$txt['NEWSLETTERSSHORTHELP'] = "Här kan du hantera dina nyhetsbrev.";
+$txt['NEWSLETTERSALLOW'] = "leverera";
+$txt['NEWSLETTERACCEPT'] = "Acceptera detta nyhetsbrev";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
 /* 
  * generic buttons
