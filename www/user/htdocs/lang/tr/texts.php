@@ -113,8 +113,8 @@ $txt['SCORETEXT'] = "Skor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Pencereyi kapat";
 $txt['CURRENTPAGE'] = "Sayfa __PARAM1__ de __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>sonra otomatik temizle:</strong> __PARAM__ gün";
-$txt['DISPLAYEDINFOS'] = "<strong>Grüntülenen mesajlar: </strong> __PARAM1__ son gün (<a href=\"__PARAM2__\">Modify...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Grüntülenen Mesalar: </strong> __PARAM__ günde. ";
+$txt['DISPLAYEDINFOS'] = "<strong>Grüntülenen mesajlar: </strong> son  __PARAM1__ gün (<a href=\"__PARAM2__\">Düzenle...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Görüntülenen Mesalar: </strong> son __PARAM__ günde. ";
 //old
 $txt['QUARANTINETITLE'] = "Karantina listesi __PARAM__";
 //old
@@ -183,105 +183,105 @@ $txt['FITLERSCORE'] = "Skor";
 $txt['NONE'] = "hiçbiri";
 $txt['HEADERS'] = "Başlıklar";
 $txt['BODY'] = "Gövde";
-$txt['PARTS'] = "Parçalar";
+$txt['PARTS'] = "Kısımlar";
 $txt['STORESLAVE'] = "Depolama";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
 $txt['MESSAGEPREVIEW'] = "Mesaj önizleme";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "Tanımlayıcı";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>MailCleaner ıturumunuz kapandı.</p><p>Yeni oturum açmak için şu bağlantıyı takip edin:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "Kişisel MailCleaner ayarları";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Kullanıcı ayarları";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Adres ayarları";
 //old
-$txt['LANGUAGE'] = "Language";
+$txt['LANGUAGE'] = "Dil";
 $txt['ADDRESS'] = "Address";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "Adres grubu";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "Spam işleme modu";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "Karantina raporlama ayarları";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Kişisel adres gurubu: (__PARAM__ adres)";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "Değişiklikleri tüm adreslere uygula";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "ana";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "Spam işleme modu";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "karantina";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "E-posta iletim raporlarını sistemsel olarak karantinaya al";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "düşür";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Etiket";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
+$txt['SUMMARYFREQ'] = "Rapor iletim sıklığı";
+$txt['DAILY'] = "Günlük";
+$txt['WEEKLY'] = "Haftalık";
+$txt['MONTHLY'] = "Aylık";
 $txt['NOSUMMARY'] = "No report";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
+$txt['USEDEFAULT'] = "varsayılanı kullan";
 $txt['SUMMHTML'] = "html";
-$txt['SUMMTEXT'] = "plain text";
+$txt['SUMMTEXT'] = "düz metin";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "beyaz listeyi düzenle";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "uyarı listesini düzenle";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
-$txt['COMMENT'] = "Comment";
+$txt['SENDER'] = "Gönderen";
+$txt['COMMENT'] = "Yorum";
 //old
 $txt['ACTIONS'] = "Action";
 //old
 $txt['ACTIVE'] = "active";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "inaktif";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "Girdi";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "Bu girdiyi kalıcı olarak silmek istediğinizden emin misiniz?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "__PARAM__ için beyaz liste";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "__PARAM__ için uyarı listesi";
 //old
 $txt['STATUS'] = "Status";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "Bir adres ekle";
 //old
 $txt['ADDALIASFORM'] = "Address";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "bir adresi sil";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
+$txt['ADDADDRESSALT'] = "bir adres ekle";
+$txt['BADADDRESSFORMAT'] = "Girilen adres geçersiz. Lütfen tekrar deneyin.";
+$txt['NOTFILTEREDDOMAIN'] = "Bu domain MailCleaner tarafından filtrelenmemiş. Bu adres eklenemez.";
+$txt['ALIASALREADYREGISTERD'] = "Bu adres zaten bir MailCleaner hesabı tarafından kullanılıyor, eklenemez.";
+$txt['ALIASALREADYPENDING'] = "Bu hesap için zaten bir doğrulama işlemi bekliyor.";
+$txt['ALIASPENDING'] = "Bu adrese bir doğrulama mesajı gönderildi. <br/> Güvenlik sebeplerinden dolayı, sadece 24 saat içinde onaylandığı takdirde adres eklenir.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
 $txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
 $txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
