@@ -118,8 +118,9 @@
        }
 
        $pagePath = '../includes/configurator/';
-       $infoPage = array('welcome' => array('page' => 'welcome.inc', 'prev' => '', 'next' => 'identify', 'sesstep' => 'welcome', 'title' => 'Welcome', 'progress' => '0'),
-  'identify' => array('page' => 'identify.inc', 'prev' => 'welcome', 'next' => 'adminpass', 'sesstep' => 'identify', 'title' => 'Configurator Identification', 'progress' => '14'),
+       $infoPage = array('welcome' => array('page' => 'welcome.inc', 'prev' => '', 'next' => 'updater', 'sesstep' => 'welcome', 'title' => 'Welcome', 'progress' => '0'),
+    'updater' => array('page' => 'updater.inc', 'prev' => 'welcome', 'next' => 'identify', 'sesstep' => 'updater', 'title' => 'MailCleaner Update', 'progress' => '7'),
+  'identify' => array('page' => 'identify.inc', 'prev' => 'updater', 'next' => 'adminpass', 'sesstep' => 'identify', 'title' => 'Configurator Identification', 'progress' => '14'),
   'adminpass' => array('page' => 'adminpass.inc', 'prev' => 'identify', 'next' => 'rootpass', 'sesstep' => 'adminpass', 'title' => 'Change Admin (Web) Password', 'progress' => '28'),
   'rootpass' => array('page' => 'rootpass.inc', 'prev' => 'adminpass', 'next' => 'dbpass', 'sesstep' => 'rootpass', 'title' => 'Change Root Password', 'progress' => '42'),
   'dbpass' => array('page' => 'dbpass.inc', 'prev' => 'rootpass', 'next' => 'hostid', 'sesstep' => 'dbpass', 'title' => 'Change Database Password', 'progress' => '56'),
@@ -135,7 +136,7 @@
     }
   }
 
-  if (isset($_GET['step']) && $_GET['step'] != 'welcome' && $_GET['step'] != 'identify') {
+  if (isset($_GET['step']) && $_GET['step'] != 'welcome' && $_GET['step'] != 'updater' && $_GET['step'] != 'identify') {
     if ($_SESSION['identok'] != "True") {
       $validStep = $infoPage['identify'];
       $_GET['step'] = 'identify';
