@@ -35,7 +35,7 @@
 
 
 PROGNAME='prepare_mc_release'
-VERSION='0.5'
+VERSION='0.6'
 
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
@@ -220,6 +220,9 @@ find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -
 echo Enable installer.pl redirection
 echo 'if ! [ -f "/var/mailcleaner/spool/mailcleaner/firstcmdlogin" ]; then /usr/mailcleaner/scripts/installer/installer.pl; touch "/var/mailcleaner/spool/mailcleaner/firstcmdlogin"; fi' > ~/.bashrc
 rm -f /var/mailcleaner/spool/mailcleaner/firstcmdlogin
+
+echo Enable updater4mc wrapper on eth up by removing flag
+rm -f /var/run/updater4mc-ran
 
 # Others data installation goes here ->
 cp -Rf "${STARTERSPATH}/clamd/"* ${VARDIR}/spool/clamav/
