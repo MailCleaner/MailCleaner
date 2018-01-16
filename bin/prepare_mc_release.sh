@@ -149,7 +149,7 @@ echo Delete MC SRCDIR and recreate it from last version
 cdel -rf "$SRCDIR"
 if [ ! -d "$SRCDIR" ]; then
     cd /usr
-    git clone git@github.com:MailCleaner/MailCleaner.git mailcleaner
+    git clone https://github.com/MailCleaner/MailCleaner.git mailcleaner
 fi
 
 cd
