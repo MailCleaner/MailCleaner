@@ -215,7 +215,7 @@ echo Enable Configurator redirections
 cdel -f "${SRCDIR}/etc/apache/sites/configurator.conf.disabled"
 
 echo Delete all useless dirs and files of /root
-find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -o -path /root/.pyzor -o -path /root/starters \) -prune -o -print | while read dirdata; do cdel -rf "$dirdata"; done
+find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -o -path /root/.pyzor -o -path /root/starters -o -path /root/Updater4MC \) -prune -o -print | while read dirdata; do cdel -rf "$dirdata"; done
 
 echo Enable installer.pl redirection
 echo 'if ! [ -f "/var/mailcleaner/spool/mailcleaner/firstcmdlogin" ]; then /usr/mailcleaner/scripts/installer/installer.pl; touch "/var/mailcleaner/spool/mailcleaner/firstcmdlogin"; fi' > ~/.bashrc
