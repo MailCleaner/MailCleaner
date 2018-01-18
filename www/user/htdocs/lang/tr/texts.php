@@ -288,7 +288,7 @@ $txt['ALIASNOTPENDING'] = "Şu anda bu adres için bekleyen bi talep yok.";
 $txt['ALIASADDED'] = "Adres başarıyla eklendi.";
 $txt['ALIASREQUESTREMOVED'] = "Talep iptal edildi.";
 //old
-$txt['REMALIASTITLE'] = "Adres kaldırıldı.";
+$txt['REMALIASTITLE'] = "Adres kaldırıldı";
 //old
 $txt['REMALIASCONFIRM'] = "Adresi kaldırmak istediğinizden emin misiniz: __PARAM__?";
 $txt['ALIASREMOVED'] = "Adres __PARAM__ kaldırıldı.";
@@ -417,7 +417,7 @@ $txt['WAITINGCONFIRMATION'] = "onay bekleniyor";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "Spam işleme modu, adreslerinizin her biri için özelleştirilebilir. Kullanılabilen farklı işleme modları hakkında daha fazla bilgi için kullanım kılavuzunu (<a href=\"help.php\"> \"Yardım\" bölümünde mevcuttur) kontrol edin.";
+$txt['ADDPARAMSHORTHELP'] = "Spam işleme modu, adreslerinizin her biri için özelleştirilebilir. Kullanılabilen farklı işleme modları hakkında daha fazla bilgi için kullanım kılavuzunu (<a href=\"help.php\">\"Yardım\"</a> bölümünde mevcuttur) kontrol edin.";
 $txt['FOREACHSPAMDO'] = "Spam olarak algılanan her ileti için:";
 $txt['FOREACHNEWSLETTERDO'] = "Bülten olarak algılanan her ileti için:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "karantinada tut";
