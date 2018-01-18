@@ -186,13 +186,13 @@ $txt['BODY'] = "Gövde";
 $txt['PARTS'] = "Kısımlar";
 $txt['STORESLAVE'] = "Depolama";
 $txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Mesaj önizleme";
+$txt['DESCRIPTION'] = "Açıklama";
+$txt['MESSAGEPREVIEW'] = "İleti önizleme";
 $txt['ID'] = "Tanımlayıcı";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>MailCleaner ıturumunuz kapandı.</p><p>Yeni oturum açmak için şu bağlantıyı takip edin:</p>";
+$txt['LOGOUTTEXT'] = "<p>MailCleaner oturumunuz kapandı.</p><p>Yeni oturum açmak için şu bağlantıyı takip edin:</p>";
 /*
  * parameters page
  */
@@ -204,7 +204,7 @@ $txt['USERPARAM'] = "Kullanıcı ayarları";
 $txt['ADDRESSPARAM'] = "Adres ayarları";
 //old
 $txt['LANGUAGE'] = "Dil";
-$txt['ADDRESS'] = "Address";
+$txt['ADDRESS'] = "Adres";
 //old
 $txt['ADDRALIASTITLE'] = "Adres grubu";
 //old
@@ -222,21 +222,21 @@ $txt['SPAMACTION'] = "Spam işleme modu";
 //old
 $txt['PUTINQUARANTINE'] = "karantina";
 //old
-$txt['TAGSUBJECT'] = "tag";
+$txt['TAGSUBJECT'] = "etiket";
 //old
 $txt['QUARBOUNCES'] = "E-posta iletim raporlarını sistemsel olarak karantinaya al";
 //old
 $txt['DROP'] = "düşür";
 //old
-$txt['SUBJECTTAG'] = "Etiket";
+$txt['SUBJECTTAG'] = "Etiket anahtar kelime";
 //old
 $txt['SUMMARYFREQ'] = "Rapor iletim sıklığı";
 $txt['DAILY'] = "Günlük";
 $txt['WEEKLY'] = "Haftalık";
 $txt['MONTHLY'] = "Aylık";
-$txt['NOSUMMARY'] = "No report";
+$txt['NOSUMMARY'] = "Rapor yok";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
+$txt['SUMMARYTYPE'] = "Rapor formatı";
 $txt['USEDEFAULT'] = "varsayılanı kullan";
 $txt['SUMMHTML'] = "html";
 $txt['SUMMTEXT'] = "düz metin";
@@ -251,11 +251,11 @@ $txt['EDITWARNLIST'] = "uyarı listesini düzenle";
 $txt['SENDER'] = "Gönderen";
 $txt['COMMENT'] = "Yorum";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "Eylem";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "aktif";
 //old
-$txt['INNACTIVE'] = "inaktif";
+$txt['INNACTIVE'] = "pasif";
 //old
 $txt['WWENTRY'] = "Girdi";
 //old
@@ -265,14 +265,14 @@ $txt['WHITELISTFOR'] = "__PARAM__ için beyaz liste";
 //old
 $txt['WARNLISTFOR'] = "__PARAM__ için uyarı listesi";
 //old
-$txt['STATUS'] = "Status";
+$txt['STATUS'] = "Durum";
 /*
  * alias stuff
  */
 //old
 $txt['ADDALIASTITLE'] = "Bir adres ekle";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "Adres";
 //old
 $txt['REMADDRESSALT'] = "bir adresi sil";
 //old
@@ -282,164 +282,164 @@ $txt['NOTFILTEREDDOMAIN'] = "Bu domain MailCleaner tarafından filtrelenmemiş. 
 $txt['ALIASALREADYREGISTERD'] = "Bu adres zaten bir MailCleaner hesabı tarafından kullanılıyor, eklenemez.";
 $txt['ALIASALREADYPENDING'] = "Bu hesap için zaten bir doğrulama işlemi bekliyor.";
 $txt['ALIASPENDING'] = "Bu adrese bir doğrulama mesajı gönderildi. <br/> Güvenlik sebeplerinden dolayı, sadece 24 saat içinde onaylandığı takdirde adres eklenir.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added successfully.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Adres ekleme talebi";
+$txt['ALIASERRORSENDIG'] = "Dahili bir hata nedeniyle istek gönderilemedi. Lütfen daha sonra tekrar deneyin.";
+$txt['ALIASNOTPENDING'] = "Şu anda bu adres için bekleyen bi talep yok.";
+$txt['ALIASADDED'] = "Adres başarıyla eklendi.";
+$txt['ALIASREQUESTREMOVED'] = "Talep iptal edildi.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Adres kaldırıldı.";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Adresi kaldırmak istediğinizden emin misiniz: __PARAM__?";
+$txt['ALIASREMOVED'] = "Adres __PARAM__ kaldırıldı.";
+$txt['CANNOTREMOVEMAINADD'] = "Adres __PARAM__ ana adrestir. Kaldırılamaz.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "İstatistik";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ alınan mesajlar";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spam";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ tehlikeli";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all...";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
+$txt['USERCLEANSTAT'] = "__PARAM__ temiz";
+$txt['ALL'] = "tümü...";
+$txt['SEARCHPERIOD'] = "Analiz periyodu";
+$txt['LASTDAYS'] = "son günler";
+$txt['LASTMONTHS'] = "son aylar";
+$txt['LASTYEARS'] = "son yıllar";
+$txt['DATESTART'] = "Kimden";
+$txt['DATESTOP'] = "kime";
+$txt['STATFORADDRESS'] = "Etkinlik istatistikleri: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Alınan mesajlar";
+$txt['RECEIVEDVIRUS'] = "Virüslü ve tehlikeli mesajlar";
+$txt['RECEIVEDSPAM'] = "Spam mesajlar";
+$txt['RECEIVEDCLEAN'] = "Temiz mesajlar";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ alınan mesajlar";
+$txt['GLOBALSTATSTITLE'] = "Tüm adresler için özet";
 $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "MailCleaner iç hatası (_PARAM_MESSAGE_ERREUR__). Lütfen hata detyalarıla birlikte sistem yöneticisine başvurun.";
+$txt['INCORRECTMSGID'] = "İleti tanımlayıcısı yanlış olduğu için istenilen eylem tamamlanamadı.";
+$txt['NOSUCHADDR'] = "Verilen adres MailCleaner tarafından korunamaz.";
+$txt['ERRORSENDING'] = "Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun.";
+$txt['MSGFORCED'] = "Mesaj serbest bırakıldı ve posta kutunuza teslim edildi. Önümüzdeki birkaç dakika içinde kullanıma sunulması gerekir.";
+$txt['MSGFILENOTFOUND'] = "İleti artık karantinada olmadığından, istenilen eylem tamamlanamadı.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Şirket";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "İsim";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Adı";
 //old
-$txt['EMAIL'] = "E-mail";
+$txt['EMAIL'] = "E-posta";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Telefon numarası";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Sizin için ne yapabiliriz?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Gerekli alanlar";
 //old
-$txt['SUPPORT'] = "Support";
+$txt['SUPPORT'] = "Destek";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Mesajınız gönderildi.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Mesajınız gönderilemedi. Lütfen daha sonra tekrar deneyin.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Bazı alanlar yanlış. Lütfen kontrol ediniz.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
-$txt['SUPPORTTOPIC'] = "Support";
-$txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['HELP'] = "Yardım";
+$txt['INTERFACETOPIC'] = "Arayüz ayarları";
+$txt['INTRODUCTIONTOPIC'] = 'Giriş';
+$txt['INTRODUCTIONTOPICTITLE'] = 'giriş';
+$txt['FIRSTCONTACTTOPIC'] = "Hızlı rehber";
+$txt['FIRSTCONTACTTOPICTITLE'] = "hızlı rehber";
+$txt['ADDRESSESTOPIC'] = "Faydalı adresler";
+$txt['ADDRESSESTOPICTITLE'] = "faydalı adresler";
+$txt['PLUGINTOPIC'] = "Outlook eklentisi";
+$txt['PLUGINTOPICTITLE'] = "Outlook eklentisi";
+$txt['MOREHELPTOPIC'] = "Tam kılavuz";
+$txt['MOREHELPTOPICTITLE'] = "tam kılavuz";
+$txt['USERMANUALTOPICTITLE'] = "kullanıcı kılavuzu";
+$txt['USERMANUALTOPIC'] = "Kullanıcı kılavuzu";
+$txt['FAQTOPIC'] = "Sıkça Sorulan Sorular";
+$txt['FAQTOPICTITLE'] = "sıkça sorulan sorular";
+$txt['GLOSSARYTOPIC'] = "Sözlük";
+$txt['GLOSSARYTOPICTITLE'] = "sözlük";
+$txt['SUPPORTTOPIC'] = "Destek";
+$txt['SUPPORTTOPICTITLE'] = "destek";
+$txt['ANALYSETOPIC'] = "Filtre düzenleme isteği";
+$txt['ANALYSETOPICTITLE'] = "filtre düzenleme isteği";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "Warn list";
-$txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "warn list";
-$txt['WHITELISTTOPICTITLE'] = "white list";
-$txt['BLACKLISTTOPICTITLE'] = "black list";
+$txt['CONFIGURATION'] = "Yapılandırma";
+$txt['ADDRESSLISTTOPIC'] = "Adres grubu";
+$txt['ADDRESSPARAMTOPIC'] = "Adres ayarları";
+$txt['QUARPARAMTOPIC'] = "Karantina görüntüsü";
+$txt['WARNLISTTOPIC'] = "Uyarı listesi";
+$txt['WHITELISTTOPIC'] = "Beyaz liste";
+$txt['BLACKLISTTOPIC'] = "Kara liste";
+$txt['INTERFACETOPICTITLE'] = "arayüz ayarları";
+$txt['ADDRESSLISTTOPICTITLE'] = "adres grubu";
+$txt['ADDRESSPARAMTOPICTITLE'] = "adres ayarları";
+$txt['QUARPARAMTOPICTITLE'] = "karantina görüntüsü";
+$txt['WARNLISTTOPICTITLE'] = "uyarı listesi";
+$txt['WHITELISTTOPICTITLE'] = "beyaz liste";
+$txt['BLACKLISTTOPICTITLE'] = "kara liste";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "Kaydet";
+$txt['CHOOSETHISLANG'] = "Ana dil olarak İngilizce kullan";
+$txt['CHOOSELANGUAGE'] = "Dil seçimi";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Bu grup, bu hesaptan yönetmek istediğiniz tüm adresleri ve takma adları içerir. Daha sonra karantina, istatistikler ve ayarlarınıza geçerli kimlik bilgilerinizle merkezi bir şekilde erişebilirsiniz.";
+$txt['ADDANADDRESS'] = "Adresi gruba ekle";
+$txt['ADDTHEADDRESS'] = "&lt; Adresi gruba ekle";
+$txt['ADDANADDRESSSHORTHELP'] = "Eklemek istediğiniz adresi giriniz.";
+$txt['REMANADDRESS'] = "Bir ya da daha fazla adresi grupdan kaldır";
+$txt['REMTHEADDRESS'] = "Seçimi kaldır";
+$txt['REMANADDRESSSHORTHELP'] = "Kaldırmak istediğiniz her adresin yanındaki kutuyu işaretleyin ve Seçimi kaldır düğmesini tıklayın.";
+$txt['WAITINGCONFIRMATION'] = "onay bekleniyor";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['ADDPARAMSHORTHELP'] = "Spam işleme modu, adreslerinizin her biri için özelleştirilebilir. Kullanılabilen farklı işleme modları hakkında daha fazla bilgi için kullanım kılavuzunu (<a href=\"help.php\"> \"Yardım\" bölümünde mevcuttur) kontrol edin.";
+$txt['FOREACHSPAMDO'] = "Spam olarak algılanan her ileti için:";
+$txt['FOREACHNEWSLETTERDO'] = "Bülten olarak algılanan her ileti için:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "karantinada tut";
+$txt['TAGMESSAGEWITHTAG'] = "konu ile teslim et";
+$txt['DROPMESSAGE'] = "hemen sil";
+$txt['SUMMARYSENTFREQ'] = "Karantina rapor sıklığı";
+$txt['SUMMARYFORMAT'] = "Karantina rapor biçimi";
+$txt['SUMMARYTO'] = "Raporu bu adrese gönder";
+$txt['OTHER'] = "diğer...";
+$txt['APPLYTOALLADDRESSES'] = "Ayarları tüm adresler için uygula";
+$txt['PLAINTEXT'] = "Düz metin";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Hata mesajlarını sakla";
+$txt['PARAMETERSSAVED'] = "Ayarlarınız kaydedildi.";
+$txt['NOTSAVED'] = "Ayarlarınız kaydedilemedi.";
+$txt['INVALIDSUMMARYTO'] = "Rapor için verilen eposta adresi yanlış";
 /* 
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
+$txt['CONFIGQUARSHORTHELP'] = "Karantina ekranı ihtiyaç ve alışkanlıklarınıza göre özelleştirilebilir (gün sayısı ve satırlar).";
+$txt['QUARNBLINESDISPLAYED'] = "Görüntülenecek satır sayısı";
 $txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
 $txt['MASKEALREADYFORCED'] = "Hide user-released messages";
 $txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
