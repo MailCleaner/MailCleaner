@@ -28,11 +28,11 @@ if ('rootpass.inc' == basename($_SERVER['SCRIPT_FILENAME']))
         <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']."?step=".$_GET['step']; ?>" method="post">
 	  <div class="form-group">
 	    <label class="col-md-5 control-label" for="newpass">New Password :</label>
-	    <div class="col-md-4"><input type="password" class="form-control col-md-6" name="newpass" placeholder="Password"></div>
+	    <div class="col-md-4"><input type="password" class="form-control col-md-6" name="newpass" required pattern="[A-Za-z0-9]+" placeholder="A-Z a-z 0-9 only"></div>
 	  </div>
 	  <div class="form-group">
 	    <label class="col-md-5 control-label" for="confnewpass">Re-type New Password :</label>
-	    <div class="col-md-4"><input type="password" class="form-control col-md-6" name="confnewpass" placeholder="Password"></div>
+	    <div class="col-md-4"><input type="password" class="form-control col-md-6" name="confnewpass" required pattern="[A-Za-z0-9]+" placeholder="A-Z a-z 0-9 only"></div>
 	  </div>
 	  <div class="form-group">
 	    <div class="col-md-offset-5 col-md-4">
