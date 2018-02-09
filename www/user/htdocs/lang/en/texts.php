@@ -13,7 +13,7 @@ $txt['NEWSLETTERSTOPICTITLE']   = "Newsletters";
 $txt['NEWSLETTERSSHORTHELP']    = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW']        = "deliver";
 $txt['NEWSLETTERACCEPT']        = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
 
 /* 
  * generic buttons
@@ -67,17 +67,17 @@ $txt['MONTH12']     = 'December';
 /*
  * login page
  */
-$txt['BADLOGIN']                = "Incorrect user name or password.";
-$txt['SESSIONEXPIRED']          = "Session has expired.";
-$txt['LOGININFO']               = "Reminder : Your user name and password are the same as your email account";
+$txt['BADLOGIN']                = "Incorrect username or password.";
+$txt['SESSIONEXPIRED']          = "Session expired.";
+$txt['LOGININFO']               = "Reminder: Your username and password are the same as your email account";
 
-$txt['USERNAME']                = "User name";
+$txt['USERNAME']                = "Username";
 $txt['PASSWORD']                = "Password";
-$txt['ASKLOGIN']                = "Please enter your user name and password:"; //old
+$txt['ASKLOGIN']                = "Please enter your username and password:"; //old
 $txt['ORGANIZATIONUNIT']        = "Organization unit";
 $txt['FORGOTPASSWORD']          = "Lost password ?";
 
-$txt['PASSWORDRESET']           = "The password has been reseted. It has been sent to your mail address.";
+$txt['PASSWORDRESET']           = "The password has been reset and sent to your e-mail address.";
 
 /*
  * menu
@@ -86,7 +86,7 @@ $txt['CONFIGURATIONMENU']       = "Configuration";
 $txt['HELPMENU']                = "Help";
 $txt['QUARANTINEMENU']          = "Quarantine";
 $txt['STATISTICSMENU']          = "Statistics";
-$txt['LOGOUT']                  = "Logout";
+$txt['LOGOUT']                  = "Log out";
 $txt['LOGGEDAS']                = "you are logged in as:"; //old
 $txt['MAINADDRESS']             = "main address"; // old
 $txt['PARAMETERS']              = "Settings";
@@ -120,7 +120,7 @@ $txt['CLOSEWINDOW']             = "Close the window";
 
 $txt['CURRENTPAGE']             = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS']              = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS']		    = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
+$txt['DISPLAYEDINFOS']		    = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
 $txt['DISPLAYEDINFOSS']         = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
 
 $txt['QUARANTINETITLE']         = "Quarantine list for __PARAM__"; //old
@@ -222,10 +222,10 @@ $txt['MONTHLY']                 = "Monthly";
 $txt['NOSUMMARY']               = "No report";
 $txt['SUMMARYTYPE']             = "Report format"; //old
 $txt['USEDEFAULT']              = "use default";
-$txt['SUMMHTML']                = "html";
-$txt['SUMMTEXT']                = "plain text";
-$txt['EDITWHITELIST']           = "edit white list"; //old
-$txt['EDITWARNLIST']            = "edit warn list"; //old
+$txt['SUMMHTML']                = "HTML";
+$txt['SUMMTEXT']                = "plaintext";
+$txt['EDITWHITELIST']           = "edit whitelist"; //old
+$txt['EDITWARNLIST']            = "edit warnlist"; //old
 
 /*
  * wwlist management
@@ -256,7 +256,7 @@ $txt['ALIASPENDING']            = "A confirmation has been sent to this address.
 $txt['ALIASREQUESTSUBJECT']     = "[MailCleaner] Address addition request";
 $txt['ALIASERRORSENDIG']        = "The request could not be sent because of an internal error. Please try again later.";
 $txt['ALIASNOTPENDING']         = "No request is currently pending for this address.";
-$txt['ALIASADDED']              = "The address has been added successfully.";
+$txt['ALIASADDED']              = "The address has been added.";
 $txt['ALIASREQUESTREMOVED']     = "The request has been canceled.";
 
 $txt['REMALIASTITLE']           = "Address removal"; //old
@@ -273,7 +273,7 @@ $txt['USERSPAMSSTAT']           = "__PARAM__ spams"; //old
 $txt['USERSDANGEROUSSTAT']      = "__PARAM__ dangerous"; //old 
 $txt['USERCLEANSTAT']           = "__PARAM__ clean"; //old
 
-$txt['ALL']                     = "all...";
+$txt['ALL']                     = "all…";
 $txt['SEARCHPERIOD']            = "Analyzed period";
 $txt['LASTDAYS']                = "last days";
 $txt['LASTMONTHS']              = "last months";
@@ -352,16 +352,16 @@ $txt['CONFIGURATION']           = "Configuration";
 $txt['ADDRESSLISTTOPIC']        = "Address group";
 $txt['ADDRESSPARAMTOPIC']       = "Address settings";
 $txt['QUARPARAMTOPIC']          = "Quarantine display";
-$txt['WARNLISTTOPIC']           = "Warn list";
-$txt['WHITELISTTOPIC']          = "White list";
-$txt['BLACKLISTTOPIC']          = "Black list";
+$txt['WARNLISTTOPIC']           = "Warnlist";
+$txt['WHITELISTTOPIC']          = "Whitelist";
+$txt['BLACKLISTTOPIC']          = "Blacklist";
 $txt['INTERFACETOPICTITLE']     = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE']   = "address group";
 $txt['ADDRESSPARAMTOPICTITLE']  = "address settings";
 $txt['QUARPARAMTOPICTITLE']     = "quarantine display";
-$txt['WARNLISTTOPICTITLE']      = "warn list";
-$txt['WHITELISTTOPICTITLE']     = "white list";
-$txt['BLACKLISTTOPICTITLE']     = "black list";
+$txt['WARNLISTTOPICTITLE']      = "warnlist";
+$txt['WHITELISTTOPICTITLE']     = "whitelist";
+$txt['BLACKLISTTOPICTITLE']     = "blacklist";
 
 /*
  * interface (new)
@@ -394,7 +394,7 @@ $txt['DROPMESSAGE']             = "immediately delete";
 $txt['SUMMARYSENTFREQ']         = "Frequency of quarantine reports";
 $txt['SUMMARYFORMAT']           = "Format of quarantine reports";
 $txt['SUMMARYTO']               = "Send reports to this address";
-$txt['OTHER']                   = "other...";
+$txt['OTHER']                   = "other…";
 $txt['APPLYTOALLADDRESSES']     = "Apply settings to all addresses";
 $txt['PLAINTEXT']               = "Plain text";
 $txt['HTML']                    = "HTML";
@@ -419,8 +419,8 @@ $txt['TODAY']                   = "Today";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP']       = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-								   Warning : this functionality should be used as a temporary solution as it decreases the overall protection. 
+$txt['WARNLISTSHORTHELP']       = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
+								   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
 								   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS']      = "Warn list for the address";
 $txt['ADDAWARNENTRY']           = "Add an address to the list";
@@ -431,21 +431,21 @@ $txt['REMOVEAWARNENTRYSHORTHELP']  = "Select the address or addresses you want t
 $txt['REMTHEENTRY']             = "Remove selection";
 $txt['DISABLETHEENTRY']         = "Disable/enable selection";
 
-$txt['WHITELISTSHORTHELP']      = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
-                                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
+$txt['WHITELISTSHORTHELP']      = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
+                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage. 
 ";
-$txt['BLACKLISTSHORTHELP']      = "The black list contains blacklisted sender address..
+$txt['BLACKLISTSHORTHELP']      = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
 ";
-$txt['WHITELISTFORADDRESS']     = "White list for the address";
+$txt['WHITELISTFORADDRESS']     = "Whitelist for the address";
 $txt['ADDAWHITEENTRY']          = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD']     = "Enter the address you want to add to the white list. You can also add an optional comment.";
+$txt['WHITELISTENTRYTOADD']     = "Enter the address you want to add to the whitelist. You can also add an optional comment.";
 $txt['REMOVEAWHITEENTRYSHORTHELP']  = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 
-$txt['BLACKLISTFORADDRESS']     = "Black list for the address";
+$txt['BLACKLISTFORADDRESS']     = "Blacklist for the address";
 $txt['ADDABLACKENTRY']          = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD']     = "Enter the address you want to add to the black list. You can also add an optional comment.";
+$txt['BLACKLISTENTRYTOADD']     = "Enter the address you want to add to the blacklist. You can also add an optional comment.";
 $txt['REMOVEABLACKENTRYSHORTHELP']  = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 
 
