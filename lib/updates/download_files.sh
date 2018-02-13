@@ -87,6 +87,10 @@ function downloadDatas {
 
     cd $1
     
+    # For removed file: save local md5 file as old
+    OLDMD5FILE=${MD5FILE}.old
+    mv $MD5FILE ${OLDMD5FILE}
+
     scpres=`scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no mcscp@cvs.mailcleaner.net:/${2}/dbs.md5 $MD5FILE`
 
     if [ ! -f $MD5FILE ]; then
@@ -111,10 +115,19 @@ function downloadDatas {
 	fi
     fi
 
-
     OLDIFS=$IFS
     IFS=$'\n'
-    
+
+    ## check for removed files (without removing custom files)
+    for i in $(cat ${OLDMD5FILE} | cut -d " " -f3); do
+        res=$(grep -E "\b$i\b" ${MD5FILE})
+        if [ "$res" == "" ]; then
+                rm $i >> /dev/null 2>&1
+                log "$2 - Removed file $i"
+        fi
+    done
+    rm ${OLDMD5FILE} >> /dev/null 2>&1
+
     ## check for missing files
     misres=`echo "$md5check" | grep -i "open or read"`
     for l in $misres; do
@@ -139,12 +152,4 @@ function downloadDatas {
 	downloadfile $outfile $1 $2 $4
     done
 
-    ## check for removed files
-    for f in `ls |grep -v -i "MCUSTOM\|${MD5FILE}$5"`; do
-	present=`grep $f $MD5FILE`
-	if [ "$present" = "" ]; then
-	    rm $f
-	    log "$2 - Removed file $f"
-        fi
-    done
 }
