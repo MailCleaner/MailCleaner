@@ -34,6 +34,7 @@ HASCOMMTOUCH=0
 #  HASCOMMTOUCH=1
 #fi
 HASMESSAGESNIFFER=0
+HASKASPERSKY=0
 
 prepare () {
   $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
@@ -75,6 +76,10 @@ prepare () {
   if [ "$PREFILTER_MS" != "" ]; then
       HASMESSAGESNIFFER=1
   fi
+  PREFILTER_KS=`grep 'Virus Scanners' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'kaspersky'`
+  if [ "$PREFILTER_KS" != "" ]; then
+      HASKASPERSKY=1
+  fi
 }
 
 case "$1" in
@@ -108,6 +113,9 @@ case "$1" in
       fi
       if [ $HASMESSAGESNIFFER = 1 ]; then
          $SRCDIR/etc/init.d/messagesniffer start
+      fi
+      if [ $HASKASPERSKY = 1 ]; then
+         $SRCDIR/etc/init.d/kaspersky start
       fi
     fi
     # then MailScanner
@@ -177,6 +185,9 @@ case "$1" in
       fi
       if [ $HASMESSAGESNIFFER = 1 ]; then
          $SRCDIR/etc/init.d/messagesniffer stop
+      fi
+      if [ $HASKASPERSKY = 1 ]; then
+         $SRCDIR/etc/init.d/kaspersky stop
       fi
     fi
     rm $VARDIR/run/mailscanner.stop.rs >/dev/null 2>&1
