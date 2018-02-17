@@ -464,3 +464,16 @@ $txt['RECORDALREADYEXISTS'] = "Denne adressen er allerede i listen.";
  */
 $txt['SESSIONTERMINATED'] = "Økta di er over.";
 $txt['BEENLOGGEDOUT'] = "Hvis du ønsker å starte ei ny økt, klikk på denne lenken: <a href=\"__PARAM__\" >__PARAM__</a>";
+/*
+ * wwlists (new)
+ */
+$txt['WARNLISTSHORTHELP'] = "Advarselslisten inneholder betrodde avsenderadresser du ønsker å motta merknad per e-post for når en melding blir antatt å være søppelpost. Du kan umiddelbart omgjøre dette i fall en filtreringsfeil har inntruffet.<br />
+\t\t\t\t\t\t\t\t   Advarsel: Denne funksjonen bør brukes som midlertidig løsning, siden det senker den helhetlige beskyttelsen. 
+\t\t\t\t\t\t\t\t   Sjekk menualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om advarselslistebruk. ";
+$txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser som ikke er innebefattet av karanteneprogrammet.<br /> 
+                                   Advarsel: Denne funksjonen bør kun brukes som midlertidig løsning, siden den senker den helhetlige beskyttelsen.
+                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om hvitlistebruk. 
+";
+$txt['BLACKLISTSHORTHELP'] = "Svartelisten inneholder svartelistede avsenderadresser.
+                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om svartelistebruk.
+";
