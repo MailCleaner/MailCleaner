@@ -36,6 +36,12 @@ my $itsmonthday=0;
 
 my %config = readConfig("/etc/mailcleaner.conf");
 
+# Anti-breakdown for MailCleaner services
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1")
+	system("/usr/mailcleaner/scripts/cron/anti-breakdown.pl");
+my $mcDataServicesAvailable = 1;
+$mcDataServicesAvailable = 0 if ( -e '/var/tmp/mc_checks_data.ko' );
+
 sub usage() {
   print STDERR << "EOF";
 usage: $0 [-Rh]
@@ -55,6 +61,7 @@ if (defined $options{R}) {
 if (defined $options{h}) {
   usage();
 }
+
 
 ########################################
 ########################################
@@ -118,7 +125,7 @@ if ($hascommtouch ne '') {
 ###########################
 ## check for services availability
 ###########################
-if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable ) {
   if ( my $pid_checkservices = fork) { 
   } elsif (defined $pid_checkservices) {
     system($config{'SRCDIR'}."/bin/check_services.pl ".$randomize_option." > /dev/null");
@@ -129,7 +136,7 @@ if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
 ###########################
 ## check for system updates
 ###########################
-if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
 ## just purging any dead cvs
 ##`killall -KILL cvs >/dev/null 2>&1`;
 
@@ -146,7 +153,7 @@ if ( my $pid_updates = fork) {
 #######################################
 ## check for  updates
 #######################################
-if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
 if (my $pid_rules = fork) {
 } elsif (defined $pid_rules) {
   #print "doing rules updates...";
@@ -163,7 +170,7 @@ if (my $pid_rules = fork) {
 #######################################
 ## check for RBLs, ClamAV, binary updates
 #######################################
-if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
    system($config{'SRCDIR'}."/bin/fetch_rbls.sh ".$randomize_option);
    system($config{'SRCDIR'}."/bin/fetch_clamav.sh ".$randomize_option);
    system($config{'SRCDIR'}."/bin/fetch_binary.sh ".$randomize_option);
@@ -198,7 +205,7 @@ if ($minute >=0 && $minute < $cron_occurence) {
   ## update anti-viruses
   ######################
   if (my $pid_av = fork) {
-  } elsif (defined $pid_av) {  
+  } elsif (defined $pid_av && $mcDataServicesAvailable) {  
     print "updating anti-viruses...\n";
     system($config{'SRCDIR'}."/scripts/cron/update_antivirus.sh");
     print "done updating anti-viruses.\n";
@@ -211,7 +218,7 @@ if ($minute >=0 && $minute < $cron_occurence) {
   ##############
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
     if (my $pid_learn = fork) {
-    } elsif (defined $pid_learn) {
+    } elsif (defined $pid_learn && $mcDataServicesAvailable) {
       #print "doing auto-learn...";
       system($config{'SRCDIR'}."/bin/fetch_autolearn.sh ".$randomize_option);
       #print "done.\n";
@@ -381,7 +388,7 @@ if ($itsmidnight) {
   }
 
   if (my $pid_pushstats = fork) {
-  } elsif (defined $pid_pushstats && defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+  } elsif (defined $pid_pushstats && defined($config{'REGISTERED'}) && $config{'REGISTERED'} && $mcDataServicesAvailable == "1") {
     print "pushing stats...\n";
     system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
     system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
@@ -416,7 +423,7 @@ if ($itsmidnight) {
   ##################################
   print "getting the last conf for autoconf...\n";
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && defined($config{'ISMASTER'}) && $config{'ISMASTER'} eq "Y") {
-	if ( -e $config{'VARDIR'}."/spool/mailcleaner/mc-autoconf") {
+	if ( -e $config{'VARDIR'}."/spool/mailcleaner/mc-autoconf"  && $mcDataServicesAvailable) {
 	        system($config{'SRCDIR'}."/bin/fetch_autoconf.sh &>> /dev/null");
 		system($config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh &>> /dev/null");
 	}
