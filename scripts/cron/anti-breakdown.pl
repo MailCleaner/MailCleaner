@@ -34,7 +34,8 @@ my $is_data_ok = 0;
 my $dns_ko_file		= '/var/tmp/mc_checks_dns.ko';
 my $data_ko_file	= '/var/tmp/mc_checks_data.ko';
 my $rbl_sql_file	= '/var/tmp/mc_checks_rbls.bak';
-my @rbls_to_disable	= qw/MCERBL MCIPRBL MCIPRWL MCTRUSTEDSPF MCURIRBL SIPDEUXQUATREINVALUEMENT SIPINVALUEMENT SIPURIRBL/;
+my @rbls_to_disable	= qw/MCIPRWL MCIPRBL SIPURIRBL MCURIBL MCERBL SIPINVALUEMENT SIPDEUXQUATREINVALUEMENT MCTRUSTEDSPF/;
+
 my %rbl_field = (
 	'trustedSources'	=> 'whiterbls',
 	'PreRBLs'		=> 'lists',
@@ -233,7 +234,6 @@ sub remove_and_save_MC_RBLs {
 
 	if ($reboot_service) {
 		system('/usr/mailcleaner/etc/init.d/mailscanner restart');
-		system('/usr/mailcleaner/etc/init.d/spamd restart');
 	}
 }
 
@@ -265,11 +265,10 @@ sub handle_dns_ok {
 
 		# Restarting associated services
 		system('/usr/mailcleaner/etc/init.d/mailscanner restart');
-		system('/usr/mailcleaner/etc/init.d/spamd restart');
 	
 		# Removing temp files
-		unlink $rbl_sql_file;
-		unlink $dns_ko_file;
+		unlink $rbl_sql_file or warn "could not remove $rbl_sql_file\n";
+		unlink $dns_ko_file or warn "could not remove $dns_ko_file\n";;
 	}
 }
 
@@ -305,6 +304,7 @@ if ( ! defined($config{'REGISTERED'}) || $config{'REGISTERED'} != 1 ) {
 
 # Getting IPs for cvs.mailcleaner.net
 my @teams = getIPAddresses('cvs.mailcleaner.net', 'A');
+
 if ( @teams) {
 	$is_dns_ok	= is_port_ok(0, 53, @teams);
 	$is_data_ok	= is_port_ok(0, 22, @teams);
@@ -316,4 +316,4 @@ if ( @teams) {
 if ($is_dns_ok)		{ handle_dns_ok();	}
 else            	{ handle_dns_ko();	}
 if ($is_data_ok)	{ handle_data_ok();	}
-else            	{ handle_datas_ko();	}
+else            	{ handle_data_ko();	}
