@@ -37,8 +37,9 @@ my $itsmonthday=0;
 my %config = readConfig("/etc/mailcleaner.conf");
 
 # Anti-breakdown for MailCleaner services
-if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1")
-	system("/usr/mailcleaner/scripts/cron/anti-breakdown.pl");
+if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+	system($config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl");
+}
 my $mcDataServicesAvailable = 1;
 $mcDataServicesAvailable = 0 if ( -e '/var/tmp/mc_checks_data.ko' );
 
