@@ -120,8 +120,6 @@ sub getIPAddresses {
 	    foreach my $rr ($reply->answer) {
 	        push @teams, $rr->address if $rr->can('address');
 	    }
-	} else {
-	    warn "query failed: ", $res->errorstring, "\n";
 	}
 
 	return @teams;
@@ -134,10 +132,6 @@ sub checkHost {
 	$p->port_number($port);
 	my $res = $p->ping($host);
 	
-	print "Port : $port\tHost : $host\t : ";
-	if ($res)	{ print "OK\n"; }
-	else		{ print "KO\n"; }
-
 	undef($p);
 
 	return $res;
@@ -158,10 +152,8 @@ sub is_dns_service_available {
 	$res->nameservers($host);
 
 	if ( $res->send("mailcleaner.net", 'MX') ) {
-		print "$host OK\n";
 		return 1;
 	} else {
-		print "$host KO\n";
 		return 0;
 	}
 }
@@ -209,7 +201,6 @@ sub remove_and_save_MC_RBLs {
 
 	foreach my $table (keys %rbl_field) {
 		my $field = $rbl_field{$table};
-		print "$table => $field\n";
 
 		$sth = $master_dbh->prepare("select $field from $table;");
 		$sth->execute() or return 0;
@@ -217,7 +208,6 @@ sub remove_and_save_MC_RBLs {
 		my $original_field = $ref->{$field};
 		$original_field =~ s/\s+/ /g;
 		$original_field =~ s/\s*$//;
-		print "$original_field found in table $table\n";
 		my @rbls = split(' ', $original_field);
 	
 		my $nw;
@@ -233,7 +223,6 @@ sub remove_and_save_MC_RBLs {
 		if ($nw ne $original_field) {
 			$sth = $master_dbh->prepare("update $table set $field ='$nw';");
 			$sth->execute();
-			print "update $table set $field ='$nw';\n";
 			$reboot_service = 1;
 		}
 	}	
