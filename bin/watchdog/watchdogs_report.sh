@@ -8,6 +8,10 @@ DIRBASE='/var/mailcleaner/spool/watchdog/'
 REPORTSWRK=$DIRBASE'reports.wrk'
 FILE=$DIRBASE"reports/report-$CLIENTID-$HOSTID-$TIME.tar.gz"
 
+if [ -e '/var/tmp/mc_checks_data.ko' ]; then
+        exit;
+fi
+
 # Nettoyage
 find $DIRBASE -type f -mtime +5 -exec rm {} \; > /dev/null 2>&1
 
