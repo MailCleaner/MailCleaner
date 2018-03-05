@@ -114,7 +114,7 @@ sub getIPAddresses {
 	my ($cname, $type) = @_;
 
 	my $res   = Net::DNS::Resolver->new;
-$res->tcp_timeout( 20 );
+	$res->tcp_timeout( 10 );
 	my $reply = $res->search($cname, $type);
 	my @teams = ();
 
@@ -126,6 +126,7 @@ $res->tcp_timeout( 20 );
 	if ( ! @teams ) {
 		my @teams_tmp = `dig $cname $type +short`;
 		foreach (@teams_tmp) {
+			$_ =~s/\s//g;
 			push @teams, $_ if ($_ =~ m/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
 		}
 	}
