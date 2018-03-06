@@ -117,8 +117,8 @@ $txt['HOUR'] = "Hora";
 $txt['FROM'] = "De";
 $txt['TO'] = "Destinatário";
 $txt['SUBJECT'] = "Sujeito";
-$txt['FORCED'] = "";
-$txt['ACTION'] = "";
+$txt['FORCED'] = "Liberado";
+$txt['ACTION'] = "Ação";
 //old
 $txt['TOTALSPAMS'] = "";
 //old
