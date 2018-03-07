@@ -117,12 +117,12 @@ $txt['HOUR'] = "Hora";
 $txt['FROM'] = "De";
 $txt['TO'] = "Destinatário";
 $txt['SUBJECT'] = "Sujeito";
-$txt['FORCED'] = "Liberado";
-$txt['ACTION'] = "Ação";
+$txt['FORCED'] = "Libertado";
+$txt['ACTION'] = "Acção";
 //old
-$txt['TOTALSPAMS'] = "";
+$txt['TOTALSPAMS'] = "Total: __PARAM__ mensagem de spam";
 //old
-$txt['FORTHEXLASTDAYS'] = "";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ últimos dias";
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
@@ -134,3 +134,4 @@ $txt['NEWSLETTERMODULE'] = "Newsletter";
 $txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
 $txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
 $txt['NEWSLETTERSSHORTHELP'] = "Aqui pode gerir os vossos boletins informativos.";
+$txt['PURGESELECTEDSPAMS'] = "Limpar manualmente a quarentena";
