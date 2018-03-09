@@ -6,27 +6,27 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['NEWSLETTERMODULE'] = "간행물";
+$txt['NEWSLETTERSTOPIC'] = "간행물들";
+$txt['NEWSLETTERSTOPICTITLE'] = "간행물들";
+$txt['NEWSLETTERSSHORTHELP'] = "이곳에서 당신의 간행물을 관리 할 수 있습니다.";
+$txt['NEWSLETTERSALLOW'] = "배달";
+$txt['NEWSLETTERACCEPT'] = "이 간행물 승인";
+$txt['SPAM_WHITELIST_DISABLED'] = "해당 리스트는 이 도메인에서 활성화 되지 않았습니다 (관리자에게 문의하세요).";
 /* 
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "승인";
+$txt['CANCEL'] = "취소";
+$txt['CLOSE'] = "닫기";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "추가";
+$txt['CONFIRM'] = "승인";
+$txt['REFRESH'] = "새로고침";
+$txt['SEARCH'] = "검색";
+$txt['SEND'] = "보내기";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "초기화";
 /*
  * generic texts
  */
@@ -35,82 +35,82 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Jan.';
-$txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
-$txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
-$txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTHAB1'] = '1월.';
+$txt['MONTHAB2'] = '2월.';
+$txt['MONTHAB3'] = '3월.';
+$txt['MONTHAB4'] = '4월.';
+$txt['MONTHAB5'] = '5월.';
+$txt['MONTHAB6'] = '6월.';
+$txt['MONTHAB7'] = '7월.';
+$txt['MONTHAB8'] = '8월.';
+$txt['MONTHAB9'] = '9월.';
+$txt['MONTHAB10'] = '10월.';
+$txt['MONTHAB11'] = '11월.';
+$txt['MONTHAB12'] = '12월.';
+$txt['MONTH1'] = '1월';
+$txt['MONTH2'] = '2월';
+$txt['MONTH3'] = '3월';
+$txt['MONTH4'] = '4월';
+$txt['MONTH5'] = '5월';
+$txt['MONTH6'] = '6월';
+$txt['MONTH7'] = '7월';
+$txt['MONTH8'] = '8월';
+$txt['MONTH9'] = '9월';
+$txt['MONTH10'] = '10월';
+$txt['MONTH11'] = '11월';
+$txt['MONTH12'] = '12월';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect user name or password.";
-$txt['SESSIONEXPIRED'] = "Session has expired.";
-$txt['LOGININFO'] = "Reminder : Your user name and password are the same as your email account";
-$txt['USERNAME'] = "User name";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "사용자 이름 또는 암호가 잘못되었습니다.";
+$txt['SESSIONEXPIRED'] = "세션이 만료되었습니다.";
+$txt['LOGININFO'] = "기억하세요 : 당신의 사용자 이름과 암호는 이메일 계정과 동일합니다";
+$txt['USERNAME'] = "사용자 이름";
+$txt['PASSWORD'] = "암호";
 //old
-$txt['ASKLOGIN'] = "Please enter your user name and password:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reseted. It has been sent to your mail address.";
+$txt['ASKLOGIN'] = "사용자 이름과 암호를 입력해주세요:";
+$txt['ORGANIZATIONUNIT'] = "조직 구성 단위";
+$txt['FORGOTPASSWORD'] = "암호를 잃어버렸습니까?";
+$txt['PASSWORDRESET'] = "암호가 초기화 되었습니다. 당신의 이메일 계정으로 전달되었습니다.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Logout";
+$txt['CONFIGURATIONMENU'] = "구성";
+$txt['HELPMENU'] = "도움말";
+$txt['QUARANTINEMENU'] = "격리";
+$txt['STATISTICSMENU'] = "통계";
+$txt['LOGOUT'] = "로그아웃";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "지금 로그인된 권한:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "주 메일주소";
+$txt['PARAMETERS'] = "설정";
+$txt['QUARANTINE'] = "격리";
+$txt['NAVSUPPORT'] = "지원";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
+$txt['SELECTEDADDRESS'] = "표시되는 메일주소";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['RESETSEARCH'] = "검열된 리스트 모두 표시";
+$txt['ODATE'] = "날자";
+$txt['OTIME'] = "시간";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "수신인";
+$txt['OSENDER'] = "발신인";
+$txt['OSCORE'] = "점수";
+$txt['OSUBJECT'] = "제목";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "필터 규칙";
+$txt['FORCEMESSAGE'] = "메시지 발송";
+$txt['MESSAGEFORCING'] = "메시지 발송";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
+$txt['ANALYSEREQUEST'] = "필터링 수정 요청";
+$txt['ANALYSEREQUESTV'] = "필터링 수정 요청";
 $txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
+$txt['CLOSEWINDOW'] = "창 닫기";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
@@ -120,19 +120,19 @@ $txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
 //old
 $txt['FILTER'] = "Filter";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "고급 검색";
 //old
 $txt['SHOWEDMESSAGES'] = "displayed messages";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "발송인";
+$txt['DATE'] = "날자";
+$txt['HOUR'] = "시간";
+$txt['FROM'] = "부터";
+$txt['TO'] = "까지";
+$txt['SUBJECT'] = "제목";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "보내기";
+$txt['ACTION'] = "조치";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 //old
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "메시지 미리보기";
 $txt['ID'] = "Identifier";
 /*
  * logout page
