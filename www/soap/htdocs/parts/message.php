@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  */
- 
+
 /**
  * This file is mainly a soap wrapper around common message actions
  */
@@ -18,7 +18,7 @@
  */
 function forceContent($sid, $path) {
 
-  $admin_ = getAdmin($sid);  
+  $admin_ = getAdmin($sid);
   if (!is_object($admin_) || $admin_->getPref('username') == "") {
     if (isset($admin_)) {
        return $admin_;
@@ -28,7 +28,7 @@ function forceContent($sid, $path) {
   if (!$admin_->hasPerm(array('can_manage_users'))) {
      return "NOTALLOWED";
   }
-  
+
   if (! preg_match('/\d{8}\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $path)) {
     return "BADPARAMS";
   }
@@ -49,7 +49,7 @@ function forceContent($sid, $path) {
  * @return       string   command string result, or error message
  */
 function forceSpam($id, $dest) {
- 
+
  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
    return "BADPARAMS";
  }
@@ -60,11 +60,35 @@ function forceSpam($id, $dest) {
  $sysconf_ = SystemConfig::getInstance();
  $id = escapeshellarg($id);
  $dest = escapeshellarg($dest);
- $cmd = $sysconf_->SRCDIR_."/bin/force_message.pl $id $dest"; 
+ $cmd = $sysconf_->SRCDIR_."/bin/force_message.pl $id $dest";
  $res_a = array();
  exec($cmd, $res_a);
 
  return $res_a[0];
+}
+
+/**
+ * Add a spam to the white list as newsletter
+ * @param $id string message id
+ * @param $dest string original destination email address
+ * @param $sender string original sender
+ * @return  string 'OK' or 'NOTOK'
+ */
+function addNewsletterToWhitelist($dest, $sender) {
+  if (!preg_match('/^\S+\@\S+$/', $dest)) {
+      return "BADPARAMS";
+  }
+  if (!preg_match('/^\S+\@\S+$/', $sender)) {
+      return "BADPARAMS";
+  }
+  $sysconf_ = SystemConfig::getInstance();
+  $dest = escapeshellarg($dest);
+  $sender = escapeshellarg($sender);
+  $cmd = $sysconf_->SRCDIR_."/bin/add_newsletter_to_whitelist.pl $dest $sender";
+  $res_a = array();
+  exec($cmd, $res_a);
+
+  return $res_a[0];
 }
 
 /**
@@ -79,7 +103,7 @@ function getHeaders($id, $dest) {
   }
   $matches = array();
   if (! preg_match('/^\S+\@(\S+)$/', $dest, $matches)) {
-   return "BADPARAMS";   
+   return "BADPARAMS";
   }
   $domain = $matches[1];
   $sysconf_ = SystemConfig::getInstance();
@@ -91,15 +115,15 @@ function getHeaders($id, $dest) {
   if (!file_exists($filepath)) {
     return "MESSAGEFILENOTAVAILABLE $filepath";
   }
-  
+
   $file = file($filepath);
-    
+
   $ret = array();
   $line = 0;
   $soap_ret = new SoapText();
   while( !preg_match('/^$/',$file[$line])) {
     array_push($ret, utf8_encode($file[$line]));
-    $line++;   
+    $line++;
   }
   $ret = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $ret);
   $soap_ret->text = $ret;
@@ -112,7 +136,7 @@ function getMIMEPart($id, $dest, $part) {
   }
   $matches = array();
   if (! preg_match('/^\S+\@(\S+)$/', $dest, $matches)) {
-   return "BADPARAMS";   
+   return "BADPARAMS";
   }
   $domain = $matches[1];
   $sysconf_ = SystemConfig::getInstance();
@@ -124,7 +148,7 @@ function getMIMEPart($id, $dest, $part) {
   if (!file_exists($filepath)) {
     return "MESSAGEFILENOTAVAILABLE $filepath";
   }
-  
+
   $file = file($filepath);
   $msg = "";
   $base64 = 0;
@@ -155,7 +179,7 @@ function getMIMEPart($id, $dest, $part) {
  * @return           array    array of message lines
  */
 function getBody($id, $dest, $nblines) {
-    
+
   if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
    return "BADPARAMS";
   }
@@ -164,7 +188,7 @@ function getBody($id, $dest, $nblines) {
   }
   $matches = array();
   if (! preg_match('/^\S+\@(\S+)$/', $dest, $matches)) {
-   return "BADPARAMS";   
+   return "BADPARAMS";
   }
   $domain = $matches[1];
   $sysconf_ = SystemConfig::getInstance();
@@ -201,9 +225,9 @@ function getBody($id, $dest, $nblines) {
     } else {
       array_push($ret, utf8_encode($line));
       $pos++;
-    } 
+    }
   }
- 
+
   $soap_ret = new SoapText();
   $soap_ret->text = $ret;
   return $soap_ret;
@@ -218,18 +242,18 @@ function getBody($id, $dest, $nblines) {
  * @return       array    array of reasons on success, error code on failure
  */
 function getReasons($id, $dest, $lang) {
- 
+
   if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
    return "BADPARAMS";
  }
  if (! preg_match('/^\S+\@\S+$/', $dest)) {
-   return "BADPARAMS";   
+   return "BADPARAMS";
  }
  $sysconf_ = SystemConfig::getInstance();
  $id = escapeshellarg($id);
  $dest = escapeshellarg($dest);
  $lang = escapeshellarg($lang);
-   
+
  $cmd = $sysconf_->SRCDIR_."/bin/get_reasons.pl $id $dest $lang";
  $res = "";
  exec($cmd, $res);
@@ -260,8 +284,8 @@ function sendToAnalyse($id, $dest) {
  }
  $sysconf_ = SystemConfig::getInstance();
  $id = escapeshellarg($id);
- $dest = escapeshellarg($dest); 
-       
+ $dest = escapeshellarg($dest);
+
  $cmd = $sysconf_->SRCDIR_."/bin/send_to_analyse.pl $id $dest";
  $res_a = array();
  exec($cmd, $res_a);
