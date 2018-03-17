@@ -15,7 +15,7 @@ $txt['NEWSLETTERSALLOW']        = "deliver";
 $txt['NEWSLETTERACCEPT']        = "Accept this newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
 
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT']                  = "Submit";
@@ -270,7 +270,7 @@ $txt['CANNOTREMOVEMAINADD']     = "The address__PARAM__ is the main address. It 
 $txt['USERSTATS']               = "Statistics"; //old
 $txt['USERMESGSSTAT']           = "__PARAM__ received messages"; //old
 $txt['USERSPAMSSTAT']           = "__PARAM__ spams"; //old
-$txt['USERSDANGEROUSSTAT']      = "__PARAM__ dangerous"; //old 
+$txt['USERSDANGEROUSSTAT']      = "__PARAM__ dangerous"; //old
 $txt['USERCLEANSTAT']           = "__PARAM__ clean"; //old
 
 $txt['ALL']                     = "all...";
@@ -401,11 +401,11 @@ $txt['HTML']                    = "HTML";
 $txt['DIGEST']                  = "Digest";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
 
-$txt['PARAMETERSSAVED']         = "Your settings have been saved."; 
-$txt['NOTSAVED']                = "Your settings could not be saved."; 
+$txt['PARAMETERSSAVED']         = "Your settings have been saved.";
+$txt['NOTSAVED']                = "Your settings could not be saved.";
 $txt['INVALIDSUMMARYTO']        = "The email address provided for the reports is invalid";
 
-/* 
+/*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP']     = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
@@ -420,7 +420,7 @@ $txt['TODAY']                   = "Today";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP']       = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-								   Warning : this functionality should be used as a temporary solution as it decreases the overall protection. 
+								   Warning : this functionality should be used as a temporary solution as it decreases the overall protection.
 								   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS']      = "Warn list for the address";
 $txt['ADDAWARNENTRY']           = "Add an address to the list";
@@ -431,9 +431,9 @@ $txt['REMOVEAWARNENTRYSHORTHELP']  = "Select the address or addresses you want t
 $txt['REMTHEENTRY']             = "Remove selection";
 $txt['DISABLETHEENTRY']         = "Disable/enable selection";
 
-$txt['WHITELISTSHORTHELP']      = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
+$txt['WHITELISTSHORTHELP']      = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br />
                                    Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage. 
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage.
 ";
 $txt['BLACKLISTSHORTHELP']      = "The black list contains blacklisted sender address..
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
@@ -449,11 +449,20 @@ $txt['BLACKLISTENTRYTOADD']     = "Enter the address you want to add to the blac
 $txt['REMOVEABLACKENTRYSHORTHELP']  = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 
 
-$txt['RECORDALREADYEXISTS']     = "This address is already present in the list.";          
+$txt['RECORDALREADYEXISTS']     = "This address is already present in the list.";
 
 /*
  * logout (new)
  */
 $txt['SESSIONTERMINATED']       = "Your session ended.";
 $txt['BEENLOGGEDOUT']           = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
+$txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
+$txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
+$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+
 ?>
