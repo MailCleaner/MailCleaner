@@ -477,3 +477,10 @@ $txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser so
 $txt['BLACKLISTSHORTHELP'] = "Svartelisten inneholder svartelistede avsenderadresser.
                                   Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om svartelistebruk.
 ";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Nyhetsbrev har blitt tillatt og frisluppet.";
+$txt['NLRELEASEDBODY'] = "Nyhetsbrevet har ikke blitt tillatt og frisluppet. Det bør ankomme din e-postboks om et par minutter.";
+$txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet ble ikke frisluppet";
+$txt['NLNOTRELEASEDBODY'] = "Det oppstod et problem under frigjøring av meldingen din. Prøv igjen senere.";
