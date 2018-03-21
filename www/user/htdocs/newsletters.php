@@ -29,8 +29,16 @@ function get_sender($exim_id, $dest) {
     // Get the mail sender
     $spam_mail = new Spam();
     $spam_mail->loadDatas($exim_id, $dest);
-    $sender = $spam_mail->getData('sender');
-    return $sender;
+    $spam_mail->loadHeadersAndBody();
+    $headers = $spam_mail->getHeadersArray();
+
+    $sender = array();
+    preg_match('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($headers['From']), $sender);
+
+    if (!empty($sender[1])) {
+        return $sender[1];
+    }
+    return false;
 }
 
 /**
