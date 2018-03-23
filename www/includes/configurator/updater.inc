@@ -26,7 +26,7 @@ if ('updater.inc' == basename($_SERVER['SCRIPT_FILENAME']))
 <h2 class="text-center">Step: <?php echo $validStep['title'] ?></h2>
 <p>The product should have been updated now:</p>
 <?php
-  if (file_exists("/var/run/updater4mc-ran")) {
+  if (file_exists("/var/mailcleaner/run/configurator/updater4mc-ran")) {
      echo "<span class='text-success'>MailCleaner has been updated correctly ! You can now click on the \"next\" arrow.</span>";
      touch('/var/mailcleaner/run/configurator/updater');
   } else {
