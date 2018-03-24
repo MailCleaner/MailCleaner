@@ -454,10 +454,9 @@ $txt['TODAY'] = "Heute";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "Die Warnliste erlaubt, Adressen von einigen Ihrer Vertrauenskorrespondenten beizuf&uuml;gen, f&uuml;r welche unverz&uuml;glich eine Warn-Meldung in Ihren Briefkasten eingeworfen wurde, wenn eine Meldung irrt&uuml;mlicherweise als Spam erachtet wurde (Viel weniger gef&auml;hrlich als Wei&szlig;e Liste !).\r
-<br />\r
-\t\t\t\t\t\tWarnung: Die Benutzung dieser Funktion sollte nur tempor&auml;r erfolgen, weil sie Ihre Schutzmassnahmen verringern.<br />\r
-\t\t\t\t\t\tF&uuml;r die weise Benutzung der Warnliste, wenden Sie sich an das Benutzerhandbuch (verf&uuml;gbar in dem Abschnitt <a href=\"help.php\">\"Hilfe\"</a>).";
+$txt['WARNLISTSHORTHELP'] = "Die Warnliste enthält vertrauenswürdige Absenderadressen, für die Sie per E-Mail benachrichtigt werden möchten, wenn eine Nachricht als Spam erkannt wird. Sie können die Nachricht dann im Falle eines Filterfehlers sofort freigeben.<br />
+\t\t\t\t\t\t\t\t   Warnhinweis: Diese Funktionalität sollte als temporäre Lösung verwendet werden, da sie den Gesamtschutz verringert.
+\t\t\t\t\t\t\t\t   Weitere Informationen zur Verwendung der Warnliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">\"Help\"</a>). ";
 $txt['WARNLISTFORADDRESS'] = "Warnliste f&uuml;r die Adresse";
 $txt['ADDAWARNENTRY'] = "Adresse in die Warnliste zuf&uuml;gen";
 $txt['WARNLISTENTRYTOADD'] = "Adresse eintragen, die Sie zur Warnliste zuf&uuml;gen m&ouml;chten. Sie k&ouml;nnen einen zus&auml;tzlichen Kommentar anf&uuml;gen.";
@@ -466,9 +465,10 @@ $txt['REMOVEANENTRY'] = "Adresse l&ouml;schen, desaktivieren oder wieder-aktivie
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "W&auml;hlen Sie in der Warnliste die Adresse(n) die Sie &auml;ndern m&ouml;chten, dann klicken Sie auf die entsprechende Schaltfl&auml;che.";
 $txt['REMTHEENTRY'] = "Auswahl l&ouml;schen";
 $txt['DISABLETHEENTRY'] = "Auswahl desaktivieren oder wieder-aktivieren";
-$txt['WHITELISTSHORTHELP'] = "Die Wei&szlig;e Liste oder \"WhiteList\" erlaubt das Zuf&uuml;gen von Adressen einiger Ihrer Vertrauenskorrespondenten, f&uuml;r welche keine  Blockierung in der Quarant&auml;ne vorgenommen wird.<br />\r
-\t\t\t\t\t\tWarnung: Die Benutzung dieser Funktion sollte nur tempor&auml;r erfolgen, weil sie Ihre Schutzmassnahmen verringern.<br />\r
-\t\t\t\t\t\tF&uuml;r die weise Benutzung der Wei&szlig;e Liste, wenden Sie sich an das Benutzerhandbuch (verf&uuml;gbar in dem Abschnitt <a href=\"help.php\">\"Hilfe\"</a>).";
+$txt['WHITELISTSHORTHELP'] = "Die Positivliste enthält vertrauenswürdige Absenderadressen, für die keine Quarantäneeinstellungen gelten sollen.<br />
+                                   Achtung: Diese Funktionalität sollte als vorübergehende Lösung verwendet werden, da sie den Gesamtschutz verringert.
+                                  Weitere Informationen zur Verwendung der Positivliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">\"Help\"</a>).
+";
 $txt['BLACKLISTSHORTHELP'] = "Die schwarze Liste enthält die gesperrte Absenderadressen …
                                   Lesen Sie das Handbuch (verfügbar im Abschnitt <a href=\"help.php\">\"Hilfe\"</a>) für weitere Informationen zur Verwendung der schwarzen Liste.
 ";
@@ -486,3 +486,10 @@ $txt['RECORDALREADYEXISTS'] = "Diese Adresse ist bereits in der Liste vorhanden.
  */
 $txt['SESSIONTERMINATED'] = "Ihre MailCleaner Session ist beendet.";
 $txt['BEENLOGGEDOUT'] = "Sie k&ouml;nnen sich wieder einloggen an die folgende Adresse: <a href=\"__PARAM__\" >__PARAM__</a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Newsletter wurde abonniert und gesendet.";
+$txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in wenigen Minuten in Ihrem E-Mail-Postfach liegen.";
+$txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
+$txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
