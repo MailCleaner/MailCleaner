@@ -28,8 +28,8 @@ spool_directory = VARDIR/spool/exim_stage4
 never_users = root
 __IF_USE_SYSLOG__
 
-host_lookup = 
-rfc1413_hosts = 
+host_lookup =
+rfc1413_hosts =
 rfc1413_query_timeout = 0s
 acl_smtp_rcpt = acl_check_rcpt
 ignore_bounce_errors_after = 0s
@@ -52,6 +52,9 @@ daemon_smtp_port = 2525
 return_path_remove = true
 accept_8bitmime = true
 message_size_limit = __GLOBAL_MAXMSGSIZE__
+__IF__ DISABLE_IPV6
+disable_ipv6 = true
+__FI__
 
 received_headers_max = __MAX_RECEIVED__
 received_header_text = "Received: \
@@ -93,7 +96,7 @@ acl_check_rcpt:
   accept  hosts         = +relay_from_hosts
   accept  authenticated = *
   deny    message       = relay not permitted
-          
+
 ######################################################################
 #                      ROUTERS CONFIGURATION                         #
 #               Specifies how addresses are handled                  #
@@ -127,7 +130,7 @@ filter_checktag_mx:
                      { >{${perl{wantTag}{$local_part}{$domain}}}{0} } \
                   }{yes}{no} \
                 }
-                
+
   headers_remove = X-MailCleaner-Bounce:subject
   headers_add = "${perl{getTaggedSubject}}"
   headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
@@ -150,7 +153,7 @@ filter_checktag:
   headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
 #  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
 __FI__
-    
+
 filter_checkspam:
   driver = accept
   transport = spam_store
@@ -171,7 +174,7 @@ filter_checkbounces:
 __IF__ USEARCHIVER
 archiver_route:
   debug_print = "R: archiver_route for $domain"
-  driver = manualroute  
+  driver = manualroute
   condition = ${if eq{${local_part}@${domain}}{$original_local_part@$original_domain}}
   local_parts = ${if exists{ARCHIVERDIR/${domain}} {nwildlsearch;ARCHIVERDIR/${domain}} {} }
   transport = archiver_smtp_transport
@@ -179,7 +182,7 @@ archiver_route:
   self = send
   unseen
   no_verify
-__FI__ 
+__FI__
 
 copyto_route:
   debug_print = "R: copyto_route for ${local_part}@${domain}"
@@ -217,7 +220,7 @@ filter_forward:
   headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
 
 dnslookup_gateway:
-  driver = manualroute 
+  driver = manualroute
   domains = ! +local_domains : ! +relay_to_domains
   condition = ${if exists{VARDIR/spool/mailcleaner/smtp_proxy.conf}{yes}{no}}
   transport = remote_smtp
@@ -239,7 +242,7 @@ system_aliases:
   data = ${lookup{$local_part}lsearch{/etc/aliases}}
   file_transport = address_file
   pipe_transport = address_pipe
-  
+
 userforward:
   driver = redirect
   check_local_user
@@ -250,13 +253,13 @@ userforward:
   file_transport = address_file
   pipe_transport = address_pipe
   reply_transport = address_reply
-  
+
 localuser:
   driver = accept
   check_local_user
   transport = local_delivery
   cannot_route_message = Unknown user
-  
+
 ######################################################################
 #                      TRANSPORTS CONFIGURATION                      #
 ######################################################################
@@ -267,7 +270,7 @@ stockme:
   create_directory = yes
   user = mailcleaner
   group = mailcleaner
-  
+
 spam_pipe:
   driver = pipe
   user = mailcleaner
@@ -288,7 +291,7 @@ spam_store:
 spam_transport:
   driver = appendfile
   user = mailcleaner
-  group = mailcleaner 
+  group = mailcleaner
   mode = 640
 
 remote_smtp:
@@ -303,7 +306,7 @@ __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to} {*}{__HOSTS_REQUIRE_TLS__} }
 __FI__
   hosts_try_chunking =
-  
+
 ####################
 ## local deliveries
 local_delivery:
@@ -316,13 +319,13 @@ local_delivery:
 address_pipe:
   driver = pipe
   return_output
-  
+
 address_file:
   driver = appendfile
   delivery_date_add
   envelope_to_add
   return_path_add
-  
+
 address_reply:
   driver = autoreply
 
@@ -331,12 +334,12 @@ archiver_smtp_transport:
   driver = smtp
   helo_data = __HELO_NAME__
   port = __ARCHIVER_PORT__
-  allow_localhost 
+  allow_localhost
 __IF__ USETLS
   hosts_require_tls = __HOSTS_REQUIRE_TLS__
 __FI__
   hosts_try_chunking =
-  
+
 ######################################################################
 #                      RETRY CONFIGURATION                           #
 ######################################################################
