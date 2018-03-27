@@ -293,7 +293,12 @@ sub listMatch {
     $reg =~ s/\./\\\./g; # Escape all dots
     $reg =~ s/\@/\\\@/g; # Escape @
     $reg =~ s/\*/\.\*/g; # Glob on all characters when using *
-    $reg =~ s/[^a-zA-Z0-9.\\\-_=@\*\$\^]//g; # Remove unwanted characters
+    $reg =~ s/\+/\\\+/g; # Escape +
+    $reg =~ s/\|/\\\|/g; # Escape |
+    $reg =~ s/\{/\\\{/g; # Escape {
+    $reg =~ s/\}/\\\}/g; # Escape }
+    $reg =~ s/\?/\\\?/g; # Escape ?
+    $reg =~ s/[^a-zA-Z0-9\+.\\\-_=@\*\$\^!#%&'\/\?`{|}~]//g; # Remove unwanted characters
     if ($sender =~ /$reg/) {
         return 1;
     }
