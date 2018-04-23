@@ -136,7 +136,7 @@ function downloadDatas {
 		else
 
 		# File didnt change
-			log "$2 - $file doesnt need to be downloading"
+			log "$2 - $file doesnt need to be updated"
 		fi
 	fi
     done
@@ -154,5 +154,10 @@ function downloadDatas {
 
     if [ $FIRSTTIME -ne 1 ]; then
 	rm ${OLDMD5FILE} >> $LOGFILE 2>&1
+    fi
+
+    # Exit if the calling script didnt specify not to exit
+    if [ "$6" != "noexit" ]; then
+	exit 0
     fi
 }
