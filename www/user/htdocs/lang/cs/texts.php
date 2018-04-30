@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "Zobrazit náhled zprávy";
 $txt['ID'] = "Identifier";
 /*
  * logout page
