@@ -6,12 +6,12 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['NEWSLETTERMODULE'] = "Zpravodaj";
+$txt['NEWSLETTERSTOPIC'] = "Zpravodaje";
+$txt['NEWSLETTERSTOPICTITLE'] = "Zpravodaje";
+$txt['NEWSLETTERSSHORTHELP'] = "Zde můžete spravovat své informační bulletiny.";
+$txt['NEWSLETTERSALLOW'] = "doručit";
+$txt['NEWSLETTERACCEPT'] = "Akceptovat tento informační bulletin.";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
 /*
  * generic buttons
