@@ -124,6 +124,7 @@ MAILCLEANER     * = (ROOT) NOPASSWD: DISIF
 MAILCLEANER     * = (ROOT) NOPASSWD: SETPINDB
 
 bb        ALL=(root) NOPASSWD:/etc/init.d/xymon, /sbin/poweroff
+#includedir /etc/sudoers.d
 EOF
     touch /etc/ntp.conf >/dev/null 2>&1
     chgrp mailcleaner /etc/ntp.conf >/dev/null 2>&1
