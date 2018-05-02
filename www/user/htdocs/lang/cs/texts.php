@@ -39,9 +39,9 @@ $txt['MONTHAB1'] = 'led.';
 $txt['MONTHAB2'] = 'úno.';
 $txt['MONTHAB3'] = 'bře.';
 $txt['MONTHAB4'] = 'dub.';
-$txt['MONTHAB5'] = 'květen';
-$txt['MONTHAB6'] = 'červen';
-$txt['MONTHAB7'] = 'cervenec';
+$txt['MONTHAB5'] = 'kvě';
+$txt['MONTHAB6'] = 'čvn';
+$txt['MONTHAB7'] = 'čvc';
 $txt['MONTHAB8'] = 'srp.';
 $txt['MONTHAB9'] = 'zář.';
 $txt['MONTHAB10'] = 'říj.';
@@ -63,7 +63,7 @@ $txt['MONTH12'] = 'prosinec';
  * login page
  */
 $txt['BADLOGIN'] = "Nesprávné jméno nebo heslo.";
-$txt['SESSIONEXPIRED'] = "Platnost spojení vypršelo.";
+$txt['SESSIONEXPIRED'] = "Platnost spojení vypršela.";
 $txt['LOGININFO'] = "Upozornění : Vaše jméno a heslo jsou stejné, jako Váš email účet";
 $txt['USERNAME'] = "uživatelské jméno";
 $txt['PASSWORD'] = "heslo";
@@ -76,12 +76,12 @@ $txt['PASSWORDRESET'] = "Heslo bylo změněno a zasláno na Vaší emalovou adre
  * menu
  */
 $txt['CONFIGURATIONMENU'] = "konfigurace";
-$txt['HELPMENU'] = "pomoc";
-$txt['QUARANTINEMENU'] = "Karanténa";
+$txt['HELPMENU'] = "nápověda";
+$txt['QUARANTINEMENU'] = "karanténa";
 $txt['STATISTICSMENU'] = "statistika";
 $txt['LOGOUT'] = "odhlášení";
 //old
-$txt['LOGGEDAS'] = "přihlásil jste se jako:";
+$txt['LOGGEDAS'] = "jste přihlášen jako:";
 // old
 $txt['MAINADDRESS'] = "hlavní adresa";
 $txt['PARAMETERS'] = "nastavení";
