@@ -6,25 +6,25 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Zpravodaj";
-$txt['NEWSLETTERSTOPIC'] = "Zpravodaje";
-$txt['NEWSLETTERSTOPICTITLE'] = "Zpravodaje";
+$txt['NEWSLETTERMODULE'] = "zpravodaj";
+$txt['NEWSLETTERSTOPIC'] = "zpravodaje";
+$txt['NEWSLETTERSTOPICTITLE'] = "zpravodaje";
 $txt['NEWSLETTERSSHORTHELP'] = "Zde můžete spravovat své informační bulletiny.";
 $txt['NEWSLETTERSALLOW'] = "doručit";
-$txt['NEWSLETTERACCEPT'] = "Akceptovat tento informační bulletin.";
+$txt['NEWSLETTERACCEPT'] = "akceptovat tento informační bulletin";
 $txt['SPAM_WHITELIST_DISABLED'] = "Seznam není aktivní pro tuto doménu (Kontaktujte vašeho administrátora).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Odeslat";
-$txt['CANCEL'] = "Zrušit";
-$txt['CLOSE'] = "Zavřít";
+$txt['SUBMIT'] = "odeslat";
+$txt['CANCEL'] = "zrušit";
+$txt['CLOSE'] = "zavřít";
 // old
 $txt['ADD'] = "přidat";
-$txt['CONFIRM'] = "Potvrdit";
-$txt['REFRESH'] = "Obnovit";
-$txt['SEARCH'] = "Hledat";
-$txt['SEND'] = "Odeslat";
+$txt['CONFIRM'] = "potvrdit";
+$txt['REFRESH'] = "obnovit";
+$txt['SEARCH'] = "hledat";
+$txt['SEND'] = "odeslat";
 // old
 $txt['CLEAR'] = "vyčistit";
 /*
@@ -168,7 +168,7 @@ $txt['SUMSENTTO'] = "report z karantény byl odeslán na adresu: <strong>__PARAM
 $txt['SUMNOTSENTTO'] = "Nelze odeslat report o karanténě na adresu <strong>__PARAM__</strong> kvůli vnitřní chybě. Prosím zkuste to znovu později.";
 $txt['SUMMARYSENDING'] = "přenos reportu karantény";
 $txt['PURGETITLE'] = "ručně vyčistit karanténu";
-$txt['PURGEDONE'] = "Karanténa pro <strong>__PARAM__</strong> byla vyčištěna.";
+$txt['PURGEDONE'] = "karanténa pro <strong>__PARAM__</strong> byla vyčištěna";
 $txt['COULDNOTPURGE'] = "Karanténa pro <strong>__PARAM__</strong> nemohla být vyčištěna kvůli vnitřní chybě. Prosím zkuste to znovu později.";
 $txt['ASKPURGECONFIRM'] = "Opravdu chcete vymazat posledních __PARAM1__ dní karantény pro <strong>__PARAM2__</strong> ?";
 $txt['QUARANTINEPURGE'] = "manuální vyčištění karantény";
@@ -224,7 +224,7 @@ $txt['PUTINQUARANTINE'] = "karanténa";
 //old
 $txt['TAGSUBJECT'] = "štítek";
 //old
-$txt['QUARBOUNCES'] = "systematické doručování zpráv chybových hlášení karantény.";
+$txt['QUARBOUNCES'] = "systematické doručování zpráv chybových hlášení karantény";
 //old
 $txt['DROP'] = "opustit";
 //old
@@ -366,8 +366,8 @@ $txt['FIRSTCONTACTTOPIC'] = "rychlý průvodce";
 $txt['FIRSTCONTACTTOPICTITLE'] = "rychlý průvodce";
 $txt['ADDRESSESTOPIC'] = "užitečné adresy";
 $txt['ADDRESSESTOPICTITLE'] = "užitečné adresy";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
+$txt['PLUGINTOPIC'] = "doplněk pro Outlook";
+$txt['PLUGINTOPICTITLE'] = "doplněk pro Outlook";
 $txt['MOREHELPTOPIC'] = "kompletní příručka";
 $txt['MOREHELPTOPICTITLE'] = "kompletní příručka";
 $txt['USERMANUALTOPICTITLE'] = "uživatelská příručka";
@@ -434,7 +434,7 @@ $txt['DIGEST'] = "přehled";
 $txt['KEEPBOUNCESINQUARANTINE'] = "zachovat chybové zprávy";
 $txt['PARAMETERSSAVED'] = "Vaše nastavení bylo uloženo.";
 $txt['NOTSAVED'] = "Vaše nastavení nemohlo být uloženo.";
-$txt['INVALIDSUMMARYTO'] = "E-mailová adresa uvedená pro reporty je neplatná.";
+$txt['INVALIDSUMMARYTO'] = "emailová adresa uvedená pro reporty je neplatná";
 /*
  * quarantine  (new)
  */
@@ -485,5 +485,5 @@ $txt['BEENLOGGEDOUT'] = "Chcete-li se znovu připojit, klikněte na tento odkaz:
  */
 $txt['NLRELEASEDHEAD'] = "Zpravodaj byl povoleno a uvolněn.";
 $txt['NLRELEASEDBODY'] = "Zpravodaj byl povolen a uvolněn. Měl by být doručen do vaší schránky během několika minut.";
-$txt['NLNOTRELEASEDHEAD'] = "Zpravodaj nebyl uvolněn.";
+$txt['NLNOTRELEASEDHEAD'] = "zpravodaj nebyl uvolněn";
 $txt['NLNOTRELEASEDBODY'] = "Při uvolňování zprávy došlo k problému. Prosím zkuste to znovu později.";
