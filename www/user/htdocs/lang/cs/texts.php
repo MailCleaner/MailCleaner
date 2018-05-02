@@ -12,21 +12,21 @@ $txt['NEWSLETTERSTOPICTITLE'] = "Zpravodaje";
 $txt['NEWSLETTERSSHORTHELP'] = "Zde můžete spravovat své informační bulletiny.";
 $txt['NEWSLETTERSALLOW'] = "doručit";
 $txt['NEWSLETTERACCEPT'] = "Akceptovat tento informační bulletin.";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['SPAM_WHITELIST_DISABLED'] = "Seznam není aktivní pro tuto doménu (Kontaktujte vašeho administrátora).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Odeslat";
+$txt['CANCEL'] = "Zrušit";
+$txt['CLOSE'] = "Zavřít";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "přidat";
+$txt['CONFIRM'] = "Potvrdit";
+$txt['REFRESH'] = "Obnovit";
+$txt['SEARCH'] = "Hledat";
+$txt['SEND'] = "Odeslat";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "vyčistit";
 /*
  * generic texts
  */
@@ -34,456 +34,456 @@ $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
-$txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Jan.';
-$txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
-$txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
-$txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['DATEFORMAT'] = "_D__M__R_";
+$txt['MONTHAB1'] = 'led.';
+$txt['MONTHAB2'] = 'úno.';
+$txt['MONTHAB3'] = 'bře.';
+$txt['MONTHAB4'] = 'dub.';
+$txt['MONTHAB5'] = 'květen';
+$txt['MONTHAB6'] = 'červen';
+$txt['MONTHAB7'] = 'cervenec';
+$txt['MONTHAB8'] = 'srp.';
+$txt['MONTHAB9'] = 'zář.';
+$txt['MONTHAB10'] = 'říj.';
+$txt['MONTHAB11'] = 'lis.';
+$txt['MONTHAB12'] = 'pro.';
+$txt['MONTH1'] = 'leden';
+$txt['MONTH2'] = 'únor';
+$txt['MONTH3'] = 'březen';
+$txt['MONTH4'] = 'duben';
+$txt['MONTH5'] = 'květen';
+$txt['MONTH6'] = 'červen';
+$txt['MONTH7'] = 'červenec';
+$txt['MONTH8'] = 'srpen';
+$txt['MONTH9'] = 'září';
+$txt['MONTH10'] = 'říjen';
+$txt['MONTH11'] = 'listopad';
+$txt['MONTH12'] = 'prosinec';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect user name or password.";
-$txt['SESSIONEXPIRED'] = "Session has expired.";
-$txt['LOGININFO'] = "Reminder : Your user name and password are the same as your email account";
-$txt['USERNAME'] = "User name";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "Nesprávné jméno nebo heslo.";
+$txt['SESSIONEXPIRED'] = "Platnost spojení vypršelo.";
+$txt['LOGININFO'] = "Upozornění : Vaše jméno a heslo jsou stejné, jako Váš email účet";
+$txt['USERNAME'] = "uživatelské jméno";
+$txt['PASSWORD'] = "heslo";
 //old
-$txt['ASKLOGIN'] = "Please enter your user name and password:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reseted. It has been sent to your mail address.";
+$txt['ASKLOGIN'] = "prosím zadejte Vaše uživatelské jméno a heslo:";
+$txt['ORGANIZATIONUNIT'] = "organizační jednotka";
+$txt['FORGOTPASSWORD'] = "zapomenuté heslo ?";
+$txt['PASSWORDRESET'] = "Heslo bylo změněno a zasláno na Vaší emalovou adresu.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Logout";
+$txt['CONFIGURATIONMENU'] = "konfigurace";
+$txt['HELPMENU'] = "pomoc";
+$txt['QUARANTINEMENU'] = "Karanténa";
+$txt['STATISTICSMENU'] = "statistika";
+$txt['LOGOUT'] = "odhlášení";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "přihlásil jste se jako:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "hlavní adresa";
+$txt['PARAMETERS'] = "nastavení";
+$txt['QUARANTINE'] = "karanténa";
+$txt['NAVSUPPORT'] = "popdpora";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['SELECTEDADDRESS'] = "zobrazená adresa";
+$txt['QUARANTINESUMMARY'] = "<strong>v karanténě:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>hledat:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "řadit podle __PARAM__";
+$txt['RESETSEARCH'] = "zobrazení celého seznamu karantény";
+$txt['ODATE'] = "datum";
+$txt['OTIME'] = "čas";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "příjemce";
+$txt['OSENDER'] = "odesílatel";
+$txt['OSCORE'] = "skóre";
+$txt['OSUBJECT'] = "předmět";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "filtrovací pravidla";
+$txt['FORCEMESSAGE'] = "uvolnění zprávy";
+$txt['MESSAGEFORCING'] = "zpráva uvolněna";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
-$txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['ANALYSEREQUEST'] = "požadavek na úpravu filtru";
+$txt['ANALYSEREQUESTV'] = "požadavek na úpravu filtru";
+$txt['SCORETEXT'] = "skóre: __PARAM__";
+$txt['CLOSEWINDOW'] = "zavřít okno";
+$txt['CURRENTPAGE'] = "strana __PARAM1__ z __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>automatické čištění po:</strong> __PARAM__ days";
+$txt['DISPLAYEDINFOS'] = "<strong>zpráva zobrazena: </strong> __PARAM1__ posledních dnech (<a href=\"__PARAM2__\">upravit...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>zpráva zobrazena: </strong> __PARAM__ posledních dnech. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "výpis karantény pro __PARAM__";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "filtr";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "rozšířené hledání";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "zobrazené zprávy";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "odesílatel";
+$txt['DATE'] = "datum";
+$txt['HOUR'] = "čas";
+$txt['FROM'] = "od";
+$txt['TO'] = "komu";
+$txt['SUBJECT'] = "předmět";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "uvolněno";
+$txt['ACTION'] = "akce";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "celkem: __PARAM__ spam(ů)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ posledních dní";
+$txt['PURGESELECTEDSPAMS'] = "ručně vyčistit karanténu";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "skrýt zprávy uvolněné uživatelem";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "uvolnění zprávy";
 //old
-$txt['ASKREASON'] = "display filtering rules";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.";
-$txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
-$txt['ASKANALYSE'] = "Filter adjustment request";
-$txt['PAGE'] = "Page";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['ASKREASON'] = "zobrazení filtrovacích pravidel";
+$txt['CONFSENDANALYSE'] = "Žádost o úpravu filtru bude odeslána do Centra analýzy služby MailCleaner. Obsahuje kopii zprávy, která byla nesprávně zablokována.";
+$txt['AREYOUSURE'] = "<span class=\"question\">Opravdu chcete tuto zprávu analyzovat a použít úpravy filtru?</span>";
+$txt['ASKANALYSE'] = "požadavek na úpravu filtru";
+$txt['PAGE'] = "strana";
+$txt['NEXTPAGE'] = "další";
+$txt['PREVIOUSPAGE'] = "předešlá";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
-$txt['HITRULE'] = "Rule";
-$txt['SCORE'] = "Score";
-$txt['TOTAL'] = "Total";
+$txt['GETREASONSTITLE'] = "důvod filtrování";
+$txt['HITRULE'] = "pravidlo";
+$txt['SCORE'] = "skóre";
+$txt['TOTAL'] = "celkem";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
-$txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
+$txt['SENDANALYSETITLE'] = "požadavek na úpravu filtru";
+$txt['SENTTOANALYSE'] = "Žádost o úpravu filtru byla odeslána do Centra pro analýzu MailCleaneru. Tato žádost bude prozkoumána a opravy filtrů mohou být aplikovány během následujícího pracovního dne.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
-$txt['SENDSUM'] = "Manually send the quarantine report";
-$txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
-$txt['SUMMARYSENDING'] = "Quarantine report transmission";
-$txt['PURGETITLE'] = "Manually purge the quarantine";
-$txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
-$txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
-$txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['SENDSUMTITLE'] = "manuální odeslání reportu o karanténě";
+$txt['SENDSUM'] = "manuální odeslání reportu o karanténě";
+$txt['SUMSENTTO'] = "report z karantény byl odeslán na adresu: <strong>__PARAM__</strong>";
+$txt['SUMNOTSENTTO'] = "Nelze odeslat report o karanténě na adresu <strong>__PARAM__</strong> kvůli vnitřní chybě. Prosím zkuste to znovu později.";
+$txt['SUMMARYSENDING'] = "přenos reportu karantény";
+$txt['PURGETITLE'] = "ručně vyčistit karanténu";
+$txt['PURGEDONE'] = "Karanténa pro <strong>__PARAM__</strong> byla vyčištěna.";
+$txt['COULDNOTPURGE'] = "Karanténa pro <strong>__PARAM__</strong> nemohla být vyčištěna kvůli vnitřní chybě. Prosím zkuste to znovu později.";
+$txt['ASKPURGECONFIRM'] = "Opravdu chcete vymazat posledních __PARAM1__ dní karantény pro <strong>__PARAM2__</strong> ?";
+$txt['QUARANTINEPURGE'] = "manuální vyčištění karantény";
+$txt['GROUPQUARANTINES'] = "všechny adresy";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
-$txt['PREFILTERHITS'] = "Pre-filters";
-$txt['BLACKLISTS'] = "Blacklists";
-$txt['FITLERSCORE'] = "Score";
-$txt['NONE'] = "none";
-$txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Zobrazit náhled zprávy";
-$txt['ID'] = "Identifier";
+$txt['INFORMATIONSABOUTMSG'] = "obsah zprávy";
+$txt['PREFILTERHITS'] = "Předfiltry";
+$txt['BLACKLISTS'] = "seznam blokovaných";
+$txt['FITLERSCORE'] = "skóre";
+$txt['NONE'] = "žádné";
+$txt['HEADERS'] = "hlavičky";
+$txt['BODY'] = "tělo";
+$txt['PARTS'] = "části";
+$txt['STORESLAVE'] = "sklad";
+$txt['SPAMCSCORE'] = "skóre pravidel";
+$txt['DESCRIPTION'] = "popis";
+$txt['MESSAGEPREVIEW'] = "zobrazit náhled zprávy";
+$txt['ID'] = "identifikovat";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>Připojení bylo ukončeno.</p><p>Pokud si přejete navázat nové připojení, klikněte na následující odkaz:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "uživatelské nastavení";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "uživatelské nastavení";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "nastavení adresy";
 //old
-$txt['LANGUAGE'] = "Language";
-$txt['ADDRESS'] = "Address";
+$txt['LANGUAGE'] = "jazyk";
+$txt['ADDRESS'] = "adresa";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "skupina adres";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "režim zpracování spamu";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "nastavení reportů karantény";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "skupina uživatelských adres: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "aplikovat změny na všechna adresy";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "hlavní";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "režim zpracování spamu";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "karanténa";
 //old
-$txt['TAGSUBJECT'] = "tag";
+$txt['TAGSUBJECT'] = "štítek";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "systematické doručování zpráv chybových hlášení karantény.";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "opustit";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "klíčové slovo štítku";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
-$txt['NOSUMMARY'] = "No report";
+$txt['SUMMARYFREQ'] = "frekvence doručování reportů";
+$txt['DAILY'] = "denně";
+$txt['WEEKLY'] = "týdně";
+$txt['MONTHLY'] = "měsíšně";
+$txt['NOSUMMARY'] = "žádný report";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
+$txt['SUMMARYTYPE'] = "formát reportu";
+$txt['USEDEFAULT'] = "použít výchozí";
 $txt['SUMMHTML'] = "html";
-$txt['SUMMTEXT'] = "plain text";
+$txt['SUMMTEXT'] = "prostý text";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "upravit seznam povolených";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "upravit seznam varování";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
-$txt['COMMENT'] = "Comment";
+$txt['SENDER'] = "odesílatel";
+$txt['COMMENT'] = "komentář";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "akce";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "aktivní";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "neaktivní";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "položka";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "Opravdu chcete tuto položku trvale smazat?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "seznam povolených pro __PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "seznam varování pro __PARAM__";
 //old
-$txt['STATUS'] = "Status";
+$txt['STATUS'] = "stav";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "přidat adresu";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "adresa";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "odebrat adresu";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added successfully.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ADDADDRESSALT'] = "přidat adresu";
+$txt['BADADDRESSFORMAT'] = "Zadaná adresa je neplatná. Prosím zkuste to znovu.";
+$txt['NOTFILTEREDDOMAIN'] = "Tato doména není filtrována službou MailCleaneru. Adresu nelze přidat.";
+$txt['ALIASALREADYREGISTERD'] = "Tato adresa se již používá u účtu MailCleaneru. Nelze jí přidat.";
+$txt['ALIASALREADYPENDING'] = "Již na nastaven požadavek na potvrzení pro tuto adresu.";
+$txt['ALIASPENDING'] = "Na tuto adresu bylo odesláno potvrzení. <br/> Z bezpečnostních důvodů bude adresa přidána pouze tehdy, pokud žádost potvrdíte do 24 hodin.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] požadavek na doplnění adresy";
+$txt['ALIASERRORSENDIG'] = "Žádost nemohla být odeslána z důvodu vnitřní chyby. Prosím zkuste to znovu později.";
+$txt['ALIASNOTPENDING'] = "Momentálně není žádná žádost pro tuto adresu.";
+$txt['ALIASADDED'] = "Adresa byla úspěšně přidána.";
+$txt['ALIASREQUESTREMOVED'] = "Žádost byla zrušena.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "odstranění adresy";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Opravdu chcete odstranit adresu: __PARAM__?";
+$txt['ALIASREMOVED'] = "Adresa __PARAM__ byla odstraněna.";
+$txt['CANNOTREMOVEMAINADD'] = "Adresa __PARAM__ je hlavní adresa, proto jí nelze odstranit.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "statistiky";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ přijaté zprávy";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spamy";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ nebezpečný";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all...";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['USERCLEANSTAT'] = "__PARAM__ čistý";
+$txt['ALL'] = "vše...";
+$txt['SEARCHPERIOD'] = "analyzované období";
+$txt['LASTDAYS'] = "poslední dny";
+$txt['LASTMONTHS'] = "poslední měsíce";
+$txt['LASTYEARS'] = "poslední roky";
+$txt['DATESTART'] = "od";
+$txt['DATESTOP'] = "komu";
+$txt['STATFORADDRESS'] = "statistiky aktivit pro: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "přijaté zprávy";
+$txt['RECEIVEDVIRUS'] = "viry a nebezpečné zprávy";
+$txt['RECEIVEDSPAM'] = "spamové zprávy";
+$txt['RECEIVEDCLEAN'] = "čisté zprávy";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ přijatých zpráv";
+$txt['GLOBALSTATSTITLE'] = "shrnutí pro všechny adresy";
+$txt['FROMDATETODATE'] = "od __PARAM1__.__PARAM2__.__PARAM3__ pro __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "Interní chyba sytému MailCleaner (_PARAM_MESSAGE_ERREUR__). Obraťte se prosím na správce systému s podrobnostmi o problému.";
+$txt['INCORRECTMSGID'] = "Požadovanou akci nelze dokončit, protože identifikátor zprávy je nesprávný.";
+$txt['NOSUCHADDR'] = "Tato adresa není chráněna programem MailCleaner.";
+$txt['ERRORSENDING'] = "Při odesílání zprávy došlo k chybě. Prosím zkuste to znovu. Pokud problém přetrvává, obraťte se na správce systému.";
+$txt['MSGFORCED'] = "Zpráva byla uvolněna a doručena do vaší poštovní schránky. Měla by být k dispozici během několika minut.";
+$txt['MSGFILENOTFOUND'] = "Požadovaná akce nemohla být dokončena, protože zpráva již není v karanténě.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "společnost";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "jméno";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Křestní jméno";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "telefonní číslo";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Co pro Vás můžeme udělat?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "požadovaná pole";
 //old
-$txt['SUPPORT'] = "Support";
+$txt['SUPPORT'] = "podpora";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Vaše zpráva byla odeslána.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Vaše zpráva nemohla být odeslána. Prosím zkuste to znovu později.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Některá pole jsou nesprávná. Zkontrolujte Vaše vstupy.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
+$txt['HELP'] = "pomoc";
+$txt['INTERFACETOPIC'] = "nastavení rozhraní";
+$txt['INTRODUCTIONTOPIC'] = 'úvod';
+$txt['INTRODUCTIONTOPICTITLE'] = 'úvod';
+$txt['FIRSTCONTACTTOPIC'] = "rychlý průvodce";
+$txt['FIRSTCONTACTTOPICTITLE'] = "rychlý průvodce";
+$txt['ADDRESSESTOPIC'] = "užitečné adresy";
+$txt['ADDRESSESTOPICTITLE'] = "užitečné adresy";
 $txt['PLUGINTOPIC'] = "Outlook plug-in";
 $txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
-$txt['SUPPORTTOPIC'] = "Support";
-$txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['MOREHELPTOPIC'] = "kompletní příručka";
+$txt['MOREHELPTOPICTITLE'] = "kompletní příručka";
+$txt['USERMANUALTOPICTITLE'] = "uživatelská příručka";
+$txt['USERMANUALTOPIC'] = "uživatelská příručka";
+$txt['FAQTOPIC'] = "často kladené otázky";
+$txt['FAQTOPICTITLE'] = "často kladené otázky";
+$txt['GLOSSARYTOPIC'] = "slovníček";
+$txt['GLOSSARYTOPICTITLE'] = "slovníček";
+$txt['SUPPORTTOPIC'] = "podpora";
+$txt['SUPPORTTOPICTITLE'] = "podpora";
+$txt['ANALYSETOPIC'] = "požadavek na úpravu filtru";
+$txt['ANALYSETOPICTITLE'] = "požadavek na úpravu filtru";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "Warn list";
-$txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "warn list";
-$txt['WHITELISTTOPICTITLE'] = "white list";
-$txt['BLACKLISTTOPICTITLE'] = "black list";
+$txt['CONFIGURATION'] = "konfigurace";
+$txt['ADDRESSLISTTOPIC'] = "skupina adres";
+$txt['ADDRESSPARAMTOPIC'] = "nastavení adresy";
+$txt['QUARPARAMTOPIC'] = "zobrazení karantény";
+$txt['WARNLISTTOPIC'] = "seznam varování";
+$txt['WHITELISTTOPIC'] = "seznam povolených";
+$txt['BLACKLISTTOPIC'] = "seznam zakázaných";
+$txt['INTERFACETOPICTITLE'] = "nastavení rozhraní";
+$txt['ADDRESSLISTTOPICTITLE'] = "skupina adres";
+$txt['ADDRESSPARAMTOPICTITLE'] = "nastavení adresy";
+$txt['QUARPARAMTOPICTITLE'] = "zobrazení karantény";
+$txt['WARNLISTTOPICTITLE'] = "seznam varování";
+$txt['WHITELISTTOPICTITLE'] = "seznam povolených";
+$txt['BLACKLISTTOPICTITLE'] = "seznam zakázaných";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "uložit";
+$txt['CHOOSETHISLANG'] = "použít angličtinu jako hlavní jazyk";
+$txt['CHOOSELANGUAGE'] = "výběr jazyka";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Tato skupina obsahuje všechny adresy a aliasy, které chcete spravovat z tohoto účtu. Potom můžete získat přístup k jejich karanténě, statistikám a nastavením centralizovaným způsobem s aktuálními pověřeními.";
+$txt['ADDANADDRESS'] = "přidat adresu do skupiny";
+$txt['ADDTHEADDRESS'] = "&lt; přidat adresu do skupiny";
+$txt['ADDANADDRESSSHORTHELP'] = "Zadejte adresu, kterou chcete přidat.";
+$txt['REMANADDRESS'] = "odstranit jednu, nebo více adres ze skupiny";
+$txt['REMTHEADDRESS'] = "odstranit vybrané";
+$txt['REMANADDRESSSHORTHELP'] = "Zaškrtněte políčko vedle každé adresy, kterou chcete odstranit, a klikněte na tlačítko „odstranit vybrané“.";
+$txt['WAITINGCONFIRMATION'] = "čekání na potvrzení";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['ADDPARAMSHORTHELP'] = "Režim zpracování spamu lze přizpůsobit pro každou z vašich adres. Podrobnější informace o různých dostupných způsobech zpracování naleznete v uživatelské příručce (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>).";
+$txt['FOREACHSPAMDO'] = "Pro každou zprávu zjištěnou jako spam:";
+$txt['FOREACHNEWSLETTERDO'] = "Pro každou zprávu zjištěnou jako informační bulletin:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "držet v karanténě";
+$txt['TAGMESSAGEWITHTAG'] = "doručit s klíčovým slovem předmětu";
+$txt['DROPMESSAGE'] = "okamžitě smazat";
+$txt['SUMMARYSENTFREQ'] = "Frekvence karanténních reportů";
+$txt['SUMMARYFORMAT'] = "formát karanténních reportů";
+$txt['SUMMARYTO'] = "odeslat report na tuto adresu";
+$txt['OTHER'] = "ostatní...";
+$txt['APPLYTOALLADDRESSES'] = "použijte nastavení na všechny adresy";
+$txt['PLAINTEXT'] = "prostý text";
 $txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['DIGEST'] = "přehled";
+$txt['KEEPBOUNCESINQUARANTINE'] = "zachovat chybové zprávy";
+$txt['PARAMETERSSAVED'] = "Vaše nastavení bylo uloženo.";
+$txt['NOTSAVED'] = "Vaše nastavení nemohlo být uloženo.";
+$txt['INVALIDSUMMARYTO'] = "E-mailová adresa uvedená pro reporty je neplatná.";
 /*
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['CONFIGQUARSHORTHELP'] = "Zobrazení karanté lze přizpůsobit (počet dnů a řádků) podle vašich potřeb.";
+$txt['QUARNBLINESDISPLAYED'] = "počet zobrazovaných řádků";
+$txt['QUARNBDAYSDISAPLYED'] = "počet zobrazovaných dnů";
+$txt['MASKEALREADYFORCED'] = "skrýt uživatelem uvolněné zprávy";
+$txt['DEFAULTADDRESDISPPLAYED'] = "adresa zobrazená ve výchozím nastavení";
+$txt['YESTERDAY'] = "včera";
+$txt['TODAY'] = "dnes";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning : this functionality should be used as a temporary solution as it decreases the overall protection.
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warn list for the address";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage.
+$txt['WARNLISTSHORTHELP'] = "Seznam varování obsahuje adresy důvěryhodných odesílatelů, u kterých chcete být upozorněni poštou vždy, když se bude zpráva označena jako spam. Potom můžete zprávu okamžitě uvolnit v případě chyby při filtrování. <br />
+\t\t\t\t\t\t\t\t   Upozornění: tato funkce by měla být použita jako dočasné řešení, protože snižuje celkovou ochranu.
+                                                                   Pro více informací o používání seznamu varování se podívejte do manuálu (dostupný v části <a href=\"help.php\"> \"Nápověda\" </a>). ";
+$txt['WARNLISTFORADDRESS'] = "seznam varování pro adresu";
+$txt['ADDAWARNENTRY'] = "přidat adresu do seznamu";
+$txt['WARNLISTENTRYTOADD'] = "Zadejte adresu, kterou chcete přidat do seznamu varování. Můžete také přidat volitelný komentář.";
+$txt['ADDTHEENTRY'] = "&lt; přidat adresu";
+$txt['REMOVEANENTRY'] = "zakázat, povolit nebo odstranit adresu ze seznamu";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Vyberte adresu nebo adresy, které chcete upravit, a klikněte na požadované tlačítko akce.";
+$txt['REMTHEENTRY'] = "odstranit označené";
+$txt['DISABLETHEENTRY'] = "zakázat/povolit označené";
+$txt['WHITELISTSHORTHELP'] = "seznam povolených obsahuje adresy důvěryhodných odesílatelů, pro které se vůbec nevyskytuje žádná karanténní ochrana. <br />
+                                  Upozornění: tato funkce by měla být použita jako dočasné řešení, protože snižuje celkovou ochranu.
+                                  Podrobnější informace o použití seznamu povolených naleznete v příručce (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>).
 ";
-$txt['BLACKLISTSHORTHELP'] = "The black list contains blacklisted sender address..
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
+$txt['BLACKLISTSHORTHELP'] = "Seznam zakázaných obsahuje adresu odesílatele na černé listině.
+                                  Podrobnější informace o použití seznamu zakázaných naleznete v manuálu (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>).
 ";
-$txt['WHITELISTFORADDRESS'] = "White list for the address";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the white list. You can also add an optional comment.";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "Black list for the address";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the black list. You can also add an optional comment.";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['WHITELISTFORADDRESS'] = "seznam povolených adres";
+$txt['ADDAWHITEENTRY'] = "přidat adresu do seznamu";
+$txt['WHITELISTENTRYTOADD'] = "Zadejte adresu, kterou chcete přidat do seznamu povolených. Můžete také přidat volitelný komentář.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Vyberte adresu nebo adresy, které chcete upravit, a klikněte na požadované tlačítko akce.";
+$txt['BLACKLISTFORADDRESS'] = "seznam zakázaných adres";
+$txt['ADDABLACKENTRY'] = "přidat adresu do seznamu";
+$txt['BLACKLISTENTRYTOADD'] = "Zadejte adresu, kterou chcete přidat do seznamu zakázaných. Můžete také přidat volitelný komentář.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Vyberte adresu nebo adresy, které chcete upravit, a klikněte na požadované tlačítko akce.";
+$txt['RECORDALREADYEXISTS'] = "Tato adresa je již v seznamu.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['SESSIONTERMINATED'] = "Vaše připojení bylo ukončeno.";
+$txt['BEENLOGGEDOUT'] = "Chcete-li se znovu připojit, klikněte na tento odkaz: <a href=\"__PARAM__\"> __PARAM__ </a>";
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
-$txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLRELEASEDHEAD'] = "Zpravodaj byl povoleno a uvolněn.";
+$txt['NLRELEASEDBODY'] = "Zpravodaj byl povolen a uvolněn. Měl by být doručen do vaší schránky během několika minut.";
+$txt['NLNOTRELEASEDHEAD'] = "Zpravodaj nebyl uvolněn.";
+$txt['NLNOTRELEASEDBODY'] = "Při uvolňování zprávy došlo k problému. Prosím zkuste to znovu později.";
