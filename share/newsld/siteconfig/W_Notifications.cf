@@ -59,3 +59,6 @@ score		MC_NEWS_EFRMDOODLE1	-10.0
 
 header		MC_NEWS_EFRMSTEAM1	From =~ /noreply\@steampowered\.com/i
 score		MC_NEWS_EFRMSTEAM1	-10.0
+
+header		MC_NEWS_WETRANSFER      From =~ /noreply\@wetransfer\.com/i
+score		MC_NEWS_WETRANSFER      -10.0
