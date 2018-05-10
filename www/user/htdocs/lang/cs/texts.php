@@ -224,7 +224,7 @@ $txt['PUTINQUARANTINE'] = "karanténa";
 //old
 $txt['TAGSUBJECT'] = "štítek";
 //old
-$txt['QUARBOUNCES'] = "systematické doručování zpráv chybových hlášení karantény";
+$txt['QUARBOUNCES'] = "pravidelné doručování zpráv chybových hlášení karantény";
 //old
 $txt['DROP'] = "opustit";
 //old
