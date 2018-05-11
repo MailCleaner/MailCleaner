@@ -81,7 +81,7 @@ if ( open (NODELETEFILE, $domainsnottodelete)) {
 if (! $dontdelete) {
   my @existing_elements = $mapper->getExistingElements();
   foreach my $el (@existing_elements) {
-    #print "testing relevence of: $el\n";
+    #print "testing relevance of: $el\n";
     next if (defined($nodelete{$el}));
     if (!defined($elements{$el}) || ! $elements{$el}) {
       $mapper->deleteElement($el);

@@ -7,7 +7,7 @@ $txt['SVERIFYPASS'] = "Check that the message has been processed by the Mailclea
 $txt['SMCLOGTITLE'] = "In the headers, you will see the following lines mentioning Mailcleaner:";
 $txt['SMCLOGLINE1'] = "Received: from mailcleaner.net (filtering daemon)";
 $txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
-$txt['SMCFILTERINGLOG'] = "R&eacute;sultat du filtrage : X-Mailcleaner-Spamscore: oooo";
+$txt['SMCFILTERINGLOG'] = "Filtering result : X-Mailcleaner-Spamscore: oooo";
 $txt['SFALSENEGTUTOR'] = "If you truly find that the message is spam, please transfer it to spam@mailcleaner.net, or better yet, if your mail program allows you to do so, choose \"Transfer as attachment\" to keep the mail headers of the message intact. We will analyse the contents of the message and adapt mailcleaner's filtering criteria accordingly so that all Mailcleaner users benefit from the analysis.";
 
 $txt['SFALSEPOSTITLE'] = "FALSE POSITIVES";
@@ -32,28 +32,28 @@ $txt['WEBDOCTITLE'] = "Online documentation";
 $txt['FAQ'] = "
                <ul>
                  <li> <h2>What does Mailcleaner do ?</h2>
-                      Mailcleaner is a mail filter that check your incoming messages against spams, known viruses and other dangerous content, avoiding them to even reach your desktop. It is a server side solution which means you don't have any software to install on your system to get your mails fitered. This is actually done by your mail account provider. With this web based interface, you are directly connected to the Mailcleaner filter, where you will see blocked spams and will be able to tune some settings of the filter.
+                      Mailcleaner is a mail filter that check your incoming messages against spams, known viruses and other dangerous content, avoiding them to even reach your desktop. It is a server side solution which means you don't have any software to install on your system to get your mails filtered. This is actually done by your mail account provider. With this web based interface, you are directly connected to the Mailcleaner filter, where you will see blocked spams and will be able to tune some settings of the filter.
                  </li>
                  <li> <h2>What is a spam ?</h2>
                       A spam is an unsolicited or undesired email message. Generally used for advertisements, these messages can quickly fill your mailbox. These message are generally not dangerous, but really annoying.
                  </li>
                  <li> <h2>What are viruses and dangerous content ?</h2>
-                      Viruses are small softwares that can exploit and let some malicious people take control of your computer. These can be sent to you by email as attachments, and infect your system once you open it (some can even be enabled without being opened). Dangerous content are the same, except that they can be enabled by more intelligent means, hidding themselves directly into the content of the message, or even being targeted from the outside by a bounce link into the mail. These are very difficult to be detected by a standard mail filter because the real virus is not really included with the message. Mailcleaner does more check on that a prevent potentially risky mail to reach your mailbox.
+                      Viruses are small software that can exploit and let some malicious people take control of your computer. These can be sent to you by email as attachments, and infect your system once you open it (some can even be enabled without being opened). Dangerous content are the same, except that they can be enabled by more intelligent means, hiding themselves directly into the content of the message, or even being targeted from the outside by a bounce link into the mail. These are very difficult to be detected by a standard mail filter because the real virus is not really included with the message. Mailcleaner does more check on that a prevent potentially risky mail to reach your mailbox.
                  </li>
                  <li> <h2>Mailcleaner antispam criteria</h2>
-                      Mailcleaner uses a number of test in order to detect spams with the best accuracy possible. It uses amongst others, some simple keyword or keyphrase matching, worldwide spam databases and statisticall token computing. The aggregation of all these criterias will give an overall score for each message, upon wich mailcleaner will take the final decision: spam or ham. As spam is a really fast moving target, these rules are also adapted as fast as possible. This is the job of Mailcleaner to keep these settings as good as possible.
+                      Mailcleaner uses a number of test in order to detect spams with the best accuracy possible. It uses among others, some simple keyword or key phrase matching, worldwide spam databases and statistically token computing. The aggregation of all these criteria will give an overall score for each message, upon which mailcleaner will take the final decision: spam or ham. As spam is a really fast moving target, these rules are also adapted as fast as possible. This is the job of Mailcleaner to keep these settings as good as possible.
                  </li>
                  <li> <h2>Errors</h2>
                       As Mailcleaner is an automated filtering system, it is also prone to mistakes. There are basically two kinds of error that can be generated by Mailcleaner:
                       <ul>
-                       <li> <h3>false negatives</h3> false negatives are spam messages that slipped through the Mailcleaner filter and reach your mailboxe without being detected. These are annoying, but as long as they keep relatively rare, they won't hurt to much your production at work. Remember when you got only a couple of spam each week ? Mailcleaner can get you at least to this point.
+                       <li> <h3>false negatives</h3> false negatives are spam messages that slipped through the Mailcleaner filter and reach your mailbox without being detected. These are annoying, but as long as they keep relatively rare, they won't hurt to much your production at work. Remember when you got only a couple of spam each week ? Mailcleaner can get you at least to this point.
                        </li>
-                       <li> <h3>false positives</h3> are more annoying errors as they are valid mails being blocked by the system. If you are not vigilant enough and does not check either your quarantine or reports carefully, this can lead to the lost of important messages. Mailcleaner is optimised to reduce these mistakes as much as possible. However, altough it is very very rare, this can happens. That why Mailcleaner includes real-time quarantine access and periodic reports to help you minimize the risk of message lost.
+                       <li> <h3>false positives</h3> are more annoying errors as they are valid mails being blocked by the system. If you are not vigilant enough and does not check either your quarantine or reports carefully, this can lead to the lost of important messages. Mailcleaner is optimised to reduce these mistakes as much as possible. However, although it is very very rare, this can happens. That why Mailcleaner includes real-time quarantine access and periodic reports to help you minimize the risk of message lost.
                        </li>
                       </ul>
                   </li>
                   <li> <h2>What you can do to correct Mailcleaner</h2>
-                      Upon Mailcleaner mistakes, the best thing to do is help correct the filter by giving feedback to your administrator. Do not think the best solution is just to whitelist or blacklist senders as this is just a fast but dirty way (check this for more informations). Althoug it sometimes is the only possibility, it is always better to find out the real cause of the error, and correct it. This can only be done by technical people, so don't hesitate to give feedback on errors to your administrator.
+                      Upon Mailcleaner mistakes, the best thing to do is help correct the filter by giving feedback to your administrator. Do not think the best solution is just to whitelist or blacklist senders as this is just a fast but dirty way (check this for more information). Although it sometimes is the only possibility, it is always better to find out the real cause of the error, and correct it. This can only be done by technical people, so don't hesitate to give feedback on errors to your administrator.
                   </li>
                 </ul>";
 
@@ -67,8 +67,8 @@ $txt['DOCUMENTATION'] = "
                                 <li> <h3>force (<img src=\"/templates/".$template."/images/force.gif\" align=\"top\" alt=\"\">): </h3>
                                    click on this icon to release the corresponding message. It will then be forwarded directly in your mailbox.
                                 </li>
-                                <li> <h3>view informations (<img src=\"/templates/".$template."/images/reasons.gif\" align=\"top\" alt=\"\">): </h3>
-                                   if you want to see why a message has been detected as spam, click on this icon. You will see the Mailcleaner criteria with corresponding scores. With a score equals or greater than 5, a message is cnosidered as a spam.
+                                <li> <h3>view information (<img src=\"/templates/".$template."/images/reasons.gif\" align=\"top\" alt=\"\">): </h3>
+                                   if you want to see why a message has been detected as spam, click on this icon. You will see the Mailcleaner criteria with corresponding scores. With a score equals or greater than 5, a message is considered as a spam.
                                 </li>
                                 <li> <h3>send to analyse (<img src=\"/templates/".$template."/images/analyse.gif\" align=\"top\" alt=\"\">): </h3>
                                    in case a false positive, click on this icon corresponding to the innocent message in order to send a feedback to your administrator.
@@ -77,7 +77,7 @@ $txt['DOCUMENTATION'] = "
                                    you have some filter option to let you search through your quarantines. The number of days of the quarantine, the number of message per pages, and subject/destination search fields. Fill in those you want to use and click refresh in order to apply filters.
                                 </li>
                                 <li> <h3>action: </h3>
-                                   you can there purge (<img src=\"/templates/".$template."/images/trash.gif\" align=\"top\" alt=\"\">) the full quarantine whenever you want. Rememeber the quarantines are automatically purged periodically by the system. This option let you do it now.
+                                   you can there purge (<img src=\"/templates/".$template."/images/trash.gif\" align=\"top\" alt=\"\">) the full quarantine whenever you want. Remember the quarantines are automatically purged periodically by the system. This option let you do it now.
                                    You can also request a summary (<img src=\"/templates/".$template."/images/summary.gif\" align=\"top\" alt=\"\">) of the quarantine. This is the same summary that the one periodically sent. This option just let you request one now.
                                 </li>
                               </ul>
@@ -107,13 +107,13 @@ $txt['DOCUMENTATION'] = "
 																		 </ul>
 																		</li>
 																		<li><h3>quarantine bounces: </h3>
-																		  this option will cause Mailcleaner to quarantine bounces message and mail failurs notification. This may be usefull if you are victim of massive bounces mails due to wide spread viruses for exemple. This should only be activated for a small laps of time because it is very dangerous.
+																		  this option will cause Mailcleaner to quarantine bounce messages and mail failure notifications. This may be useful if you are victim of massive bounces mails due to wide spread viruses for example. This should only be activated for a small laps of time because it is very dangerous.
  																		</li>
 																		<li><h3>spam tag: </h3>
 																			choose and customize the message that will appears in the subject of tagged spams. This is useless if you have chosen the quarantine delivery mode.
 																		</li>
 																		<li><h3>reports frequencies: </h3>
-																		  choose the frequency of your quarantine summaries. On this regular basis, you will recieve a mail with a log of spams detected and stored in the quarantine.
+																		  choose the frequency of your quarantine summaries. On this regular basis, you will receive a mail with a log of spams detected and stored in the quarantine.
 																		</li>
 																	</ul>
 																</li>

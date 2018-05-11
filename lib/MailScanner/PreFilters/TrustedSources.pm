@@ -216,7 +216,7 @@ sub Checks {
   if ($full_received{1} =~ m/stage1 with [es]?smtps?a/) {
     $self_auth_server = 1;
     if ($TrustedSources::conf{debug}) {
-      MailScanner::Log::InfoLog("$MODULE message authentified by local SMTP (from: ".$ip_received{1}.")");
+      MailScanner::Log::InfoLog("$MODULE message authenticated by local SMTP (from: ".$ip_received{1}.")");
     }   
   }
 

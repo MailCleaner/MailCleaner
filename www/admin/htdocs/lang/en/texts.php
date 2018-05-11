@@ -153,8 +153,8 @@ $txt['NONE']                        = "none";
 $txt['BELONGSTOUSER']               = "Belongs to user";
 $txt['ACCESSTOSPAMQUARANTINE']      = "Access to spam quarantine";
 $txt['ACCESSTOCONTENTQUARANTINE']   = "Access to content quarantine";
-$txt['EMAILNOTASSIGNED']            = "This adress does not belong to any user";
-$txt['EMAILHASNOPREFS']             = "This adress does not have yet any preferences saved. Using domain defaults.";
+$txt['EMAILNOTASSIGNED']            = "This address does not belong to any user";
+$txt['EMAILHASNOPREFS']             = "This address does not have yet any preferences saved. Using domain defaults.";
 
 $txt['ADDRESS']                     = "Address";
 $txt['ADDRESSES']                   = "Addresses";
@@ -190,7 +190,7 @@ $txt['RESETEMAIL']                  = "delete email settings (use domain default
 $txt['BADARGS']                     = "The parameters are incorrect";
 $txt['INCORRECTMSGID']              = "The message id is not valid";
 $txt['NOSUCHADDR']                  = "This address does not exists";
-$txt['ERRORSENDING']                = "An error occured when sending the message";
+$txt['ERRORSENDING']                = "An error occurred when sending the message";
 $txt['MSGFORCED']                   = "The message has been forced";
 $txt['MSGFILENOTFOUND']             = "This message is not in the quarantine";
 $txt['FORCEMSGTITLE']               = "";
@@ -312,7 +312,7 @@ $txt['CANMANAGEDOMAINS']            = "Can manage domains";
 $txt['CANCONFIGURE']                = "Can configure system";
 $txt['CANVIEWSTATS']                = "Can view statistics";
 $txt['MANAGEABLEDOMAINS']           = "Manageable domains";
-$txt['PLEASEGIVEPASSWORD']          = "Please give a passord";
+$txt['PLEASEGIVEPASSWORD']          = "Please give a password";
 $txt['NOUSERNAMEGIVEN']             = "Please give a login name";
 
 $txt['PAGENOTALLOWED']              = "Sorry, you are not allowed to view this page";
@@ -331,7 +331,7 @@ $txt['USEBOTNET']                   = "Use botnet detection";
 $txt['FRIENLDYLANGUAGES']           = "Friendly languages";
 $txt['TRUSTEDIPS']                  = "Trusted IPs/Networks";
 $txt['NETWORKCHECKS']               = "Network checks";
-$txt['USERBLS']                     = "Use Realtime Blocking lists";
+$txt['USERBLS']                     = "Use Real-time Blocking lists";
 $txt['RBLSLIST']                    = "RBLs";
 $txt['USERAZOR']                    = "Use Razor";
 $txt['USEPYZOR']                    = "Use Pyzor";
@@ -448,7 +448,7 @@ $txt['SNMPCOMMUNITY']               = "Community";
 $txt['SSHACCESS']                   = "SSH access";
 $txt['MAILACCESS']                  = "Mail access";
 $txt['WEBSERVICES']                 = "Web services";
-$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may loose connection in this windows.<br> Please close it and relog on the administration interface.</font>";
+$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may lose connection in this windows.<br> Please close it and login again at the administration interface.</font>";
 
 $txt['ENTERCONTENTID']              = "Content ID";
 $txt['OR']                          = "or";

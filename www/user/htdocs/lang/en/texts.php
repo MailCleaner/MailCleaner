@@ -77,7 +77,7 @@ $txt['ASKLOGIN']                = "Please enter your user name and password:"; /
 $txt['ORGANIZATIONUNIT']        = "Organization unit";
 $txt['FORGOTPASSWORD']          = "Lost password ?";
 
-$txt['PASSWORDRESET']           = "The password has been reseted. It has been sent to your mail address.";
+$txt['PASSWORDRESET']           = "The password has been reset. It has been sent to your mail address.";
 
 /*
  * menu
@@ -296,7 +296,7 @@ $txt['FROMDATETODATE']          = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PA
 $txt['BADARGS']                 = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
 $txt['INCORRECTMSGID']          = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR']              = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING']            = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
+$txt['ERRORSENDING']            = "An error occurred while sending the message. Please try again. If the problem persists, please contact your system administrator.";
 $txt['MSGFORCED']               = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
 $txt['MSGFILENOTFOUND']         = "The requested action could not be completed because the message is no longer in the quarantine.";
 
@@ -306,7 +306,7 @@ $txt['MSGFILENOTFOUND']         = "The requested action could not be completed b
  */
 $txt['COMPANY']                 = "Company"; //old
 $txt['NAME']                    = "Name"; //old
-$txt['FIRSTNAME']               = "Firstname"; //old
+$txt['FIRSTNAME']               = "First name"; //old
 $txt['EMAIL']                   = "E-mail"; //old
 $txt['YOURPHONENUMBER']         = "Phone number"; //old
 $txt['WHATCANWEDO']             = "What can we do for you?"; //old
@@ -419,7 +419,7 @@ $txt['TODAY']                   = "Today";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP']       = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
+$txt['WARNLISTSHORTHELP']       = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediately release the message in case of a filtering error.<br />
 								   Warning : this functionality should be used as a temporary solution as it decreases the overall protection.
 								   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS']      = "Warn list for the address";

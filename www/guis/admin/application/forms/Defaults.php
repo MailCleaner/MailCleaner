@@ -95,7 +95,7 @@ class Default_Form_Defaults extends ZendX_JQuery_Form
 	    
 	    $falsepos = new  Zend_Form_Element_Text('falseposaddress', array(
 	        'label'    => $t->_('False positive address')." :",
-                'title'    => $t->_('Mail for false positives (mails which were detected as spam when they shouldnt have been) (sent from analyze button in summaries)'),
+                'title'    => $t->_('Mail for false positives (mails which were detected as spam when they shouldn't have been) (sent from analyze button in summaries)'),
 		    'required' => false,
             'size' => 40,
 		    'filters'    => array('StringToLower', 'StringTrim')));

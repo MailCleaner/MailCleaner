@@ -290,7 +290,7 @@ class MCSoap_Config
    * @return string
    */
 	static public function Config_saveRegistration($serial) {
-		return 'OK registrated';
+		return 'OK registered';
 	}
 
    /**
@@ -458,7 +458,7 @@ class MCSoap_Config
 				$cmd2 ="touch ".$sysconf->getOption('VARDIR')."/run/mailscanner.rn";
 				`$cmd`;
 				`$cmd2`;
-	                	return 'OK Configuraton downloaded and setted';
+	                	return 'OK Configuration downloaded and set';
 			}
                 }
 

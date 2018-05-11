@@ -854,7 +854,7 @@ class Net_SMTP
         if (isset($this->_esmtp['SIZE']) && ($this->_esmtp['SIZE'] > 0)) {
             if (strlen($data) >= $this->_esmtp['SIZE']) {
                 $this->disconnect();
-                return PEAR::raiseError('Message size excedes the server limit');
+                return PEAR::raiseError('Message size exceeds the server limit');
             }
         }
 

@@ -107,7 +107,7 @@ class Default_Form_Manage_UserAuthentification extends Zend_Form
 
 		if ($request->getParam('password') != '_keeppassword1_') {
 			if ($request->getParam('password') != $request->getParam('confirm')) {
-				throw new Exception('Password missmatch');
+				throw new Exception('Password mismatch');
 			} else {
 				$local->setPassword($request->getParam('password'));
 			}

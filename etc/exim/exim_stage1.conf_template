@@ -704,7 +704,7 @@ __FI__
           set acl_c9    = STATSADD
           logwrite      = Accepting authenticated session from $sender_host_address, sender $sender_address on port $received_port
  __IF__ DEBUG
-          logwrite      = DEBUG - accepted relay, authentified - smtp:relayed,smtp:relayed:authenticated
+          logwrite      = DEBUG - accepted relay, authenticated - smtp:relayed,smtp:relayed:authenticated
  __FI__ 
           
   deny    domains       = +relay_to_domains

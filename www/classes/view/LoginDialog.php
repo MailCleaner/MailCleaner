@@ -203,7 +203,7 @@ public function start()
     $sysconf = SystemConfig::getInstance();
     if (is_writable($sysconf->VARDIR_."/log/apache/".AUTHLOGFILE)) {
       if ($logfile = fopen($sysconf->VARDIR_."/log/apache/".AUTHLOGFILE, "a")) {
-        fwrite($logfile,"[".date("d/M/Y:H:i:s O")."] login SUCCESSFULL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
+        fwrite($logfile,"[".date("d/M/Y:H:i:s O")."] login SUCCESSFUL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
         fclose($logfile);
       }
     }
