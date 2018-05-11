@@ -88,7 +88,7 @@
    function remove($ID)
     { $this->dbRemoval(array("Name"=>$ID)); }
 
-   /* Remove with specified criterias */
+   /* Remove with specified criteria */
    function dbRemoval($Settings)
     {
      $ID     = isset($Settings["Name"]) ? $Settings["Name"] : NULL;
@@ -104,7 +104,7 @@
      /* Single file removal */
      if ( $ID != NULL )
       {
-       /* Retrieve object informations */
+       /* Retrieve object information */
        $Object = $this->isInCache($ID,TRUE);
 
        /* If it's not in the cache DB, go away */

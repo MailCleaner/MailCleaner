@@ -71,7 +71,7 @@ public function reload() {
 /**
  * set the selected entry to be edited
  * @param  $id  numeric  selected entry id
- * @param  $f   Form     formular for edition
+ * @param  $f   Form     form for edition
  * @return      bool      true if found, false if not
  */
 public function setEntryToEdit($id, $f) {

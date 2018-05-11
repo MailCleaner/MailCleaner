@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * controller for spam quarantaine page
+ * controller for spam quarantine page
  */
 
 class ManagespamquarantineController extends Zend_Controller_Action

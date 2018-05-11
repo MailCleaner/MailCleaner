@@ -94,7 +94,7 @@ $txt['QUARANTINE']              = "Quarantine";
 $txt['NAVSUPPORT']              = "Support";
 
 /*
- * quarantaine
+ * quarantine
  */
 $txt['SELECTEDADDRESS']         = "Address displayed";
 $txt['QUARANTINESUMMARY']       = "<strong>In quarantine:</strong> __PARAM__ messages";

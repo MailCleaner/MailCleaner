@@ -29,7 +29,7 @@ $admin_->checkPermissions(array('can_manage_users'));
 // set defaults
 $nb_messages = 20;
 
-// create search/filter formular
+// create search/filter form
 $form = new Form('filter', 'post', $_SERVER['PHP_SELF']);
 $posted = $form->getResult();
 

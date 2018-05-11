@@ -158,7 +158,7 @@ class MCSoap_Config
 	
 
   /**
-   * This function apply the ntp confi
+   * This function apply the ntp config
    *
    * @param  boolean  sync
    * @return string

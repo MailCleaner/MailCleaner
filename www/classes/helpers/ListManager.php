@@ -29,7 +29,7 @@ class ListManager {
   protected $elements_ = array();
   
   /**
-   * name of the formular that includes the list
+   * name of the form that includes the list
    * @var  string
    */
   private $form_name_ = 'search';
@@ -99,7 +99,7 @@ class ListManager {
   }
  
   /**
-   * set if the list should be autoamtically sorted or not
+   * set if the list should be automatically sorted or not
    * @param  $sort  boolean  flag to sort or not
    * @return     boolean  true on success, false on failure
    */
@@ -130,9 +130,9 @@ class ListManager {
     }
   
     /**
-     * Set the formular name.
+     * Set the form name.
      * This will also check for eventual posted values
-     * @param  $form  string  formular name
+     * @param  $form  string  form name
      * @return        bool    true on success, false on failure
      */
      public function setForm($form) {
@@ -153,7 +153,7 @@ class ListManager {
    * @param  $t  string  template to be filled
    * @param  $s  string  selected value
    * @return     string  filled template
-   * @todo template tags to be rearranged.. some chould not be set here (f.ex. __SETTINGSTARGET__)
+   * @todo template tags to be rearranged.. some could not be set here (f.ex. __SETTINGSTARGET__)
    */
   public function getList($t, $s) {
     global $lang_;

@@ -18,13 +18,13 @@ require_once("utils.php");
 class SupportForm {
 
     /**
-     * is formular coorectly posted
+     * is form correctly posted
      * @var boolean 
      */
 	private $is_ok_ = false;
     
     /**
-     * formular fields
+     * form fields
      * @var array
      */
     private $fields_ = array(

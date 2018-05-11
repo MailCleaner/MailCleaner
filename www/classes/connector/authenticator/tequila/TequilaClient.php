@@ -839,7 +839,7 @@ class TequilaClient {
       curl_setopt ($ch, CURLOPT_POSTFIELDS, $query);
     }    
     $response = curl_exec ($ch);
-    // If connexion failed (HTTP code 200 <=> OK)
+    // If connection failed (HTTP code 200 <=> OK)
     if (curl_getinfo ($ch, CURLINFO_HTTP_CODE) != '200') {
       $response = false;
     }

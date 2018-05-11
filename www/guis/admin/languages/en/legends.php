@@ -192,7 +192,7 @@ return array(
    'sendingtopostmaster' => 'Sending to postmaster',
    'nodestinationset' => 'No valid destination server set',
 
-## user authentification
+## user authentication
    'userauthconn_none' => 'none',
    'userauthconn_imap' => 'imap',
    'userauthconn_pop3' => 'pop3',

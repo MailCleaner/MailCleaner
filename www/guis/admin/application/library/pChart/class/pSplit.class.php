@@ -62,7 +62,7 @@
       $YScale     = (($Y2-$Y1) - ($DataSerieCount*$Spacing)) / $DataSerieSum;
      $LeftHeight = $DataSerieSum * $YScale;
 
-     /* Re-compute graph width depending of the text mode choosen */
+     /* Re-compute graph width depending of the text mode chosen */
      if ( $TextPos == TEXT_POS_RIGHT )
       {
        $MaxWidth = 0;

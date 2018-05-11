@@ -14,7 +14,7 @@ require_once("view/Template.php");
 global $lang_;
    
 $res = "";
-// check if support formular has been posted
+// check if support form has been posted
 if (isset($_POST['send']) && $_POST['send'] > 0) {
   $sup_form = new SupportForm();
   if ($sup_form->is_ok() == true) {

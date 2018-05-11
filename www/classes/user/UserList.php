@@ -29,7 +29,7 @@ class UserList extends ListManager {
 /**
  * Search usernames given username part and domain
  * @param  $username  string  string to be search in usernames
- * @param  $domain    string  domain in which users shouls be searched
+ * @param  $domain    string  domain in which users should be searched
  * @param  $remote    bool    if we must do the remote connector search (may take some time)
  * @return            bool    true on success, false on failure
  */

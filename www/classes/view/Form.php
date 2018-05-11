@@ -7,36 +7,36 @@
  */
  
 /**
- * This class will manage the html formular elements
+ * This class will manage the html form elements
  */
 class Form  {
   /**
-   * formular name
+   * form name
    * @var string
    */
   private $name_ = '';
   /**
-   * formular method
+   * form method
    * @var string
    */
   private $method_ = "post";
   /**
-   * action on formular submit
+   * action on form submit
    * @var string
    */
   private $action_ = '';
   
   /**
-   * array of checkboxes
+   * array of check boxes
    * @var array
    */
   private $checkboxes_ = array();
 
 /**
  * constructor
- * @param  $name   string  name of the formular
+ * @param  $name   string  name of the form
  * @param  $method string  method to be used (POST or GET)
- * @param  $action string  action on formular submit
+ * @param  $action string  action on form submit
  */
 public function __construct($name, $method, $action) {
   $this->name_ = $name;
@@ -45,16 +45,16 @@ public function __construct($name, $method, $action) {
 }
 
 /**
- * get the formular name
- * @return  string  formular name
+ * get the form name
+ * @return  string  form name
  */
 public function getName() {
   return $this->name_;
 }
 
 /**
- * return the opening tag of the formular
- * @return string  html formular opening tag
+ * return the opening tag of the form
+ * @return string  html form opening tag
  */
 public function open() {
   $ret = "<form  id=\"$this->name_\" method=\"$this->method_\" action=\"$this->action_\">\n";
@@ -64,8 +64,8 @@ public function open() {
 }
 
 /**
- * return the closing tag of the formular
- * @return string  html formular closing tag
+ * return the closing tag of the form
+ * @return string  html form closing tag
  */
 public function close() {
   return "</div></form>\n";
@@ -105,7 +105,7 @@ public function inputDisabled($name, $length, $value) {
  * return the string for a simple input field with javascript action
  * @param  $name  string name of the field
  * @param  $value string value of the field
- * @param  $js    string javascript to be embeded in tag (onkeydown event)
+ * @param  $js    string javascript to be embedded in tag (onkeydown event)
  * @return        string html field string
  */
 public function inputjs($name, $length, $value, $js) {
@@ -141,7 +141,7 @@ public function textarea($name, $width, $height, $value) {
  * @param  $name     string  name of the field
  * @param  $value    string  value of the field if selected
  * @param  $selected string  value previously selected
- * @param  $js       string  javascript to be embeded in field (onClick event)
+ * @param  $js       string  javascript to be embedded in field (onClick event)
  * @param  $active   boolean if the field should be activated or not
  * @return           string html field string
  */
@@ -237,7 +237,7 @@ public function radiojs($name, $value, $selected, $js) {
  * @param $name     string   name of the block
  * @param $options  array    array of different options available
  * @param $selected string   previously selected value
- * @param $align    string   buttons alignement (horizontal or vertical)
+ * @param $align    string   buttons alignment (horizontal or vertical)
  * @param $disp     string   ?
  * @return          string html field string
  */
@@ -283,7 +283,7 @@ public function radioblock($name, $options, $selected, $align, $disp) {
  * @param $name     string   field name
  * @param $options  array    list of available options
  * @param $selected string   previously selected value
- * @param $onselect string   javascript to be embeded (onSelect event)
+ * @param $onselect string   javascript to be embedded (onSelect event)
  * @return          string html field string
  */
 public function select($name, $options, $selected, $onselect, $disabled=false) {
@@ -368,7 +368,7 @@ public function button($name, $value, $js) {
 }
 
 /**
- * return a form submition javascript
+ * return a form submission javascript
  * @return  string  submit javascript string
  */
 public function submitJS() {
@@ -377,7 +377,7 @@ public function submitJS() {
 
 /**
  * return the array of field values entered
- * @return  array  list of formular values
+ * @return  array  list of form values
  */
 public function getResult() {
   $res = array();
@@ -390,7 +390,7 @@ public function getResult() {
 }
 
 /**
- * check if formular datas should be saved or not
+ * check if form datas should be saved or not
  * @return  boolean  true if datas should be saved, false if not
  */
 public function shouldSave() {

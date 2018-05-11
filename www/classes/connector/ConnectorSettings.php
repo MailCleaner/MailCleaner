@@ -28,7 +28,7 @@ class ConnectorSettings {
                                );                          
     
    /**
-    * List of available connector with correspondig classes
+    * List of available connector with corresponding classes
     * @var array
     */
     static private $connectors_ = array (

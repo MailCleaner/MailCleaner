@@ -40,11 +40,11 @@ if (isset($_GET['m']) && ( $_GET['m'] == 'd' || $_GET['m'] == 'a' ) ) {
   $mode = $_GET['m'];
 }
 
-// create the administrator edition formular
+// create the administrator edition form
 $aform = new Form('administrator', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult(); 
   
-// create the search list and formular
+// create the search list and form
 $sform = new Form('search', 'post', $_SERVER['PHP_SELF']);
 $sposted = $sform->getResult();
 if (isset($sposted['selected']) && $sposted['selected'] != "") {
@@ -58,7 +58,7 @@ if (isset($aposted['selected']) && $aposted['selected'] != "") {
 $admin = new Administrator();
 $admin->load($selected_admin);
 
-// delete adminsitrator
+// delete administrator
 if ($mode == 'd') {
   $deleted = $admin->delete();
   if ($deleted == "OKDELETED") {
@@ -142,7 +142,7 @@ $template_->output($replace);
 /**
  * return the admin name field
  * @param  $admin  Administrator  administrator object
- * @param  $form   Form           edition formular
+ * @param  $form   Form           edition form
  * @return         string         name or name field
  */
 function getAdminName($admin, $form) {

@@ -472,7 +472,7 @@ class Net_SMTP
                 return PEAR::raiseError('STARTTLS failed');
             }
 
-            /* Send EHLO again to recieve the AUTH string from the
+            /* Send EHLO again to receive the AUTH string from the
              * SMTP server. */
             $this->_negotiate();
         }

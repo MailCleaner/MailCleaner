@@ -38,7 +38,7 @@ foreach($services_name as $s) {
   $services[$s]->load($s);
 }
 
-// create main formular
+// create main form
 $aform = new Form('access', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult();
 // save settings

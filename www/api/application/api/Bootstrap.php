@@ -107,7 +107,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                     	Zend_Registry::get('response')->setResponse(401, 'authentication failed');
                     }
                 }
-				### if we need to have interractive authentication (which is probably not the case for an API)
+				### if we need to have interactive authentication (which is probably not the case for an API)
 				#if (!$authentified) {
 				#	header('WWW-Authenticate: Basic realm="MailCleaner API"');
 				#	header('HTTP/1.0 401 Unauthorized');
