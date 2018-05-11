@@ -448,9 +448,9 @@ $txt['TODAY'] = "Today";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning : this functionality should be used as a temporary solution as it decreases the overall protection. 
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
+$txt['WARNLISTSHORTHELP'] = "Varningslistan innehåller betrodda avsändaradresser för vilka du kommer att aviseras via e-post när ett meddelande råkar detekteras som skräppost. Du kan då omedelbart publiceras meddelandet om det är ett filtreringsfel.<br />
+\t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet. 
+\t\t\t\t\t\t\t\t   Se manualen (i avsnittet <a href=\"help.php\">\"Hjälp\"</a>) för vidare information om hur varningslistor kan användas. ";
 $txt['WARNLISTFORADDRESS'] = "Warn list for the address";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
 $txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
@@ -459,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
-                                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage. 
+$txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser för vilka karantän inte någonsin kommer att inträffa.<br /> 
+                                   Varning: denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
+                                  Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas.
 ";
 $txt['BLACKLISTSHORTHELP'] = "The black list contains blacklisted sender address..
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
@@ -480,3 +480,10 @@ $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
  */
 $txt['SESSIONTERMINATED'] = "Your session ended.";
 $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Nyhetsberg har tillåtits och publicerats.";
+$txt['NLRELEASEDBODY'] = "Nyhetsbrevet har tillåtits och publicerats. Det bör levereras i din inkorg om ett par minuter.";
+$txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet har inte publicerats";
+$txt['NLNOTRELEASEDBODY'] = "Ett problem uppstod när ditt meddelande publicerades. Prova igen senare.";
