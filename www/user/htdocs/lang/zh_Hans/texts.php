@@ -403,3 +403,82 @@ $txt['CHOOSELANGUAGE'] = "语言选择";
 $txt['ADDANADDRESS'] = "增加一个地址到组中";
 $txt['ADDTHEADDRESS'] = "&lt; 将地址添加到组中";
 $txt['ADDANADDRESSSHORTHELP'] = "输入你想要添加到组中的地址。";
+/*
+ * aliases (new)
+ */
+$txt['ADDLISTSHORTHELP'] = "此组包含您要从该帐户管理的所有地址和别名。然后, 您可以使用当前凭据以集中方式访问其隔离、统计和设置。";
+$txt['REMANADDRESS'] = "从组中删除一个或多个地址 (es)";
+$txt['REMTHEADDRESS'] = "删除选定内容";
+$txt['REMANADDRESSSHORTHELP'] = "选中要删除的每个地址旁边的复选框, 然后单击 \"删除选择\" 按钮。";
+$txt['WAITINGCONFIRMATION'] = "等待确认";
+/*
+ * addresses settings (new)
+ */
+$txt['ADDPARAMSHORTHELP'] = "可以为每个地址自定义垃圾邮件处理模式。有关可用的不同处理模式的详细信息, 请检查用户手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。";
+$txt['FOREACHSPAMDO'] = "对于被检测为垃圾邮件的每条消息:";
+$txt['FOREACHNEWSLETTERDO'] = "对于被检测为新闻稿的每条消息:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "保留在隔离中";
+$txt['TAGMESSAGEWITHTAG'] = "使用主题关键字传递";
+$txt['DROPMESSAGE'] = "立即删除";
+$txt['SUMMARYSENTFREQ'] = "隔离报告频率";
+$txt['SUMMARYFORMAT'] = "隔离报告的格式";
+$txt['SUMMARYTO'] = "将报告发送到此地址";
+$txt['OTHER'] = "其他。。。";
+$txt['APPLYTOALLADDRESSES'] = "将设置应用于所有地址";
+$txt['PLAINTEXT'] = "纯文本";
+$txt['HTML'] = "超文本标记语言";
+$txt['DIGEST'] = "摘要";
+$txt['KEEPBOUNCESINQUARANTINE'] = "保留错误消息";
+$txt['PARAMETERSSAVED'] = "您的设置已保存。";
+$txt['NOTSAVED'] = "无法保存您的设置。";
+$txt['INVALIDSUMMARYTO'] = "为报告提供的电子邮件地址无效";
+/*
+ * quarantine  (new)
+ */
+$txt['CONFIGQUARSHORTHELP'] = "隔离显示可以自定义 (天数和行数) 以满足您的需要和习惯。";
+$txt['QUARNBLINESDISPLAYED'] = "显示的行数";
+$txt['QUARNBDAYSDISAPLYED'] = "显示的天数";
+$txt['MASKEALREADYFORCED'] = "隐藏用户发布的消息";
+$txt['DEFAULTADDRESDISPPLAYED'] = "默认情况下显示的地址";
+$txt['YESTERDAY'] = "昨天";
+$txt['TODAY'] = "今天";
+/*
+ * wwlists (new)
+ */
+$txt['WARNLISTSHORTHELP'] = "警告列表包含受信任的发件人地址, 当消息碰巧被检测为垃圾邮件时, 您希望通过邮件通知它。然后, 您可以在出现筛选错误时立即释放该消息. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
+\t\t\t\t\t\t\t\t   有关警告列表使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。 ";
+$txt['WARNLISTFORADDRESS'] = "地址警告列表";
+$txt['ADDAWARNENTRY'] = "向列表中添加地址";
+$txt['WARNLISTENTRYTOADD'] = "输入要添加到警告列表中的地址。您还可以添加可选注释。";
+$txt['ADDTHEENTRY'] = "&lt; 添加地址";
+$txt['REMOVEANENTRY'] = "禁用、启用或删除列表中的地址";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['REMTHEENTRY'] = "删除选定内容";
+$txt['DISABLETHEENTRY'] = "禁用/启用选择";
+$txt['WHITELISTSHORTHELP'] = "白名单中包含的受信任发件人地址不会发生任何隔离保留. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
+                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。
+";
+$txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。 
+有关黑列表用法的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。
+";
+$txt['WHITELISTFORADDRESS'] = "地址白名单";
+$txt['ADDAWHITEENTRY'] = "向列表中添加地址";
+$txt['WHITELISTENTRYTOADD'] = "输入要添加到白名单中的地址。您还可以添加可选注释。";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['BLACKLISTFORADDRESS'] = "地址黑名单";
+$txt['ADDABLACKENTRY'] = "向列表中添加地址";
+$txt['BLACKLISTENTRYTOADD'] = "输入要添加到黑名单中的地址。您还可以添加可选注释。";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['RECORDALREADYEXISTS'] = "此地址已存在于列表中。";
+/*
+ * logout (new)
+ */
+$txt['SESSIONTERMINATED'] = "您的会话已结束。";
+$txt['BEENLOGGEDOUT'] = "如果希望启动新会话, 请单击此链接: <a href=\"__PARAM__\" > __PARAM__ </a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "已允许并发布新闻稿。";
+$txt['NLRELEASEDBODY'] = "新闻稿已被允许并发布。它应该在几分钟内送达您的邮箱。";
+$txt['NLNOTRELEASEDHEAD'] = "新闻稿未发布";
+$txt['NLNOTRELEASEDBODY'] = "发布邮件时出现问题。请稍后再试。";
