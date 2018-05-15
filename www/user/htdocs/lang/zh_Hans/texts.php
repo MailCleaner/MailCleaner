@@ -167,7 +167,7 @@ $txt['SUMMARYSENDING'] = "隔离报告播送";
 $txt['PURGETITLE'] = "手动清除隔离";
 $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔离";
 $txt['COULDNOTPURGE'] = "由于内部错误, 无法清除 <strong> __PARAM__ </strong> 的隔离。请稍后再试。";
-$txt['ASKPURGECONFIRM'] = "是否确实要清除 <strong> PARAM2 __@xmltag@ 的隔离的最后一个 PARAM1 __days？";
+$txt['ASKPURGECONFIRM'] = "是否确实要清除 <strong>__PARAM2__</strong> 的隔离的最后一个 __PARAM1__ 天吗？";
 $txt['QUARANTINEPURGE'] = "手动清除隔离";
 $txt['GROUPQUARANTINES'] = "所有地址";
 /*
