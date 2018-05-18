@@ -353,11 +353,12 @@ public function getHTMLList($to) {
         $result = $db->getHash($query);
 
         if (empty($result)) {
-            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" href="#" class="allow">%s</a></span>';
+	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
+            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" href="%s" class="allow" target="_blank">%s</a></span>';
             $rule = 'allow';
             $label = $lang_->print_txt('NEWSLETTERACCEPT');
 
-            $output = sprintf($link, $id, $label);
+            $output = sprintf($link, $id, $hrefNews, $label);
 
             $template = str_replace('__IS_NEWSLETTER__', $output, $template);
         } else {
