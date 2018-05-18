@@ -135,3 +135,13 @@ $txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
 $txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
 $txt['NEWSLETTERSSHORTHELP'] = "Aqui pode gerir os vossos boletins informativos.";
 $txt['PURGESELECTEDSPAMS'] = "Limpar manualmente a quarentena";
+//old
+$txt['HIDEFORCED'] = "Esconder mensagens libertadas de utilizadores";
+//old
+$txt['FORCESPAM'] = "Libertar a Mensagem";
+//old
+$txt['ASKREASON'] = "Mostrar regras de filtros";
+$txt['PAGE'] = "Página";
+$txt['NEXTPAGE'] = "Seguinte";
+$txt['HITRULE'] = "Regra";
+$txt['TOTAL'] = "Total";
