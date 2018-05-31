@@ -237,7 +237,7 @@ sub remove_and_save_MC_RBLs {
 	}	
 
 	close FH;
-	$sth->finish();
+	$sth->finish() if ( defined($sth) );
 	$master_dbh->disconnect();
 
 	if ($reboot_service) {
@@ -268,7 +268,7 @@ sub handle_dns_ok {
 		}
 
 		close FH;
-		$sth->finish();
+		$sth->finish() if ( defined($sth) );
 		$master_dbh->disconnect();
 
 		# Restarting associated services
