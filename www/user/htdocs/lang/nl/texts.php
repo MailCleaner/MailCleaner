@@ -6,12 +6,12 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "Allow newsletters by default : ";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['NEWSLETTERSTOPIC'] = "Nieuwsbrieven";
+$txt['NEWSLETTERSTOPICTITLE'] = "Nieuwsbrieven";
+$txt['NEWSLETTERSSHORTHELP'] = "Hier kun je de nieuwsbrieven beheren.";
+$txt['NEWSLETTERSALLOW'] = "Nieuwsbrieven standaard doorlaten :";
+$txt['NEWSLETTERACCEPT'] = "Accepteer deze nieuwsbrief";
+$txt['SPAM_WHITELIST_DISABLED'] = "Deze lijst is niet geactiveerd voor dit domein (Neem contact op met de beheerder).";
 ### missing translations
 $txt['FORGOTPASSWORD'] = "Wachtwoord vergeten ?";
 $txt['PASSWORDRESET'] = "Uw wachtwoord is gereset . Het is verzonden naar uw e-mailadres.";
@@ -22,13 +22,13 @@ $txt['SUBMIT'] = "Verzenden";
 $txt['CANCEL'] = "Annuleer";
 $txt['CLOSE'] = "Sluit";
 // old
-$txt['ADD'] = "add";
+$txt['ADD'] = "toevoegen";
 $txt['CONFIRM'] = "Bevestig";
 $txt['REFRESH'] = "Ververs";
 $txt['SEARCH'] = "Zoek";
 $txt['SEND'] = "Verstuur";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "wissen";
 /*
  * generic texts
  */
@@ -70,7 +70,7 @@ $txt['LOGININFO'] = "Herinnering: Je gebruikersnaam en paswoord zijn hetzelfde a
 $txt['USERNAME'] = "Gebruikersnaam";
 $txt['PASSWORD'] = "Paswoord";
 //old
-$txt['ASKLOGIN'] = "Please enter your user name and password:";
+$txt['ASKLOGIN'] = "Type je gebruikersnaam en wachtwoord:";
 $txt['ORGANIZATIONUNIT'] = "Organization unit";
 $txt['FORGOTPASSWORD'] = "Paswoord vergeten?";
 $txt['PASSWORDRESET'] = "Het paswoord werd gereset. Het werd verstuurd naar je email adres.";
@@ -79,21 +79,21 @@ $txt['PASSWORDRESET'] = "Het paswoord werd gereset. Het werd verstuurd naar je e
  */
 $txt['CONFIGURATIONMENU'] = "Configuratie";
 $txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
+$txt['QUARANTINEMENU'] = "Quarantaine";
 $txt['STATISTICSMENU'] = "Statistieken";
 $txt['LOGOUT'] = "Uitloggen";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "je bent ingelogd als:";
 // old
-$txt['MAINADDRESS'] = "main address";
+$txt['MAINADDRESS'] = "hoofd adres";
 $txt['PARAMETERS'] = "Instellingen";
-$txt['QUARANTINE'] = "Quarantine";
+$txt['QUARANTINE'] = "Quarantaine";
 $txt['NAVSUPPORT'] = "Ondersteuning";
 /*
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Getoond adres";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
+$txt['QUARANTINESUMMARY'] = "<strong>In Quarantaine:</strong> __PARAM__ berichten";
 $txt['SEARCHSUMMARY'] = "<strong>Zoek:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "Gesorteerd volgens __PARAM__";
 $txt['RESETSEARCH'] = "Toon de volledige quarantine lijst";
@@ -105,7 +105,7 @@ $txt['OSENDER'] = "zender";
 $txt['OSCORE'] = "score";
 $txt['OSUBJECT'] = "onderwerp";
 //old
-$txt['CRITERIAS'] = "Filter rules";
+$txt['CRITERIAS'] = "Filter regels";
 $txt['FORCEMESSAGE'] = "Laat het bericht los";
 $txt['MESSAGEFORCING'] = "loslaten bericht";
 $txt['MESSAGEPREVIEW'] = "Toon de inhoud van het bericht";
@@ -118,15 +118,15 @@ $txt['PURGEINFOS'] = "<strong>Automatische verwijdering na:</strong> __PARAM__ d
 $txt['DISPLAYEDINFOS'] = "<strong>Getoonde berichten: </strong> __PARAM1__ laatste dagen (<a href=\"__PARAM2__\">Aanpassen...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Getoonde berichten: </strong> __PARAM__ laatste dagen. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "Quarantaine lijst voor __PARAM__";
 //old
 $txt['FILTER'] = "Filter";
 //old
 $$txt['ADVANCEDSEARCH'] = "advanced search";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "weergegeven berichten";
 //old
-$txt['COMINGFROM'] = "sender";
+$txt['COMINGFROM'] = "verzender";
 $txt['DATE'] = "Datum";
 $txt['HOUR'] = "Tijd";
 $txt['FROM'] = "Van";
@@ -136,16 +136,16 @@ $txt['SENDER'] = "Zender";
 $txt['FORCED'] = "Losgelaten";
 $txt['ACTION'] = "Actie";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Totaal: __PARAM__ spam(s)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ laatste dagen";
 $txt['PURGESELECTEDSPAMS'] = "Handmatig de quarantine leegmaken";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "Verberg gebruiker-vrijgegeven berichten";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "geef dit bericht vrij";
 //old
-$txt['ASKREASON'] = "display filtering rules";
+$txt['ASKREASON'] = "geef de filter regels weer";
 $txt['CONFSENDANALYSE'] = "Een filter aanpassing aanvraag zal verzonden worden naar het MailCleaner Analysis Center; het bevat een kopie van het bericht dat onterecht geblokkeerd werd.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Ben je zeker dat je dit bericht wilt laten analyseren en dat de filter aanpassingen teogepast mogen worden?</span>";
 $txt['ASKANALYSE'] = "Filter aanpassing aanvraag";
@@ -199,20 +199,20 @@ $txt['LOGOUTTEXT'] = "<p>Je MailCleaner sessie eindigde.</p><p>Als je een nieuwe
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "Persoonlijke MailCleaner instellingen";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Gebruikers instellingen";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Adres instellingen";
 //old
-$txt['LANGUAGE'] = "Language";
+$txt['LANGUAGE'] = "Taal";
 $txt['ADDRESS'] = "Adres";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "Adres groep";
 //old
 $txt['FILTERACTIONTITLE'] = "Spam processing mode";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "Quarantaine rapport instellingen";
 //old
 $txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
 //old
@@ -222,13 +222,13 @@ $txt['MAIN'] = "main";
 //old
 $txt['SPAMACTION'] = "Spam processing mode";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "quarantaine";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
 $txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "verwijder";
 //old
 $txt['SUBJECTTAG'] = "Tag keyword";
 //old
@@ -243,42 +243,42 @@ $txt['USEDEFAULT'] = "gebruik standaard";
 $txt['SUMMHTML'] = "html";
 $txt['SUMMTEXT'] = "onbewerkte tekst";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "bewerk de witte lijst";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "bewerking de waarschuwings lijst";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
+$txt['SENDER'] = "Verzender";
 $txt['COMMENT'] = "Commentaar";
 //old
 $txt['ACTIONS'] = "Action";
 //old
 $txt['ACTIVE'] = "active";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "inactief";
 //old
 $txt['WWENTRY'] = "Entry";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "Witte lijst voor __PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "Waarschuwingslijst voor __PARAM__";
 //old
 $txt['STATUS'] = "Status";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "Voeg een adres toe";
 //old
 $txt['ADDALIASFORM'] = "Address";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "Verwijder een adres";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
+$txt['ADDADDRESSALT'] = "voeg een adres toe";
 $txt['BADADDRESSFORMAT'] = "Het opgegeven adres is ongeldig. Probeer opnieuw.";
 $txt['NOTFILTEREDDOMAIN'] = "Dit domein wordt niet gefilterd door MailCleaner. Het adres kon niet toegevoegd worden.";
 $txt['ALIASALREADYREGISTERD'] = "Dit adres wordt reeds gebruikt door een MailCleaner account. Het kon niet worden toegevoegd.";
@@ -299,15 +299,15 @@ $txt['CANNOTREMOVEMAINADD'] = "Het adres__PARAM__ is het hoofd adres. Het kan ni
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "Statistieken";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ ontvangen berichten";
 //old
 $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ gevaarlijk";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ schoon";
 $txt['ALL'] = "alles...";
 $txt['SEARCHPERIOD'] = "Geanalyseerde periode";
 $txt['LASTDAYS'] = "laatste dagen";
@@ -322,7 +322,7 @@ $txt['RECEIVEDSPAM'] = "Spam berichten";
 $txt['RECEIVEDCLEAN'] = "Virusvrije berichten";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ ontvangen berichten";
 $txt['GLOBALSTATSTITLE'] = "Samenvatting voor alle adressen";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['FROMDATETODATE'] = "van __PARAM1__.__PARAM2__.__PARAM3__ naar __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
@@ -336,27 +336,27 @@ $txt['MSGFILENOTFOUND'] = "De gevraagde actie kon niet worden vervolledigd omdat
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Bedrijf";
 //old
 $txt['NAME'] = "Name";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Voornaam";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Telefoonnummer";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Hoe kunnen we je helpen?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Verplichten velden";
 //old
 $txt['SUPPORT'] = "Support";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Uw bericht is verzonden.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Uw bericht kon niet worden verzonden. Probeer het later nog eens.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Sommige velden zijn onjuist. Controleer uw invoer.";
 /*
  * help page (new)
  */
@@ -488,3 +488,14 @@ $txt['BEENLOGGEDOUT'] = "Als je een nieuwe sessie wilt starten, klik dan op deze
 $txt['NEWSLETTERMODULE'] = "Nieuwsbrief";
 //old
 $txt['ADVANCEDSEARCH'] = "geavanceerd zoeken";
+$txt['FOREACHNEWSLETTERDO'] = "Voor ieder bericht gedetecteerd als nieuwsbrief:";
+$txt['BLACKLISTSHORTHELP'] = "De zwarte lijst bevat een geblokkeerde afzender adres..
+                                  Zie de handleiding (beschikbaar in sectie <a href=\"help.php\">\"Help\"</a>) voor meer informatie over het gebruik van de zwarte lijst.
+";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Niewsbrief is toegestaan en doorgelaten.";
+$txt['NLRELEASEDBODY'] = "De nieuwsbrief is vrijgegeven en doorgelaten. Het zou binnen enkele minuten in je mailbox aan moeten komen.";
+$txt['NLNOTRELEASEDHEAD'] = "Nieuwsbrief is niet doorgelaten";
+$txt['NLNOTRELEASEDBODY'] = "Er was een probleem met hij vrijgeven van je bericht. Probeer het later nog eens.";
