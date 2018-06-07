@@ -56,31 +56,32 @@ function get_soap_host($exim_id, $dest) {
 }
 
 /**
- * Connect to the machine through the SOAP interface, and send the SOAP queries to
- * liberate the message, and add the mail to the newsletter whitelist
- * @param string $soap_host The machine to which to send the SOAP queries
- * @param string $exim_id The Exim ID of the mail
- * @param string $dest The recipient of the mail
- * @param string $sender The sender of the mail
- * @return bool Status of the operation. If True, everything went well. Else, some
- *              operation failed
+ * Get the IP of the master machine for SOAP requests
+ * @return string $soap_host The IP of the machine
  */
-function free_and_whitelist_newsletter($soap_host, $exim_id, $dest, $sender) {
-    // Resend the newsletter and add recipient and sender to the db through the SOAP interface
+function get_master_soap_host() {
+    $sysconf_ = SystemConfig::getInstance();
+    foreach ($sysconf_->getMastersName() as $master){
+        return $master;
+    }
+}
+
+/**
+ * Connects to the machine and sends a soap request.
+ * @param string $host Host machine receiving the request
+ * @param string $request SOAP request
+ * @param array $params Parameters of the request
+ * @param array $allowed_response Authorized responses
+ * @return bool Status of the request. If True, everything went well
+ */
+function send_SOAP_request($host, $request, $params, $allowed_response) {
     $soaper = new Soaper();
-    $ret = @$soaper->load($soap_host);
+    $ret = @$soaper->load($host);
     if ($ret != "OK") {
-        // $res = $ret;
         return False;
     } else {
-        // actually force the message
-        $res = $soaper->queryParam('forceSpam', array($exim_id, $dest));
-        if (! $res == "MSGFORCED") {
-            return False;
-        }
-        // Add message to the db
-        $res = $soaper->queryParam('addNewsletterToWhitelist', array($dest, $sender));
-        if (! ($res == "OK" || $res == "DUPLICATEENTRY")) {
+        $res = $soaper->queryParam($request, $params);
+        if (! in_array($res, $allowed_response)) {
             return False;
         }
         return True;
@@ -116,14 +117,27 @@ $dest = $_GET['a'];
 
 if (!$bad_arg) {
     $sender = get_sender($exim_id, $dest);
-    $soap_host = get_soap_host($exim_id, $dest);
-    $is_operation_ok = free_and_whitelist_newsletter($soap_host, $exim_id, $dest, $sender);
+    $slave = get_soap_host($exim_id, $dest);
+    $master = get_master_soap_host();
+    $is_released = send_SOAP_request(
+        $slave,
+        'forceSpam',
+        array($exim_id, $dest),
+        array("MSGFORCED")
+    );
+    $is_added_to_wl = send_SOAP_request(
+        $master,
+        "addNewsletterToWhitelist",
+        array($dest, $sender),
+        array("OK", "DUPLICATEENTRY")
+    );
 } else {
-    $is_operation_ok = False;
+    $is_released = False;
+    $is_added_to_wl = False;
 }
 
 // Setting the page text
-if ($is_operation_ok) {
+if ($is_released && $is_added_to_wl) {
     $message_head = "NLRELEASEDHEAD";
     $message = "NLRELEASEDBODY";
 } else {
