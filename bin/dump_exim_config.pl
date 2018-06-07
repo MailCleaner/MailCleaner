@@ -819,8 +819,14 @@ sub dump_blacklists {
 
      if (open(FILE, ">$filepath")) {
          if ($incoming_config{$file}) {
-           foreach my $host (split(/[\n\s:;]/, $incoming_config{$file})) {
-              print FILE $host."\n";
+           if ($file =~ /host_reject/) {
+              foreach my $host (split(/[\n\s;]/, $incoming_config{$file})) {
+                 print FILE $host."\n";
+              }
+           } else {
+              foreach my $host (split(/[\n\s:;]/, $incoming_config{$file})) {
+                 print FILE $host."\n";
+              }
            }
          }
          close FILE;
