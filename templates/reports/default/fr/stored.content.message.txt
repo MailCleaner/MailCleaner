@@ -12,7 +12,7 @@ Pour votre sécurité, il a été remplacé par cet avertissement.
 
 Le courriel a été conservé sur la passerelle. Il peut donc vous être rendu sur demande.
 Pour ce faire, nous vous invitons à vous rendre sur le lien suivant :
-http://www.mailcleaner.net/support/dangerous-content-release.html
+https://www.mailcleaner.net/support/dangerous-content-release.html
 
 Résultats de l'analyse du courriel:
 $report

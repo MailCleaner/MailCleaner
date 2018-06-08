@@ -8,7 +8,7 @@ personal or confidential information from you, such as passwords or credit
 card numbers.
 
 If you wish to receive a copy of the original email, please folow
-this link : <a href="http://www.mailcleaner.net/support/support-request.html">MailCleaner Support</a> and provide : 
+this link : <a href="https://www.mailcleaner.net/support/support-request.html">MailCleaner Support</a> and provide: 
 - Domain protected name
 - Your email address
 - Retrieval code
