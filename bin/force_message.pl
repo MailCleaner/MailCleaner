@@ -45,7 +45,7 @@ if ( (!$for) || !($for =~ /^(\S+)\@(\S+)$/)) {
 	print "BADADDRESSFORMAT\n";
 	exit 0;
 }
- 
+
 my $for_local = $1;
 my $for_domain = $2;
 
@@ -59,7 +59,7 @@ if ( open(MSG, $msg_file)) {
         my $in_dkim = 0;
 	while (<MSG>)
         {
-                ## just to remove garbage line before the real headers  
+                ## just to remove garbage line before the real headers
                 if ($start_msg != 1 && /^[A-Z][a-z]*\:\ .*/) {
                         $start_msg = 1;
                 }
@@ -101,7 +101,7 @@ if ( open(MSG, $msg_file)) {
         if ($err >= 500) {
                 print "ERRORSENDING $for\n";
                 exit 1;
-        } 
+        }
         $smtp->data();
         $smtp->datasend("X-MailCleaner-Forced: message forced\n");
 	$smtp->datasend($msg);
@@ -111,7 +111,7 @@ if ( open(MSG, $msg_file)) {
 	mark_forced();
 
 	print("MSGFORCED\n");
-} 
+}
 else {
 	print "MSGFILENOTFOUND\n";
 }
@@ -163,12 +163,12 @@ sub mark_forced
                 $table = 'num';
         } else {
                 $table = 'misc';
-        }	
+        }
 	my $query = "UPDATE spam_$table SET forced='1' WHERE to_domain='$for_domain' AND to_user='$for_local' AND exim_id='$msg_id'";
 	my $sth = $dbh->prepare($query);
         $sth->execute() or return;
 
-	$dbh->disconnect();	
+	$dbh->disconnect();
 }
 
 ##########################################
@@ -198,6 +198,6 @@ sub readConfig
 sub print_usage
 {
         print "bad usage...\n";
-        print "Usage: force_message.pl message_id destination\@adresse\n";
+        print "Usage: force_message.pl message_id destination_address\n";
         exit 0;
 }
