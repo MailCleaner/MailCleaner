@@ -1,0 +1,19 @@
+From: $to
+To: $from
+Subject: Email rejeitado
+X-%org-name%-MailScanner: generated
+
+Enviou-nos uma mensagem que não foi solicitada e foi por isso rejeitada.
+Por favor não envie mais mensagens para este endereço:
+  Para: $to
+  Assunto: $subject
+  Data: $date
+
+Para qualquer questão sobre este assunto, ou se achar que recebeu esta mensagem por engano,
+por favor contate o administrador do sistema.
+
+--
+MailScanner
+Email Virus Scanner
+%org-long-name%
+%web-site%

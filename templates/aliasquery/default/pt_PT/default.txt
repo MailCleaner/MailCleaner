@@ -1,0 +1,23 @@
+Subject: [Mailcleaner] Ativação Endeço/Alias
+
+Olá,
+
+Isto é uma mensagem de confirmação do pedido de ativação do endereço/alias:
+
+__ALIAS__
+
+para o utilizador:
+
+__USER__
+
+De forma a proceder à sua ativação, por favor use o seguinte link:
+
+__VALIDATEURL__
+
+Se desejar não o ativar, por favor use o seguinte link:
+
+__REFUSEURL__
+
+---------------
+Mailcleaner
+

@@ -1,0 +1,13 @@
+Subject: MailCleaner: aviso de mensagem retida
+
+A mensagem enviado por __SENDER__ foi detetada como spam e retida na quarentena.
+
+Se acha que isto foi um engano e desejar receber esta mensagem, por favor carregue aqui: __BASEURL__/fm.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+(para informar o administrador carregue aqui: __BASEURL__/send_to_analyse.php?id=2D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__)
+
+Sem qualquer intervenção, a mensagem irá permanecer na quarentena por __SPAMNBDAYS__ dias após a sua chegada.
+
+--------------------------------------------------------------------------------------
+Isto é uma mensagem automática enviada pelo MailCleaner. Por favor não responda.
+Mais informações em: __BASEURL__

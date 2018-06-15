@@ -1,0 +1,119 @@
+__DEFAULT__ SCORE0 <img src="cid:s0.gif" width="34px" height="7px" />
+__DEFAULT__ SCORE1 <img src="cid:s1.gif" width="34px" height="7px" />
+__DEFAULT__ SCORE2 <img src="cid:s2.gif" width="34px" height="7px" />
+__DEFAULT__ SCORE3 <img src="cid:s3.gif" width="34px" height="7px" />
+__DEFAULT__ SCORE4 <img src="cid:s4.gif" width="34px" height="7px" />
+
+<html><head>
+ <title>MailCleaner</title> 
+ 
+ <style type="text/css">
+table {
+  line-height: 14px; font-size: 11px; font-family: Arial;
+}
+
+img {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 0px;
+}
+
+#quar-table td {
+  border-right: solid 1px #CCC1C9;
+  border-bottom: solid 1px #CCC1C9;
+  line-height: 23px;
+  padding: 0px;
+  color: #666666;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 23px;
+}
+
+.qt {
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  line-height: 16px;
+}
+
+.qts {
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  line-height: 11px;
+  text-align: center;
+}
+
+.qth {
+  color: #552056;
+}
+
+</style>
+</head>
+<body style="max-width: 818px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; 
+            padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; 
+            background-color: #FFFFFF; line-height: 16px; font-size: 11px; font-family: Arial; text-align: left;">
+
+<!-- BANNER -->
+<table width="818px" cellpadding="0" cellspacing="0" style="padding:0; margin:0; text-align:left; border:0px;">
+<tr>
+ <td style="margin:0px;padding:0px"><img width="818px" height="75" alt="" style="display:block;" src="cid:banner.jpg"></td>
+</tr>
+
+<!-- SUMMARY -->
+<tr>
+  <td style="padding:14px; background-color: #000000; color: #FFFFFF;">
+      <div><b>Relatório de quarentena dos últimos __NBDAYS__ dias para o endereço: __ADDRESS__ &mdash; De __START_DATE__ até __END_DATE__</b></div>
+      <div>Estado global da quarentena, definições, estatísticas ou ajuda: <a href="__BASEURL__/?d=__DIGEST_ID__&amp;p=u">__BASEURL__</a></div>
+  </td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<!-- QUARANTINE -->
+<tr>
+ <td style="padding-left:6px; padding-right:6px;">
+   <table width="100%" cellspacing="0" cellpadding="0" border="0" id="quar-table"
+       style="margin:0px; padding:0px;
+              border-top: solid 1px #CCC1C9; border-left: solid 1px #CCC1C9;">
+              
+     <tr>
+       <td colspan="5" style="background-color: #F7F7F7;color: #552056;"><div class="qt qth"><b>Na quarentena:</b> __NBSPAMS__ messages</div></td>
+     </tr>
+   <!-- HEAD -->
+     <tr>
+      <td width="66px" style="width:66px; background-color: #F7F7F7;color: #552056;"><div class="qt qth">Ação</div></td>
+      <td width="157px" style="width:157px; background-color: #F7F7F7;color: #552056;"><div class="qt qth">Data</div></td>
+      <td style="background-color: #F7F7F7;color: #552056;"><div class="qt qth">Remetente</div></td>
+      <td style="background-color: #F7F7F7;color: #552056;"><div class="qt qth">Assunto</div></td>
+      <td align="center" width="55px" style="width:55px;background-color: #F7F7F7;color: #552056;"><div class="qt qth">Resultado</div></td>
+     </tr>
+ 
+   <!-- DATA -->
+__TMPL_HTMLQUARANTINE_START__
+<tr>
+<td width="66px" style="width:66px;">
+<a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__">release</a>
+<a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__">view</a>
+__NEWSLETTER_NOIMG__
+</td>
+<td width="157px" style="width:157px;"><div class="qt">__SINGLEDATETIME__</div></td>
+<td><div class="qt">__FROM__</div></td>
+<td><div class="qt">__SUBJECT__</div></td>
+<td width="55px" style="width:55px;"><div class="qts">__SCOREPICTO__</div></td>
+</tr>  
+__TMPL_HTMLQUARANTINE_STOP__
+__HTMLQUARANTINE__
+
+   </table>
+ </td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+ <td style="padding-left:16px; padding-right:16px;">
+   <div style="margin-bottom:25px; margin-top: 7px; color: #666666">Caso não realize qualquer ação em contrário, as mensagens irão manter-se na quarentena por __SPAMNBDAYS__ dias após a sua chegada.</div>
+ </td>
+</tr>
+</table>
+</body>
+</html>

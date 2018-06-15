@@ -1,0 +1,23 @@
+Subject: MailCleaner endereço na lista de aviso
+
+Olá,
+
+Recebeu esta mensagem porque __SENDER__, que existe na __REASON__ 
+lista de aviso, lhe enviou uma mensagem que foi detetada como spam.
+
+Se acha que isto foi um engano e ainda quer receber a mensagem original,
+por favor use o seguinte link:
+
+Forçar: __BASEURL__/fm.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+E se desejar reportar o ocorrido ao seu administrador, considere usar 
+o seguinte link:
+
+Analisar: __BASEURL__/send_to_analyse.php?id=3D__ID__&a=3D__ADDRESS__&s=3D__STOREID__&lang=3D__LANGUAGE__
+
+Se achar que a mensagem é mesmo spam, pode descartar esta mensagem.
+
+------------------------------------------------------
+Isto é uma mensagem automática enviada pelo MailCLeaner.
+Por favor não responda.
+Mais informações em: __BASEURL__

@@ -1,0 +1,15 @@
+Isto é uma mensagem do Mailcleaner
+----------------------------------
+O anexo original da mensagem , "$filename",
+está na lista de anexos não permitidos para este site e foi
+substituído por esta mensagem de aviso.
+
+Se pretender recber uma cópia do anexo original, por favor use o seguinte atalho:
+https://www.mailcleaner.net/support/dangerous-content-release.html
+
+Em $date o anti-vírus reportou:
+$report
+Informação para o Administrador:: $hostname in $datenumber/$id
+
+-----------
+Mailcleaner

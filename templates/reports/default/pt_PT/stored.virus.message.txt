@@ -1,0 +1,17 @@
+Isto é uma mensagem do Mailcleaner
+----------------------------------
+O anexo original da mensagem , "$filename",
+foi detetado como estando infetado por um vírus e foi
+substituído por esta mensagem de aviso.
+
+Se pretender receber uma cópia do anexo *infetado*, por favor
+envie uma mensagem ao administrador e inclua a totalidade desta mensagem
+no seu pedido. Alternativamente pode ligar, tendo disponível o acesso
+ao conteúdo desta mensagem quando o fizer.
+
+Em $date o anti-vírus reportou::
+$report
+Informação para o Administrador: $hostname in $datenumber/$id
+
+--
+Mailcleaner
