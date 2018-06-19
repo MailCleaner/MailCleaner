@@ -117,7 +117,7 @@ $txt['HOUR'] = "Hora";
 $txt['FROM'] = "De";
 $txt['TO'] = "Destinatário";
 $txt['SUBJECT'] = "Sujeito";
-$txt['FORCED'] = "Libertado";
+$txt['FORCED'] = "Liberado";
 $txt['ACTION'] = "Acção";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ mensagem de spam";
@@ -130,7 +130,7 @@ $txt['FORTHEXLASTDAYS'] = "__PARAM__ últimos dias";
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
+$txt['NEWSLETTERMODULE'] = "Boletim informativo";
 $txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
 $txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
 $txt['NEWSLETTERSSHORTHELP'] = "Aqui pode gerir os vossos boletins informativos.";
