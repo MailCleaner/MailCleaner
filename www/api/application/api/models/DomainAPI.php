@@ -42,6 +42,8 @@ class Api_Model_DomainAPI
      *      c_base_dn => base DN (i.e. dc=yourdomain,dc=com)
      *      c_bind_user => user account for non anonymous bind
      *      c_bind_pass => user password for non anonymous bind
+     *      c_group => restrict search on group
+     *      c_use_ssl => can be 0 or 1, use SSL encryption
 	 *
 	 *   Preferences:
 	 *    language => can be 'en', 'fr', 'de', 'es'
@@ -298,7 +300,10 @@ class Api_Model_DomainAPI
     		            'callout_server' => 'callout_server', 
     		            'c_base_dn' => 'basedn', 
     		            'c_bind_user' => 'binddn', 
-    		            'c_bind_pass' => 'bindpass') as $key => $value) {
+                        'c_bind_pass' => 'bindpass',
+                        'c_group' => 'group',
+                        'c_use_ssl' => 'usessl'
+                        ) as $key => $value) {
     		    	if (isset($params[$key])) {
     		    		$data[$value] = $params[$key];
     		    	}
@@ -465,7 +470,9 @@ class Api_Model_DomainAPI
                 'c_base_dn' => 'basedn',
                 'c_bind_user' => 'binddn',
                 'c_bind_pass' => 'bindpass',
-                'callout_server' => 'callout_server'
+                'callout_server' => 'callout_server',
+                'c_group' => 'group',
+                'c_use_ssl' => 'usessl'
             ) as $key => $value) {
             	if (isset($calloutparams[$value]) && (empty($params) || in_array($key, $params))) {
             		$data[$key] = $calloutparams[$value];
