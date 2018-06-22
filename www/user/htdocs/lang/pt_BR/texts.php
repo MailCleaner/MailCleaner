@@ -6,27 +6,27 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (Contact your administrator).";
+$txt['NEWSLETTERMODULE'] = "boletim informativo";
+$txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
+$txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
+$txt['NEWSLETTERSSHORTHELP'] = "Aqui você pode gerenciar os boletins informativos.";
+$txt['NEWSLETTERSALLOW'] = "Entregar";
+$txt['NEWSLETTERACCEPT'] = "Aceitar este boletim informativo";
+$txt['SPAM_WHITELIST_DISABLED'] = "Esta lista não está ativada para este domínio (Contate o administrador) .";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Enviar";
+$txt['CANCEL'] = "Cancelar";
+$txt['CLOSE'] = "Fechar";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "adicionar";
+$txt['CONFIRM'] = "Confirmar";
+$txt['REFRESH'] = "Atualizar";
+$txt['SEARCH'] = "Pesquisar";
+$txt['SEND'] = "Enviar";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "apagar";
 /*
  * generic texts
  */
@@ -38,156 +38,156 @@ $txt['DATEFORMAT'] = "_D__M__Y_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
-$txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
+$txt['MONTHAB4'] = 'Abr.';
+$txt['MONTHAB5'] = 'Mai.';
+$txt['MONTHAB6'] = 'Junho';
+$txt['MONTHAB7'] = 'Julho';
+$txt['MONTHAB8'] = 'Ago.';
+$txt['MONTHAB9'] = 'Set.';
+$txt['MONTHAB10'] = 'Out.';
 $txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTHAB12'] = 'Dez.';
+$txt['MONTH1'] = 'Janeiro';
+$txt['MONTH2'] = 'Fevereiro';
+$txt['MONTH3'] = 'Março';
+$txt['MONTH4'] = 'Abril';
+$txt['MONTH5'] = 'Maio';
+$txt['MONTH6'] = 'Junho';
+$txt['MONTH7'] = 'Julho';
+$txt['MONTH8'] = 'Agosto';
+$txt['MONTH9'] = 'Setembro';
+$txt['MONTH10'] = 'Outubro';
+$txt['MONTH11'] = 'Novembro';
+$txt['MONTH12'] = 'Dezembro';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect user name or password.";
-$txt['SESSIONEXPIRED'] = "Session has expired.";
-$txt['LOGININFO'] = "Reminder : Your user name and password are the same as your email account";
-$txt['USERNAME'] = "User name";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "Nome de usuário ou senha incorretos.";
+$txt['SESSIONEXPIRED'] = "A sessão expirou.";
+$txt['LOGININFO'] = "Lembrete: o nome de usuário e senha são iguais a conta de e-mail";
+$txt['USERNAME'] = "Usuário";
+$txt['PASSWORD'] = "Senha";
 //old
-$txt['ASKLOGIN'] = "Please enter your user name and password:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reseted. It has been sent to your mail address.";
+$txt['ASKLOGIN'] = "Por favor insira o seu nome de usuário e senha:";
+$txt['ORGANIZATIONUNIT'] = "Unidade organizacional";
+$txt['FORGOTPASSWORD'] = "Senha perdida?";
+$txt['PASSWORDRESET'] = "A senha foi reiniciada. Ela foi enviada para o seu endereço de e-mail.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Logout";
+$txt['CONFIGURATIONMENU'] = "Configuração";
+$txt['HELPMENU'] = "Ajuda";
+$txt['QUARANTINEMENU'] = "Quarentena";
+$txt['STATISTICSMENU'] = "Estatísticas";
+$txt['LOGOUT'] = "Desconectar";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "Está conectado como:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "endereço principal";
+$txt['PARAMETERS'] = "Configurações";
+$txt['QUARANTINE'] = "Quarentena";
+$txt['NAVSUPPORT'] = "Suporte";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['SELECTEDADDRESS'] = "Endereço exibido";
+$txt['QUARANTINESUMMARY'] = "<strong>Em quarentena:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Pesquizar:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "ordenado por __PARAM__";
+$txt['RESETSEARCH'] = "Mostrar toda a lista de quarentena";
+$txt['ODATE'] = "data";
+$txt['OTIME'] = "hora";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "destinatário";
+$txt['OSENDER'] = "remetente";
+$txt['OSCORE'] = "nota";
+$txt['OSUBJECT'] = "assunto";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "Critérios";
+$txt['FORCEMESSAGE'] = "Liberar a mensagem";
+$txt['MESSAGEFORCING'] = "Mensagem liberada";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
-$txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['ANALYSEREQUEST'] = "Pedido de ajustamento do filtro";
+$txt['ANALYSEREQUESTV'] = "Pedir o ajustamento do filtro";
+$txt['SCORETEXT'] = "Nota: __PARAM__";
+$txt['CLOSEWINDOW'] = "Fechar a página";
+$txt['CURRENTPAGE'] = "Página __PARAM1__ de __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>Exclusão automática após:</strong> __PARAM__ dias";
+$txt['DISPLAYEDINFOS'] = "<strong>Mensagens exibidas: </strong> __PARAM1__ últimos dias (<a href=\"__PARAM2__\">Modificar...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Mensagems exibidas: </strong> __PARAM__ últimos dias. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "Lista da quarentena para __PARAM__";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "Filtro";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "Pesquisa avançada";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "mensagens exibidas";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "remetente";
+$txt['DATE'] = "Data";
+$txt['HOUR'] = "Hora";
+$txt['FROM'] = "De";
+$txt['TO'] = "Para";
+$txt['SUBJECT'] = "Assunto";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "Liberado";
+$txt['ACTION'] = "Ação";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Total: __PARAM__ mensagem(s) de spam";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ últimos dias";
+$txt['PURGESELECTEDSPAMS'] = "Limpar manualmente a quarentena";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "Esconder mensagens liberadas para usuários";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "Liberar a mensagem";
 //old
-$txt['ASKREASON'] = "display filtering rules";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.";
-$txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
-$txt['ASKANALYSE'] = "Filter adjustment request";
-$txt['PAGE'] = "Page";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['ASKREASON'] = "Mostrar regras de filtros";
+$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.";
+$txt['AREYOUSURE'] = "<span class=\"question\">Você tem certeza que esta mensagem seja analisada e filtros de ajuste sejam aplicados?</span>";
+$txt['ASKANALYSE'] = "Pedido de ajustamento de filtro";
+$txt['PAGE'] = "Página";
+$txt['NEXTPAGE'] = "Seguinte";
+$txt['PREVIOUSPAGE'] = "Anterior";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
-$txt['HITRULE'] = "Rule";
-$txt['SCORE'] = "Score";
+$txt['GETREASONSTITLE'] = "Seletor de filtragem";
+$txt['HITRULE'] = "Regra";
+$txt['SCORE'] = "Nota";
 $txt['TOTAL'] = "Total";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
-$txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
+$txt['SENDANALYSETITLE'] = "Pedido de ajustamento de filtro";
+$txt['SENTTOANALYSE'] = "Um filtro de ajuste foi encaminhado para o Centro de Análise da MailCleaner; esta mensagem será examinada e correções de filtro podem ser aplicados dentro de um dia de trabalho.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
-$txt['SENDSUM'] = "Manually send the quarantine report";
-$txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
-$txt['SUMMARYSENDING'] = "Quarantine report transmission";
-$txt['PURGETITLE'] = "Manually purge the quarantine";
-$txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
-$txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
-$txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['SENDSUMTITLE'] = "Enviar o relatório de quarentena manualmente";
+$txt['SENDSUM'] = "Enviar o relatório de quarentena manualmente";
+$txt['SUMSENTTO'] = "O relatório de quarentena foi enviado para: <strong>1__PARAM__</strong>";
+$txt['SUMNOTSENTTO'] = "O relatório de quarentena não pode ser enviado para <strong>__PARAM__</strong> por causa de um erro interno. Por favor tente novamente.";
+$txt['SUMMARYSENDING'] = "Transmissão do relatório de quarentena";
+$txt['PURGETITLE'] = "Limpar manualmente a quarentena";
+$txt['PURGEDONE'] = "A quarentena para <strong>__PARAM__</strong> foi limpa";
+$txt['COULDNOTPURGE'] = "A quarentena para <strong>__PARAM__</strong> não pode ser limpa por um erro interno. Por favor tente novamente.";
+$txt['ASKPURGECONFIRM'] = "Você tem certeza que quer limpar os últimos __PARAM1__ dias da quarentena para <strong>__PARAM2__</strong>?";
+$txt['QUARANTINEPURGE'] = "Limpar manualmente a quarentena";
+$txt['GROUPQUARANTINES'] = "Todos os endereços";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
-$txt['PREFILTERHITS'] = "Pre-filters";
-$txt['BLACKLISTS'] = "Blacklists";
-$txt['FITLERSCORE'] = "Score";
-$txt['NONE'] = "none";
-$txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['INFORMATIONSABOUTMSG'] = "Conteúdo da mensagem";
+$txt['PREFILTERHITS'] = "pré-filtros";
+$txt['BLACKLISTS'] = "Listas Negras";
+$txt['FITLERSCORE'] = "Nota";
+$txt['NONE'] = "nenhum";
+$txt['HEADERS'] = "Cabeçalhos";
+$txt['BODY'] = "Corpo";
+$txt['PARTS'] = "Partes";
+$txt['STORESLAVE'] = "Armazenamento";
+$txt['SPAMCSCORE'] = "Nota de regra";
+$txt['DESCRIPTION'] = "Descrição";
+$txt['MESSAGEPREVIEW'] = "Prévia da mensagem";
 $txt['ID'] = "Identifier";
 /*
  * logout page
