@@ -39,7 +39,7 @@ $txt['MONTHAB12'] = 'Dez.';
 $txt['MONTH1'] = 'Janeiro';
 $txt['MONTH2'] = 'Fevereiro';
 $txt['MONTH3'] = 'Março';
-$txt['MONTH4'] = 'Avril';
+$txt['MONTH4'] = 'Abril';
 $txt['MONTH5'] = 'Maio';
 $txt['MONTH6'] = 'Junho';
 $txt['MONTH7'] = 'Julho';
@@ -51,9 +51,9 @@ $txt['MONTH12'] = 'Dezembro';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Nome de usuário ou senha incorretos";
+$txt['BADLOGIN'] = "Nome de usuário ou senha incorretos.";
 $txt['SESSIONEXPIRED'] = "A sessão expirou.";
-$txt['LOGININFO'] = "Lembrete: o nome de usuário e senha são iguais a conta de e-mail.";
+$txt['LOGININFO'] = "Lembrete: o nome de usuário e senha são iguais a conta de e-mail";
 $txt['USERNAME'] = "Usuário";
 $txt['PASSWORD'] = "Senha";
 //old
@@ -161,7 +161,7 @@ $txt['SENTTOANALYSE'] = "Um filtro de ajuste foi encaminhado para o Centro de An
 //old
 $txt['SENDSUMTITLE'] = "Enviar o relatório de quarentena manualmente";
 $txt['SENDSUM'] = "Enviar o relatório de quarentena manualmente";
-$txt['SUMSENTTO'] = "O relatório de quarentena foi enviado para: <strong>1__PARAM__</strong>2";
+$txt['SUMSENTTO'] = "O relatório de quarentena foi enviado para: <strong>1__PARAM__</strong>";
 $txt['SUMNOTSENTTO'] = "O relatório de quarentena não pode ser enviado para <strong>__PARAM__</strong> por causa de um erro interno. Por favor tente novamente.";
 $txt['SUMMARYSENDING'] = "Transmissão do relatório de quarentena";
 $txt['PURGETITLE'] = "Limpar manualmente a quarentena";
@@ -408,21 +408,21 @@ $txt['ADDANADDRESS'] = "Adicionar um endereço a um grupo";
 $txt['ADDTHEADDRESS'] = "&lt; Adicionar um endereço a um grupo";
 $txt['ADDANADDRESSSHORTHELP'] = "Insira o endereço que deseja adicionar.";
 $txt['REMANADDRESS'] = "Remover um ou mais endereço(s) do grupo";
-$txt['REMTHEADDRESS'] = "Remover a seleção";
+$txt['REMTHEADDRESS'] = "Remover um ou mais endereço(s) do grupo";
 $txt['REMANADDRESSSHORTHELP'] = "Marque a caixa ao lado de cada endereço que você deseja remover e clique no botão Remover.";
 $txt['WAITINGCONFIRMATION'] = "aguarde confirmação";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "O modo de processamento de spam pode ser personalizado para cada um dos seus endereços. Verifique o manual do usuário (disponível na seção <a href=\"\"help.php\"\"> \"Ajuda\"</a>) para obter mais informações sobre os diferentes modos de processamento disponíveis.";
+$txt['ADDPARAMSHORTHELP'] = "O modo de processamento de spam pode ser personalizado para cada um dos seus endereços. Verifique o manual do usuário (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre os diferentes modos de processamento disponíveis.";
 $txt['FOREACHSPAMDO'] = "Para cada mensagem detectada como spam:";
 $txt['FOREACHNEWSLETTERDO'] = "Para cada mensagem detectada como boletim informativo:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "reter na quarentena";
 $txt['TAGMESSAGEWITHTAG'] = "entregar com o assunto palavra-chave";
 $txt['DROPMESSAGE'] = "excluir imediatamente";
-$txt['SUMMARYSENTFREQ'] = "Frenquência dos relatório de quarentena";
+$txt['SUMMARYSENTFREQ'] = "Frequência dos relatório de quarentena";
 $txt['SUMMARYFORMAT'] = "Formato dos relatório de quarentena";
-$txt['SUMMARYTO'] = "enviar relatórios para este endereço";
+$txt['SUMMARYTO'] = "Enviar relatórios para este endereço";
 $txt['OTHER'] = "outro...";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar configurações a todos os endereços";
 $txt['PLAINTEXT'] = "Texto plano";
@@ -445,9 +445,9 @@ $txt['TODAY'] = "Hoje";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "A listade advertência contém endereços de remetente confiáveis para os quais você deseja ser notificado por email sempre que uma mensagem for detectada como spam. Você pode liberar imediatamente a mensagem em caso de um erro de filtragem.
-<br>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
-Verifique o manual (disponível na seção <a href=\"\"help.php\"\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista de advertência. ";
+$txt['WARNLISTSHORTHELP'] = "A lista de advertência contém endereços de remetente confiáveis para os quais você deseja ser notificado por e-mail sempre que uma mensagem for detectada como spam. Você pode liberar imediatamente a mensagem em caso de um erro de filtragem.
+<br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+Verifique o manual (disponível na seção <a href=\"help.php\">\"Ajuda\"</a>) para obter mais informações sobre o uso da lista de advertência. ";
 $txt['WARNLISTFORADDRESS'] = "Lista de advertência para o endereço";
 $txt['ADDAWARNENTRY'] = "Adicionar um endereço a lista";
 $txt['WARNLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de advertência. Você também pode adicionar um comentário opcional.";
@@ -457,17 +457,17 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selecione o endereço ou endereços que des
 $txt['REMTHEENTRY'] = "Remover a seleção";
 $txt['DISABLETHEENTRY'] = "Desabilitar/habilitar a seleção";
 $txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.
-<br>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
-Verifique o manual (disponível na seção <a href=\"\"help.php\"\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca.
+<br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca.
 ";
 $txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereço do remetente.
-Verifique o manual (disponível na seção <a href=\"\"help.php\"\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista negra.
+Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista negra.
 ";
 $txt['WHITELISTFORADDRESS'] = "Lista Branca para o endereço";
 $txt['ADDAWHITEENTRY'] = "Adicione um endereço a lista";
 $txt['WHITELISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista branca. Você também pode adicionar um comentário opcional.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
-$txt['BLACKLISTFORADDRESS'] = "Lista nNegra para o endereço";
+$txt['BLACKLISTFORADDRESS'] = "Lista Negra para o endereço";
 $txt['ADDABLACKENTRY'] = "Adicione um endereço a lista";
 $txt['BLACKLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista negra. Você também pode adicionar um comentário opcional.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
@@ -476,11 +476,11 @@ $txt['RECORDALREADYEXISTS'] = "Este endereço já está presente na lista.";
  * logout (new)
  */
 $txt['SESSIONTERMINATED'] = "Sua sesão encerrou.";
-$txt['BEENLOGGEDOUT'] = "Se você gostaria de iniciar uma nova sessão, clique neste link: <a href=\"\"__PARAM__\"\">__PARAM__</a>";
+$txt['BEENLOGGEDOUT'] = "Se você gostaria de iniciar uma nova sessão, clique neste link: <a href=\"__PARAM__\">__PARAM__</a>";
 /*
  * Newsletters release
  */
 $txt['NLRELEASEDHEAD'] = "O boletim informativo foi permitido e liberado.";
 $txt['NLRELEASEDBODY'] = "O boletim informativo foi permitido e liberado. Ele deve ser entregue em sua caixa de correio em minutos.";
-$txt['NLNOTRELEASEDHEAD'] = "O boletim informativo náo foi liberado.";
+$txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
 $txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
