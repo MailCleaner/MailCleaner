@@ -188,302 +188,302 @@ $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Nota de regra";
 $txt['DESCRIPTION'] = "Descrição";
 $txt['MESSAGEPREVIEW'] = "Prévia da mensagem";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "Identificador";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>Sua sessão do MailCleaner encerrou.</p><p>Se gostaria de abrir uma nova sessão clique no seguinte link:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "Configurações pessoais";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Configurações de Usuário";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Configuração de endereço";
 //old
-$txt['LANGUAGE'] = "Language";
-$txt['ADDRESS'] = "Address";
+$txt['LANGUAGE'] = "Linguagem";
+$txt['ADDRESS'] = "Endereço";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "Grupo de endereços";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "Modo de processamento de Spam";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "Configuração do relatório da quarentena";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Grupo de endereços pessiais: (__PARAM__ endereço(s))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "Aplicar mudanças a todos os endereços";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "principal";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "Modo de processamento de Spam";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "quarentena";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "Sistematicamente colocar em quarentena mensagens de error de entrega de e-mail";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "descartar";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Tag de palavra";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
-$txt['NOSUMMARY'] = "No report";
+$txt['SUMMARYFREQ'] = "Frequência de encaminhamento de relatórios";
+$txt['DAILY'] = "Diário";
+$txt['WEEKLY'] = "Semanal";
+$txt['MONTHLY'] = "Mensal";
+$txt['NOSUMMARY'] = "Sem relatório";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
+$txt['SUMMARYTYPE'] = "Formato do relatório";
+$txt['USEDEFAULT'] = "usar padrão";
 $txt['SUMMHTML'] = "html";
-$txt['SUMMTEXT'] = "plain text";
+$txt['SUMMTEXT'] = "texto plano";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "editar a lista branca";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "editar lista de advertência";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
-$txt['COMMENT'] = "Comment";
+$txt['SENDER'] = "Remetente";
+$txt['COMMENT'] = "Comentário";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "Ação";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "ativo";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "inativo";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "Entrada";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "Tem certeza que deseja excluir permanentemente esta entrada?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "Lista branca para __PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "Lista de advertência para __PARAM__";
 //old
-$txt['STATUS'] = "Status";
+$txt['STATUS'] = "Estado";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "Adicione um endereço";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "Endereço";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "remova um endereço";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added successfully.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ADDADDRESSALT'] = "adicione um endereço";
+$txt['BADADDRESSFORMAT'] = "O endereço especificado é inválido. Por favor tente novamente.";
+$txt['NOTFILTEREDDOMAIN'] = "Este domínio é filtrado pelo MailCleaner. O endereço não pode ser adicionado.";
+$txt['ALIASALREADYREGISTERD'] = "Este endereço já está sendo usado pelo MailCleaner. Ele não pode ser adicionado.";
+$txt['ALIASALREADYPENDING'] = "Uma confirmação está pendente para este endereço.";
+$txt['ALIASPENDING'] = "Uma confirmação foi enviada para este endereço.<br/>Por razões de segurança, o endereço só será adicionado se você confirmar a solicitação em 24 horas.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Pedido de adição de endereço";
+$txt['ALIASERRORSENDIG'] = "A solicitação não pôde ser enviada devido a um erro interno. Por favor, tente novamente mais tarde.";
+$txt['ALIASNOTPENDING'] = "No momento nenhum pedido está pendente para este endereço.";
+$txt['ALIASADDED'] = "O endereço foi adicionado com sucesso.";
+$txt['ALIASREQUESTREMOVED'] = "A requisição foi cancelada.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Remoção de endereço";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Tem certeza de que deseja remover o endereço: __PARAM__?";
+$txt['ALIASREMOVED'] = "O endereço __PARAM__ foi removido.";
+$txt['CANNOTREMOVEMAINADD'] = "O endreço __PARAM__ é o endereço principal. Não pode ser removido.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "Estatísticas";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ mensagens recebidas";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ Spams";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ perigosos";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all...";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['USERCLEANSTAT'] = "__PARAM__ limpos";
+$txt['ALL'] = "Todos...";
+$txt['SEARCHPERIOD'] = "Período analisado";
+$txt['LASTDAYS'] = "últimos dias";
+$txt['LASTMONTHS'] = "últimos meses";
+$txt['LASTYEARS'] = "últimos anos";
+$txt['DATESTART'] = "De";
+$txt['DATESTOP'] = "para";
+$txt['STATFORADDRESS'] = "Estatística de atividades para: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Mensagens recebidas";
+$txt['RECEIVEDVIRUS'] = "Viruses e mensagens perigosas";
+$txt['RECEIVEDSPAM'] = "Mensagens de Spam";
+$txt['RECEIVEDCLEAN'] = "Mensagens limpas";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ mensagens recebidas";
+$txt['GLOBALSTATSTITLE'] = "Resumo de todas as mensagens";
+$txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "Erro interno d0 MailCleaner (_PARAM_MESSAGE_ERREUR__). Por favor contate o administrador do sistema com detalhes do problema.";
+$txt['INCORRECTMSGID'] = "A requisição solicitada não pode ser concluída porque o identificador de mensagem está incorreto.";
+$txt['NOSUCHADDR'] = "O endereço fornecido não é protegido pelo MailCleaner.";
+$txt['ERRORSENDING'] = "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.";
+$txt['MSGFORCED'] = "A mensagem foi liberada e entregue à sua caixa de correio. Deve estar disponível em alguns minutos.";
+$txt['MSGFILENOTFOUND'] = "A ação solicitada não pode ser concluída porque a mensagem não está mais na quarentena.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Empresa";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "Nome";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Primeiro Nome";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Telefone";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "O que podemos fazer por você?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Campos requeridos";
 //old
-$txt['SUPPORT'] = "Support";
+$txt['SUPPORT'] = "Suporte";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Sua mensagem foi enviada.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Sua mensagem não pode ser enviada. Por favor, tente novamente mais tarde.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Alguns campos estão incorretos. Por favor, verifique os dados.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
-$txt['SUPPORTTOPIC'] = "Support";
-$txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['HELP'] = "Ajuda";
+$txt['INTERFACETOPIC'] = "Configuração do Ambiente";
+$txt['INTRODUCTIONTOPIC'] = 'Introdução';
+$txt['INTRODUCTIONTOPICTITLE'] = 'introdução';
+$txt['FIRSTCONTACTTOPIC'] = "Guia rápido";
+$txt['FIRSTCONTACTTOPICTITLE'] = "guia rápido";
+$txt['ADDRESSESTOPIC'] = "Endereço útil";
+$txt['ADDRESSESTOPICTITLE'] = "endereço útil";
+$txt['PLUGINTOPIC'] = "Plug-in do Outlook";
+$txt['PLUGINTOPICTITLE'] = "Plug-in do Outlook";
+$txt['MOREHELPTOPIC'] = "Manual completo";
+$txt['MOREHELPTOPICTITLE'] = "manual completo";
+$txt['USERMANUALTOPICTITLE'] = "manual do usuário";
+$txt['USERMANUALTOPIC'] = "Manual do usuário";
+$txt['FAQTOPIC'] = "Perguntas frequentes";
+$txt['FAQTOPICTITLE'] = "perguntas frequentes";
+$txt['GLOSSARYTOPIC'] = "Glossário";
+$txt['GLOSSARYTOPICTITLE'] = "glossário";
+$txt['SUPPORTTOPIC'] = "Suporte";
+$txt['SUPPORTTOPICTITLE'] = "suporte";
+$txt['ANALYSETOPIC'] = "Requisição de ajuste de filtro";
+$txt['ANALYSETOPICTITLE'] = "requisição de ajuste de filtro";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "Warn list";
-$txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "warn list";
-$txt['WHITELISTTOPICTITLE'] = "white list";
-$txt['BLACKLISTTOPICTITLE'] = "black list";
+$txt['CONFIGURATION'] = "Configuração";
+$txt['ADDRESSLISTTOPIC'] = "Endereço do Grupo";
+$txt['ADDRESSPARAMTOPIC'] = "Configuração do endereço";
+$txt['QUARPARAMTOPIC'] = "Exibir quarentena";
+$txt['WARNLISTTOPIC'] = "Lista de advertência";
+$txt['WHITELISTTOPIC'] = "Lista branca";
+$txt['BLACKLISTTOPIC'] = "Lista negra";
+$txt['INTERFACETOPICTITLE'] = "Configuração do ambiente";
+$txt['ADDRESSLISTTOPICTITLE'] = "Grupo de Endereços";
+$txt['ADDRESSPARAMTOPICTITLE'] = "configuração de endereços";
+$txt['QUARPARAMTOPICTITLE'] = "Exibir quarentena";
+$txt['WARNLISTTOPICTITLE'] = "lista de advertência";
+$txt['WHITELISTTOPICTITLE'] = "Lista Branca";
+$txt['BLACKLISTTOPICTITLE'] = "Lista negra";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "Gravar";
+$txt['CHOOSETHISLANG'] = "Use o Inglês como língua principal";
+$txt['CHOOSELANGUAGE'] = "Seleção de Linguagem";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Este grupo contém todos os endereços e aliases que você deseja gerenciar a partir desta conta. Em seguida, você pode acessar sua quarentena, estatísticas e configurações centralizadas com suas credenciais atuais.";
+$txt['ADDANADDRESS'] = "Adicionar um endereço a um grupo";
+$txt['ADDTHEADDRESS'] = "&lt; Adicionar um endereço a um grupo";
+$txt['ADDANADDRESSSHORTHELP'] = "Insira o endereço que deseja adicionar.";
+$txt['REMANADDRESS'] = "Remover um ou mais endereço(s) do grupo";
+$txt['REMTHEADDRESS'] = "Remover um ou mais endereço(s) do grupo";
+$txt['REMANADDRESSSHORTHELP'] = "Marque a caixa ao lado de cada endereço que você deseja remover e clique no botão Remover.";
+$txt['WAITINGCONFIRMATION'] = "aguarde confirmação";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['ADDPARAMSHORTHELP'] = "O modo de processamento de spam pode ser personalizado para cada um dos seus endereços. Verifique o manual do usuário (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre os diferentes modos de processamento disponíveis.";
+$txt['FOREACHSPAMDO'] = "Para cada mensagem detectada como spam:";
+$txt['FOREACHNEWSLETTERDO'] = "Para cada mensagem detectada como boletim informativo:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "reter na quarentena";
+$txt['TAGMESSAGEWITHTAG'] = "entregar com o assunto palavra-chave";
+$txt['DROPMESSAGE'] = "excluir imediatamente";
+$txt['SUMMARYSENTFREQ'] = "Frequência dos relatório de quarentena";
+$txt['SUMMARYFORMAT'] = "Formato dos relatório de quarentena";
+$txt['SUMMARYTO'] = "Enviar relatórios para este endereço";
+$txt['OTHER'] = "outro...";
+$txt['APPLYTOALLADDRESSES'] = "Aplicar configurações a todos os endereços";
+$txt['PLAINTEXT'] = "Texto plano";
 $txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['DIGEST'] = "Resumo";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Reter mensagens de erro";
+$txt['PARAMETERSSAVED'] = "Suas configurações foram salvas.";
+$txt['NOTSAVED'] = "Suas configurações não foram salvas.";
+$txt['INVALIDSUMMARYTO'] = "O endereço de e-mail fornecido para os relatórios é inválido";
 /*
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['CONFIGQUARSHORTHELP'] = "A exibição de quarentena pode ser personalizado (número de dias e linhas) para atender às suas necessidades e hábitos.";
+$txt['QUARNBLINESDISPLAYED'] = "Número de linhas a exibir";
+$txt['QUARNBDAYSDISAPLYED'] = "Número de dias a exibir";
+$txt['MASKEALREADYFORCED'] = "Ocultar mensagens liberadas pelo usuário";
+$txt['DEFAULTADDRESDISPPLAYED'] = "Endereços exibido por padrão";
+$txt['YESTERDAY'] = "Ontem";
+$txt['TODAY'] = "Hoje";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning : this functionality should be used as a temporary solution as it decreases the overall protection.
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warn list for the address";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage.
+$txt['WARNLISTSHORTHELP'] = "A lista de advertência contém endereços de remetente confiáveis para os quais você deseja ser notificado por e-mail sempre que uma mensagem for detectada como spam. Você pode liberar imediatamente a mensagem em caso de um erro de filtragem.
+<br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+Verifique o manual (disponível na seção <a href=\"help.php\">\"Ajuda\"</a>) para obter mais informações sobre o uso da lista de advertência. ";
+$txt['WARNLISTFORADDRESS'] = "Lista de advertência para o endereço";
+$txt['ADDAWARNENTRY'] = "Adicionar um endereço a lista";
+$txt['WARNLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de advertência. Você também pode adicionar um comentário opcional.";
+$txt['ADDTHEENTRY'] = "&lt; Adicionar o endereço";
+$txt['REMOVEANENTRY'] = "Desabilitar, habilitar ou remover um endereço da lista";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
+$txt['REMTHEENTRY'] = "Remover a seleção";
+$txt['DISABLETHEENTRY'] = "Desabilitar/habilitar a seleção";
+$txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.
+<br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca.
 ";
-$txt['BLACKLISTSHORTHELP'] = "The black list contains blacklisted sender address..
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
+$txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereço do remetente.
+Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista negra.
 ";
-$txt['WHITELISTFORADDRESS'] = "White list for the address";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the white list. You can also add an optional comment.";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "Black list for the address";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the black list. You can also add an optional comment.";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['WHITELISTFORADDRESS'] = "Lista Branca para o endereço";
+$txt['ADDAWHITEENTRY'] = "Adicione um endereço a lista";
+$txt['WHITELISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista branca. Você também pode adicionar um comentário opcional.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
+$txt['BLACKLISTFORADDRESS'] = "Lista Negra para o endereço";
+$txt['ADDABLACKENTRY'] = "Adicione um endereço a lista";
+$txt['BLACKLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista negra. Você também pode adicionar um comentário opcional.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
+$txt['RECORDALREADYEXISTS'] = "Este endereço já está presente na lista.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['SESSIONTERMINATED'] = "Sua sesão encerrou.";
+$txt['BEENLOGGEDOUT'] = "Se você gostaria de iniciar uma nova sessão, clique neste link: <a href=\"__PARAM__\">__PARAM__</a>";
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
-$txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLRELEASEDHEAD'] = "O boletim informativo foi permitido e liberado.";
+$txt['NLRELEASEDBODY'] = "O boletim informativo foi permitido e liberado. Ele deve ser entregue em sua caixa de correio em minutos.";
+$txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
+$txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
