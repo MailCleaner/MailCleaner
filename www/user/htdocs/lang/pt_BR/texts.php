@@ -1,8 +1,19 @@
 <?php
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2006, Olivier Diserens
+ */
+### newsl
+$txt['NEWSLETTERMODULE'] = "boletim informativo";
+$txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
+$txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
+$txt['NEWSLETTERSSHORTHELP'] = "Aqui você pode gerenciar os boletins informativos.";
 $txt['NEWSLETTERSALLOW'] = "Entregar";
 $txt['NEWSLETTERACCEPT'] = "Aceitar este boletim informativo";
 $txt['SPAM_WHITELIST_DISABLED'] = "Esta lista não está ativada para este domínio (Contate o administrador) .";
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT'] = "Enviar";
@@ -25,12 +36,12 @@ $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
 $txt['MONTHAB1'] = 'Jan.';
-$txt['MONTHAB2'] = 'Fev.';
+$txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
 $txt['MONTHAB4'] = 'Abr.';
 $txt['MONTHAB5'] = 'Mai.';
-$txt['MONTHAB6'] = 'Jun.';
-$txt['MONTHAB7'] = 'Jul.';
+$txt['MONTHAB6'] = 'Junho';
+$txt['MONTHAB7'] = 'Julho';
 $txt['MONTHAB8'] = 'Ago.';
 $txt['MONTHAB9'] = 'Set.';
 $txt['MONTHAB10'] = 'Out.';
@@ -86,14 +97,16 @@ $txt['ORDEREDBYPARAM'] = "ordenado por __PARAM__";
 $txt['RESETSEARCH'] = "Mostrar toda a lista de quarentena";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "hora";
+$txt['OSCORE'] = "score";
 $txt['ODESTINATION'] = "destinatário";
 $txt['OSENDER'] = "remetente";
-$txt['OSCORE'] = "score";
+$txt['OSCORE'] = "nota";
 $txt['OSUBJECT'] = "assunto";
 //old
 $txt['CRITERIAS'] = "Critérios";
 $txt['FORCEMESSAGE'] = "Liberar a mensagem";
 $txt['MESSAGEFORCING'] = "Mensagem liberada";
+$txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Pedido de ajustamento do filtro";
 $txt['ANALYSEREQUESTV'] = "Pedir o ajustamento do filtro";
 $txt['SCORETEXT'] = "Nota: __PARAM__";
@@ -115,25 +128,15 @@ $txt['COMINGFROM'] = "remetente";
 $txt['DATE'] = "Data";
 $txt['HOUR'] = "Hora";
 $txt['FROM'] = "De";
-$txt['TO'] = "Destinatário";
+$txt['TO'] = "Para";
 $txt['SUBJECT'] = "Assunto";
+$txt['SENDER'] = "Sender";
 $txt['FORCED'] = "Liberado";
 $txt['ACTION'] = "Ação";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ mensagem(s) de spam";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ últimos dias";
-/**
- * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
- * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
- */
-### newsl
-$txt['NEWSLETTERMODULE'] = "Boletim informativo";
-$txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
-$txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
-$txt['NEWSLETTERSSHORTHELP'] = "Aqui você pode gerenciar os boletins informativos.";
 $txt['PURGESELECTEDSPAMS'] = "Limpar manualmente a quarentena";
 //old
 $txt['HIDEFORCED'] = "Esconder mensagens liberadas para usuários";
@@ -141,17 +144,17 @@ $txt['HIDEFORCED'] = "Esconder mensagens liberadas para usuários";
 $txt['FORCESPAM'] = "Liberar a mensagem";
 //old
 $txt['ASKREASON'] = "Mostrar regras de filtros";
-$txt['PAGE'] = "Página";
-$txt['NEXTPAGE'] = "Seguinte";
-$txt['HITRULE'] = "Regra";
-$txt['TOTAL'] = "Total";
 $txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Você tem certeza que esta mensagem seja analisada e filtros de ajuste sejam aplicados?</span>";
 $txt['ASKANALYSE'] = "Pedido de ajustamento de filtro";
+$txt['PAGE'] = "Página";
+$txt['NEXTPAGE'] = "Seguinte";
 $txt['PREVIOUSPAGE'] = "Anterior";
 //old
 $txt['GETREASONSTITLE'] = "Seletor de filtragem";
+$txt['HITRULE'] = "Regra";
 $txt['SCORE'] = "Nota";
+$txt['TOTAL'] = "Total";
 //old
 $txt['SENDANALYSETITLE'] = "Pedido de ajustamento de filtro";
 $txt['SENTTOANALYSE'] = "Um filtro de ajuste foi encaminhado para o Centro de Análise da MailCleaner; esta mensagem será examinada e correções de filtro podem ser aplicados dentro de um dia de trabalho.";
@@ -223,7 +226,7 @@ $txt['TAGSUBJECT'] = "tag";
 //old
 $txt['QUARBOUNCES'] = "Sistematicamente colocar em quarentena mensagens de error de entrega de e-mail";
 //old
-$txt['DROP'] = "excluir";
+$txt['DROP'] = "descartar";
 //old
 $txt['SUBJECTTAG'] = "Tag de palavra";
 //old
