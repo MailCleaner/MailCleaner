@@ -90,7 +90,7 @@ do
 	patchTime=$OPTARG
 	;;
     r)
-	reason=$OPTARG	
+	reason=$OPTARG
 	;;
     m)
 	modeDev=$OPTARG
@@ -135,6 +135,7 @@ ${SRCDIR}/bin/register_mailcleaner.sh "$resellerID" "$resellerPwd" "$clientID" -
 
 echo Dump of ClamAV config and update of ClamAV antivirus files
 ${SRCDIR}/bin/dump_clamav_config.pl
+cdel -f /var/mailcleaner/spool/clamav/{main.cvd,daily.cld,bytecode.cld,mirrors.dat}
 /opt/clamav/bin/freshclam --user=clamav --config-file=/usr/mailcleaner/etc/clamav/freshclam.conf
 
 STARTERSPATH="/root/starters"
@@ -230,7 +231,7 @@ cp -Rf "${STARTERSPATH}/clamspam/"* ${VARDIR}/spool/clamspam/
 cp -f "${STARTERSPATH}/wordlist.db" ${VARDIR}/spool/bogofilter/database/
 cp -f "${STARTERSPATH}/bayes_toks" ${VARDIR}/spool/spamassassin/
 cp -f "${STARTERSPATH}/others/issue" /etc/issue
-cp -f "${STARTERSPATH}/magic.mgc" /opt/file/share/misc/magic.mgc 
+cp -f "${STARTERSPATH}/magic.mgc" /opt/file/share/misc/magic.mgc
 
 ${SRCDIR}/etc/init.d/mailcleaner start
 
