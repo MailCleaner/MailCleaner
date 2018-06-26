@@ -10,11 +10,11 @@
 ### END INIT INFO
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "SRCDIR" = "" ]; then
+if [ "$SRCDIR" = "" ]; then
   SRCDIR=/opt/mailcleaner
 fi
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "VARDIR" = "" ]; then
+if [ "$VARDIR" = "" ]; then
   VARDIR=/var/mailcleaner
 fi
 ISMASTER=`grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3`
@@ -39,6 +39,31 @@ INITDIR=$SRCDIR/etc/init.d
 
 test -x $DAEMON || exit 0
 
+FIRSTUPDATE_LOG="${VARDIR}/log/mailcleaner/first-start.log"
+FIRSTUPDATE_FLAG_DIR="${VARDIR}/run/configurator"
+FIRSTUPDATE_FLAG_RAN="${FIRSTUPDATE_FLAG_DIR}/updater4mc-ran"
+FIRSTUPDATE_FLAG_RUNNING="${FIRSTUPDATE_FLAG_DIR}/updater4mc-running"
+
+if [ ! -f "${FIRSTUPDATE_FLAG_RAN}" ]; then
+  if [ ! -f "${FIRSTUPDATE_FLAG_RUNNING}" ]; then
+    echo "Needs update" >> ${FIRSTUPDATE_LOG}
+    ping -c 1 cvs.mailcleaner.net > /dev/null
+    net_status=$?
+    if [ ${net_status} -eq 0 ]; then
+      touch ${FIRSTUPDATE_FLAG_RUNNING}
+      echo "Updating..." >> ${FIRSTUPDATE_LOG}
+      mkdir -p ${FIRSTUPDATE_FLAG_DIR}
+      /root/Updater4MC/updater4mc.sh || rm -f ${FIRSTUPDATE_FLAG_RUNNING}  # If error during upgrade, it will try again every time
+      touch ${FIRSTUPDATE_FLAG_RAN}
+      echo "Finished update" >> ${FIRSTUPDATE_LOG}
+      rm -f ${FIRSTUPDATE_FLAG_RUNNING}
+    else
+      echo "WARNING: MailCleaner has not been updated on first launch." >> ${FIRSTUPDATE_LOG}
+      echo "Ensure you have a running connection and restart MailCleaner." >> ${FIRSTUPDATE_LOG}
+    fi
+  fi
+fi
+
 case "$1" in
   start)
     echo "Starting $NAME: "
@@ -61,7 +86,7 @@ case "$1" in
       ln -s /usr/$i /opt/$i >/dev/null 2>&1
      fi
     done
-    if [ ! -d /opt/aoache2 ]; then
+    if [ ! -d /opt/apache2 ]; then
       ln -s /usr/apache /opt/apache2 >/dev/null 2>&1
     fi
 
@@ -103,7 +128,7 @@ case "$1" in
 	sleep 4
 	$0 start
     ;;
-    
+
   *)
     echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
     exit 1

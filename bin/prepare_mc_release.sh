@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
@@ -35,8 +34,7 @@
 
 
 PROGNAME='prepare_mc_release'
-VERSION='0.6'
-
+VERSION='0.8'
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "$VARDIR" = "" ]; then
@@ -44,7 +42,7 @@ if [ "$VARDIR" = "" ]; then
 fi
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "$SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+  SRCDIR=/usr/mailcleaner
 fi
 
 function cdel {
@@ -75,35 +73,35 @@ modeDev=true
 
 while getopts ":hd:i:t:r:m:" option
 do
-  case $option in
-    h)
-	usage
-	exit 0
-	;;
-    d)
-	patchDate=$OPTARG
-	;;
-    i)
-	patchID=$OPTARG
-	;;
-    t)
-	patchTime=$OPTARG
-	;;
-    r)
-	reason=$OPTARG	
-	;;
-    m)
-	modeDev=$OPTARG
-	;;
-    :)
-	echo "L'option $OPTARG requiert un argument"
-	exit 1
-	;;
-    ?)
-	echo "$OPTARG : option invalide"
-	exit 1
-	;;
-  esac
+    case $option in
+        h)
+            usage
+            exit 0
+            ;;
+        d)
+            patchDate=$OPTARG
+            ;;
+        i)
+            patchID=$OPTARG
+            ;;
+        t)
+            patchTime=$OPTARG
+            ;;
+        r)
+            reason=$OPTARG
+            ;;
+        m)
+            modeDev=$OPTARG
+            ;;
+        :)
+            echo "L'option $OPTARG requiert un argument"
+            exit 1
+            ;;
+        ?)
+            echo "$OPTARG : option invalide"
+            exit 1
+            ;;
+    esac
 done
 
 shift $((OPTIND-1))
@@ -126,35 +124,41 @@ fi
 echo "Beginning..."
 service cron stop
 
-echo Updating date
-ntpdate 0.debian.pool.ntp.org
+echo "Removing flag files and launching Updater4MC..."
+cdel -rf ${VARDIR}/spool/updater
+/root/Updater4MC/updater4mc.sh
 
-echo Registrating MailCleaner
+echo "Updating date"
+service ntp stop
+ntpd -gq
+service ntp start
+
+echo "Setting crontab"
+crontab - <<EOF
+0,15,30,45 * * * *  /usr/mailcleaner/scripts/cron/mailcleaner_cron.pl &> /dev/null
+0-59/5 * * * * /usr/mailcleaner/bin/collect_rrd_stats.pl &> /dev/null
+30 0 * * * /usr/mailcleaner/bin/mc_wrapper_auto-counts-cleaner
+0-59/10 * * * * /usr/mailcleaner/bin/watchdog/watchdogs.pl dix
+0 6,13,20 * * * /usr/mailcleaner/bin/watchdog/watchdogs.pl oneday
+0-59/15 * * * * /usr/mailcleaner/bin/watchdog/watchdogs_report.sh
+30 2 * * * /root/Updater4MC/updater4mc.sh &> /dev/null
+EOF
+
+echo "Registrating MailCleaner"
 echo "Using values: $resellerID $resellerPwd $clientID"
 ${SRCDIR}/bin/register_mailcleaner.sh "$resellerID" "$resellerPwd" "$clientID" -b
-
-echo Dump of ClamAV config and update of ClamAV antivirus files
-${SRCDIR}/bin/dump_clamav_config.pl
-/opt/clamav/bin/freshclam --user=clamav --config-file=/usr/mailcleaner/etc/clamav/freshclam.conf
-
-STARTERSPATH="/root/starters"
 
 echo Stop MailCleaner
 ${SRCDIR}/etc/init.d/mailcleaner stop
 
+echo Dump of ClamAV config and update of ClamAV antivirus files
+${SRCDIR}/bin/dump_clamav_config.pl
+/opt/clamav/bin/freshclam --user=clamav --config-file=${SRCDIR}/etc/clamav/freshclam.conf
+
+STARTERSPATH="/root/starters"
+
 echo Remove know_hosts
 rm -f ~/.ssh/known_hosts
-
-echo Delete MC SRCDIR and recreate it from last version
-cdel -rf "$SRCDIR"
-if [ ! -d "$SRCDIR" ]; then
-    cd /usr
-    git clone https://github.com/MailCleaner/MailCleaner.git mailcleaner
-fi
-
-cd
-
-${SRCDIR}/etc/init.d/mailcleaner start
 
 cdel -rf $STARTERSPATH
 [ ! -d "$STARTERSPATH" ] && mkdir $STARTERSPATH
@@ -163,28 +167,36 @@ cdel -rf $STARTERSPATH
 
 randomize=false;
 
+echo Waiting for teams sycnhronization
+sleep 2m
+
 echo Update ClamAV starters files
 [ ! -d "${STARTERSPATH}/clamd" ] && mkdir "${STARTERSPATH}/clamd"
 cp -f "${VARDIR}/spool/clamav/"{bytecode.c[vl]d,daily.c[vl]d,main.c[vl]d} "${STARTERSPATH}/clamd/"
 downloadDatas "${STARTERSPATH}/clamd/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/clamd/dbs.md5"
+sleep 5s
 
 echo Update ClamSpam starters files
 [ ! -d "$STARTERSPATH/clamspam" ] && mkdir "${STARTERSPATH}/clamspam"
 downloadDatas "${STARTERSPATH}/clamspam/" "clamspam3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/clamspam/dbs.md5"
+sleep 5s
 
 echo Update Nicebayes starters files
 downloadDatas "${STARTERSPATH}/" "bayes_bogo" $randomize "mailcleaner" "\|clamd\|clamspam\|wordlist.db\|bayes_toks\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/dbs.md5"
+sleep 5s
 
 echo Update Spamassassin bayesian starters files
 downloadDatas "${STARTERSPATH}/" "bayes_packs" $randomize "mailcleaner" "\|clamd\|clamspam\|wordlist.db\|bayes_toks\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/dbs.md5"
+sleep 5s
 
 echo Update magic.mgc starters files
 downloadDatas "${STARTERSPATH}/" "magic" $randomize "" "\|clamd\|clamspam\|wordlist.db\|bayes_toks\|others\|magic.mgc" noexit
 cdel -f "${STARTERSPATH}/dbs.md5"
+sleep 5s
 
 echo Other Data download
 [ ! -d "$STARTERSPATH/others" ] && mkdir "${STARTERSPATH}/others"
@@ -200,13 +212,13 @@ wget --user=ftp --password=ftp ftp://ftp.rs.internic.net/domain/db.cache -O /etc
 
 echo Delete or replace DevMode Tag in specified files
 [ "$devMode" == "false" ] && sed -i "s/#\[DEVMODEDEL\]//g" "$SRCDIR/bin/unregister_mailcleaner.sh"
+
+echo Unregistering MailCleaner
+${SRCDIR}/etc/init.d/mailcleaner start
 ${SRCDIR}/bin/unregister_mailcleaner.sh --no-rsp -b
 
-echo Stop MailCleaner
-${SRCDIR}/etc/init.d/mailcleaner stop
-
 echo Delete Configurator step files
-cdel -f "${VARDIR}/run/configurator/"{adminpass,baseurl,dbpass,hostid,identify,rootpass}
+cdel -f "${VARDIR}/run/configurator/"{adminpass,baseurl,dbpass,hostid,identify,rootpass,updater4mc-ran}
 [ ! -d "${VARDIR}/run/configurator" ] && mkdir "${VARDIR}/run/configurator"
 chown mailcleaner:mailcleaner "${VARDIR}/run/configurator"
 touch "${VARDIR}/run/configurator/welcome"
@@ -218,11 +230,8 @@ echo Delete all useless dirs and files of /root
 find /root -mindepth 1 -maxdepth 1 \( -path /root/.ssh -o -path /root/.profile -o -path /root/.pyzor -o -path /root/starters -o -path /root/Updater4MC \) -prune -o -print | while read dirdata; do cdel -rf "$dirdata"; done
 
 echo Enable installer.pl redirection
-echo 'if ! [ -f "/var/mailcleaner/spool/mailcleaner/firstcmdlogin" ]; then /usr/mailcleaner/scripts/installer/installer.pl; touch "/var/mailcleaner/spool/mailcleaner/firstcmdlogin"; fi' > ~/.bashrc
-rm -f /var/mailcleaner/spool/mailcleaner/firstcmdlogin
-
-echo Enable updater4mc wrapper on eth up by removing flag
-rm -f /var/run/updater4mc-ran
+echo "if ! [ -f \"${VARDIR}/spool/mailcleaner/firstcmdlogin\" ]; then ${SRCDIR}/scripts/installer/installer.pl; touch \"${VARDIR}/spool/mailcleaner/firstcmdlogin\"; fi" > ~/.bashrc
+rm -f ${VARDIR}/spool/mailcleaner/firstcmdlogin
 
 # Others data installation goes here ->
 cp -Rf "${STARTERSPATH}/clamd/"* ${VARDIR}/spool/clamav/
@@ -230,9 +239,7 @@ cp -Rf "${STARTERSPATH}/clamspam/"* ${VARDIR}/spool/clamspam/
 cp -f "${STARTERSPATH}/wordlist.db" ${VARDIR}/spool/bogofilter/database/
 cp -f "${STARTERSPATH}/bayes_toks" ${VARDIR}/spool/spamassassin/
 cp -f "${STARTERSPATH}/others/issue" /etc/issue
-cp -f "${STARTERSPATH}/magic.mgc" /opt/file/share/misc/magic.mgc 
-
-${SRCDIR}/etc/init.d/mailcleaner start
+cp -f "${STARTERSPATH}/magic.mgc" /opt/file/share/misc/magic.mgc
 
 echo Create file for backup IF 192.168.1.42
 echo -e 'auto eth0:0\nallow-hotplug eth0:0\niface eth0:0 inet static\n\taddress 192.168.1.42\n\tnetmask 255.255.255.0\n' > /etc/network/interfaces.d/configif.conf
@@ -248,15 +255,15 @@ echo Insert Version in DB
 echo "DELETE FROM update_patch WHERE id='${patchID}';" |${SRCDIR}/bin/mc_mysql -s mc_config
 echo "INSERT INTO update_patch VALUES ('${patchID}', '${patchDate}', '${patchTime}', 'OK', '${reason}');" |${SRCDIR}/bin/mc_mysql -s mc_config
 
-sleep 10s
+echo "Reset MySQL Binary logs"
+echo 'STOP SLAVE' |/opt/mysql5/bin/mysql --socket ${VARDIR}/run/mysql_slave/mysqld.sock -uroot -p"$dbPassword"
+echo 'RESET SLAVE' |/opt/mysql5/bin/mysql --socket ${VARDIR}/run/mysql_slave/mysqld.sock -uroot -p"$dbPassword"
+echo 'RESET MASTER' |/opt/mysql5/bin/mysql --socket ${VARDIR}/run/mysql_master/mysqld.sock -uroot -p"$dbPassword"
+echo 'START SLAVE' |/opt/mysql5/bin/mysql --socket ${VARDIR}/run/mysql_slave/mysqld.sock -uroot -p"$dbPassword"
 
-echo Delete all possible MySQL bin logs
-echo "FLUSH LOGS;" |/opt/mysql5/bin/mysql -uroot -p"$dbPassword" --socket=${VARDIR}/run/mysql_master/mysqld.sock
-echo "PURGE BINARY LOGS BEFORE NOW();" |/opt/mysql5/bin/mysql -uroot -p"$dbPassword" --socket=${VARDIR}/run/mysql_master/mysqld.sock
-sleep 5s
-echo Delete old not aligned binary logs
-ls -1 ${VARDIR}/log/mysql_master/mysql_bin.[0-9]* | sort ${VARDIR}/log/mysql_master/mysql_bin.index ${VARDIR}/log/mysql_master/mysql_bin.index - |uniq -u |xargs rm -f
+${SRCDIR}/etc/init.d/mailcleaner stop
 
+sleep 1s
 echo "Delete messages in queues"
 /opt/exim4/bin/exiqgrep -C ${SRCDIR}/etc/exim/exim_stage1.conf -i |xargs /opt/exim4/bin/exim -Mrm
 /opt/exim4/bin/exiqgrep -C ${SRCDIR}/etc/exim/exim_stage2.conf -i |xargs /opt/exim4/bin/exim -Mrm
@@ -267,12 +274,6 @@ cdel -f ${VARDIR}/spool/watchdog/watchdogs*
 cdel -f ${VARDIR}/spool/watchdog/reports/*
 cdel -f ${VARDIR}/spool/watchdog/reports.wrk/*
 
-
-${SRCDIR}/etc/init.d/mailcleaner stop
-
-# CleanUp in MC SRCDIR
-# Things to do to add !
-
 apt-get clean
 
 echo Delete Others data files not useful anymore
@@ -281,18 +282,11 @@ cdel -rf "${STARTERSPATH}/others"
 echo Delete MC logs
 cdel -rf "${VARDIR}/log/"{apache,clamav,exim_stage1,exim_stage2,exim_stage4,mailcleaner,mailscanner,mysql_slave}"/*"
 cdel -rf "${VARDIR}/log/mysql_master/*.log*"
+cdel -rf "/root/Updater4MC/*.log"
 
 echo Delete old system logs and Empty recent logs files
 find /var/log/ -type f -name "*.*gz" | while read logdata; do cdel -f "$logdata"; done
 [ "$devMode" == "false" ] && find /var/log/ -type f -exec truncate -s0 {} \;
 
-echo Shrink VM
-[ "$devMode" == "false" ] && time dd if=/dev/zero of=/tmp/spaceuseless
-rm -f /tmp/spaceuseless
-[ "$devMode" == "false" ] && fstrim -av
-
 echo Delete History files
 cdel -f "/root/"{.bash_history,.nano_history,.mysql_history}
-
-service cron start
-echo 'End of preparation, please exit with : history -c && unset $HIST_FILE && exit'
