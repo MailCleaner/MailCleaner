@@ -226,6 +226,7 @@ $txt['SUMMHTML']                = "html";
 $txt['SUMMTEXT']                = "plain text";
 $txt['EDITWHITELIST']           = "edit white list"; //old
 $txt['EDITWARNLIST']            = "edit warn list"; //old
+$txt['EDITNEWSLIST']            = "edit news list"; //old
 
 /*
  * wwlist management
@@ -239,6 +240,7 @@ $txt['WWENTRY']                 = "Entry"; //old
 $txt['CONFIRMWWENTRYDELETE']    = "Are you sure you want to permanently delete this entry?"; //old
 $txt['WHITELISTFOR']            = "White list for __PARAM__"; //old
 $txt['WARNLISTFOR']             = "Warn list for __PARAM__"; //old
+$txt['NEWSLISTFOR']             = "News list for __PARAM__"; //old
 $txt['STATUS']                  = "Status"; //old
 
 /*
@@ -355,6 +357,7 @@ $txt['QUARPARAMTOPIC']          = "Quarantine display";
 $txt['WARNLISTTOPIC']           = "Warn list";
 $txt['WHITELISTTOPIC']          = "White list";
 $txt['BLACKLISTTOPIC']          = "Black list";
+$txt['NEWSLISTTOPIC']           = "News list";
 $txt['INTERFACETOPICTITLE']     = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE']   = "address group";
 $txt['ADDRESSPARAMTOPICTITLE']  = "address settings";
@@ -362,6 +365,7 @@ $txt['QUARPARAMTOPICTITLE']     = "quarantine display";
 $txt['WARNLISTTOPICTITLE']      = "warn list";
 $txt['WHITELISTTOPICTITLE']     = "white list";
 $txt['BLACKLISTTOPICTITLE']     = "black list";
+$txt['NEWSLISTTOPICTITLE']      = "news list";
 
 /*
  * interface (new)
@@ -438,6 +442,9 @@ $txt['WHITELISTSHORTHELP']      = "The white list contains trusted sender addres
 $txt['BLACKLISTSHORTHELP']      = "The black list contains blacklisted sender address..
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
 ";
+$txt['NEWSLISTSHORTHELP']       = "The newsletters list contains addresses of desired newsletters.<br />
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletters list usage.
+";
 $txt['WHITELISTFORADDRESS']     = "White list for the address";
 $txt['ADDAWHITEENTRY']          = "Add an address to the list";
 $txt['WHITELISTENTRYTOADD']     = "Enter the address you want to add to the white list. You can also add an optional comment.";
@@ -448,6 +455,10 @@ $txt['ADDABLACKENTRY']          = "Add an address to the list";
 $txt['BLACKLISTENTRYTOADD']     = "Enter the address you want to add to the black list. You can also add an optional comment.";
 $txt['REMOVEABLACKENTRYSHORTHELP']  = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 
+$txt['NEWSLISTFORADDRESS']     = "Newsletter list for the address";
+$txt['ADDANEWSENTRY']          = "Add an address to the list";
+$txt['NEWSLISTENTRYTOADD']     = "Enter the address you want to add to the newsletters list. You can also add an optional comment.";
+$txt['REMOVEANEWSENTRYSHORTHELP']  = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 
 $txt['RECORDALREADYEXISTS']     = "This address is already present in the list.";
 

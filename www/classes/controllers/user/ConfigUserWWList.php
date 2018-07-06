@@ -30,6 +30,9 @@ class ConfigUserWWList {
     if ($_GET['t'] && $_GET['t'] == 'black') {
        $this->type_ = 'black';
     }
+    if ($_GET['t'] && $_GET['t'] == 'wnews') {
+       $this->type_ = 'wnews';
+    }
 
     $this->selform_ = new Form('selectadd', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
  	$this->addform_ = new Form('add', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
@@ -132,6 +135,11 @@ class ConfigUserWWList {
         $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
    } 
    else if ($antispam_->getPref('enable_blacklists') && $user_->getDomain()->getPref('enable_blacklists'))  {
+        $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
+        $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
+        $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
+   }
+   else if ($this->type_ == "wnews")  {
         $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
         $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
         $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');

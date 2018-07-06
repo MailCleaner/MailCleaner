@@ -17,6 +17,9 @@
     function openBlack() {
         window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
     }
+    function openNews() {
+        window.document.open('__LINK_EDITNEWSLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+    }
 
     function disableRow(row) {
       classtype = "infoBoxContentDisabled";
@@ -73,6 +76,10 @@ __FORM_BEGIN_GLOBAL__
   <tr class="infoBoxContent">
      <td width="50%" align="right">__LANG_ENABLEWARNLIST__:&nbsp;</td>
      <td width="50%" align="left">__FORM_INPUTENABLEWARNLIST__&nbsp;&nbsp;&nbsp;<a href="javascript:openWarn();">__LANG_EDITSYSTEMWARNLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
+  </tr>
+  <tr class="infoBoxContent">
+     <td width="50%" align="right">Newslist:&nbsp;</td>
+     <td width="50%" align="left">Newslist&nbsp;&nbsp;&nbsp;<a href="javascript:openNews();">News&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
   </tr>
   <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
   <tr class="infoBoxContent">

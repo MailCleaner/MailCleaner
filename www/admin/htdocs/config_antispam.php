@@ -115,6 +115,7 @@ $replace = array(
         "__LINK_EDITWHITELIST__" => "wwlist.php?t=1&a=0",
         "__LINK_EDITWARNLIST__" => "wwlist.php?t=2&a=0",
         "__LINK_EDITBLACKLIST__" => "wwlist.php?t=3&a=0",
+        "__LINK_EDITNEWSLIST__" => "wwlist.php?t=4&a=0",
         "__LINK_EDITPREFILTER__" => "edit_prefilter.php?pf=",
         
         "__FORM_BEGIN_MODULES__" => $mform->open(),

@@ -47,6 +47,7 @@ if ($antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('en
 
 $topics['white'] = array('WHITELISTTOPIC', 'conf_whitelist.tmpl', 'ConfigUserWWList');
 $topics['black'] = array('BLACKLISTTOPIC', 'conf_blacklist.tmpl', 'ConfigUserWWList');
+$topics['wnews'] = array('NEWSLISTTOPIC', 'conf_newslist.tmpl', 'ConfigUserWWList');
 
 
 $topic = 'int';

@@ -16,17 +16,19 @@ class Default_Form_DomainFiltering extends Zend_Form
         public $_whitelist;
         public $_warnlist;
 	public $_blacklist;
+        public $_newslist;
 
         public $_whitelistenabled = 0;
         public $_warnlistenabled = 0;
 	public $_blacklistenabled = 0;
 	
-	public function __construct($domain, $whitelist, $warnlist, $blacklist)
+	public function __construct($domain, $whitelist, $warnlist, $blacklist, $newslist)
 	{
 	    $this->_domain = $domain;
             $this->_whitelist = $whitelist;
             $this->_warnlist = $warnlist;
 	    $this->_blacklist = $blacklist;
+            $this->_newslist = $newslist;
 	    parent::__construct();
 	}
 	
@@ -187,6 +189,11 @@ class Default_Form_DomainFiltering extends Zend_Form
                 $this->_warnlistform->setAddedValues(array('recipient' => '@'.$this->_domain->getParam('name'), 'type' => 'warn'));
                 $this->_warnlistform->addFields($this);
 	    
+            $this->_newslistform = new Default_Form_ElementList($this->_newslist, 'Default_Model_WWElement', 'newslist_');
+                $this->_newslistform->init();
+                $this->_newslistform->setAddedValues(array('recipient' => '@'.$this->_domain->getParam('name'), 'type' => 'wnews'));
+                $this->_newslistform->addFields($this);
+
 		$submit = new Zend_Form_Element_Submit('submit', array(
 		     'label'    => $t->_('Submit')));
 		$this->addElement($submit);
@@ -204,6 +211,8 @@ class Default_Form_DomainFiltering extends Zend_Form
         $this->_warnlistform->addFields($this);
         $this->_blacklistform->manageRequest($request);
         $this->_blacklistform->addFields($this);
+        $this->_newslistform->manageRequest($request);
+        $this->_newslistform->addFields($this);
 
     	$domain->setPref('viruswall', $domain->getPref('contentwall'));
     	$domain->setParam('greylist', $request->getParam('greylist'));
