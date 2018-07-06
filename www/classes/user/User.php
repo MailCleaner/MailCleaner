@@ -47,6 +47,7 @@ class User extends PrefHandler {
                        'gui_graph_type' => 'bar',
                        'gui_group_quarantines' => '0',
                        'summary_to' => '',
+                       'summary_type' => 'NOTSET',
                        'allow_newsletters' => '',
         	          );	
                       
