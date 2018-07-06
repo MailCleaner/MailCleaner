@@ -12,7 +12,7 @@
 require_once("config/ExternalAccessRule.php");
 
 /**
- * this class takes care of the external acces rules used to configure the firewall
+ * this class takes care of the external access rules used to configure the firewall
  */
 class ExternalAccess
 {

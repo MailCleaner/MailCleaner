@@ -80,7 +80,7 @@ private function getScanner($scanner_name) {
 }
 
 /**
- * load antivorus datas and scanners list
+ * load antivirus datas and scanners list
  * @return  boolean true on success, false on failure
  */
 public function load() {
@@ -140,7 +140,7 @@ public function save() {
 /**
  * return the html string for the scanners configuration bloc
  * @param  $t  string  html template of each scanner line
- * @param  $f  Form    html formular containing the scanner list
+ * @param  $f  Form    html form containing the scanner list
  * @return     string  html list
  */
 public function drawScanners($t, $f) {

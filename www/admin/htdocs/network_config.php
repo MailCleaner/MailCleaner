@@ -35,7 +35,7 @@ $netconf->load();
 $httpd = new HTTPDConfig();
 $httpd->load();
 
-// create network formular
+// create network form
 $nform = new Form('network', 'post', "network_config.php");
 $nposted = $nform->getResult();
 // save network configuration or redirect

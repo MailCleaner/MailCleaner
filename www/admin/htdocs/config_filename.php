@@ -46,7 +46,7 @@ if (isset($_GET['m']) && $_GET['m'] == 'd') {
   }
 }
 
-// create new entry formular
+// create new entry form
 $nform = new Form('new', 'post', $_SERVER['PHP_SELF']);
 $nposted = $nform->getResult();
 // save new entry (add)
@@ -66,7 +66,7 @@ if ($nform->shouldSave()) {
   }
 }
 
-// create entry edition formular
+// create entry edition form
 $eform = new Form('edit', 'post', $_SERVER['PHP_SELF']);
 $eposted = $eform->getResult();
 // save edited entry

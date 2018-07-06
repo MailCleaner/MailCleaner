@@ -32,7 +32,7 @@ $antivirus_ = new AntiVirus();
 $antivirus_->load();
 
 $save_msg = "";
-// create scanners formular
+// create scanners form
 $sform = new Form('scanners', 'post', $_SERVER['PHP_SELF']);
 $sposted = $sform->getResult();
 // save settings
@@ -52,7 +52,7 @@ if ($sform->shouldSave()) {
   }
 }
 
-// create main settings formular
+// create main settings form
 $cform = new Form('settings', 'post', $_SERVER['PHP_SELF']);
 $cposted = $cform->getResult();
 // save settings

@@ -11,7 +11,7 @@ score	RCVD_IN_UCEPROTECT3	0.5
 # IX MANITU
 score	RCVD_IN_NIX_SPAM	2.0
 
-# BARRACUDA (BRBL) : Free subscribtion needed - FB
+# BARRACUDA (BRBL) : Free subscription needed - FB
 score RCVD_IN_BRBL_LASTEXT	       2.0
 
 # SORBS : Free until 5 request per second or more than 100000 users - zone transfer available (paid???) - FB

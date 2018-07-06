@@ -35,7 +35,7 @@ if (isset($_GET['pf']) && $_GET['pf'] != "" && is_numeric($_GET['pf'])) {
   $pfid = $_GET['pf'];
 }
 
-// create edit formular
+// create edit form
 $cform = new Form('config', 'post', $_SERVER['PHP_SELF']);
 $cposted = $cform->getResult();
 if (isset($cposted['id']) && is_numeric($cposted['id'])) {

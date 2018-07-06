@@ -69,7 +69,7 @@
         }
       }
 
-     /* Check for missing values and all the fake positive serie */
+     /* Check for missing values and all the fake positive series */
      if ( $NewPositiveSerie != "" )
       {
        for ($i=0; $i<$MaxValues; $i++) { if (!isset($NewPositiveSerie[$i])) { $NewPositiveSerie[$i] = $LastPositive; } }
@@ -77,7 +77,7 @@
        $this->pDataObject->addPoints($NewPositiveSerie,"BubbleFakePositiveSerie");
       }
 
-     /* Check for missing values and all the fake negative serie */
+     /* Check for missing values and all the fake negative series */
      if ( $NewNegativeSerie != "" )
       {
        for ($i=0; $i<$MaxValues; $i++) { if (!isset($NewNegativeSerie[$i])) { $NewNegativeSerie[$i] = $LastNegative; } }

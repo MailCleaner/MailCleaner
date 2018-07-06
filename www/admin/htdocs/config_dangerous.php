@@ -32,7 +32,7 @@ $dangerous_ = new DangerousContent();
 $dangerous_->load();
 
 $save_msg = "";
-// create main formular
+// create main form
 $dform = new Form('dangerous', 'post', $_SERVER['PHP_SELF']);
 $dposted = $dform->getResult();
 // save settings

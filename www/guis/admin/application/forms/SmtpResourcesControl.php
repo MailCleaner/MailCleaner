@@ -86,7 +86,7 @@ class Default_Form_SmtpResourcesControl extends ZendX_JQuery_Form
         $this->addElement($reserveconn);
 
         $rcptmaxpercon = new  Zend_Form_Element_Text('smtp_accept_max_per_connection', array(
-                'label'    => $t->_('Maxium messages per connection')." :",
+                'label'    => $t->_('Maximum messages per connection')." :",
                 'required' => false,
                 'size' => 6,
                 'class' => 'max_conn_field',

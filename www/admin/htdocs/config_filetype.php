@@ -35,7 +35,7 @@ if (isset($_GET['s']) and is_numeric($_GET['s'])) {
   $list_->setSelected($_GET['s']);
 }
 
-// create entry edition formular
+// create entry edition form
 $eform = new Form('edit', 'post', $_SERVER['PHP_SELF']);
 $eposted = $eform->getResult();
 // save edited entry

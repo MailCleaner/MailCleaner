@@ -71,7 +71,7 @@ class EmailList extends ListManager
    */
   private function doRegisteredEmails() {
     global $log_;
-    $log_->log('-- BEGIN searchin local email list: ('.$this->s_local_part_.",".$this->s_domain_part_.")", PEAR_LOG_INFO);
+    $log_->log('-- BEGIN searching local email list: ('.$this->s_local_part_.",".$this->s_domain_part_.")", PEAR_LOG_INFO);
     global $sysconf_;
 
     $db_slaveconf = DM_SlaveConfig :: getInstance();
@@ -83,7 +83,7 @@ class EmailList extends ListManager
       $email = strtolower($email);
       $this->setElement($email, $email);
     }
-    $log_->log('-- END searchin local email list: ('.$this->s_local_part_.",".$this->s_domain_part_.")", PEAR_LOG_INFO);
+    $log_->log('-- END searching local email list: ('.$this->s_local_part_.",".$this->s_domain_part_.")", PEAR_LOG_INFO);
     return true;
   }
 }

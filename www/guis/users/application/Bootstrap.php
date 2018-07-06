@@ -71,7 +71,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             header("Location: ".$location);
             exit;
             */
-            // die('Authentification required');
+            // die('Authentication required');
         } else {
             /*
             $session = unserialize($_SESSION['user']);

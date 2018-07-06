@@ -70,7 +70,7 @@ function format_report($r) {
 /**
  * format headers
  * @param  $h string headers text
- * @return    string formatter headers text
+ * @return    string formatted headers text
  */
 function format_headers($h) {
   $h = preg_replace('/([A-Z]\S+):/','<br/><b>$1</b>:', $h);

@@ -318,7 +318,7 @@ sub dataRead {
 
 ####### StatsDaemon functions
 
-## stats data managment
+## stats data management
 
 sub createElement {
 	my $this    = shift;
@@ -710,7 +710,7 @@ sub getCurrentDate {
 sub isChangingDay {
 	return $changing_day_;
 }
-####### Internal stats managment
+####### Internal stats management
 sub addStat {
     my $this   = shift;
     my $what   = shift;

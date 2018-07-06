@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controler for the remove addres page
+ * This is the controller for the remove address page
  */
  
 /**

@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * Email managment form
+ * Email management form
  */
 
 class Default_Form_Manage_EmailArchiving extends Zend_Form

@@ -12,7 +12,7 @@
  require_once('helpers/PrefHandler.php');
 
 /**
- * This class contains DNS lists informations
+ * This class contains DNS lists information
  */
 class DNSList extends PrefHandler {
 

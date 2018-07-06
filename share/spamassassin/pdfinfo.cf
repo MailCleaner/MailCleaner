@@ -27,7 +27,7 @@
 #   0.6 - added easypdf producer rule and more no body text metas
 #       - tags support added, see USING TAGS below.
 #   0.5 - added fuzzy test 7
-#   0.4 - added new fuzzy for encyprted pdf image spams.
+#   0.4 - added new fuzzy for encrypted pdf image spams.
 #       - added rule to check for encryption
 #   0.3 - added rules based on the new pdf_match_details() function
 #       - added additional fuzzy md5 rules 
@@ -44,7 +44,7 @@
 #
 # _PDFCOUNT_	- total number of pdf mime parts in the email
 # _PDFIMGCOUNT_	- total number of images found inside pdf mime parts
-# _PDFVERSION_ 	- PDF Version, space seperated if there are > 1 pdf attachments
+# _PDFVERSION_ 	- PDF Version, space separated if there are > 1 pdf attachments
 # _PDFNAME_     - Filenames as found in the mime headers of PDF parts
 # _PDFPRODUCER_ - Producer/Application that created the PDF(s)
 # _PDFAUTHOR_   - Author of the PDF
@@ -52,9 +52,9 @@
 # _PDFTITLE_    - Title of the PDF File, if available
 # _PDFIMGDIM_   - If PDF Contains images, the dimensions of them will be put here
 # _PDFIMGAREA_  - The total area of all combined images inside the PDF(s)
-# _PDFMD5_      - MD5 checksum of PDF(s) - space seperated
-# _PDFMD5FUZZY1_- Fuzzy1 MD5 checksum of PDF(s) - space seperated
-# _PDFMD5FUZZY2_- Fuzzy2 MD5 checksum of PDF(s) - space seperated
+# _PDFMD5_      - MD5 checksum of PDF(s) - space separated
+# _PDFMD5FUZZY1_- Fuzzy1 MD5 checksum of PDF(s) - space separated
+# _PDFMD5FUZZY2_- Fuzzy2 MD5 checksum of PDF(s) - space separated
 #
 # Example add_header lines
 #
@@ -84,13 +84,13 @@
 # rawbody       PDF_TO_HTML_RATIO       eval:pdf_image_to_text_ratio(0.000, 0.015)
 # body          PDF_TO_TEXT_RATIO       eval:pdf_image_to_text_ratio(0.000, 0.008)
 
-# you can do minimum demension matches
+# you can do minimum dimension matches
 # body          PDF_SIZE_RANGE_1        eval:pdf_image_size_range(300,300)
 
-# you can do ranged demension matches
+# you can do ranged dimension matches
 # body          PDF_SIZE_RANGE_2        eval:pdf_image_size_range(200, 300, 250, 350)
 
-# you can count the number of pdf mime partts
+# you can count the number of pdf mime parts
 # body          PDF_MIME_COUNT_1        eval:pdf_count(1,1)
 # body          PDF_MIME_COUNT_2_PLUS   eval:pdf_count(2)
 

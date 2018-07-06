@@ -111,14 +111,14 @@ class Default_Form_DomainAuthentication extends Zend_Form
 		
 		$testusername = new  Zend_Form_Element_Text('testusername', array(
 	        'label'    => $t->_('Test username')." :",
-                'title' => $t->_("Data used to ensure the choosen authentication type is working"),
+                'title' => $t->_("Data used to ensure the chosen authentication type is working"),
 		    'required' => false,
 		    'filters'    => array('StringTrim')));
 	    $this->addElement($testusername);
 	    
 	    $testpassword = new  Zend_Form_Element_Password('testpassword', array(
 	        'label'    => $t->_('Test password')." :",
-                'title' => $t->_("Data used to ensure the choosen authentication type is working"),
+                'title' => $t->_("Data used to ensure the chosen authentication type is working"),
 		    'required' => false
 		    ));
 	    $this->addElement($testpassword);

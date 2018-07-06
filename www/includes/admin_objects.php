@@ -27,7 +27,7 @@ global $log_;
 $log_->setIdent('admin');
 $sysconf_ = SystemConfig::getInstance();
 
-//check user is loged. Redirect if not    
+//check user is logged. Redirect if not    
 if (!isset($_SESSION['admin'])) {
   header("Location: login.php");
   exit;

@@ -480,7 +480,7 @@ sub getThreadID {
     return $t->tid;
 }
 
-##### Log managment
+##### Log management
 sub doLog {
     my $this      = shift;
     my $message   = shift;

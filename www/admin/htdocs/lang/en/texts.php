@@ -331,7 +331,7 @@ $txt['USEBOTNET']                   = "Use botnet detection";
 $txt['FRIENLDYLANGUAGES']           = "Friendly languages";
 $txt['TRUSTEDIPS']                  = "Trusted IPs/Networks";
 $txt['NETWORKCHECKS']               = "Network checks";
-$txt['USERBLS']                     = "Use Realtime Blocking lists";
+$txt['USERBLS']                     = "Use Real-time Blocking lists";
 $txt['RBLSLIST']                    = "RBLs";
 $txt['USERAZOR']                    = "Use Razor";
 $txt['USEPYZOR']                    = "Use Pyzor";
@@ -448,7 +448,7 @@ $txt['SNMPCOMMUNITY']               = "Community";
 $txt['SSHACCESS']                   = "SSH access";
 $txt['MAILACCESS']                  = "Mail access";
 $txt['WEBSERVICES']                 = "Web services";
-$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may loose connection in this windows.<br> Please close it and relog on the administration interface.</font>";
+$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may lose connection in this windows.<br> Please close it and login again at the administration interface.</font>";
 
 $txt['ENTERCONTENTID']              = "Content ID";
 $txt['OR']                          = "or";

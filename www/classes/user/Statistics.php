@@ -59,7 +59,7 @@ class Statistics {
    private $date_type_ = 'date';
   
 /**
- * constuctor
+ * constructor
  */
 public function __construct() {
   // set start and stop dates

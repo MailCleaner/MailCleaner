@@ -15,7 +15,7 @@ require_once("admin_objects.php");
 require_once("view/Template.php");
 require_once("system/Integrator.php");
 /**
- * session globalsy
+ * session globals
  */ 
 global $lang_;
 global $sysconf_;

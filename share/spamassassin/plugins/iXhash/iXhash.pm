@@ -133,7 +133,7 @@ sub ixhashtest {
 	# alarm the dns query - dallase@uribl.com
 	# --------------------------------------------------------------------------
 	# here we implement proper alarms, ala Pyzor, Razor2 plugins.
-	# keep the alarm as $oldalarm, so we dont loose the timeout-child alarm
+	# keep the alarm as $oldalarm, so we dont lose the timeout-child alarm
 	# see http://issues.apache.org/SpamAssassin/show_bug.cgi?id=3828#c123
 	my $oldalarm = 0;
 	my $timer = Mail::SpamAssassin::Timeout->new({ secs => $permsgstatus->{main}->{conf}->{'ixhash_timeout'}});

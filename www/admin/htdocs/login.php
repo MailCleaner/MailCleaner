@@ -22,7 +22,7 @@ $lang_ = Language :: getInstance('admin');
 
 // create login dialog
 $login_ = new AdminLoginDialog();
-// start authentification (redirected here if authentified)
+// start authentication (redirected here if authenticated)
 $login_->start();
 
 // create view

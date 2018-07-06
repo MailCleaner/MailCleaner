@@ -472,7 +472,7 @@ class Net_SMTP
                 return PEAR::raiseError('STARTTLS failed');
             }
 
-            /* Send EHLO again to recieve the AUTH string from the
+            /* Send EHLO again to receive the AUTH string from the
              * SMTP server. */
             $this->_negotiate();
         }
@@ -854,7 +854,7 @@ class Net_SMTP
         if (isset($this->_esmtp['SIZE']) && ($this->_esmtp['SIZE'] > 0)) {
             if (strlen($data) >= $this->_esmtp['SIZE']) {
                 $this->disconnect();
-                return PEAR::raiseError('Message size excedes the server limit');
+                return PEAR::raiseError('Message size exceeds the server limit');
             }
         }
 

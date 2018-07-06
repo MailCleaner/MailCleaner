@@ -114,7 +114,7 @@ public function save() {
 /**
  * get the html for the filename rule list table
  * @param  $t   string  html template to be used
- * @param  $f   string  html formular name
+ * @param  $f   string  html form name
  * @return      string  html table string
  */
 public function drawFilenames($t, $f) {
@@ -147,7 +147,7 @@ public function drawFilenames($t, $f) {
 
 /**
  * return the given string if element is selected
- * @param  $s   string   string to resppond if selected
+ * @param  $s   string   string to respond if selected
  * @param  $id  numeric  id of element to check
  * @return      string   string given id element to check is the selected element, "" if not
  */
@@ -160,7 +160,7 @@ private function if_selected($s, $id) {
 
 /**
  * return the given string if element is NOT selected
- * @param  $s   string   string to resppond if NOT selected
+ * @param  $s   string   string to respond if NOT selected
  * @param  $id  numeric  id of element to check
  * @return      string   string given id element to check is NOT the selected element, "" if not
  */
@@ -173,8 +173,8 @@ private function ifnot_selected($s, $id) {
     
 
 /**
- * get the formular beginning for the selected element
- * @param  $f  Form    html formular
+ * get the form beginning for the selected element
+ * @param  $f  Form    html form
  * @param  $id numeric id of the file name rule to be edited
  * @return     string  html string for the rule's row
  */
@@ -186,8 +186,8 @@ private function drawBeginEdit($f, $id) {
 }
 
 /**
- * get the formular ending for the selected element
- * @param  $f  Form    html formular
+ * get the form ending for the selected element
+ * @param  $f  Form    html form
  * @param  $id numeric id of the file name rule to be edited
  * @return     string  html string for the rule's row
  */
@@ -201,7 +201,7 @@ private function drawCloseEdit($f, $id) {
 /**
  * get a single row field, or text input if selected
  * @param  $field  string   field name to be edited
- * @param  $f      Form     html formular
+ * @param  $f      Form     html form
  * @param  $id     numeric  id of the rule
  * @param  $size   numeric  size of the input text field
  * @return         string   html string for the field 
@@ -215,7 +215,7 @@ private function drawField($field, $f, $id, $size) {
 
 /**
  * get the status html string of the rule
- * @param  $f  Form     html formular
+ * @param  $f  Form     html form
  * @param  $id numeric  id of the rule
  * @return     string   html string of the status
  * @todo  try to remove any html code from here...

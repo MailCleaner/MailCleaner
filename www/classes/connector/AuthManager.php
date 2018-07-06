@@ -21,7 +21,7 @@ require_once 'Log/observer.php';
 abstract class AuthManager {
     
   /**
-  * List of available authenticators with correspondig classes
+  * List of available authenticators with corresponding classes
   * @var array
   */
   static private $authenticators_ = array (
@@ -87,7 +87,7 @@ abstract class AuthManager {
  
  /**
   * set some default value once the Auth object is set up
-  * @return               bool   true on succes, false on failure
+  * @return               bool   true on success, false on failure
   */
  protected function setUpAuth() {
     $this->auth_->setExpire(0);
@@ -116,7 +116,7 @@ abstract class AuthManager {
   * password is passed via the $_POST['password']
   * this method may be overloaded in child class if we don't use the Auth class
   * @param $username    string  username to be used for authentication (formatted by LoginFormatter)
-  * @return             bool    true if user is succesfully authenticated, false otherwise  
+  * @return             bool    true if user is successfully authenticated, false otherwise  
   */
   public function doAuth($username) {
     if (!isset($this->auth_) || ! $this->auth_ instanceof Auth) {

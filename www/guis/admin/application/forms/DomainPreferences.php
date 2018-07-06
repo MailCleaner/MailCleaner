@@ -98,28 +98,28 @@ class Default_Form_DomainPreferences extends Zend_Form
         
         $spamtag = new  Zend_Form_Element_Text('spam_tag', array(
             'label'   => $t->_('Subject spam tag')." :",
-            'title' => $t->_("Tag added in the beginning of the subjet of a spam if you are in tag mode"),
+            'title' => $t->_("Tag added in the beginning of the subject of a spam if you are in tag mode"),
 		    'required' => false,));
 	    $spamtag->setValue($this->_domain->getPref('spam_tag'));
 	    $this->addElement($spamtag);
 	    
 	    $contenttag = new  Zend_Form_Element_Text('content_subject', array(
             'label'   => $t->_('Subject dangerous content tag')." :",
-            'title' => $t->_("Tag added in the beginning of the subjet of a email with dangerous content if you are in tag mode"),
+            'title' => $t->_("Tag added in the beginning of the subject of a email with dangerous content if you are in tag mode"),
 		    'required' => false,));
 	    $contenttag->setValue($this->_domain->getPref('content_subject'));
 	    $this->addElement($contenttag);
 	    
 	    $filetag = new  Zend_Form_Element_Text('file_subject', array(
             'label'   => $t->_('Subject dangerous file tag')." :",
-            'title' => $t->_("Tag added in the beginning of the subjet of a email containing a dangerous file if you are in tag mode"),
+            'title' => $t->_("Tag added in the beginning of the subject of a email containing a dangerous file if you are in tag mode"),
 		    'required' => false,));
 	    $filetag->setValue($this->_domain->getPref('file_subject'));
 	    $this->addElement($filetag);
 	    
 	    $virustag = new  Zend_Form_Element_Text('virus_subject', array(
             'label'   => $t->_('Subject virus tag')." :",
-            'title' => $t->_("Tag added in the beginning of the subjet of a email containing a virus if you are in tag mode"),
+            'title' => $t->_("Tag added in the beginning of the subject of a email containing a virus if you are in tag mode"),
 		    'required' => false,));
 	    $virustag->setValue($this->_domain->getPref('virus_subject'));
 	    $this->addElement($virustag);

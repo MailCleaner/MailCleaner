@@ -73,7 +73,7 @@ public function getPref($pref) {
 }
 
 /**
- * return the quarantin path to the message file
+ * return the quarantine path to the message file
  * @return  string  message path
  */
 public function getPathToFile() {
@@ -105,7 +105,7 @@ public function load($id) {
   $sysconf_ = SystemConfig::getInstance();
   $ret = "OK";
 
-  // forst some sanity checks
+  // first some sanity checks
   if (!preg_match('/^[a-zA-Z0-9]{6}-[a-zA-Z0-9]{6}-[a-zA-Z0-9]{2}$/', $id)) {
     return 'BADSEARCHID'; 
   }
@@ -148,7 +148,7 @@ public function load($id) {
 }
 
 /**
- * will force the quarantined message to be delivred with its full contents
+ * will force the quarantined message to be delivered with its full contents
  * @return   string  'OK' on success, error message on failure
  */
 public function force() {

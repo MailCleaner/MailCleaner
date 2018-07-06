@@ -26,7 +26,7 @@ class WWEntry extends PrefHandler {
                       );
          
 /**
- * test if thie entry should be edited
+ * test if the entry should be edited
  * @var bool
  */  
 private $setEdition_ = false;   
@@ -35,7 +35,7 @@ private $edit_formular_ = null;
 private $list_ = null;
                      
 /**
- * constuctor
+ * constructor
  */
 public function __construct() {
 }
@@ -108,7 +108,7 @@ public function getElementTemplate($template, $selected, $n) {
 }
 
 /**
- * save prefereneces
+ * save preferences
  * @return         string  string 'OKSAVED' if successfully updated, 'OKADDED' id successfully added, error message if neither
  */
 public function save() {
@@ -141,7 +141,7 @@ public function save() {
   /**
    * Delete the entry
    * Delete the entry instance in the database and the preferences associated
-   * @return         string 'OK' if successfull, error otherwise
+   * @return         string 'OK' if successful, error otherwise
    */
   public function delete() {
     global $sysconf_;

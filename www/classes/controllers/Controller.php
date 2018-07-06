@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the main controller class, instanciates specific controllers
+ * This is the main controller class, instantiates specific controllers
  */
  
 /** 

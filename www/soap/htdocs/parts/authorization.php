@@ -24,7 +24,7 @@ $soapsession_timeout = 60* 10;
  * @param  $username  string  username used fo the request
  * @param  $usertype  string  type of user request (admin or user)
  * @param  $hostname  string  host name of the requesting client host
- * @return            string  session id if successfull, error message otherwise
+ * @return            string  session id if successful, error message otherwise
  */
 function setAuthenticated($username, $usertype, $hostname) {
  global $soapsession_timeout;
@@ -103,7 +103,7 @@ function getAdmin($sid) {
     return "BADADMINNAME ($username)";
   }
   
-  // and finally instanciate the Administrator object
+  // and finally instantiate the Administrator object
   $admin = new Administrator();
   if (!$admin->load($username)) {
     return "CANNOTLOADADMIN ($username)";
@@ -112,7 +112,7 @@ function getAdmin($sid) {
 }
 
 /**
- * fetch the usernam of the administrator user of the session
+ * fetch the username of the administrator user of the session
  * @param $sid  string  session id used to validate the soap session
  * @return      string  administrator user name on success, empty string on failure
  */

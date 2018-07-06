@@ -7,8 +7,8 @@
  */
  
  /**
-  * Domain contains a Connector (with AddressFormat and LoginFormat tranformers).
-  * It inherits from the PrefHandler storage possibilites
+  * Domain contains a Connector (with AddressFormat and LoginFormat transformers).
+  * It inherits from the PrefHandler storage possibilities
   */
 require_once("helpers/PrefHandler.php");
 require_once("connector/ConnectorSettings.php");
@@ -17,7 +17,7 @@ require_once("connector/LoginFormatter.php");
  /** 
  * Domain preferences and management
  * This class is mainly a wrapper to the domain object preferences
- * and the differents object that it use, such as authentification connectors.
+ * and the different object that it use, such as authentication connectors.
  * 
  * @package mailcleaner
  */
@@ -91,7 +91,7 @@ class Domain extends PrefHandler {
                     );
 
   /**
-   * Authentification connector object used by the domain
+   * Authentication connector object used by the domain
    * This is used to define how users will be authenticated (remote via imap/pop/ldap etc.. or local via mysql) 
    * @var Connector
    */
@@ -267,7 +267,7 @@ class Domain extends PrefHandler {
   /**
    * Delete the domain
    * Delete the domain instance in the database and the preferences associated
-   * @return         string 'OK' if successfull, error otherwise
+   * @return         string 'OK' if successful, error otherwise
    */
   public function delete() {
     global $sysconf_;

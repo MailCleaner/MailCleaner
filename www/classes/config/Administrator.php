@@ -211,7 +211,7 @@ public function checkPermissions($perms) {
 }
 
 /**
- * check if adminsitrator has some right to do that
+ * check if administrator has some right to do that
  * @param  $perms  array   permissions to check
  * @return         boolean true if  authorized, false if not
  */

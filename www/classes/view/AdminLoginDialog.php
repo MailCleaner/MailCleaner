@@ -18,7 +18,7 @@ require_once("connector/AuthManager.php");
 define(AUTHLOGFILE, "mc_auth.log");
 
 /**
- * this class take care of setting the administration authentification connector
+ * this class take care of setting the administration authentication connector
  */
 class AdminLoginDialog {
 
@@ -54,7 +54,7 @@ public function __construct() {
 
 /**
  * start the authentication
- * This check authentification and if, success, register the session and redirect to the index page
+ * This check authentication and if, success, register the session and redirect to the index page
  * @return   boolean  don't return on success, false on failure
  */
 public function start()
@@ -66,7 +66,7 @@ public function start()
     return false;
   }
 
-  // and start authentification objects
+  // and start authentication objects
   $this->auth_->start();
   // ok, now check if user has given a good login/password pair !
   if ($this->auth_->doAuth($this->username_)) {
@@ -79,14 +79,14 @@ public function start()
     $_SESSION['admin'] = serialize($admin);
     if (is_writable($this->sysconf_->VARDIR_."/log/apache/".AUTHLOGFILE)) {
       if ($logfile = fopen($this->sysconf_->VARDIR_."/log/apache/".AUTHLOGFILE, "a")) {
-        fwrite($logfile, "[".date("d/M/Y:H:i:s O")."] login SUCCESSFULL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
+        fwrite($logfile, "[".date("d/M/Y:H:i:s O")."] login SUCCESSFUL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
         fclose($logfile);
       }
     }
     header("Location: index.php");
     exit();
   } else {
-    // log authentification failure (with IP)
+    // log authentication failure (with IP)
     if (isset ($_POST['username'])) {
       if (is_writable($this->sysconf_->VARDIR_."/log/apache/".AUTHLOGFILE)) {
         if ($logfile = fopen($this->sysconf_->VARDIR_."/log/apache/".AUTHLOGFILE, "a")) {
@@ -99,7 +99,7 @@ public function start()
 }
 
 /**
- * get the html string dispalying the status of the login
+ * get the html string displaying the status of the login
  * @return  string  status html string
  */
 public function printStatus()

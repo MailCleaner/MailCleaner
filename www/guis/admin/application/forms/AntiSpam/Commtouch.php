@@ -30,7 +30,7 @@ class Default_Form_AntiSpam_Commtouch extends Default_Form_AntiSpam_Default
                 $t = Zend_Registry::get('translate');
 
                 $ctasdLicense = new  Zend_Form_Element_Text('ctasdLicense', array(
-                            'label'   => $t->_('Ctasd Licence')." :",
+                            'label'   => $t->_('Ctasd License')." :",
                             'required' => false,
                             'size' => 40,
                             'filters'    => array('StringTrim')));
@@ -38,7 +38,7 @@ class Default_Form_AntiSpam_Commtouch extends Default_Form_AntiSpam_Default
                 $this->addElement($ctasdLicense);     
 
                 $ctipdLicense = new  Zend_Form_Element_Text('ctipdLicense', array(
-                            'label'   => $t->_('Ctipd Licence')." :",
+                            'label'   => $t->_('Ctipd License')." :",
                             'required' => false,
                             'size' => 40,
                             'filters'    => array('StringTrim')));

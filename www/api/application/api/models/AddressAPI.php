@@ -10,7 +10,7 @@ class Api_Model_AddressAPI
 {
 
 	/**
-	 * These funtions manage a email address with custom parameters
+	 * These functions manage a email address with custom parameters
 	 * General call format is:
 	 * @param mixed $params
 	 * @return mixed array of xml values to be sent back
@@ -24,7 +24,7 @@ class Api_Model_AddressAPI
 	 *    action_on_spam => can be drop, tag or quarantine, action on spam
 	 *    quarantine_bounce => can be 0 or 1, always block bounce messages
 	 *    spam_tag => a string, used to prepend to the subject when the message is a spam and the action is set to tag
-	 *    summary_frequency => can be none, daily, weekly or monthly, prefered mail quarantine reports frequency
+	 *    summary_frequency => can be none, daily, weekly or monthly, preferred mail quarantine reports frequency
 	 *    summary_type => can be html, text, digest, format of mail quarantine reports
 	 *    send_reports_to => address to send mail quarantine reports to
 	 *    user => full username (with @domain) the address is (should be) linked to
@@ -33,7 +33,7 @@ class Api_Model_AddressAPI
 	 *     send_to_archiver => can be 0 or 1, set if messages should be sent to the archiver
 	 *     send_copy_to => string, email address to send a copy of every message (incoming and outgoing) to
      *
-	 *  For addressList(), you can pass the folowing parameters
+	 *  For addressList(), you can pass the following parameters
 	 *    search => string, allows to list only users starting with this search string
 	 */
 

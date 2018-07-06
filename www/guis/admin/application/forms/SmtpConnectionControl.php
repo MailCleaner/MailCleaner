@@ -90,7 +90,7 @@ class Default_Form_SmtpConnectionControl extends ZendX_JQuery_Form
 		require_once('Validate/EmailList.php');
 		$rejectsenders = new Zend_Form_Element_Textarea('sender_reject', array(
 		      'label'    =>  $t->_('Reject these senders addresses')." :",
-                      'title' => $t->_("Blacklist of sender mail adresses"),
+                      'title' => $t->_("Blacklist of sender mail addresses"),
 		      'required'   => false,
 		      'rows' => 5,
 		      'cols' => 50,

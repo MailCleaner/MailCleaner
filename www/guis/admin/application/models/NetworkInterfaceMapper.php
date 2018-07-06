@@ -57,7 +57,7 @@ class Default_Model_NetworkInterfaceMapper
             }
     	}
     	
-    	## fetch ifconfig valus for auto-assigned addresses
+    	## fetch ifconfig values for auto-assigned addresses
     	$ifconfig = `/sbin/ifconfig`;
     	$current_int = '';
     	foreach (preg_split('/\n/', $ifconfig) as $line) {
@@ -96,7 +96,7 @@ class Default_Model_NetworkInterfaceMapper
           
         }
         
-        ## next check for physicall interfaces not configured
+        ## next check for physical interfaces not configured
         $proc_test_physical_file = '/proc/sys/net/ipv4/neigh/__INTERFACE__';
         $physical_name = 'eth__ID__';
         $physical_ifs = array();
