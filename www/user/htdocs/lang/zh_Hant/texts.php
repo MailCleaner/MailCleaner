@@ -83,7 +83,7 @@ $txt['LOGOUT'] = "登出";
 //old
 $txt['LOGGEDAS'] = "您登錄為：";
 // old
-$txt['MAINADDRESS'] = "main address";
+$txt['MAINADDRESS'] = "主要位址";
 $txt['PARAMETERS'] = "設置";
 $txt['QUARANTINE'] = "隔離";
 $txt['NAVSUPPORT'] = "Support";
@@ -169,11 +169,11 @@ $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔離";
 $txt['COULDNOTPURGE'] = "由於內部錯誤, 無法清除 <strong> __PARAM__ </strong> 的隔離。請稍後再試。";
 $txt['ASKPURGECONFIRM'] = "您確定要清除 <strong> __ PARAM2 __</strong>隔離的最後 __PARAM1__ 天嗎？";
 $txt['QUARANTINEPURGE'] = "手動清除隔離";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['GROUPQUARANTINES'] = "所有位址";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
+$txt['INFORMATIONSABOUTMSG'] = "訊息內容";
 $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "黑名單";
 $txt['FITLERSCORE'] = "Score";
