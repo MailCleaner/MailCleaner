@@ -214,6 +214,10 @@ class Api_Model_AddressAPI
 			$email->setPref('summary_to', $params['send_reports_to']);
 		}
 		
+		if (isset($params['allow_newsletters']) && preg_match('/^[01]$/', $params['allow_newsletters'])) {
+			$email->setPref('allow_newsletters', $params['allow_newsletters']);
+		}
+
 		## Archiving
 		if (isset($params['send_to_archiver']) && preg_match('/^[01]$/', $params['send_to_archiver'])) {
 			$email->setPref('archive_mail', $params['send_to_archiver']);
@@ -288,6 +292,7 @@ class Api_Model_AddressAPI
 		if ($email->getLinkedUser()) {
 			$data['user'] = $email->getLinkedUser()->getParam('username');
 		}
+        $data['allow_newsletters'] = $email->getPref('allow_newsletters');
 		return $data;
 	}
 }
