@@ -167,7 +167,7 @@ $txt['SUMMARYSENDING'] = "隔離報告傳輸";
 $txt['PURGETITLE'] = "手動清除隔離";
 $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔離";
 $txt['COULDNOTPURGE'] = "由於內部錯誤, 無法清除 <strong> __PARAM__ </strong> 的隔離。請稍後再試。";
-$txt['ASKPURGECONFIRM'] = "確實要清除 <strong> __ PARAM2 __</strong>@xmltag@ 的隔離的最後一個 PARAM1 __days 嗎？";
+$txt['ASKPURGECONFIRM'] = "您確定要清除 <strong> __ PARAM2 __</strong>隔離的最後 __PARAM1__ 天嗎？";
 $txt['QUARANTINEPURGE'] = "手動清除隔離";
 $txt['GROUPQUARANTINES'] = "All addresses";
 /*
@@ -456,7 +456,7 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "選擇要從清單中修改的位址或addr
 $txt['REMTHEENTRY'] = "刪除選定內容";
 $txt['DISABLETHEENTRY'] = "禁用/啟用選擇";
 $txt['WHITELISTSHORTHELP'] = "白名單中包含的受信任寄件者位址將不會發生任何隔離保留. <br/> 警告: 此功能應作為臨時解決方案使用, 因為它降低了整體保護。
-                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。 
+                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
 ";
 $txt['BLACKLISTSHORTHELP'] = "黑名單中包含已列出的寄件者位址.。
                                   有關黑色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
@@ -475,3 +475,10 @@ $txt['RECORDALREADYEXISTS'] = "此位址已存在於清單中。";
  */
 $txt['SESSIONTERMINATED'] = "您的session已結束。";
 $txt['BEENLOGGEDOUT'] = "如果要啟動新的session, 請按一下此連結: <a href=\"__PARAM__\" > __PARAM__ </a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "通訊已被允許並發布。";
+$txt['NLRELEASEDBODY'] = "該通訊已被允許並發布。 它應該在幾分鐘內發送到您的郵箱。";
+$txt['NLNOTRELEASEDHEAD'] = "通訊沒有發布";
+$txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。 請稍後再試。";
