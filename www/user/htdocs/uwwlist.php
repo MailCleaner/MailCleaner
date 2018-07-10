@@ -194,5 +194,11 @@ function getWWListHeader() {
         }
         return $lang_->print_txt_param('BLACKLISTFOR', $address);
   }
+  else if ($type_get == 4 | $type_get == 'wnews') {
+	if ($address == '0') {
+                return  $lang_->print_txt('NEWSLISTFORGLOBAL');
+        }
+        return $lang_->print_txt_param('NEWSLISTFOR', $address);
+  }
 }
 ?>

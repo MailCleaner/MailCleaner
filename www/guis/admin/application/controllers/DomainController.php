@@ -149,9 +149,10 @@ class DomainController extends Zend_Controller_Action
         $warnlistform = $warnlistelement->fetchAll('@'.$view->domain->getParam('name'),'warn');
 	$blacklistelement = new Default_Model_WWElement();
         $blacklistform = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
+        $newslistelement = new Default_Model_WWElement();
+        $newslistform = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
 
-
-    	$panelform = new $panelformclass($view->domain, $whitelistform, $warnlistform, $blacklistform, $this->getRequest());
+    	$panelform = new $panelformclass($view->domain, $whitelistform, $warnlistform, $blacklistform, $newslistform, $this->getRequest());
     	$panelform->setAction($view->searchurl."/name/".$view->name);
     	$view->panel = $panel;
     	$view->form = $panelform;
@@ -167,6 +168,7 @@ class DomainController extends Zend_Controller_Action
                       $panelform->_whitelist = $whitelistelement->fetchAll('@'.$view->domain->getParam('name'),'white');
                       $panelform->_warnlist = $warnlistelement->fetchAll('@'.$view->domain->getParam('name'),'warn');
                       $panelform->_blacklist = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
+                      $panelform->_newslist = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
                   }
 
             	  $view->domain->save();
@@ -188,6 +190,7 @@ class DomainController extends Zend_Controller_Action
          $view->whitelistform = $whitelistform;
          $view->warnlistform = $warnlistform;
          $view->blacklistform = $blacklistform;
+         $view->newslistform = $newslistform;
     }
     
     public function globalAction() {
