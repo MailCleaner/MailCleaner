@@ -484,3 +484,16 @@ $txt['NLRELEASEDHEAD'] = "Nyhetsbrev har blitt tillatt og frisluppet.";
 $txt['NLRELEASEDBODY'] = "Nyhetsbrevet har ikke blitt tillatt og frisluppet. Det bør ankomme din e-postboks om et par minutter.";
 $txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet ble ikke frisluppet";
 $txt['NLNOTRELEASEDBODY'] = "Det oppstod et problem under frigjøring av meldingen din. Prøv igjen senere.";
+//old
+$txt['EDITNEWSLIST'] = "rediger nyhetsliste";
+//old
+$txt['NEWSLISTFOR'] = "Nyhetsliste for __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Nyhetsliste";
+$txt['NEWSLISTTOPICTITLE'] = "nyhetsliste";
+$txt['NEWSLISTSHORTHELP'] = "Nyhetslisten inneholder addressene til ønskede nyhetsbrev.<br />
+                                  Sjekk manualen (tilgjengelig i delen <a href=\"help.php\">\"Hjelp\"</a>) for mer info om bruk av nyhetsbrevlisten.
+";
+$txt['NEWSLISTFORADDRESS'] = "Nyhetsbrevliste for adressen";
+$txt['ADDANEWSENTRY'] = "Legg til en adresse i listen";
+$txt['NEWSLISTENTRYTOADD'] = "Skriv inn adressen du ønsker å legge til i nyhetsbrevlisten. Du kan også legge til en valgfri kommentar.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Velg en adresse eller adresser du ønsker å endre fra listen og klikk på ønsket handlingsknapp.";
