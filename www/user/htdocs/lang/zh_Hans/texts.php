@@ -109,9 +109,9 @@ $txt['ANALYSEREQUEST'] = "筛选器调整请求";
 $txt['ANALYSEREQUESTV'] = "请求筛选器调整";
 $txt['SCORETEXT'] = "分数: __PARAM__";
 $txt['CLOSEWINDOW'] = "关闭窗口";
-$txt['CURRENTPAGE'] = "页 PARAM1 __of PARAM2";
+$txt['CURRENTPAGE'] = "页 __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong> 后自动清除: </strong> __PARAM__ 天";
-$txt['DISPLAYEDINFOS'] = "<strong> 显示的消息: </strong> PARAM1 __最后天数 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
+$txt['DISPLAYEDINFOS'] = "<strong> 显示的消息: </strong> __PARAM1__ 最后天数 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
 $txt['DISPLAYEDINFOSS'] = "<strong> 显示的消息: </strong> __PARAM__ 最后几天。 ";
 //old
 $txt['QUARANTINETITLE'] = "__PARAM__ 的隔离列表";
