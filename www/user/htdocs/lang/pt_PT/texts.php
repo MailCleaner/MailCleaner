@@ -487,3 +487,16 @@ $txt['NLRELEASEDHEAD'] = "A newsletter foi permitida e libertada.";
 $txt['NLRELEASEDBODY'] = "A newsletter foi permitida e libertada. Deve ser entregue na sua caixa de correio nos próximos minutos.";
 $txt['NLNOTRELEASEDHEAD'] = "A newsletter não foi libertada";
 $txt['NLNOTRELEASEDBODY'] = "Ocorreu um problema a libertar a sua mensagem. Por favor tente mais tarde.";
+//old
+$txt['EDITNEWSLIST'] = "editar lista de news";
+//old
+$txt['NEWSLISTFOR'] = "Lista de news para __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Lista de News";
+$txt['NEWSLISTTOPICTITLE'] = "lista de news";
+$txt['NEWSLISTSHORTHELP'] = "A lista de newsletters contém endereços das newsletters desejadas.<br />
+                                   Consulte o manual (disponível na secção <a href=\"help.php\">\"Help\"</a>) para mais informações sobre o uso de listas de newsletter.
+";
+$txt['NEWSLISTFORADDRESS'] = "Lista de newsletter para o endereço";
+$txt['ADDANEWSENTRY'] = "Adicionar um endereço à lista";
+$txt['NEWSLISTENTRYTOADD'] = "Introduza o endereço que deseja adicionar à lista de newsletter. Pode também adicionar um comentário opcional.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecionar da lista o endereço ou endereços que deseja modificar e carregue no botão da ação desejada.";
