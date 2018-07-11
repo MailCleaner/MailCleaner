@@ -29,7 +29,10 @@ tls_on_connect_ports = 465
 __ELSE__ USESSMTPPORT
 daemon_smtp_ports = 25:587
 __FI__
-local_interfaces = <; ::0 ; 0.0.0.0 
+local_interfaces = <; ::0 ; 0.0.0.0
+__IF__ DISABLE_IPV6
+disable_ipv6 = true
+__FI__
 
 __IF__ USETLS
 tls_advertise_hosts = *
@@ -81,7 +84,7 @@ delay_warning_condition = ${if or {\
   } {no}{yes}}
 
 host_lookup = *
-rfc1413_hosts = 
+rfc1413_hosts =
 rfc1413_query_timeout = 0s
 acl_smtp_connect = acl_check_conn
 acl_smtp_rcpt = acl_check_rcpt
@@ -114,7 +117,7 @@ __FI__
          (Exim MailCleaner) \n\t\
          id ${message_id} ${if def:received_for {\n\tfor <$received_for>}} ${if def:sender_address {\n\tfrom <$sender_address>}}"
 
-domainlist local_domains = 
+domainlist local_domains =
 domainlist relay_to_domains = wildlsearch;VARDIR/spool/tmp/mailcleaner/domains.list
 domainlist domains_to_callout = VARDIR/spool/tmp/mailcleaner/domains_to_callout.list
 domainlist domains_to_extcallout = VARDIR/spool/tmp/mailcleaner/domains_to_extcallout.list
@@ -131,7 +134,7 @@ domainlist local_domains_require_incoming_tls = VARDIR/spool/tmp/mailcleaner/loc
 domainlist local_domains_require_outgoing_tls = VARDIR/spool/tmp/mailcleaner/local_domains_require_outgoing_tls.list
 
 hostlist   relay_from_hosts = <; 127.0.0.1 ; __RELAY_FROM_HOSTS__
-hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__ 
+hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__
 hostlist   no_ratelimit_hosts = <; __NO_RATELIMIT_HOSTS__
 domainlist relayrefuseddomains = VARDIR/spool/tmp/exim/blacklists/relaytodomains
 RELAYDEST = VARDIR/spool/tmp/mailcleaner/relay_accepteddest.list
@@ -186,7 +189,7 @@ perl_startup = do '__SRCDIR__/etc/exim/stage1_scripts.pl'
 ######################################################################
 begin acl
 
-acl_check_conn:  
+acl_check_conn:
 
 __IF__ RATELIMIT
 warn ratelimit          = __RATELIMIT_RULE__
@@ -203,7 +206,7 @@ warn ratelimit          = __RATELIMIT_RULE__
 __FI__
 __IF__ TRUSTED_RATELIMIT
 warn ratelimit          = __TRUSTED_RATELIMIT_RULE__
-          hosts         = <; !no_ratelimit_hosts ; +trusted_hosts 
+          hosts         = <; !no_ratelimit_hosts ; +trusted_hosts
           log_message   = delaying fast sender: $sender_rate / $sender_rate_period
           delay         = __TRUSTED_RATELIMIT_DELAY__s
           set acl_c8    = smtp:delayed:ratelimit
@@ -232,18 +235,18 @@ deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused connection, listed in $dnslist_domain : $dnslist_text - smtp:refused,smtp:refused:rbl
- __FI__ 
+ __FI__
 __FI__
 
   deny    hosts         = HOSTBLACKLIST
-          message       = blacklisted host: $sender_host_address 
+          message       = blacklisted host: $sender_host_address
           set acl_c8    = smtp:refused:host_blacklist
           set acl_c9    = STATSADD
           set acl_c8    = smtp:refused
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused connection, blacklisted host: $sender_host_address - smtp:refused,smtp:refused:host_blacklist
- __FI__ 
+ __FI__
 
   accept  hosts = <; __SMTP_CONN_ACCESS__ ; 127.0.0.1
 
@@ -258,7 +261,7 @@ acl_check_helo:
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad helo - smtp:refused,smtp:refused:bad_helo
  __FI__
-    accept hosts        = * 
+    accept hosts        = *
 
 acl_check_rcpt:
 
@@ -267,15 +270,15 @@ acl_check_rcpt:
           !hosts        = +relay_from_hosts
           !authenticated = *
           message       = relay not permitted
-          log_message   = relay not permitted 
+          log_message   = relay not permitted
           set acl_c8    = smtp:refused:relay
           set acl_c9    = STATSADD
           set acl_c8    = smtp:refused
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, relay not permitted - smtp:refused,smtp:refused:relay
- __FI__ 
-        
+ __FI__
+
   deny    domains       = +local_domains
           local_parts   = ^[.] : ^.*[@%!/|]
           set acl_c8    = smtp:refused:bad_local_part1
@@ -284,7 +287,7 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad local part 1 - smtp:refused,smtp:refused:bad_local_part1
- __FI__ 
+ __FI__
   deny    domains       = !+local_domains
           local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
           set acl_c8    = smtp:refused:bad_local_part2
@@ -293,7 +296,7 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad local part 2 - smtp:refused,smtp:refused:bad_local_part2
- __FI__ 
+ __FI__
 
   warn    spf           = pass
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
@@ -302,7 +305,7 @@ acl_check_rcpt:
           !hosts        = +relay_from_hosts
           !authenticated = *
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
-          
+
   deny    message       = This domain does not accept unsigned bounces.
           senders       = :
           domains       = +domains_to_check_batv
@@ -317,7 +320,7 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, no BATV signature - smtp:refused,smtp:refused:refused_nonbatv
- __FI__ 
+ __FI__
   deny    message       = Invalid reverse path signature.
           senders       = :
           domains       = +domains_to_check_batv
@@ -333,16 +336,16 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad BATV signature - smtp:refused,smtp:refused:refused_badbatv
- __FI__ 
+ __FI__
 
   accept  local_parts   = mailcleaner_address_list
           domains       = +domains_to_addlistcallout
           message       = accepting and processing address list message
           condition     = ${if exists{ADDRESSESDIR/${domain}.posters} {yes}{no} }
-          hosts         = ADDRESSESDIR/${domain}.posters 
+          hosts         = ADDRESSESDIR/${domain}.posters
  __IF__ DEBUG
           logwrite      = DEBUG - accepted, address list submission
- __FI__ 
+ __FI__
   deny    senders       = SENDERBLACKLIST
           message       = blacklisted sender: $sender_address
           set acl_c8    = smtp:refused:sender_blacklist
@@ -351,9 +354,9 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, blacklisted sender: $sender_address - smtp:refused,smtp:refused:sender_blacklist
- __FI__ 
+ __FI__
   deny    condition     = ${if exists{RECIPIENTBLACKLIST} {yes}{no} }
-          message       = blacklisted recipient: $local_part@$domain 
+          message       = blacklisted recipient: $local_part@$domain
           recipients    = RECIPIENTBLACKLIST
           set acl_c8    = smtp:refused:recipient_blacklist
           set acl_c9    = STATSADD
@@ -361,7 +364,7 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, blacklisted recipient: $local_part@$domain - smtp:refused,smtp:refused:recipient_blacklist
- __FI__ 
+ __FI__
   deny    authenticated  =  *
           condition      =  ${lookup{$authenticated_id}wildlsearch{USERBLACKLIST}{true}{false}}
           message        = refused user due to massive abuse
@@ -391,12 +394,12 @@ acl_check_rcpt:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, spoofing attempt $sender_address ($domain) - smtp:refused,smtp:refused:refused_spoofing
- __FI__ 
+ __FI__
 
   warn    condition     = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
           add_header    = X-MailCleaner-RDNS: invalid reverse DNS for $sender_host_address
           logwrite      = Invalid reverse DNS for $sender_host_address (port $received_port)
- 
+
 __IF__ REJECTBADRDNS
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
           condition     = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
@@ -413,14 +416,14 @@ __IF__ REJECTBADRDNS
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad reverse DNS for $sender_host_address ($domain) - smtp:refused,smtp:refused:refused_badrdns
- __FI__ 
+ __FI__
 __FI__
 
   deny    domains       = +domains_to_addlistcallout
           condition     = ${if exists{ADDRESSESDIR/${domain}.addresslist} {yes}{no} }
           local_parts   = !ADDRESSESDIR/${domain}.addresslist
-          recipients    = !lsearch{ADDRESSESDIR/${domain}.addresslist} 
-          message       = No such user 
+          recipients    = !lsearch{ADDRESSESDIR/${domain}.addresslist}
+          message       = No such user
           set acl_c8    = smtp:refused:callout
           set acl_c9    = STATSADD
           set acl_c8    = domain:$domain:callout_refused
@@ -431,7 +434,7 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, callout refused (addlist): $local_part@$domain - smtp:refused,smtp:refused:callout
- __FI__ 
+ __FI__
   deny    domains       = +domains_to_callout : +domains_to_altcallout
           !verify       = recipient/callout=__CALLOUT_TIMEOUT__s,defer_ok
           set acl_c8    = smtp:refused:callout
@@ -444,7 +447,7 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, callout refused (SMTP): $local_part@$domain - smtp:refused,smtp:refused:callout
- __FI__ 
+ __FI__
 
   deny    domains       = +domains_to_extcallout
           set   acl_c0  = ${perl{external_callout_verify}{$local_part}{$domain}}
@@ -461,9 +464,9 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, external callout failed: ${extract{message}{$acl_c0}} - smtp:refused,smtp:refused:callout
- __FI__ 
-          
-          
+ __FI__
+
+
 __IF__ SENDERVERIFY
   deny    !verify       = sender
           set acl_c8    = smtp:refused:sender_verify
@@ -476,7 +479,7 @@ __IF__ SENDERVERIFY
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, sender verify failed for $sender_address - smtp:refused,smtp:refused:sender_verify
- __FI__ 
+ __FI__
 __FI__
 
 __IF__ RCPTRBL
@@ -500,7 +503,7 @@ __IF__ RCPTRBL
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, listed in rbl ($dnslist_domain : $dnslist_text) - smtp:refused,smtp:refused:rbl
- __FI__ 
+ __FI__
 __FI__
 
 __IF__ BSRBL
@@ -525,8 +528,8 @@ __IF__ BSRBL
           set acl_c8    = smtp:dnslist:$dnslist_domain
           set acl_c9    = STATSADD
  __IF__ DEBUG
-          logwrite      = DEBUG - refused, listed as backscatterrer ($dnslist_text) - smtp:refused,smtp:refused:backscatter 
- __FI__ 
+          logwrite      = DEBUG - refused, listed as backscatterrer ($dnslist_text) - smtp:refused,smtp:refused:backscatter
+ __FI__
 __FI__
 __IF__ REJECTBADSPF
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
@@ -544,10 +547,10 @@ __IF__ REJECTBADSPF
           set acl_c8    = domain:$domain:refused
           set acl_c9    = STATSADD
  __IF__ DEBUG
-          logwrite      = DEBUG - refused, $sender_host_address is not allowed to send mail from $sender_address_domain (SPF failure) - smtp:refused,smtp:refused:badspf 
- __FI__ 
-__FI__          
-         
+          logwrite      = DEBUG - refused, $sender_host_address is not allowed to send mail from $sender_address_domain (SPF failure) - smtp:refused,smtp:refused:badspf
+ __FI__
+__FI__
+
  defer
           !spf          = pass
           message       = $sender_host_address is not yet authorized to deliver \
@@ -580,8 +583,8 @@ __FI__
           set acl_c8    = domain:$domain:delayed
           set acl_c9    = STATSADD
  __IF__ DEBUG
-          logwrite      = DEBUG - delayed, greylisted - smtp:delayed,smtp:delayed:greylist 
- __FI__ 
+          logwrite      = DEBUG - delayed, greylisted - smtp:delayed,smtp:delayed:greylist
+ __FI__
 
   deny    !authenticated = *
           !hosts        = +relay_from_hosts
@@ -594,7 +597,7 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, not authenticated - smtp:refused,smtp:refused:unauthenticated
- __FI__ 
+ __FI__
 
 __IF__ USETLS
   deny    hosts         = <; __HOSTS_REQUIRE_INCOMING_TLS__
@@ -606,8 +609,8 @@ __IF__ USETLS
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, not encrypted - smtp:refused,smtp:refused:unencrypted
- __FI__ 
- 
+ __FI__
+
   deny    domains       = +local_domains_require_incoming_tls
           !encrypted    = *
           message       = Encryption is required to this domain
@@ -617,8 +620,8 @@ __IF__ USETLS
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, only encrypted sessions accepted for this domain - smtp:refused,smtp:refused:unencrypted
- __FI__   
- 
+ __FI__
+
   deny    !encrypted    = *
           condition     = ${if match_domain{$sender_address_domain}{+domains_require_tls_from}}
           message       = Encryption is required from your domain
@@ -628,7 +631,7 @@ __IF__ USETLS
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, not encrypted from required domain - smtp:refused,smtp:refused:unencrypted
- __FI__   
+ __FI__
 __FI__
 
   warn    domains       = +relay_to_domains
@@ -659,7 +662,7 @@ __FI__
          set acl_c9    = STATSADD
  __IF__ DEBUG
          logwrite      = DEBUG - refused, invalid recipient (LDAP): $local_part@$domain- smtp:refused,smtp:refused:callout
- __FI__ 
+ __FI__
 
  warn	 authenticated = *
          set   acl_c1  = authenticated
@@ -668,8 +671,8 @@ __FI__
           verify        = recipient
  __IF__ DEBUG
           logwrite      = DEBUG - accepted, valid recipient: $local_part@$domain
- __FI__        
- 
+ __FI__
+
   deny    domains       = +relayrefuseddomains
           !recipients   = RELAYDEST
           message       = Relaying to this domain is forbidden
@@ -679,7 +682,7 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, forbidden destination domain - smtp:refused,smtp:refused:domain
- __FI__ 
+ __FI__
   accept  hosts         = +relay_from_hosts
 __IF__ PREVENTRELAYFROMUNKNOWNDOMAIN
           sender_domains= : +relay_to_domains
@@ -692,7 +695,7 @@ __FI__
           logwrite      = Accepting authorized relaying session from $sender_host_address, sender $sender_address on port $received_port
  __IF__ DEBUG
           logwrite      = DEBUG - accepted relay, by host - smtp:relayd,smtp:relayed:host
- __FI__ 
+ __FI__
   accept  authenticated = *
 __IF__ PREVENTRELAYFROMUNKNOWNDOMAIN
           sender_domains= : +relay_to_domains
@@ -705,8 +708,8 @@ __FI__
           logwrite      = Accepting authenticated session from $sender_host_address, sender $sender_address on port $received_port
  __IF__ DEBUG
           logwrite      = DEBUG - accepted relay, authentified - smtp:relayed,smtp:relayed:authenticated
- __FI__ 
-          
+ __FI__
+
   deny    domains       = +relay_to_domains
           message       = User unknown
           set acl_c8    = smtp:refused:callout
@@ -719,8 +722,8 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, invalid recipient: $local_part@$domain- smtp:refused,smtp:refused:callout
- __FI__ 
-                  
+ __FI__
+
   deny    message       = relay not permitted
           set acl_c8    = smtp:refused:relay
           set acl_c9    = STATSADD
@@ -728,7 +731,7 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, relay not permitted - smtp:refused,smtp:refused:relay
- __FI__ 
+ __FI__
 
 acl_check_mime:
   ## Block .js and .jse in attachments and in zip/rar
@@ -862,7 +865,7 @@ acl_check_data:
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused, from spoofing attempt $sender_address - from: $header_from: - smtp:refused,smtp:refused:refused_spoofing
- __FI__ 
+ __FI__
 
 __IF__ OUTGOINGVIRUSSCAN
   deny    message =  This message contains malware ($malware_name)
@@ -874,7 +877,7 @@ __IF__ OUTGOINGVIRUSSCAN
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - refused relay, virus detected - smtp:relayed:virus,smtp:relayed:refused
- __FI__ 
+ __FI__
 __FI__
 
   warn    dmarc_status   = accept : none : off
@@ -915,9 +918,9 @@ __FI__
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - accepted data, final acceptance - smtp:accepted
- __FI__ 
+ __FI__
 
-          
+
 
 ######################################################################
 #                      ROUTERS CONFIGURATION                         #
@@ -931,7 +934,7 @@ batv_redirect:
   driver = redirect
   domains = +domains_to_check_batv
   data = ${prvscheck {$local_part@$domain} {${lookup {$domain} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}} }
-  
+
 bypass_router:
   driver = manualroute
   transport = bypass_smtp
@@ -949,13 +952,13 @@ alternat_callout_router:
   transport = callout_transport
   route_data = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_to_altcallout.list}}
   verify_only
-  
+
 callout_router:
   driver = manualroute
   pass_router = filter_forward
-  domains = !+domains_to_altcallout : +domains_to_callout 
+  domains = !+domains_to_altcallout : +domains_to_callout
   transport = callout_transport
-  route_data = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains.list}} 
+  route_data = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains.list}}
   verify_only
 
 address_list_router:
@@ -984,12 +987,12 @@ copyto_route:
   unseen
   repeat_use = false
   no_verify
-  
+
 __IF__ USEARCHIVER
 archiver_route:
   debug_print = "R: archiver_route for $domain"
   driver = manualroute
-  condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}  
+  condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}
   senders = ${if and{ \
                  {exists{ARCHIVERDIR/${sender_address_domain}}} \
                  {!eq {$sender_address}{}} \
@@ -997,14 +1000,14 @@ archiver_route:
                      {eq {$acl_c0}{relayed}} \
                      {eq {$acl_c1}{authenticated}} \
                  }}\
-                 } {nwildlsearch;ARCHIVERDIR/${sender_address_domain}} {} } 
+                 } {nwildlsearch;ARCHIVERDIR/${sender_address_domain}} {} }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
   self = send
   unseen
   no_verify
-__FI__  
-   
+__FI__
+
 toenginefilter_forward:
   driver = accept
   transport = to_engine
@@ -1023,21 +1026,21 @@ filter_forward:
   headers_remove = X-MailCleaner:X-MailCleaner-Forced
 
 dnslookup_freeze:
-  driver = redirect 
+  driver = redirect
   senders = FROZENSENDERS
   user = mailcleaner
-  allow_filter 
-  allow_freeze 
-  data = "#Exim filter \n freeze" 
-   
+  allow_filter
+  allow_freeze
+  data = "#Exim filter \n freeze"
+
 dnslookup_gateway:
-  driver = manualroute 
+  driver = manualroute
   domains = ! +local_domains : ! +relay_to_domains
   condition = ${if exists{VARDIR/spool/mailcleaner/smtp_proxy.conf}{yes}{no}}
   transport = remote_smtp
   route_list = wildlsearch;;VARDIR/spool/mailcleaner/smtp_proxy.conf $value
   ignore_target_hosts = <; 0.0.0.0 ; 127.0.0.0/8
-  
+
 dnslookup:
   driver = dnslookup
   domains = ! +local_domains : ! +relay_to_domains
@@ -1068,7 +1071,7 @@ bypass_smtp:
                      {${prvscheck {$return_path} {}}} \
                      {$return_path} \
                  }
-  
+
 to_engine:
   driver = appendfile
   user = mailcleaner
@@ -1080,7 +1083,7 @@ to_engine:
   mailstore_prefix = "${message_id}\n${caller_uid} ${caller_gid}\n${sender_host_address}\n${received_time}\n${max_received_linelength}\n${body_linecount}\n"
   mailstore_suffix = "\n${message_headers_raw}"
   batch_max = 200
-  
+
 local_smtp:
   driver = smtp
   helo_data = __HELO_NAME__
@@ -1110,7 +1113,7 @@ local_smtp:
                       }
   hosts_avoid_tls = localhost
   hosts_try_chunking =
-  
+
 remote_smtp:
   driver = smtp
 __IF__ MASQUERADE_OUTGOING_HELO
@@ -1140,13 +1143,13 @@ __FI__
                           {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
-                      
+
 callout_transport:
   driver = smtp
   helo_data = __HELO_NAME__
   multi_domain = false
   hosts_try_chunking =
-  
+
 archiver_smtp_transport:
   debug_print = "T: archiving mail for $local_part@$domain"
   driver = smtp
@@ -1157,7 +1160,7 @@ __IF__ USETLS
   hosts_require_tls = <; __HOSTS_REQUIRE_TLS__
 __FI__
   hosts_try_chunking =
-  
+
 address_list_transport:
   driver = pipe
   command = SRCDIR/etc/exim/address_list.pl ${domain} ${sender_address} ${local_part}@${domain}
