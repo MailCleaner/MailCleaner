@@ -296,7 +296,7 @@ sub searchInFile {
 }
 
 sub print_usage {
-  print "Usage:  search_logs.pl starttime stoptime searchstring [-bR] [-B id]\n";
+  print "Usage:  search_log.pl starttime stoptime searchstring [-bR] [-B id]\n";
   exit 1;
 }
 

@@ -317,7 +317,7 @@ $txt['RECEIVEDSPAM'] = "垃圾邮件";
 $txt['RECEIVEDCLEAN'] = "清除邮件";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ 收到的消息";
 $txt['GLOBALSTATSTITLE'] = "所有地址的摘要";
-$txt['FROMDATETODATE'] = "从 __PARAM1__ __PARAM2__ __PARAM3__ 到 __PARAM4__ __PARAM5__. __PARAM6__";
+$txt['FROMDATETODATE'] = "从 __PARAM1__.__PARAM2__.__PARAM3__ 到 __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
