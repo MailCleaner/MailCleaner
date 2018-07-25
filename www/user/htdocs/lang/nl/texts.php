@@ -153,18 +153,18 @@ $txt['PAGE'] = "Pagina";
 $txt['NEXTPAGE'] = "Volgende";
 $txt['PREVIOUSPAGE'] = "Vorige";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
+$txt['GETREASONSTITLE'] = "Filter redenen";
 $txt['HITRULE'] = "Regel";
 $txt['SCORE'] = "Score";
 $txt['TOTAL'] = "Toatal";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
+$txt['SENDANALYSETITLE'] = "Filter aanpassingsverzoek";
 $txt['SENTTOANALYSE'] = "Een filter aanpassing aanvraag werd verstuurd naar het MailCleaner Analysis Center; dit bericht zal onderzocht worden en filter correctie kunnen toegepast worden binnen één werkdag.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
+$txt['SENDSUMTITLE'] = "Handmatig verzenden van quarantaine rapport";
 $txt['SENDSUM'] = "Het quarantaine rapport handmatig verzenden";
 $txt['SUMSENTTO'] = "Het quarantaine rapport werd verstuurd naar: <strong>__PARAM__</strong>";
 $txt['SUMNOTSENTTO'] = "Het quarantaine rapport kon niet verzonden worden naar <strong>__PARAM__</strong> omwille van een interne fout. probeer later opnieuw.";
