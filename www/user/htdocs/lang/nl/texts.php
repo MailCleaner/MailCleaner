@@ -9,7 +9,7 @@
 $txt['NEWSLETTERSTOPIC'] = "Nieuwsbrieven";
 $txt['NEWSLETTERSTOPICTITLE'] = "Nieuwsbrieven";
 $txt['NEWSLETTERSSHORTHELP'] = "Hier kun je de nieuwsbrieven beheren.";
-$txt['NEWSLETTERSALLOW'] = "Nieuwsbrieven standaard doorlaten :";
+$txt['NEWSLETTERSALLOW'] = "afleveren";
 $txt['NEWSLETTERACCEPT'] = "Accepteer deze nieuwsbrief";
 $txt['SPAM_WHITELIST_DISABLED'] = "Deze lijst is niet geactiveerd voor dit domein (Neem contact op met de beheerder).";
 ### missing translations
@@ -71,7 +71,7 @@ $txt['USERNAME'] = "Gebruikersnaam";
 $txt['PASSWORD'] = "Paswoord";
 //old
 $txt['ASKLOGIN'] = "Type je gebruikersnaam en wachtwoord:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
+$txt['ORGANIZATIONUNIT'] = "Organisatie eenheid";
 $txt['FORGOTPASSWORD'] = "Paswoord vergeten?";
 $txt['PASSWORDRESET'] = "Het paswoord werd gereset. Het werd verstuurd naar je email adres.";
 /*
@@ -499,3 +499,16 @@ $txt['NLRELEASEDHEAD'] = "Niewsbrief is toegestaan en doorgelaten.";
 $txt['NLRELEASEDBODY'] = "De nieuwsbrief is vrijgegeven en doorgelaten. Het zou binnen enkele minuten in je mailbox aan moeten komen.";
 $txt['NLNOTRELEASEDHEAD'] = "Nieuwsbrief is niet doorgelaten";
 $txt['NLNOTRELEASEDBODY'] = "Er was een probleem met hij vrijgeven van je bericht. Probeer het later nog eens.";
+//old
+$txt['EDITNEWSLIST'] = "bewerk nieuws lijst";
+//old
+$txt['NEWSLISTFOR'] = "Nieuws lijst voor __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Nieuws lijst";
+$txt['NEWSLISTTOPICTITLE'] = "nieuws lijst";
+$txt['NEWSLISTSHORTHELP'] = "De nieuwsbrieven lijst bevat adressen van nieuwsbrieven die je wilt ontvangen.<br />
+                                  Lees de handleiding  (beschikbaar in sectie <a href=\"help.php\">\"Help\"</a>) voor meer informatie over nieuwsbrieven lijst gebruik.
+";
+$txt['NEWSLISTFORADDRESS'] = "Nieuwsbrieven lijst voor het adres";
+$txt['ADDANEWSENTRY'] = "Voeg een adres toe aan de lijst";
+$txt['NEWSLISTENTRYTOADD'] = "Geef het adres in dat je wilt toevoegen aan de nieuwsbrieven lijst. Je kunt ook commentaar toevoegen.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecteer het adres of de adressen die je wilt bewerken van de lijst en klik op de gewenste actie knop.";
