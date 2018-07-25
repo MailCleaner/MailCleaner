@@ -8,7 +8,7 @@ $(function() {
             $.ajax({
                     async: true,
                     type: "get",
-		    url: 'newsletters.php',
+                    url: 'newsletters.php',
                     dataType: 'html',
                     data: { id: $(this).data('id'), a: $(this).data('a') },
                     success : function(data) {		
