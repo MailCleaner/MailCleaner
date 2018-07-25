@@ -4,13 +4,13 @@ $(function() {
      */
     $('.allow').on('click', function(event) {
             event.preventDefault();
-
+            var oldLocation = location;
             $.ajax({
                     async: true,
                     type: "get",
-                    url: 'users/newsletters/allow',
-                    dataType: "json",
-                    data: {id:$(this).data('id')},
+		    url: 'newsletters.php',
+                    dataType: 'html',
+                    data: { id: $(this).data('id'), a: $(this).data('a') },
                     success : function(data) {		
                     $.ajax({
                             async: true,
@@ -19,7 +19,7 @@ $(function() {
                             dataType: "html",
                             data: {a:data.username, id:data.id, s:data.storage},
                             success : function(data) {		
-                               location.reload();
+                                    location.reload();
                             }
                         });
                     }

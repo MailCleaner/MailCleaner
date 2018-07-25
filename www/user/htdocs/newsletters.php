@@ -8,6 +8,7 @@
  * This is the controler for the newsletter release page
  */
 
+
 /**
  * requires a session
  */
@@ -20,16 +21,12 @@ require_once('view/Template.php');
 require_once('system/Soaper.php');
 
 /**
- * Gets the sender of the email with a given Exim ID and recipient
- * @param string $exim_id The Exim id of the mail
- * @param string $dest The email address of the recipient
- * @return string The email address of the sender of the email
+ * Gets the sender (From of the body) of the email with a given Spam object
+ * @param Spam object $spam_mail The mail concerned
+ * @return string The from email address of the sender of the email
  */
-function get_sender($exim_id, $dest) {
+function get_sender_address_body($spam_mail) {
     // Get the mail sender
-    $spam_mail = new Spam();
-    $spam_mail->loadDatas($exim_id, $dest);
-    $spam_mail->loadHeadersAndBody();
     $headers = $spam_mail->getHeadersArray();
 
     $sender = array();
@@ -39,6 +36,15 @@ function get_sender($exim_id, $dest) {
         return $sender[1];
     }
     return false;
+}
+
+/**
+ * Gets the sender (MAIL FROM) of the email with a given Spam object
+ * @param Spam object $spam_mail The mail concerned
+ * @return string The email address of the sender of the email
+ */
+function get_sender_address($spam_mail) {
+    return $spam_mail->getData("sender");
 }
 
 /**
@@ -103,6 +109,7 @@ if (isset($_GET['l'])) {
   $lang_->reload();
 }
 
+
 // Cheking if the necessary arguments are here
 $in_args = array($_GET['id'], $_GET['a']);
 foreach ($in_args as $arg) {
@@ -111,12 +118,24 @@ foreach ($in_args as $arg) {
     }
 }
 
+
+
 // Renaming the args for easier reading
 $exim_id = $_GET['id'];
 $dest = $_GET['a'];
 
 if (!$bad_arg) {
-    $sender = get_sender($exim_id, $dest);
+
+    // Get the Spam mail
+    $spam_mail = new Spam();
+    $spam_mail->loadDatas($exim_id, $dest);
+    $spam_mail->loadHeadersAndBody();
+
+
+    // Get both sender and from addresses
+    $sender_body = get_sender_address_body($spam_mail);
+    $sender = get_sender_address($spam_mail);
+
     $slave = get_soap_host($exim_id, $dest);
     $master = get_master_soap_host();
     $is_released = send_SOAP_request(
@@ -125,19 +144,29 @@ if (!$bad_arg) {
         array($exim_id, $dest),
         array("MSGFORCED")
     );
-    $is_added_to_wl = send_SOAP_request(
+
+    $is_sender_body_added_to_wl = send_SOAP_request(
+        $master,
+        "addNewsletterToWhitelist",
+        array($dest, $sender_body),
+        array("OK", "DUPLICATEENTRY")
+    );
+
+    $is_sender_added_to_wl = send_SOAP_request(
         $master,
         "addNewsletterToWhitelist",
         array($dest, $sender),
         array("OK", "DUPLICATEENTRY")
     );
+
 } else {
     $is_released = False;
-    $is_added_to_wl = False;
+    $is_sender_added_to_wl = False;
+    $is_sender_body_added_to_wl = False;
 }
 
 // Setting the page text
-if ($is_released && $is_added_to_wl) {
+if ($is_released && ($is_sender_body_added_to_wl || $is_sender_added_to_wl)) {
     $message_head = "NLRELEASEDHEAD";
     $message = "NLRELEASEDBODY";
 } else {
