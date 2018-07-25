@@ -184,7 +184,7 @@ $txt['BLACKLISTS'] = "Zwarte lijsten";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "geen";
 $txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
+$txt['BODY'] = "Inhoud";
 $txt['PARTS'] = "Delen";
 $txt['STORESLAVE'] = "Opslag";
 $txt['SPAMCSCORE'] = "Regels score";
@@ -214,11 +214,11 @@ $txt['FILTERACTIONTITLE'] = "Spam processing mode";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "Quarantaine rapport instellingen";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Persoonlijk adres groep: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "Pas wijzigingen toe op alle adressen";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "hoofd";
 //old
 $txt['SPAMACTION'] = "Spam processing mode";
 //old
@@ -230,9 +230,9 @@ $txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages"
 //old
 $txt['DROP'] = "verwijder";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Tag kernwoord";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
+$txt['SUMMARYFREQ'] = "Rapport afleveringsfrequentie";
 $txt['DAILY'] = "Dagelijks";
 $txt['WEEKLY'] = "Wekelijks";
 $txt['MONTHLY'] = "Maandelijks";
@@ -290,9 +290,9 @@ $txt['ALIASNOTPENDING'] = "Momenteel is er geen aanvraag in behandeling voor dit
 $txt['ALIASADDED'] = "Het adres werd succesvol toegevoegd.";
 $txt['ALIASREQUESTREMOVED'] = "De aanvraag werd geannuleerd.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Adres verwijdering";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
+$txt['REMALIASCONFIRM'] = "Weet je zeker dat je het adres: __PARAM__ wilt verwijderen?";
 $txt['ALIASREMOVED'] = "Het adres __PARAM__ werd verwijderd.";
 $txt['CANNOTREMOVEMAINADD'] = "Het adres__PARAM__ is het hoofd adres. Het kan niet verwijderd worden.";
 /*
