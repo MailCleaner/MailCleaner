@@ -4,7 +4,6 @@ $(function() {
      */
     $('.allow').on('click', function(event) {
             event.preventDefault();
-            var oldLocation = location;
             $.ajax({
                     async: true,
                     type: "get",
