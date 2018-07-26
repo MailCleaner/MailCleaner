@@ -354,11 +354,11 @@ public function getHTMLList($to) {
 
         if (empty($result)) {
 	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
-            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" href="%s" class="allow" target="_blank">%s</a></span>';
+            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" data-a="%s" href="%s" class="allow">%s</a></span>';
             $rule = 'allow';
             $label = $lang_->print_txt('NEWSLETTERACCEPT');
 
-            $output = sprintf($link, $id, $hrefNews, $label);
+            $output = sprintf($link, $id, $recipient, $hrefNews, $label);
 
             $template = str_replace('__IS_NEWSLETTER__', $output, $template);
         } else {
