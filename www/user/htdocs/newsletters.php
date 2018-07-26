@@ -166,7 +166,7 @@ if (!$bad_arg) {
 }
 
 // Setting the page text
-if ($is_released && ($is_sender_body_added_to_wl || $is_sender_added_to_wl)) {
+if ($is_released && $is_sender_body_added_to_wl && $is_sender_added_to_wl) {
     $message_head = "NLRELEASEDHEAD";
     $message = "NLRELEASEDBODY";
 } else {
