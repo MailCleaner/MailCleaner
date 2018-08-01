@@ -482,3 +482,15 @@ $txt['NLRELEASEDHEAD'] = "已允许并发布新闻稿。";
 $txt['NLRELEASEDBODY'] = "新闻稿已被允许并发布。它应该在几分钟内送达您的邮箱。";
 $txt['NLNOTRELEASEDHEAD'] = "新闻稿未发布";
 $txt['NLNOTRELEASEDBODY'] = "发布邮件时出现问题。请稍后再试。";
+//old
+$txt['EDITNEWSLIST'] = "编辑新闻列表";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__新闻列表";
+$txt['NEWSLISTTOPIC'] = "新闻列表";
+$txt['NEWSLISTTOPICTITLE'] = "新闻列表";
+$txt['NEWSLISTSHORTHELP'] = "新闻稿列表包含所需新闻稿的地址..................................... <br/> 检查手册 (可在节中提供 <a href=\"help.php\"> \"帮助\" </a>), 了解有关新闻稿列表使用情况的详细信息.
+";
+$txt['NEWSLISTFORADDRESS'] = "新闻稿列表的地址";
+$txt['ADDANEWSENTRY'] = "添加一个地址到列表";
+$txt['NEWSLISTENTRYTOADD'] = "输入要添加到新闻稿列表中的地址。您还可以添加可选注释。";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "从列表中选择要修改的地址, 然后单击所需的操作按钮。";
