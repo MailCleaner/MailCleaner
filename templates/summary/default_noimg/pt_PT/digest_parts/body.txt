@@ -1,0 +1,11 @@
+Subject: Quarentena do MailCleaner
+
+A sua quarentena do MailCleaner contém novas mensagens que foram detectadas como SPAM nos últimos __NBDAYS__ dias.
+
+Carregue aqui para analisar a sua quarentena: __BASEURL__/?d=__DIGEST_ID__
+
+Caso não realize qualquer ação em contrário, as mensagens irão manter-se na quarentena por __SPAMNBDAYS__ dias após a sua chegada.
+
+--------------------------------------------------------------------------------------
+Isto é uma mensagem automática enviada pelo MailCLeaner. Por favor não responda.
+Mais informações em: __BASEURL__

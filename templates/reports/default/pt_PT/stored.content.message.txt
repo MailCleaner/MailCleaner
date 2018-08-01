@@ -1,0 +1,18 @@
+Isto é uma mensagem do Mailcleaner
+----------------------------------
+A mensagem original continha conteúdo potencialmente perigoso,
+que foi removido para sua segurança.
+
+O conteúdo é perigoso porque é muitas vezes usado para espalhar vírus,
+para conseguir informação pessoal ou confidencial sobre si, tal como
+palavras passe ou números de cartões de crédito.
+
+Se pretender receber uma cópia da mensagem original, por favor use o seguinte atalho:
+https://www.mailcleaner.net/support/dangerous-content-release.html
+
+Em $date o filtro de conteúdos reportou:
+$report
+Informação para o Administrador: $hostname in $datenumber/$id
+
+-----------
+Mailcleaner

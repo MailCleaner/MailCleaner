@@ -51,7 +51,7 @@ CREATE TABLE user_pref (
   has_whitelist				   bool NOT NULL DEFAULT '0',
   has_warnlist				   bool NOT NULL DEFAULT '0',
   has_blacklist                             bool NOT NULL DEFAULT '0',
-  language                       varchar(4) NOT NULL DEFAULT 'fr',
+  language                       varchar(5) NOT NULL DEFAULT 'fr',
   gui_displayed_spams			  int NOT NULL DEFAULT '20',
   gui_displayed_days             int NOT NULL DEFAULT '7',
   gui_mask_forced                bool NOT NULL DEFAULT '0',

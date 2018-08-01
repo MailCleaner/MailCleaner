@@ -1,0 +1,13 @@
+Subject: MailCleaner endereço na lista branca/aviso
+
+Olá,
+
+Recebeu esta mensagem porque o remetente de uma mensagem que foi detetada como spam, 
+foi colocado em __LEVEL__ __LIST__.
+
+Destinatário: __TO__
+Remetente: __SENDER__
+
+Tem em anexo uma cópia dessa mensagem para uma análise mais aprofundada:
+
+

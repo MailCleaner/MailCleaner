@@ -61,7 +61,7 @@ CREATE TABLE domain_pref (
   summary_to                     varchar(200),
   spam_tag                       varchar(20) NOT NULL DEFAULT '{Spam?}',
   quarantine_bounces             bool NOT NULL DEFAULT '0',
-  language                       varchar(4) NOT NULL DEFAULT 'en',
+  language                       varchar(5) NOT NULL DEFAULT 'en',
   gui_displayed_spams			  int NOT NULL DEFAULT '20',
   gui_displayed_days             int NOT NULL DEFAULT '7',
   gui_mask_forced                bool NOT NULL DEFAULT '0',

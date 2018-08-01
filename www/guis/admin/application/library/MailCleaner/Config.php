@@ -48,6 +48,6 @@ class MailCleaner_Config
 	}
 	 
 	public function getUserGUIAvailableLanguages() {
-		return array('en' => 'English', 'fr' => 'French', 'de' => 'German', 'es' => 'Spanish', 'it' => 'Italian', 'nl' => 'Dutch');
+		return array('en' => 'English', 'fr' => 'French', 'de' => 'German', 'es' => 'Spanish', 'it' => 'Italian', 'nl' => 'Dutch', 'pt_PT' => 'Portuguese');
 	}
 }

@@ -1,0 +1,40 @@
+Subject: Resumo das mensagens retidas na quarentena
+Olá,
+
+Este é o relatório de quarentena dos últimos ??NBDAYS dias.
+
+Para o endereço: ??ADDRESS
+
+A lista abaixo é o sumário de todas as mensagens que foram bloqueadas pelo 
+MailCleaner.
+
+Se alguma destas não devia ter sido bloqueada, pode forçar a sua entrega 
+carregando no link "Forçar:".
+
+As mensagens listadas serão apagadas em ??SPAMNBDAYS dias.
+
+Se desejar parameterizar as suas definições para o MailCleaner, 
+ou ver em tempo real a quarentena, aceda à sua área em:
+
+??WEBBASEURL
+
+----
+
+Aqui está a lista de mensagens que foram bloqueadas:
+
+??START_LIST
+------------------------------------------------------
+Message ID: ??ID
+        Remetente: ??FROM
+        Data: ??DATE
+        Assunto: ??SUBJECT
+        Forçar: ??FORCEURL/fm.php?id=3D??ID&a=3D??ADDRESS&s=3D??STOREID&lang=3D??LANGUAGE
+	??NEWSLETTER_TXT
+??END_LIST
+
+------------------------------------------------------
+Isto é uma mensagem automática enviada pelo MailCLeaner.
+Por favor não responda.
+Para mais informações: ??MAILCLEANERURL
+
+??SUMSIGNATURE

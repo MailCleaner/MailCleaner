@@ -59,8 +59,7 @@ class Default_Form_DomainPreferences extends Zend_Form
 		    'label'      => $t->_('Language')." : ",
             'required'   => false,
             'filters'    => array('StringTrim')));
-	    ## TODO: add specific validator
-	    $language->addValidator(new Zend_Validate_Alnum());
+            $language->addValidator(new Zend_Validate_Regex(array('pattern' => '/^[a-z]{2}[_A-Z]{0,3}$/')));
         
 	    $config = MailCleaner_Config::getInstance();
 	    foreach ($config->getUserGUIAvailableLanguages() as $lk => $lv) {

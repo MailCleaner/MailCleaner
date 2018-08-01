@@ -1,0 +1,16 @@
+Subject: MailCleaner: pedido para adicionar endereço
+
+Pedido para adicionar endereço à conta do MailCleaner
+
+O utilizador __USER__ pediu que fosse adicionado o endereço (__ALIAS__) à sua conta do MailCleaner.
+É necessário uma confirmação para poder continuar a processar o pedido:
+
+- Se aceita o pedido, por favor carregue aqui: __WEBBASEURL____VALIDATEQUERY__
+
+- Se recusa o pedido, por favor carregue aqui: __WEBBASEURL____REFUSEQUERY__
+
+Se não responder, este pedido irá ser apagado automaticamente dentro de 24 horas.
+
+--------------------------------------------------------------------------------------
+Isto é uma mensagem automática enviada pelo MailCLeaner. Por favor não responda.
+Mais informações em: __BASEURL__
