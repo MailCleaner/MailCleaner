@@ -1,0 +1,75 @@
+#! /bin/sh
+# /etc/init.d/kaspersky: start Kaspersky daemon.
+
+export PATH=$PATH:/sbin:/usr/sbin
+
+SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "SRCDIR" = "" ]; then
+  SRCDIR=/opt/mailcleaner
+fi
+VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+if [ "VARDIR" = "" ]; then
+  VARDIR=/var/mailcleaner
+fi
+
+KASPERSKYDIR=/opt/kaspersky/bin
+
+
+# Exit if the package is not installed
+[ ! -e "${KASPERSKYDIR}/kavehost.sh" ] && exit 0
+
+DAEMON='./kavehost.sh'
+KASPERSKYDOPTS=" -c /opt/kaspersky/bin/kavehost.xml"
+
+prepare () {
+    $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
+}
+
+chown -R mailcleaner:mailcleaner $VARDIR/log/kaspersky
+
+case "$1" in
+  start)
+    touch $VARDIR/run/kaspersky.start.rs
+    echo -n "  Starting Kaspersky daemon: "
+    prepare
+    # We need to run Kaspersky from the kaspersky directory
+    CURRDIR=`pwd`
+    cd $KASPERSKYDIR
+    $DAEMON $KASPERSKYDOPTS >/dev/null 2>&1
+    cd $CURRDIR
+    echo "started."
+    if [ -f $VARDIR/run/kaspersky.rn ]; then
+      rm $VARDIR/run/kaspersky.rn
+	  fi    
+    rm $VARDIR/run/kaspersky.stopped >/dev/null 2>&1
+    rm $VARDIR/run/kaspersky.*.rs >/dev/null 2>&1
+    ;;
+  stop)
+    touch $VARDIR/run/kaspersky.stop.rs
+    echo -n "  Stopping Kaspersky daemon: "
+    kasperskyPID=`pgrep -f kavehost.xml`
+    if [ ! "$kasperskyPID" = "" ]; then
+      kill -KILL $kasperskyPID >/dev/null 2>&1
+      sleep 3
+    fi
+    kasperskyPID=`pgrep -f kavscanner`
+    if [ ! "$kasperskyPID" = "" ]; then
+      kill -KILL $kasperskyPID >/dev/null 2>&1
+      sleep 3
+    fi
+    echo "stopped."
+    touch $VARDIR/run/kaspersky.stopped
+    rm $VARDIR/run/kaspersky.stop.rs >/dev/null 2>&1
+    ;;
+  restart)
+    touch $VARDIR/run/kaspersky.restart.rs
+  	$0 stop
+  	sleep 1
+  	$0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/kaspersky {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
