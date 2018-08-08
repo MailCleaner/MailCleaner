@@ -107,7 +107,7 @@ $txt['FORCEMESSAGE'] = "釋放郵件";
 $txt['MESSAGEFORCING'] = "消息發佈";
 $txt['ANALYSEREQUEST'] = "篩選器調整請求";
 $txt['ANALYSEREQUESTV'] = "要求篩選器調整";
-$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['SCORETEXT'] = "分數: __PARAM__";
 $txt['CLOSEWINDOW'] = "關閉視窗";
 $txt['CURRENTPAGE'] = "頁 _ PARAM1 __of _ PARAM2 _";
 $txt['PURGEINFOS'] = "<strong> 自動清除後: </strong> __PARAM__ 天";
@@ -128,12 +128,12 @@ $txt['HOUR'] = "時間";
 $txt['FROM'] = "從";
 $txt['TO'] = "给";
 $txt['SUBJECT'] = "主旨";
-$txt['FORCED'] = "Released";
+$txt['FORCED'] = "釋放";
 $txt['ACTION'] = "Action";
 //old
 $txt['TOTALSPAMS'] = "總計: __PARAM__ 的垃圾郵件";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ 最后几天";
 $txt['PURGESELECTEDSPAMS'] = "手動清除隔離";
 //old
 $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
@@ -145,8 +145,8 @@ $txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析�
 $txt['AREYOUSURE'] = "<span class=\"question\"> 是否確實要分析此消息, 以及是否可以應用篩選器調整？ </span>";
 $txt['ASKANALYSE'] = "篩選器調整請求";
 $txt['PAGE'] = "頁";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['NEXTPAGE'] = "下一頁";
+$txt['PREVIOUSPAGE'] = "上一頁";
 //old
 $txt['GETREASONSTITLE'] = "篩選原因";
 $txt['HITRULE'] = "規則";
@@ -302,7 +302,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危險";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ 清潔";
 $txt['ALL'] = "全部...";
 $txt['SEARCHPERIOD'] = "分析期間";
 $txt['LASTDAYS'] = "最後幾天";
@@ -381,14 +381,14 @@ $txt['ANALYSETOPICTITLE'] = "篩選器調整請求";
  * configuration menu (new)
  */
 $txt['CONFIGURATION'] = "配置";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
+$txt['ADDRESSLISTTOPIC'] = "地址簿";
 $txt['ADDRESSPARAMTOPIC'] = "Address設置";
 $txt['QUARPARAMTOPIC'] = "隔離顯示";
 $txt['WARNLISTTOPIC'] = "警告清單";
 $txt['WHITELISTTOPIC'] = "白名單";
 $txt['BLACKLISTTOPIC'] = "黑名單";
 $txt['INTERFACETOPICTITLE'] = "介面設置";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
+$txt['ADDRESSLISTTOPICTITLE'] = "地址簿";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address 設置";
 $txt['QUARPARAMTOPICTITLE'] = "隔離顯示";
 $txt['WARNLISTTOPICTITLE'] = "警告清單";
