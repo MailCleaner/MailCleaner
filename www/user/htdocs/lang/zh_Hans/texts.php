@@ -35,18 +35,18 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "字节";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = '1月';
-$txt['MONTHAB2'] = '2月';
+$txt['MONTHAB1'] = '一月';
+$txt['MONTHAB2'] = '二月';
 $txt['MONTHAB3'] = '三月';
-$txt['MONTHAB4'] = '四月。';
+$txt['MONTHAB4'] = '四月';
 $txt['MONTHAB5'] = '五月';
 $txt['MONTHAB6'] = '六月';
 $txt['MONTHAB7'] = '七月';
-$txt['MONTHAB8'] = '八月。';
-$txt['MONTHAB9'] = '9 月。';
+$txt['MONTHAB8'] = '八月';
+$txt['MONTHAB9'] = '9月';
 $txt['MONTHAB10'] = '十月';
 $txt['MONTHAB11'] = '十一月';
-$txt['MONTHAB12'] = '12 月。';
+$txt['MONTHAB12'] = '十二月';
 $txt['MONTH1'] = '一月';
 $txt['MONTH2'] = '二月';
 $txt['MONTH3'] = '三月';
@@ -70,7 +70,7 @@ $txt['PASSWORD'] = "密码";
 //old
 $txt['ASKLOGIN'] = "请输入您的用户名和密码:";
 $txt['ORGANIZATIONUNIT'] = "组织机构单位";
-$txt['FORGOTPASSWORD'] = "忘记了密码？";
+$txt['FORGOTPASSWORD'] = "密码忘记了？";
 $txt['PASSWORDRESET'] = "密码已经重新设置。已经发送到您的邮箱中。";
 /*
  * menu
