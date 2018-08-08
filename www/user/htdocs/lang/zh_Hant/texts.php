@@ -180,38 +180,38 @@ $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "標頭";
 $txt['BODY'] = "正文";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['PARTS'] = "部分";
+$txt['STORESLAVE'] = "存儲";
+$txt['SPAMCSCORE'] = "規則評分";
 $txt['DESCRIPTION'] = "描述";
 $txt['MESSAGEPREVIEW'] = "郵件預覽";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "識別碼";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  session已結束. </p><p> 如果希望啟動新的 session, 請按一下以下連結: </p>";
+$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  進程已結束. </p><p> 如果希望啟動新的 進程, 請按一下以下連結: </p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "個人 MailCleaner 設置";
+$txt['PARAMTITLE'] = "MailCleaner個人設置";
 //old
 $txt['USERPARAM'] = "使用者設置";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "地址設置";
 //old
 $txt['LANGUAGE'] = "語言";
 $txt['ADDRESS'] = "Address";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "地址簿";
 //old
 $txt['FILTERACTIONTITLE'] = "垃圾郵件處理模式";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "隔離報告設置";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "個人地址簿: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "將更改應用於所有地址";
 //old
 $txt['MAIN'] = "主要的";
 //old
@@ -252,9 +252,9 @@ $txt['ACTIONS'] = "行動";
 //old
 $txt['ACTIVE'] = "active";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "停用";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "進入";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "是否確實要永久刪除此項？";
 //old
@@ -267,29 +267,29 @@ $txt['STATUS'] = "狀態";
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "添加address";
+$txt['ADDALIASTITLE'] = "添加地址";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "地址";
 //old
-$txt['REMADDRESSALT'] = "刪除address";
+$txt['REMADDRESSALT'] = "刪除地址";
 //old
-$txt['ADDADDRESSALT'] = "添加address";
-$txt['BADADDRESSFORMAT'] = "給定address無效。請重試。";
-$txt['NOTFILTEREDDOMAIN'] = "MailCleaner 不篩選此domain。無法添加address。";
-$txt['ALIASALREADYREGISTERD'] = "此address已由 MailCleaner 帳戶使用。無法添加。";
-$txt['ALIASALREADYPENDING'] = "此address的確認已掛起。";
-$txt['ALIASPENDING'] = "已將確認發送到此address. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加address。";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]address添加請求";
+$txt['ADDADDRESSALT'] = "添加地址";
+$txt['BADADDRESSFORMAT'] = "給定地址無效。請重試。";
+$txt['NOTFILTEREDDOMAIN'] = "MailCleaner不篩選此郵件域。無法添加地址。";
+$txt['ALIASALREADYREGISTERD'] = "此地址已由 MailCleaner 帳戶使用。無法添加。";
+$txt['ALIASALREADYPENDING'] = "此地址的確認已掛起。";
+$txt['ALIASPENDING'] = "已將確認發送到此地址. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加地址。";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]地址添加請求";
 $txt['ALIASERRORSENDIG'] = "由於內部錯誤, 無法發送請求。請稍後再試。";
-$txt['ALIASNOTPENDING'] = "此位址當前未掛起任何請求。";
-$txt['ALIASADDED'] = "已成功添加address。";
+$txt['ALIASNOTPENDING'] = "此地址當前未掛起任何請求。";
+$txt['ALIASADDED'] = "已成功添加地址。";
 $txt['ALIASREQUESTREMOVED'] = "請求已被取消。";
 //old
 $txt['REMALIASTITLE'] = "address刪除";
 //old
-$txt['REMALIASCONFIRM'] = "是否確實要刪除該address: __PARAM__？";
-$txt['ALIASREMOVED'] = "address __PARAM__ 已被刪除。";
-$txt['CANNOTREMOVEMAINADD'] = "address__PARAM__ 是主要的address。無法刪除。";
+$txt['REMALIASCONFIRM'] = "是否確實要刪除該地址: __PARAM__？";
+$txt['ALIASREMOVED'] = "地址__PARAM__ 已被刪除。";
+$txt['CANNOTREMOVEMAINADD'] = "地址__PARAM__ 是主要的郵件地址。無法刪除。";
 /*
  * statistics page
  */
@@ -482,3 +482,15 @@ $txt['NLRELEASEDHEAD'] = "通訊已被允許並發布。";
 $txt['NLRELEASEDBODY'] = "該通訊已被允許並發布。 它應該在幾分鐘內發送到您的郵箱。";
 $txt['NLNOTRELEASEDHEAD'] = "通訊沒有發布";
 $txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。 請稍後再試。";
+//old
+$txt['EDITNEWSLIST'] = "編輯新聞列表";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__新聞列表";
+$txt['NEWSLISTTOPIC'] = "新闻列表";
+$txt['NEWSLISTTOPICTITLE'] = "新聞清單";
+$txt['NEWSLISTSHORTHELP'] = "電子報清單包含所需電子報的位址. <br/> 檢查手冊 (可在節中提供 <a href=\"help.php\"> \"説明\" </a>), 瞭解有關電子報清單使用方式的詳細資訊。
+";
+$txt['NEWSLISTFORADDRESS'] = "地址通讯列表";
+$txt['ADDANEWSENTRY'] = "向清單中添加位址";
+$txt['NEWSLISTENTRYTOADD'] = "輸入要添加到電子報清單中的位址。您還可以添加可選注釋。";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "选择您想要导出的字段，然后点击“添加字段”按钮。";
