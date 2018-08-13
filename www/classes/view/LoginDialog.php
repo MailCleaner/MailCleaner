@@ -192,8 +192,8 @@ public function start()
     	$user->setName($this->auth_->getValue('realname'));
     }
     $lang_ = Language::getInstance('user');
-    if (isset($_GET['lang']) && $lang_->is_available($_GET['lang'])) {
-      $user->setPref('language', $_GET['lang']);
+    if (isset($_POST['language']) && $lang_->is_available($_POST['language'])) {
+      $user->setPref('language', $_POST['language']);
     }
     // and register it to the session
     $_SESSION['user'] = serialize($user);
@@ -252,6 +252,23 @@ public function hasDomainChooser() {
      return true;
   }
   return false; 
+}
+
+/**
+ * get the html string of the language chooser select field if needed
+ * @return    string  html select string
+ */
+public function printLanguageChooser() {
+  $ret = "";
+  $sysconf = SystemConfig::getInstance();
+  $lang_ = Language::getInstance('user');
+  $availablesLangs = $lang_->getLanguages();
+  $ret .= "<select name=\"language\" id=\"language\">\n";
+  foreach ($availablesLangs as $key => $value) {
+    $ret .= "<option value=\"$key\">$value</option>\n";
+  }
+  $ret .= "</select>\n";
+  return $ret;
 }
 
 /**
