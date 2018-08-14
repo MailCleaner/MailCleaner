@@ -117,20 +117,35 @@ class Language
     // for langs.
     $currLangs = array("en" => "en_US", "de" => "de_DE", "fr" => "fr_FR", "it" => "it_IT", "nl" => "nl_NL", "es" => "es_ES");
     foreach ($dirs as $l) {
-    	foreach ($language_codes as $l_code => $l_title) {
-    		$ll = basename($l);
-	        if (array_key_exists($ll, $currLangs) && in_array($ll, $ee_languages)) {
-			$this->available_languages_[$ll] = $language_codes[$currLangs[$ll]];
-			$this->inversed_languages_[$language_codes[$currLangs[$ll]]] = $ll;
-			break;
-	        } else {
-			if (preg_match("/^${ll}/", $l_code) == 1 && in_array($ll, $ee_languages)) {
-				$this->available_languages_[$ll] = $l_title;
-				$this->inversed_languages_[$l_title] = $ll;
-				break;
-	          	}
-        	}
-      }
+        foreach ($language_codes as $l_code => $l_title) {
+                $ll = basename($l);
+                if ($ISENTERPRISE) {
+                        if (array_key_exists($ll, $currLangs) && in_array($ll, $ee_languages)) {
+                                $this->available_languages_[$ll] = $language_codes[$currLangs[$ll]];
+                                $this->inversed_languages_[$language_codes[$currLangs[$ll]]] = $ll;
+                                break;
+                        } else {
+                                if (preg_match("/^${ll}/", $l_code) == 1 && in_array($ll, $ee_languages)) {
+                                        $this->available_languages_[$ll] = $l_title;
+                                        $this->inversed_languages_[$l_title] = $ll;
+                                        break;
+                                }
+                        }
+                } else {
+                        if (array_key_exists($ll, $currLangs)) {
+                                $this->available_languages_[$ll] = $language_codes[$currLangs[$ll]];
+                                $this->inversed_languages_[$language_codes[$currLangs[$ll]]] = $ll;
+                                break;
+                        } else {
+                                if (preg_match("/^${ll}/", $l_code) == 1) {
+                                        $this->available_languages_[$ll] = $l_title;
+                                        $this->inversed_languages_[$l_title] = $ll;
+                                        break;
+                                }
+                        }
+
+                }
+        }
     }
 
     asort($this->available_languages_);
