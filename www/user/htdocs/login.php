@@ -70,8 +70,8 @@ $replace = array(
 	    "__OU_FIELD__" => "<input class=\"fieldinput\" type=\"text\" name=\"ou\" size=\"20\" />",
       "__PASSWORD_FIELD__" => "<input class=\"fieldinput\" type=\"password\" name=\"password\" id=\"passwordfield\" size=\"20\" />",
       "__DOMAIN_CHOOSER__" => $login_->printDomainChooser(),
-      "__LANGUAGE_CHOOSER__" => $login_->printLanguageChooser(),
-	    "__SUBMIT_BUTTON__" => "<input type=\"submit\" name=\"".$lang_->print_txt('SUBMIT')."\" id=\"submitbutton\" value=\"".$lang_->print_txt('SUBMIT')."\" />",
+      "__LANGUAGE_CHOOSER__" => $login_->printLanguageChooser($lang_->getLanguage()),
+      "__SUBMIT_BUTTON__" => "<input type=\"submit\" name=\"".$lang_->print_txt('SUBMIT')."\" id=\"submitbutton\" value=\"".$lang_->print_txt('SUBMIT')."\" />",
 	    "__MCLINK__" => $mclink,
 	    "__MCLINKLABEL__" => $mclinklabel,
 	    "__USERNAME__" => $username
