@@ -259,7 +259,7 @@ public function hasDomainChooser() {
  * @param $curr which is the key of the current selected lang
  * @return    string  html select string
  */
-public function printLanguageChooser($curr = null)) {
+public function printLanguageChooser($curr = null) {
   $ret = "";
   $sysconf = SystemConfig::getInstance();
   $lang_ = Language::getInstance('user');
