@@ -256,16 +256,20 @@ public function hasDomainChooser() {
 
 /**
  * get the html string of the language chooser select field if needed
+ * @param $curr which is the key of the current selected lang
  * @return    string  html select string
  */
-public function printLanguageChooser() {
+public function printLanguageChooser($curr = null)) {
   $ret = "";
   $sysconf = SystemConfig::getInstance();
   $lang_ = Language::getInstance('user');
   $availablesLangs = $lang_->getLanguages();
   $ret .= "<select name=\"language\" id=\"language\">\n";
   foreach ($availablesLangs as $key => $value) {
-    $ret .= "<option value=\"$key\">$value</option>\n";
+    if ($curr != null && $curr == $key)
+            $ret .= "<option value=\"$key\" selected=\"selected\">$value</option>\n";
+    else
+            $ret .= "<option value=\"$key\">$value</option>\n";
   }
   $ret .= "</select>\n";
   return $ret;
