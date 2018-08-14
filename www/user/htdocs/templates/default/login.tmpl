@@ -85,6 +85,11 @@ __FI__ LOCALAUTH
   </div>
 
 </div>
-
+<script>
+     document.getElementById("language").onchange = function(event) {
+        window.location = 'login.php?lang=' + event.target.value;
+        console.log("HERE" + event.target.value);
+     }
+</script>
 </body>
 </html>
