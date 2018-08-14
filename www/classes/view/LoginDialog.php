@@ -192,8 +192,8 @@ public function start()
     	$user->setName($this->auth_->getValue('realname'));
     }
     $lang_ = Language::getInstance('user');
-    if (isset($_POST['language']) && $lang_->is_available($_POST['language'])) {
-      $user->setPref('language', $_POST['language']);
+    if (isset($_GET['lang']) && $lang_->is_available($_GET['lang'])) {
+        $user->setPref('language', $_GET['lang']);
     }
     // and register it to the session
     $_SESSION['user'] = serialize($user);
