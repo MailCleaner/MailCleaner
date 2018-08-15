@@ -31,8 +31,6 @@ class Language
      * Available language
      * @var array array of language. Shortcut name as key, and full name as value
      */
-    // private	available_languages_ = array('en' => 'English', 'fr' => 'Fran&ccedil;ais', 'de' => 'Deutsch', 'it' => 'Italian', 'es' => 'Espa&ntilde;ol');
-    // private $available_languages_ = array('en' => 'English', 'fr' => 'Fran&ccedil;ais', 'de' => 'Deutsch', 'es' => 'Espa&ntilde;ol', 'it' => 'Italian', 'nl' => 'Dutch');
     private $available_languages_ = array(); 
 
     /*
@@ -40,8 +38,6 @@ class Language
      * This one is usefull for html select inputs
      * @var array  array of language. Full name as key, and shortcut as value
      */
-    // private $inversed_languages_ = array('english' => 'en', 'fran&ccedil;ais' => 'fr', 'deutsch' => 'de', 'italian' => 'it', 'espa&ntilde;ol' => 'es');
-    // private $inversed_languages_ = array('english' => 'en', 'fran&ccedil;ais' => 'fr', 'deutsch' => 'de', 'espa&ntilde;ol' => 'es', 'italian' => 'it', 'nl' => 'dutch');
     private $inversed_languages_ = array();
 
     /**
@@ -119,6 +115,7 @@ class Language
     foreach ($dirs as $l) {
         foreach ($language_codes as $l_code => $l_title) {
                 $ll = basename($l);
+		// Ignore duplicates
 		if (array_key_exists($ll, $this->available_languages_) || in_array($l_title, $this->available_languages_) || in_array($language_codes[$currLangs[$ll]], $this->available_languages_)) {
                         continue;
                 }
