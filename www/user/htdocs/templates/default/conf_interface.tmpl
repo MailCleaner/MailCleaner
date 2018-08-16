@@ -27,6 +27,14 @@ __INCLUDE__(header.tmpl)
 __INCLUDE__(config_menu.tmpl)
  
  <div id="generalconfigcontent">
+
+__IF__ ISCOMMUNITY
+  <h3>
+  Your language is missing ? We would love everybody to be able to use MailCleaner in a language that they understand. 
+  Please <a href="https://www.mailcleaner.org/translations/" target="_blank">help</a> us to translate MailCleaner in your Language.
+  </h3>
+__FI__ ISCOMMUNITY
+
   <div id="languageconfigpanel" class="configpanel">
 __BEGIN_PREFS_FORM__
 <p class="message">__MESSAGE__</p>

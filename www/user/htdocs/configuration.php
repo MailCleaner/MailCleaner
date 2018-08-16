@@ -76,6 +76,12 @@ $replace = array(
     '__SELECTOR_LANG__' => $lang_->html_select(),
 );
 
+require_once ('helpers/DataManager.php');
+$file_conf = DataManager :: getFileConfig($sysconf_ :: $CONFIGFILE_);
+$is_enterprise = $file_conf['REGISTERED'] == '1';
+if (!$is_enterprise)
+	$template_->setCondition('ISCOMMUNITY', true);
+
 $replace = $controller->addReplace($replace, $template_);
 
 // display page

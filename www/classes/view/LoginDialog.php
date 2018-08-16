@@ -193,7 +193,7 @@ public function start()
     }
     $lang_ = Language::getInstance('user');
     if (isset($_GET['lang']) && $lang_->is_available($_GET['lang'])) {
-      $user->setPref('language', $_GET['lang']);
+        $user->setPref('language', $_GET['lang']);
     }
     // and register it to the session
     $_SESSION['user'] = serialize($user);
@@ -252,6 +252,27 @@ public function hasDomainChooser() {
      return true;
   }
   return false; 
+}
+
+/**
+ * get the html string of the language chooser select field if needed
+ * @param $curr which is the key of the current selected lang
+ * @return    string  html select string
+ */
+public function printLanguageChooser($curr = null) {
+  $ret = "";
+  $sysconf = SystemConfig::getInstance();
+  $lang_ = Language::getInstance('user');
+  $availablesLangs = $lang_->getLanguages();
+  $ret .= "<select name=\"language\" id=\"language\">\n";
+  foreach ($availablesLangs as $key => $value) {
+    if ($curr != null && $curr == $key)
+            $ret .= "<option value=\"$key\" selected=\"selected\">$value</option>\n";
+    else
+            $ret .= "<option value=\"$key\">$value</option>\n";
+  }
+  $ret .= "</select>\n";
+  return $ret;
 }
 
 /**
