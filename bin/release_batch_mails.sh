@@ -17,9 +17,8 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-#
-#   This script give you a MySQL shel to either the master or the slave
-#   database as the mailcleaner user.
+#   This script can be used to release in batch emails that were put in
+#   quarantine
 #
 #   Usage:
 # 	release_batch_emails.sh <sender>
@@ -37,6 +36,11 @@ MYMAILCLEANERPWD=`grep '^MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f
 
 SOCKET=$VARDIR/run/mysql_slave/mysqld.sock
 COMMAND=/opt/mysql5/bin/mysql
+
+if [[ -z $1 ]]; then
+	echo "Please input a sender address"
+	exit 1
+fi
 QUERY="SELECT exim_id,to_user,to_domain FROM spam WHERE sender=\"$1\";"
 
 results=($(echo "$QUERY" | $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD -N mc_spool))
