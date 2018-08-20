@@ -116,9 +116,15 @@ class Language
         foreach ($language_codes as $l_code => $l_title) {
                 $ll = basename($l);
 		// Ignore duplicates
-		if (array_key_exists($ll, $this->available_languages_) || in_array($l_title, $this->available_languages_) || in_array($language_codes[$currLangs[$ll]], $this->available_languages_)) {
-                        continue;
-                }
+		if (array_key_exists($ll, $this->available_languages_) || in_array($l_title, $this->available_languages_) ) {
+			continue;
+		}
+		if (array_key_exists($ll, $currLangs)) {
+			if ( in_array($language_codes[$currLangs[$ll]], $this->available_languages_) ) {
+				continue;
+			}
+		}
+
                 if ($ISENTERPRISE) {
                         if (array_key_exists($ll, $currLangs) && in_array($ll, $ee_languages)) {
                                 $this->available_languages_[$ll] = $language_codes[$currLangs[$ll]];
