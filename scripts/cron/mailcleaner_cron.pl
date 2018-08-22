@@ -334,6 +334,18 @@ if ($itsmidnight) {
   print "done rotating logs.\n";
 
   ##########################
+  ## db.root update
+  ##########################
+  if (my $pid_clsp = fork) {
+  } elsif (defined $pid_clsp) {
+    print "Updating db.root...\n";
+    system("wget -q --no-check-certificate https://www.internic.net/domain/named.root -O /etc/bind/db.root && rndc reload >/dev/null 2>&1");
+    print "db.root updated.\n";
+    exit;
+  }
+
+
+  ##########################
   ## spam quarantine cleanup
   ##########################
   if (my $pid_clsp = fork) {
