@@ -2,7 +2,7 @@
 tmpdir		= /tmp
 port		= 3306
 user		= mysql
-expire-logs-days = 21
+expire-logs-days = __BINARY_LOG_KEEP__
 
 skip-external-locking
 key_buffer_size = 384M
