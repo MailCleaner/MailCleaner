@@ -496,7 +496,7 @@ $txt['NLRELEASEDBODY'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et 
 $txt['NLNOTRELEASEDHEAD'] = "La Newsletter n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
 $txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message. Veuillez réessayer plus tard.";
 //old
-$txt['EDITNEWSLIST'] = "éditer news list";
+$txt['EDITNEWSLIST'] = "Modifier la liste newsletters";
 //old
 $txt['NEWSLISTFOR'] = "Liste newsletters pour __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Liste newsletters";
