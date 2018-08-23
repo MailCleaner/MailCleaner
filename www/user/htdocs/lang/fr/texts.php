@@ -495,3 +495,16 @@ $txt['NLRELEASEDHEAD'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et 
 $txt['NLRELEASEDBODY'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;. Elle sera d&eacute;livr&eacute;e dans votre boite dans quelques minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "La Newsletter n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
 $txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message. Veuillez réessayer plus tard.";
+//old
+$txt['EDITNEWSLIST'] = "éditer news list";
+//old
+$txt['NEWSLISTFOR'] = "Liste newsletters pour __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Liste newsletters";
+$txt['NEWSLISTTOPICTITLE'] = "liste newsletters";
+$txt['NEWSLISTSHORTHELP'] = "La liste newsletters contient les adresses des newsletters désirées. <br />
+Consultez le manuel (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour plus d'informations sur l'utilisation de la liste newsletters.
+";
+$txt['NEWSLISTFORADDRESS'] = "Liste newsletters pour l'adresse";
+$txt['ADDANEWSENTRY'] = "Ajouter une adresse à la liste";
+$txt['NEWSLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste newsletters. Vous pouvez y associer un commentaire optionnel.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adresses que vous souhaitez modifier puis cliquez sur le bouton qui correspond &agrave; l'action d&eacute;sir&eacute;e.";
