@@ -262,10 +262,10 @@ sub dump_exim_file
   }
 
   my @net_interfaces = get_interfaces();
-  $template->setCondition('DISABLE_IPV6', 1)
+  $template->setCondition('DISABLE_IPV6', 1);
   foreach my $interface (@net_interfaces){
     if ( ! is_ipv6_disabled($interface)) {
-        $template->setCondition('DISABLE_IPV6', 0)
+        $template->setCondition('DISABLE_IPV6', 0);
     }
   }
 
