@@ -164,8 +164,8 @@ foreach my $a (@addresses) {
     '__END_MONTH__' => sprintf('%.2u', $end_month),
     '__END_YEAR__' => $end_year,
     '__END_SYEAR__' => sprintf('%.2u', $end_year-2000),
-    '__START_DATE__' => $start->strftime("%x"),
-    '__END_DATE__' => $end->strftime("%x"),
+    '__START_DATE__' => Encode::encode('UTF-8', $start->strftime("%x")),
+    '__END_DATE__' => Encode::encode('UTF-8', $end->strftime("%x")),
     '__ADDRESSES__' => join(', ', @addresses)
   );
 
@@ -367,7 +367,7 @@ sub getQuarantineTemplate {
                 'hour' => $spam->{'T_h'}, 'minute' =>  $spam->{'T_m'}, 'second' =>  $spam->{'T_s'}
                 );
     $spamdate->set_locale($lang);
-    my $strdate = $spamdate->strftime("%c");
+    my $strdate = Encode::encode('UTF-8', $spamdate->strftime("%c"));
 
   	$tmp =~ s/\_\_SINGLEDATE\_\_/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'}/g;
     $tmp =~ s/\_\_SINGLETIME\_\_/$spam->{'time_in'}/g;
