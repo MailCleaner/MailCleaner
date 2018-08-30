@@ -55,6 +55,13 @@ sub create {
   } else {
   	$lang = $language;
   }
+  # If user pref langage is not currently translated for the template type,
+  # use english by default
+  my $conf = ReadConfig::getInstance();
+  if (! -d $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang") {
+        $lang = 'en';
+  }
+
   ## summary_type not yet available as user preference
   if ($type !~ /(html|text)/) {
     $type = 'html';
@@ -70,7 +77,6 @@ sub create {
   	  $from = $dm;
   	}
   }
-  my $conf = ReadConfig::getInstance();
   $path = $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/$filename";
  # print "testing path: $path\n";
   if (! -d $path."_parts" && ! -f $path.".txt") {
