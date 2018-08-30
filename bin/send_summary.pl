@@ -117,7 +117,8 @@ foreach my $a (@addresses) {
   my $domain = $email->getDomainObject();
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
-  if (!defined($lang) || $lang eq '') {
+  # In case of missing translation for summaries
+  if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$domain->getPref('summary_template')."/$lang") {
     $lang = 'en';
   }
   my $to = $email->getPref('summary_to');
