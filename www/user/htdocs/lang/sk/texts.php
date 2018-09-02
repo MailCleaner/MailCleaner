@@ -6,12 +6,12 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
+$txt['NEWSLETTERMODULE'] = "Informačný bulletin";
+$txt['NEWSLETTERSTOPIC'] = "Informačné bulletiny";
+$txt['NEWSLETTERSTOPICTITLE'] = "Informačné bulletiny";
+$txt['NEWSLETTERSSHORTHELP'] = "Tu môžete spravovať svoje informačné bulletiny.";
 $txt['NEWSLETTERSALLOW'] = "doručiť";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['NEWSLETTERACCEPT'] = "Akceptovať tento informačný bulletin";
 $txt['SPAM_WHITELIST_DISABLED'] = "Zoznam nieje aktivovaný pre túto doménu (Kontaktujte Vášho administrátora).";
 /* 
  * generic buttons
@@ -69,7 +69,7 @@ $txt['USERNAME'] = "Prihlasovacie meno";
 $txt['PASSWORD'] = "Heslo";
 //old
 $txt['ASKLOGIN'] = "Prosím zadajte Vaše meno a heslo:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
+$txt['ORGANIZATIONUNIT'] = "Organizačná jednotka";
 $txt['FORGOTPASSWORD'] = "Zabudnuté heslo?";
 $txt['PASSWORDRESET'] = "Heslo bolo zmenené. Bolo poslané na Vašu mailovú adresu.";
 /*
@@ -90,11 +90,11 @@ $txt['NAVSUPPORT'] = "Podpora";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
+$txt['SELECTEDADDRESS'] = "Zobrazená adresa";
+$txt['QUARANTINESUMMARY'] = "<strong>v karanténe:</strong> __PARAM__ správ";
 $txt['SEARCHSUMMARY'] = "<strong>Hľadať:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "zoradené podľa __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
+$txt['RESETSEARCH'] = "Zobrazenie celého obsahu karantény";
 $txt['ODATE'] = "dátum";
 $txt['OTIME'] = "čas";
 $txt['OSCORE'] = "score";
@@ -104,11 +104,11 @@ $txt['OSCORE'] = "hodnotenie";
 $txt['OSUBJECT'] = "predmet";
 //old
 $txt['CRITERIAS'] = "Pravidlá filtra";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['FORCEMESSAGE'] = "Uvoľniť správu";
+$txt['MESSAGEFORCING'] = "Uvoľnenie správy";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
+$txt['ANALYSEREQUEST'] = "Požiadavka na úpravu filtra";
+$txt['ANALYSEREQUESTV'] = "Žiadosť o úpravu filtra";
 $txt['SCORETEXT'] = "Hodnotenie: __PARAM__";
 $txt['CLOSEWINDOW'] = "Zavrieť okno";
 $txt['CURRENTPAGE'] = "Strana __PARAM1__ z __PARAM2__";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "Náhľad správy";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -480,3 +480,13 @@ $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
  */
 $txt['SESSIONTERMINATED'] = "Your session ended.";
 $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['ADDANEWSENTRY'] = "Pridať adresu do zoznamu";
+$txt['NEWSLISTENTRYTOADD'] = "Zadajte adresu, ktorú chcete pridať do zoznamu informačných bulletinov. Môžete pridať aj komentár.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Vyberte adresu, alebo viac adries, ktoré chcete editovať a kliknite na príslušné tlačidlo.";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Informačný bulletin bol povolený a uvoľnený.";
+$txt['NLRELEASEDBODY'] = "Informačný bulletin bol povolený a uvoľnený. Mal by byť doručený do Vašej schránky v priebehu niekoľkých minút.";
+$txt['NLNOTRELEASEDHEAD'] = "Informačný bulletin nebol uvoľnený";
+$txt['NLNOTRELEASEDBODY'] = "Pri uvoľňovaní správy sa vyskytol problém. Skúste to zopakovať neskôr prosím.";
