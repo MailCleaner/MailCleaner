@@ -64,7 +64,7 @@ $txt['MONTH12'] = 'December';
  */
 $txt['BADLOGIN'] = "Nespávne meno alebo heslo.";
 $txt['SESSIONEXPIRED'] = "Relácia vypršala.";
-$txt['LOGININFO'] = "Pamätajte : Vaše meno a heslo je rovnaké ako emailový účet";
+$txt['LOGININFO'] = "Pamätajte : Vaše meno a heslo je rovnaké ako Váš emailový účet";
 $txt['USERNAME'] = "Prihlasovacie meno";
 $txt['PASSWORD'] = "Heslo";
 //old
@@ -237,19 +237,19 @@ $txt['MONTHLY'] = "Monthly";
 $txt['NOSUMMARY'] = "No report";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
+$txt['USEDEFAULT'] = "použiť predvolené";
 $txt['SUMMHTML'] = "html";
-$txt['SUMMTEXT'] = "plain text";
+$txt['SUMMTEXT'] = "čistý text";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "upraviť zoznam povolených";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "upraviť zoznam upozornení";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
-$txt['COMMENT'] = "Comment";
+$txt['SENDER'] = "Odosielateľ";
+$txt['COMMENT'] = "Komentár";
 //old
 $txt['ACTIONS'] = "Action";
 //old
