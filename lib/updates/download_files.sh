@@ -43,7 +43,7 @@ MINSLEEPTIME=0
 SSH_CMD='ssh -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=error -i /root/.ssh/id_rsa'
 
 function log {
-    echo "["`date "+%Y-%m-%d %H:%M:%S"`"] $1" >> $LOGFILE
+    echo "["`date "+%Y/%m/%d %H:%M:%S"`"] $1" >> $LOGFILE
 }
 
 function downloadDatas {
@@ -97,18 +97,22 @@ function downloadDatas {
             --archive \
             --compress \
             --itemize-changes \
+            --out-format="[%t] %i %f" \
             --rsh="${SSH_CMD}" \
             ${ownership_opt} \
-            --filter=": /${2}/files.filter" \
+            --filter=": /${2}/${FILTER_FILENAME}" \
             ${excluded_opt} \
-            ${user}@${server}:${remote_folder} ${local_folder} | tee -a $LOGFILE 2> /dev/null)
+            ${user}@${server}:${remote_folder} ${local_folder} 2> /dev/null)
         if [ $? == 0 ]; then
+            if [[ ! -z ${rsync_result} ]]; then
+                echo "${rsync_result}" >> $LOGFILE
+            fi
             break
         fi
     done
 
     # Check for removed files (without removing custom files)
-    if [ -f "${old_filter}" ]; then
+    if [ -f "${old_filter}" ] && [ -f "${filter}" ]; then
         for f in $(cat ${old_filter} | grep -v -e "\*" | cut -d " " -f2); do
             filepath=$(echo ${local_folder}/${f} | sed "s%/\+%/%g")
             is_in_filter=$(grep -e "$f" ${filter})
@@ -120,10 +124,15 @@ function downloadDatas {
     fi
 
     # If one of the files of the filter was modifed during synchronization, replace it
+    # Also copy all if destination folder is created
     if [ ${7} ]; then
         copy_folder=${7}
+        if [ ! -d "${copy_folder}" ]; then
+            mkdir -p "${copy_folder}"
+            folder_created=true
+        fi
         for f in $(cat ${filter} | grep -v -e "\*" | cut -d " " -f2); do
-            if [ -n "$(echo "${rsync_result}" | grep -e "${f:1}")" ]; then
+            if [ -n "$(echo "${rsync_result}" | grep -e "${f:1}")" ] || [ ${folder_created} ]; then
                 filepath=$(echo ${local_folder}/${f} | sed "s%/\+%/%g")
                 destination_path=$(echo ${copy_folder}/${f} | sed "s%/\+%/%g")
                 cp $filepath $destination_path
