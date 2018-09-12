@@ -222,8 +222,8 @@ __IF__ RBL
 deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
           dnslists      = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
-          message = Blacklisted in $dnslist_domain: $dnslist_text
-          log_message = "listed in $dnslist_domain : $dnslist_text"
+          message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
+          log_message = "listed in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text"
           delay = __RBLTIMEOUT__s
           set acl_c8    = smtp:refused:rbl
           set acl_c9    = STATSADD
@@ -486,8 +486,8 @@ __IF__ RCPTRBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
           dnslists = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
-          message = Blacklisted in $dnslist_domain: $dnslist_text
-          log_message   = "listed in $dnslist_domain : $dnslist_text"
+          message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
+          log_message   = "listed in ${perl{hideToken}{$dnslist_domain}} : $dnslist_text"
           delay = __RBLTIMEOUT__s
           set acl_c8    = smtp:refused:rbl
           set acl_c9    = STATSADD
