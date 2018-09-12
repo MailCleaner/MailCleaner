@@ -4,6 +4,16 @@ use lib "__SRCDIR__/lib";
 use SMTPAuthenticator;
 use SMTPCalloutConnector;
 
+sub hideToken {
+  my $dnsname = shift;
+  my $count = $dnsname =~ tr/.//;
+  if ($count >= 2 && $dnsname =~ /(([a-zA-Z0-9-_]*\.){2}[a-zA-Z0-9-_]*)\.$/) {
+     return $1;
+  } else {
+     return $dnsname;
+  }
+}
+
 sub authenticate {
   my $account = shift;
   my $password = shift;
