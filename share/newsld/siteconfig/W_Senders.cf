@@ -17,7 +17,7 @@
 #
 #   Whitelisted sender list
 
-header		MC_NEWS_WFRMMC		From =~ /.*\@mailcleaner\.(com|ch|net)/i
+header		MC_NEWS_WFRMMC		From =~ /.*\@mailcleaner\.(com|ch|net|org)/i
 score		MC_NEWS_WFRMMC		-20.0
 
 header		MC_NEWS_WFRMFASTNET	From =~ /.*\@fastnet\.ch/i
