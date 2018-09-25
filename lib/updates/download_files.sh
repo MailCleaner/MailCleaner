@@ -96,6 +96,7 @@ function downloadDatas {
         rsync_result=$(rsync \
             --archive \
             --compress \
+            --checksum \
             --itemize-changes \
             --out-format="[%t] %i %f" \
             --rsh="${SSH_CMD}" \
