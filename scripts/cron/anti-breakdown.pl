@@ -182,7 +182,7 @@ sub is_port_ok {
 		}
 	}
 	if  ( $nb_failed_host >= $max_host_failed) {
-		system("rndc flush");
+		system("/usr/sbin/rndc flush");
 		$step++;
 		if ($step == $nb_tests) {
 			return 0;
