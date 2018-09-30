@@ -143,6 +143,7 @@ function downloadDatas {
 
     # Exit if the calling script didnt specify not to exit
     if [ "$6" != "noexit" ]; then
+	rm -f "/var/mailcleaner/spool/tmp/${FILE_NAME}"
         exit 0
     fi
 }

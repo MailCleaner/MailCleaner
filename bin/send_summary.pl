@@ -40,6 +40,8 @@ require ReadConfig;
 require DB;
 require Email;
 require MailTemplate;
+require 'lib_utils.pl';
+
 use Date::Calc qw(Add_Delta_Days Today Date_to_Text Date_to_Text_Long);
 use DateTime;
 use Encode;
@@ -68,6 +70,13 @@ if ($days !~ /^\d+$/) {
   print "INCORRECTPARAMS";
   exit 0;
 }
+
+# Check for lock
+my $rc = create_lockfile('send_summary', undef, time+10*60*60, 'send_summary');
+if ($rc == 0) {
+  exit;
+}
+
 my $nodigest = 0;
 my $opts = shift;
 if ($opts =~ /^nodigest$/) {
@@ -412,5 +421,6 @@ sub getQuarantineTemplate {
   	$ret .= $tmp;
   }
 
+  remove_lockfile('send_summary');
   return $ret;
 }

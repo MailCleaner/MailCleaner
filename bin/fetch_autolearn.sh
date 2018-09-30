@@ -62,10 +62,20 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 downloadDatas "$VARDIR/spool/downloads/spamassassin" "bayes_packs" $randomize "mailcleaner" "\|bayes.mutex\|bayes_seen\|spamd.pid\|spamd.sock\|bayes_journal" "noexit" "${VARDIR}/spool/spamassassin"
 
 log "SpamAssassin - bayes_packs updated"
+
+removeLockFile "$FILE_NAME"
 
 exit 0

@@ -37,24 +37,6 @@ my $itsmonthday=0;
 my %config = readConfig("/etc/mailcleaner.conf");
 my $lockfile = '/var/mailcleaner/spool/tmp/mailcleaner_cron.lock';
 
-# Lockfile
-if ( -e $lockfile) {
-	my ($rc, $pid, $old_timeout) = Slurp_file($lockfile);
-	if ( time - $old_timeout > 0) {
-		unlink $lockfile;
-		`kill $pid`;
-#		`killall mailcleaner_cron.pl`;
-	} else {
-		exit;
-	}
-}
-
-my $timeout = time + (30*60);
-
-open(LOCKFILE, '>', $lockfile);
-print LOCKFILE "$$\n$timeout\n";
-close LOCKFILE;
-
 # Anti-breakdown for MailCleaner services
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
 	system($config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl &>> /dev/null");
@@ -545,9 +527,6 @@ if ( -e $config{'VARDIR'}."/run/mailcleaner.rn") {
 	system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
 }
 
-# Lockfile
-unlink $lockfile;
-
 ####################################################################################
 
 sub readConfig {       # Reads configuration file given as argument.
@@ -570,24 +549,3 @@ sub readConfig {       # Reads configuration file given as argument.
   close CONFIG;
   return %config;
 }
-
-######################################################################################
-###
-# Retourne 0 si ne peut pas ouvrir le fichier (1, @contenu_du_fichier) sinon
-sub Slurp_file {
-    my ($file) = @_;
-    my @contains = ();
-
-    ###
-    # lecture totale du fichier avant de l'analyser
-    if ( ! open(FILE, '<', $file) ) {
-        return (0, @contains);
-    }
-
-    @contains = <FILE>;
-    close(FILE);
-    chomp(@contains);
-
-    return(1, @contains)
-}
-

@@ -61,6 +61,14 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 ##
@@ -70,5 +78,7 @@ COMMUNITY_RBLS_LIST="\|two-level-tlds.txt\|SORBS.cf\|URIBL.cf\|SPAMCOP.cf\|UCEPR
 downloadDatas "$SRCDIR/etc/rbls/" "rbls" $randomize "null" "$COMMUNITY_RBLS_LIST"
 
 log "RBLs checked"
+
+removeLockFile "$FILE_NAME"
 
 exit 0

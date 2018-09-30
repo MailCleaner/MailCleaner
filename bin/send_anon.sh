@@ -49,6 +49,14 @@ if [ "$REGISTERED" != "2" ]; then
 	exit 0
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 # Check if customer choose to send anonymous statistics
 ACCEPT_SEND_STATISTICS=$(echo "SELECT accept_send_statistics FROM registration LIMIT 1\G" | $SRCDIR/bin/mc_mysql -m mc_community | grep -v "*" | cut -d ':' -f2 | tr -d '[:space:]')
 if [ "$ACCEPT_SEND_STATISTICS" != "1" ]; then
@@ -77,6 +85,9 @@ http_params=$(echo $http_params | sed 's/&$//')
 
 URL="$URL$http_params"
 wget -q "$URL" -O /tmp/mc_registerce.out >/tmp/mc_registerce.debug 2>&1
+
+
+removeLockFile "$FILE_NAME"
 
 echo "SUCCESS"
 exit 0

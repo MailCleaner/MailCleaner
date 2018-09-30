@@ -2,8 +2,6 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
-#   Copyright (C) 2015-2017 Mentor Reka <reka.mentor@gmail.com>
-#   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,42 +17,11 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-#
-#   This script will fetch the actual spamassassin ruleset
-#
-#   Usage:
-#           fetch_spamc_rules.sh [-r]
-
-usage()
-{
-  cat << EOF
-usage: $0 options
-
-This script will fetch the current ruleset
-
-OPTIONS:
-  -r   randomize start of the script, for automated process
-EOF
-}
-
-randomize=false
-
-while getopts ":r" OPTION
-do
-  case $OPTION in
-    r)
-       randomize=true
-       ;;
-    ?)
-       usage
-       exit
-       ;;
-  esac
-done
+#   This lib permits to use useful function such as the LockFile process handling.
 
 CONFFILE=/etc/mailcleaner.conf
 SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
-if [ "$SRCDIR" = "" ]; then 
+if [ "$SRCDIR" = "" ]; then
   SRCDIR="/opt/mailcleaner"
 fi
 VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
@@ -62,24 +29,22 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
-. $SRCDIR/lib/lib_utils.sh
-FILE_NAME=$(basename -- "$0")
-FILE_NAME="${FILE_NAME%.*}"
-ret=$(createLockFile "$FILE_NAME")
-if [[ "$ret" -eq "1" ]]; then
-        exit 0
-fi
+LOCKFILEDIRECTORY=${VARDIR}/spool/tmp/
 
-. $SRCDIR/lib/updates/download_files.sh
+function createLockFile()
+{
+	LOCKFILE=${LOCKFILEDIRECTORY}${1}
+	if [ -f ${LOCKFILE} ]; then
+		echo 1
+	else
+		echo $$ > ${LOCKFILE}
+		echo 0
+	fi
+}
 
-##
-## SpamAssassin rules update
-##
-downloadDatas "$SRCDIR/share/spamassassin/" "spamc_rules" $randomize "null" "\|mailscanner.cf" 
-$SRCDIR/etc/init.d/spamd stop >/dev/null 2>&1
-sleep 3
-$SRCDIR/etc/init.d/spamd start >/dev/null 2>&1
-
-removeLockFile "$FILE_NAME"
-
-exit 0
+function removeLockFile()
+{
+	LOCKFILE=${LOCKFILEDIRECTORY}${1}
+	rm -f ${LOCKFILE}
+	echo $?
+}

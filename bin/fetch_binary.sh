@@ -60,6 +60,15 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 ##
@@ -75,5 +84,7 @@ fi
 downloadDatas "$SRCDIR/etc/exim/mc_binary/" "mc_binary" $randomize "null" ""
 $SRCDIR/etc/init.d/exim_stage1 restart &>> /dev/null
 log "Binary downloaded"
+
+removeLockFile "$FILE_NAME"
 
 exit 0

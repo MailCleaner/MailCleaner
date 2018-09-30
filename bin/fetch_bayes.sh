@@ -68,10 +68,21 @@ if [ ! -d "$MC_BOGO_DB_DIR" ]; then
         mkdir $MC_BOGO_DB_DIR
 fi
 
+
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 downloadDatas "$MC_BOGO_DB_DIR" "bayes_bogo" $randomize "mailcleaner" ""
 
 log "BogoFilter - bayes updated"
+
+removeLockFile "$FILE_NAME"
 
 exit 0
