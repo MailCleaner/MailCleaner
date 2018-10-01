@@ -118,7 +118,8 @@ if ($is_enterprise) {
                 // We try to get the default file (in en)
                 $url_to_get=$mcmanager.$default_filename;
                 $curl = curl_init();
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
                 curl_setopt_array($curl, array(
                         CURLOPT_RETURNTRANSFER => 1,
                         CURLOPT_URL => $url_to_get,
