@@ -100,10 +100,12 @@ $filename='mc-info-box-user-'.$user_pref_lang.'.php';
 
 if ($is_enterprise) {
         // MailCleaner Staff CONTENT
-        $mcmanager='http://mcmanager.mailcleaner.net/';
+        $mcmanager='https://www.mailcleaner.net/infobox/';
         $url_to_get=$mcmanager.$filename;
 
         $curl = curl_init();
+	curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+	curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
         curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $url_to_get,
@@ -116,6 +118,7 @@ if ($is_enterprise) {
                 // We try to get the default file (in en)
                 $url_to_get=$mcmanager.$default_filename;
                 $curl = curl_init();
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
                 curl_setopt_array($curl, array(
                         CURLOPT_RETURNTRANSFER => 1,
                         CURLOPT_URL => $url_to_get,

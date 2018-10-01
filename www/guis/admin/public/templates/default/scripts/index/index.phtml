@@ -12,7 +12,7 @@
 <?php } ?>
 
 <?php
-$urltoget='http://mcmanager.mailcleaner.net/';
+$urltoget='https://www.mailcleaner.net/infobox/';
 
 if ($user && $user->getUserType() == 'administrator') {
         if ($sysconf->getOption('REGISTERED') == "1")
@@ -20,7 +20,9 @@ if ($user && $user->getUserType() == 'administrator') {
         else
                 $urltoget = $urltoget.'mc-ce-info-box.php';
         $curl = curl_init();
-
+	
+	curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3); 
+	curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
         curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $urltoget,
