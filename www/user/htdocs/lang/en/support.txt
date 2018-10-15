@@ -12,7 +12,7 @@ $txt['SFALSENEGTUTOR'] = "If you truly find that the message to be spam, please 
 
 $txt['SFALSEPOSTITLE'] = "FALSE POSITIVES";
 $txt['SFALSEPOSSUB1TITLE'] = "You didn't receive a message that you should have?";
-$txt['SFALSEPOSSUB1'] = "You can check to see if the message was blocked by Mailcleaner via the user web interface, under the "Quarantine" header. If you do not find it in the quarantine list, please verify the following points:";
+$txt['SFALSEPOSSUB1'] = "You can check to see if the message was blocked by Mailcleaner via the user web interface, under the \"Quarantine\" header. If you do not find it in the quarantine list, please verify the following points:";
 
 $txt['SFALSEPOSSUB1POINT1'] = "the destination address used by the sender is correct";
 $txt['SFALSEPOSSUB1POINT2'] = "the e-mail had a chance to be processed (a process which can take a few minutes)";
@@ -74,7 +74,7 @@ $txt['DOCUMENTATION'] = "
                                    In case a false positive, click on the icon corresponding to the innocent message to send feedback to your administrator.
                                 </li>
                                 <li> <h3>Filter options: </h3>
-                                   Some filter options are available to let you search through your quarantines. The number of days in the quarantine, the number of messages per page, and subject/destination search fields. Fill in the ones you want to use and click "Refresh" to apply.
+                                   Some filter options are available to let you search through your quarantines. The number of days in the quarantine, the number of messages per page, and subject/destination search fields. Fill in the ones you want to use and click \"Refresh\" to apply.
                                 </li>
                                 <li> <h3>Action: </h3>
                                    You can purge (<img src=\"/templates/".$template."/images/trash.gif\" align=\"top\" alt=\"\">) the full quarantine whenever you want. Rememeber the quarantines are automatically purged periodically by the system. This option lets you do so at will.
