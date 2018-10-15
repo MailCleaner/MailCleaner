@@ -5,11 +5,11 @@ $txt['SVERIFYPASS'] = "通过查看电子邮件标题, 检查 Mailcleaner 筛选
 $txt['SMCLOGTITLE'] = "在标题中, 您将看到以下行, 其中提到 Mailcleaner:";
 $txt['SMCLOGLINE1'] = "收到: 来自 mailcleaner.net (过滤守护进程)";
 $txt['SMCLOGLINE2'] = "通过 mailcleaner.net 与 esmtp (传入守护进程)";
-$txt['SMCFILTERINGLOG'] = "Résultatdufiltrage：X-Mailcleaner-Spamscore：oooo";
+$txt['SMCFILTERINGLOG'] = "";
 $txt['SFALSENEGTUTOR'] = "如果您真的发现邮件是垃圾邮件, 请将其发送到 spam@mailcleaner.net spam@mailcleaner. net, 或者更好的是, 如果您的邮件程序允许您这样做, 则选择 \"传输为附件\" 以保持邮件邮件头完好无损。";
 $txt['SFALSEPOSTITLE'] = "误报";
 $txt['SFALSEPOSSUB1TITLE'] = "你没有收到你应该得到的信息吗？";
-$txt['SFALSEPOSSUB1'] = "您可以通过用户 web 界面查看邮件是否被 Mailcleaner 阻止, 在隔离标头下";
+$txt['SFALSEPOSSUB1'] = "您可以通过用户 web 界面查看邮件是否被 Mailcleaner 阻止, 在隔离标头下:";
 $txt['SFALSEPOSSUB1POINT1'] = "发件人使用的目标地址是正确的";
 $txt['SFALSEPOSSUB1POINT2'] = "电子邮件有机会被处理（这个过程可能需要几分钟）";
 $txt['SFALSEPOSSUB2TITLE'] = "电子邮件被认为是垃圾邮件，你不明白为什么？";
@@ -21,4 +21,4 @@ $txt['SOTHER'] = "您是否有与电子邮件接收不同的类型的问题, 并
 $txt['FAQTITLE'] = "了解 Mailcleaner";
 $txt['DOCTITLE'] = "用户界面帮助";
 $txt['WEBDOCTITLE'] = "在线文档";
-$txt['WEBDOC'] = "&lt;ul&gt;&lt;li&gt;在我们的网站上查找更多信息和文档: &lt;a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\"&gt;Mailcleaner 用户文档&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;";
+$txt['WEBDOC'] = "<ul><li>在我们的网站上查找更多信息和文档: <a href=\"https://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Mailcleaner 用户文档</a></li></ul>";
