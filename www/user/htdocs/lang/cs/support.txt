@@ -4,4 +4,4 @@ $txt['SVERIFYPASS'] = "Zkontrolujte, zda byla zpráva zpracována filtrem Mailcl
 $txt['SMCLOGTITLE'] = "V záhlavích uvidíte následující řádky se zmínkou o Mailcleaner:";
 $txt['SMCLOGLINE1'] = "přijato: z mailcleaner.net (filtr démon)";
 $txt['SMCLOGLINE2'] = "mailcleaner.net s esmtp (příchozí démon)";
-$txt['SMCFILTERINGLOG'] = "R&eacute;1sultat du filtrage : X-Mailcleaner-Spamscore: oooo";
+$txt['SMCFILTERINGLOG'] = "";
