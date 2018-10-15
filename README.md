@@ -1,5 +1,9 @@
 # MailCleaner
 
+<a href="https://hosted.weblate.org/engage/mailcleaner/?utm_source=widget">
+<img src="https://hosted.weblate.org/widgets/mailcleaner/-/svg-badge.svg" alt="Translation status" />
+</a>
+
 Official website : https://www.mailcleaner.org
 
 This is the repository for sources of MailCleaner Community Edition.
@@ -28,7 +32,7 @@ You can find the installation guide at https://www.mailcleaner.net/downloads/Mai
 
 You can also try MailCleaner on the cloud for 30 days for free by registering at https://www.mailcleaner.net/antispam/test.html.
 
-## Translations
+## Translations 
 
 We use weblate to translate the MailCleaner interface. If you want to contribute, 
 you can go to https://www.mailcleaner.org/translations/. 
