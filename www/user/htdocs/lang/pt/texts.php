@@ -235,7 +235,7 @@ $txt['NOSUMMARY'] = "Sem relatório";
 //old
 $txt['SUMMARYTYPE'] = "Formato do relatório";
 $txt['USEDEFAULT'] = "usar padrão";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "texto plano";
 //old
 $txt['EDITWHITELIST'] = "editar a lista branca";
@@ -303,7 +303,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ Spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ perigosos";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ limpos";
-$txt['ALL'] = "Todos...";
+$txt['ALL'] = "Todos…";
 $txt['SEARCHPERIOD'] = "Período analisado";
 $txt['LASTDAYS'] = "últimos dias";
 $txt['LASTMONTHS'] = "últimos meses";
@@ -423,7 +423,7 @@ $txt['DROPMESSAGE'] = "excluir imediatamente";
 $txt['SUMMARYSENTFREQ'] = "Frequência dos relatório de quarentena";
 $txt['SUMMARYFORMAT'] = "Formato dos relatório de quarentena";
 $txt['SUMMARYTO'] = "Enviar relatórios para este endereço";
-$txt['OTHER'] = "outro...";
+$txt['OTHER'] = "outro…";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar configurações a todos os endereços";
 $txt['PLAINTEXT'] = "Texto plano";
 $txt['HTML'] = "HTML";
@@ -458,7 +458,7 @@ $txt['REMTHEENTRY'] = "Remover a seleção";
 $txt['DISABLETHEENTRY'] = "Desabilitar/habilitar a seleção";
 $txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.
 <br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
-Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca.
+Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereço do remetente.
 Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista negra.
