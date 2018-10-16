@@ -235,7 +235,7 @@ $txt['NOSUMMARY'] = "無報告";
 //old
 $txt['SUMMARYTYPE'] = "報告格式";
 $txt['USEDEFAULT'] = "使用預設";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "純文字";
 //old
 $txt['EDITWHITELIST'] = "編輯白名單";
@@ -303,7 +303,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危險";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ 清潔";
-$txt['ALL'] = "全部...";
+$txt['ALL'] = "全部…";
 $txt['SEARCHPERIOD'] = "分析期間";
 $txt['LASTDAYS'] = "最後幾天";
 $txt['LASTMONTHS'] = "最後幾個月";
@@ -423,7 +423,7 @@ $txt['DROPMESSAGE'] = "立即刪除";
 $txt['SUMMARYSENTFREQ'] = "檢疫報告的頻率";
 $txt['SUMMARYFORMAT'] = "隔離報告的格式";
 $txt['SUMMARYTO'] = "將報告發送到此位址";
-$txt['OTHER'] = "其他.";
+$txt['OTHER'] = "其他…";
 $txt['APPLYTOALLADDRESSES'] = "將設置應用於所有address";
 $txt['PLAINTEXT'] = "純文字";
 $txt['HTML'] = "超文本標記語言";
@@ -456,7 +456,7 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "選擇要從清單中修改的位址或addr
 $txt['REMTHEENTRY'] = "刪除選定內容";
 $txt['DISABLETHEENTRY'] = "禁用/啟用選擇";
 $txt['WHITELISTSHORTHELP'] = "白名單中包含的受信任寄件者位址將不會發生任何隔離保留. <br/> 警告: 此功能應作為臨時解決方案使用, 因為它降低了整體保護。
-                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
+                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。 
 ";
 $txt['BLACKLISTSHORTHELP'] = "黑名單中包含已列出的寄件者位址.。
                                   有關黑色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
