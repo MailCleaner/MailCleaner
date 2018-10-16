@@ -238,7 +238,7 @@ $txt['NOSUMMARY'] = "Nessun rapporto";
 //old
 $txt['SUMMARYTYPE'] = "Formato rapporto";
 $txt['USEDEFAULT'] = "usa default";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "testo";
 //old
 $txt['EDITWHITELIST'] = "modifica white list";
@@ -306,7 +306,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ pericolosi";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ puliti";
-$txt['ALL'] = "tutti...";
+$txt['ALL'] = "tutti…";
 $txt['SEARCHPERIOD'] = "Periodo analizzato";
 $txt['LASTDAYS'] = "giorni";
 $txt['LASTMONTHS'] = "mesi";
@@ -426,7 +426,7 @@ $txt['DROPMESSAGE'] = "cancella subito";
 $txt['SUMMARYSENTFREQ'] = "Frequenza rapporto quarantena";
 $txt['SUMMARYFORMAT'] = "Formato rapporto quarantena";
 $txt['SUMMARYTO'] = "Invia rapporto al seguente indirizzo";
-$txt['OTHER'] = "altro...";
+$txt['OTHER'] = "altro…";
 $txt['APPLYTOALLADDRESSES'] = "Applica impostazioni a tutti gli indirizzi";
 $txt['PLAINTEXT'] = "Testo";
 $txt['HTML'] = "HTML";
