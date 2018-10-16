@@ -195,7 +195,7 @@ sub Checks {
     if ($wholeheader ne '') {
       MailScanner::Log::InfoLog("$MODULE result is not spam ($wholeheader) for ".$message->{id});
       if ($PreRBLs::conf{'putSpamHeader'}) {
-         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader)");
+         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader)");
       }
     }
   }

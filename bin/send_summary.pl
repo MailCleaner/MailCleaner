@@ -24,7 +24,7 @@
 #   Usage:
 #           send_summary.pl [-a] mode nb_days
 #   -a: send to all users
-#   mode is:  
+#   mode is:
 #           0 = requested by command line
 #           1 = called by monthly script
 #           2 = called by weekly script
@@ -40,6 +40,8 @@ require ReadConfig;
 require DB;
 require Email;
 require MailTemplate;
+require 'lib_utils.pl';
+
 use Date::Calc qw(Add_Delta_Days Today Date_to_Text Date_to_Text_Long);
 use DateTime;
 use Encode;
@@ -66,8 +68,15 @@ if ($mode < 0 || $mode >3) {
 my $days = shift;
 if ($days !~ /^\d+$/) {
   print "INCORRECTPARAMS";
-  exit 0;	
+  exit 0;
 }
+
+# Check for lock
+my $rc = create_lockfile('send_summary', undef, time+10*60*60, 'send_summary');
+if ($rc == 0) {
+  exit;
+}
+
 my $nodigest = 0;
 my $opts = shift;
 if ($opts =~ /^nodigest$/) {
@@ -117,7 +126,8 @@ foreach my $a (@addresses) {
   my $domain = $email->getDomainObject();
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
-  if (!defined($lang) || $lang eq '') {
+  # In case of missing translation for summaries
+  if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$domain->getPref('summary_template')."/$lang") {
     $lang = 'en';
   }
   my $to = $email->getPref('summary_to');
@@ -130,13 +140,13 @@ foreach my $a (@addresses) {
   } else {
     $template = MailTemplate::create('summary', 'summary', $domain->getPref('summary_template'), \$email, $lang, $type);
   }
-  
+
   my ($end_year, $end_month,$end_day) = Today();
   my ($start_year,$start_month,$start_day)  = Add_Delta_Days($end_year, $end_month,$end_day, 0-$days);
-  
+
   my @spams;
   getFullQuarantine($a, \@spams, $email);
-  
+
   my $textquarantine = getQuarantineTemplate($template, $template->getSubTemplate('LIST'), \@spams, 'text', $lang);
   my $htmlquarantine = getQuarantineTemplate($template, $template->getSubTemplate('HTMLQUARANTINE'), \@spams, 'html', $lang);
 
@@ -164,11 +174,11 @@ foreach my $a (@addresses) {
     '__END_MONTH__' => sprintf('%.2u', $end_month),
     '__END_YEAR__' => $end_year,
     '__END_SYEAR__' => sprintf('%.2u', $end_year-2000),
-    '__START_DATE__' => $start->strftime("%x"),
-    '__END_DATE__' => $end->strftime("%x"),
+    '__START_DATE__' => Encode::encode('UTF-8', $start->strftime("%x")),
+    '__END_DATE__' => Encode::encode('UTF-8', $end->strftime("%x")),
     '__ADDRESSES__' => join(', ', @addresses)
   );
-  
+
   #if ($type eq 'digest') {
   ## create new digest and save it
   my $firstspam = $spams[0];
@@ -210,7 +220,7 @@ sub getAllAddresses {
   my @list;
 
   my %addnottoadd;
-  
+
   foreach my $letter ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','misc', 'num') {
     if ($db && $db->ping()) {
      my $query="SELECT to_user, to_domain FROM spam_$letter WHERE TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY to_user, to_domain";
@@ -243,9 +253,9 @@ sub getFullQuarantine {
   my $address = shift;
   my $spams_h = shift;
   my $email = shift;
-  
+
   my ($to_local, $to_domain, $initial);
-	
+
   if ($address =~ /(\S+)@(\S+)/) {
     $to_local = $1;
     $to_domain = $2;
@@ -260,7 +270,7 @@ sub getFullQuarantine {
     $table = 'spam_num';
   } else {
     $table = 'spam_misc';
-  } 
+  }
 
   my $addwhere = "to_domain='$to_domain' AND to_user='$to_local'";
   if ($email) {
@@ -295,7 +305,7 @@ sub getQuarantineTemplate {
   my $spams = shift;
   my $type = shift;
   my $lang = shift;
-  
+
   my $ret = "";
   my $i = 0;
   my $bullet_filled = $template->getDefaultValue('FILLEDBULLET');
@@ -322,9 +332,9 @@ sub getQuarantineTemplate {
      $score = 4;
    }
    my $pictoscore = $template->getDefaultValue("SCORE".$score);
-   
-   
-  
+
+
+
   	my  $s_local = "";
   	my  $s_domain = "";
   	if ($spam->{'sender'} =~ /^(\S+)\@(\S+)$/) {
@@ -361,19 +371,19 @@ sub getQuarantineTemplate {
   	$tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$spam->{exim_id}/g;
   	$tmp =~ s/(\_\_|\?\?)SUBJECT(\_\_)?/$s_subject/g;
         $tmp =~ s/(\_\_|\?\?)TEXTSUBJECT(\_\_)?/$text_subject/g;
-        
+
     my $spamdate = DateTime->new(
                 'year' => $spam->{'M_y'}, 'month' => $spam->{'M_m'}, 'day' => $spam->{'M_d'},
                 'hour' => $spam->{'T_h'}, 'minute' =>  $spam->{'T_m'}, 'second' =>  $spam->{'T_s'}
                 );
     $spamdate->set_locale($lang);
-    my $strdate = $spamdate->strftime("%c");
-    
+    my $strdate = Encode::encode('UTF-8', $spamdate->strftime("%c"));
+
   	$tmp =~ s/\_\_SINGLEDATE\_\_/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'}/g;
     $tmp =~ s/\_\_SINGLETIME\_\_/$spam->{'time_in'}/g;
     $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
     $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$spam->{'to_user'}\@$spam->{'to_domain'}/g;
-    
+
     if ($spam->{'is_newsletter'} > 0) {
         my %titles = (
             de => "Diese Newsletter annehmen",
@@ -383,10 +393,10 @@ sub getQuarantineTemplate {
             it => "Accept this newsletter"
         );
 
-        my $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/users\/newsletters\/allow?id=$spam->{'exim_id'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
+        my $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
         $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
-    
-        my $newsletter_txt = "$titles{$lang}: __FORCEURL__\/users\/newsletters\/allow?id=$spam->{'exim_id'}";
+
+        my $newsletter_txt = "$titles{$lang}: __FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}";
         $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
     } else {
         my $newsletter = "<td style=\"width:26;border:0;\"><span><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/td>";
@@ -407,9 +417,10 @@ sub getQuarantineTemplate {
     } else {
       $tmp =~ s/\ bgcolor=\"__ALTCOLOR__\S{7}\"//g;
     }
-    
+
   	$ret .= $tmp;
   }
- 
+
+  remove_lockfile('send_summary');
   return $ret;
 }

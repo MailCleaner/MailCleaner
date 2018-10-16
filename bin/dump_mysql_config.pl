@@ -35,6 +35,14 @@ my %config = readConfig("/etc/mailcleaner.conf");
 $config{'__MASTERID__'} = ($config{'HOSTID'} * 2) - 1 + 10;
 $config{'__SLAVEID__'} = $config{'HOSTID'} * 2 + 10;
 
+## Avoid having unsychronized database when starting a new VA
+my $FIRSTUPDATE_FLAG_RAN="$config{'VARDIR'}/run/configurator/updater4mc-ran";
+if (-e $FIRSTUPDATE_FLAG_RAN){
+	$config{'__BINARY_LOG_KEEP__'} = 21;
+} else {
+	$config{'__BINARY_LOG_KEEP__'} = 0;
+}
+
 my $lasterror = "";
 
 dump_mysql_file('master') or fatal_error("CANNOTDUMPMYSQLFILE", $lasterror);

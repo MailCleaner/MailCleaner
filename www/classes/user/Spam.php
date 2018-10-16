@@ -472,7 +472,8 @@ public function setReplacements($template, $replace) {
           $result = $db->getHash($query);
 
           if (empty($result)) {
-              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="#" class="allow">%s</a>', $this->getData('exim_id'), $lang_->print_txt('NEWSLETTERACCEPT'));
+	      $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
+              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="%s" class="allow">%s</a>', $this->getData('exim_id'), $hrefNews, $lang_->print_txt('NEWSLETTERACCEPT'));
           }
     }
   }

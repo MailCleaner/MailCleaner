@@ -449,8 +449,8 @@ $txt['TODAY'] = "Hoy en d&iacute;a";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "La lista de alarma contiene las direcciones de los remitentes de confianza de los que quiere recibir una notificaci&oacute;n para una cada mensaje que le env&iacute;a y que est&aacute; en cuarentena. Puede inmediatamente liberar el mensaje si es un error de filtraci&oacute;n.<br />\r
-                                   Atenci&oacute;n: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total. \r
+$txt['WARNLISTSHORTHELP'] = "La lista de advertencia contiene las direcciones de los remitentes de confianza de los que quiere recibir una notificaci&oacute;n para una cada mensaje que le env&iacute;a y que est&aacute; en cuarentena. Puede inmediatamente liberar el mensaje si es un error de filtraci&oacute;n.<br />
+                                   Atenci&oacute;n: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total. 
                                    Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista de alarma. ";
 $txt['WARNLISTFORADDRESS'] = "Lista de alarma para la direcci&oacute;n";
 $txt['ADDAWARNENTRY'] = "A&ntilde;adir una direcci&oacute;n a la lista";

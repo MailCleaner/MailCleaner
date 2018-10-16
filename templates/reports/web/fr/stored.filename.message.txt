@@ -8,7 +8,7 @@ Celle-ci a été remplacée par cet avertissement.
 
 La pièce jointe a été conservée sur la passerelle.  Elle peut donc vous être rendue sur demande.
 Pour ce faire, nous vous invitons à vous rendre sur le lien suivant :
-http://www.mailcleaner.net/support/dangerous-content-release.html
+https://www.mailcleaner.net/support/dangerous-content-release.html
 
 Résultats de l'antivirus:
 $report

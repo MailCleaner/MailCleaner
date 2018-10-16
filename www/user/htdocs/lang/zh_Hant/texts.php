@@ -83,7 +83,7 @@ $txt['LOGOUT'] = "登出";
 //old
 $txt['LOGGEDAS'] = "您登錄為：";
 // old
-$txt['MAINADDRESS'] = "main address";
+$txt['MAINADDRESS'] = "主要位址";
 $txt['PARAMETERS'] = "設置";
 $txt['QUARANTINE'] = "隔離";
 $txt['NAVSUPPORT'] = "Support";
@@ -107,7 +107,7 @@ $txt['FORCEMESSAGE'] = "釋放郵件";
 $txt['MESSAGEFORCING'] = "消息發佈";
 $txt['ANALYSEREQUEST'] = "篩選器調整請求";
 $txt['ANALYSEREQUESTV'] = "要求篩選器調整";
-$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['SCORETEXT'] = "分數: __PARAM__";
 $txt['CLOSEWINDOW'] = "關閉視窗";
 $txt['CURRENTPAGE'] = "頁 _ PARAM1 __of _ PARAM2 _";
 $txt['PURGEINFOS'] = "<strong> 自動清除後: </strong> __PARAM__ 天";
@@ -128,12 +128,12 @@ $txt['HOUR'] = "時間";
 $txt['FROM'] = "從";
 $txt['TO'] = "给";
 $txt['SUBJECT'] = "主旨";
-$txt['FORCED'] = "Released";
+$txt['FORCED'] = "釋放";
 $txt['ACTION'] = "Action";
 //old
 $txt['TOTALSPAMS'] = "總計: __PARAM__ 的垃圾郵件";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ 最后几天";
 $txt['PURGESELECTEDSPAMS'] = "手動清除隔離";
 //old
 $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
@@ -145,8 +145,8 @@ $txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析�
 $txt['AREYOUSURE'] = "<span class=\"question\"> 是否確實要分析此消息, 以及是否可以應用篩選器調整？ </span>";
 $txt['ASKANALYSE'] = "篩選器調整請求";
 $txt['PAGE'] = "頁";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['NEXTPAGE'] = "下一頁";
+$txt['PREVIOUSPAGE'] = "上一頁";
 //old
 $txt['GETREASONSTITLE'] = "篩選原因";
 $txt['HITRULE'] = "規則";
@@ -167,51 +167,51 @@ $txt['SUMMARYSENDING'] = "隔離報告傳輸";
 $txt['PURGETITLE'] = "手動清除隔離";
 $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔離";
 $txt['COULDNOTPURGE'] = "由於內部錯誤, 無法清除 <strong> __PARAM__ </strong> 的隔離。請稍後再試。";
-$txt['ASKPURGECONFIRM'] = "確實要清除 <strong> __ PARAM2 __@xmltag@ 的隔離的最後一個 PARAM1 __days 嗎？";
+$txt['ASKPURGECONFIRM'] = "您確定要清除 <strong> __ PARAM2 __</strong>隔離的最後 __PARAM1__ 天嗎？";
 $txt['QUARANTINEPURGE'] = "手動清除隔離";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['GROUPQUARANTINES'] = "所有位址";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
+$txt['INFORMATIONSABOUTMSG'] = "訊息內容";
 $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "黑名單";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "標頭";
 $txt['BODY'] = "正文";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['PARTS'] = "部分";
+$txt['STORESLAVE'] = "存儲";
+$txt['SPAMCSCORE'] = "規則評分";
 $txt['DESCRIPTION'] = "描述";
 $txt['MESSAGEPREVIEW'] = "郵件預覽";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "識別碼";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  session已結束. </p><p> 如果希望啟動新的 session, 請按一下以下連結: </p>";
+$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  進程已結束. </p><p> 如果希望啟動新的 進程, 請按一下以下連結: </p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "個人 MailCleaner 設置";
+$txt['PARAMTITLE'] = "MailCleaner個人設置";
 //old
 $txt['USERPARAM'] = "使用者設置";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "地址設置";
 //old
 $txt['LANGUAGE'] = "語言";
 $txt['ADDRESS'] = "Address";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "地址簿";
 //old
 $txt['FILTERACTIONTITLE'] = "垃圾郵件處理模式";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "隔離報告設置";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "個人地址簿: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "將更改應用於所有地址";
 //old
 $txt['MAIN'] = "主要的";
 //old
@@ -252,9 +252,9 @@ $txt['ACTIONS'] = "行動";
 //old
 $txt['ACTIVE'] = "active";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "停用";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "進入";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "是否確實要永久刪除此項？";
 //old
@@ -267,29 +267,29 @@ $txt['STATUS'] = "狀態";
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "添加address";
+$txt['ADDALIASTITLE'] = "添加地址";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "地址";
 //old
-$txt['REMADDRESSALT'] = "刪除address";
+$txt['REMADDRESSALT'] = "刪除地址";
 //old
-$txt['ADDADDRESSALT'] = "添加address";
-$txt['BADADDRESSFORMAT'] = "給定address無效。請重試。";
-$txt['NOTFILTEREDDOMAIN'] = "MailCleaner 不篩選此domain。無法添加address。";
-$txt['ALIASALREADYREGISTERD'] = "此address已由 MailCleaner 帳戶使用。無法添加。";
-$txt['ALIASALREADYPENDING'] = "此address的確認已掛起。";
-$txt['ALIASPENDING'] = "已將確認發送到此address. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加address。";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]address添加請求";
+$txt['ADDADDRESSALT'] = "添加地址";
+$txt['BADADDRESSFORMAT'] = "給定地址無效。請重試。";
+$txt['NOTFILTEREDDOMAIN'] = "MailCleaner不篩選此郵件域。無法添加地址。";
+$txt['ALIASALREADYREGISTERD'] = "此地址已由 MailCleaner 帳戶使用。無法添加。";
+$txt['ALIASALREADYPENDING'] = "此地址的確認已掛起。";
+$txt['ALIASPENDING'] = "已將確認發送到此地址. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加地址。";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]地址添加請求";
 $txt['ALIASERRORSENDIG'] = "由於內部錯誤, 無法發送請求。請稍後再試。";
-$txt['ALIASNOTPENDING'] = "此位址當前未掛起任何請求。";
-$txt['ALIASADDED'] = "已成功添加address。";
+$txt['ALIASNOTPENDING'] = "此地址當前未掛起任何請求。";
+$txt['ALIASADDED'] = "已成功添加地址。";
 $txt['ALIASREQUESTREMOVED'] = "請求已被取消。";
 //old
 $txt['REMALIASTITLE'] = "address刪除";
 //old
-$txt['REMALIASCONFIRM'] = "是否確實要刪除該address: __PARAM__？";
-$txt['ALIASREMOVED'] = "address __PARAM__ 已被刪除。";
-$txt['CANNOTREMOVEMAINADD'] = "address__PARAM__ 是主要的address。無法刪除。";
+$txt['REMALIASCONFIRM'] = "是否確實要刪除該地址: __PARAM__？";
+$txt['ALIASREMOVED'] = "地址__PARAM__ 已被刪除。";
+$txt['CANNOTREMOVEMAINADD'] = "地址__PARAM__ 是主要的郵件地址。無法刪除。";
 /*
  * statistics page
  */
@@ -302,7 +302,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危險";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ 清潔";
 $txt['ALL'] = "全部...";
 $txt['SEARCHPERIOD'] = "分析期間";
 $txt['LASTDAYS'] = "最後幾天";
@@ -381,14 +381,14 @@ $txt['ANALYSETOPICTITLE'] = "篩選器調整請求";
  * configuration menu (new)
  */
 $txt['CONFIGURATION'] = "配置";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
+$txt['ADDRESSLISTTOPIC'] = "地址簿";
 $txt['ADDRESSPARAMTOPIC'] = "Address設置";
 $txt['QUARPARAMTOPIC'] = "隔離顯示";
 $txt['WARNLISTTOPIC'] = "警告清單";
 $txt['WHITELISTTOPIC'] = "白名單";
 $txt['BLACKLISTTOPIC'] = "黑名單";
 $txt['INTERFACETOPICTITLE'] = "介面設置";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
+$txt['ADDRESSLISTTOPICTITLE'] = "地址簿";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address 設置";
 $txt['QUARPARAMTOPICTITLE'] = "隔離顯示";
 $txt['WARNLISTTOPICTITLE'] = "警告清單";
@@ -456,7 +456,7 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "選擇要從清單中修改的位址或addr
 $txt['REMTHEENTRY'] = "刪除選定內容";
 $txt['DISABLETHEENTRY'] = "禁用/啟用選擇";
 $txt['WHITELISTSHORTHELP'] = "白名單中包含的受信任寄件者位址將不會發生任何隔離保留. <br/> 警告: 此功能應作為臨時解決方案使用, 因為它降低了整體保護。
-                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。 
+                                  有關白色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
 ";
 $txt['BLACKLISTSHORTHELP'] = "黑名單中包含已列出的寄件者位址.。
                                   有關黑色清單用法的詳細資訊, 請檢查手冊 (在 <a href=\"help.php\"> \"説明\" </a> 部分中提供)。
@@ -475,3 +475,22 @@ $txt['RECORDALREADYEXISTS'] = "此位址已存在於清單中。";
  */
 $txt['SESSIONTERMINATED'] = "您的session已結束。";
 $txt['BEENLOGGEDOUT'] = "如果要啟動新的session, 請按一下此連結: <a href=\"__PARAM__\" > __PARAM__ </a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "通訊已被允許並發布。";
+$txt['NLRELEASEDBODY'] = "該通訊已被允許並發布。 它應該在幾分鐘內發送到您的郵箱。";
+$txt['NLNOTRELEASEDHEAD'] = "通訊沒有發布";
+$txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。 請稍後再試。";
+//old
+$txt['EDITNEWSLIST'] = "編輯新聞列表";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__新聞列表";
+$txt['NEWSLISTTOPIC'] = "新闻列表";
+$txt['NEWSLISTTOPICTITLE'] = "新聞清單";
+$txt['NEWSLISTSHORTHELP'] = "電子報清單包含所需電子報的位址. <br/> 檢查手冊 (可在節中提供 <a href=\"help.php\"> \"説明\" </a>), 瞭解有關電子報清單使用方式的詳細資訊。
+";
+$txt['NEWSLISTFORADDRESS'] = "地址通讯列表";
+$txt['ADDANEWSENTRY'] = "向清單中添加位址";
+$txt['NEWSLISTENTRYTOADD'] = "輸入要添加到電子報清單中的位址。您還可以添加可選注釋。";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "选择您想要导出的字段，然后点击“添加字段”按钮。";

@@ -1,12 +1,11 @@
 <?php
 $txt['SFALSENEGTITLE'] = "FALSCHMELDUNGEN - NEGATIV";
 $txt['SFALSENEGSUBTITLE'] = "Haben Sie eine Nachricht erhalten, die Sie als Spams betrachten  ?";
-$txt['SVERIFYPASS'] = "&Uuml;berpr&uuml;fen Sie, Ob die Nachricht auch wirklich von mailcleaner.net gefiltert wurde. Dazu kontrollieren Sir die Be
-treffzeile des E-Mails.";
-$txt['SMCLOGTITLE'] = "Best&auml;tigung der Filterung mit  mailcleaner.net :";
+$txt['SVERIFYPASS'] = "Prüfen Sie, ob die Nachricht vom Mailcleaner-Filter verarbeitet wurde, indem Sie sich die Betreffzeile der E-Mail ansehen.";
+$txt['SMCLOGTITLE'] = "In den Kopfzeilen sehen Sie die folgenden Zeilen, in denen Mailcleaner erwähnt wird:";
 $txt['SMCLOGLINE1'] = "Erhalten: von mailcleaner.net (Filter-Daemon)";
 $txt['SMCLOGLINE2'] = "per mailcleaner.net mit ESMTP (eingehender Daemon)";
-$txt['SMCFILTERINGLOG'] = "Ergebnis des Filterprozesses : X-Mailcleaner-Spamscore: oooo";
+$txt['SMCFILTERINGLOG'] = "Ergebnisse filtern: X-Mailcleaner-Spamwertung: oooo";
 $txt['SFALSENEGTUTOR'] = "Falls Sie tats&auml;tlich der Meinung sind, dass Sie die Nachricht nicht h&auml;tten erhalten sollen, leiten Sie sie an <a href=\"mailto:analyse@mailcleaner.net\">analyse@mailcleaner.net</a> weiter. Noch besser w&auml;re es, wenn Sie die Nachricht als An&eacute;age weiterleiten - sofern dies mit Irhem Mailprogramm m&ouml;glich ist - damit die komplette Betreffzeile erhalten bleibt. Wir werden den Inhalt der Nachricht analysieren und die Filterkriterien von Mailcleaner f&uuml;r alle Benutzer dementsprechend anpassen.";
 $txt['SFALSEPOSTITLE'] = "FALSCHMELDUNGEN - POSITIV";
 $txt['SFALSEPOSSUB1TITLE'] = "Haben Sie ein E-Mail, das bei Ihnen h&auml;tte eingehen sollen, nicht erhalten ?";
@@ -15,7 +14,7 @@ $txt['SFALSEPOSSUB1POINT1'] = "Die vom Absender verwendete Zieladresse ist korre
 $txt['SFALSEPOSSUB1POINT2'] = "Die Nachrichten werden gerade abgerufen oder gefiltert. Die Bearbeitung Ihrer Nachricht kann mehrere Minuten in Anspruch nehmen.";
 $txt['SFALSEPOSSUB2TITLE'] = "Wurde ein E-Mail wurde als Spam eingestuft und Sie wissen nicht weshalb?";
 $txt['SFALSEPOSSUB2'] = "Klicken Sie auf das Symbol <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\"> und sehen Sie im Register Quarant&auml;ne die Kriterien ein, die Mailcleaner.net versanlasst haben, die Nachricht als Spam einzustufen. Falls Sie der Meinung sind, dass diese Kriterien nicht gerechtfertigt sind, k&ouml;nnen Sie unser Team um eine Analyse bitten. Dazu klicken Sie auf <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\"> Sie k&ouml;nnen die Nachricht auch freizugeben, indem Sie auf das Symbol <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\"> klicken.";
-$txt['SFALSEPOSSUB3TITLE'] = "Mailing-Listen";
+$txt['SFALSEPOSSUB3TITLE'] = "Adressenlisten";
 $txt['SFALSEPOSSUB3'] = "Es kann vorkommen, dass einige Mailng-Listen aufgrund ihres Formats, das demjenigen von Spams oft sehr &auml;hnlich ist, von Mailcleaner.net blockiert werden. Sie betroffene Mailing-Liste dann in die weissen Listen aufnehmen.";
 $txt['SOTHERTITLE'] = "ANDERE PROBLEME";
 $txt['SOTHER'] = "Falls sie ein Problem mit dem Empfang Ihrer E-Mails oder anderweitige Probleme haben, und diese Probleme trotz korrekter Durchf&uuml;hrung der oben erw&auml;hnten Anweisungen weiterbestehen, nehmen Sie &uuml;ber das folgende Formular Kontakt mit dem Supportcenter von Mailcleaner.net auf:";
@@ -23,3 +22,30 @@ $txt['FAQTITLE'] = "Mailcleaner verstehen";
 $txt['DOCTITLE'] = "Hilfe zur Benutzeroberfläche";
 $txt['WEBDOCTITLE'] = "Online-Dokumentation";
 $txt['WEBDOC'] = "<ul><li>Weitere Informationen und Dokumentationen finden Sie auf unserer Website: <a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Mailcleaner Benutzerdokumentation</a></li></ul>";
+$txt['FAQ'] = "
+               <ul>
+                 <li> <h2>Funktionsweise von Mailcleaner</h2>
+                      Mailcleaner ist ein E-Mail-Filter, der Ihre eingehenden Nachrichten auf Spam, bekannte Viren und andere gefährliche Inhalte überprüft und verhindert, dass sie sogar Ihren Desktop erreichen. Es handelt sich dabei um eine serverseitige Lösung, d.h. Sie haben keine Software, die Sie auf Ihrem System installieren müssen, um Ihre Mails zu versenden. Dies wird tatsächlich von Ihrem Mail-Konto-Anbieter durchgeführt. Mit dieser webbasierten Oberfläche sind Sie direkt mit dem Mailcleaner-Filter verbunden, wo Sie die blockierten Spam-Nachrichten sehen und einige Einstellungen des Filters anpassen können.
+                 </li>
+                 <li> <h2>Was ist ein Spam?</h2>
+                      Ein Spam-Mail ist eine unaufgeforderte oder unerwünschte E-Mail-Nachricht. In der Regel für Werbung verwendet, können diese Nachrichten schnell Ihre Mailbox füllen. Diese Informationen sind im Allgemeinen nicht gefährlich, aber wirklich ärgerlich.
+                 </li>
+                 <li> <h2>Was sind Viren und gefährliche Inhalte?</h2>
+                      Viren sind kleine Softwareprogramme, die ausnutzen können und es einigen böswilligen Personen ermöglichen, die Kontrolle über Ihren Computer zu übernehmen. Diese können Ihnen per E-Mail als Anhang zugesandt werden und Ihr System infizieren, sobald Sie sie öffnen (einige können sogar aktiviert werden, ohne geöffnet zu werden). Gefährliche Inhalte sind dieselben, außer dass sie durch intelligentere Mittel aktiviert werden können, indem sie sich direkt in den Inhalt der Nachricht verstecken, oder sogar von außen durch einen Bounce-Link in die Mail gezielt werden. Diese sind von einem Standard-E-Mail-Filter nur sehr schwer zu erkennen, da der echte Virus nicht wirklich in der Nachricht enthalten ist. Mailcleaner überprüft noch mehr, um zu verhindern, dass potenziell gefährliche E-Mails Ihr Postfach erreichen.
+                 </li>
+                 <li> <h2>Mailcleaner Antispam-Kriterien</h2>
+                      Mailcleaner verwendet eine Reihe von Tests, um Spams mit der bestmöglichen Genauigkeit zu erkennen. Es verwendet unter anderem einige einfache Schlüsselwort- oder Keyphrase-Abgleiche, weltweite Spam-Datenbanken und statistisches Token-Computing. Die Zusammenfassung all dieser Kriterien ergibt eine Gesamtnote für jede Nachricht, woraufhin Mailcleaner die endgültige Entscheidung trifft: Spam oder kein Spam. Da Spam ein sehr schnelllebiges Ziel ist, werden auch diese Regeln so schnell wie möglich angepasst. Dies ist die Aufgabe von Mailcleaner, diese Einstellungen so gut wie möglich zu halten.
+                 </li>
+                 <li> <h2>Fehler</h2>
+                      Da Mailcleaner ein automatisiertes Filtersystem ist, ist es auch anfällig für Fehler. Grundsätzlich gibt es zwei Arten von Fehlern, die von Mailcleaner verursacht werden können:
+                      <ul>
+                       <li> <h3>Falsch-Negative Ergebnisse</h3> Falsch-Negative Nachrichten sind Spam-Nachrichten, die durch den Mailcleaner-Filter geschlüpft sind und Ihre Mailboxe erreichen, ohne entdeckt zu werden. Diese sind ärgerlich, aber solange sie relativ selten sind, schaden sie nicht zu viel Ihrer Produktion bei der Arbeit. Erinnern Sie sich, wenn Sie nur ein paar Mal pro Woche Spam bekommen haben? Mailcleaner kann Sie zumindest bis zu diesem Punkt bringen.
+                       </li>
+                       <li> <h3>Falsch-Positive Ergebnisse</h3> sind lästige Fehler, da es sich um gültige Mails handelt, die vom System blockiert werden. Wenn Sie nicht wachsam genug sind und weder Ihre Quarantäne noch Ihre Berichte sorgfältig prüfen, kann dies zum Verlust wichtiger Nachrichten führen. Mailcleaner wurde optimiert, um diese Fehler so weit wie möglich zu reduzieren. Obwohl es sehr selten ist, kann es dennoch passieren. Aus diesem Grund bietet Mailcleaner Echtzeit-Quarantänezugriff und regelmäßige Berichte, um das Risiko des Verlusts von Nachrichten zu minimieren.
+                       </li>
+                      </ul>
+                  </li>
+                  <li> <h2>Was Sie tun können, um Mailcleaner zu korrigieren</h2>
+                      Bei Fehlern in Mailcleaner ist es am besten, wenn Sie den Filter anpassen, indem Sie Ihrem Administrator ein Feedback geben. Denken Sie nicht, dass die beste Lösung nur für Whitelist- oder Blacklist-Versender ist, da dies nur ein schneller, aber schmutziger Weg ist (schauen Sie sich das an, um mehr Informationen zu erhalten). Obwohl es manchmal die einzige Möglichkeit ist, ist es immer besser, die wirkliche Ursache des Fehlers herauszufinden und zu korrigieren. Dies kann nur von Technikern durchgeführt werden, also zögern Sie nicht, Ihrem Administrator Feedback zu Fehlern zu geben.
+                  </li>
+                </ul>";

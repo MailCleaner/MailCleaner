@@ -813,7 +813,7 @@ class Default_Model_Domain
 	 
 	public function loadOldDomain() {
 		if ($this->domain_) {
-			return;
+            return $this->domain_;
 		}
 		## use old stuff !
 		unset($_SESSION['_authsession']);

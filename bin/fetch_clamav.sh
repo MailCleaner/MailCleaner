@@ -64,6 +64,14 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat"
@@ -71,5 +79,7 @@ downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\
 ## restart clamd daemon
 kill -USR2 `cat $VARDIR/run/clamav/clamd.pid 2>/dev/null` > /dev/null 2>&1 
 log "Database reloaded"
+
+removeLockFile "$FILE_NAME"
 
 exit 0

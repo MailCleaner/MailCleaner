@@ -16,7 +16,7 @@ class Default_Form_DomainAddressverification extends Zend_Form
 	
 	protected $_connectors = array('smtp', 'ldap', 'local', 'none');
 	
-	public function __construct($domain, $whitelist = NULL, $warnlist = NULL, $blacklist = NULL, $request)
+	public function __construct($domain, $whitelist = NULL, $warnlist = NULL, $blacklist = NULL, $newslist = NULL, $request)
 	{
 	    $this->_domain = $domain;
 

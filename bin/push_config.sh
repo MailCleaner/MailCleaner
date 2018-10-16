@@ -60,6 +60,14 @@ HOSTID=`grep 'HOSTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
 MAXSLEEPTIME=300
 MINSLEEPTIME=120
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 if $randomize ; then
   sleep_time=$(($RANDOM * $(($MAXSLEEPTIME - $MINSLEEPTIME)) / 32767 + $MINSLEEPTIME))
   sleep $sleep_time
@@ -74,3 +82,5 @@ if [ "$ISMASTER" = "Y" ] || [ "$ISMASTER" = "y" ]; then
   chmod g+w $CONFIGFILE
   scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $CONFIGFILE mcscp@cvs.mailcleaner.net:/upload/configs/$CLIENTID-$HOSTID-$DATE.sql >/dev/null 2>&1
 fi
+
+removeLockFile "$FILE_NAME"

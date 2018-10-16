@@ -117,7 +117,7 @@ foreach my $msg (@nf_messages) {
 	}
 }
 
-print "Found ".@messages." occurences\n";
+print "Found ".@messages." occurrence(s)\n";
 
 if (@messages > 0) {
   print "Doing  second pass (finding log traces)...\n" if !$batch;
@@ -296,7 +296,7 @@ sub searchInFile {
 }
 
 sub print_usage {
-  print "Usage:  search_logs.pl starttime stoptime searchstring [-bR] [-B id]\n";
+  print "Usage:  search_log.pl starttime stoptime searchstring [-bR] [-B id]\n";
   exit 1;
 }
 

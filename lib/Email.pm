@@ -41,7 +41,7 @@ sub create {
   my %prefs;
   my $d;
 #-#  my $pref_daemon = PrefDaemon::create();
-  
+
   if ($address =~ /(\S+)\@(\S+)/) {
     $domain = $2;
     $d = Domain::create($domain);
@@ -57,7 +57,7 @@ sub create {
          user => undef
 #-#         prefdaemon => $pref_daemon,
          };
-         
+
   bless $this, "Email";
   return $this;
 }
@@ -66,9 +66,9 @@ sub getPref {
   my $this = shift;
   my $pref = shift;
   my $default = shift;
-  
+
   if (!defined($this->{prefs}) || !defined($this->{prefs}{$pref})) {
-  	
+
   	## get user prefs
  #-# 	my $cachedpref = $this->{prefdaemon}->getPref('PREF', $this->{address}." ".$pref);
  #-# 	if ($cachedpref !~ /^(BADPREF|NOTFOUND|NOCACHE|TIMEDOUT|NODAEMON)/ ) {
@@ -78,7 +78,7 @@ sub getPref {
  #-# 	if ($cachedpref =~ /^(NOCACHE|TIMEDOUT|NODAEMON)/) {
  #-# 	  $this->loadPrefs();
  #-# 	}
- 
+
     my $prefclient = PrefClient->new();
     $prefclient->setTimeout(2);
     my $dpref = $prefclient->getRecursivePref($this->{address}, $pref);
@@ -105,13 +105,13 @@ sub getPref {
 
 sub getDomainObject {
   my $this = shift;
-  
+
   return $this->{d};
 }
 
 sub getAddress {
   my $this = shift;
-  
+
   return $this->{address};
 }
 
@@ -137,10 +137,10 @@ sub getUserPref {
 
 sub loadPrefs {
   my $this = shift;
-  
+
   require DB;
   my $db = DB::connect('slave', 'mc_config', 0);
-  
+
   my $to = $this->{address};
   my $to_domain = $this->{domain};
   my %res;
@@ -166,7 +166,7 @@ sub hasInWhiteWarnList {
   my $type = shift;
   my $sender = shift;
   $sender =~ s/\'//g;
-  
+
   my $sysprefs = SystemPref::getInstance();
   my $filename = 'white.list';
   if ($type =~ /^warnlist$/) {
@@ -177,7 +177,7 @@ sub hasInWhiteWarnList {
   	   return 0;
   	 }
      $filename = 'warn.list';
-  } 
+  }
   elsif ($type =~ /^whitelist$/)  {
     if (! $sysprefs->getPref('enable_whitelists')) {
   	 	return 0;
@@ -187,9 +187,9 @@ sub hasInWhiteWarnList {
   	 }
   }
   elsif ($type =~ /^blacklist$/) {
-    $filename = 'black.list';    
+    $filename = 'black.list';
   }
- 
+
   my $conf = ReadConfig::getInstance();
   my $basedir = $conf->getOption('VARDIR')."/spool/mailcleaner/prefs";
   my $wwfile = $basedir."/_global/".$filename;
@@ -203,12 +203,12 @@ sub hasInWhiteWarnList {
 #  if ($this->inWW($type, $sender, '@'.$this->{domain})) {
 #  	return 2;
 #  }
-  
+
   ## check user
 # if ($this->inWW($type, $sender, $this->{address})) {
 #  	return 3;
 #  }
- 
+
   my $prefclient = PrefClient->new();
   $prefclient->setTimeout(2);
   my $retvalues = {'GLOBAL' => 1, 'DOMAIN' => 2, 'USER' => 3 };
@@ -246,14 +246,14 @@ sub loadedIsWWListed {
   my $this = shift;
   my $type = shift;
   my $sender = shift;
- 
+
   require DB;
   my $db = DB::connect('slave', 'mc_config', 0);
-  
+
   my $to = $this->{address};
   $sender =~ s/[^a-zA-Z0-9.\-_=+@]//g;
   my %res;
-  
+
   if ($db && $db->ping()) {
 	  my $query = "SELECT sender FROM wwlists WHERE recipient='".$this->{address}."' AND type='$type' AND status=1";
 	  my @senders = $db->getListOfHash($query);
@@ -262,7 +262,7 @@ sub loadedIsWWListed {
 	       return 3;
 	     }
 	  }
-	  
+
 	  $query = "SELECT sender FROM wwlists WHERE recipient='@".$this->{domain}."' AND type='$type' AND status=1";
           @senders = $db->getListOfHash($query);
 	  foreach my $listedsender (@senders) {
@@ -283,19 +283,26 @@ sub loadedIsWWListed {
 }
 
 sub listMatch {
-   my $reg = shift;
-   my $sender = shift;
-   
-   if ($reg =~ /^.*<(.*\@.*\..*)>$/) {
-	$reg = $1;
-   }
-   $reg =~ s/\@/\\\@/g;
-   $reg =~ s/\*/\.\*/g;
-   $reg =~ s/[^a-zA-Z0-9.\-_=@]//g;
-   if ($sender =~ /$reg/) {
-     return 1;
-   }
-   return 0;
+    my $reg = shift;
+    my $sender = shift;
+
+    # Use only the actual address as pattern
+    if ($reg =~ /^.*<(.*\@.*\..*)>$/) {
+        $reg = $1;
+    }
+    $reg =~ s/\./\\\./g; # Escape all dots
+    $reg =~ s/\@/\\\@/g; # Escape @
+    $reg =~ s/\*/\.\*/g; # Glob on all characters when using *
+    $reg =~ s/\+/\\\+/g; # Escape +
+    $reg =~ s/\|/\\\|/g; # Escape |
+    $reg =~ s/\{/\\\{/g; # Escape {
+    $reg =~ s/\}/\\\}/g; # Escape }
+    $reg =~ s/\?/\\\?/g; # Escape ?
+    $reg =~ s/[^a-zA-Z0-9\+.\\\-_=@\*\$\^!#%&'\/\?`{|}~]//g; # Remove unwanted characters
+    if ($sender =~ /$reg/i) {
+        return 1;
+    }
+    return 0;
 }
 
 sub inWW {
@@ -303,10 +310,10 @@ sub inWW {
   my $type = shift;
   my $sender = shift;
   my $destination = shift;
-  
+
   my $prefclient = PrefClient->new();
   $prefclient->setTimeout(2);
- 
+
   if ($type eq 'whitelist') {
      if ($prefclient->isWhitelisted($destination, $sender)) {
 #-#     if ($this->{prefdaemon}->getPref('WHITELIST', $destination." ".$sender) =~ /^FOUND/) {
@@ -326,7 +333,7 @@ sub sendWarnlistHit {
   my $sender = shift;
   my $reason = shift;
   my $msgid = shift;
-  
+
   require MailTemplate;
   #print "sending warn list hit\n";
   my $template = MailTemplate::create('warnhit', 'warnhit', $this->{d}->getPref('summary_template'), \$this, $this->getPref('language'), 'html');
@@ -359,7 +366,7 @@ sub sendWWHitNotice {
   require MailTemplate;
   #print "sending wwlist notice\n";
   my $template = MailTemplate::create('warnhit', 'noticehit', $this->{d}->getPref('summary_template'), \$this, 'en', 'text');
-  
+
   my $reason = 'whitelist';
   my $level = $whitelisted;
   if (!$whitelisted) {
@@ -373,7 +380,7 @@ sub sendWWHitNotice {
      '__TO__' => $this->{address},
      '__SENDER__' => $sender
   );
-  
+
   my $admin = $this->{d}->getPref('support_email');
   if ($admin eq "") {
   	my $sys = SystemPref::getInstance();
@@ -392,7 +399,7 @@ sub getLinkedAddresses {
 
   if (!$this->{user}) {
     $this->{user} = User::create($this->{address});
-  } 
+  }
 
   return $this->{user}->getAddresses();
 }

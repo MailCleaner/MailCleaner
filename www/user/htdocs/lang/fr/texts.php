@@ -468,7 +468,7 @@ $txt['REMTHEENTRY'] = "Supprimer la s&eacute;lection";
 $txt['DISABLETHEENTRY'] = "D&eacute;sactiver/R&eacute;activer la s&eacute;lection";
 $txt['WHITELISTSHORTHELP'] = "La liste blanche comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles aucune retenue en quarantaine ne sera effectu&eacute;e.<br />
 Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
-Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e. 
+Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e.
 ";
 $txt['BLACKLISTSHORTHELP'] = "La liste noire comporte des adresses d'exp&eacute;diteurs que vous voulez bloquer. 
 En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.
@@ -486,3 +486,25 @@ $txt['RECORDALREADYEXISTS'] = "Cette adresse figure d&eacute;j&agrave; dans la l
  */
 $txt['SESSIONTERMINATED'] = "Votre session MailCleaner a pris fin.";
 $txt['BEENLOGGEDOUT'] = "Si vous souhaitez d&eacute;marrer imm&eacute;diatement une nouvelle session, cliquez sur le lien suivant : <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['ADDABLACKENTRY'] = "Ajouter une adresse &agrave; la liste";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adresses que vous souhaitez modifier puis cliquez sur le bouton qui correspond &agrave; l'action d&eacute;sir&eacute;e.";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;.";
+$txt['NLRELEASEDBODY'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;. Elle sera d&eacute;livr&eacute;e dans votre boite dans quelques minutes.";
+$txt['NLNOTRELEASEDHEAD'] = "La Newsletter n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
+$txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message. Veuillez réessayer plus tard.";
+//old
+$txt['EDITNEWSLIST'] = "Modifier la liste newsletters";
+//old
+$txt['NEWSLISTFOR'] = "Liste newsletters pour __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Liste newsletters";
+$txt['NEWSLISTTOPICTITLE'] = "liste newsletters";
+$txt['NEWSLISTSHORTHELP'] = "La liste newsletters contient les adresses des newsletters désirées. <br />
+Consultez le manuel (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour plus d'informations sur l'utilisation de la liste newsletters.
+";
+$txt['NEWSLISTFORADDRESS'] = "Liste newsletters pour l'adresse";
+$txt['ADDANEWSENTRY'] = "Ajouter une adresse à la liste";
+$txt['NEWSLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste newsletters. Vous pouvez y associer un commentaire optionnel.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adresses que vous souhaitez modifier puis cliquez sur le bouton qui correspond &agrave; l'action d&eacute;sir&eacute;e.";

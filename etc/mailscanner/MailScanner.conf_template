@@ -50,7 +50,7 @@ Maximum Attachments Per Message = __MAXATTACHMENTS__
 Expand TNEF = __EXPANDTNEF__
 Use TNEF Contents = __USETNEFCONTENT__
 Deliver Unparsable TNEF = __DELIVERBADTNEF__
-TNEF Expander = internal
+TNEF Expander = /usr/bin/tnef
 TNEF Timeout = __TNEFTIMEOUT__
 
 File Command = /opt/file/bin/mc2-file

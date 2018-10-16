@@ -47,6 +47,7 @@ if ($antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('en
 
 $topics['white'] = array('WHITELISTTOPIC', 'conf_whitelist.tmpl', 'ConfigUserWWList');
 $topics['black'] = array('BLACKLISTTOPIC', 'conf_blacklist.tmpl', 'ConfigUserWWList');
+$topics['wnews'] = array('NEWSLISTTOPIC', 'conf_newslist.tmpl', 'ConfigUserWWList');
 
 
 $topic = 'int';
@@ -74,6 +75,12 @@ $replace = array(
     "__TOPIC_TITLE__" => $lang_->print_txt($topics[$topic][0]."TITLE"),
     '__SELECTOR_LANG__' => $lang_->html_select(),
 );
+
+require_once ('helpers/DataManager.php');
+$file_conf = DataManager :: getFileConfig($sysconf_ :: $CONFIGFILE_);
+$is_enterprise = $file_conf['REGISTERED'] == '1';
+if (!$is_enterprise)
+	$template_->setCondition('ISCOMMUNITY', true);
 
 $replace = $controller->addReplace($replace, $template_);
 

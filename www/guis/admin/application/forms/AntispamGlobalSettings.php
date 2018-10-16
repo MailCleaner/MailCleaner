@@ -15,6 +15,7 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 	public $_warnlist;
 	//blacklistmr
 	public $_blacklist;
+    public $_newslist;
 	
 	public $_whitelistenabled = 0;
 	public $_warnlistenabled = 0;
@@ -23,12 +24,14 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 	protected $_whitelistform;
 	protected $_warnlistfrom;
 	protected $_blacklistrom;
+    protected $_newslistform;
 	
-	public function __construct($as, $whitelist, $warnlist, $blacklist) {
+	public function __construct($as, $whitelist, $warnlist, $blacklist, $newslist) {
 		$this->_antispam = $as;
 		$this->_whitelist = $whitelist;
 		$this->_warnlist = $warnlist;
 		$this->_blacklist = $blacklist;
+        $this->_newslist = $newslist;
 		parent::__construct();
 	}
 	
@@ -123,6 +126,10 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
                 $this->_blacklistform->setAddedValues(array('recipient' => '', 'type' => 'black'));
                 $this->_blacklistform->addFields($this);
 		
+		$this->_newslistform = new Default_Form_ElementList($this->_newslist, 'Default_Model_WWElement', 'newslist_');
+		$this->_newslistform->init();
+		$this->_newslistform->setAddedValues(array('recipient' => '', 'type' => 'wnews'));
+		$this->_newslistform->addFields($this);
 	}
 	
 	public function getWhitelistForm() {
@@ -144,6 +151,8 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 		$this->_warnlistform->addFields($this);
 		$this->_blacklistform->manageRequest($request);
                 $this->_blacklistform->addFields($this);
+		$this->_newslistform->manageRequest($request);
+		$this->_newslistform->addFields($this);
 
 
 		$as->setparam('trusted_ips', $request->getParam('trusted_ips'));

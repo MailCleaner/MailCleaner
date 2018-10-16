@@ -7,8 +7,8 @@ De inhoud is gevaarlijk omdat het dikwijls gebruikt wordt voor het verspreiden v
 virussen of om toegang te krijgen tot persoonlijke of confidentiële informatie van jou,
 zoals paswoorden of kredietkaart nummers.
 
-If you wish to receive a copy of the original email, please visit the link below :
-http://www.mailcleaner.net/support/dangerous-content-release.html
+If you wish to receive a copy of the original email, please visit the link below:
+https://www.mailcleaner.net/support/dangerous-content-release.html
 
 Op $date zeiden de inhoud filters:
 $report

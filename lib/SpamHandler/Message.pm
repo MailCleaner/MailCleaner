@@ -166,10 +166,10 @@ sub process {
 		my $warnlisted =
 		  $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
 		my $blacklisted =
-                  ($email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_form} ));
+                  ($email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_from} ));
 		my @res_wnews = ('NOTIN','System','Domain','User');
 		my $nwhitelisted =
-		  $email->loadedIsWWListed( 'wnews', $this->{msg_from} );
+		  $email->loadedIsWWListed( 'wnews', $this->{msg_from} ) || $email->loadedIsWWListed( 'wnews', $this->{env_sender} );
 		$this->endTimer('Message fetch ww');
 
 		$this->{daemon}->doLog("Delivery_type: " . $delivery_type . " Blacklisted: " . $blacklisted);		

@@ -62,9 +62,9 @@ sub new {
     if ($myspec_thish) {
         %myspec_this = %$myspec_thish;
     }
-	
+
 	my $conf = ReadConfig::getInstance();
-	
+
 	my $spec_this = {
         name              => 'PrefTDaemon',
 		socketpath => $conf->getOption('VARDIR') . "/run/prefdaemon.sock",
@@ -79,7 +79,7 @@ sub new {
 		timeout_ww   => 60,
 		backend      => undef,
 	};
-	
+
 	# add specific options of child object
     foreach my $sk ( keys %myspec_this ) {
         $spec_this->{$sk} = $myspec_this{$sk};
@@ -641,17 +641,26 @@ sub addToCache {
 }
 
 sub listMatch {
-	my $reg    = shift;
-	my $sender = shift;
+    my $reg = shift;
+    my $sender = shift;
 
-	$reg =~ s/\@/\\\@/g;
-	$reg =~ s/\*/\.\*/g;
-	$reg =~ s/\+/\\\\+/g;
-	$reg =~ s/[^a-zA-Z0-9\-_.*=+@]//g;
-	if ( $sender =~ /$reg/i ) {
-		return 1;
-	}
-	return 0;
+    # Use only the actual address as pattern
+    if ($reg =~ /^.*<(.*\@.*\..*)>$/) {
+        $reg = $1;
+    }
+    $reg =~ s/\./\\\./g; # Escape all dots
+    $reg =~ s/\@/\\\@/g; # Escape @
+    $reg =~ s/\*/\.\*/g; # Glob on all characters when using *
+    $reg =~ s/\+/\\\+/g; # Escape +
+    $reg =~ s/\|/\\\|/g; # Escape |
+    $reg =~ s/\{/\\\{/g; # Escape {
+    $reg =~ s/\}/\\\}/g; # Escape }
+    $reg =~ s/\?/\\\?/g; # Escape ?
+    $reg =~ s/[^a-zA-Z0-9\+.\\\-_=@\*\$\^!#%&'\/\?`{|}~]//g; # Remove unwanted characters
+    if ($sender =~ /$reg/i) {
+        return 1;
+    }
+    return 0;
 }
 
 sub createWWArrayCache {
@@ -688,20 +697,20 @@ sub addStat {
 
 sub statusHook {
     my $this = shift;
-    
+
     my $res = '-------------------'."\n";
     $res .= 'Current statistics:'."\n";
     $res .= '-------------------' ."\n";
-    
+
     $res .= $this->SUPER::statusHook();
     require PrefClient;
     my $client = new PrefClient();
     $res .= $client->query('GETINTERNALSTATS');
-    
+
     $res .= '-------------------' ."\n";
-        
+
     $this->doLog($res, 'prefdaemon');
-    
+
     return $res;
 }
 
@@ -743,7 +752,7 @@ sub logStats {
 		  . $stats_{'cachewwhits'}
 		  . " ($wwpercencached %)"."\n";
 	$res .= '  WWLists backend calls: ' . $stats_{'backendwwcall'} ."\n";
-	
+
     return $res;
 }
 
