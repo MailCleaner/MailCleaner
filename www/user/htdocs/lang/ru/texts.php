@@ -150,3 +150,13 @@ $txt['REMOVEABLACKENTRYSHORTHELP'] = "Выберите адрес или адр�
  */
 $txt['SESSIONTERMINATED'] = "Ваш сеанс завершен.";
 $txt['BEENLOGGEDOUT'] = "Если вы хотите начать новую сессию, перейдите по ссылке:<a href=\"__PARAM__\" >__PARAM__</a>";
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens
+ * @copyright 2006, Olivier Diserens
+ */
+### newsl
+$txt['NEWSLETTERMODULE'] = "";
+$txt['NEWSLETTERSSHORTHELP'] = "";
+$txt['NEWSLETTERSALLOW'] = "";
