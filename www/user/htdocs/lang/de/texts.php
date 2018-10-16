@@ -241,7 +241,7 @@ $txt['NOSUMMARY'] = "Kein Bericht";
 // old
 $txt['SUMMARYTYPE'] = "Typus des Berichts";
 $txt['USEDEFAULT'] = "Standardm&auml;ssig";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "Reintext";
 // old
 $txt['EDITWHITELIST'] = "Positivliste bearbeiten";
@@ -310,7 +310,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ Spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ gef&auml;hrliche";
 // old
 $txt['USERCLEANSTAT'] = "__PARAM__ saubere";
-$txt['ALL'] = "Alle...";
+$txt['ALL'] = "Alle…";
 $txt['SEARCHPERIOD'] = "Gepr&uuml;fte Zeitspanne";
 $txt['LASTDAYS'] = "letzte Tage";
 $txt['LASTMONTHS'] = "letzte Monate";
@@ -467,7 +467,7 @@ $txt['REMTHEENTRY'] = "Auswahl l&ouml;schen";
 $txt['DISABLETHEENTRY'] = "Auswahl desaktivieren oder wieder-aktivieren";
 $txt['WHITELISTSHORTHELP'] = "Die Positivliste enthält vertrauenswürdige Absenderadressen, für die keine Quarantäneeinstellungen gelten sollen.<br />
                                    Achtung: Diese Funktionalität sollte als vorübergehende Lösung verwendet werden, da sie den Gesamtschutz verringert.
-                                  Weitere Informationen zur Verwendung der Positivliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">\"Help\"</a>).
+                                  Weitere Informationen zur Verwendung der Positivliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">\"Help\"</a>). 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Die schwarze Liste enthält die gesperrte Absenderadressen …
                                   Lesen Sie das Handbuch (verfügbar im Abschnitt <a href=\"help.php\">\"Hilfe\"</a>) für weitere Informationen zur Verwendung der schwarzen Liste.
