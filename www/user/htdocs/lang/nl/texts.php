@@ -240,7 +240,7 @@ $txt['NOSUMMARY'] = "Geen rapport";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
 $txt['USEDEFAULT'] = "gebruik standaard";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "onbewerkte tekst";
 //old
 $txt['EDITWHITELIST'] = "bewerk de witte lijst";
@@ -308,7 +308,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ gevaarlijk";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ schoon";
-$txt['ALL'] = "alles...";
+$txt['ALL'] = "alles…";
 $txt['SEARCHPERIOD'] = "Geanalyseerde periode";
 $txt['LASTDAYS'] = "laatste dagen";
 $txt['LASTMONTHS'] = "laatste maanden";
@@ -427,7 +427,7 @@ $txt['DROPMESSAGE'] = "verwijder onmiddellijk";
 $txt['SUMMARYSENTFREQ'] = "Frequentie van quarantaine rapporten";
 $txt['SUMMARYFORMAT'] = "Formaat van quarantaine rapporten";
 $txt['SUMMARYTO'] = "Zend rapporten naar dit adres";
-$txt['OTHER'] = "andere...";
+$txt['OTHER'] = "andere…";
 $txt['APPLYTOALLADDRESSES'] = "Pas instellingen toe op alle adressen";
 $txt['PLAINTEXT'] = "Platte tekst";
 $txt['HTML'] = "HTML";
