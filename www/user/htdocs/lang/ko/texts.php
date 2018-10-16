@@ -113,7 +113,7 @@ $txt['SCORETEXT'] = "Score: __PARAM__";
 $txt['CLOSEWINDOW'] = "창 닫기";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify...</a>). ";
+$txt['DISPLAYEDINFOS'] = "";
 $txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
 //old
 $txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
@@ -238,12 +238,12 @@ $txt['NOSUMMARY'] = "No report";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
 $txt['USEDEFAULT'] = "use default";
-$txt['SUMMHTML'] = "html";
-$txt['SUMMTEXT'] = "plain text";
+$txt['SUMMHTML'] = "HTML";
+$txt['SUMMTEXT'] = "";
 //old
-$txt['EDITWHITELIST'] = "edit white list";
+$txt['EDITWHITELIST'] = "";
 //old
-$txt['EDITWARNLIST'] = "edit warn list";
+$txt['EDITWARNLIST'] = "";
 /*
  * wwlist management
  */
@@ -261,9 +261,9 @@ $txt['WWENTRY'] = "Entry";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "";
 //old
 $txt['STATUS'] = "Status";
 /*
@@ -285,7 +285,7 @@ $txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For s
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
 $txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
 $txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added successfully.";
+$txt['ALIASADDED'] = "";
 $txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
 //old
 $txt['REMALIASTITLE'] = "Address removal";
@@ -306,7 +306,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all...";
+$txt['ALL'] = "";
 $txt['SEARCHPERIOD'] = "Analyzed period";
 $txt['LASTDAYS'] = "last days";
 $txt['LASTMONTHS'] = "last months";
@@ -387,16 +387,16 @@ $txt['CONFIGURATION'] = "Configuration";
 $txt['ADDRESSLISTTOPIC'] = "Address group";
 $txt['ADDRESSPARAMTOPIC'] = "Address settings";
 $txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "Warn list";
-$txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
+$txt['WARNLISTTOPIC'] = "";
+$txt['WHITELISTTOPIC'] = "";
+$txt['BLACKLISTTOPIC'] = "";
 $txt['INTERFACETOPICTITLE'] = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE'] = "address group";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
 $txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "warn list";
-$txt['WHITELISTTOPICTITLE'] = "white list";
-$txt['BLACKLISTTOPICTITLE'] = "black list";
+$txt['WARNLISTTOPICTITLE'] = "";
+$txt['WHITELISTTOPICTITLE'] = "";
+$txt['BLACKLISTTOPICTITLE'] = "";
 /*
  * interface (new)
  */
@@ -426,7 +426,7 @@ $txt['DROPMESSAGE'] = "immediately delete";
 $txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
 $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
+$txt['OTHER'] = "";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
@@ -448,31 +448,24 @@ $txt['TODAY'] = "Today";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning : this functionality should be used as a temporary solution as it decreases the overall protection. 
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warn list for the address";
+$txt['WARNLISTSHORTHELP'] = "";
+$txt['WARNLISTFORADDRESS'] = "";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
+$txt['WARNLISTENTRYTOADD'] = "";
 $txt['ADDTHEENTRY'] = "&lt; Add the address";
 $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
-                                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage. 
-";
-$txt['BLACKLISTSHORTHELP'] = "The black list contains blacklisted sender address..
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
-";
-$txt['WHITELISTFORADDRESS'] = "White list for the address";
+$txt['WHITELISTSHORTHELP'] = "";
+$txt['BLACKLISTSHORTHELP'] = "";
+$txt['WHITELISTFORADDRESS'] = "";
 $txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the white list. You can also add an optional comment.";
+$txt['WHITELISTENTRYTOADD'] = "";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "Black list for the address";
+$txt['BLACKLISTFORADDRESS'] = "";
 $txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the black list. You can also add an optional comment.";
+$txt['BLACKLISTENTRYTOADD'] = "";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
 /*
