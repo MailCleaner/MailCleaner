@@ -238,7 +238,7 @@ $txt['NOSUMMARY'] = "No report";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
 $txt['USEDEFAULT'] = "använd standard";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "vanlig text";
 //old
 $txt['EDITWHITELIST'] = "redigera vitlista";
@@ -285,7 +285,7 @@ $txt['ALIASPENDING'] = "En bekräftelse har skickats till denna adress.<br/> Av 
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
 $txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
 $txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added successfully.";
+$txt['ALIASADDED'] = "";
 $txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
 //old
 $txt['REMALIASTITLE'] = "Address removal";
@@ -306,7 +306,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all...";
+$txt['ALL'] = "";
 $txt['SEARCHPERIOD'] = "Analyzed period";
 $txt['LASTDAYS'] = "last days";
 $txt['LASTMONTHS'] = "last months";
@@ -387,16 +387,16 @@ $txt['CONFIGURATION'] = "Configuration";
 $txt['ADDRESSLISTTOPIC'] = "Address group";
 $txt['ADDRESSPARAMTOPIC'] = "Address settings";
 $txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "Warn list";
-$txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
+$txt['WARNLISTTOPIC'] = "";
+$txt['WHITELISTTOPIC'] = "";
+$txt['BLACKLISTTOPIC'] = "";
 $txt['INTERFACETOPICTITLE'] = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE'] = "address group";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
 $txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "warn list";
-$txt['WHITELISTTOPICTITLE'] = "white list";
-$txt['BLACKLISTTOPICTITLE'] = "black list";
+$txt['WARNLISTTOPICTITLE'] = "";
+$txt['WHITELISTTOPICTITLE'] = "";
+$txt['BLACKLISTTOPICTITLE'] = "";
 /*
  * interface (new)
  */
@@ -426,7 +426,7 @@ $txt['DROPMESSAGE'] = "immediately delete";
 $txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
 $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
+$txt['OTHER'] = "";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
@@ -451,9 +451,9 @@ $txt['TODAY'] = "Today";
 $txt['WARNLISTSHORTHELP'] = "Varningslistan innehåller betrodda avsändaradresser för vilka du kommer att aviseras via e-post när ett meddelande råkar detekteras som skräppost. Du kan då omedelbart publiceras meddelandet om det är ett filtreringsfel.<br />
 \t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet. 
 \t\t\t\t\t\t\t\t   Se manualen (i avsnittet <a href=\"help.php\">\"Hjälp\"</a>) för vidare information om hur varningslistor kan användas. ";
-$txt['WARNLISTFORADDRESS'] = "Warn list for the address";
+$txt['WARNLISTFORADDRESS'] = "";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
+$txt['WARNLISTENTRYTOADD'] = "";
 $txt['ADDTHEENTRY'] = "&lt; Add the address";
 $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
@@ -461,18 +461,16 @@ $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
 $txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser för vilka karantän inte någonsin kommer att inträffa.<br /> 
                                    Varning: denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
-                                  Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas.
+                                  Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas. 
 ";
-$txt['BLACKLISTSHORTHELP'] = "The black list contains blacklisted sender address..
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
-";
-$txt['WHITELISTFORADDRESS'] = "White list for the address";
+$txt['BLACKLISTSHORTHELP'] = "";
+$txt['WHITELISTFORADDRESS'] = "";
 $txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the white list. You can also add an optional comment.";
+$txt['WHITELISTENTRYTOADD'] = "";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "Black list for the address";
+$txt['BLACKLISTFORADDRESS'] = "";
 $txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the black list. You can also add an optional comment.";
+$txt['BLACKLISTENTRYTOADD'] = "";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
 /*
