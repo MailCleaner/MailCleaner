@@ -240,7 +240,7 @@ $txt['NOSUMMARY'] = "Aucun rapport";
 //old
 $txt['SUMMARYTYPE'] = "Type de rapport";
 $txt['USEDEFAULT'] = "par d&eacute;faut";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "texte simple";
 //old
 $txt['EDITWHITELIST'] = "gestion liste blanche";
@@ -312,7 +312,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangereux";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ propres";
-$txt['ALL'] = "toutes...";
+$txt['ALL'] = "toutes…";
 $txt['SEARCHPERIOD'] = "P&eacute;riode examin&eacute;e&nbsp;";
 $txt['LASTDAYS'] = "derniers jours";
 $txt['LASTMONTHS'] = "derniers mois";
@@ -432,7 +432,7 @@ $txt['DROPMESSAGE'] = "Supprimer imm&eacute;diatement";
 $txt['SUMMARYSENTFREQ'] = "P&eacute;riodicit&eacute; d'envoi des rapports de quarantaine&nbsp;";
 $txt['SUMMARYFORMAT'] = "Formatage des rapports de quarantaine&nbsp;";
 $txt['SUMMARYTO'] = "Envoyer les rapports &agrave; cette adresse";
-$txt['OTHER'] = "autre...";
+$txt['OTHER'] = "autre…";
 $txt['APPLYTOALLADDRESSES'] = "Appliquer ces r&eacute;glages &agrave; toutes les adresses";
 $txt['PLAINTEXT'] = "Texte brut";
 $txt['HTML'] = "HTML";
@@ -468,7 +468,7 @@ $txt['REMTHEENTRY'] = "Supprimer la s&eacute;lection";
 $txt['DISABLETHEENTRY'] = "D&eacute;sactiver/R&eacute;activer la s&eacute;lection";
 $txt['WHITELISTSHORTHELP'] = "La liste blanche comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles aucune retenue en quarantaine ne sera effectu&eacute;e.<br />
 Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
-Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e.
+Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "La liste noire comporte des adresses d'exp&eacute;diteurs que vous voulez bloquer. 
 En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.
