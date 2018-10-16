@@ -235,7 +235,7 @@ $txt['NOSUMMARY'] = "无报告";
 //old
 $txt['SUMMARYTYPE'] = "报告格式";
 $txt['USEDEFAULT'] = "使用默认值";
-$txt['SUMMHTML'] = "Html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "纯文本";
 //old
 $txt['EDITWHITELIST'] = "编辑白名单";
@@ -303,7 +303,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危险";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ 清空";
-$txt['ALL'] = "所有...";
+$txt['ALL'] = "所有…";
 $txt['SEARCHPERIOD'] = "分析期间";
 $txt['LASTDAYS'] = "最后几天";
 $txt['LASTMONTHS'] = "最后几个月";
@@ -456,7 +456,7 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "从列表中选择要修改的地址或地�
 $txt['REMTHEENTRY'] = "删除选定内容";
 $txt['DISABLETHEENTRY'] = "禁用/启用选择";
 $txt['WHITELISTSHORTHELP'] = "白名单中包含的受信任发件人地址不会发生任何隔离保留. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
-                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。
+                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。 
 ";
 $txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。 
 有关黑列表用法的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。
