@@ -67,7 +67,7 @@ $txt['MONTH12'] = 'Diciembre';
  */
 $txt['BADLOGIN'] = "Nombre de usuario o contrase&ntilde;a incorrecto.";
 $txt['SESSIONEXPIRED'] = "Sesi&oacute;n expirada.";
-$txt['LOGININFO'] = "Recuerdo : Su nombre de usuario y su contrase&ntilde;a son los mismos que los de su correo electr&oacute;nico.";
+$txt['LOGININFO'] = "Recuerdo : Su nombre de usuario y su contrase&ntilde;a son los mismos que los de su correo electr&oacute;nico";
 $txt['USERNAME'] = "Nombre de usuario";
 $txt['PASSWORD'] = "Contrase&ntilde;a";
 //old
@@ -239,7 +239,7 @@ $txt['NOSUMMARY'] = "No informe";
 //old
 $txt['SUMMARYTYPE'] = "Formato del informe";
 $txt['USEDEFAULT'] = "uso por defecto";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "Texto simple";
 //old
 $txt['EDITWHITELIST'] = "editar la lista blanca";
@@ -262,9 +262,9 @@ $txt['WWENTRY'] = "Entrada";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
 //old
-$txt['WHITELISTFOR'] = "White list for __PARAM__";
+$txt['WHITELISTFOR'] = "";
 //old
-$txt['WARNLISTFOR'] = "Warn list for __PARAM__";
+$txt['WARNLISTFOR'] = "";
 //old
 $txt['STATUS'] = "Status";
 /*
@@ -307,7 +307,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ peligrosos";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ limpios";
-$txt['ALL'] = "todas...";
+$txt['ALL'] = "todas…";
 $txt['SEARCHPERIOD'] = "Periodo analizado";
 $txt['LASTDAYS'] = "&uacute;ltimos d&iacute;as";
 $txt['LASTMONTHS'] = "&uacute;ltimos meses";
@@ -427,7 +427,7 @@ $txt['DROPMESSAGE'] = "suprimir inmediatamente";
 $txt['SUMMARYSENTFREQ'] = "Frecuencia de los informes de cuarentena";
 $txt['SUMMARYFORMAT'] = "Formato de los informes de cuarentena";
 $txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other...";
+$txt['OTHER'] = "";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar los Par&aacute;metros a todas las direcciones";
 $txt['PLAINTEXT'] = "Texto simple";
 $txt['HTML'] = "HTML";
@@ -460,9 +460,9 @@ $txt['REMOVEANENTRY'] = "Desactivar, reactivar o suprimir una direcci&oacute;n d
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Seleccione en la lista de alarma la o las direcciones que quiere modificar y haga click en el bot&oacute;n deseado.";
 $txt['REMTHEENTRY'] = "Suprimir la selecci&oacute;n";
 $txt['DISABLETHEENTRY'] = "Desactivar/Reactivar la selecci&oacute;n";
-$txt['WHITELISTSHORTHELP'] = "La lista contiene las direcciones de los remitentes de confianza. Los mensajes de estas personas no sufrir&aacute;n de la cuarentena.<br /> \r
-                                   Ojo: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total.\r
-                                  Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista blanca. \r
+$txt['WHITELISTSHORTHELP'] = "La lista contiene las direcciones de los remitentes de confianza. Los mensajes de estas personas no sufrir&aacute;n de la cuarentena.<br /> 
+                                   Ojo: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total.
+                                  Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista blanca. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "La lista negra contiene la dirección del remitente incluida en la lista negra..
                                    Revise el manual (disponible en la sección <a href=\"help.php\">\"Ayuda\"</a>) para obtener más información sobre el uso de la lista negra.
