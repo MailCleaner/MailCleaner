@@ -1,0 +1,183 @@
+#!/bin/bash
+# Allows for the management of internal access between machines
+
+CONFFILE=/etc/mailcleaner.conf
+SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
+if [ "$SRCDIR" = "" ]; then
+  SRCDIR="/usr/mailcleaner"
+fi
+VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
+if [ "$VARDIR" = "" ]; then
+  VARDIR="/var/mailcleaner"
+fi
+
+source ${SRCDIR}/lib/lib_utils.sh
+
+if [ $(slaveSynchronized) == "false" ]; then
+    echo "The slave database is not synchronized, quitting..."
+    exit 1
+fi
+
+MCHOSTNAME=$(grep -e "MCHOSTNAME" /etc/mailcleaner.conf | cut -d" " -f3)
+PRIVATE_KEY_FILE="/root/.ssh/id_ecdsa_internal"
+PUBLIC_KEY_FILE="${PRIVATE_KEY_FILE}.pub"
+AUTHORIZED_KEYS_FILE="/root/.ssh/authorized_keys"
+
+function usage {
+    cat <<EOF
+internal_access (-h | --help) | ((-g | --generate) | (-i | --install) | (-p | --propagate) | (-v | --validate))
+    -h, --help : Display this help
+    -g, --generate : Generate a new pair of keys
+    -p, --propagate : Propagate the current key pair to the cluster
+    -i, --install : Install the latest pair of keys locally
+    -v, --validate : Make sure that the machine has the correct and last keys
+
+The options are taken in order, so if you want multiple operations done, you should put them in the proper order, probably
+    internal_access --generate --propagate --install
+EOF
+}
+
+function get_last_internal_key {
+    kind=$1
+    if [[ ! (${kind} == "private_key" || ${kind} == "public_key") ]]; then
+        echo "You can only get 'private_key' or 'public_key'"
+        exit 1
+    fi
+    key=$(cat <<EOF | ${SRCDIR}/bin/mc_mysql -s mc_config | grep -e "BEGIN EC PRIVATE KEY" -e "ecdsa-sha2-nistp521"
+SELECT ${kind}
+FROM internal_access
+ORDER BY id DESC
+LIMIT 1;
+EOF
+)
+    echo -e "${key}"
+}
+
+function generate {
+    if [ -f ${PRIVATE_KEY_FILE} ]; then
+        rm ${PRIVATE_KEY_FILE}
+    fi
+    ssh-keygen -q -t ecdsa -b 521 -f ${PRIVATE_KEY_FILE} -N "" -C "${MCHOSTNAME}-internal"
+}
+
+function install {
+    db_private_key="$(get_last_internal_key private_key)"
+    db_public_key="$(get_last_internal_key public_key)"
+    if [[ ! ((-z ${db_private_key}) && (-z ${db_public_key})) ]]; then
+        echo "${db_private_key}" > ${PRIVATE_KEY_FILE}
+        echo "${db_public_key}" > ${PUBLIC_KEY_FILE}
+        chmod 600 ${PRIVATE_KEY_FILE}
+        if [[ -f ${AUTHORIZED_KEYS_FILE} ]]; then
+            sed -i "/${MCHOSTNAME}-internal/d" ${AUTHORIZED_KEYS_FILE}
+        fi
+        echo "${db_public_key}" >> ${AUTHORIZED_KEYS_FILE}
+    else
+        echo "No keys available"
+        exit 1
+    fi
+}
+
+function propagate {
+    PRIVATE_KEY=$(cat "${PRIVATE_KEY_FILE}")
+    PUBLIC_KEY=$(cat "${PRIVATE_KEY_FILE}.pub")
+    cat <<EOF | ${SRCDIR}/bin/mc_mysql -m mc_config
+INSERT INTO internal_access
+(private_key, public_key)
+VALUES
+("${PRIVATE_KEY}", "${PUBLIC_KEY}");
+EOF
+}
+
+function validate {
+    db_private_key=$(get_last_internal_key private_key)
+    if [[ -z ${db_private_key} ]]; then
+        echo "No private key available"
+        exit 1
+    fi
+
+    db_public_key=$(get_last_internal_key public_key)
+    if [[ -z ${db_public_key} ]]; then
+        echo "No public key available"
+        exit 1
+    fi
+
+    if [[ ! -f ${PRIVATE_KEY_FILE} ]]; then
+        echo "Missing private key file"
+        exit 1
+    fi
+
+    if [[ ! -f ${PUBLIC_KEY_FILE} ]]; then
+        echo "Missing public key file"
+        exit 1
+    fi
+
+    local_private_key=$(cat ${PRIVATE_KEY_FILE})
+    if [[ -z ${local_private_key} ]]; then
+        echo "Empty private key file"
+        exit 1
+    fi
+
+    local_public_key=$(cat ${PUBLIC_KEY_FILE})
+    if [[ -z ${local_public_key} ]]; then
+        echo "Empty public key file"
+        exit 1
+    fi
+
+    if [[ ${db_private_key} != ${local_private_key} ]]; then
+        echo "Private keys not matching"
+        exit 1
+    fi
+
+    if [[ ${db_public_key} != ${local_public_key} ]]; then
+        echo "Public keys not matching"
+        exit 1
+    fi
+
+    public_key_from_private="$(ssh-keygen -y -f ${PRIVATE_KEY_FILE})"
+    if [[ -z $(grep -e "$public_key_from_file" ${PUBLIC_KEY_FILE}) ]]; then
+        echo "Local public and private keys do not match"
+        exit 1
+    fi
+
+    exit 0
+}
+
+OPTS=hgipv
+LONGOPTS=help,generate,install,propagate,validate
+
+PARSED=$(getopt --options=${OPTS} --longoptions=${LONGOPTS} --name "${0}" -- ${@})
+eval set -- "$PARSED"
+
+mode=""
+
+while true; do
+    case "$1" in
+        -h|--help)
+            usage
+            shift
+            ;;
+        -g|--generate)
+            generate
+            shift
+            ;;
+        -p|--propagate)
+            propagate
+            shift
+            ;;
+        -i|--install)
+            install
+            shift
+            ;;
+        -v|--validate)
+            validate
+            shift
+            ;;
+        --)
+            shift
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+done
+exit 0
