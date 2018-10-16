@@ -238,7 +238,7 @@ $txt['NOSUMMARY'] = "Nenhum relatório";
 //old
 $txt['SUMMARYTYPE'] = "Formato do relatório";
 $txt['USEDEFAULT'] = "usar o por defeito";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "texto simples";
 //old
 $txt['EDITWHITELIST'] = "editar lista branca";
@@ -306,7 +306,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ perigosas";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ limpas";
-$txt['ALL'] = "todas...";
+$txt['ALL'] = "todas…";
 $txt['SEARCHPERIOD'] = "Período analisado";
 $txt['LASTDAYS'] = "últimos dias";
 $txt['LASTMONTHS'] = "últimos meses";
@@ -426,7 +426,7 @@ $txt['DROPMESSAGE'] = "apagar imediatamente";
 $txt['SUMMARYSENTFREQ'] = "Frequência dos relatórios de quarentena";
 $txt['SUMMARYFORMAT'] = "Formato dos relatórios de quarentena";
 $txt['SUMMARYTO'] = "Enviar os relatórios para este endereço";
-$txt['OTHER'] = "outro...";
+$txt['OTHER'] = "outro…";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar definições a todos os endereços";
 $txt['PLAINTEXT'] = "Texto simples";
 $txt['HTML'] = "HTML";
@@ -461,7 +461,7 @@ $txt['REMTHEENTRY'] = "Remover selecionados";
 $txt['DISABLETHEENTRY'] = "Desativar/ativar selecionados";
 $txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetentes confiados para os quais nunca será feita retenção na quarentena.<br />
                                    Aviso: esta funcionalidade de ser usada como solução temporária já que reduz a proteção global.
-                                  Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas brancas.
+                                  Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas brancas. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereços de remetentes não permitidos.
                                   Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas negras.
