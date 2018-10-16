@@ -71,8 +71,9 @@ if ($days !~ /^\d+$/) {
   exit 0;
 }
 
-# Check for lock
-my $rc = create_lockfile('send_summary', undef, time+10*60*60, 'send_summary');
+# check for lock
+my $lockfile_name = 'send_summary_' . $days . 'd';
+my $rc = create_lockfile($lockfile_name, undef, time+10*60*60, 'send_summary');
 if ($rc == 0) {
   exit;
 }
@@ -211,6 +212,9 @@ foreach my $a (@addresses) {
     print "$date SUMSENT to $to for $a (days: $days, spams: $nbspams, id: $result)\n";
   }
 }
+# [AuKa] remove lockfile here
+remove_lockfile($lockfile_name);
+
 
 ###
 # get all addresses to send summary
@@ -421,6 +425,5 @@ sub getQuarantineTemplate {
   	$ret .= $tmp;
   }
 
-  remove_lockfile('send_summary');
-  return $ret;
+    return $ret;
 }
