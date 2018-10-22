@@ -19,7 +19,7 @@ providing you with the following benefits:
 - Access to all MailCleaner RBLs and partner's RBLs 
 - Regular updates of Bayesian databases
 - Access to our technical support (Basic or Premium offers) 
-- Access to optional modules including Kaspersky and MessageSniffer
+- Access to optional modules including Kaspersky, spamhaus, SURBL and MessageSniffer
 
 To start your free trial, please go to https://www.mailcleaner.net/antispam/test.html and choose the option that fits you best
 
