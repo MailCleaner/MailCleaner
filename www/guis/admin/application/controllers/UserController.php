@@ -33,8 +33,10 @@ class UserController extends Zend_Controller_Action
 
         $request = $this->getRequest();
         $form    = new Default_Form_Login();
-        if ($this->getRequest()->getParam('message')) {
-        	$form->addErrorMessage($this->getRequest()->getParam('message'));
+        
+        // Display only loggedOut message
+        if ($this->getRequest()->getParam('message') == "loggedOut") {
+        	$form->addErrorMessage(htmlspecialchars($this->getRequest()->getParam('message')));
         }
         
         if ($this->getRequest()->isPost() && $form->isValid($request->getPost())) {
