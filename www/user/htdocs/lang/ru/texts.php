@@ -157,6 +157,61 @@ $txt['BEENLOGGEDOUT'] = "Если вы хотите начать новую се
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "";
-$txt['NEWSLETTERSSHORTHELP'] = "";
-$txt['NEWSLETTERSALLOW'] = "";
+$txt['NEWSLETTERMODULE'] = "Новостная рассылка";
+$txt['NEWSLETTERSSHORTHELP'] = "Здесь вы можете управлять своими новостными рассылками.";
+$txt['NEWSLETTERSALLOW'] = "доставить";
+/*
+ * quick actions
+ */
+//old
+$txt['SENDSUMTITLE'] = "Отправить отчет по карантину вручную";
+$txt['SENDSUM'] = "Отправить отчет по карантину вручную";
+$txt['SUMSENTTO'] = "Отчет по карантину был отправлен на адрес: <strong>__PARAM__</strong>";
+$txt['SUMNOTSENTTO'] = "Не удалось отправить отчет по карантину на адрес <strong>__PARAM__</strong>. Повторите попытку позже.";
+$txt['SUMMARYSENDING'] = "Отправка отчета по карантину";
+$txt['PURGETITLE'] = "Очистка карантина вручную";
+$txt['PURGEDONE'] = "Карантин был очищен для адреса <strong>__PARAM__</strong>";
+$txt['COULDNOTPURGE'] = "Карантин для адреса <strong>__PARAM__</strong> не может быть очищен из-за внутренней ошибки. Повторите попытку позже.";
+$txt['ASKPURGECONFIRM'] = "Вы действительно хотите очистить карантин за последние __PARAM1__  дней для адреса <strong>__PARAM2__</strong> ?";
+$txt['QUARANTINEPURGE'] = "Очистка карантина вручную";
+$txt['GROUPQUARANTINES'] = "Все адреса";
+$txt['PREFILTERHITS'] = "Префильтры";
+$txt['BLACKLISTS'] = "Блэклисты";
+$txt['FITLERSCORE'] = "Балл";
+$txt['HEADERS'] = "Заголовки";
+$txt['BODY'] = "Тело";
+$txt['DESCRIPTION'] = "Описание";
+$txt['MESSAGEPREVIEW'] = "Предварительный просмотр сообщения";
+$txt['ID'] = "Идентификатор";
+/*
+ * logout page
+ */
+$txt['LOGOUTTEXT'] = "<p>Ваш сеанс завершен.</p><p>Если вы хотите начать новую сессию, перейдите по следующей ссылке:</p>";
+/*
+ * parameters page
+ */
+//old
+$txt['PARAMTITLE'] = "Персональные настройки MailCleaner";
+//old
+$txt['USERPARAM'] = "Настройки пользователя";
+//old
+$txt['ADDRESSPARAM'] = "Настройки адреса";
+//old
+$txt['LANGUAGE'] = "Язык";
+$txt['ADDRESS'] = "Адрес";
+//old
+$txt['ADDRALIASTITLE'] = "Группа адресов";
+//old
+$txt['FILTERACTIONTITLE'] = "Режим обработки спама";
+//old
+$txt['SUMMARYPARAMSTITLE'] = "Параметры отчета по карантину";
+//old
+$txt['ADDRESSESLISTTITLE'] = "Персональная группа адресов: (__PARAM__ адрес(а))";
+//old
+$txt['APPLYALLADDRESSES'] = "Применить изменения ко всем адресам";
+//old
+$txt['SPAMACTION'] = "Режим обработки спама";
+//old
+$txt['PUTINQUARANTINE'] = "карантин";
+//old
+$txt['TAGSUBJECT'] = "тег";
