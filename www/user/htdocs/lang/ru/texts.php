@@ -215,3 +215,41 @@ $txt['SPAMACTION'] = "Режим обработки спама";
 $txt['PUTINQUARANTINE'] = "карантин";
 //old
 $txt['TAGSUBJECT'] = "тег";
+//old
+$txt['GETREASONSTITLE'] = "Причины фильтрации";
+//old
+$txt['SENDANALYSETITLE'] = "Запрос на корректировку фильтра";
+//old
+$txt['SUBJECTTAG'] = "Ключевое слово";
+//old
+$txt['SUMMARYFREQ'] = "Периодичность доставки отчета";
+$txt['DAILY'] = "Ежедневно";
+$txt['WEEKLY'] = "Еженедельно";
+$txt['MONTHLY'] = "Ежемесячно";
+$txt['NOSUMMARY'] = "Не отправлять отчет";
+//old
+$txt['SUMMARYTYPE'] = "Формат отчета";
+$txt['USEDEFAULT'] = "по умолчанию";
+$txt['SUMMTEXT'] = "текст";
+//old
+$txt['EDITWHITELIST'] = "Редактировать белый список";
+//old
+$txt['EDITWARNLIST'] = "редактировать warnlist";
+//old
+$txt['EDITNEWSLIST'] = "редактировать newslist";
+/*
+ * wwlist management
+ */
+//old
+$txt['SENDER'] = "Отправитель";
+$txt['COMMENT'] = "Комментарий";
+//old
+$txt['ACTIONS'] = "Действие";
+//old
+$txt['ACTIVE'] = "активный";
+//old
+$txt['INNACTIVE'] = "неактивный";
+//old
+$txt['WWENTRY'] = "Запись";
+//old
+$txt['CONFIRMWWENTRYDELETE'] = "Вы действительно хотите удалить эту запись навсегда?";
