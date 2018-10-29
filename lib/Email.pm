@@ -299,6 +299,9 @@ sub listMatch {
     $reg =~ s/\}/\\\}/g; # Escape }
     $reg =~ s/\?/\\\?/g; # Escape ?
     $reg =~ s/[^a-zA-Z0-9\+.\\\-_=@\*\$\^!#%&'\/\?`{|}~]//g; # Remove unwanted characters
+    if ( $reg eq "" ) {
+        $reg = '.*';
+    }
     if ($sender =~ /$reg/i) {
         return 1;
     }

@@ -118,7 +118,7 @@ sub get_wlist_level {
 
 sub check_column_width {
     my $column_name = shift;
-    my $column_value = shift;
+    my $column_value = shift // "";
     my $columns_widths = shift;
     if (not exists($columns_widths->{$column_name})) {
         $columns_widths->{$column_name} = length($column_value);
