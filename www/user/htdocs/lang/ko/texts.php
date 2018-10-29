@@ -91,8 +91,8 @@ $txt['NAVSUPPORT'] = "지원";
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "표시되는 메일주소";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
+$txt['QUARANTINESUMMARY'] = "<strong>검역소 :</strong> __PARAM__ 메일들";
+$txt['SEARCHSUMMARY'] = "<strong>검색:</strong> __PARAM__ 메일들";
 $txt['ORDEREDBYPARAM'] = "정렬 기준 __PARAM__";
 $txt['RESETSEARCH'] = "검열된 리스트 모두 표시";
 $txt['ODATE'] = "날자";
@@ -109,20 +109,20 @@ $txt['MESSAGEFORCING'] = "메시지 발송";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "필터링 수정 요청";
 $txt['ANALYSEREQUESTV'] = "필터링 수정 요청";
-$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['SCORETEXT'] = "점수: __PARAM__";
 $txt['CLOSEWINDOW'] = "창 닫기";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['CURRENTPAGE'] = "페이지 __PARAM2__ 중 __PARAM1__";
+$txt['PURGEINFOS'] = "<strong>지정 일자 후 자동으로 삭제:</strong> __PARAM__ 일";
+$txt['DISPLAYEDINFOS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM1__ 일 (<a href=\"__PARAM2__\">변경…</a>4). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM__ 일. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "__PARAM__에 검역된 리스트";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "필터";
 //old
 $txt['ADVANCEDSEARCH'] = "고급 검색";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "표시된 메시지";
 //old
 $txt['COMINGFROM'] = "발송인";
 $txt['DATE'] = "날자";
@@ -467,9 +467,9 @@ $txt['BLACKLISTFORADDRESS'] = "";
 $txt['ADDABLACKENTRY'] = "Add an address to the list";
 $txt['BLACKLISTENTRYTOADD'] = "";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['RECORDALREADYEXISTS'] = "이 메일주소가 이미 리스트에 존재합니다.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
+$txt['SESSIONTERMINATED'] = "세션이 끝났습니다.";
 $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
