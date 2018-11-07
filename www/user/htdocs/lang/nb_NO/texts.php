@@ -141,7 +141,8 @@ $txt['HIDEFORCED'] = "Skjul brukerfrigitte meldinger";
 $txt['FORCESPAM'] = "frislipp meldingen";
 //old
 $txt['ASKREASON'] = "vis filtreringsregler";
-$txt['CONFSENDANALYSE'] = "En filterjusteringsforespørsel vil bli sendt til MailCleaners analysesenter; den inneholder en kopi av meldingen som ble feilaktig blokkert.";
+$txt['CONFSENDANALYSE'] = "En filterjusteringsforespørsel vil bli sendt til MailCleaners analysesenter; den inneholder en kopi av meldingen som ble feilaktig blokkert.
+</br>Merk: Filterjustering er ikke det samme som hvit- eller svartelisting.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Er du sikker på at du ønsker at denne meldingen skal analyseres og at filterjusteringene skal legges til?</span>";
 $txt['ASKANALYSE'] = "Filterjusteringsforespørsel";
 $txt['PAGE'] = "Side";
