@@ -19,7 +19,7 @@ if [ $(slaveSynchronized) == "false" ]; then
 fi
 
 MCHOSTNAME=$(grep -e "MCHOSTNAME" /etc/mailcleaner.conf | cut -d" " -f3)
-PRIVATE_KEY_FILE="/root/.ssh/id_ecdsa_internal"
+PRIVATE_KEY_FILE="/root/.ssh/id_rsa_internal"
 PUBLIC_KEY_FILE="${PRIVATE_KEY_FILE}.pub"
 AUTHORIZED_KEYS_FILE="/root/.ssh/authorized_keys"
 
@@ -43,7 +43,7 @@ function get_last_internal_key {
         echo "You can only get 'private_key' or 'public_key'"
         exit 1
     fi
-    key=$(cat <<EOF | ${SRCDIR}/bin/mc_mysql -s mc_config | grep -e "BEGIN EC PRIVATE KEY" -e "ecdsa-sha2-nistp521"
+    key=$(cat <<EOF | ${SRCDIR}/bin/mc_mysql -s mc_config | grep -e "BEGIN RSA PRIVATE KEY" -e "ssh-rsa"
 SELECT ${kind}
 FROM internal_access
 ORDER BY id DESC
@@ -55,9 +55,14 @@ EOF
 
 function generate {
     if [ -f ${PRIVATE_KEY_FILE} ]; then
+        echo "rm priv"
         rm ${PRIVATE_KEY_FILE}
     fi
-    ssh-keygen -q -t ecdsa -b 521 -f ${PRIVATE_KEY_FILE} -N "" -C "${MCHOSTNAME}-internal"
+    if [ -f ${PUBLIC_KEY_FILE} ]; then
+        echo "rm pub"
+        rm ${PUBLIC_KEY_FILE}
+    fi
+    ssh-keygen -q -t rsa -b 4096 -f ${PRIVATE_KEY_FILE} -N "" -C "${MCHOSTNAME}-internal"
 }
 
 function install {
