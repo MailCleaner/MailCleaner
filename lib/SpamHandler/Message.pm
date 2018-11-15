@@ -391,6 +391,7 @@ sub loadMsgFile() {
 
 sub loadScores {
 	my $this = shift;
+	my $line;
 
 	$this->{sc_global} = 0;
 
@@ -398,7 +399,14 @@ sub loadScores {
 		return 0;
 	}
 
-	my $line = $this->{headers}{'x-mailcleaner-spamcheck'};
+	if ( defined( $this->{headers}{'x-mailcleaner-status'} ) ) {
+		$line = $this->{headers}{'x-mailcleaner-status'};
+		if ( $line =~ /Blacklisted/ ) {
+			$this->{prefilters} .= ", Blacklist";
+		}
+	}
+
+	$line = $this->{headers}{'x-mailcleaner-spamcheck'};
 
 	if ( $line =~ /NiceBayes \(([\d.]+%)\)/ ) {
 		$this->{sc_nicebayes} = $1;
@@ -428,19 +436,22 @@ sub loadScores {
 		#print "FOUND PreRBLS: ".$this->{sc_prerbls}."\n";
 	}
 	if ( $line =~ /Spamc \(score=([\d.]+)/ ) {
-		$this->{sc_spamc} = $1;
-		if ( int( $this->{sc_spamc} ) >= 5 )  { $this->{sc_global}++; }
+		if ( int( $this->{sc_spamc} ) >= 5 )  {
+			$this->{sc_global}++;
+			$this->{prefilters} .= ", SpamC";
+		}
 		if ( int( $this->{sc_spamc} ) >= 7 )  { $this->{sc_global}++; }
 		if ( int( $this->{sc_spamc} ) >= 10 ) { $this->{sc_global}++; }
 		if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
-		$this->{prefilters} .= ", SpamC";
 
 		#print "FOUND SpamC: ".$this->{sc_spamc}."\n";
 	}
 	if ( $line =~ /Newsl \(score=([\d.]+)/ ) {
 		$this->{sc_newsl} = $1;
-		#if ( int( $this->{sc_newsl} ) >= 5 )  { $this->{sc_global} += 1; }
-		#$this->{prefilters} .= ", Newsl";
+		if ( int( $this->{sc_newsl} ) >= 5 )  {
+#			$this->{sc_global} += 1; 
+			$this->{prefilters} .= ", Newsl";
+		}
 
 		#print "FOUND Newsl: ".$this->{sc_newsl}."\n";
 	}
