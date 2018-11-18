@@ -51,16 +51,16 @@ $txt['MONTH12'] = 'Dezembro';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Nome de usuário ou senha incorretos.";
+$txt['BADLOGIN'] = "Nome de usuário ou palavra-passe incorretos.";
 $txt['SESSIONEXPIRED'] = "A sessão expirou.";
-$txt['LOGININFO'] = "Lembrete: o nome de usuário e senha são iguais a conta de e-mail";
+$txt['LOGININFO'] = "Lembrete: o nome de usuário e palavra-passe são iguais a conta de e-mail";
 $txt['USERNAME'] = "Usuário";
-$txt['PASSWORD'] = "Senha";
+$txt['PASSWORD'] = "Palavra-passe";
 //old
-$txt['ASKLOGIN'] = "Por favor insira o seu nome de usuário e senha:";
+$txt['ASKLOGIN'] = "Por favor insira o seu nome de usuário e palavra-passe:";
 $txt['ORGANIZATIONUNIT'] = "Unidade organizacional";
-$txt['FORGOTPASSWORD'] = "Senha perdida?";
-$txt['PASSWORDRESET'] = "A senha foi reiniciada. Ela foi enviada para o seu endereço de e-mail.";
+$txt['FORGOTPASSWORD'] = "Palavra-passe perdida?";
+$txt['PASSWORDRESET'] = "A palavra-passe foi reiniciada. Ela foi enviada para o seu endereço de e-mail.";
 /*
  * menu
  */
