@@ -125,6 +125,16 @@ if ($hascommtouch ne '') {
 }
 
 ###########################
+## check internal SSH keys and install if available and not valid
+###########################
+if (my $pid_keys = fork) {
+} elsif (defined $pid_keys) {
+    if (system("$config{'SRCDIR'}/bin/internal_access --validate") != 0) {
+        system("$config{'SRCDIR'}/bin/internal_access --install")
+    }
+}
+
+###########################
 ## check for services availability
 ###########################
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable ) {
@@ -492,6 +502,7 @@ if ($itsweekday) {
     print "done sending weekly summaries.\n";
     exit;
   }
+
 }
 
 ########################
