@@ -294,14 +294,14 @@ sub handle_data_ko {
 	# Creating the Data KO flag file : /var/tmp/mc_checks_data.ko
 	if ( not -e $data_ko_file ) {
 		_log("Data KO");
-    }
+	}
 	touch($data_ko_file);
 }
 
 sub handle_data_ok {
 	if ( -e $data_ko_file ) {
 		_log("Data OK");
-    }
+	}
 	unlink $data_ko_file;
 }
 
