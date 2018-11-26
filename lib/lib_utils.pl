@@ -114,38 +114,31 @@ sub remove_lockfile {
         return $rc;
 }
 
-sub modify_lockfile {
-        my ($filename, $path, $new_timeout) = @_;
-        my $fullpathname;
+our $verbose;
+our $logmode;
+our $logfile;
+$verbose = 0 if ( ! defined($verbose) );
+$logmode = 0 if ( ! defined($logmode) );
+$logfile = '/dev/log' if ( ! defined($logfile) );
 
-        return 0 if ( ! defined($filename) );
+sub _log {
+    my ($message) = @_;
 
-        # Creating full path for this file
-        if ( ! defined($path) ) {
-                $path = '/var/mailcleaner/spool/tmp/';
-        } elsif ( $path !~ /^\// ) {
-                $path = '/var/mailcleaner/spool/tmp/' . $path;
-        }
-
-        $path .= '/' if ($path  !~ /\/$/);
-        $fullpathname = $path . $filename;
-
-	my ($rc, $pid, $timeout, $process_name) = Slurp_file($fullpathname);
-	return 0 if ( ! $rc);
-        $rc = unlink $fullpathname;
-	return 0 if ( ! $rc);
-
-	return( create_lock_file($fullpathname, $new_timeout, $process_name) );
-}
-
-sub log_to_file {
-    my ($message, $logfile) = @_;
     my $log_time = DateTime->now;
-    open(my $LOG, ">>", $logfile) or die("Error opening $logfile: $!");
-    do {
-        select $LOG;
-        print("[". $log_time->ymd . " " . $log_time->hms . " - " . $$ ."] $message");
-    };
+
+    my $msg = "[". $log_time->ymd . " " . $log_time->hms . " - " . $$ ."] $message\n";
+    if ($verbose) {
+            print $msg;
+    }
+    if ($logmode) {
+        open(my $LOG, ">>", $logfile);
+        if ( $? == 0 ){
+	    print($LOG $msg);
+            close($LOG);
+	} else {
+            print($LOG "Could not open $logfile");
+        }
+    }
 }
 
 1;

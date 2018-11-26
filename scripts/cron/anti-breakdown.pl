@@ -33,9 +33,10 @@ require 'lib_utils.pl';
 my %config = readConfig("/etc/mailcleaner.conf");
 
 my $parent_pid = getppid();
-my $parent_process_name = `ps -p $parent_pid -o command=`;
-my $logfile_path = $config{"VARDIR"} . "/log/mailcleaner/anti-breakdown-" . DateTime->now->ymd . ".log";
-log_to_file("Starting anti-breakdown by $parent_process_name ($parent_pid)", $logfile_path);
+my $parent_process_name = `echo -n \$(ps -p $parent_pid -o command=)`;
+our $logmode = 1;
+our $logfile = $config{"VARDIR"} . "/log/mailcleaner/anti-breakdown-" . DateTime->now->ymd . ".log";
+_log("Starting anti-breakdown by $parent_process_name ($parent_pid)");
 
 my $max_host_failed = 2;
 my $nb_tests = 3;
@@ -241,7 +242,7 @@ sub remove_and_save_MC_RBLs {
 sub handle_dns_ok {
 	# reimport all saved rbls (/var/tmp/mc_checks_rbls.bak)
 	if ( -e $rbl_sql_file ) {
-        log_to_file("DNS OK", $logfile_path);
+        _log("DNS OK");
 		my $sth;
 
 		# Database connexion
@@ -278,7 +279,7 @@ sub handle_dns_ko {
 	# There is nothing to do if MailCleaner was already away
 	return if ( -e $dns_ko_file );
 
-    log_to_file("DNS KO", $logfile_path);
+    _log("DNS KO");
 
 	# Creating the DNS KO flag file : /var/tmp/mc_checks_dns.ko
 	touch($dns_ko_file);
@@ -292,14 +293,14 @@ sub handle_dns_ko {
 sub handle_data_ko {
 	# Creating the Data KO flag file : /var/tmp/mc_checks_data.ko
 	if ( not -e $data_ko_file ) {
-        log_to_file("Data KO", $logfile_path);
+        _log("Data KO");
     }
 	touch($data_ko_file);
 }
 
 sub handle_data_ok {
 	if ( -e $data_ko_file ) {
-        log_to_file("Data OK", $logfile_path);
+        _log("Data OK");
     }
 	unlink $data_ko_file;
 }

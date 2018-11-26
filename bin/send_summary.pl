@@ -54,10 +54,10 @@ if ($conf->getOption('ISMASTER') !~ /^[y|Y]$/) {
   exit 0;
 }
 
-my $start_time = DateTime->now;
+our $verbose = 1;
 my $parent_pid = getppid();
-my $parent_process_name = `ps -p $parent_pid -o command=`;
-print("[". $start_time->ymd . " " . $start_time->hms . " - " . $$ ."] Starting send_summary by $parent_process_name ($parent_pid)\n");
+my $parent_process_name = `echo -n \$(ps -p $parent_pid -o command=)`;
+_log("Starting send_summary by $parent_process_name ($parent_pid)");
 
 ## get params
 my $address = shift;
