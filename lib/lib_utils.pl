@@ -128,14 +128,14 @@ sub _log {
 
     my $msg = "[". $log_time->ymd . " " . $log_time->hms . " - " . $$ ."] $message\n";
     if ($verbose) {
-            print $msg;
+        print $msg;
     }
     if ($logmode) {
         open(my $LOG, ">>", $logfile);
         if ( $? == 0 ){
-	    print($LOG $msg);
+            print($LOG $msg);
             close($LOG);
-	} else {
+        } else {
             print($LOG "Could not open $logfile");
         }
     }

@@ -242,7 +242,7 @@ sub remove_and_save_MC_RBLs {
 sub handle_dns_ok {
 	# reimport all saved rbls (/var/tmp/mc_checks_rbls.bak)
 	if ( -e $rbl_sql_file ) {
-        _log("DNS OK");
+		_log("DNS OK");
 		my $sth;
 
 		# Database connexion
@@ -279,7 +279,7 @@ sub handle_dns_ko {
 	# There is nothing to do if MailCleaner was already away
 	return if ( -e $dns_ko_file );
 
-    _log("DNS KO");
+	_log("DNS KO");
 
 	# Creating the DNS KO flag file : /var/tmp/mc_checks_dns.ko
 	touch($dns_ko_file);
@@ -293,14 +293,14 @@ sub handle_dns_ko {
 sub handle_data_ko {
 	# Creating the Data KO flag file : /var/tmp/mc_checks_data.ko
 	if ( not -e $data_ko_file ) {
-        _log("Data KO");
+		_log("Data KO");
     }
 	touch($data_ko_file);
 }
 
 sub handle_data_ok {
 	if ( -e $data_ko_file ) {
-        _log("Data OK");
+		_log("Data OK");
     }
 	unlink $data_ko_file;
 }
