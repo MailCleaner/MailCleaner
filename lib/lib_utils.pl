@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
+use DateTime;
 use File::Path qw/make_path/;
 
 sub is_into {
@@ -111,6 +112,40 @@ sub remove_lockfile {
         my $rc = unlink $fullpathname;
 
         return $rc;
+}
+
+sub modify_lockfile {
+        my ($filename, $path, $new_timeout) = @_;
+        my $fullpathname;
+
+        return 0 if ( ! defined($filename) );
+
+        # Creating full path for this file
+        if ( ! defined($path) ) {
+                $path = '/var/mailcleaner/spool/tmp/';
+        } elsif ( $path !~ /^\// ) {
+                $path = '/var/mailcleaner/spool/tmp/' . $path;
+        }
+
+        $path .= '/' if ($path  !~ /\/$/);
+        $fullpathname = $path . $filename;
+
+	my ($rc, $pid, $timeout, $process_name) = Slurp_file($fullpathname);
+	return 0 if ( ! $rc);
+        $rc = unlink $fullpathname;
+	return 0 if ( ! $rc);
+
+	return( create_lock_file($fullpathname, $new_timeout, $process_name) );
+}
+
+sub log_to_file {
+    my ($message, $logfile) = @_;
+    my $log_time = DateTime->now;
+    open(my $LOG, ">>", $logfile) or die("Error opening $logfile: $!");
+    do {
+        select $LOG;
+        print("[". $log_time->ymd . " " . $log_time->hms . " - " . $$ ."] $message");
+    };
 }
 
 1;

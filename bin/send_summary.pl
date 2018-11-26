@@ -54,6 +54,11 @@ if ($conf->getOption('ISMASTER') !~ /^[y|Y]$/) {
   exit 0;
 }
 
+my $start_time = DateTime->now;
+my $parent_pid = getppid();
+my $parent_process_name = `ps -p $parent_pid -o command=`;
+print("[". $start_time->ymd . " " . $start_time->hms . " - " . $$ ."] Starting send_summary by $parent_process_name ($parent_pid)\n");
+
 ## get params
 my $address = shift;
 if (! $address eq '-a' && ! $address =~ /^\S+\@\S+$/) {

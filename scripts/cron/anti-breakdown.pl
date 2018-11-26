@@ -23,11 +23,19 @@
 #
 use strict;
 push(@INC, '/usr/mailcleaner/lib/');
+use DateTime;
 use Net::DNS;
 use Net::Ping;
 use File::Touch;
 use DBI;
 require 'lib_utils.pl';
+
+my %config = readConfig("/etc/mailcleaner.conf");
+
+my $parent_pid = getppid();
+my $parent_process_name = `ps -p $parent_pid -o command=`;
+my $logfile_path = $config{"VARDIR"} . "/log/mailcleaner/anti-breakdown-" . DateTime->now->ymd . ".log";
+log_to_file("Starting anti-breakdown by $parent_process_name ($parent_pid)", $logfile_path);
 
 my $max_host_failed = 2;
 my $nb_tests = 3;
@@ -46,8 +54,6 @@ my %rbl_field = (
 	'antispam'		=> 'sa_rbls'
 );
 
-
-my %config = readConfig("/etc/mailcleaner.conf");
 
 sub readConfig {       # Reads configuration file given as argument.
 	my $configfile = shift;
@@ -235,6 +241,7 @@ sub remove_and_save_MC_RBLs {
 sub handle_dns_ok {
 	# reimport all saved rbls (/var/tmp/mc_checks_rbls.bak)
 	if ( -e $rbl_sql_file ) {
+        log_to_file("DNS OK", $logfile_path);
 		my $sth;
 
 		# Database connexion
@@ -271,6 +278,8 @@ sub handle_dns_ko {
 	# There is nothing to do if MailCleaner was already away
 	return if ( -e $dns_ko_file );
 
+    log_to_file("DNS KO", $logfile_path);
+
 	# Creating the DNS KO flag file : /var/tmp/mc_checks_dns.ko
 	touch($dns_ko_file);
 
@@ -282,10 +291,16 @@ sub handle_dns_ko {
 # We set a flag which will prevent associated services to run
 sub handle_data_ko {
 	# Creating the Data KO flag file : /var/tmp/mc_checks_data.ko
+	if ( not -e $data_ko_file ) {
+        log_to_file("Data KO", $logfile_path);
+    }
 	touch($data_ko_file);
 }
 
 sub handle_data_ok {
+	if ( -e $data_ko_file ) {
+        log_to_file("Data OK", $logfile_path);
+    }
 	unlink $data_ko_file;
 }
 
