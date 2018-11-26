@@ -36,6 +36,9 @@ fi
 
 MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
 
+LOG_FILE=${VARDIR}/log/mailcleaner/rotatelog-$(date "+%Y-%m-%d").log
+PARENT_COMMAND=$(ps -o comm= $PPID)
+echo "[$(date "+%F %T") - $$] Rotatelog started by ${PARENT_COMMAND} (${PPID})" >> $LOG_FILE
 
 ###################
 ## exim rotating ##
