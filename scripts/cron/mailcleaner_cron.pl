@@ -132,6 +132,7 @@ if (my $pid_keys = fork) {
     if (system("$config{'SRCDIR'}/bin/internal_access --validate") != 0) {
         system("$config{'SRCDIR'}/bin/internal_access --install")
     }
+    exit;
 }
 
 ###########################
@@ -411,13 +412,15 @@ if ($itsmidnight) {
     exit;
   }
 
-  if (my $pid_pushstats = fork) {
-  } elsif (defined $pid_pushstats && defined($config{'REGISTERED'}) && $config{'REGISTERED'} && $mcDataServicesAvailable == "1") {
-    print "pushing stats...\n";
-    system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
-    system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
-    print "done pushing stats.\n";
-    exit;
+  if ( defined($config{'REGISTERED'}) && $config{'REGISTERED'} && $mcDataServicesAvailable == "1" ){
+    if (my $pid_pushstats = fork) {
+    } elsif (defined $pid_pushstats) {
+      print "pushing stats...\n";
+      system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
+      system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
+      print "done pushing stats.\n";
+      exit;
+    }
   }
 
   ##################
