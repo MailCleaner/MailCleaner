@@ -131,13 +131,13 @@ sub _log {
         print $msg;
     }
     if ($logmode) {
-        open(my $LOG, ">>", $logfile);
-        if ( $? == 0 ){
+        my $error_code = open(my $LOG, ">>", $logfile);
+        if ( $error_code == 1 ){
             print($LOG $msg);
-            close($LOG);
         } else {
-            print($LOG "Could not open $logfile");
+            print($LOG "Could not open $logfile: $error_code\n");
         }
+        close($LOG);
     }
 }
 

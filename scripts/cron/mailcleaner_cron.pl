@@ -22,6 +22,7 @@
 #
 #   This is the main system cron. To be run every 15 minutes
 #
+#   WARNING : When forking processes, DO NOT FORGET TO EXIT THE PROCESS
 
 use strict;
 use DBI;
@@ -37,8 +38,15 @@ my $itsmonthday=0;
 my %config = readConfig("/etc/mailcleaner.conf");
 my $lockfile = '/var/mailcleaner/spool/tmp/mailcleaner_cron.lock';
 
+require "$config{'SRCDIR'}/lib/lib_utils.pl";
+our $logmode = 1;
+our $logfile = $config{"VARDIR"} . "/log/mailcleaner/mailcleaner_cron-" . DateTime->now->ymd . ".log";
+
+_log("Starting cron run");
+
 # Anti-breakdown for MailCleaner services
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+    _log("Launching anti-breakdown");
 	system($config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl &>> /dev/null");
 }
 my $mcDataServicesAvailable = 1;
@@ -71,7 +79,7 @@ if (defined $options{h}) {
 ########################################
 ########################################
 
-
+_log("Launching 15 minutes cron");
 #################################################################################
 ## check for important processes actually not running and restart them if needed
 #################################################################################
@@ -111,16 +119,16 @@ foreach my $key (keys %proc) {
   }
 }
 
-my $cmd = "grep 'Pre Filters' ".$config{'SRCDIR'}."/etc/mailscanner/MailScanner.conf | grep 'Commtouch'";
+my $cmd = "grep 'Pre Filters' $config{'SRCDIR'}/etc/mailscanner/MailScanner.conf | grep 'Commtouch'";
 my $hascommtouch=`$cmd`;
 if ($hascommtouch ne '') {
-  ## check commtouch
+  # check commtouch
   $cmd = "grep 'Commtouch ' ".$config{'VARDIR'}."/log/mailscanner/infolog | grep -v ': Message' | tail -n1 | grep 'timed out'";
   my $istimeout=`$cmd`;
   if ($istimeout ne '') {
-    print "Commtouch module seems timing out.. restarting...\n";
+    _log("Commtouch module seems timing out.. restarting...");
     system($config{'SRCDIR'}."/etc/init.d/commtouch restart");
-    print "done.\n";
+    _log("Done");
   }
 }
 
@@ -129,15 +137,19 @@ if ($hascommtouch ne '') {
 ###########################
 if (my $pid_keys = fork) {
 } elsif (defined $pid_keys) {
+    _log("Checking Internal SSH keys");
     if (system("$config{'SRCDIR'}/bin/internal_access --validate") != 0) {
-        system("$config{'SRCDIR'}/bin/internal_access --install")
+        _log("Reinstalling Internal keys");
+        system("$config{'SRCDIR'}/bin/internal_access --install");
     }
+    exit;
 }
 
 ###########################
 ## check for services availability
 ###########################
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable ) {
+    _log("Checking services availability");
   if ( my $pid_checkservices = fork) { 
   } elsif (defined $pid_checkservices) {
     system($config{'SRCDIR'}."/bin/check_services.pl ".$randomize_option." > /dev/null");
@@ -154,6 +166,7 @@ if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataSer
 
 if ( my $pid_updates = fork) {
 } elsif (defined $pid_updates) {
+    _log("Checking for updates");
 
   #print "doing system updates...";
   system($config{'SRCDIR'}."/bin/check_update.pl ".$randomize_option);
@@ -168,6 +181,7 @@ if ( my $pid_updates = fork) {
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
 if (my $pid_rules = fork) {
 } elsif (defined $pid_rules) {
+  _log("Fetching data");
   #print "doing rules updates...";
   system($config{'SRCDIR'}."/bin/fetch_clamspam.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_spamc_rules.sh ".$randomize_option);
@@ -183,6 +197,7 @@ if (my $pid_rules = fork) {
 ## check for RBLs, ClamAV, binary updates
 #######################################
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
+   _log("Fetching more data");
    system($config{'SRCDIR'}."/bin/fetch_rbls.sh ".$randomize_option);
    system($config{'SRCDIR'}."/bin/fetch_clamav.sh ".$randomize_option);
    system($config{'SRCDIR'}."/bin/fetch_binary.sh ".$randomize_option);
@@ -211,16 +226,17 @@ if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && -e $config
 #######################
 
 my $minute = `date +%M`;
-if ($minute >=0 && $minute < $cron_occurence) {
+if ($minute >=0 && $minute < $cron_occurence or 1) {
+  _log("Starting hourly jobs");
     
   ######################
   ## update anti-viruses
   ######################
   if (my $pid_av = fork) {
   } elsif (defined $pid_av && $mcDataServicesAvailable) {  
-    print "updating anti-viruses...\n";
+    _log("updating anti-viruses...");
     system($config{'SRCDIR'}."/scripts/cron/update_antivirus.sh");
-    print "done updating anti-viruses.\n";
+    _log("done updating anti-viruses.");
     #system($config{'SRCDIR'}."/etc/init.d/mailscanner restart >/dev/null 2>&1");
     exit;
   }
@@ -231,9 +247,9 @@ if ($minute >=0 && $minute < $cron_occurence) {
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
     if (my $pid_learn = fork) {
     } elsif (defined $pid_learn && $mcDataServicesAvailable) {
-      #print "doing auto-learn...";
+      _log("Autolearning bayes...");
       system($config{'SRCDIR'}."/bin/fetch_autolearn.sh ".$randomize_option);
-      #print "done.\n";
+      _log("Done autolearning bayes");
       exit;
     }
   }
@@ -241,25 +257,26 @@ if ($minute >=0 && $minute < $cron_occurence) {
   ###############
   ## resync spams
   ###############
-  print "syncing spams...\n";
   if (my $pid_syncspam = fork) {
   } elsif (defined $pid_syncspam) {
+    _log("Syncing spams");
     system($config{'SRCDIR'}."/bin/resync_spams.pl >> ".$config{'VARDIR'}."/log/mailcleaner/spam_sync.log");
-    print "done syncing spams.\n";
+    _log("Done syncing spams");
     exit;
   }
 
   ####################
   ## import DMARC logs
   ####################
-  print "importing dmarc...\n";
   if (my $pid_importdmarc = fork) {
   } elsif (defined $pid_importdmarc) {
-    system($config{'SRCDIR'}."/scripts/cron/dmarc_import.sh");
-    print "done importing dmarc.\n";
+    _log("Importing DMARC");
+    system($config{'SRCDIR'}."/scripts/cron/dmarc_import.sh &>> /dev/null");
+    _log("Done importing dmarc");
     exit;
   }
 
+  _log("Finished hourly jobs");
 }
 
 ###################
@@ -275,7 +292,7 @@ if ($minute >=0 && $minute < $cron_occurence) {
 my $slave_dbh = DBI->connect("DBI:mysql:database=mc_config;mysql_socket=$config{'VARDIR'}/run/mysql_slave/mysqld.sock",
                                         "mailcleaner","$config{'MYMAILCLEANERPWD'}", {RaiseError => 0, PrintError => 1} );
 if (!$slave_dbh) {
-  printf ("ERROR: no slave database found on this system ! \n");
+  _log("ERROR: no slave database found on this system, restarting...");
   ## try to properly kill all databases
   my $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_slave stop";
   `$cmd`;
@@ -332,26 +349,26 @@ if (defined $slave_dbh) {
 ######################
 ######################
 
-if ($itsmidnight) {
+if ($itsmidnight or 1) {
 
   ###############
   ## log rotation
   ###############
   ## first do the log rotation and NOT fork as it shut down mysql_slave which is used by others scripts
-  print "rotating logs...\n";
+  _log("Rotating logs...");
   system("touch /tmp/rotate.lock");
-  system($config{'SRCDIR'}."/scripts/cron/rotate_logs.sh");
+  system($config{'SRCDIR'}."/scripts/cron/rotate_logs.sh &>> /dev/null");
   system("rm /tmp/rotate.lock");
-  print "done rotating logs.\n";
+  _log("Done rotating logs");
 
   ##########################
   ## db.root update
   ##########################
   if (my $pid_clsp = fork) {
   } elsif (defined $pid_clsp) {
-    print "Updating db.root...\n";
+    _log("Updating db.root...");
     system("wget -q --no-check-certificate https://www.internic.net/domain/named.root -O /etc/bind/db.root && rndc reload >/dev/null 2>&1");
-    print "db.root updated.\n";
+    _log("db.root updated");
     exit;
   }
 
@@ -361,9 +378,9 @@ if ($itsmidnight) {
   ##########################
   if (my $pid_clsp = fork) {
   } elsif (defined $pid_clsp) {
-    print "cleaning spam quarantine...\n";
+    _log("Cleaning spam quarantine...");
     system($config{'SRCDIR'}."/scripts/cron/clean_spam_quarantine.pl >/dev/null 2>&1");
-    print "done cleaning spam quarantine.\n";
+    _log("Done cleaning spam quarantine");
     exit;
   }
 
@@ -372,9 +389,9 @@ if ($itsmidnight) {
   ###########################
   if (my $pid_clvi = fork) {
   } elsif (defined $pid_clvi) {
-    print "cleaning virus quarantine...\n";
+    _log("Cleaning virus quarantine...");
     system($config{'SRCDIR'}."/scripts/cron/clean_virus_quarantine.pl >/dev/null 2>&1");
-    print "done cleaning virus quarantine.\n";
+    _log("Done cleaning virus quarantine");
     exit;
   }
 
@@ -383,9 +400,9 @@ if ($itsmidnight) {
   ###########################
   if (my $pid_asdis = fork) {
   } elsif (defined $pid_asdis) {
-    print "discovering antispam...\n";
+    _log("Discovering antispam...");
     system($config{'SRCDIR'}."/scripts/cron/antispam_discovers.sh >/dev/null 2>&1");
-    print "done discovering antispam.\n";
+    _log("Done discovering antispam");
     exit;
   }
 
@@ -394,9 +411,9 @@ if ($itsmidnight) {
   ########################
   if (my $pid_bayes = fork) {
   } elsif (defined $pid_bayes) {
-    print "expiring bayes databases...\n";
+    _log("Expiring bayes databases...");
     system($config{'SRCDIR'}."/scripts/cron/expire_bayes.sh");
-    print "done expiring bayes databases.\n";
+    _log("Done expiring bayes databases");
     exit;
   }
   
@@ -405,58 +422,63 @@ if ($itsmidnight) {
   ################################
   if (my $pid_bayes = fork) {
   } elsif (defined $pid_bayes) {
-    print "updating monthly/yearly graphs...\n";
+    _log("Updating monthly/yearly graphs...");
     system($config{'SRCDIR'}."/bin/collect_rrd_stats.pl daily");
-    print "done updating monthly/yearly graphs.\n";
+    _log("Done updating monthly/yearly graphs");
     exit;
   }
 
-  if (my $pid_pushstats = fork) {
-  } elsif (defined $pid_pushstats && defined($config{'REGISTERED'}) && $config{'REGISTERED'} && $mcDataServicesAvailable == "1") {
-    print "pushing stats...\n";
-    system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
-    system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
-    print "done pushing stats.\n";
-    exit;
+  if ( defined($config{'REGISTERED'}) && $config{'REGISTERED'} && $mcDataServicesAvailable == "1" ){
+      if (my $pid_pushstats = fork) {
+      } elsif (defined $pid_pushstats) {
+          _log("Pushing stats...");
+          system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
+          system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
+          _log("Done pushing stats");
+          exit;
+      }
   }
 
   ##################
   ## clean up spools
   ##################
-  print "cleaning spools...\n";
+
   if (my $pid_cleanspool = fork) {
   } elsif (defined $pid_cleanspool) {
+    _log("Cleaning spools...");
     system($config{'SRCDIR'}."/scripts/cron/clean_spool.sh");
-    print "done cleaning spools.\n";
+    _log("Done cleaning spools");
     exit;
   }
 
   ##################################
   ## generate and send DMARC reports
   ##################################
-  print "generating and sending DMARC reports...\n";
+
   if (my $pid_dmarcreports = fork) {
   } elsif (defined $pid_dmarcreports) {
+    _log("Generating and sending DMARC reports...");
     system($config{'SRCDIR'}."/scripts/cron/dmarc_reports.sh");
-    print "done generating and sending DMARC reports...\n";
+    _log("Done generating and sending DMARC reports");
     exit;
   }
 
   ##################################
   ## get the autoconf
   ##################################
-  print "getting the last conf for autoconf...\n";
+  _log("Getting the last configuration for autoconf...");
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && defined($config{'ISMASTER'}) && $config{'ISMASTER'} eq "Y") {
 	if ( -e $config{'VARDIR'}."/spool/mailcleaner/mc-autoconf"  && $mcDataServicesAvailable) {
 	        system($config{'SRCDIR'}."/bin/fetch_autoconf.sh &>> /dev/null");
 		system($config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh &>> /dev/null");
 	}
   }
+  _log("Done getting the last configuration for autoconf...");
 
   ##################################
   ## send anon
   ##################################
-  print "sending anon ...\n";
+  _log("Sending anonymous data...");
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "2") {
         system($config{'SRCDIR'}."/bin/send_anon.sh &>> /dev/null");
   }
@@ -464,18 +486,18 @@ if ($itsmidnight) {
 
 }
 
-if ($itstime) {
+if ($itstime or 1) {
   ######################
   ## send daily sumaries
   ######################
   if (my $pid_ssum = fork) {	
   } elsif (defined $pid_ssum) {
-    print "sending daily summaries...\n";
+    _log("Sending daily summaries...");
     my $date = `date '+%Y%m%d'`;
     chomp($date);
     system("echo 'Sending daily summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
     system($config{'SRCDIR'}."/bin/send_summary.pl -a 3 1 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    print "done daily summaries.\n";
+    _log("Done daily summaries");
     exit;
   }
 }
@@ -487,19 +509,19 @@ if ($itstime) {
 #######################
 #######################
 
-if ($itsweekday) {
+if ($itsweekday or 1) {
 
   #######################
   ## send weekly sumaries
   #######################
   if (my $pid_ssumw = fork) {
   } elsif (defined $pid_ssumw) {
-    print "sending weekly summaries...\n";
+    _log("sending weekly summaries...");
     my $date = `date '+%Y%m%d'`;
     chomp($date);
     system("echo 'Sending weekly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
     system($config{'SRCDIR'}."/bin/send_summary.pl -a 2 7 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    print "done sending weekly summaries.\n";
+    _log("done sending weekly summaries.");
     exit;
   }
 
@@ -518,12 +540,12 @@ if ($itsmonthday) {
   #######################
   if (my $pid_ssumm = fork) {
   } elsif (defined $pid_ssumm) {
-    print "sending monthly summaries...\n";
+    _log("Sending monthly summaries...");
     my $date = `date '+%Y%m%d'`;
     chomp($date);
     system("echo 'Sending monthly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
     system($config{'SRCDIR'}."/bin/send_summary.pl -a 1 31 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    print "done sending monthly summaries.\n";
+    _log("Done sending monthly summaries");
     exit;
   }
 }
@@ -534,7 +556,8 @@ if ($itsmonthday) {
 ######################
 ######################
 if ( -e $config{'VARDIR'}."/run/mailcleaner.rn") {
-	system($config{'SRCDIR'}."/etc/init.d/mailcleaner restart &>> /dev/null");
+    _log("Restarting Mailcleaner...");
+    system($config{'SRCDIR'}."/etc/init.d/mailcleaner restart &>> /dev/null");
 	system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
 }
 
