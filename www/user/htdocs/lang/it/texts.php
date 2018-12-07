@@ -448,8 +448,8 @@ $txt['TODAY'] = "Oggi";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "La lista contiene gli indirizzi dei mittenti warn di fiducia per i quali si desidera ricevere una notifica via e-mail ogni volta che un messaggio sembra essere rilevato come spam. &Egrave possibile rilasciare immediatamente il messaggio in caso di un errore di filtraggio.<br />
-\t\t\t\t\t\t\t\t   Attenzione : questa funzionalit&agrave dovrebbe essere usata come soluzione temporanea in quanto diminuisce la protezione globale. 
+$txt['WARNLISTSHORTHELP'] = "La lista contiene gli indirizzi dei mittenti warn di fiducia per i quali si desidera ricevere una notifica via e-mail ogni volta che un messaggio sembra essere rilevato come spam. Egrave possibile rilasciare immediatamente il messaggio in caso di un errore di filtraggio.<br />
+\t\t\t\t\t\t\t\t   Attenzione: questa funzionalit&agrave dovrebbe essere usata come soluzione temporanea in quanto diminuisce la protezione globale. 
 \t\t\t\t\t\t\t\t   Consulta il manuale (disponibile nella sezione <a href=\"help.php\">\"Aiuto\"</a>) per avere maggiori informazioni sull'utilizzo della warn list. ";
 $txt['WARNLISTFORADDRESS'] = "Warn list per l'indirizzo";
 $txt['ADDAWARNENTRY'] = "Aggiungi un indirizzo alla lista";
@@ -467,7 +467,7 @@ $txt['WHITELISTFORADDRESS'] = "White list per l'indirizzo";
 $txt['ADDAWHITEENTRY'] = "Aggiungi un indirizzo alla lista";
 $txt['WHITELISTENTRYTOADD'] = "Inserisci l'indirizzo che vuoi aggiungere alla white list. Puoi anche aggiungere commenti facoltativi.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selezionare l'indirizzo o gli indirizzi che si desidera modificare dall'elenco e cliccare sul pulsante di azione desiderata.";
-$txt['BLACKLISTSHORTHELP'] = "La black list contiene l'indirizzo del mittente nella lista nera.</br>
+$txt['BLACKLISTSHORTHELP'] = "La black list contiene l'indirizzo del mittente nella lista nera.
                                    Controllare il manuale (disponibile nella sezione <a href=\"help.php\">\"Help\"</a>)  per ulteriori informazioni sull'utilizzo lista nera.
 ";
 $txt['BLACKLISTFORADDRESS'] = "Black list per l'indirizzo";
