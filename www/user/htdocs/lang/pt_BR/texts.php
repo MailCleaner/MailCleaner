@@ -487,3 +487,5 @@ $txt['NLRELEASEDHEAD'] = "O boletim informativo foi permitido e liberado.";
 $txt['NLRELEASEDBODY'] = "O boletim informativo foi permitido e liberado. Ele deve ser entregue em sua caixa de correio em minutos.";
 $txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
 $txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
+$txt['ADDANEWSENTRY'] = "Adicione um endereço a lista";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
