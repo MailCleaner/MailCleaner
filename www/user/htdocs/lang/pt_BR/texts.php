@@ -6,7 +6,7 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "boletim informativo";
+$txt['NEWSLETTERMODULE'] = "Boletim informativo";
 $txt['NEWSLETTERSTOPIC'] = "Boletins informativos";
 $txt['NEWSLETTERSTOPICTITLE'] = "Boletins informativos";
 $txt['NEWSLETTERSSHORTHELP'] = "Aqui você pode gerenciar os boletins informativos.";
@@ -489,3 +489,13 @@ $txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
 $txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
 $txt['ADDANEWSENTRY'] = "Adicione um endereço a lista";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
+//old
+$txt['EDITNEWSLIST'] = "editar lista de notícias";
+//old
+$txt['NEWSLISTFOR'] = "Lista de notícias para  __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Lista de notícias";
+$txt['NEWSLISTTOPICTITLE'] = "lista de notícias";
+$txt['NEWSLISTSHORTHELP'] = "A lista de boletins informativos contém endereços de boletins desejados.<br />Consulte o manual (disponível na seção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso da listas de boletins informativos.
+";
+$txt['NEWSLISTFORADDRESS'] = "Lista de boletins informativos para o endereço";
+$txt['NEWSLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de boletins informativos. Você também pode adicionar um comentário opcional.";
