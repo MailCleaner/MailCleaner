@@ -51,6 +51,7 @@ local_interfaces = 127.0.0.1
 daemon_smtp_port = 2525
 return_path_remove = true
 accept_8bitmime = true
+allow_mx_to_ip = __ALLOW_MX_TO_IP__
 message_size_limit = __GLOBAL_MAXMSGSIZE__
 __IF__ DISABLE_IPV6
 disable_ipv6 = true
