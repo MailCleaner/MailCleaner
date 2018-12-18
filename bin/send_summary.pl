@@ -56,10 +56,6 @@ if ($conf->getOption('ISMASTER') !~ /^[y|Y]$/) {
 
 ## get params
 my $address = shift;
-if (! $address eq '-a' && ! $address =~ /^\S+\@\S+$/) {
-   print "BADADDR";
-   exit 0;
-}
 my $mode = shift;
 if ($mode < 0 || $mode >3) {
   print "INCORRECTPARAMS";
@@ -70,7 +66,6 @@ if ($days !~ /^\d+$/) {
   print "INCORRECTPARAMS";
   exit 0;
 }
-
 # check for lock
 my $lockfile_name = 'send_summary_' . $days . 'd';
 my $rc = create_lockfile($lockfile_name, undef, time+10*60*60, 'send_summary');
@@ -92,12 +87,7 @@ my $spamnbdays = $sysconf->getPref('days_to_keep_spams');
 my $db = DB::connect('master', 'mc_spool', 0);
 my $conf_db = DB::connect('master', 'mc_config', 0);
 ## and do the job, either for one or all addresses
-my @addresses;
-if ($address eq '-a') {
-  @addresses = getAllAddresses();
-} else {
-  @addresses = ($address);
-}
+my @addresses = getAllAddresses($address);
 
 ## delete expired digests
 my $query = "DELETE FROM digest_access WHERE DATEDIFF(date_expire, NOW()) < 0;";
@@ -221,13 +211,23 @@ remove_lockfile($lockfile_name);
 # @return    array   list of addresses
 ###
 sub getAllAddresses {
-  my @list;
+  my ($domain) = @_;
 
+  # if we had an address and not a domain no need to look for other addresses
+  return ($domain) if ($domain =~ /\S+\@\S+$/);
+
+  my @list;
   my %addnottoadd;
 
   foreach my $letter ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','misc', 'num') {
     if ($db && $db->ping()) {
-     my $query="SELECT to_user, to_domain FROM spam_$letter WHERE TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY to_user, to_domain";
+     my $query = "SELECT to_user, to_domain FROM spam_$letter WHERE ";
+     # We were asked about a specific domain
+     if ($domain ne '-a') {
+       $domain =~ s/^@//;
+       $query .= "to_domain='$domain' AND ";
+     }
+     $query .= "TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY to_user, to_domain";
      my @res = $db->getListOfHash($query);
 	 foreach my $a_h (@res) {
 	 	my $a = $a_h->{'to_user'}."@".$a_h->{'to_domain'};
