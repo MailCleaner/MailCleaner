@@ -48,10 +48,13 @@ $sth = $dbh->prepare("INSERT INTO wwlists (sender, recipient, type, expiracy, st
 $sth->execute($sender, $dest); # or die("CANNOTINSERTDB\n", $dbh->errstr);
 
 # Manage the possible duplicate entries, in case someone tries to insert the same multiple times
-if ($dbh->errstr() =~ /^Duplicate entry/) {
-    print("DUPLICATEENTRY\n");
-} elsif ($dbh->err()) {
-    die("CANNOTINSERTDB\n", $dbh->errstr);
+my $db_last_error = $dbh->errstr();
+if ($db_last_error) {
+    if ($db_last_error =~ /^Duplicate entry/) {
+        print("DUPLICATEENTRY\n");
+    } else {
+        die("CANNOTINSERTDB\n", $dbh->errstr);
+    }
 } else {
     print("OK\n");
 }
