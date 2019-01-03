@@ -16,6 +16,11 @@ class MCSoap_Logs
 	 * @return array
 	 */
 	static public function Logs_StartTrace($params) {
+		// escape params args
+		array_walk($params, function(&$arg_value, $key) {
+			if ($key == 'filter' || $key == 'trace_id' || $key == 'regexp') 
+				$arg_value = escapeshellarg($arg_value);
+		});
 
 		$trace_id = 0;
 

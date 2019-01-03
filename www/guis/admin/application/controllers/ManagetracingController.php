@@ -140,6 +140,12 @@ class ManagetracingController extends Zend_Controller_Action
 			
 		$session = new Zend_Session_Namespace('MailCleaner');
 		
+		// escape params args
+                array_walk($params, function(&$arg_value, $key) {
+                        if ($key == 'regexp')
+                                $arg_value = escapeshellarg($arg_value);
+                });
+
 		$view->canceled = 0;
 		if (isset($params['cancel']) && $params['cancel']) {
 			if (isset($session->trace_id) && $session->trace_id) {
