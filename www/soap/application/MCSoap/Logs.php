@@ -33,6 +33,9 @@ class MCSoap_Logs
 			return array('trace_id' => $trace_id);
 		}
 		$cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." ".$params['regexp'];
+        if (isset($params['filter']) && $params['filter'] != '' && $params['filter'] != "''") {
+            $cmd .= " ".$params['filter'];
+        }
 
                 if (isset($params['hiderejected']) && $params['hiderejected']) {
                     $cmd .= ' -R ';
@@ -45,7 +48,6 @@ class MCSoap_Logs
 		} else {
 			$trace_id = md5(uniqid(mt_rand(), true));
 		}
-		$trace_id = str_replace("'", "", $trace_id);
                 $cmd .= " -B ".$trace_id;
 
 		$cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id." &";
