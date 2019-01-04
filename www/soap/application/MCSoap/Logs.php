@@ -39,7 +39,9 @@ class MCSoap_Logs
                 }
 
 		if (isset($params['trace_id']) && $params['trace_id']) {
-			$trace_id = $params['trace_id'];
+			$trace_id_matches = array();
+			preg_match('/[a-f0-9]{32}/i', $params['trace_id'], $trace_id_matches);
+			$trace_id = $trace_id_matches[0];
 		} else {
 			$trace_id = md5(uniqid(mt_rand(), true));
 		}
