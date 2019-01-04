@@ -39,11 +39,12 @@ class MCSoap_Logs
                 }
 
 		if (isset($params['trace_id']) && $params['trace_id']) {
-			$trace_id = $params['trace_id'];
+			$trace_id_matches = array();
+			preg_match('/[a-f0-9]{32}/i', $params['trace_id'], $trace_id_matches);
+			$trace_id = $trace_id_matches[0];
 		} else {
 			$trace_id = md5(uniqid(mt_rand(), true));
 		}
-		$trace_id = str_replace("'", "", $trace_id);
                 $cmd .= " -B ".$trace_id;
 
 		$cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id." &";
