@@ -141,7 +141,7 @@ $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
 $txt['FORCESPAM'] = "釋放郵件";
 //old
 $txt['ASKREASON'] = "顯示篩選規則";
-$txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析中心;它包含錯誤阻止的郵件的副本。";
+$txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析中心;它包含錯誤阻止的郵件的副本。</br> 注意：篩選器調整與白名單或黑名單不同";
 $txt['AREYOUSURE'] = "<span class=\"question\"> 是否確實要分析此消息, 以及是否可以應用篩選器調整？ </span>";
 $txt['ASKANALYSE'] = "篩選器調整請求";
 $txt['PAGE'] = "頁";
