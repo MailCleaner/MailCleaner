@@ -464,7 +464,7 @@ sub dump_filename_config
   
   my $subtmpl = $template->getSubTemplate('FILENAME');
   my $res = "";
-  my @list = $db->getListOfHash('SELECT status, rule, name, description FROM filename');
+  my @list = $db->getListOfHash('SELECT status, rule, name, description FROM filename where status="deny"');
   foreach my $element (@list) {
   	my %el = %{$element};
   	my $sub = $subtmpl;
