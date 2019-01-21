@@ -22,6 +22,8 @@ class NewslettersController extends Zend_Controller_Action
         $status = 0;
         
         $eximId = $this->getRequest()->getParam('id');
+	
+	if (strlen($eximId) == 0) { die(); }
 
         $spam = new Default_Model_DbTable_Spam();
 
