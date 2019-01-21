@@ -22,8 +22,11 @@
 #   This script will send the spam summaries to the users
 #
 #   Usage:
-#           send_summary.pl [-a] mode nb_days
-#   -a: send to all users
+#           send_summary.pl [-a|email@address|domain.tld] mode nb_days
+#   -a: sends to all users
+#   email@address: sends to a given mail address
+#   domain.tld: sends to all users of the domain domain.tld
+#
 #   mode is:
 #           0 = requested by command line
 #           1 = called by monthly script
