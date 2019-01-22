@@ -189,7 +189,9 @@ class MCSoap_Config
 		    $cmd = "$starter stop";
 		    $res = `$cmd`;
             $full .= preg_replace('/\n/', '', $res)."<br />";
-		    if (!preg_match('/ntpd.$/', $res)) {
+            # typical command output:
+            # "Stopping ntp (via systemctl): ntp.service"
+		    if (!preg_match('/ntp/', $res)) {
 		    	return 'NOK cannotstopntp ';
 		    }
 		
@@ -218,7 +220,7 @@ class MCSoap_Config
 		        $cmd = "$starter start";
 		        $res = `$cmd`;
 		        $full .= preg_replace('/\n/', '', $res)."<br />";
-		        if (!preg_match('/ntpd.$/', $res)) {
+		        if (!preg_match('/ntp/', $res)) {
 		    	    return 'NOK cannotstartntp ';
 		        }
 		        return 'OK ntp started and synced';
