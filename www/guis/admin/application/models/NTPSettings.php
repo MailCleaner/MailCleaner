@@ -71,7 +71,7 @@ class Default_Model_NTPSettings
     		if ($this->useNTP() && $sync) {
     			foreach ($this->_servers as $s) {
     				if (preg_match('/\S+/', $s)) {
-    				  $txt .= 'server '.$s.' iburst dynamic'."\n";
+    				  $txt .= 'server '.$s.' iburst'."\n";
     				}
     			}
     		}
