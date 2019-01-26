@@ -145,7 +145,7 @@ $txt['PAGE'] = "Página";
 $txt['NEXTPAGE'] = "Seguinte";
 $txt['HITRULE'] = "Regra";
 $txt['TOTAL'] = "Total";
-$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.";
+$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.</br>Note: Um ajuste de filtro não é o mesmo que lista branca ou lista negra";
 $txt['AREYOUSURE'] = "<span class=\"question\">Você tem certeza que esta mensagem seja analisada e filtros de ajuste sejam aplicados?</span>";
 $txt['ASKANALYSE'] = "Pedido de ajustamento de filtro";
 $txt['PREVIOUSPAGE'] = "Anterior";
@@ -184,7 +184,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Nota de regra";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Prévia da mensagem";
+$txt['MESSAGEPREVIEW'] = "Pré-visualização da mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
@@ -484,3 +484,16 @@ $txt['NLRELEASEDHEAD'] = "O boletim informativo foi permitido e liberado.";
 $txt['NLRELEASEDBODY'] = "O boletim informativo foi permitido e liberado. Ele deve ser entregue em sua caixa de correio em minutos.";
 $txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
 $txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
+//old
+$txt['EDITNEWSLIST'] = "editar lista de news";
+//old
+$txt['NEWSLISTFOR'] = "Lista de news para _PARAM_";
+$txt['NEWSLISTTOPIC'] = "Lista de notícias";
+$txt['NEWSLISTTOPICTITLE'] = "lista de notícias";
+$txt['NEWSLISTSHORTHELP'] = "A lista de newsletters contém endereços das newsletters desejadas.<br />
+                                  Consulte o manual (disponível na seção <a href=\"help.php\">\"Help\"</a>) para obter mais informações sobre o uso da lista de boletins.
+";
+$txt['NEWSLISTFORADDRESS'] = "Lista de boletins para o endereço";
+$txt['ADDANEWSENTRY'] = "Adicionar um endereço à lista";
+$txt['NEWSLISTENTRYTOADD'] = "Introduza o endereço que pretende adicionar à lista de newsletter. Você também pode adicionar um comentário opcional.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
