@@ -157,6 +157,7 @@ sub get_ms_config
         if (defined($row{wh_passwd_archives})) {
                 my @wh_dom = split('\n', $row{wh_passwd_archives});
                 foreach my $wh_dom (@wh_dom) {
+			next if ( ! ($wh_dom =~ /\./) );
                         print FH "FromOrTo:\t$wh_dom\tyes\n";
                 }
         }
