@@ -141,9 +141,11 @@ sub get_ms_config
   return unless %row;
   
   foreach my $key (keys %row) {
-  	if ($row{$key} eq "") {
-  	  $row{$key} = "no";
-  	}
+	if (defined($row{$key})) {
+  		if ($row{$key} eq "") {
+	  	  $row{$key} = "no";
+  		}
+	}
   }
   $config{'__BLOCKENCRYPT__'} = $row{'block_encrypt'};
   $config{'__BLOCKUNENCRYPT__'} = $row{'block_unencrypt'};
@@ -151,14 +153,17 @@ sub get_ms_config
         $config{'__ALLOWPWDARCHIVES__'} = 'yes';
   } else {
         $config{'__ALLOWPWDARCHIVES__'} = '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
-        my @wh_dom = split('\n', $row{wh_passwd_archives});
         open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
-        foreach my $wh_dom (@wh_dom) {
-                print FH "FromOrTo:\t$wh_dom\tyes\n";
+        if (defined($row{wh_passwd_archives})) {
+                my @wh_dom = split('\n', $row{wh_passwd_archives});
+                foreach my $wh_dom (@wh_dom) {
+                        print FH "FromOrTo:\t$wh_dom\tyes\n";
+                }
         }
         print FH "FromOrTo:\tdefault\tno";
         close FH;
   }
+
   $config{'__ALLOWPARTIAL__'} = $row{'allow_partial'};
   $config{'__ALLOWEXTERNAL__'} = $row{'allow_external_bodies'};
   $config{'__ALLOWIFRAME__'} = $row{'allow_iframe'};
