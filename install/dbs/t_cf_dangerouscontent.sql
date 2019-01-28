@@ -21,6 +21,7 @@ CREATE TABLE dangerouscontent (
   silent_codebase		 enum('yes', 'no') DEFAULT 'no',
 
   notify_sender			 enum('yes', 'no') DEFAULT 'no',
+  wh_passwd_archives             blob,
 
   PRIMARY KEY (set_id)
 );

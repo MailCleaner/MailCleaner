@@ -136,7 +136,7 @@ sub get_ms_config
 
   %row = $db->getHashRow("SELECT block_encrypt, block_unencrypt, allow_passwd_archives, allow_partial, allow_external_bodies,
 				allow_iframe, silent_iframe, allow_form, silent_form, allow_script, silent_script,
-				allow_webbugs, silent_webbugs, allow_codebase, silent_codebase, notify_sender
+				allow_webbugs, silent_webbugs, allow_codebase, silent_codebase, notify_sender, wh_passwd_archives
 				FROM dangerouscontent WHERE set_id=1");
   return unless %row;
   
@@ -147,7 +147,18 @@ sub get_ms_config
   }
   $config{'__BLOCKENCRYPT__'} = $row{'block_encrypt'};
   $config{'__BLOCKUNENCRYPT__'} = $row{'block_unencrypt'};
-  $config{'__ALLOWPWDARCHIVES__'} = $row{'allow_passwd_archives'};
+  if ($row{'allow_passwd_archives'} eq 'yes')   {
+        $config{'__ALLOWPWDARCHIVES__'} = 'yes';
+  } else {
+        $config{'__ALLOWPWDARCHIVES__'} = '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        my @wh_dom = split('\n', $row{wh_passwd_archives});
+        open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        foreach my $wh_dom (@wh_dom) {
+                print FH "FromOrTo:\t$wh_dom\tyes\n";
+        }
+        print FH "FromOrTo:\tdefault\tno";
+        close FH;
+  }
   $config{'__ALLOWPARTIAL__'} = $row{'allow_partial'};
   $config{'__ALLOWEXTERNAL__'} = $row{'allow_external_bodies'};
   $config{'__ALLOWIFRAME__'} = $row{'allow_iframe'};
