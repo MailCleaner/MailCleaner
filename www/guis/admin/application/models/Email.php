@@ -218,6 +218,14 @@ class Default_Model_Email
     
     public function delete()
     {
+        $wwlists = new Default_Model_WWElement();
+        $types = ["white", "black", "warn", "wnews"];
+        foreach ($types as $type) {
+            $elements = $wwlists->fetchAll($this->getParam('address'), $type);
+            foreach ($elements as $element) {
+                $element->delete();
+            }
+        }
         $this->_prefs->delete();
     	$ret = $this->getMapper()->delete($this);
         if ($this->getDomainObject()->getCalloutConnector() == 'local') {
