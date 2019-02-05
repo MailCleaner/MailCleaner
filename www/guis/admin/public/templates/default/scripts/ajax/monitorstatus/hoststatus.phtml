@@ -101,7 +101,7 @@
     
     
     <td class="c_memory" ><br />
-     <?php $memusage =  sprintf('%.2d', (100 / $status['memoryusage']['memtotal']) * ($status['memoryusage']['memused'] - $status['memoryusage']['memcached']))?>
+     <?php $memusage =  round((100 / $status['memoryusage']['memtotal']) * ($status['memoryusage']['memused'] - $status['memoryusage']['memcached']))?>
      <?php $swapusage =  sprintf('%.2d', (100 / $status['memoryusage']['swaptotal']) * ($status['memoryusage']['swapused']))?>
          
        <span class='statusdescr'><?php echo $this->t->_('Physical memory')?>: </span>
@@ -109,9 +109,11 @@
        <span class="statusvalue diskusagebar">
           <span class="diskused" style="width: <?php echo ceil($memusage / 2);?>px;background-image:url(<?php
              echo $this->images_path."/";
-                      if ($swapusage < 10) { 
-                         echo "clean.png";
-                      } else { echo 'spam.png'; }?>)">
+                      if ($memusage <= 60) { 
+                         echo 'clean.png'; }
+                         elseif ($memusage <= 90) {
+                         	echo 'spam.png';
+                         } else { echo 'virus.png'; }?>)">
              </span>
        </span>
        <br />
