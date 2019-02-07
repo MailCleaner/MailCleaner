@@ -191,7 +191,7 @@ foreach my $a (@addresses) {
   }
   #}
   $template->setReplacements(\%replace);
-  my $result = $template->send($to);
+  my $result = $template->send($to, 10);
   if ($result) {
     my $date = `date '+%Y-%m-%d %H:%M:%S'`;
     chomp($date);
