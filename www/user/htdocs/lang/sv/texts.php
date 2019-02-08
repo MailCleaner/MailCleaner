@@ -147,13 +147,13 @@ $txt['ASKREASON'] = "visa filtreringsregler";
 $txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Är du säker på att6 du vill att detta meddelande ska analyseras och att filterjusteringar kan tillämpas?</span>";
 $txt['ASKANALYSE'] = "Begäran om filterjustering";
-$txt['PAGE'] = "Page";
+$txt['PAGE'] = "Sida";
 $txt['NEXTPAGE'] = "Nästa";
 $txt['PREVIOUSPAGE'] = "Föregående";
 //old
 $txt['GETREASONSTITLE'] = "Filtreringsorsaker";
 $txt['HITRULE'] = "Regel";
-$txt['SCORE'] = "Score";
+$txt['SCORE'] = "Poäng";
 $txt['TOTAL'] = "Total";
 //old
 $txt['SENDANALYSETITLE'] = "Begäran om filterjustering";
@@ -285,7 +285,7 @@ $txt['ALIASPENDING'] = "En bekräftelse har skickats till denna adress.<br/> Av 
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
 $txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
 $txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "";
+$txt['ALIASADDED'] = "Adressen har blivit tillagd.";
 $txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
 //old
 $txt['REMALIASTITLE'] = "Address removal";
@@ -306,7 +306,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "";
+$txt['ALL'] = "alla…";
 $txt['SEARCHPERIOD'] = "Analyzed period";
 $txt['LASTDAYS'] = "last days";
 $txt['LASTMONTHS'] = "last months";
@@ -387,16 +387,16 @@ $txt['CONFIGURATION'] = "Configuration";
 $txt['ADDRESSLISTTOPIC'] = "Address group";
 $txt['ADDRESSPARAMTOPIC'] = "Address settings";
 $txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "";
-$txt['WHITELISTTOPIC'] = "";
-$txt['BLACKLISTTOPIC'] = "";
+$txt['WARNLISTTOPIC'] = "Varningslista";
+$txt['WHITELISTTOPIC'] = "Vitlista";
+$txt['BLACKLISTTOPIC'] = "Svartlista";
 $txt['INTERFACETOPICTITLE'] = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE'] = "address group";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
 $txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "";
-$txt['WHITELISTTOPICTITLE'] = "";
-$txt['BLACKLISTTOPICTITLE'] = "";
+$txt['WARNLISTTOPICTITLE'] = "varningslista";
+$txt['WHITELISTTOPICTITLE'] = "vitlista";
+$txt['BLACKLISTTOPICTITLE'] = "svartlista";
 /*
  * interface (new)
  */
@@ -426,7 +426,7 @@ $txt['DROPMESSAGE'] = "immediately delete";
 $txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
 $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "";
+$txt['OTHER'] = "annat…";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
@@ -451,9 +451,9 @@ $txt['TODAY'] = "Today";
 $txt['WARNLISTSHORTHELP'] = "Varningslistan innehåller betrodda avsändaradresser för vilka du kommer att aviseras via e-post när ett meddelande råkar detekteras som skräppost. Du kan då omedelbart publiceras meddelandet om det är ett filtreringsfel.<br />
 \t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet. 
 \t\t\t\t\t\t\t\t   Se manualen (i avsnittet <a href=\"help.php\">\"Hjälp\"</a>) för vidare information om hur varningslistor kan användas. ";
-$txt['WARNLISTFORADDRESS'] = "";
+$txt['WARNLISTFORADDRESS'] = "Varningslista för adressen";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "";
+$txt['WARNLISTENTRYTOADD'] = "Ange adressen du vill lägga till på varningslistan. Du kan även ange en valfri kommentar.";
 $txt['ADDTHEENTRY'] = "&lt; Add the address";
 $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
@@ -463,13 +463,15 @@ $txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser f
                                    Varning: denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
                                   Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas. 
 ";
-$txt['BLACKLISTSHORTHELP'] = "";
-$txt['WHITELISTFORADDRESS'] = "";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
+$txt['BLACKLISTSHORTHELP'] = "Svartlistan innehåller svartlistade avsändaradresser.
+                                  Kontrollera manualen (tillgänglig under <a href=\"help.php\">\"Hjälp\"</a>) för mer information om användning av svartlistor.
+";
+$txt['WHITELISTFORADDRESS'] = "Vitlista för adressen";
+$txt['ADDAWHITEENTRY'] = "Lägg till en adress till listan";
+$txt['WHITELISTENTRYTOADD'] = "Ange adressen du vill lägga till på vitlistan. Du kan även ange en valfri kommentar.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Välj adressen eller adresserna du vill ändra i listan och klicka på önskad åtgärdsknapp.";
+$txt['BLACKLISTFORADDRESS'] = "Svartlista för adressen";
+$txt['ADDABLACKENTRY'] = "Lägg till en adress till listan";
 $txt['BLACKLISTENTRYTOADD'] = "";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
@@ -485,3 +487,9 @@ $txt['NLRELEASEDHEAD'] = "Nyhetsberg har tillåtits och publicerats.";
 $txt['NLRELEASEDBODY'] = "Nyhetsbrevet har tillåtits och publicerats. Det bör levereras i din inkorg om ett par minuter.";
 $txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet har inte publicerats";
 $txt['NLNOTRELEASEDBODY'] = "Ett problem uppstod när ditt meddelande publicerades. Prova igen senare.";
+//old
+$txt['EDITNEWSLIST'] = "redigera nyhetslista";
+//old
+$txt['NEWSLISTFOR'] = "Nyhetslista för __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Nyhetslista";
+$txt['NEWSLISTTOPICTITLE'] = "nyhetslista";
