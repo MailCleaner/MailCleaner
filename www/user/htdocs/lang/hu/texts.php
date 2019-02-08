@@ -6,27 +6,27 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
+$txt['NEWSLETTERMODULE'] = "Hírlevél";
+$txt['NEWSLETTERSTOPIC'] = "Hírlevelek";
+$txt['NEWSLETTERSTOPICTITLE'] = "Hírlevelek";
+$txt['NEWSLETTERSSHORTHELP'] = "Itt kezelheti a hírleveleket.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
+$txt['NEWSLETTERACCEPT'] = "Elfogadja ezt a hírlevelet";
+$txt['SPAM_WHITELIST_DISABLED'] = "Ez a lista nem aktívált ehhez a tartományhoz (Forduljon a Rendszergazdához).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Elküld";
+$txt['CANCEL'] = "Mégse";
+$txt['CLOSE'] = "Bezárás";
 // old
 $txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['CONFIRM'] = "Jóváhagyás";
+$txt['REFRESH'] = "Frissítés";
+$txt['SEARCH'] = "Keresés";
+$txt['SEND'] = "Elküld";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "Törlés";
 /*
  * generic texts
  */
@@ -37,24 +37,24 @@ $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
+$txt['MONTHAB3'] = 'Már.';
+$txt['MONTHAB4'] = 'Ápr.';
+$txt['MONTHAB5'] = 'Máj.';
+$txt['MONTHAB6'] = 'Jún.';
+$txt['MONTHAB7'] = 'Júl.';
 $txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
+$txt['MONTHAB9'] = 'Szept.';
+$txt['MONTHAB10'] = 'Okt.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
+$txt['MONTH1'] = 'Január';
+$txt['MONTH2'] = 'Február';
+$txt['MONTH3'] = 'Március';
+$txt['MONTH4'] = 'Április';
+$txt['MONTH5'] = 'Május';
+$txt['MONTH6'] = 'Június';
+$txt['MONTH7'] = 'Július';
+$txt['MONTH8'] = 'Augusztus';
 $txt['MONTH9'] = 'September';
 $txt['MONTH10'] = 'October';
 $txt['MONTH11'] = 'November';
@@ -186,7 +186,7 @@ $txt['BODY'] = "Body";
 $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
+$txt['DESCRIPTION'] = "Megjegyzés";
 $txt['MESSAGEPREVIEW'] = "Message preview";
 $txt['ID'] = "Identifier";
 /*
@@ -199,11 +199,11 @@ $txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like
 //old
 $txt['PARAMTITLE'] = "Personal MailCleaner settings";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Felhasználi beállítások";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Cím beállítások";
 //old
-$txt['LANGUAGE'] = "Language";
+$txt['LANGUAGE'] = "Nyelv";
 $txt['ADDRESS'] = "Address";
 //old
 $txt['ADDRALIASTITLE'] = "Address group";
