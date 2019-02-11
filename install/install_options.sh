@@ -21,7 +21,10 @@
 #   This script will install MailCleaner options.
 #   Usage:
 #           install_options.sh
-
+#
+#   If you have any question regarding the installation, please take a look at:
+#   https://support.mailcleaner.net/boards/3/topics/62-installation-of-mailcleaner-options
+#
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
   VARDIR=/var/mailcleaner
