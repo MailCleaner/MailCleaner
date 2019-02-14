@@ -33,6 +33,7 @@ LOCKFILEDIRECTORY=${VARDIR}/spool/tmp/
 
 function createLockFile()
 {
+	find ${LOCKFILEDIRECTORY} -type f -name "${1}" -mtime +1 -exec rm {} \;
 	LOCKFILE=${LOCKFILEDIRECTORY}${1}
 	if [ -f ${LOCKFILE} ]; then
 		echo 1
