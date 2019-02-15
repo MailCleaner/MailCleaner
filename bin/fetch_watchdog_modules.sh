@@ -75,7 +75,7 @@ fi
 ## Watchdog modules updates
 ##
 
-downloadDatas "$SRCDIR/bin/watchdog/" "watchdog_modules" $randomize "null" ""
+downloadDatas "$SRCDIR/bin/watchdog/" "watchdog_modules" $randomize "null" "" "noexit"
 
 removeLockFile "$FILE_NAME"
 exit 0
