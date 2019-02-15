@@ -74,7 +74,7 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat"
+downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat" "noexit"
 
 ## restart clamd daemon
 kill -USR2 `cat $VARDIR/run/clamav/clamd.pid 2>/dev/null` > /dev/null 2>&1 
