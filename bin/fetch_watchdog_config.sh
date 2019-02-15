@@ -75,7 +75,7 @@ fi
 ## Watchdog config updates
 ##
 
-downloadDatas "$SRCDIR/etc/watchdog/" "watchdog_config" $randomize "null" ""
+downloadDatas "$SRCDIR/etc/watchdog/" "watchdog_config" $randomize "null" "" "noexit"
 
 removeLockFile "$FILE_NAME"
 exit 0
