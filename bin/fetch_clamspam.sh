@@ -73,7 +73,7 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$VARDIR/spool/clamspam/" "clamspam3" $randomize "clamav" "\|local_whitelist.ign2"
+downloadDatas "$VARDIR/spool/clamspam/" "clamspam3" $randomize "clamav" "\|local_whitelist.ign2" "noexit"
 
 ## restart clamspam daemon
 kill -USR2 `cat $VARDIR/run/clamav/clamspamd.pid 2>/dev/null` > /dev/null 2>&1
