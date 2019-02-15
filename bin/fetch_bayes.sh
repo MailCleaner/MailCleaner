@@ -79,7 +79,7 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$MC_BOGO_DB_DIR" "bayes_bogo" $randomize "mailcleaner" ""
+downloadDatas "$MC_BOGO_DB_DIR" "bayes_bogo" $randomize "mailcleaner" "" "noexit"
 
 log "BogoFilter - bayes updated"
 
