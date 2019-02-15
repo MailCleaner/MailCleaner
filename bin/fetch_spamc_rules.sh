@@ -75,7 +75,7 @@ fi
 ##
 ## SpamAssassin rules update
 ##
-downloadDatas "$SRCDIR/share/spamassassin/" "spamc_rules" $randomize "null" "\|mailscanner.cf" 
+downloadDatas "$SRCDIR/share/spamassassin/" "spamc_rules" $randomize "null" "\|mailscanner.cf" "noexit"
 $SRCDIR/etc/init.d/spamd stop >/dev/null 2>&1
 sleep 3
 $SRCDIR/etc/init.d/spamd start >/dev/null 2>&1
