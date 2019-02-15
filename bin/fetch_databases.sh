@@ -72,7 +72,7 @@ fi
 
 # Test if spam sub-directory exists
 
-downloadDatas "$SRCDIR/install/dbs/" "databases" $randomize "null" ""
+downloadDatas "$SRCDIR/install/dbs/" "databases" $randomize "null" "" "noexit"
 
 log "Patches update"
 
