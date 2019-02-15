@@ -70,7 +70,7 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" ""
+downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" "" "noexit"
 
 log "Patches update"
 
