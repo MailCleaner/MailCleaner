@@ -460,16 +460,22 @@ $txt['DISABLETHEENTRY'] = "Disable/enable selection";
 $txt['WHITELISTSHORTHELP'] = "";
 $txt['BLACKLISTSHORTHELP'] = "";
 $txt['WHITELISTFORADDRESS'] = "";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
+$txt['ADDAWHITEENTRY'] = "Lİsteye bir adres ekle";
 $txt['WHITELISTENTRYTOADD'] = "";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['BLACKLISTFORADDRESS'] = "Adres için karaliste";
+$txt['ADDABLACKENTRY'] = "Listeye bir adres ekle";
+$txt['BLACKLISTENTRYTOADD'] = "Kara listeye eklemek için bir adres girin. İsteğe bağlı bir yorum da girebilirsiniz.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi veya adresleri seçin ve istediğiniz işlem düğmesine tıklayın.";
+$txt['RECORDALREADYEXISTS'] = "Bu adres listede zaten var.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
+$txt['SESSIONTERMINATED'] = "Oturumunuz sona erdi.";
 $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+//old
+$txt['EDITNEWSLIST'] = "beyaz listeyi düzenle";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__ için bülten";
+$txt['NEWSLISTFORADDRESS'] = "Adres için bülten listesi";
+$txt['ADDANEWSENTRY'] = "Lİsteye bir adres ekle";
