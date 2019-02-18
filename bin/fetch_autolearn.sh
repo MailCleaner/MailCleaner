@@ -72,9 +72,11 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$VARDIR/spool/downloads/spamassassin" "bayes_packs" $randomize "mailcleaner" "\|bayes.mutex\|bayes_seen\|spamd.pid\|spamd.sock\|bayes_journal" "noexit" "${VARDIR}/spool/spamassassin"
+ret=$(downloadDatas "${VARDIR}/spool/spamassassin" "bayes_packs" $randomize "mailcleaner" "\|bayes.mutex\|bayes_seen\|spamd.pid\|spamd.sock\|bayes_journal" "noexit")
 
-log "SpamAssassin - bayes_packs updated"
+if [[ "$ret" -eq "1" ]]; then
+	log "SpamAssassin - bayes_packs updated"
+fi
 
 removeLockFile "$FILE_NAME"
 

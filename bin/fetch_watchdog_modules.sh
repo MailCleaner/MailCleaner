@@ -75,7 +75,10 @@ fi
 ## Watchdog modules updates
 ##
 
-downloadDatas "$SRCDIR/bin/watchdog/" "watchdog_modules" $randomize "null" "" "noexit"
+ret=$(downloadDatas "$SRCDIR/bin/watchdog/" "watchdog_modules" $randomize "null" "" "noexit")
 
-removeLockFile "$FILE_NAME"
+if [[ "$ret" -eq "1" ]]; then
+	removeLockFile "$FILE_NAME"
+fi
+
 exit 0

@@ -75,7 +75,9 @@ fi
 ## Watchdog config updates
 ##
 
-downloadDatas "$SRCDIR/etc/watchdog/" "watchdog_config" $randomize "null" "" "noexit"
+ret=$(downloadDatas "$SRCDIR/etc/watchdog/" "watchdog_config" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	removeLockFile "$FILE_NAME"
+fi
 
-removeLockFile "$FILE_NAME"
 exit 0

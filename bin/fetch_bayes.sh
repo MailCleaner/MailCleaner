@@ -79,9 +79,10 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$MC_BOGO_DB_DIR" "bayes_bogo" $randomize "mailcleaner" "" "noexit"
-
-log "BogoFilter - bayes updated"
+ret=$(downloadDatas "$MC_BOGO_DB_DIR" "bayes_bogo" $randomize "mailcleaner" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "BogoFilter - bayes updated"
+fi
 
 removeLockFile "$FILE_NAME"
 
