@@ -73,7 +73,7 @@ class Default_Form_DomainGeneral extends Zend_Form
             'label'   => $t->_('System sender')." :",
 		    'title' => $t->_("Mail address for summaries"),
 		    'required' => false,
-		    'filters'    => array('StringToLower', 'StringTrim')));
+		    'filters'    => array('StringTrim')));
 	    $sender->setValue($this->_domain->getPref('systemsender'));
         require_once('Validate/EmailAddressField.php');
         $sender->addValidator(new Validate_EmailAddressField());
