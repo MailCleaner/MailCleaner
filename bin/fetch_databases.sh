@@ -72,9 +72,10 @@ fi
 
 # Test if spam sub-directory exists
 
-downloadDatas "$SRCDIR/install/dbs/" "databases" $randomize "null" "" "noexit"
-
-log "Patches update"
+ret=$(downloadDatas "$SRCDIR/install/dbs/" "databases" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "Patches update"
+fi
 
 removeLockFile "$FILE_NAME"
 

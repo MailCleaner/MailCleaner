@@ -75,10 +75,13 @@ fi
 ##
 ## Newsleters rules update
 ##
-downloadDatas "$SRCDIR/share/newsld/siteconfig/" "newsl_rules" $randomize "null" "" "noexit"
-$SRCDIR/etc/init.d/newsld stop >/dev/null 2>&1
-sleep 3
-$SRCDIR/etc/init.d/newsld start >/dev/null 2>&1
+ret=$(downloadDatas "$SRCDIR/share/newsld/siteconfig/" "newsl_rules" $randomize "null" "" "noexit")
+
+if [[ "$ret" -eq "1" ]]; then
+	$SRCDIR/etc/init.d/newsld stop >/dev/null 2>&1
+	sleep 3
+	$SRCDIR/etc/init.d/newsld start >/dev/null 2>&1
+fi
 
 removeLockFile "$FILE_NAME"
 

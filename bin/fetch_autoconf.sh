@@ -80,8 +80,10 @@ if [ ! -d "$MC_AUTOCONF_DIR" ]; then
 	mkdir $MC_AUTOCONF_DIR
 fi
 
-downloadDatas "$MC_AUTOCONF_DIR" "mc_autoconfig" $randomize "null" "" "noexit"
-log "Autoconf downloaded"
+ret=$(downloadDatas "$MC_AUTOCONF_DIR" "mc_autoconfig" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "Autoconf downloaded"
+fi
 
 removeLockFile "$FILE_NAME"
 exit 0

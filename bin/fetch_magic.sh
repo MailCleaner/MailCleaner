@@ -72,8 +72,10 @@ fi
 . $SRCDIR/lib/updates/download_files.sh
 
 MC_FILE_DIR=/opt/file/share/misc/
-downloadDatas "$MC_FILE_DIR" "magic" $randomize "null" "" "noexit"
-log "Magic downloaded"
+ret=$(downloadDatas "$MC_FILE_DIR" "magic" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "Magic downloaded"
+fi
 
 removeLockFile "$FILE_NAME"
 exit 0

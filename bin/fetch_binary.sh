@@ -81,9 +81,11 @@ if [ ! -d "$MC_BINARY_DIR" ]; then
 	mkdir $MC_BINARY_DIR
 fi
 
-downloadDatas "$SRCDIR/etc/exim/mc_binary/" "mc_binary" $randomize "null" "" "noexit"
-$SRCDIR/etc/init.d/exim_stage1 restart &>> /dev/null
-log "Binary downloaded"
+ret=$(downloadDatas "$SRCDIR/etc/exim/mc_binary/" "mc_binary" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	$SRCDIR/etc/init.d/exim_stage1 restart &>> /dev/null
+	log "Binary downloaded"
+fi
 
 removeLockFile "$FILE_NAME"
 

@@ -47,19 +47,21 @@ function log {
 }
 
 function downloadDatas {
-    # $1 = local folder
-    # $2 = remote folder
+    # $1 = folter where files have to be updated
+    # $2 = remote folder from our "team" server
     # $3 = randomize or not
     # $4 = owner:group or null
     # $5 = ignored files list, fmt: \|file1\|file2\|etc
     # $6 = if noexit, then no exit
-    # $7 = folder to copy to after download
 
     if ${3} ; then
         sleep_time=$((${RANDOM} * $((${MAXSLEEPTIME} - ${MINSLEEPTIME})) / 32767 + ${MINSLEEPTIME}))
         log "${2} - Sleeping for ${sleep_time} seconds..."
         sleep ${sleep_time}
     fi
+
+    # variable to be returned to inform if an update was made
+    update=0;
 
     for file in $(echo ${5} | sed "s/\\\|/ /g" | column); do
         excluded_opt="${excluded_opt} --exclude=\"/${2}/${file}\""
@@ -69,14 +71,21 @@ function downloadDatas {
         ownership_opt="--chown=$4:$4"
     fi
 
+    # Temporary folder. The updates are made there and then copied to the destination folder if need be.
+    tmp_local_folder="/var/mailcleaner/tmp/fetch_files/${1}"
+    if [ ! -d ${tmp_local_folder} ]; then
+        mkdir -p $tmp_local_folder
+    fi
+
+    # Destination folder
     local_folder=${1}
     if [ ! -d ${local_folder} ]; then
         mkdir -p $local_folder
     fi
 
-    filter="${local_folder}/${FILTER_FILENAME}"
+    filter="${tmp_local_folder}/${FILTER_FILENAME}"
     if [ -f "${filter}" ]; then
-        old_filter=/tmp/${FILTER_FILENAME}.old
+        old_filter=$tmp_local_folder/${FILTER_FILENAME}.old
         cp ${filter} ${old_filter}
     fi
 
@@ -103,7 +112,7 @@ function downloadDatas {
             ${ownership_opt} \
             --filter=": /${2}/${FILTER_FILENAME}" \
             ${excluded_opt} \
-            ${user}@${server}:${remote_folder} ${local_folder} 2> /dev/null)
+            ${user}@${server}:${remote_folder} ${tmp_local_folder} 2> /dev/null)
         if [ $? == 0 ]; then
             if [[ ! -z ${rsync_result} ]]; then
                 echo "${rsync_result}" >> $LOGFILE
@@ -116,34 +125,45 @@ function downloadDatas {
     if [ -f "${old_filter}" ] && [ -f "${filter}" ]; then
         for f in $(cat ${old_filter} | grep -v -e "\*" | cut -d " " -f2); do
             filepath=$(echo ${local_folder}/${f} | sed "s%/\+%/%g")
+            tmp_filepath=$(echo ${tmp_local_folder}/${f} | sed "s%/\+%/%g")
             is_in_filter=$(grep -e "$f" ${filter})
             if [ ! "${is_in_filter}" ]; then
+		update=1
                 rm -f $filepath &>> $LOGFILE
+                rm -f $tmp_filepath &>> $LOGFILE
                 log "$2 - Removed file $filepath"
             fi
         done
     fi
 
-    # If one of the files of the filter was modifed during synchronization, replace it
-    # Also copy all if destination folder is created
-    if [ ${7} ]; then
-        copy_folder=${7}
-        if [ ! -d "${copy_folder}" ]; then
-            mkdir -p "${copy_folder}"
-            folder_created=true
-        fi
-        for f in $(cat ${filter} | grep -v -e "\*" | cut -d " " -f2); do
-            if [ -n "$(echo "${rsync_result}" | grep -e "${f:1}")" ] || [ ${folder_created} ]; then
-                filepath=$(echo ${local_folder}/${f} | sed "s%/\+%/%g")
-                destination_path=$(echo ${copy_folder}/${f} | sed "s%/\+%/%g")
-                cp $filepath $destination_path
-            fi
-        done
-    fi
+    # Updating the modified files
+    for f in $(cat ${filter} | grep -v -e "\*" | cut -d " " -f2); do
+        filepath=$(echo ${tmp_local_folder}/${f} | sed "s%/\+%/%g")
+        destination_path=$(echo ${local_folder}/${f} | sed "s%/\+%/%g")
+	# If the file was not present in the directory we copy it
+	if [ ! -f $destination_path ]; then
+	   update=1
+           log "Updating $filepath ..."
+           cp $filepath $destination_path
+	   continue
+	fi
+
+	# We copy files that were modified
+	md5sumnew=`md5sum $filepath | cut -d' ' -f1`
+	md5sumold=`md5sum $destination_path | cut -d' ' -f1`
+	if [ "${md5sumnew}" != "${md5sumold}" ]; then
+           update=1
+           log "Updating $filepath ..."
+           cp $filepath $destination_path
+	fi
+    done
 
     # Exit if the calling script didnt specify not to exit
     if [ "$6" != "noexit" ]; then
 	rm -f "/var/mailcleaner/spool/tmp/${FILE_NAME}"
         exit 0
     fi
+
+    # Return 1 if something was updated
+    echo $update
 }

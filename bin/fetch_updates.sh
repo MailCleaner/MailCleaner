@@ -70,9 +70,11 @@ fi
 
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" "" "noexit"
+ret=$(downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" "" "noexit")
 
-log "Patches update"
+if [[ "$ret" -eq "1" ]]; then
+	log "Patches update"
+fi
 
 removeLockFile "$FILE_NAME"
 exit 0
