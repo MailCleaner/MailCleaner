@@ -69,6 +69,12 @@ ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
         exit 0
 fi
+LOGFILE=${VARDIR}/log/mailcleaner/downloadDatas.log
+if [ "$(isGitupdateRunning)" -eq "1" ]; then
+    log "Gitupdate running, skipping ${FILE_NAME}"
+    removeLockFile "$FILE_NAME"
+    exit 0
+fi
 
 . $SRCDIR/lib/updates/download_files.sh
 

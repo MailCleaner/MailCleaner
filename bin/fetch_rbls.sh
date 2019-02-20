@@ -53,7 +53,7 @@ done
 
 CONFFILE=/etc/mailcleaner.conf
 SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
-if [ "$SRCDIR" = "" ]; then 
+if [ "$SRCDIR" = "" ]; then
   SRCDIR="/opt/mailcleaner"
 fi
 VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
@@ -67,6 +67,13 @@ FILE_NAME="${FILE_NAME%.*}"
 ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
         exit 0
+fi
+
+LOGFILE=${VARDIR}/log/mailcleaner/downloadDatas.log
+if [ "$(isGitupdateRunning)" -eq "1" ]; then
+    log "Gitupdate running, skipping ${FILE_NAME}"
+    removeLockFile "$FILE_NAME"
+    exit 0
 fi
 
 . $SRCDIR/lib/updates/download_files.sh

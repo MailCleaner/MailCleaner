@@ -50,6 +50,26 @@ function removeLockFile()
 	echo $?
 }
 
+function isLocked()
+{
+    process=$1
+    if [ -n "$(find ${LOCKFILEDIRECTORY} -type f -name "${process}")" ]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+function hasFetchersRunning()
+{
+    echo $(isLocked "fetch_*")
+}
+
+function isGitupdateRunning()
+{
+    echo $(isLocked "gitupdate_running")
+}
+
 function slaveSynchronized()
 {
     slave_status=$(echo "SHOW SLAVE STATUS\G" | ${SRCDIR}/bin/mc_mysql -s)
@@ -70,4 +90,8 @@ function isMaster()
     else
         echo 0
     fi
+}
+
+function log {
+    echo "["`date "+%Y/%m/%d %H:%M:%S"`"] $1" >> $LOGFILE
 }
