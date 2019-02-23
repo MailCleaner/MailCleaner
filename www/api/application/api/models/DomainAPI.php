@@ -348,7 +348,7 @@ class Api_Model_DomainAPI
                         'a_base_dn' => 'basedn', 
                         'a_bind_user' => 'binddn', 
                         'a_bind_pass' => 'bindpass',
-                        'a_user_attr' => 'userattr',
+                        'a_user_attr' => 'userattribute',
                         'a_protocol_version' => 'ldapversion') as $key => $value) {
                     if (isset($params[$key])) {
                         $data[$value] = $params[$key];
