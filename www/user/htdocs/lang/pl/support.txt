@@ -1,1 +1,13 @@
 <?php
+$txt['SFALSENEGTITLE'] = "BŁĘDNIE NEGATYWNE";
+$txt['SFALSENEGSUBTITLE'] = "Czy dostałeś wiadomość, którą uznajesz za spam?";
+$txt['SVERIFYPASS'] = "Sprawdź, że wiadomość została przeprocesowana przez filtr Mailcleaner za pomocą przeglądania nagłówków e-maila.";
+$txt['SFALSEPOSTITLE'] = "BŁĘDNIE POZYTYWNE";
+$txt['SFALSEPOSSUB1TITLE'] = "Nie otrzymałeś wiadomości, która nie powinna dotrzeć?";
+$txt['SFALSEPOSSUB1POINT1'] = "adres docelowy użyty przez nadawcę jest prawidłowy";
+$txt['SFALSEPOSSUB2TITLE'] = "Wiadomość została uznana za spam a Ty nie rozumiesz dlaczego?";
+$txt['SFALSEPOSSUB3TITLE'] = "Listy mailingowe";
+$txt['SOTHERTITLE'] = "INNE PROBLEMY";
+$txt['FAQTITLE'] = "Zrozumienie działania Mailclenaera";
+$txt['DOCTITLE'] = "Pomoc w zakresie interfejsu użytkownika";
+$txt['WEBDOCTITLE'] = "Dokumentacja online";
