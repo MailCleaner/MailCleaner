@@ -95,7 +95,7 @@ $txt['QUARANTINESUMMARY'] = "<strong>W kwarantannie:</strong> __PARAM__ wiadomo�
 $txt['SEARCHSUMMARY'] = "<strong>Szukaj:</strong> __PARAM__ wiadomości";
 $txt['ORDEREDBYPARAM'] = "sortowanie wg __PARAM__";
 $txt['RESETSEARCH'] = "Wyświetl pełną listę kwarantanny";
-$txt['ODATE'] = "date";
+$txt['ODATE'] = "data";
 $txt['OTIME'] = "czas";
 $txt['OSCORE'] = "score";
 $txt['ODESTINATION'] = "adresat";
@@ -113,7 +113,7 @@ $txt['SCORETEXT'] = "Punktacja: __PARAM__";
 $txt['CLOSEWINDOW'] = "Zamknij okno";
 $txt['CURRENTPAGE'] = "Strona __PARAM1__ z __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatycznie usuń po:</strong> __PARAM__ dniach";
-$txt['DISPLAYEDINFOS'] = "<strong>Wiadomośi wyświetlone: </strong> __PARAM1__ ostatnich dnich (<a href=\"__PARAM2__\">Modyfikuj…</a>). ";
+$txt['DISPLAYEDINFOS'] = "<strong>Wiadomości wyświetlone: </strong> __PARAM1__ ostatnich dni (<a href=\"__PARAM2__\">Modyfikuj…</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Wiadomości wyświetlone: </strong> __PARAM__ ostatnich dni. ";
 //old
 $txt['QUARANTINETITLE'] = "Kwarantanna dla __PARAM__";
@@ -179,7 +179,7 @@ $txt['GROUPQUARANTINES'] = "Wszystkie adresy";
 $txt['INFORMATIONSABOUTMSG'] = "Treść wiadomości";
 $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "Czarne listy";
-$txt['FITLERSCORE'] = "Score";
+$txt['FITLERSCORE'] = "Punktacja";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "Nagłówki";
 $txt['BODY'] = "Treść";
@@ -261,7 +261,7 @@ $txt['WWENTRY'] = "Wpis";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Na pewno chcesz ostatecznie usunąć ten wpis?";
 //old
-$txt['WHITELISTFOR'] = "Whitelista dla __PARAM__";
+$txt['WHITELISTFOR'] = "Biała lista dla __PARAM__";
 //old
 $txt['WARNLISTFOR'] = "Lista ostrzeżeń dla __PARAM__";
 //old
@@ -313,11 +313,11 @@ $txt['LASTMONTHS'] = "ostatnie miesiące";
 $txt['LASTYEARS'] = "ostatnie lata";
 $txt['DATESTART'] = "Od";
 $txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
+$txt['STATFORADDRESS'] = "Statystyki aktywności dla: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Wiadomości otrzymane";
+$txt['RECEIVEDVIRUS'] = "Wirusy i wiadomości niebezpieczne";
+$txt['RECEIVEDSPAM'] = "Wiadomości spamowe";
+$txt['RECEIVEDCLEAN'] = "Wolne od spamu";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
 $txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
 $txt['FROMDATETODATE'] = "od __PARAM1__.__PARAM2__.__PARAM3__ do __PARAM4__.__PARAM5__.__PARAM6__";
@@ -388,7 +388,7 @@ $txt['ADDRESSLISTTOPIC'] = "Address group";
 $txt['ADDRESSPARAMTOPIC'] = "Address settings";
 $txt['QUARPARAMTOPIC'] = "Quarantine display";
 $txt['WARNLISTTOPIC'] = "Lista ostrzeżeń";
-$txt['WHITELISTTOPIC'] = "Whitelista";
+$txt['WHITELISTTOPIC'] = "Biała lista";
 $txt['BLACKLISTTOPIC'] = "Czarna lista";
 $txt['INTERFACETOPICTITLE'] = "interface settings";
 $txt['ADDRESSLISTTOPICTITLE'] = "address group";
@@ -402,7 +402,7 @@ $txt['BLACKLISTTOPICTITLE'] = "czarna lista";
  */
 $txt['SAVE'] = "Save";
 $txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['CHOOSELANGUAGE'] = "Wybierz język";
 /*
  * aliases (new)
  */
