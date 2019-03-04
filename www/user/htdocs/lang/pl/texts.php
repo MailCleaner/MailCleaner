@@ -148,8 +148,8 @@ $txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailC
 $txt['AREYOUSURE'] = "<span class=\"question\">Na pewno chcesz analizować tę wiadomość, zmiany filtrowania mogą zostać zastosowane?</span>";
 $txt['ASKANALYSE'] = "Żądanie zmiany filtrowania";
 $txt['PAGE'] = "Strona";
-$txt['NEXTPAGE'] = "Następny";
-$txt['PREVIOUSPAGE'] = "Poprzedni";
+$txt['NEXTPAGE'] = "Następna";
+$txt['PREVIOUSPAGE'] = "Poprzednia";
 //old
 $txt['GETREASONSTITLE'] = "Powody filtrowania";
 $txt['HITRULE'] = "Reguła";
@@ -278,8 +278,8 @@ $txt['REMADDRESSALT'] = "usuń adres";
 //old
 $txt['ADDADDRESSALT'] = "dodaj adres";
 $txt['BADADDRESSFORMAT'] = "Podany adres jest nieprawidłowy. Spróbuj jeszcze raz.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
+$txt['NOTFILTEREDDOMAIN'] = "Ta domena nie jest filtrowana przez MailCleanera. Adres nie może być dodany.";
+$txt['ALIASALREADYREGISTERD'] = "Ten adres jest już używany na jako konto MailCleanera. Nie może być dodany.";
 $txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
 $txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
@@ -288,9 +288,9 @@ $txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
 $txt['ALIASADDED'] = "Adres został dodany.";
 $txt['ALIASREQUESTREMOVED'] = "Żądanie zostało odwołane.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Usunięcie adresu";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
+$txt['REMALIASCONFIRM'] = "Na pewno chcesz usunąć ten adres: __PARAM__?";
 $txt['ALIASREMOVED'] = "Adres __PARAM__ został usunięty.";
 $txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
 /*
@@ -318,7 +318,7 @@ $txt['RECEIVEDMESSAGES'] = "Wiadomości otrzymane";
 $txt['RECEIVEDVIRUS'] = "Wirusy i wiadomości niebezpieczne";
 $txt['RECEIVEDSPAM'] = "Wiadomości spamowe";
 $txt['RECEIVEDCLEAN'] = "Wolne od spamu";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ otrzymanych wiadomości";
 $txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
 $txt['FROMDATETODATE'] = "od __PARAM1__.__PARAM2__.__PARAM3__ do __PARAM4__.__PARAM5__.__PARAM6__";
 /*
@@ -400,16 +400,16 @@ $txt['BLACKLISTTOPICTITLE'] = "czarna lista";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
+$txt['SAVE'] = "Zapisz";
 $txt['CHOOSETHISLANG'] = "Use English as main language";
 $txt['CHOOSELANGUAGE'] = "Wybierz język";
 /*
  * aliases (new)
  */
 $txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
+$txt['ADDANADDRESS'] = "Dodaj adres do grupy";
+$txt['ADDTHEADDRESS'] = "&lt; Dodaj adres do grupy";
+$txt['ADDANADDRESSSHORTHELP'] = "Podaj adres, który chcesz dodać.";
 $txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
 $txt['REMTHEADDRESS'] = "Remove selection";
 $txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
@@ -439,7 +439,7 @@ $txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invali
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
+$txt['QUARNBLINESDISPLAYED'] = "Ilość wyświetlonych lini";
 $txt['QUARNBDAYSDISAPLYED'] = "Ilość wyświetlonych dni";
 $txt['MASKEALREADYFORCED'] = "Ukryj wiadomości zwolnione przez użytkownika";
 $txt['DEFAULTADDRESDISPPLAYED'] = "Adres wyświetlony domyślnie";
@@ -455,7 +455,7 @@ $txt['WARNLISTFORADDRESS'] = "Lista ostrzeżeń dla adresu";
 $txt['ADDAWARNENTRY'] = "Dodaj adres do listy";
 $txt['WARNLISTENTRYTOADD'] = "Podaj adres, który chcesz dodać do białej listy. Możesz dodać do niego opcjonalny komentarz.";
 $txt['ADDTHEENTRY'] = "&lt; Dodaj adres";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
+$txt['REMOVEANENTRY'] = "Wyłącz, włącz lub usuń adres z listy";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Usuń wybrane";
 $txt['DISABLETHEENTRY'] = "Wyłącz/włącz wybrane";
@@ -467,11 +467,11 @@ $txt['BLACKLISTSHORTHELP'] = "Czarna lista zawiera adresy nadawców.
                                   Sprawdź w instrukcji  (dostępna w sekcji <a href=\"help.php\">\"Pomoc\"</a>) więcej informacji na temat użycia czarnej listy.
 ";
 $txt['WHITELISTFORADDRESS'] = "Biała lista dla adresu";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Wpisz adres, który chcesz dodać do białej listy. Możesz dodać opcjonalny komentaż.";
+$txt['ADDAWHITEENTRY'] = "Dodaj adres do listy";
+$txt['WHITELISTENTRYTOADD'] = "Wpisz adres, który chcesz dodać do białej listy. Możesz dodać opcjonalny komentarz.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['BLACKLISTFORADDRESS'] = "Czarna lista dla adresu";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
+$txt['ADDABLACKENTRY'] = "Dodaj adres do listy";
 $txt['BLACKLISTENTRYTOADD'] = "Podaj adres, który chcesz dodać do czarnej listy. Możesz dodać opcjonalny komentarz.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['RECORDALREADYEXISTS'] = "Ten adres już występuje na liście.";
