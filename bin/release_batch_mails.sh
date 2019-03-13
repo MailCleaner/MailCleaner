@@ -41,7 +41,7 @@ if [[ -z $1 ]]; then
 	echo "Please input a sender address"
 	exit 1
 fi
-QUERY="SELECT exim_id,to_user,to_domain FROM spam WHERE sender=\"$1\";"
+QUERY="SELECT exim_id,to_user,to_domain FROM spam WHERE sender LIKE \"%$1%\";"
 
 results=($(echo "$QUERY" | $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD -N mc_spool))
 for ((i=0;i<${#results[@]};i=i+3)); do
