@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Kullanıcı tarafından açılan mesajları gizle";
 $txt['FORCESPAM'] = "mesajı serbest bırak";
 //old
 $txt['ASKREASON'] = "filtreleme kurallarını göster";
-$txt['CONFSENDANALYSE'] = "MailCleaner analiz merkezi için bir filtre ayarlama isteği gönderilir; yanlış engellenmiş olan iletinin bir kopyasını içerir.</br> Not: Bir filtre ayarlama beyaz liste veya kara listeye aynı değildir";
+$txt['CONFSENDANALYSE'] = "MailCleaner Analiz Merkezi'ne bir filtre ayar talebi gönderilecektir; yanlış engellenmiş mesajın bir kopyasını içerir. </br> Not: Bir filtre ayarı beyaz listeyle veya kara listeyle aynı değildir";
 $txt['AREYOUSURE'] = "<span class=\"question\">Bu mesajın analiz edilmesini ve filtre ayarlamalarının uygulanmasını istediğinizden emin misiniz?</span>";
 $txt['ASKANALYSE'] = "Filter düzenleme talebi";
 $txt['PAGE'] = "Sayfa";
