@@ -8,7 +8,7 @@
 ### newsl
 $txt['NEWSLETTERSTOPIC'] = "Nieuwsbrieven";
 $txt['NEWSLETTERSTOPICTITLE'] = "Nieuwsbrieven";
-$txt['NEWSLETTERSSHORTHELP'] = "Hier kun je de nieuwsbrieven beheren.";
+$txt['NEWSLETTERSSHORTHELP'] = "Hier kun je uw nieuwsbrieven beheren.";
 $txt['NEWSLETTERSALLOW'] = "afleveren";
 $txt['NEWSLETTERACCEPT'] = "Accepteer deze nieuwsbrief";
 $txt['SPAM_WHITELIST_DISABLED'] = "Deze lijst is niet geactiveerd voor dit domein (Neem contact op met de beheerder).";
@@ -146,7 +146,7 @@ $txt['HIDEFORCED'] = "Verberg gebruiker-vrijgegeven berichten";
 $txt['FORCESPAM'] = "geef dit bericht vrij";
 //old
 $txt['ASKREASON'] = "geef de filter regels weer";
-$txt['CONFSENDANALYSE'] = "Een filter aanpassing aanvraag zal verzonden worden naar het MailCleaner Analysis Center; het bevat een kopie van het bericht dat onterecht geblokkeerd werd.";
+$txt['CONFSENDANALYSE'] = "Een filter aanpassing aanvraag zal verzonden worden naar het MailCleaner Analysis Center; het bevat een kopie van het bericht dat onterecht geblokkeerd werd.</ br> Opmerking: een filteraanpassing is niet hetzelfde als whitelisting of blacklisting";
 $txt['AREYOUSURE'] = "<span class=\"question\">Ben je zeker dat je dit bericht wilt laten analyseren en dat de filter aanpassingen teogepast mogen worden?</span>";
 $txt['ASKANALYSE'] = "Filter aanpassing aanvraag";
 $txt['PAGE'] = "Pagina";
@@ -189,7 +189,7 @@ $txt['PARTS'] = "Delen";
 $txt['STORESLAVE'] = "Opslag";
 $txt['SPAMCSCORE'] = "Regels score";
 $txt['DESCRIPTION'] = "Beschrijving";
-$txt['MESSAGEPREVIEW'] = "Berichtvoorbeeld";
+$txt['MESSAGEPREVIEW'] = "Bericht voorbeeld";
 $txt['ID'] = "Identificator";
 /*
  * logout page
