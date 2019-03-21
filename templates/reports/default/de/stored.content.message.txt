@@ -7,14 +7,15 @@ The content is dangerous as it is often used to spread viruses or to gain
 personal or confidential information from you, such as passwords or credit
 card numbers.
 
-If you wish to receive a copy of the original email, please folow
-this link : <a href="https://www.mailcleaner.net/support/support-request.html">MailCleaner Support</a> and provide :
-- Domain protected name
-- Your email address
-- Retrieval code
 
-At $date the content filters said:
+If you wish to receive a copy of the original attachment, please
+e-mail the administrator at $localpostmaster and include the whole of 
+this message in your request. Alternatively, you can call them, with
+the contents of this message to hand when you call.
+
+At $date the virus scanner said:
 $report
-Note to Help Desk: $hostname in $datenumber/$id
--- 
+Note to Administrator: $hostname in $datenumber/$id
+
+- 
 Mailcleaner
