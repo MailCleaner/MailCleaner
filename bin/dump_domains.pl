@@ -488,6 +488,11 @@ sub dumpDomainsFile {
   close SNMPDOMAINSFILE;
   move("/tmp/snmpdomains.list","$filepath/snmpdomains.list");
   chown $uid, $gid, "$filepath/snmpdomains.list";
+  if (!touch("$filepath/domains_to_prevent_docm.list")) {
+    print "CANNOTTOUCH $filepath/domains_to_prevent_docm.list\n";
+    exit 1;
+  }
+  chown $uid, $gid, "$filepath/domains_to_prevent_docm.list";
 
   if (-f $lockfile) {
     unlink($lockfile);
