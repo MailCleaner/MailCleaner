@@ -26,7 +26,7 @@ $topics['addparam'] = array('ADDRESSPARAMTOPIC', 'conf_addressparam.tmpl', 'Conf
 $topics['quar'] = array('QUARPARAMTOPIC', 'conf_quarantine.tmpl', 'ConfigUserQuarantine');
 if (!$user_->isStub()) {
   // if ldap connector..
-  if ($user_->getDomain()->getPref('auth_type') != 'ldap') {
+  if ($user_->getDomain()->getPref('auth_type') != 'ldap' || file_exists('/var/mailcleaner/flags/www/user_auth/address_group_for_ldap') ) {
     $topics['addlist'] = array('ADDRESSLISTTOPIC', 'conf_addresslist.tmpl', 'ConfigUserAddressList');
   }
 }
