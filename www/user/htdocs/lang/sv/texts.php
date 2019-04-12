@@ -144,8 +144,8 @@ $txt['HIDEFORCED'] = "Göm användarrelaterade meddelanden";
 $txt['FORCESPAM'] = "publicera meddelandet";
 //old
 $txt['ASKREASON'] = "visa filtreringsregler";
-$txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats.";
-$txt['AREYOUSURE'] = "<span class=\"question\">Är du säker på att6 du vill att detta meddelande ska analyseras och att filterjusteringar kan tillämpas?</span>";
+$txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats";
+$txt['AREYOUSURE'] = "<span class=\"question\">Är du säker på att du vill att detta meddelande ska analyseras och att filterjusteringar kan tillämpas?</span>";
 $txt['ASKANALYSE'] = "Begäran om filterjustering";
 $txt['PAGE'] = "Sida";
 $txt['NEXTPAGE'] = "Nästa";
@@ -179,20 +179,20 @@ $txt['GROUPQUARANTINES'] = "Alla adresser";
 $txt['INFORMATIONSABOUTMSG'] = "Meddelandets innehåll";
 $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "Svartlistor";
-$txt['FITLERSCORE'] = "Score";
-$txt['NONE'] = "none";
+$txt['FITLERSCORE'] = "Poäng";
+$txt['NONE'] = "ingen";
 $txt['HEADERS'] = "Huvuden";
 $txt['BODY'] = "Kropp";
 $txt['PARTS'] = "Delar";
 $txt['STORESLAVE'] = "Lagring";
 $txt['SPAMCSCORE'] = "Regelpoäng";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Förhandsvisning av meddelande";
+$txt['DESCRIPTION'] = "Beskrivning";
+$txt['MESSAGEPREVIEW'] = "Visa innehållet i meddelandet";
 $txt['ID'] = "Identifierare";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Din MailCleaner-session avslutades.</p><p>Om du skulle vilja start en ny session, klicka på följande länk:</p>";
+$txt['LOGOUTTEXT'] = "<p>Din MailCleaner-session avslutades.</p><p>Om du skulle vilja starta en ny session, klicka på följande länk:</p>";
 /*
  * parameters page
  */
@@ -204,7 +204,7 @@ $txt['USERPARAM'] = "Användarinställningar";
 $txt['ADDRESSPARAM'] = "Adressinställningar";
 //old
 $txt['LANGUAGE'] = "Språk";
-$txt['ADDRESS'] = "Address";
+$txt['ADDRESS'] = "Adress";
 //old
 $txt['ADDRALIASTITLE'] = "Adressgrupp";
 //old
@@ -234,9 +234,9 @@ $txt['SUMMARYFREQ'] = "Leveransfrekvens för rapport";
 $txt['DAILY'] = "Dagligen";
 $txt['WEEKLY'] = "Varje vecka";
 $txt['MONTHLY'] = "Månatligen";
-$txt['NOSUMMARY'] = "No report";
+$txt['NOSUMMARY'] = "Ingen rapport";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
+$txt['SUMMARYTYPE'] = "Rapport format";
 $txt['USEDEFAULT'] = "använd standard";
 $txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "vanlig text";
@@ -251,9 +251,9 @@ $txt['EDITWARNLIST'] = "redigera varningslista";
 $txt['SENDER'] = "Avsändare";
 $txt['COMMENT'] = "Kommentera";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "Verkställ";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "aktiv";
 //old
 $txt['INNACTIVE'] = "inaktiv";
 //old
@@ -272,7 +272,7 @@ $txt['STATUS'] = "Status";
 //old
 $txt['ADDALIASTITLE'] = "Lägg till en adress";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "Adress";
 //old
 $txt['REMADDRESSALT'] = "ta bort en adress";
 //old
@@ -282,169 +282,169 @@ $txt['NOTFILTEREDDOMAIN'] = "Denna domän är inte filtrerad av MailCleaner. Adr
 $txt['ALIASALREADYREGISTERD'] = "Denna adress är redan använd av ett MailCleaner-konto. Den kunde inte läggas till.";
 $txt['ALIASALREADYPENDING'] = "En bekräftelse är redan utskickad för denna adress.";
 $txt['ALIASPENDING'] = "En bekräftelse har skickats till denna adress.<br/> Av säkerhetsskäl kommer adressen endast att läggas till om du bekräftar begäran inom 24 timmar.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Tilläggsförfrågan adress";
+$txt['ALIASERRORSENDIG'] = "Förfrågan kunde inte skickas på grund av ett internt fel. Vänligen försök igen senare.";
+$txt['ALIASNOTPENDING'] = "Ingen förfrågan väntar för närvarande på den här adressen.";
 $txt['ALIASADDED'] = "Adressen har blivit tillagd.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ALIASREQUESTREMOVED'] = "Förfrågan har avslutats.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Borttagning adress";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Är du säker du vill ta bort adressen: __PARAM__?";
+$txt['ALIASREMOVED'] = "Adressen __PARAM__ har blivit borttagen.";
+$txt['CANNOTREMOVEMAINADD'] = "Adressen__PARAM__ är huvudadressen. Den kan inte tas bort.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "Statistik";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ mottagna meddelande";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spam";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ farligt";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ rent";
 $txt['ALL'] = "alla…";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['SEARCHPERIOD'] = "Analyserad period";
+$txt['LASTDAYS'] = "senaste dagarna";
+$txt['LASTMONTHS'] = "senaste månaden";
+$txt['LASTYEARS'] = "senaste åren";
+$txt['DATESTART'] = "Från";
+$txt['DATESTOP'] = "till";
+$txt['STATFORADDRESS'] = "Aktivitet statistik för: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Mottagna meddelande";
+$txt['RECEIVEDVIRUS'] = "Virus och farliga meddelanden";
+$txt['RECEIVEDSPAM'] = "Spam meddelande";
+$txt['RECEIVEDCLEAN'] = "rena meddelande";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ mottagna meddelande";
+$txt['GLOBALSTATSTITLE'] = "Summering för alla adresser";
+$txt['FROMDATETODATE'] = "från __PARAM1__.__PARAM2__.__PARAM3__ till __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "Intern MailCleaner fel (_PARAM_MESSAGE_ERREUR__). Vänligen kontakta din systemadministratör med detaljer om problemet.";
+$txt['INCORRECTMSGID'] = "Den begärda åtgärden kunde inte slutföras eftersom meddelandets id är felaktigt.";
+$txt['NOSUCHADDR'] = "Den angivna adressen är inte skyddad av MailCleaner.";
+$txt['ERRORSENDING'] = "Ett fel uppstod när meddelandet skickades. Var god försök igen. Om problemet kvarstår kontaktar du systemadministratören.";
+$txt['MSGFORCED'] = "Meddelandet har släppts och levererats till din brevlåda. Det bör vara tillgängligt inom några minuter.";
+$txt['MSGFILENOTFOUND'] = "Den begärda åtgärden kunde inte slutföras eftersom meddelandet inte längre finns i karantänen.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Företag";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "Namn";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Förnamn";
 //old
-$txt['EMAIL'] = "E-mail";
+$txt['EMAIL'] = "E-post";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Telefonnummer";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Vad kan vi göra för dig?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Obligatoriska fält";
 //old
 $txt['SUPPORT'] = "Support";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Ditt meddelande har skickats.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Ditt meddelande kunde inte skickas. Vänligen försök igen senare.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Vissa fält är felaktiga. Kontrollera din inmatning.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
+$txt['HELP'] = "Hjälp";
+$txt['INTERFACETOPIC'] = "Gränssnittsinställningar";
+$txt['INTRODUCTIONTOPIC'] = 'Introduktion';
+$txt['INTRODUCTIONTOPICTITLE'] = 'introduktion';
+$txt['FIRSTCONTACTTOPIC'] = "Snabb guide";
+$txt['FIRSTCONTACTTOPICTITLE'] = "snabb guide";
+$txt['ADDRESSESTOPIC'] = "Användbara adresser";
+$txt['ADDRESSESTOPICTITLE'] = "Användbara adresser";
+$txt['PLUGINTOPIC'] = "Outlook plugin";
+$txt['PLUGINTOPICTITLE'] = "Outlook plugin";
+$txt['MOREHELPTOPIC'] = "Användarhandbok";
+$txt['MOREHELPTOPICTITLE'] = "användarhandbok";
+$txt['USERMANUALTOPICTITLE'] = "användarmanual";
+$txt['USERMANUALTOPIC'] = "Användarmanual";
+$txt['FAQTOPIC'] = "Vanliga frågor";
+$txt['FAQTOPICTITLE'] = "Vanliga frågor";
+$txt['GLOSSARYTOPIC'] = "Ordlista";
+$txt['GLOSSARYTOPICTITLE'] = "ordlista";
 $txt['SUPPORTTOPIC'] = "Support";
 $txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['ANALYSETOPIC'] = "Förfrågan filterjustering";
+$txt['ANALYSETOPICTITLE'] = "förfrågan filterjustering";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
+$txt['CONFIGURATION'] = "konfiguration";
+$txt['ADDRESSLISTTOPIC'] = "Adress grupp";
+$txt['ADDRESSPARAMTOPIC'] = "Adress inställningar";
+$txt['QUARPARAMTOPIC'] = "Visa karantän";
 $txt['WARNLISTTOPIC'] = "Varningslista";
 $txt['WHITELISTTOPIC'] = "Vitlista";
 $txt['BLACKLISTTOPIC'] = "Svartlista";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
+$txt['INTERFACETOPICTITLE'] = "gränssnittsinställningar";
+$txt['ADDRESSLISTTOPICTITLE'] = "adress grupp";
+$txt['ADDRESSPARAMTOPICTITLE'] = "adress inställningar";
+$txt['QUARPARAMTOPICTITLE'] = "visa karantän";
 $txt['WARNLISTTOPICTITLE'] = "varningslista";
 $txt['WHITELISTTOPICTITLE'] = "vitlista";
 $txt['BLACKLISTTOPICTITLE'] = "svartlista";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "Spara";
+$txt['CHOOSETHISLANG'] = "Använd Engelska som primärt språk";
+$txt['CHOOSELANGUAGE'] = "Välj språk";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Den här gruppen innehåller alla adresser och alias som du vill hantera från det här kontot. Du kan sedan få tillgång till karantän, statistik och inställningar på ett centralt sätt med dina aktuella inloggningsuppgifter.";
+$txt['ADDANADDRESS'] = "Lägg till en adress i en grupp";
+$txt['ADDTHEADDRESS'] = "&lt; Lägg till adressen i gruppen";
+$txt['ADDANADDRESSSHORTHELP'] = "Ange adressen du vill lägga till.";
+$txt['REMANADDRESS'] = "Ta bort en eller flera adresser från gruppen";
+$txt['REMTHEADDRESS'] = "Ta bort valet";
+$txt['REMANADDRESSSHORTHELP'] = "Markera rutan bredvid varje adress som du vill ta bort och klicka på Ta bort val knappen.";
+$txt['WAITINGCONFIRMATION'] = "Väntar på bekräftelse";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
+$txt['ADDPARAMSHORTHELP'] = "Spambehandlingsläget kan anpassas för var och en av dina adresser. Läs användarhandboken (tillgänglig i avsnittet <a href=\"help.php\"> \"Hjälp\" </a>) för mer information om de olika tillgängliga hanteringslägena.";
+$txt['FOREACHSPAMDO'] = "För varje meddelande som upptäckts som skräppost:";
+$txt['FOREACHNEWSLETTERDO'] = "För varje meddelande som upptäckts som nyhetsbrev:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "behåll i karantän";
+$txt['TAGMESSAGEWITHTAG'] = "leverera med ämnesord";
+$txt['DROPMESSAGE'] = "radera omedelbart";
+$txt['SUMMARYSENTFREQ'] = "Frekvens av karantänrapporter";
+$txt['SUMMARYFORMAT'] = "Format på karantänrapporter";
+$txt['SUMMARYTO'] = "Skicka rapporter till denna adress";
 $txt['OTHER'] = "annat…";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['APPLYTOALLADDRESSES'] = "Använd inställningar på alla adresser";
+$txt['PLAINTEXT'] = "Oformatterad text";
 $txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['DIGEST'] = "Sammandrag";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Behåll felmeddelanden";
+$txt['PARAMETERSSAVED'] = "Dina inställningar har sparats.";
+$txt['NOTSAVED'] = "Dina inställningar kunde inte sparas.";
+$txt['INVALIDSUMMARYTO'] = "E-postadressen för rapporterna är ogiltig";
 /* 
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['CONFIGQUARSHORTHELP'] = "Karantänsskärmen kan anpassas (antal dagar och rader) för att passa dina behov.";
+$txt['QUARNBLINESDISPLAYED'] = "Antal rader som visas";
+$txt['QUARNBDAYSDISAPLYED'] = "Antal dagar som visas";
+$txt['MASKEALREADYFORCED'] = "Göm meddelande som användare frisläppt";
+$txt['DEFAULTADDRESDISPPLAYED'] = "Adress som visas som standard";
+$txt['YESTERDAY'] = "Igår";
+$txt['TODAY'] = "Idag";
 /*
  * wwlists (new)
  */
@@ -452,13 +452,13 @@ $txt['WARNLISTSHORTHELP'] = "Varningslistan innehåller betrodda avsändaradress
 \t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet. 
 \t\t\t\t\t\t\t\t   Se manualen (i avsnittet <a href=\"help.php\">\"Hjälp\"</a>) för vidare information om hur varningslistor kan användas. ";
 $txt['WARNLISTFORADDRESS'] = "Varningslista för adressen";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
+$txt['ADDAWARNENTRY'] = "Lägg till en adress till listan";
 $txt['WARNLISTENTRYTOADD'] = "Ange adressen du vill lägga till på varningslistan. Du kan även ange en valfri kommentar.";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
+$txt['ADDTHEENTRY'] = "&lt; Lägg till adress";
+$txt['REMOVEANENTRY'] = "Inaktivera, aktivera eller ta bort en adress från listan";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";
+$txt['REMTHEENTRY'] = "Ta bort val";
+$txt['DISABLETHEENTRY'] = "Inaktivera / aktivera val";
 $txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser för vilka karantän inte någonsin kommer att inträffa.<br /> 
                                    Varning: denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
                                   Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas. 
@@ -472,24 +472,31 @@ $txt['WHITELISTENTRYTOADD'] = "Ange adressen du vill lägga till på vitlistan. 
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Välj adressen eller adresserna du vill ändra i listan och klicka på önskad åtgärdsknapp.";
 $txt['BLACKLISTFORADDRESS'] = "Svartlista för adressen";
 $txt['ADDABLACKENTRY'] = "Lägg till en adress till listan";
-$txt['BLACKLISTENTRYTOADD'] = "";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['BLACKLISTENTRYTOADD'] = "Ange adressen du vill lägga till i svartlistan. Du kan också lägga till en valfri kommentar.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";
+$txt['RECORDALREADYEXISTS'] = "Den här adressen finns redan i listan.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['SESSIONTERMINATED'] = "Din session avslutades.";
+$txt['BEENLOGGEDOUT'] = "Om du vill starta en ny session klickar du på den här länken: <a href=\"__PARAM__\" >__PARAM__</a>";
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Nyhetsberg har tillåtits och publicerats.";
-$txt['NLRELEASEDBODY'] = "Nyhetsbrevet har tillåtits och publicerats. Det bör levereras i din inkorg om ett par minuter.";
-$txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet har inte publicerats";
-$txt['NLNOTRELEASEDBODY'] = "Ett problem uppstod när ditt meddelande publicerades. Prova igen senare.";
+$txt['NLRELEASEDHEAD'] = "Nyhetsbrevet har tillåtits och släppts.";
+$txt['NLRELEASEDBODY'] = "Nyhetsbrevet har tillåtits och släppts. Det bör levereras i din inkorg om ett par minuter.";
+$txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet har inte släppts";
+$txt['NLNOTRELEASEDBODY'] = "Ett problem uppstod när ditt meddelande släpptes. Prova igen senare.";
 //old
 $txt['EDITNEWSLIST'] = "redigera nyhetslista";
 //old
 $txt['NEWSLISTFOR'] = "Nyhetslista för __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Nyhetslista";
 $txt['NEWSLISTTOPICTITLE'] = "nyhetslista";
+$txt['NEWSLISTSHORTHELP'] = "Nyhetsbrevslistan innehåller adresser till önskade nyhetsbrev.<br />
+                                  Se manualen (i avsnitt <a href=\"help.php\">\"Help\"</a>) för mer information om användningen av nyhetsbrevslistan.
+";
+$txt['NEWSLISTFORADDRESS'] = "Nyhetsbrevslista för adressen";
+$txt['ADDANEWSENTRY'] = "Lägg till en adress till listan";
+$txt['NEWSLISTENTRYTOADD'] = "Ange den adress du vill lägga till i nyhetsbrev listan. Du kan också lägga till en valfri kommentar.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";

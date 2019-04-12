@@ -10,7 +10,7 @@ $txt['NEWSLETTERMODULE'] = "Newsletter";
 $txt['NEWSLETTERSTOPIC'] = "Newsletters";
 $txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
 $txt['NEWSLETTERSSHORTHELP'] = "Ici vous pouvez g&eacute;rer vos newsletters.";
-$txt['NEWSLETTERSALLOW'] = "Delivrer";
+$txt['NEWSLETTERSALLOW'] = "Délivrer";
 $txt['NEWSLETTERACCEPT'] = "Accepter cette lettre d'information";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
 /* 
@@ -455,10 +455,10 @@ $txt['TODAY'] = "Aujourd'hui";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "La liste d'avertissement comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles tout message bloqu&eacute; en 
-\t\t\t\t\t\t\t\t   quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.
-\t\t\t\t\t\t\t\t   Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
-\t\t\t\t\t\t\t\t   Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
-$txt['WARNLISTFORADDRESS'] = "Liste d'avertissement pour l'adresse&nbsp;";
+quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.<br />
+\tAttention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection.
+\tConsultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
+$txt['WARNLISTFORADDRESS'] = "Liste d'avertissement pour l'adresse";
 $txt['ADDAWARNENTRY'] = "Ajouter une adresse &agrave; la liste";
 $txt['WARNLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste d'avertissement. Vous pouvez y associer un commentaire optionnel.";
 $txt['ADDTHEENTRY'] = "&lt; Ajouter l'adresse";
@@ -474,7 +474,7 @@ $txt['BLACKLISTSHORTHELP'] = "La liste noire comporte des adresses d'exp&eacute;
 En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.
 Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste noire de mani&egrave;re avis&eacute;e.
 ";
-$txt['WHITELISTFORADDRESS'] = "Liste blanche pour l'adresse&nbsp;";
+$txt['WHITELISTFORADDRESS'] = "Liste blanche pour l'adresse";
 $txt['BLACKLISTFORADDRESS'] = "Liste noire  pour l'adresse";
 $txt['ADDAWHITEENTRY'] = "Ajouter une adresse &agrave; la liste";
 $txt['WHITELISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste blanche. Vous pouvez y associer un commentaire optionnel.";
