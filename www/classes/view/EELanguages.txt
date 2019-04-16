@@ -10,3 +10,4 @@ pt_BR
 pt_PT
 zh_Hans
 sv
+tr
