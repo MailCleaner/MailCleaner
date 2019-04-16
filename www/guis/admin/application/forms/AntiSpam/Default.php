@@ -75,7 +75,7 @@ class Default_Form_AntiSpam_Default extends ZendX_JQuery_Form
 	    
 	    $maxsize = new  Zend_Form_Element_Text('maxSize', array(
 	        'label'    => $t->_('Maximum message size')." :",
-                'title' => $t->_("Messages below this size limit are not analyzed"),
+                'title' => $t->_("Messages above this size limit are not analyzed"),
 		    'required' => false,
 		    'size' => 8,
 	        'class' => 'fieldrighted',
