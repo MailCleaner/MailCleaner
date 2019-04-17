@@ -23,7 +23,7 @@
      * Definition of possible mail attributes
      * @var array
      */
-     protected $mail_attributes_ = array('mail', 'maildrop', 'mailAlternateAddress', 'mailalternateaddress', 'proxyaddresses', 'proxyAddresses', 'oldinternetaddress', 'oldInternetAddress', 'cn', 'userPrincipalName');
+     protected $mail_attributes_ = array('mail', 'maildrop', 'mailAlternateAddress', 'mailalternateaddress', 'proxyaddresses', 'proxyAddresses', 'oldinternetaddress', 'oldInternetAddress', 'cn', 'userPrincipalName', 'mailPrimaryAddress', 'mailAlternativeAddress');
     
     public function fetch($username, $domain) {
         $settings = $domain->getConnectorSettings();
