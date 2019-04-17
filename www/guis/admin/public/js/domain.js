@@ -8,6 +8,8 @@
 var statusrequest;
 var page;
 
+var userLoadRequest;
+
 $(document).ready(function(){
 	$("#sname").keyup(function(event) {
 		loadsearch($("#sname").val(), 1);
@@ -152,18 +154,21 @@ function loadsearch(searchstring, page) {
 
 function loadsearchurl(url) {
 	$("#resultpanel").html(loadingdomain);
-	statusrequest = $.ajax({
-		  type: "GET",
-		  url: url,
-		  timeout: 10000,
-		  dataType: "html",
-		  success: function(msg){
-            $("#resultpanel").html(msg);
-          },
-          error: function() {
-        	  $("#resultpanel").html('timed out');
-          }
-		});
+	if (userLoadRequest != null || userLoadRequest != undefined) {
+		userLoadRequest.abort();
+	}
+	userLoadRequest = $.ajax({
+		type: "GET",
+		url: url,
+		timeout: 10000,
+		dataType: "html",
+		success: function (msg) {
+			$("#resultpanel").html(msg);
+		},
+		error: function () {
+			$("#resultpanel").html('timed out');
+		}
+	});
 }
 
 function loadurl(url) {
