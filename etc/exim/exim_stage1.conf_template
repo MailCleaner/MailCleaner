@@ -11,7 +11,8 @@ SENDERBLACKLIST = VARDIR/spool/tmp/exim/blacklists/senders
 RECIPIENTBLACKLIST = VARDIR/spool/tmp/exim/blacklists/recipients
 USERBLACKLIST = VARDIR/spool/tmp/exim/blacklists/users
 HOSTBLACKLIST = VARDIR/spool/tmp/exim/blacklists/hosts
-NORBLHOSTS = VARDIR/spool/tmp/exim/rbl_ignore_hosts.cf
+NORBLHOSTS = VARDIR/spool/tmp/exim/rbl_ignore_hosts
+NOSPFDMARCHOSTS = VARDIR/spool/tmp/exim/spf_and_dmarc_ignore_hosts
 ADDRESSESDIR = VARDIR/spool/mailcleaner/addresses
 DKIMFILE = VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list
 FROZENSENDERS = VARDIR/spool/tmp/exim/frozen_senders
@@ -380,7 +381,7 @@ acl_check_rcpt:
 
   deny    domains       = +domains_to_preventspoof
           !authenticated = *
-          !hosts        = <; NORBLHOSTS; +relay_from_hosts
+          !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts
           condition     = ${if eq {$domain}{$sender_address_domain}}
 	  !spf		= pass
           message       = This domain does not accept mail from itself (spoofing)
@@ -532,7 +533,7 @@ __IF__ BSRBL
  __FI__
 __FI__
 __IF__ REJECTBADSPF
-  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
           spf           = fail
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message       = $sender_host_address is not allowed to send mail from ${if eq {$sender_address_domain}{} {(helo)$sender_helo_name}{$sender_address_domain}} (SPF failure)
@@ -635,7 +636,7 @@ __IF__ USETLS
 __FI__
 
   warn    domains       = +relay_to_domains
-          hosts         = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+          hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
           control       = dmarc_disable_verify
  __IF__ DEBUG
           logwrite      = DMARC DEBUG: disabling dmarc from $sender_host_address, sender $sender_address
@@ -856,7 +857,7 @@ acl_check_data:
   	  condition	= ${if ! eq {$sender_address_domain}{${domain:${address:$header_from:}}}}
 	  !spf		= pass
   	  !authenticated = *
-	  !hosts        = <; NORBLHOSTS; +relay_from_hosts
+	  !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS ; +relay_from_hosts
           message       = This domain does not accept mail from itself (from spoofing)
           set acl_c8    = smtp:refused:refused_spoofing
           set acl_c9    = STATSADD

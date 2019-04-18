@@ -38,6 +38,7 @@
           </tr>
           
           <?php echo $this->InputRow($this->form->getElement('rbls_ignore_hosts'),array('label_addclass'=>'flabeltextarea'));?>
+          <?php echo $this->InputRow($this->form->getElement('spf_dmarc_ignore_hosts'),array('label_addclass'=>'flabeltextarea'));?>
           
           <?php echo $this->InputRow($this->form->getElement('rbls_timeout'),array('post_field_text'=>$this->t->_('seconds')));?>
           

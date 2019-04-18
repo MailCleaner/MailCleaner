@@ -72,6 +72,7 @@ CREATE TABLE mta_config (
   reject_bad_rdns       bool NOT NULL DEFAULT '0',
   dmarc_follow_reject_policy   bool NOT NULL DEFAULT '0',
   dmarc_enable_reports  bool NOT NULL DEFAULT '0',
+  spf_dmarc_ignore_hosts blob DEFAULT '',
   PRIMARY KEY (set_id, stage)
 );
 

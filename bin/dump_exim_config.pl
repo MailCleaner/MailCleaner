@@ -99,7 +99,13 @@ my %stage1_conf = get_exim_config($stage) or fatal_error("NOEXIMCONFIGURATIONFOU
 if (!$stage1_conf{'rbls_ignore_hosts'}) {
   $stage1_conf{'rbls_ignore_hosts'} = '';
 }
-dump_rbl_ignore($stage1_conf{'rbls_ignore_hosts'});
+dump_ignore_list($stage1_conf{'rbls_ignore_hosts'}, 'rbl_ignore_hosts');
+
+if (!$stage1_conf{'spf_dmarc_ignore_hosts'}) {
+  $stage1_conf{'spf_dmarc_ignore_hosts'} = '';
+}
+dump_ignore_list($stage1_conf{'spf_dmarc_ignore_hosts'}, 'spf_and_dmarc_ignore_hosts');
+
 
 ## dump the blacklists files
 dump_blacklists();
@@ -740,6 +746,7 @@ sub get_exim_config{
         $config{'__RCPTRBLS__'} = $row{'rbls_after_rcpt'};
         $config{'__RBLTIMEOUT__'} = $row{'rbls_timeout'};
         $config{'rbls_ignore_hosts'} = $row{'rbls_ignore_hosts'};
+        $config{'spf_dmarc_ignore_hosts'} = $row{'spf_dmarc_ignore_hosts'};
         $config{'__BSRBLS__'} = $bsrbl_exim_string;
 
         $config{'__RATELIMIT_ENABLE__'} = $row{'ratelimit_enable'};
@@ -800,10 +807,11 @@ sub get_exim_config{
 }
 
 #############################
-sub dump_rbl_ignore  {
+sub dump_ignore_list  {
    my $ignorehosts = shift;
+   my $filename = shift;
 
-   my $file = $tmpdir."/rbl_ignore_hosts.cf";
+   my $file = $tmpdir.'/'.$filename;
 
    if (open(RBLFILE, ">$file")) {
 
