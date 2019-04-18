@@ -18,6 +18,7 @@ class Default_Model_MtaConfig
        'rbls' => '',
        'rbls_timeout' => 5,
        'rbls_ignore_hosts' => '',
+       'spf_dmarc_ignore_hosts' => '',
        'callout_timeout' => 10,
        'smtp_conn_access' => '*',
        'relay_from_hosts' => '',

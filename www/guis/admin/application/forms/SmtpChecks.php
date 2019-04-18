@@ -135,6 +135,23 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$rblignore->setValue($this->_mta->getParam('rbls_ignore_hosts'));
 		$this->addElement($rblignore);
 	    
+
+
+	    require_once('Validate/SMTPHostList.php');
+		$spf_dmarc_ignore = new Zend_Form_Element_Textarea('spf_dmarc_ignore_hosts', array(
+		      'label'    =>  $t->_('Don\'t check these hosts for SPF or DMARC')." :",
+		      'title'  => $t->_('Bypass RBLs results for these IPs for SPF and DMARC'),
+		      'required'   => false,
+		      'rows' => 5,
+		      'cols' => 30,
+		      'filters'    => array('StringToLower', 'StringTrim')));
+	    $spf_dmarc_ignore->addValidator(new Validate_SMTPHostList());
+		$spf_dmarc_ignore->setValue($this->_mta->getParam('spf_dmarc_ignore_hosts'));
+		$this->addElement($spf_dmarc_ignore);
+
+
+
+
 		$rbllist = new Default_Model_DnsLists();
 		$rbllist->load();
 		foreach ($rbllist->getRBLs('IPRBL') as $rbl) {
@@ -209,6 +226,7 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$mta->setparam('rbls_timeout', $request->getParam('rbls_timeout'));
 		$mta->setparam('callout_timeout', $request->getParam('callout_timeout'));	
 		$mta->setparam('rbls_ignore_hosts', $request->getParam('rbls_ignore_hosts'));
+		$mta->setparam('spf_dmarc_ignore_hosts', $request->getParam('spf_dmarc_ignore_hosts'));
 		
 		$rbllist = new Default_Model_DnsLists();
 		$rbllist->load();
