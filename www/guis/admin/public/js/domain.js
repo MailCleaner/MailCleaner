@@ -8,32 +8,24 @@
 var statusrequest;
 var page;
 
+var userLoadRequest;
+
 $(document).ready(function(){
 	$("#sname").keyup(function(event) {
 		loadsearch($("#sname").val(), 1);
-	});
-	$("#search").keyup(function(event) {
-		loadsearch($("#search").val(), 1);
 	});
 	
 	if ($("#sname").val() == '') {
         $("#sname").attr('class', 'searchempty');
 	    $("#sname").val(defaultsearchstring);
 	}
-	if ($("#search").val() == '') {
-        $("#search").attr('class', 'searchempty');
-	    $("#search").val(defaultsearchstring);
-	}
-	
+
 	
 	$("#sname").click(function(event) {
 		$("#sname").attr('class', '');
 		$("#sname").val('');
 	});
-	$("#search").click(function(event) {
-		$("#search").attr('class', '');
-		$("#search").val('');
-	});
+
 	
 	$("#domainpanel").change(function(event){
 		loadDomainPanel($("#domainpanel").val());
@@ -64,7 +56,6 @@ $(document).ready(function(){
     });
 
 	$("#sname").attr('autocomplete', 'off');
-	$("#search").attr('autocomplete', 'off');
 	
 	setLocalHandlers();
 	
@@ -163,18 +154,21 @@ function loadsearch(searchstring, page) {
 
 function loadsearchurl(url) {
 	$("#resultpanel").html(loadingdomain);
-	statusrequest = $.ajax({
-		  type: "GET",
-		  url: url,
-		  timeout: 10000,
-		  dataType: "html",
-		  success: function(msg){
-            $("#resultpanel").html(msg);
-          },
-          error: function() {
-        	  $("#resultpanel").html('timed out');
-          }
-		});
+	if (userLoadRequest != null || userLoadRequest != undefined) {
+		userLoadRequest.abort();
+	}
+	userLoadRequest = $.ajax({
+		type: "GET",
+		url: url,
+		timeout: 10000,
+		dataType: "html",
+		success: function (msg) {
+			$("#resultpanel").html(msg);
+		},
+		error: function () {
+			$("#resultpanel").html('timed out');
+		}
+	});
 }
 
 function loadurl(url) {
