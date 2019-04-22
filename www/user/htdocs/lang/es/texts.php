@@ -113,7 +113,7 @@ $txt['ANALYSEREQUESTV'] = "Solicitar el ajuste del filtro";
 $txt['SCORETEXT'] = "Resultado: __PARAM__";
 $txt['CLOSEWINDOW'] = "Cerrar la ventana";
 $txt['CURRENTPAGE'] = "P&aacute;gina __PARAM1__ de __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Purificaci&oacute;n autom&aacute;tica despues de:</strong> __PARAM__ days";
+$txt['PURGEINFOS'] = "<strong>Purificaci&oacute;n autom&aacute;tica despues de:</strong> __PARAM__  d&iacute;as";
 $txt['DISPLAYEDINFOS'] = "<strong>Mensajes visibles: </strong> __PARAM1__ &uacute;ltimos d&iacute;as (<a href=\"__PARAM2__\">Modificar...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Mensajes mostrados: </strong> __PARAM__ últimos días. ";
 //old
