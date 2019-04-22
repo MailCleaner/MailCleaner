@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Esconder mensagens liberadas para usuários";
 $txt['FORCESPAM'] = "Liberar a mensagem";
 //old
 $txt['ASKREASON'] = "Mostrar regras de filtros";
-$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.";
+$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.</br>Note: Um ajuste de filtro não é o mesmo que lista branca ou lista negra";
 $txt['AREYOUSURE'] = "<span class=\"question\">Você tem certeza que esta mensagem seja analisada e filtros de ajuste sejam aplicados?</span>";
 $txt['ASKANALYSE'] = "Pedido de ajustamento de filtro";
 $txt['PAGE'] = "Página";
@@ -177,7 +177,7 @@ $txt['GROUPQUARANTINES'] = "Todos os endereços";
  * preview panel
  */
 $txt['INFORMATIONSABOUTMSG'] = "Conteúdo da mensagem";
-$txt['PREFILTERHITS'] = "pré-filtros";
+$txt['PREFILTERHITS'] = "Pré-filtros";
 $txt['BLACKLISTS'] = "Listas Negras";
 $txt['FITLERSCORE'] = "Nota";
 $txt['NONE'] = "nenhum";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Nota de regra";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Prévia da mensagem";
+$txt['MESSAGEPREVIEW'] = "Exibir conteúdos da mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
@@ -212,7 +212,7 @@ $txt['FILTERACTIONTITLE'] = "Modo de processamento de Spam";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "Configuração do relatório da quarentena";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Grupo de endereços pessiais: (__PARAM__ endereço(s))";
+$txt['ADDRESSESLISTTITLE'] = "Grupo de endereços pessoais: (__PARAM__ endereço(s))";
 //old
 $txt['APPLYALLADDRESSES'] = "Aplicar mudanças a todos os endereços";
 //old
@@ -224,7 +224,7 @@ $txt['PUTINQUARANTINE'] = "quarentena";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
-$txt['QUARBOUNCES'] = "Sistematicamente colocar em quarentena mensagens de error de entrega de e-mail";
+$txt['QUARBOUNCES'] = "Sistematicamente colocar em quarentena mensagens de erro de entrega de e-mail";
 //old
 $txt['DROP'] = "descartar";
 //old
@@ -292,7 +292,7 @@ $txt['REMALIASTITLE'] = "Remoção de endereço";
 //old
 $txt['REMALIASCONFIRM'] = "Tem certeza de que deseja remover o endereço: __PARAM__?";
 $txt['ALIASREMOVED'] = "O endereço __PARAM__ foi removido.";
-$txt['CANNOTREMOVEMAINADD'] = "O endreço __PARAM__ é o endereço principal. Não pode ser removido.";
+$txt['CANNOTREMOVEMAINADD'] = "O endereço __PARAM__ é o endereço principal. Não pode ser removido.";
 /*
  * statistics page
  */
@@ -315,12 +315,12 @@ $txt['DATESTART'] = "De";
 $txt['DATESTOP'] = "para";
 $txt['STATFORADDRESS'] = "Estatística de atividades para: <strong>__PARAM__</strong>";
 $txt['RECEIVEDMESSAGES'] = "Mensagens recebidas";
-$txt['RECEIVEDVIRUS'] = "Viruses e mensagens perigosas";
+$txt['RECEIVEDVIRUS'] = "Vírus e mensagens perigosas";
 $txt['RECEIVEDSPAM'] = "Mensagens de Spam";
 $txt['RECEIVEDCLEAN'] = "Mensagens limpas";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ mensagens recebidas";
 $txt['GLOBALSTATSTITLE'] = "Resumo de todas as mensagens";
-$txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ para __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
@@ -364,8 +364,8 @@ $txt['INTRODUCTIONTOPIC'] = 'Introdução';
 $txt['INTRODUCTIONTOPICTITLE'] = 'introdução';
 $txt['FIRSTCONTACTTOPIC'] = "Guia rápido";
 $txt['FIRSTCONTACTTOPICTITLE'] = "guia rápido";
-$txt['ADDRESSESTOPIC'] = "Endereço útil";
-$txt['ADDRESSESTOPICTITLE'] = "endereço útil";
+$txt['ADDRESSESTOPIC'] = "Endereços úteis";
+$txt['ADDRESSESTOPICTITLE'] = "endereços úteis";
 $txt['PLUGINTOPIC'] = "Plug-in do Outlook";
 $txt['PLUGINTOPICTITLE'] = "Plug-in do Outlook";
 $txt['MOREHELPTOPIC'] = "Manual completo";
@@ -400,7 +400,7 @@ $txt['BLACKLISTTOPICTITLE'] = "Lista negra";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Gravar";
+$txt['SAVE'] = "Salvar";
 $txt['CHOOSETHISLANG'] = "Use o Inglês como língua principal";
 $txt['CHOOSELANGUAGE'] = "Seleção de Linguagem";
 /*
@@ -411,7 +411,7 @@ $txt['ADDANADDRESS'] = "Adicionar um endereço a um grupo";
 $txt['ADDTHEADDRESS'] = "&lt; Adicionar um endereço a um grupo";
 $txt['ADDANADDRESSSHORTHELP'] = "Insira o endereço que deseja adicionar.";
 $txt['REMANADDRESS'] = "Remover um ou mais endereço(s) do grupo";
-$txt['REMTHEADDRESS'] = "Remover um ou mais endereço(s) do grupo";
+$txt['REMTHEADDRESS'] = "Remover selecionados";
 $txt['REMANADDRESSSHORTHELP'] = "Marque a caixa ao lado de cada endereço que você deseja remover e clique no botão Remover.";
 $txt['WAITINGCONFIRMATION'] = "aguarde confirmação";
 /*
@@ -423,8 +423,8 @@ $txt['FOREACHNEWSLETTERDO'] = "Para cada mensagem detectada como boletim informa
 $txt['KEEPMESSAGEINQUARANTINE'] = "reter na quarentena";
 $txt['TAGMESSAGEWITHTAG'] = "entregar com o assunto palavra-chave";
 $txt['DROPMESSAGE'] = "excluir imediatamente";
-$txt['SUMMARYSENTFREQ'] = "Frequência dos relatório de quarentena";
-$txt['SUMMARYFORMAT'] = "Formato dos relatório de quarentena";
+$txt['SUMMARYSENTFREQ'] = "Frequência dos relatórios de quarentena";
+$txt['SUMMARYFORMAT'] = "Formato dos relatórios de quarentena";
 $txt['SUMMARYTO'] = "Enviar relatórios para este endereço";
 $txt['OTHER'] = "outro…";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar configurações a todos os endereços";
@@ -459,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Desabilitar, habilitar ou remover um endereço da lista
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
 $txt['REMTHEENTRY'] = "Remover a seleção";
 $txt['DISABLETHEENTRY'] = "Desabilitar/habilitar a seleção";
-$txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.
-<br/>Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
-Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca. 
+$txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.<br />
+                                   Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+                                  Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereço do remetente.
 Verifique o manual (disponível na seção <a href=\"help.php\"> \"Ajuda\"</a>) para obter mais informações sobre o uso da lista negra.
