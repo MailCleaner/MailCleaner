@@ -66,7 +66,7 @@ $txt['BADLOGIN'] = "Utilizador ou Palavra passe incorreta.";
 $txt['SESSIONEXPIRED'] = "A sessão expirou.";
 $txt['LOGININFO'] = "Dica: O seu utilizador e palavra passe são os mesmos da conta de email";
 $txt['USERNAME'] = "Utilizador";
-$txt['PASSWORD'] = "Palavra passe";
+$txt['PASSWORD'] = "Palavra-passe";
 //old
 $txt['ASKLOGIN'] = "Por favor introduza o seu utilizador e palavra passe:";
 $txt['ORGANIZATIONUNIT'] = "Unidade organizacional";
@@ -112,7 +112,7 @@ $txt['ANALYSEREQUESTV'] = "Pedir ajuste de filtro";
 $txt['SCORETEXT'] = "Pontuação: __PARAM__";
 $txt['CLOSEWINDOW'] = "Fechar a janela";
 $txt['CURRENTPAGE'] = "Página __PARAM1__ de __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Esvaziar automaticamente após:</strong> __PARAM__ days";
+$txt['PURGEINFOS'] = "<strong>Esvaziar automaticamente após:</strong> __PARAM__ dias";
 $txt['DISPLAYEDINFOS'] = "<strong>Mensagens visualizadas: </strong> __PARAM1__ últimos dias (<a href=\"__PARAM2__\">Modificar...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Mensagens visualizadas: </strong> __PARAM__ last days. ";
 //old
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Pontuação das regras";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Pré-visualização da mensagem";
+$txt['MESSAGEPREVIEW'] = "Mostrar os conteúdos da mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
@@ -280,7 +280,7 @@ $txt['ADDADDRESSALT'] = "adiconar um endereço";
 $txt['BADADDRESSFORMAT'] = "O endereço fornecido é inválido. Por favor tente novamente.";
 $txt['NOTFILTEREDDOMAIN'] = "Este domínio não é filtrado pelo MailCleaner. Não foi possível adicionar o endreço.";
 $txt['ALIASALREADYREGISTERD'] = "Este endereço já está a ser usado por uma conta do MailCleaner. Não foi possível adicioná-lo.";
-$txt['ALIASALREADYPENDING'] = "Uma confimarção já está pendente para este endereço.";
+$txt['ALIASALREADYPENDING'] = "Já está pendente uma confirmação para este endereço.";
 $txt['ALIASPENDING'] = "Foi enviada uma confirmação para este endereço.<br/> Por razões de segurança o endereço só será adicionado se for confirmado no prazo de 24 horas.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Pedido de adição de endereço";
 $txt['ALIASERRORSENDIG'] = "Não foi possível enviar o pedido devido a um erro interno. Por favor tente mais tarde.";
@@ -364,8 +364,8 @@ $txt['INTRODUCTIONTOPIC'] = 'Introdução';
 $txt['INTRODUCTIONTOPICTITLE'] = 'introdução';
 $txt['FIRSTCONTACTTOPIC'] = "Guia rápido";
 $txt['FIRSTCONTACTTOPICTITLE'] = "guia rápido";
-$txt['ADDRESSESTOPIC'] = "Endereços uteis";
-$txt['ADDRESSESTOPICTITLE'] = "endereços uteis";
+$txt['ADDRESSESTOPIC'] = "Endereços úteis";
+$txt['ADDRESSESTOPICTITLE'] = "endereços úteis";
 $txt['PLUGINTOPIC'] = "Plugin para Outlook";
 $txt['PLUGINTOPICTITLE'] = "Plugin para Outlook";
 $txt['MOREHELPTOPIC'] = "Manual completo";
@@ -400,13 +400,13 @@ $txt['BLACKLISTTOPICTITLE'] = "lista negra";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Gravar";
+$txt['SAVE'] = "Guardar";
 $txt['CHOOSETHISLANG'] = "Usar o Inglês como idioma principal";
 $txt['CHOOSELANGUAGE'] = "Escolher idioma";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "Este grupo contem todos os endereços e aliases que pretende gerir através desta conta. Pode assim aceder de forma centralizada às suas estatísticas, quarentena e definições com as suas credenciais atuais.";
+$txt['ADDLISTSHORTHELP'] = "Este grupo contém todos os endereços e aliases que pretende gerir através desta conta. Pode assim aceder de forma centralizada às suas estatísticas, quarentena e definições com as suas credenciais atuais.";
 $txt['ADDANADDRESS'] = "Adicionar um endereço a um grupo";
 $txt['ADDTHEADDRESS'] = "&lt; Adicionar o endereço ao grupo";
 $txt['ADDANADDRESSSHORTHELP'] = "Introduza o endereço que quer adicionar.";
@@ -449,7 +449,7 @@ $txt['TODAY'] = "Hoje";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "A lista de aviso contém endereços de remetentes confiados dos quais quer ser avisado por email sempre que uma mensagem seja detetada como spam. Pode então de forma imediata libertar a mensagem em caso de ser um erro de filtragem.<br />
-\t\t\t\t\t\t\t\t   Aviso: esta funcionalidade de ser usada como solução temporária já que reduz a proteção global.
+\t\t\t\t\t\t\t\t   Aviso: esta funcionalidade deve ser usada como solução temporária já que reduz a proteção global.
 \t\t\t\t\t\t\t\t   Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas de aviso. ";
 $txt['WARNLISTFORADDRESS'] = "Lista de aviso para o endereço";
 $txt['ADDAWARNENTRY'] = "Adicionar um endereço à lista";
@@ -459,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Desativar, ativar ou remover um endereço da lista";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selecionar da lista o endereço ou endereços que deseja modificar e carregue no botão da ação desejada.";
 $txt['REMTHEENTRY'] = "Remover selecionados";
 $txt['DISABLETHEENTRY'] = "Desativar/ativar selecionados";
-$txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetentes confiados para os quais nunca será feita retenção na quarentena.<br />
-                                   Aviso: esta funcionalidade de ser usada como solução temporária já que reduz a proteção global.
-                                  Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas brancas. 
+$txt['WHITELISTSHORTHELP'] = "A lista branca contém endereços de remetente confiáveis para os quais nenhuma retenção de quarentena jamais ocorrerá.<br />
+                                   Aviso: esta funcionalidade deve ser utilizada como uma solução temporária, uma vez que diminui a proteção global.
+                                  Verifique o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para obter mais informações sobre o uso da lista branca. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "A lista negra contém endereços de remetentes não permitidos.
                                   Consulte o manual (disponível na secção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso de listas negras.
