@@ -75,8 +75,8 @@ $txt['PASSWORDRESET'] = "Lösenordet har återställts. Det har skickats till di
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
+$txt['CONFIGURATIONMENU'] = "Konfiguration";
+$txt['HELPMENU'] = "Hjälp";
 $txt['QUARANTINEMENU'] = "Karantän";
 $txt['STATISTICSMENU'] = "Statistik";
 $txt['LOGOUT'] = "Logga ut";
@@ -114,7 +114,7 @@ $txt['CLOSEWINDOW'] = "Stäng fönstret";
 $txt['CURRENTPAGE'] = "Sida __PARAM1__ av __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatisk rensning efter:</strong> __PARAM__ dagar";
 $txt['DISPLAYEDINFOS'] = "<strong>Meddelande visade: </strong> __PARAM1__ senare dagarna (<a href=\"__PARAM2__\">Modifiera…</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Meddelande visade: </strong> __PARAM__ senare dagarna. ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Meddelande visade: </strong> __PARAM__ senaste dagarna. ";
 //old
 $txt['QUARANTINETITLE'] = "Karantänlista för __PARAM__";
 //old
@@ -125,14 +125,14 @@ $txt['ADVANCEDSEARCH'] = "avancerad sökning";
 $txt['SHOWEDMESSAGES'] = "visade meddelanden";
 //old
 $txt['COMINGFROM'] = "avsändare";
-$txt['DATE'] = "Date";
+$txt['DATE'] = "Datum";
 $txt['HOUR'] = "Tid";
 $txt['FROM'] = "Från";
 $txt['TO'] = "To";
 $txt['SUBJECT'] = "Ämne";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Publicerat";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "Levererat";
+$txt['ACTION'] = "Verkställ";
 //old
 $txt['TOTALSPAMS'] = "Totalt: __PARAM__ skräpmeddelande(n)";
 //old
@@ -141,7 +141,7 @@ $txt['PURGESELECTEDSPAMS'] = "Rensa karantänen manuellt";
 //old
 $txt['HIDEFORCED'] = "Göm användarrelaterade meddelanden";
 //old
-$txt['FORCESPAM'] = "publicera meddelandet";
+$txt['FORCESPAM'] = "leverera meddelandet";
 //old
 $txt['ASKREASON'] = "visa filtreringsregler";
 $txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats";
