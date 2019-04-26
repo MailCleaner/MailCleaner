@@ -452,7 +452,7 @@ public function setReplacements($template, $replace) {
      'SUBJECT' => $this->getCleanData('M_subject'),
      'PREFILTERHITS' => $this->displayGlobalValue($this->getData('M_prefilter')),
      'BLACKLISTS' => $this->displayGlobalValue($this->getData('M_rbls')),
-     'FITLERSCORE' => $this->displayGlobalValue($this->getData('M_rbls')),
+     'FITLERSCORE' => $this->displayGlobalValue($this->getData('M_score')),
      'PARTS' => $this->getMIMEPartsType(),
      'STORESLAVE' => $this->getData('store_slave')
   );
