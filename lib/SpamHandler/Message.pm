@@ -436,6 +436,7 @@ sub loadScores {
 		#print "FOUND PreRBLS: ".$this->{sc_prerbls}."\n";
 	}
 	if ( $line =~ /Spamc \(score=([\d.]+)/ ) {
+		$this->{sc_spamc} = $1;
 		if ( int( $this->{sc_spamc} ) >= 5 )  {
 			$this->{sc_global}++;
 			$this->{prefilters} .= ", SpamC";
