@@ -6,9 +6,9 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
+$txt['NEWSLETTERMODULE'] = "Nyhedsbrev";
+$txt['NEWSLETTERSTOPIC'] = "Nyhedsbreve";
+$txt['NEWSLETTERSTOPICTITLE'] = "Nyhedsbreve";
 $txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
 $txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
