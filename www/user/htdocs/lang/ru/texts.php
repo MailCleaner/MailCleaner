@@ -132,7 +132,7 @@ $txt['HIDEFORCED'] = "Скрыть освобожденные сообщения
 $txt['FORCESPAM'] = "освободить сообщение";
 //old
 $txt['ASKREASON'] = "отобразить правила фильтрации";
-$txt['CONFSENDANALYSE'] = "Запрос корректировки фильтра будет отправлен в MailCleaner Analysis Center; он будет включать копию сообщения, которое было неправильно заблокировано.</br>Замечание: Корректирующий фильтр не идентичен Черному и Белому спискам";
+$txt['CONFSENDANALYSE'] = "Запрос на корректировку фильтра будет отправлен в MailCleaner Analysis Center; данный запрос будет содержать копию письма, которое было ошибочно заблокировано.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Вы уверены, что фильтры должны быть скорректированы на основе анализа этого сообщения?</span>";
 $txt['ASKANALYSE'] = "Запрос на корректировку фильтра";
 $txt['PAGE'] = "Страница";
@@ -177,7 +177,7 @@ $txt['QUARANTINEPURGE'] = "Очистка карантина вручную";
 $txt['GROUPQUARANTINES'] = "Все адреса";
 $txt['PREFILTERHITS'] = "Префильтры";
 $txt['BLACKLISTS'] = "Блэклисты";
-$txt['FITLERSCORE'] = "Балл";
+$txt['FITLERSCORE'] = "Score";
 $txt['HEADERS'] = "Заголовки";
 $txt['BODY'] = "Тело";
 $txt['DESCRIPTION'] = "Описание";
@@ -255,3 +255,63 @@ $txt['WWENTRY'] = "Запись";
 $txt['CONFIRMWWENTRYDELETE'] = "Вы действительно хотите удалить эту запись навсегда?";
 $txt['DISPLAYEDINFOS'] = "<strong>Сообщений показано: </strong> за __PARAM1__ дней (<a href=\"__PARAM2__\">Изменить…</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Сообщений показано: </strong> __PARAM__ недавние. ";
+//old
+$txt['QUARANTINETITLE'] = "Список карантина для __PARAM__";
+$txt['PARTS'] = "Части";
+$txt['STORESLAVE'] = "Хранилище";
+//old
+$txt['MAIN'] = "основной";
+//old
+$txt['DROP'] = "отброшено";
+$txt['SUMMHTML'] = "HTML";
+//old
+$txt['WHITELISTFOR'] = "Белый список для __PARAM__";
+//old
+$txt['STATUS'] = "Статус";
+//old
+$txt['ADDALIASFORM'] = "Адрес";
+//old
+$txt['REMADDRESSALT'] = "удалить адрес";
+//old
+$txt['ADDADDRESSALT'] = "добавить адрес";
+$txt['BADADDRESSFORMAT'] = "Данный адрес недействителен. Пожалуйста, попробуйте еще раз.";
+$txt['NOTFILTEREDDOMAIN'] = "Этот домен не фильтруется MailCleaner. Адрес не может быть добавлен.";
+$txt['ALIASALREADYREGISTERD'] = "Этот адрес уже используется в учетной записи MailCleaner. Он не может быть добавлен.";
+$txt['ALIASALREADYPENDING'] = "Ожидается подтверждение этого адреса.";
+$txt['ALIASPENDING'] = "На данный адрес отправлено подтверждение.<br/> В целях безопасности адрес будет добавлен только после подтверждения запроса в течение 24 часов.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Запрос на добавление адреса";
+$txt['ALIASERRORSENDIG'] = "Запрос не может быть отправлен из-за внутренней ошибки. Пожалуйста, повторите запрос позже.";
+$txt['ALIASNOTPENDING'] = "В данный момент нет запросов на этот адрес.";
+$txt['ALIASADDED'] = "Адрес был добавлен.";
+$txt['ALIASREQUESTREMOVED'] = "Запрос был отменен.";
+//old
+$txt['REMALIASTITLE'] = "Удаление адреса";
+//old
+$txt['REMALIASCONFIRM'] = "Вы уверены, что хотите удалить адрес: __PARAM__?";
+$txt['ALIASREMOVED'] = "Адрес __PARAM__ был удален.";
+$txt['CANNOTREMOVEMAINADD'] = "Адрес __PARAM__ является основным и не может быть удалён.";
+/*
+ * statistics page
+ */
+//old
+$txt['USERSTATS'] = "Статистика";
+//old
+$txt['USERMESGSSTAT'] = "__PARAM__ полученные сообщения";
+//old
+$txt['USERSPAMSSTAT'] = "__PARAM__ спам";
+//old
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ опасные";
+//old
+$txt['USERCLEANSTAT'] = "__PARAM__ чистые";
+$txt['ALL'] = "все…";
+$txt['SEARCHPERIOD'] = "Анализируемый период";
+$txt['LASTDAYS'] = "последних дней";
+$txt['LASTMONTHS'] = "последних месяцев";
+$txt['LASTYEARS'] = "последних лет";
+$txt['DATESTART'] = "От";
+$txt['DATESTOP'] = "к";
+$txt['STATFORADDRESS'] = "Статистика активности для: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Сообщений получено";
+$txt['RECEIVEDSPAM'] = "Спам-сообщения";
+$txt['NONE'] = "none";
+$txt['SPAMCSCORE'] = "Rules score";
