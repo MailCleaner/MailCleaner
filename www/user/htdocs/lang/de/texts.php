@@ -67,7 +67,7 @@ $txt['MONTH12'] = 'Dezember';
  */
 $txt['BADLOGIN'] = "Benutzername oder Passwort falsch.";
 $txt['SESSIONEXPIRED'] = "Die Sitzung ist abgelaufen.";
-$txt['LOGININFO'] = "Erinnerung: Ihr Benutzername und Ihr Passwort sind identisch mit denen Ihres E-Mail-Kontos.";
+$txt['LOGININFO'] = "Erinnerung: Ihr Benutzername und Ihr Passwort sind identisch mit denen Ihres E-Mail-Kontos";
 $txt['USERNAME'] = "Benutzername";
 $txt['PASSWORD'] = "Passwort";
 // old
@@ -147,7 +147,7 @@ $txt['HIDEFORCED'] = "Bereits freigegebene Meldungen ausblenden";
 $txt['FORCESPAM'] = "Meldung freigeben";
 // old
 $txt['ASKREASON'] = "Filterregeln anzeigen";
-$txt['CONFSENDANALYSE'] = "Ein Begehren um Anpassung des Filters und, zus&auml;tzlich, eine Kopie der Meldung, welche Ihrer Meinung nach, falsch gefiltert wurde, werden an das Analysezentrum von MailCleaner gesendet.";
+$txt['CONFSENDANALYSE'] = "Ein Antrag auf Filteranpassung wird an das MailCleaner Analysis Center gesendet; er enthält eine Kopie der Nachricht, die fälschlicherweise blockiert wurde.</br>Hinweis: Eine Filteranpassung ist nicht dasselbe wie Whitelisting oder Blacklisting";
 $txt['AREYOUSURE'] = "<span class=\"Frage\">W&uuml;nschen Sie wirklich die Analyse der Meldung und dass entsprechende Filterungsanpassungen angewendet werden ?</span>";
 $txt['ASKANALYSE'] = "Filteranpassung anfordern";
 $txt['PAGE'] = "Seite";
@@ -190,7 +190,7 @@ $txt['PARTS'] = "Teile";
 $txt['STORESLAVE'] = "Speicherung";
 $txt['SPAMCSCORE'] = "Regelwertung";
 $txt['DESCRIPTION'] = "Beschreibung";
-$txt['MESSAGEPREVIEW'] = "Vorschau der Meldung";
+$txt['MESSAGEPREVIEW'] = "Inhalt der Nachricht anzeigen";
 $txt['ID'] = "Erkennung";
 /*
  * logout page
@@ -493,3 +493,16 @@ $txt['NLRELEASEDHEAD'] = "Newsletter wurde abonniert und gesendet.";
 $txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in wenigen Minuten in Ihrem E-Mail-Postfach liegen.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
 $txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
+//old
+$txt['EDITNEWSLIST'] = "Newsliste bearbeiten";
+//old
+$txt['NEWSLISTFOR'] = "Newslist für __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Newslist";
+$txt['NEWSLISTTOPICTITLE'] = "Newslist";
+$txt['NEWSLISTSHORTHELP'] = "Die Newsletter-Liste enthält Adressen der gewünschten Newsletter.<br />
+                                  Weitere Informationen zur Verwendung der Newsletterliste finden Sie im Handbuch (verfügbar im Abschnitt <a href=\"help.php\">\"Help\"</a>).
+";
+$txt['NEWSLISTFORADDRESS'] = "Newsletter-Liste für die Adresse";
+$txt['ADDANEWSENTRY'] = "Eine Adresse zur Liste hinzufügen";
+$txt['NEWSLISTENTRYTOADD'] = "Geben Sie die Adresse ein, die Sie in die Newsletterliste aufnehmen möchten. Sie können auch einen optionalen Kommentar hinzufügen.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Wählen Sie die Adresse oder die Adressen, die Sie ändern möchten, aus der Liste aus und klicken Sie auf die gewünschte Aktionsschaltfläche.";
