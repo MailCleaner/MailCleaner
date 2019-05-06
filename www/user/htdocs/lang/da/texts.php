@@ -10,14 +10,14 @@ $txt['NEWSLETTERMODULE'] = "Nyhedsbrev";
 $txt['NEWSLETTERSTOPIC'] = "Nyhedsbreve";
 $txt['NEWSLETTERSTOPICTITLE'] = "Nyhedsbreve";
 $txt['NEWSLETTERSSHORTHELP'] = "Her kan du håndtere nyhedsbreve";
-$txt['NEWSLETTERSALLOW'] = "lever";
+$txt['NEWSLETTERSALLOW'] = "levere";
 $txt['NEWSLETTERACCEPT'] = "Accepter dette nyhedsbrev";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
 /*
  * generic buttons
  */
 $txt['SUBMIT'] = "Aktiver";
-$txt['CANCEL'] = "Fortryd";
+$txt['CANCEL'] = "Annuller";
 $txt['CLOSE'] = "Luk";
 // old
 $txt['ADD'] = "tilføj";
@@ -34,7 +34,7 @@ $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
-$txt['DATEFORMAT'] = "_D__M__Y_";
+$txt['DATEFORMAT'] = "_D__M__Å_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
@@ -48,44 +48,44 @@ $txt['MONTHAB10'] = 'Okt.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
 $txt['MONTH1'] = 'Januar';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
+$txt['MONTH2'] = 'Februar';
+$txt['MONTH3'] = 'Marts';
 $txt['MONTH4'] = 'April';
 $txt['MONTH5'] = 'Maj';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
+$txt['MONTH6'] = 'Juni';
+$txt['MONTH7'] = 'Juli';
 $txt['MONTH8'] = 'August';
 $txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
+$txt['MONTH10'] = 'Oktober';
 $txt['MONTH11'] = 'November';
 $txt['MONTH12'] = 'December';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Forkert brugernavn eller password";
+$txt['BADLOGIN'] = "Forkert brugernavn eller adgangskode.";
 $txt['SESSIONEXPIRED'] = "Session udløbet.";
 $txt['LOGININFO'] = "Husk: Dit brugernavn og password er det samme som din mailkonto";
 $txt['USERNAME'] = "Brugernavn";
-$txt['PASSWORD'] = "Password";
+$txt['PASSWORD'] = "Adgangskode";
 //old
-$txt['ASKLOGIN'] = "Indtast venligst dit brugernavn og adgangskode:";
+$txt['ASKLOGIN'] = "Indtast venligst dit Brugernavn og adgangskode:";
 $txt['ORGANIZATIONUNIT'] = "Organisationsenhed";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "Adgangskoden er nulstillet og der er sendt til din e-mail-adresse.";
+$txt['FORGOTPASSWORD'] = "Mistet password?";
+$txt['PASSWORDRESET'] = "Adgangskoden er nulstillet og der er sendt til en  mail din e-mail-adresse.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
+$txt['CONFIGURATIONMENU'] = "Konfiguration";
+$txt['HELPMENU'] = "Hjælp";
 $txt['QUARANTINEMENU'] = "Karantæne";
-$txt['STATISTICSMENU'] = "Statistics";
+$txt['STATISTICSMENU'] = "Statistikker";
 $txt['LOGOUT'] = "Log ud";
 //old
 $txt['LOGGEDAS'] = "du er logget ind som:";
 // old
 $txt['MAINADDRESS'] = "den primære adresse";
 $txt['PARAMETERS'] = "Indstillinger";
-$txt['QUARANTINE'] = "Quarantine";
+$txt['QUARANTINE'] = "Karantæne";
 $txt['NAVSUPPORT'] = "Support";
 /*
  * quarantaine
@@ -93,7 +93,7 @@ $txt['NAVSUPPORT'] = "Support";
 $txt['SELECTEDADDRESS'] = "Adresse, der vises";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
+$txt['ORDEREDBYPARAM'] = "sorteret efter __PARAM__";
 $txt['RESETSEARCH'] = "Vis hele karantænelisten";
 $txt['ODATE'] = "date";
 $txt['OTIME'] = "tid";
@@ -104,13 +104,13 @@ $txt['OSCORE'] = "score";
 $txt['OSUBJECT'] = "emne";
 //old
 $txt['CRITERIAS'] = "Filter regler";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['FORCEMESSAGE'] = "Frigiv beskeden";
+$txt['MESSAGEFORCING'] = "Besked frigivelse";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Anmodning om filterjustering";
 $txt['ANALYSEREQUESTV'] = "Anmod om filterjustering";
 $txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Luk vinduet";
+$txt['CLOSEWINDOW'] = "Luk dette vindue";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
@@ -125,19 +125,19 @@ $txt['ADVANCEDSEARCH'] = "avanceret søgning";
 $txt['SHOWEDMESSAGES'] = "viste meddelelser";
 //old
 $txt['COMINGFROM'] = "afsender";
-$txt['DATE'] = "Date";
+$txt['DATE'] = "Dato";
 $txt['HOUR'] = "Tid";
 $txt['FROM'] = "Fra";
-$txt['TO'] = "To";
+$txt['TO'] = "Til";
 $txt['SUBJECT'] = "Emne";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Udgivet";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "Frigivet";
+$txt['ACTION'] = "Handling";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['PURGESELECTEDSPAMS'] = "Manuel sletning af mails i karantæne";
 //old
 $txt['HIDEFORCED'] = "Hide user-released messages";
 //old
@@ -146,48 +146,48 @@ $txt['FORCESPAM'] = "frigiv beskeden";
 $txt['ASKREASON'] = "Vis filterregler";
 $txt['CONFSENDANALYSE'] = "Et filter justering anmodning vil blive sendt til MailCleaner analyse Center; Det omfatter en kopi af den meddelelse, der var fejlagtigt blokeret.</br> Bemærk: En justering af filteret er ikke det samme som whitelisting eller sortlistning";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
-$txt['ASKANALYSE'] = "Filter adjustment request";
-$txt['PAGE'] = "Page";
+$txt['ASKANALYSE'] = "Anmodning om filterjustering";
+$txt['PAGE'] = "Side";
 $txt['NEXTPAGE'] = "Næste";
-$txt['PREVIOUSPAGE'] = "Forrige";
+$txt['PREVIOUSPAGE'] = "Tidligere";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
+$txt['GETREASONSTITLE'] = "Årsag til filtrering";
 $txt['HITRULE'] = "Regel";
 $txt['SCORE'] = "Score";
-$txt['TOTAL'] = "Total";
+$txt['TOTAL'] = "Samlede";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
+$txt['SENDANALYSETITLE'] = "Anmodning om filterjustering";
 $txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
-$txt['SENDSUM'] = "Manually send the quarantine report";
+$txt['SENDSUMTITLE'] = "Send karantæne rapporten manuelt";
+$txt['SENDSUM'] = "Send karantæne rapporten manuelt";
 $txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
 $txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
-$txt['SUMMARYSENDING'] = "Quarantine report transmission";
-$txt['PURGETITLE'] = "Manually purge the quarantine";
+$txt['SUMMARYSENDING'] = "Overførsel af karantæne rapport";
+$txt['PURGETITLE'] = "Manuel sletning af mails i karantæne";
 $txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
 $txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
 $txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['QUARANTINEPURGE'] = "Manuel rensning af karantæne";
+$txt['GROUPQUARANTINES'] = "Alle adresser";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
-$txt['PREFILTERHITS'] = "Pre-filters";
+$txt['INFORMATIONSABOUTMSG'] = "Meddelelsens indhold";
+$txt['PREFILTERHITS'] = "Præfiltre";
 $txt['BLACKLISTS'] = "Blacklists";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "Headers";
 $txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
+$txt['PARTS'] = "Dele";
+$txt['STORESLAVE'] = "Lager";
 $txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['DESCRIPTION'] = "Beskrivelse";
+$txt['MESSAGEPREVIEW'] = "Vise indholdet af beskeden";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -197,71 +197,71 @@ $txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "Personlige MailCleaner-indstillinger";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Brugerindstillinger";
 //old
 $txt['ADDRESSPARAM'] = "Address settings";
 //old
-$txt['LANGUAGE'] = "Language";
+$txt['LANGUAGE'] = "Sprog";
 $txt['ADDRESS'] = "Address";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "Adressegruppe";
 //old
 $txt['FILTERACTIONTITLE'] = "Spam processing mode";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "Indstillinger for karantæne rapport";
 //old
 $txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "Anvend ændringer på alle adresser";
 //old
 $txt['MAIN'] = "main";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "Behandler spam";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "karantæne";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "Systematisk karantæne e-mail-levering fejlmeddelelser";
 //old
 $txt['DROP'] = "drop";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Tag - nøgleord";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
-$txt['NOSUMMARY'] = "No report";
+$txt['SUMMARYFREQ'] = "Rapportens leverings frekvens";
+$txt['DAILY'] = "Daglig";
+$txt['WEEKLY'] = "Ugentlig";
+$txt['MONTHLY'] = "Månedlig";
+$txt['NOSUMMARY'] = "Ingen rapport";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
+$txt['SUMMARYTYPE'] = "Rapportformat";
+$txt['USEDEFAULT'] = "brug standard";
 $txt['SUMMHTML'] = "HTML";
-$txt['SUMMTEXT'] = "plaintext";
+$txt['SUMMTEXT'] = "alm.  tekst";
 //old
-$txt['EDITWHITELIST'] = "edit whitelist";
+$txt['EDITWHITELIST'] = "rediger whitelist";
 //old
-$txt['EDITWARNLIST'] = "edit warnlist";
+$txt['EDITWARNLIST'] = "rediger advarselsliste";
 //old
-$txt['EDITNEWSLIST'] = "edit newslist";
+$txt['EDITNEWSLIST'] = "redigere nyhedsliste";
 /*
  * wwlist management
  */
 //old
 $txt['SENDER'] = "Afsender";
-$txt['COMMENT'] = "Comment";
+$txt['COMMENT'] = "Kommentar";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "Handling";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "aktiv";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "inaktive";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "Indgang";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "Er du sikker på, at du vil slette denne post permanent?";
 //old
 $txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
 //old
@@ -274,25 +274,25 @@ $txt['STATUS'] = "Status";
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "Tilføj en adresse";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "Adresse";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "slet en adresse";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
+$txt['ADDADDRESSALT'] = "tilføj en adresse";
+$txt['BADADDRESSFORMAT'] = "Den angivne adresse er ugyldig. Prøv venligst igen.";
 $txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
 $txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
+$txt['ALIASALREADYPENDING'] = "Der afventer allerede en bekræftelse for denne adresse.";
 $txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ALIASERRORSENDIG'] = "Anmodningen kunne ikke sendes på grund af en intern fejl. Prøv igen senere.";
+$txt['ALIASNOTPENDING'] = "Der er ingen ventende anmodninger for denne adresse.";
+$txt['ALIASADDED'] = "Adressen er blevet tilføjet.";
+$txt['ALIASREQUESTREMOVED'] = "Anmodningen er annulleret.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Fjernelse af adresse";
 //old
 $txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
 $txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
@@ -301,7 +301,7 @@ $txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cann
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "Statistik";
 //old
 $txt['USERMESGSSTAT'] = "__PARAM__ received messages";
 //old
@@ -310,53 +310,53 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all…";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
+$txt['ALL'] = "alle…";
+$txt['SEARCHPERIOD'] = "Analyserede periode";
+$txt['LASTDAYS'] = "sidste dage";
+$txt['LASTMONTHS'] = "seneste måneder";
+$txt['LASTYEARS'] = "seneste år";
+$txt['DATESTART'] = "Fra";
+$txt['DATESTOP'] = "til";
 $txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
+$txt['RECEIVEDMESSAGES'] = "Modtagne meddelelser";
+$txt['RECEIVEDVIRUS'] = "Vira og farlige meddelelser";
+$txt['RECEIVEDSPAM'] = "Spam-beskeder";
+$txt['RECEIVEDCLEAN'] = "Rene meddelelser";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['GLOBALSTATSTITLE'] = "Oversigt for alle adresser";
+$txt['FROMDATETODATE'] = "fra __PARAM1__. __PARAM2__. __PARAM3__ til __PARAM4__. __PARAM5__. __PARAM6__";
 /*
  * some error messages
  */
 $txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
+$txt['NOSUCHADDR'] = "Den angivne adresse er ikke beskyttet af MailCleaner.";
 $txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
 $txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['MSGFILENOTFOUND'] = "Den anmodede handling kunne ikke fuldføres, fordi meddelelsen ikke længere er i karantæne.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Virksomhed";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "Navn";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Fornavn";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Telefon nummer";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Hvad kan vi gøre for dig?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Påkrævede felter";
 //old
 $txt['SUPPORT'] = "Support";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Din besked er blevet sendt.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Meddelelsen kunne ikke sendes. Prøv igen senere.";
 //old
 $txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
 /*
