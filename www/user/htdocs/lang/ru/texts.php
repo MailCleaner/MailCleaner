@@ -315,3 +315,8 @@ $txt['RECEIVEDMESSAGES'] = "Сообщений получено";
 $txt['RECEIVEDSPAM'] = "Спам-сообщения";
 $txt['NONE'] = "none";
 $txt['SPAMCSCORE'] = "Rules score";
+/*
+ * alias stuff
+ */
+//old
+$txt['ADDALIASTITLE'] = "Добавить адрес";
