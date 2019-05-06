@@ -260,7 +260,7 @@ $txt['QUARANTINETITLE'] = "Список карантина для __PARAM__";
 $txt['PARTS'] = "Части";
 $txt['STORESLAVE'] = "Хранилище";
 //old
-$txt['MAIN'] = "главный";
+$txt['MAIN'] = "основной";
 //old
 $txt['DROP'] = "отброшено";
 $txt['SUMMHTML'] = "HTML";
