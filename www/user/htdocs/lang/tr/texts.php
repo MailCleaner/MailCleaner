@@ -459,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Devre dışı bırak, etkinleştir veya listeden bir ad
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi veya adresleri seçin ve istediğiniz işlem düğmesine tıklayın.";
 $txt['REMTHEENTRY'] = "Seçimi Kaldır";
 $txt['DISABLETHEENTRY'] = "Devre dışı bırakın/etkinleştirin";
-$txt['WHITELISTSHORTHELP'] = "Beyaz liste, hiçbir karantina korumasının gerçekleşmeyeceği güvenilir gönderen adreslerini içerir. <br /> 
-                                  Uyarı: genel koruma azaldıkça bu işlevi geçici bir çözüm olarak kullanılmalıdır.
-                                  Beyaz liste kullanımı hakkında daha fazla bilgi için (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) kılavuzuna bakın. 
+$txt['WHITELISTSHORTHELP'] = "Beyaz liste, hiçbir karantina korumasının gerçekleşmeyeceği güvenilir gönderen adreslerini içerir.<br /> 
+                                  Uyarı: Bu işlev, genel korumayı azalttığı için geçici çözüm olarak kullanılmalıdır.
+                                  Beyaz liste kullanımı hakkında daha fazla bilgi için kullanıcı kılavuzuna bakın (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) . 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Kara kara listeye gönderen adresleri içerir.
                                   Kara liste kullanımı hakkında daha fazla bilgi için (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) kılavuzuna bakın.
@@ -479,7 +479,7 @@ $txt['RECORDALREADYEXISTS'] = "Bu adres listede zaten var.";
  * logout (new)
  */
 $txt['SESSIONTERMINATED'] = "Oturumunuz sona erdi.";
-$txt['BEENLOGGEDOUT'] = "Eğer yeni bir oturum başlatmak istiyorsunuz, bu bağlantıyı tıklatın:<a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['BEENLOGGEDOUT'] = "Eğer yeni bir oturum başlatmak istiyorsunuz, bu bağlantıyı tıklatın: <a href=\"__PARAM__\" >__PARAM__</a>";
 //old
 $txt['EDITNEWSLIST'] = "beyaz listeyi düzenle";
 //old
