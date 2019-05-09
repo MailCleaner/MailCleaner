@@ -6,144 +6,144 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
+$txt['NEWSLETTERMODULE'] = "Naujienlaiškis";
+$txt['NEWSLETTERSTOPIC'] = "Naujienlaiškiai";
+$txt['NEWSLETTERSTOPICTITLE'] = "Naujienlaiškiai";
+$txt['NEWSLETTERSSHORTHELP'] = "Čia galite tvarkyti savo naujienlaiškius.";
+$txt['NEWSLETTERSALLOW'] = "pristatymas";
+$txt['NEWSLETTERACCEPT'] = "Priimti šį naujienlaiškį";
+$txt['SPAM_WHITELIST_DISABLED'] = "Šis sąrašas nėra aktyvuotas Jūsų domenui ( susisiekite su administratoriumi).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Patvirtinti";
+$txt['CANCEL'] = "Atšaukti";
+$txt['CLOSE'] = "Uždaryti";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "Pridėti";
+$txt['CONFIRM'] = "Patvirtinti";
+$txt['REFRESH'] = "Atnaujinti";
+$txt['SEARCH'] = "Ieškoti";
+$txt['SEND'] = "Siųsti";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "Išvalyti";
 /*
  * generic texts
  */
 $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
-$txt['BYTES'] = "bytes";
+$txt['BYTES'] = "baitų";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Jan.';
-$txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
-$txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
-$txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTHAB1'] = 'Sau.';
+$txt['MONTHAB2'] = 'Vas.';
+$txt['MONTHAB3'] = 'Kov.';
+$txt['MONTHAB4'] = 'Bal.';
+$txt['MONTHAB5'] = 'Geg.';
+$txt['MONTHAB6'] = 'Bir.';
+$txt['MONTHAB7'] = 'Lie.';
+$txt['MONTHAB8'] = 'Rug.';
+$txt['MONTHAB9'] = 'Rugsėjis';
+$txt['MONTHAB10'] = 'Spa.';
+$txt['MONTHAB11'] = 'Lap.';
+$txt['MONTHAB12'] = 'Gru.';
+$txt['MONTH1'] = 'Sausis';
+$txt['MONTH2'] = 'Vasaris';
+$txt['MONTH3'] = 'Kovas';
+$txt['MONTH4'] = 'Balandis';
+$txt['MONTH5'] = 'Gegužė';
+$txt['MONTH6'] = 'Birželis';
+$txt['MONTH7'] = 'Liepa';
+$txt['MONTH8'] = 'Rugpjūtis';
+$txt['MONTH9'] = 'Rugsėjis';
+$txt['MONTH10'] = 'Spalis';
+$txt['MONTH11'] = 'Lapkritis';
+$txt['MONTH12'] = 'Gruodis';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect username or password.";
-$txt['SESSIONEXPIRED'] = "Session expired.";
-$txt['LOGININFO'] = "Reminder: Your username and password are the same as your email account";
-$txt['USERNAME'] = "Username";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "Neteisingas vartotojo vardas arba slaptažodis.";
+$txt['SESSIONEXPIRED'] = "Sesija pasibaigė.";
+$txt['LOGININFO'] = "Priminimas: Jūsų vartotojo vardas yra toks pat kaip Jūsų el. pašto adresas.";
+$txt['USERNAME'] = "Vartotojas";
+$txt['PASSWORD'] = "Slaptažodis";
 //old
-$txt['ASKLOGIN'] = "Please enter your username and password:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reset and sent to your e-mail address.";
+$txt['ASKLOGIN'] = "Įveskite Jūsų vartotojo vardą ir slaptažodį:";
+$txt['ORGANIZATIONUNIT'] = "Organizacija";
+$txt['FORGOTPASSWORD'] = "Pamiršote slaptažodį?";
+$txt['PASSWORDRESET'] = "Slaptažodis buvo pakeistas ir išsiųstas Jūsų el. paštu.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Log out";
+$txt['CONFIGURATIONMENU'] = "Konfigūracija";
+$txt['HELPMENU'] = "Pagalba";
+$txt['QUARANTINEMENU'] = "Karantinas";
+$txt['STATISTICSMENU'] = "Statistika";
+$txt['LOGOUT'] = "Atsijungti";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "jūs esate prisijungęs kaip:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "pagrindinis adresas";
+$txt['PARAMETERS'] = "Nustatymai";
+$txt['QUARANTINE'] = "Karantinas";
+$txt['NAVSUPPORT'] = "Pagalba";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['SELECTEDADDRESS'] = "Rodomas adresas";
+$txt['QUARANTINESUMMARY'] = "<strong>Karantine:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Paieška:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "rušiuojamas pagal __PARAM__";
+$txt['RESETSEARCH'] = "Parodyti pilną karantino sąrašą";
+$txt['ODATE'] = "data";
+$txt['OTIME'] = "laikas";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "gavėjas";
+$txt['OSENDER'] = "siuntėjas";
+$txt['OSCORE'] = "taškai";
+$txt['OSUBJECT'] = "tema";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "Filtro taisyklės";
+$txt['FORCEMESSAGE'] = "Paleisti žinutę";
+$txt['MESSAGEFORCING'] = "Paleisti laišką";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
-$txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['ANALYSEREQUEST'] = "Filtruoti užklausas";
+$txt['ANALYSEREQUESTV'] = "Prašyti koregavimo filtro";
+$txt['SCORETEXT'] = "Taškai: __PARAM__";
+$txt['CLOSEWINDOW'] = "Uždaryti langą";
+$txt['CURRENTPAGE'] = "Puslapis __PARAM1__ of __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>Automatiškai išvalyti po:</strong> __PARAM__ days";
+$txt['DISPLAYEDINFOS'] = "<strong>Žinutė parodyta: </strong> __PARAM1__ paskutinės dienos (<a href=\"__PARAM2__\">Modifikuoti…</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Žinutes parodytos: </strong> __PARAM__ dienas. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "Karantino sąrašas __PARAM__";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "Filtras";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "sudėtinė paieška";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "rodomos kalbos";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "siuntėjas";
+$txt['DATE'] = "Data";
+$txt['HOUR'] = "Laikas";
+$txt['FROM'] = "Nuo";
+$txt['TO'] = "Kam";
+$txt['SUBJECT'] = "Tema";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "Paleista";
+$txt['ACTION'] = "Veiksmas";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Viso: __PARAM__ spam(s)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ dienų";
+$txt['PURGESELECTEDSPAMS'] = "Rankiniu būdu išvalyti karantiną";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "Slėpti vartotojo paleistas žinutes.";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "Paleisti žinutę";
 //old
-$txt['ASKREASON'] = "display filtering rules";
+$txt['ASKREASON'] = "rodyti filtravimo taisykles";
 $txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
 $txt['ASKANALYSE'] = "Filter adjustment request";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "Žinutės peržiūra";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -250,7 +250,7 @@ $txt['EDITNEWSLIST'] = "edit newslist";
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
+$txt['SENDER'] = "Siuntėjas";
 $txt['COMMENT'] = "Comment";
 //old
 $txt['ACTIONS'] = "Action";
