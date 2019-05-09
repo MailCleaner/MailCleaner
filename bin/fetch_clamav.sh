@@ -76,6 +76,29 @@ fi
 
 ret=$(downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat" "noexit")
 
+# Creating a test file, the content doesnt matter
+testfile=/tmp/scan-test.txt
+if [ ! -e ${testfile} ]; then
+        echo "Test" > ${testfile}
+fi
+
+# Getting to the ClamAV databases
+cd /var/mailcleaner/spool/clamav
+# Foreach file
+for file in $(ls | grep -v "dbs.md5"); do
+#        echo "Checking ${file}"
+        # test if it is malformed
+        MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
+
+        # If the file is malformed, remove it
+        if [ ! -z ${MALFORMEDFILE} ] && [ -e ${MALFORMEDFILE} ] ; then
+                rm $MALFORMEDFILE
+                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $MALFORMEDFILE removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
+                MALFORMEDFILE=''
+        fi
+done
+cd -
+
 ## restart clamd daemon
 if [[ "$ret" -eq "1" ]]; then
 	kill -USR2 `cat $VARDIR/run/clamav/clamd.pid 2>/dev/null` > /dev/null 2>&1 
