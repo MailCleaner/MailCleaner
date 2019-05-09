@@ -9,10 +9,10 @@
 $txt['NEWSLETTERMODULE'] = "Nyhedsbrev";
 $txt['NEWSLETTERSTOPIC'] = "Nyhedsbreve";
 $txt['NEWSLETTERSTOPICTITLE'] = "Nyhedsbreve";
-$txt['NEWSLETTERSSHORTHELP'] = "Her kan du håndtere nyhedsbreve";
+$txt['NEWSLETTERSSHORTHELP'] = "Her kan du håndtere nyhedsbreve.";
 $txt['NEWSLETTERSALLOW'] = "levere";
 $txt['NEWSLETTERACCEPT'] = "Accepter dette nyhedsbrev";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
+$txt['SPAM_WHITELIST_DISABLED'] = "Liste er ikke aktiveret for det domæne (kontakt din administrator).";
 /*
  * generic buttons
  */
@@ -92,7 +92,7 @@ $txt['NAVSUPPORT'] = "Support";
  */
 $txt['SELECTEDADDRESS'] = "Adresse, der vises";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Søg:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "sorteret efter __PARAM__";
 $txt['RESETSEARCH'] = "Vis hele karantænelisten";
 $txt['ODATE'] = "date";
@@ -111,12 +111,12 @@ $txt['ANALYSEREQUEST'] = "Anmodning om filterjustering";
 $txt['ANALYSEREQUESTV'] = "Anmod om filterjustering";
 $txt['SCORETEXT'] = "Score: __PARAM__";
 $txt['CLOSEWINDOW'] = "Luk dette vindue";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
+$txt['CURRENTPAGE'] = "Side __PARAM1__ af __PARAM2__";
+$txt['PURGEINFOS'] = "(stærk) Automatisk sletning efter:-./stærk >  u PARAM \ dage";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Meddelelser, der vises:</strong> __PARAM__ sidste dage. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "Karantæne liste for __PARAM__";
 //old
 $txt['FILTER'] = "Filter";
 //old
@@ -136,7 +136,7 @@ $txt['ACTION'] = "Handling";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ sidste dage";
 $txt['PURGESELECTEDSPAMS'] = "Manuel sletning af mails i karantæne";
 //old
 $txt['HIDEFORCED'] = "Hide user-released messages";
@@ -157,21 +157,21 @@ $txt['SCORE'] = "Score";
 $txt['TOTAL'] = "Samlede";
 //old
 $txt['SENDANALYSETITLE'] = "Anmodning om filterjustering";
-$txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
+$txt['SENTTOANALYSE'] = "Der er sendt en anmodning om filter justering til MailCleaner Analysis Center. Denne meddelelse vil blive undersøgt, og filter korrektioner kan anvendes inden for én arbejdsdag.";
 /*
  * quick actions
  */
 //old
 $txt['SENDSUMTITLE'] = "Send karantæne rapporten manuelt";
 $txt['SENDSUM'] = "Send karantæne rapporten manuelt";
-$txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
+$txt['SUMSENTTO'] = "Karantæne rapporten er sendt til: <strong> __PARAM__ </strong>";
+$txt['SUMNOTSENTTO'] = "Karantæne rapporten kunne ikke sendes til <strong> __PARAM__ </strong> på grund af en intern fejl. Prøv igen senere.";
 $txt['SUMMARYSENDING'] = "Overførsel af karantæne rapport";
 $txt['PURGETITLE'] = "Manuel sletning af mails i karantæne";
-$txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
+$txt['PURGEDONE'] = "Karantænen for <strong> __PARAM__ </strong> er blevet renset";
 $txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
 $txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manuel rensning af karantæne";
+$txt['QUARANTINEPURGE'] = "Manuel tømning af meddelelser i karantæne";
 $txt['GROUPQUARANTINES'] = "Alle adresser";
 /*
  * preview panel
@@ -188,11 +188,11 @@ $txt['STORESLAVE'] = "Lager";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Beskrivelse";
 $txt['MESSAGEPREVIEW'] = "Vise indholdet af beskeden";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "Identifikator";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>Din MailCleaner-session er afsluttet.</p><p>Hvis du vil starte en ny session, skal du klikke på følgende link:</p>";
 /*
  * parameters page
  */
@@ -201,18 +201,18 @@ $txt['PARAMTITLE'] = "Personlige MailCleaner-indstillinger";
 //old
 $txt['USERPARAM'] = "Brugerindstillinger";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Adresseindstillinger";
 //old
 $txt['LANGUAGE'] = "Sprog";
 $txt['ADDRESS'] = "Address";
 //old
 $txt['ADDRALIASTITLE'] = "Adressegruppe";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "Tilstand for behandling af spam";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "Indstillinger for karantæne rapport";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Personlig adressegruppe: (__PARAM__ adresse (er))";
 //old
 $txt['APPLYALLADDRESSES'] = "Anvend ændringer på alle adresser";
 //old
@@ -226,7 +226,7 @@ $txt['TAGSUBJECT'] = "tag";
 //old
 $txt['QUARBOUNCES'] = "Systematisk karantæne e-mail-levering fejlmeddelelser";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "glem";
 //old
 $txt['SUBJECTTAG'] = "Tag - nøgleord";
 //old
@@ -282,11 +282,11 @@ $txt['REMADDRESSALT'] = "slet en adresse";
 //old
 $txt['ADDADDRESSALT'] = "tilføj en adresse";
 $txt['BADADDRESSFORMAT'] = "Den angivne adresse er ugyldig. Prøv venligst igen.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
+$txt['NOTFILTEREDDOMAIN'] = "Dette domæne er ikke filtreret af MailCleaner. Adressen kunne ikke tilføjes.";
+$txt['ALIASALREADYREGISTERD'] = "Denne adresse bruges allerede af en MailCleaner-konto. Den kunne ikke tilføjes.";
 $txt['ALIASALREADYPENDING'] = "Der afventer allerede en bekræftelse for denne adresse.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
+$txt['ALIASPENDING'] = "Der er sendt en bekræftelse til denne adresse. <br/> Af sikkerhedsmæssige årsager vil adressen kun blive tilføjet, hvis du bekræfter anmodningen inden for 24 timer.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Anmodning om tilføjelse af adresse";
 $txt['ALIASERRORSENDIG'] = "Anmodningen kunne ikke sendes på grund af en intern fejl. Prøv igen senere.";
 $txt['ALIASNOTPENDING'] = "Der er ingen ventende anmodninger for denne adresse.";
 $txt['ALIASADDED'] = "Adressen er blevet tilføjet.";
@@ -294,22 +294,22 @@ $txt['ALIASREQUESTREMOVED'] = "Anmodningen er annulleret.";
 //old
 $txt['REMALIASTITLE'] = "Fjernelse af adresse";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Er du sikker på, at du vil fjerne adressen: __PARAM__?";
+$txt['ALIASREMOVED'] = "Adressen __PARAM__ er blevet fjernet.";
+$txt['CANNOTREMOVEMAINADD'] = "Adressen__PARAM__ er den primære adresse. Den kan ikke blive slettes.";
 /*
  * statistics page
  */
 //old
 $txt['USERSTATS'] = "Statistik";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ modtagne meddelelser";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spam";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ farlig";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ ren";
 $txt['ALL'] = "alle…";
 $txt['SEARCHPERIOD'] = "Analyserede periode";
 $txt['LASTDAYS'] = "sidste dage";
@@ -317,22 +317,22 @@ $txt['LASTMONTHS'] = "seneste måneder";
 $txt['LASTYEARS'] = "seneste år";
 $txt['DATESTART'] = "Fra";
 $txt['DATESTOP'] = "til";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
+$txt['STATFORADDRESS'] = "Aktivitetsstatistik for: <strong> __PARAM__ </strong>";
 $txt['RECEIVEDMESSAGES'] = "Modtagne meddelelser";
 $txt['RECEIVEDVIRUS'] = "Vira og farlige meddelelser";
 $txt['RECEIVEDSPAM'] = "Spam-beskeder";
 $txt['RECEIVEDCLEAN'] = "Rene meddelelser";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ modtagne meddelelser";
 $txt['GLOBALSTATSTITLE'] = "Oversigt for alle adresser";
 $txt['FROMDATETODATE'] = "fra __PARAM1__. __PARAM2__. __PARAM3__ til __PARAM4__. __PARAM5__. __PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
+$txt['BADARGS'] = "Intern MailCleaner fejl (_PARAM_BESKED_ERREUR__). Kontakt venligst din system administrator med en beskrivelse af problemet.";
+$txt['INCORRECTMSGID'] = "Den anmodede handling kunne ikke fuldføres, fordi meddelelses-id'et er forkert.";
 $txt['NOSUCHADDR'] = "Den angivne adresse er ikke beskyttet af MailCleaner.";
 $txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
+$txt['MSGFORCED'] = "Meddelelsen er blevet frigivet og leveret til din postkasse. Den er til rådighed inden for de næste par minutter.";
 $txt['MSGFILENOTFOUND'] = "Den anmodede handling kunne ikke fuldføres, fordi meddelelsen ikke længere er i karantæne.";
 /*
  * support page (deprecated)
@@ -358,7 +358,7 @@ $txt['SUPFORMSENT'] = "Din besked er blevet sendt.";
 //old
 $txt['CANNOTSENDSUPFORM'] = "Meddelelsen kunne ikke sendes. Prøv igen senere.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Nogle felter er udfyldt forkert. Kontroller venligst det indtastede.";
 /*
  * help page (new)
  */
@@ -366,38 +366,38 @@ $txt['HELP'] = "Help";
 $txt['INTERFACETOPIC'] = "Interface settings";
 $txt['INTRODUCTIONTOPIC'] = 'Introduction';
 $txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
+$txt['FIRSTCONTACTTOPIC'] = "Hurtig guide";
 $txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
+$txt['ADDRESSESTOPIC'] = "Nyttige adresser";
+$txt['ADDRESSESTOPICTITLE'] = "nyttige adresser";
 $txt['PLUGINTOPIC'] = "Outlook plug-in";
 $txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
 $txt['MOREHELPTOPIC'] = "Full manual";
 $txt['MOREHELPTOPICTITLE'] = "full manual";
 $txt['USERMANUALTOPICTITLE'] = "user manual";
 $txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
+$txt['FAQTOPIC'] = "Ofte stillede spørgsmål";
+$txt['FAQTOPICTITLE'] = "ofte stillede spørgsmål";
+$txt['GLOSSARYTOPIC'] = "Ordliste";
+$txt['GLOSSARYTOPICTITLE'] = "ordliste";
 $txt['SUPPORTTOPIC'] = "Support";
 $txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['ANALYSETOPIC'] = "Anmodning om filterjustering";
+$txt['ANALYSETOPICTITLE'] = "anmodning om filter justering";
 /*
  * configuration menu (new)
  */
 $txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
+$txt['ADDRESSLISTTOPIC'] = "Adressegruppe";
+$txt['ADDRESSPARAMTOPIC'] = "Adresseindstillinger";
+$txt['QUARPARAMTOPIC'] = "Visning af karantæne";
 $txt['WARNLISTTOPIC'] = "Warnlist";
 $txt['WHITELISTTOPIC'] = "Whitelist";
 $txt['BLACKLISTTOPIC'] = "Blacklist";
 $txt['NEWSLISTTOPIC'] = "Newslist";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
+$txt['INTERFACETOPICTITLE'] = "indstillinger for grænseflade";
+$txt['ADDRESSLISTTOPICTITLE'] = "adressegruppe";
+$txt['ADDRESSPARAMTOPICTITLE'] = "adresseindstillinger";
 $txt['QUARPARAMTOPICTITLE'] = "quarantine display";
 $txt['WARNLISTTOPICTITLE'] = "warnlist";
 $txt['WHITELISTTOPICTITLE'] = "whitelist";
@@ -406,51 +406,51 @@ $txt['NEWSLISTTOPICTITLE'] = "newslist";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "Gem";
+$txt['CHOOSETHISLANG'] = "Brug engelsk som hovedsprog";
+$txt['CHOOSELANGUAGE'] = "Sprogvalg";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Denne gruppe indeholder alle de adresser og aliasser, du vil administrere fra denne konto. Du kan derefter få adgang til deres karantæne, statistik og indstillinger på en centraliseret måde med dine nuværende legitimationsoplysninger.";
+$txt['ADDANADDRESS'] = "Tilføj en adresse til en gruppe";
+$txt['ADDTHEADDRESS'] = "&lt; Føj adressen til gruppen";
+$txt['ADDANADDRESSSHORTHELP'] = "Indtast den adresse, du vil tilføje.";
+$txt['REMANADDRESS'] = "Fjern en eller flere adresser fra gruppen";
+$txt['REMTHEADDRESS'] = "Fjern markering";
+$txt['REMANADDRESSSHORTHELP'] = "Markér afkrydsningsfeltet ud for hver adresse, du vil fjerne, og klik på knappen Fjern valg.";
+$txt['WAITINGCONFIRMATION'] = "venter på bekræftelse";
 /*
  * addresses settings (new)
  */
 $txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
+$txt['FOREACHSPAMDO'] = "For hver meddelelse, der registreres som spam:";
+$txt['FOREACHNEWSLETTERDO'] = "For hver meddelelse, der registreres som nyhedsbrev:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "opbevares i karantæne";
+$txt['TAGMESSAGEWITHTAG'] = "levering med emnenøgleord";
+$txt['DROPMESSAGE'] = "slet med det samme";
+$txt['SUMMARYSENTFREQ'] = "Hyppighed af karantæne rapporter";
+$txt['SUMMARYFORMAT'] = "Karantænerapporternes format";
+$txt['SUMMARYTO'] = "Send rapporter til denne adresse";
 $txt['OTHER'] = "other…";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['APPLYTOALLADDRESSES'] = "Anvend indstillinger på alle adresser";
+$txt['PLAINTEXT'] = "Almindelig tekst";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Bevar fejlmeddelelser";
+$txt['PARAMETERSSAVED'] = "Dine indstillinger er blevet gemt.";
+$txt['NOTSAVED'] = "Dine indstillinger kunne ikke gemmes.";
+$txt['INVALIDSUMMARYTO'] = "Den e-mail-adresse, der er angivet for rapporterne, er ugyldig";
 /*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['QUARNBLINESDISPLAYED'] = "Antallet af linjer, der vises";
+$txt['QUARNBDAYSDISAPLYED'] = "Antal dage, der vises";
+$txt['MASKEALREADYFORCED'] = "Skjule bruger-udgivet meddelelser";
+$txt['DEFAULTADDRESDISPPLAYED'] = "Adresse, der vises som standard";
+$txt['YESTERDAY'] = "I går";
+$txt['TODAY'] = "I dag";
 /*
  * wwlists (new)
  */
@@ -458,13 +458,13 @@ $txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for 
 \t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
 \t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
+$txt['ADDAWARNENTRY'] = "Føj en adresse til listen";
 $txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warnlist. You can also add an optional comment.";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
+$txt['ADDTHEENTRY'] = "&lt; Tilføj adressen";
+$txt['REMOVEANENTRY'] = "Deaktiver, Aktivér eller fjern en adresse fra listen";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
+$txt['REMTHEENTRY'] = "Fjern markering";
+$txt['DISABLETHEENTRY'] = "Deaktiver/Aktivér markering";
 $txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
                                    Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
@@ -476,27 +476,27 @@ $txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired n
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletter list usage.
 ";
 $txt['WHITELISTFORADDRESS'] = "Whitelist for the address";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
+$txt['ADDAWHITEENTRY'] = "Føj en adresse til listen";
 $txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the whitelist. You can also add an optional comment.";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['BLACKLISTFORADDRESS'] = "Blacklist for the address";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the blacklist. You can also add an optional comment.";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
+$txt['ADDABLACKENTRY'] = "Føj en adresse til listen";
+$txt['BLACKLISTENTRYTOADD'] = "Indtast den adresse, du vil føje blackliste. Du kan også tilføje en valgfri kommentar.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['NEWSLISTFORADDRESS'] = "Newsletter list for the address";
-$txt['ADDANEWSENTRY'] = "Add an address to the list";
+$txt['ADDANEWSENTRY'] = "Føj en adresse til listen";
 $txt['NEWSLISTENTRYTOADD'] = "Enter the address you want to add to the newsletter list. You can also add an optional comment.";
-$txt['REMOVEANEWSENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
+$txt['RECORDALREADYEXISTS'] = "Denne adresse findes allerede på listen.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['SESSIONTERMINATED'] = "Din session er slut.";
+$txt['BEENLOGGEDOUT'] = "Hvis du gerne vil starte en ny session, skal du klikke på dette link: < a href = \"__PARAM__\" > __PARAM__ </a>";
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
-$txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLRELEASEDHEAD'] = "Nyhedsbrevet er blevet tilladt og frigivet.";
+$txt['NLRELEASEDBODY'] = "Nyhedsbrevet er blevet tilladt og frigivet. Det leveres i din postkasse om et par minutter.";
+$txt['NLNOTRELEASEDHEAD'] = "Nyhedsbrevet blev ikke frigivet";
+$txt['NLNOTRELEASEDBODY'] = "Der var et problem med at frigive din besked. Prøv igen senere.";
