@@ -58,3 +58,4 @@ score	  MONEY_FRAUD_8		   1.0
 score	  T_MONEY_PERCENT	   0.5
 
 score	  LOTS_OF_MONEY		   2.0
+score   KHOP_BIG_TO_CC     1.0
