@@ -190,7 +190,7 @@ $txt['PARTS'] = "Teile";
 $txt['STORESLAVE'] = "Speicherung";
 $txt['SPAMCSCORE'] = "Regelwertung";
 $txt['DESCRIPTION'] = "Beschreibung";
-$txt['MESSAGEPREVIEW'] = "Inhalt der Nachricht anzeigen";
+$txt['MESSAGEPREVIEW'] = "Nachrichtenvorschau";
 $txt['ID'] = "Erkennung";
 /*
  * logout page
