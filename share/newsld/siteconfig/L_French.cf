@@ -20,12 +20,6 @@
 body		MC_NEWS_FRWSINSCRI		/sincri/i
 score		MC_NEWS_FRWSINSCRI		1.00
 
-body		MC_NEWS_FRWSEDESINSCRIRE	/dösincrire/i
-score		MC_NEWS_FRWSEDESINSCRIRE	1.00
-
-body		MC_NEWS_FRWDESABO		/sabonne/i
-score		MC_NEWS_FRWDESABO		1.00
-
 body		MC_NEWS_FRWCOURRIEL		/\bcourriels?\b/i
 score		MC_NEWS_FRWCOURRIEL		1.00
 
@@ -44,17 +38,11 @@ score		MC_NEWS_FRWVOIRNAV		1.00
 body		MC_NEWS_FRWCORRECTEMENT		/\bce message ne s'affiche pas correctement\b/i
 score		MC_NEWS_FRWCORRECTEMENT		1.00
 
-body		MC_NEWS_FRWDELNEWSL		/\bsupprimer .* newsletter\b/i
-score		MC_NEWS_FRWDELNEWSL		2.00
-
 body		MC_NEWS_FRWPLUSRECEV		/\bplus recevoir\b/i
 score		MC_NEWS_FRWPLUSRECEV		2.00
 
 body		MC_NEWS_FRWPLUSRECEV		/\bcesser .* recevoir\b/i
 score		MC_NEWS_FRWPLUSRECEV		1.00
-
-body		MC_NEWS_FRWDIFFUSION		/\bliste de diffusion\b/i
-score		MC_NEWS_FRWDIFFUSION		2.00
 
 body		MC_NEWS_FRWRECEVNEWSL		/\brecevoir .* newsletter\b/i
 score		MC_NEWS_FRWRECEVNEWSL		1.50
@@ -67,3 +55,16 @@ score		MC_NEWS_FRWRCSSIRET		2.00
 
 body		MC_NEWS_FRWLOIINFO		/\b0?6 janvier 1978\b/i
 score		MC_NEWS_FRWLOIINFO		2.00
+
+body            MC_WORD_FR_NEWSLETTER           /liste de diffusion/i
+score           MC_WORD_FR_NEWSLETTER           2.0
+
+body            __MC_WORD_FR_NEWSLETTER2        /bulletin d.information/i
+
+body            MC_WORD_FR_UNSUBSCRIBE          /\bd.sinscri/i
+score           MC_WORD_FR_UNSUBSCRIBE          1.00
+
+body            MC_WORD_FR_UNSUBSCRIBE2         /\bd.sabonne/i
+score           MC_WORD_FR_UNSUBSCRIBE2         1.00
+
+body            MC_WORD_FR_SUPPRIMER            /\bsupprimer/i

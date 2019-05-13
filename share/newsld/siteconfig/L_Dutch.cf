@@ -22,3 +22,14 @@ score		MC_NEWS_NLWNIEUWS		2.00
 
 body		MC_NEWS_NLWNIETMEER		/\bdeze berichten niet meer\b/i
 score		MC_NEWS_NLWNIETMEER		2.00
+
+body            __MC_WORD_SE_DU_NEWSLETTER      /nyhe[t|d]sbrev/i
+
+body            MC_NL_UNSUBSCRIBE               /\buitschrijven\b/i
+score           MC_NL_UNSUBSCRIBE               1.00
+
+body            MC_NL_UNSUBSCRIBE2              /\bAfmelden\b/i
+score           MC_NL_UNSUBSCRIBE2              1.00
+
+body            MC_NL_UNSUBSCRIBE3              /\bunsubscribefunctie\b/i
+score           MC_NL_UNSUBSCRIBE3              1.00

@@ -1,0 +1,27 @@
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 3 of the License, or
+#   (at your option) any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#   Specific Newsletter rules: Polish
+
+body            __MC_WORD_PO_NEWSLETTER         /biuletyn/i
+
+body            __MC_WORD_PO_ABO                /\babonament/i
+
+body            MC_WORD_PO_UNSUBSCRIBE          /\banulowa.\b/i
+score           MC_WORD_PO_UNSUBSCRIBE          1.0
+
+body            MC_WORD_PO_SUBSCRIBE            /\bsubskrypcj.\b/
+score           MC_WORD_PO_SUBSCRIBE            1.0

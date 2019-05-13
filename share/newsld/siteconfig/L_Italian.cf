@@ -19,3 +19,21 @@
 
 body		MC_NEWS_ITWINBROWSER		/\bversione web\b/i
 score		MC_NEWS_ITWINBROWSER		2.00
+
+body            MC_WORD_IT_UNSUBSCRIBE          /\bDisdire\b/i
+score           MC_WORD_IT_UNSUBSCRIBE          1.0
+
+body            MC_WORD_IT_UNSUBSCRIBE2         /\bcancellar/i
+score           MC_WORD_IT_UNSUBSCRIBE2         1.00
+
+body            MC_WORD_IT_UNSUBSCRIBE3         /\babbonarvi/i
+score           MC_WORD_IT_UNSUBSCRIBE3         1.00
+
+body            MC_WORD_IT_UNSUBSCRIBE4         /\bannullare/i
+score           MC_WORD_IT_UNSUBSCRIBE4         1.00
+
+body            MC_EXPR_IT_ABBONAMENTO          /abbonamento alla newsletter/i
+score           MC_EXPR_IT_ABBONAMENTO          2.00
+
+body            MC_EXPR_IT_DISDIRE              /disdire la ricezione di questa newsletter/i
+score           MC_EXPR_IT_DISDIRE              2.00

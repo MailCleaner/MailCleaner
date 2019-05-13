@@ -26,17 +26,11 @@ score		MC_NEWS_ENWREADONLINE		1.00
 body		MC_NEWS_ENWVIEWBROWSER		/\bview .* browser\b/i
 score		MC_NEWS_ENWVIEWBROWSER		1.00
 
-body		MC_NEWS_ENWUNSUB		/\bunsubscribe/i
-score		MC_NEWS_ENWUNSUB		1.00
-
 body		MC_NEWS_ENWMANAG		/\bmanage your subscription?\b/i
 score		MC_NEWS_ENWMANAG		2.00
 
 body		MC_NEWS_ENWNEWS			/\bnews\b/i
 score		MC_NEWS_ENWNEWS			1.00
-
-body		MC_NEWS_ENWNEWSL		/\bnewsletter/i
-score		MC_NEWS_ENWNEWSL		2.00
 
 body		MC_NEWS_ENWRECEIVFUTUR		/\bto receive future email\b/i
 score		MC_NEWS_ENWRECEIVFUTUR		2.00
@@ -58,3 +52,10 @@ score		MC_NEWS_ENWRMMAILCLK		2.00
 
 body		MC_NEWS_ENWSAFEUNSUB		/safeunsubscribe/i
 score		MC_NEWS_ENWSAFEUNSUB		2.00
+
+body            MC_EN_UNSUBSCRIBE               /\bunsubscribe\b/i
+score           MC_EN_UNSUBSCRIBE               1.00
+body            MC_EN_SUBSCRIBE                 /\bsubscribe\b/i
+
+body            MC_WORD_EN_NEWSLETTER           /newsletter/i
+score           MC_WORD_EN_NEWSLETTER           2.0
