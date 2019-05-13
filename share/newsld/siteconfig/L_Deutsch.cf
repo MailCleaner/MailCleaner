@@ -31,3 +31,9 @@ score		MC_NEWS_DEWNEWSLEN2		2.00
 
 body		MC_NEWS_DEWNEWSLEN3		/\bnewsletter .*ndigen\b/i
 score		MC_NEWS_DEWNEWSLEN3		2.00
+
+body            __MC_WORD_DE_NEWSLETTER         /Neuheitenbrief/i
+
+body            MC_WORD_DE_UNSUBSCRIBE          /\babmeld/i
+
+body	        MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
