@@ -185,7 +185,7 @@ $txt['HEADERS'] = "Headers";
 $txt['BODY'] = "Body";
 $txt['PARTS'] = "Dele";
 $txt['STORESLAVE'] = "Lager";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['SPAMCSCORE'] = "Regl score";
 $txt['DESCRIPTION'] = "Beskrivelse";
 $txt['MESSAGEPREVIEW'] = "Vise indholdet af beskeden";
 $txt['ID'] = "Identifikator";
@@ -265,9 +265,9 @@ $txt['CONFIRMWWENTRYDELETE'] = "Er du sikker på, at du vil slette denne post pe
 //old
 $txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warnlist for __PARAM__";
+$txt['WARNLISTFOR'] = "\"Warnlist\" for __PARAM__";
 //old
-$txt['NEWSLISTFOR'] = "Newslist for __PARAM__";
+$txt['NEWSLISTFOR'] = "\"Newslist\" for __PARAM__";
 //old
 $txt['STATUS'] = "Status";
 /*
@@ -391,17 +391,17 @@ $txt['CONFIGURATION'] = "Configuration";
 $txt['ADDRESSLISTTOPIC'] = "Adressegruppe";
 $txt['ADDRESSPARAMTOPIC'] = "Adresseindstillinger";
 $txt['QUARPARAMTOPIC'] = "Visning af karantæne";
-$txt['WARNLISTTOPIC'] = "Warnlist";
-$txt['WHITELISTTOPIC'] = "Whitelist";
-$txt['BLACKLISTTOPIC'] = "Blacklist";
-$txt['NEWSLISTTOPIC'] = "Newslist";
+$txt['WARNLISTTOPIC'] = "\"Warnlist\"";
+$txt['WHITELISTTOPIC'] = "\"Whitelist\"";
+$txt['BLACKLISTTOPIC'] = "\"Blacklist\"";
+$txt['NEWSLISTTOPIC'] = "\"Newslist\"";
 $txt['INTERFACETOPICTITLE'] = "indstillinger for grænseflade";
 $txt['ADDRESSLISTTOPICTITLE'] = "adressegruppe";
 $txt['ADDRESSPARAMTOPICTITLE'] = "adresseindstillinger";
 $txt['QUARPARAMTOPICTITLE'] = "Visning af karantæne";
-$txt['WARNLISTTOPICTITLE'] = "warnlist";
-$txt['WHITELISTTOPICTITLE'] = "whitelist";
-$txt['BLACKLISTTOPICTITLE'] = "blacklist";
+$txt['WARNLISTTOPICTITLE'] = "\"warnlist\"";
+$txt['WHITELISTTOPICTITLE'] = "\"whitelist\"";
+$txt['BLACKLISTTOPICTITLE'] = "\"blacklist\"";
 $txt['NEWSLISTTOPICTITLE'] = "newslist";
 /*
  * interface (new)
@@ -423,7 +423,7 @@ $txt['WAITINGCONFIRMATION'] = "venter på bekræftelse";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
+$txt['ADDPARAMSHORTHELP'] = "Moden spam  behandles på kan tilpasses for hver af dine adresser. Se brugermanualen (tilgængelig i afsnit%a href =\"help.php\">\"Help\" “Help ” for mere information om de forskellige tilgængelige behandlingsformer.";
 $txt['FOREACHSPAMDO'] = "For hver meddelelse, der registreres som spam:";
 $txt['FOREACHNEWSLETTERDO'] = "For hver meddelelse, der registreres som nyhedsbrev:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "opbevares i karantæne";
@@ -459,7 +459,7 @@ $txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for 
 \t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
 $txt['ADDAWARNENTRY'] = "Føj en adresse til listen";
-$txt['WARNLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til warnlist. Du kan også tilføje en valgfri kommentar.";
+$txt['WARNLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til warnlisten. Du kan også tilføje en valgfri kommentar.";
 $txt['ADDTHEENTRY'] = "&lt; Tilføj adressen";
 $txt['REMOVEANENTRY'] = "Deaktiver, Aktivér eller fjern en adresse fra listen";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
@@ -477,11 +477,11 @@ $txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired n
 ";
 $txt['WHITELISTFORADDRESS'] = "Whitelist for the address";
 $txt['ADDAWHITEENTRY'] = "Føj en adresse til listen";
-$txt['WHITELISTENTRYTOADD'] = "Indtast den adresse, du vil føje til whitelist. Du kan også tilføje en valgfri kommentar.";
+$txt['WHITELISTENTRYTOADD'] = "Indtast den adresse, du vil føje til whitelisten. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['BLACKLISTFORADDRESS'] = "Blacklist for the address";
 $txt['ADDABLACKENTRY'] = "Føj en adresse til listen";
-$txt['BLACKLISTENTRYTOADD'] = "Indtast den adresse, du vil føje blackliste. Du kan også tilføje en valgfri kommentar.";
+$txt['BLACKLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til blacklisten. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['NEWSLISTFORADDRESS'] = "Newsletter list for the address";
 $txt['ADDANEWSENTRY'] = "Føj en adresse til listen";

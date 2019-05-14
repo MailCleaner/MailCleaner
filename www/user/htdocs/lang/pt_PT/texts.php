@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Pontuação das regras";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Mostrar os conteúdos da mensagem";
+$txt['MESSAGEPREVIEW'] = "Pré-visualização de mensagens";
 $txt['ID'] = "Identificador";
 /*
  * logout page
