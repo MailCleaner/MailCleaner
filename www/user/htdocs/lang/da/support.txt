@@ -1,1 +1,12 @@
 <?php
+$txt['SFALSENEGTITLE'] = "FALSK NEGATIV";
+$txt['SFALSENEGSUBTITLE'] = "Har du modtaget en besked, som du anser for at være en spam?";
+$txt['SVERIFYPASS'] = "Kontroller, at meddelelsen er blevet behandlet af Mailcleaner-filteret ved at se på e-mail-headerne.";
+$txt['SMCLOGTITLE'] = "I headerne, vil du se følgende linjer, der nævner Mailcleaner:";
+$txt['SMCLOGLINE1'] = "Modtaget: Fra mailcleaner.net (filtrering daemon)";
+$txt['SMCLOGLINE2'] = "af mailcleaner.net med ESMTP (indkommende dæmon)";
+$txt['SMCFILTERINGLOG'] = "Resultat af filtrering: X-Mailcleaner-spamscore: oooo";
+$txt['SFALSEPOSTITLE'] = "FALSK POSITIV";
+$txt['SFALSEPOSSUB1TITLE'] = "Du har ikke modtaget en besked, som du burde have haft?";
+$txt['SFALSEPOSSUB2TITLE'] = "En e-mail blev betragtet som spam, og du forstår ikke hvorfor?";
+$txt['SFALSEPOSSUB3TITLE'] = "Mailing lister";
