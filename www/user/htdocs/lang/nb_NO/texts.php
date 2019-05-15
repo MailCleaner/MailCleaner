@@ -473,7 +473,7 @@ $txt['WARNLISTSHORTHELP'] = "Advarselslisten inneholder betrodde avsenderadresse
 \t\t\t\t\t\t\t\t   Sjekk menualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om advarselslistebruk. ";
 $txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser som ikke er innebefattet av karanteneprogrammet.<br /> 
                                    Advarsel: Denne funksjonen bør kun brukes som midlertidig løsning, siden den senker den helhetlige beskyttelsen.
-                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om hvitlistebruk. 
+                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer info om hvitlistebruk. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Svartelisten inneholder svartelistede avsenderadresser.
                                   Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om svartelistebruk.
