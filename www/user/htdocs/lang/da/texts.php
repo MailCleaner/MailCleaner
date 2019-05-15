@@ -43,7 +43,7 @@ $txt['MONTHAB5'] = 'Maj';
 $txt['MONTHAB6'] = 'Juni';
 $txt['MONTHAB7'] = 'Juli';
 $txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
+$txt['MONTHAB9'] = 'September.';
 $txt['MONTHAB10'] = 'Okt.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
@@ -182,7 +182,7 @@ $txt['BLACKLISTS'] = "Blacklist";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
+$txt['BODY'] = "Krop";
 $txt['PARTS'] = "Dele";
 $txt['STORESLAVE'] = "Lager";
 $txt['SPAMCSCORE'] = "Regl score";
@@ -423,7 +423,7 @@ $txt['WAITINGCONFIRMATION'] = "venter på bekræftelse";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "Moden spam  behandles på kan tilpasses for hver af dine adresser. Se brugermanualen (tilgængelig i afsnit%a href =\"help.php\">\"Help\" “Help ” for mere information om de forskellige tilgængelige behandlingsformer.";
+$txt['ADDPARAMSHORTHELP'] = "Måden spam  behandles på kan tilpasses for hver af dine adresser. Se brugermanualen (tilgængelig i afsnit <a href =\"help.php\">\"Hjælp\" </a> for mere information om de forskellige tilgængelige behandlingsformer.";
 $txt['FOREACHSPAMDO'] = "For hver meddelelse, der registreres som spam:";
 $txt['FOREACHNEWSLETTERDO'] = "For hver meddelelse, der registreres som nyhedsbrev:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "opbevares i karantæne";
@@ -454,10 +454,10 @@ $txt['TODAY'] = "I dag";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
+$txt['WARNLISTSHORTHELP'] = "Varslingslisten  indeholder betroede afsenderadresser, som du ønsker at blive underrettet via e-mail, når denne bliver registreret som spam. Du kan derefter straks frigive meddelelsen i tilfælde af en filtrerings fejl. < br/>
+\t\t\t\t\t\t\t\t   Advarsel: denne funktion skal bruges som en midlertidig løsning, da den reducerer den overordnede beskyttelse. 
+\t\t\t\t\t\t\t\t   Se manualen (findes i afsnit < a href = \"help. php\" > \"Help\" </a>) for at få flere oplysninger om brug af warn List. ";
+$txt['WARNLISTFORADDRESS'] = "Advarselsliste for adressen";
 $txt['ADDAWARNENTRY'] = "Føj en adresse til listen";
 $txt['WARNLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til warnlisten. Du kan også tilføje en valgfri kommentar.";
 $txt['ADDTHEENTRY'] = "&lt; Tilføj adressen";
@@ -465,21 +465,21 @@ $txt['REMOVEANENTRY'] = "Deaktiver, Aktivér eller fjern en adresse fra listen";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['REMTHEENTRY'] = "Fjern markering";
 $txt['DISABLETHEENTRY'] = "Deaktiver/Aktivér markering";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+$txt['WHITELISTSHORTHELP'] = "Hvidlisten indeholder betroede afsenderadresser, hvor der aldrig vil forekomme karantæne tilbageholdelse. < br/>
+                                   Advarsel: denne funktion skal bruges som en midlertidig løsning, da den reducerer den overordnede beskyttelse.
+                                  Se manualen (findes i afsnit < a href = \"help. php\" > \"Help\" </a>) for at få flere oplysninger om brug af hvid liste. 
 ";
-$txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
+$txt['BLACKLISTSHORTHELP'] = "Blacklisten indeholder sortlistet afsender adresser.
+...................................Læs manualen (til rådighed i afsnit <a href=\"help.php\">\"Hjælp\"</a>) for at få flere oplysninger.
 ";
-$txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired newsletters.<br />
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletter list usage.
+$txt['NEWSLISTSHORTHELP'] = "Nyhedsbrev listen indeholder adresser på de ønskede nyhedsbreve. < br/>
+                                  Se manualen (findes i afsnit<a href=\"help. php\" >\"Help\"</a>) for at få flere oplysninger om brug af nyhedsbrev listen.
 ";
-$txt['WHITELISTFORADDRESS'] = "Whitelist for the address";
+$txt['WHITELISTFORADDRESS'] = "Whitelist addressen";
 $txt['ADDAWHITEENTRY'] = "Føj en adresse til listen";
 $txt['WHITELISTENTRYTOADD'] = "Indtast den adresse, du vil føje til whitelisten. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
-$txt['BLACKLISTFORADDRESS'] = "Blacklist for the address";
+$txt['BLACKLISTFORADDRESS'] = "Blacklist  adressen";
 $txt['ADDABLACKENTRY'] = "Føj en adresse til listen";
 $txt['BLACKLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til blacklisten. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
