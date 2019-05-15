@@ -454,9 +454,9 @@ $txt['TODAY'] = "I dag";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "Varslingslisten  indeholder betroede afsenderadresser, som du ønsker at blive underrettet via e-mail, når denne bliver registreret som spam. Du kan derefter straks frigive meddelelsen i tilfælde af en filtrerings fejl. < br/>
+$txt['WARNLISTSHORTHELP'] = "Varslingslisten  indeholder betroede afsenderadresser, som du ønsker at blive underrettet via e-mail, når denne bliver registreret som spam. Du kan derefter straks frigive meddelelsen i tilfælde af en filtrerings fejl. <br />
 \t\t\t\t\t\t\t\t   Advarsel: denne funktion skal bruges som en midlertidig løsning, da den reducerer den overordnede beskyttelse. 
-\t\t\t\t\t\t\t\t   Se manualen (findes i afsnit < a href = \"help. php\" > \"Help\" </a>) for at få flere oplysninger om brug af warn List. ";
+\t\t\t\t\t\t\t\t   Se manualen (findes i afsnit <a href=\"help.php\">\"Help\"</a>) for at få flere oplysninger om brug af warn List. ";
 $txt['WARNLISTFORADDRESS'] = "Advarselsliste for adressen";
 $txt['ADDAWARNENTRY'] = "Føj en adresse til listen";
 $txt['WARNLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til warnlisten. Du kan også tilføje en valgfri kommentar.";
