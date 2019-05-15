@@ -472,8 +472,8 @@ $txt['WHITELISTSHORTHELP'] = "Hvidlisten indeholder betroede afsenderadresser, h
 $txt['BLACKLISTSHORTHELP'] = "Blacklisten indeholder sortlistet afsender adresser.
 ...................................Læs manualen (til rådighed i afsnit <a href=\"help.php\">\"Hjælp\"</a>) for at få flere oplysninger.
 ";
-$txt['NEWSLISTSHORTHELP'] = "Nyhedsbrev listen indeholder adresser på de ønskede nyhedsbreve. < br/>
-                                  Se manualen (findes i afsnit<a href=\"help. php\" >\"Help\"</a>) for at få flere oplysninger om brug af nyhedsbrev listen.
+$txt['NEWSLISTSHORTHELP'] = "Nyhedsbrev listen indeholder adresser på de ønskede nyhedsbreve. <br />
+                                  Se manualen (findes i afsnit<a href=\"help.php\">\"Help\"</a>) for at få flere oplysninger om brug af nyhedsbrev listen.
 ";
 $txt['WHITELISTFORADDRESS'] = "Whitelist addressen";
 $txt['ADDAWHITEENTRY'] = "Føj en adresse til listen";
