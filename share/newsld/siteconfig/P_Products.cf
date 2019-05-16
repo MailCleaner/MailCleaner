@@ -24,4 +24,4 @@ header		MC_NEWS_PRODPHPLIST		X-Mailer =~ /phplist/i
 score		MC_NEWS_PRODPHPLIST		2.00
 
 header      MC_NEWS_SENDGRID        Received =~ /sendgrid.net/i
-score    MC_NEWS_SENDGRID        4.00
+score    MC_NEWS_SENDGRID        1.5
