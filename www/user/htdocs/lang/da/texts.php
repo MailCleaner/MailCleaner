@@ -263,7 +263,7 @@ $txt['WWENTRY'] = "Indgang";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Er du sikker på, at du vil slette denne post permanent?";
 //old
-$txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
+$txt['WHITELISTFOR'] = "\"Whitelist\" for __PARAM__";
 //old
 $txt['WARNLISTFOR'] = "\"Warnlist\" for __PARAM__";
 //old
@@ -402,7 +402,7 @@ $txt['QUARPARAMTOPICTITLE'] = "Visning af karantæne";
 $txt['WARNLISTTOPICTITLE'] = "\"warnlist\"";
 $txt['WHITELISTTOPICTITLE'] = "\"whitelist\"";
 $txt['BLACKLISTTOPICTITLE'] = "\"blacklist\"";
-$txt['NEWSLISTTOPICTITLE'] = "newslist";
+$txt['NEWSLISTTOPICTITLE'] = "\"newslist\"";
 /*
  * interface (new)
  */
@@ -465,15 +465,15 @@ $txt['REMOVEANENTRY'] = "Deaktiver, Aktivér eller fjern en adresse fra listen";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
 $txt['REMTHEENTRY'] = "Fjern markering";
 $txt['DISABLETHEENTRY'] = "Deaktiver/Aktivér markering";
-$txt['WHITELISTSHORTHELP'] = "Hvidlisten indeholder betroede afsenderadresser, hvor der aldrig vil forekomme karantæne tilbageholdelse. < br/>
+$txt['WHITELISTSHORTHELP'] = "\"Whitelisten\" indeholder betroede afsenderadresser, hvor der aldrig vil forekomme karantæne tilbageholdelse. < br/>
                                    Advarsel: denne funktion skal bruges som en midlertidig løsning, da den reducerer den overordnede beskyttelse.
-                                  Se manualen (findes i afsnit < a href = \"help. php\" > \"Help\" </a>) for at få flere oplysninger om brug af hvid liste. 
+                                  Se manualen (findes i afsnit <a href=\"help. php\">\"Hjælp\"</a>) for at få flere oplysninger om brug af \" whitelisten \". 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Blacklisten indeholder sortlistet afsender adresser.
 ...................................Læs manualen (til rådighed i afsnit <a href=\"help.php\">\"Hjælp\"</a>) for at få flere oplysninger.
 ";
 $txt['NEWSLISTSHORTHELP'] = "Nyhedsbrev listen indeholder adresser på de ønskede nyhedsbreve. <br />
-                                  Se manualen (findes i afsnit<a href=\"help.php\">\"Help\"</a>) for at få flere oplysninger om brug af nyhedsbrev listen.
+                                  Se manualen (findes i afsnit<a href=\"help.php\">\"Hjælp\"</a>) for at få flere oplysninger om brug af nyhedsbrev listen.
 ";
 $txt['WHITELISTFORADDRESS'] = "Whitelist addressen";
 $txt['ADDAWHITEENTRY'] = "Føj en adresse til listen";
@@ -483,7 +483,7 @@ $txt['BLACKLISTFORADDRESS'] = "Blacklist  adressen";
 $txt['ADDABLACKENTRY'] = "Føj en adresse til listen";
 $txt['BLACKLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til blacklisten. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
-$txt['NEWSLISTFORADDRESS'] = "Newsletter list for the address";
+$txt['NEWSLISTFORADDRESS'] = "Nyhedsbrev liste for adressen";
 $txt['ADDANEWSENTRY'] = "Føj en adresse til listen";
 $txt['NEWSLISTENTRYTOADD'] = "Indtast den adresse, du vil føje til newsletter listen. Du kan også tilføje en valgfri kommentar.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Vælg den adresse eller de adresser, du vil ændre, på listen, og klik på den ønskede handlingsknap.";
