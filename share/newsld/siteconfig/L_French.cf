@@ -21,7 +21,7 @@ body		MC_NEWS_FRWSINSCRI		/sincri/i
 score		MC_NEWS_FRWSINSCRI		1.00
 
 body		MC_NEWS_FRWCOURRIEL		/\bcourriels?\b/i
-score		MC_NEWS_FRWCOURRIEL		1.00
+score		MC_NEWS_FRWCOURRIEL		0.50
 
 body		MC_NEWS_FRWDERANGE		/email vous dérange\b/i
 score		MC_NEWS_FRWDERANGE		1.00
@@ -67,4 +67,4 @@ score           MC_WORD_FR_UNSUBSCRIBE          1.00
 body            MC_WORD_FR_UNSUBSCRIBE2         /\bd.sabonne/i
 score           MC_WORD_FR_UNSUBSCRIBE2         1.00
 
-body            MC_WORD_FR_SUPPRIMER            /\bsupprimer/i
+body            __MC_WORD_FR_SUPPRIMER            /\bsupprimer/i

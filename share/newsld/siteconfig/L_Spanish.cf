@@ -24,10 +24,10 @@ body            MC_SP_UNSUBSCRIBE               /\bdesuscribirse\b/i
 score           MC_SP_UNSUBSCRIBE               1.00
 
 body            MC_EXPR_SP_RECIBIR_INFO         /Si quieres dejar de recibir nuestras informaciones/i
-body            MC_EXPR_SP_RECIBIR_INFO         2.00
+score		MC_EXPR_SP_RECIBIR_INFO         2.00
 
 body            MC_EXPR_SP_ANULAR_SUS           /anular la suscripción a cualquier boletín /i
-body            MC_EXPR_SP_ANULAR_SUS           2.00
+score           MC_EXPR_SP_ANULAR_SUS           2.00
 
 body            MC_WORD_SP_UNSUBSCRIBE2         /\brecibir\b/i
 score           MC_WORD_SP_UNSUBSCRIBE2         1.00
