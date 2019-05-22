@@ -34,6 +34,6 @@ score		MC_NEWS_DEWNEWSLEN3		2.00
 
 body            __MC_WORD_DE_NEWSLETTER         /Neuheitenbrief/i
 
-body            MC_WORD_DE_UNSUBSCRIBE          /\babmeld/i
+body            __MC_WORD_DE_UNSUBSCRIBE          /\babmeld/i
 
-body	        MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
+body	        __MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
