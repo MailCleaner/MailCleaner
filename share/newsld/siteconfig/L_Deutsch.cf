@@ -37,3 +37,5 @@ body            __MC_WORD_DE_NEWSLETTER         /Neuheitenbrief/i
 body            __MC_WORD_DE_UNSUBSCRIBE          /\babmeld/i
 
 body	        __MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
+
+body		__MC_WORD_DE_SUSCRIBE		/\babonnieren/i
