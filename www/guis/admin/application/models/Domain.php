@@ -13,6 +13,7 @@ class Default_Model_Domain
 	protected $_id;
 	protected $_values = array(
       'name' => '',
+      'active' => true,
       'destination'    => '',
       'prefs' => 0,
       'callout' => 'true',

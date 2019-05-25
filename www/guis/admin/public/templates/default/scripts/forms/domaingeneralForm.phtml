@@ -11,13 +11,13 @@
        <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
        <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
 <table class="ftable">
+        <?php $user = Zend_Registry::get('user'); ?>
         <tr>
                 <td class='flabel'>Administrator(s):</td>
                 <td class='fvalue'>
                         <?php if (empty($this->domain->getAdmin()) || $this->domain->getAdmin() == NULL) echo "<div><i> no administrator defined for this domain</i></div>"; ?>
                         <?php foreach ($this->domain->getAdmin() as $admin) {?>
                                 <div>
-					<?php $user = Zend_Registry::get('user'); ?>
 					<?php if ($user && $user->getUserType() == 'administrator') {?>
 						<a href='/admin/accesses/edit/sname//page/1/username/<?php echo $admin->username?>'>
 					<?php } ?>
@@ -29,7 +29,13 @@
                         <?php }?>
                 </td>
         </tr>
+
         <tr><td colspan="2"><hr /></td></tr>
+
+        <?php if ($user && $user->getUserType() == 'administrator') {?>
+			<?php echo $this->InputRow($this->form->getElement("enabledomain"));?>
+	        <tr><td colspan="2"><hr /></td></tr>
+        <?php } ?>
 	
         <?php if ($this->domain->getParam('name') != '__global__') {?>
           <?php foreach (array('aliases') as $f) {?>
