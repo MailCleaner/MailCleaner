@@ -170,7 +170,7 @@ class DomainController extends Zend_Controller_Action
                       $panelform->_blacklist = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
                       $panelform->_newslist = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
                   }
-
+		  $view->domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false" );
             	  $view->domain->save();
             	  $view->domain->saveAliases();
             	  $message = 'OK data saved';
@@ -191,6 +191,7 @@ class DomainController extends Zend_Controller_Action
          $view->warnlistform = $warnlistform;
          $view->blacklistform = $blacklistform;
          $view->newslistform = $newslistform;
+
     }
     
     public function globalAction() {
@@ -258,6 +259,7 @@ class DomainController extends Zend_Controller_Action
                     $domain = new Default_Model_Domain();
                     $panelform->setParams($request, $domain);
                     $domain->setParam('name', $d);
+                    $domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false" );
                     $domain->copyPrefs($defdom);
                     $domain->save();
             	    $domain->saveAliases();
