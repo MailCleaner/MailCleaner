@@ -30,12 +30,21 @@
                 </td>
         </tr>
 
-        <tr><td colspan="2"><hr /></td></tr>
+	<tr><td colspan="2"><hr /></td></tr>
 
         <?php if ($user && $user->getUserType() == 'administrator') {?>
-			<?php echo $this->InputRow($this->form->getElement("enabledomain"));?>
-	        <tr><td colspan="2"><hr /></td></tr>
-        <?php } ?>
+                <?php echo $this->InputRow($this->form->getElement("enabledomain"));?>
+                <tr><td colspan="2"><hr /></td></tr>
+        <?php } else {
+                echo "<tr><td class='flabel'>Domain is active:</td>";
+                if ($this->form->getValue("enabledomain")) {
+                        echo "<td class='fvalue'><div><strong style='color:green'>yes</strong></td></tr>";
+                } else {
+                        echo "<td class='fvalue'><div><strong style='color:red'>no</strong> (Please contact your administrator)</td></tr>";
+                }
+         } ?>
+
+        <tr><td colspan="2"><hr /></td></tr>
 	
         <?php if ($this->domain->getParam('name') != '__global__') {?>
           <?php foreach (array('aliases') as $f) {?>
