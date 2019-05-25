@@ -564,6 +564,14 @@ sub manageTagMode {
 sub sendMeAnyway {
 	my $this = shift;
 
+	$this->{daemon}->doLog(
+		$this->{batchid}
+		  . ": message "
+		  . $this->{exim_id}
+		  . " Message will be delivered using SendMeAnyway",
+		'spamhandler', 'info'
+	);
+
 	my $smtp;
 	unless ( $smtp = Net::SMTP->new('localhost:2525') ) {
 		$this->{daemon}->doLog(
@@ -592,18 +600,40 @@ sub sendMeAnyway {
 	$err = $smtp->code();
 	if ( $err < 200 || $err >= 500 ) {
 		## smtpError
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not set MAIL FROM",
+			'spamhandler', 'error'
+		);
 		return 0;
 	}
 	$smtp->to( $this->{env_rcpt} );
 	$err = $smtp->code();
 	if ( $err < 200 || $err >= 500 ) {
 		## smtpError
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not set RCPT TO",
+			'spamhandler', 'error'
+		);
 		return;
 	}
 	$smtp->data();
 	$err = $smtp->code();
 	if ( $err < 200 || $err >= 500 ) {
 		## smtpError
+	
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not set DATA",
+			'spamhandler', 'error'
+		);
 		return;
 	}
 
@@ -612,12 +642,26 @@ sub sendMeAnyway {
 	$err = $smtp->code();
 	if ( $err < 200 || $err >= 500 ) {
 		## smtpError
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not set DATA content",
+			'spamhandler', 'error'
+		);
 		return;
 	}
 	$smtp->dataend();
 	$err = $smtp->code();
 	if ( $err < 200 || $err >= 500 ) {
 		## smtpError
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not set end of DATA (.)",
+			'spamhandler', 'error'
+		);
 		return;
 	}
 	my $returnmessage = $smtp->message();
@@ -625,6 +669,38 @@ sub sendMeAnyway {
 	if ( $returnmessage =~ m/id=(\S+)/ ) {
 		$id = $1;
 	}
+
+	if ($id == 'unknown') {
+		$this->{daemon}->doLog(
+			$this->{batchid}
+			  . ": message "
+			  . $this->{exim_id}
+			  . " Could not deliver the classical way, had to force the dataend, cause was :"
+			  . $returnmessage,
+			'spamhandler', 'info'
+		);
+
+        	$smtp->rawdatasend('\n.\n');
+	        $smtp->dataend();
+
+        	$err = $smtp->code();
+	        if ( $err < 200 || $err >= 500 ) {
+                	## smtpError
+			$this->{daemon}->doLog(
+				$this->{batchid}
+				  . ": message "
+				  . $this->{exim_id}
+				  . " Could not deliver the classical way, had to force the dataend ",
+				'spamhandler', 'error'
+			);
+			return;
+	        }
+        	$returnmessage = $smtp->message();
+	        if ( $returnmessage =~ m/id=(\S+)/ ) {
+        	        $id = $1;
+	        }
+	}
+
 	$this->{daemon}->doLog(
 		$this->{batchid}
 		  . ": message "
