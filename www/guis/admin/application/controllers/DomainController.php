@@ -163,7 +163,14 @@ class DomainController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($panelform->isValid($request->getPost())) {
                 try {
+                  $is_domain_active = $view->domain->getParam('active');
                   $panelform->setParams($request, $view->domain);
+                  if ($request->get('enabledomain')) {
+                      $view->domain->setParam('active', $request->get('enabledomain'));
+                  } else {
+                      $view->domain->setParam('active', $is_domain_active);
+                  }
+
                   if ($panel == 'filtering') {
                       $panelform->_whitelist = $whitelistelement->fetchAll('@'.$view->domain->getParam('name'),'white');
                       $panelform->_warnlist = $warnlistelement->fetchAll('@'.$view->domain->getParam('name'),'warn');
@@ -258,8 +265,13 @@ class DomainController extends Zend_Controller_Action
                     }
                     $domain = new Default_Model_Domain();
                     $panelform->setParams($request, $domain);
-                    $domain->setParam('name', $d);
-                    $domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false" );
+		    $domain->setParam('name', $d);
+                    $is_domain_active = $view->domain->getParam('active');
+                    if ($request->get('enabledomain')) {
+                        $domain->setParam('active', $request->get('enabledomain'));
+                    } else {
+                        $domain->setParam('active', $is_domain_active);
+                    }
                     $domain->copyPrefs($defdom);
                     $domain->save();
             	    $domain->saveAliases();
