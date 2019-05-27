@@ -166,7 +166,7 @@ class DomainController extends Zend_Controller_Action
                   $is_domain_active = $view->domain->getParam('active');
                   $panelform->setParams($request, $view->domain);
                   if ($request->get('enabledomain')) {
-                      $view->domain->setParam('active', $request->get('enabledomain'));
+		      $view->domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false");
                   } else {
                       $view->domain->setParam('active', $is_domain_active);
                   }
@@ -177,7 +177,6 @@ class DomainController extends Zend_Controller_Action
                       $panelform->_blacklist = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
                       $panelform->_newslist = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
                   }
-		  $view->domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false" );
             	  $view->domain->save();
             	  $view->domain->saveAliases();
             	  $message = 'OK data saved';
