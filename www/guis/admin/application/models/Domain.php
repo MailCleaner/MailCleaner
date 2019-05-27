@@ -322,7 +322,7 @@ class Default_Model_Domain
 	}
 
 	public function setAsAliasOf($domain) {
-		foreach(array('destination', 'callout', 'altcallout', 'adcheck', 'forward_by_mx', 'greylist', 'prefs') as $param) {
+		foreach(array('destination', 'callout', 'altcallout', 'adcheck', 'forward_by_mx', 'greylist', 'prefs', 'active') as $param) {
 			$this->setParam($param, $domain->getParam($param));
 		}
 		return $this->getMapper()->save($this);
