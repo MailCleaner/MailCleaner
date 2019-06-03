@@ -56,15 +56,21 @@ score		MC_NEWS_FRWRCSSIRET		2.00
 body		MC_NEWS_FRWLOIINFO		/\b0?6 janvier 1978\b/i
 score		MC_NEWS_FRWLOIINFO		2.00
 
+body            MC_NEWS_FR_BASE_PART            /enregistr[^\s]* sur la base partenaire/i
+score           MC_NEWS_FR_BASE_PART            2.00
+
 body            MC_WORD_FR_NEWSLETTER           /liste de diffusion/i
 score           MC_WORD_FR_NEWSLETTER           2.0
 
 body            __MC_WORD_FR_NEWSLETTER2        /bulletin d.information/i
 
-body            MC_WORD_FR_UNSUBSCRIBE          /\bd.sinscri/i
+body            MC_WORD_FR_UNSUBSCRIBE          /\bd[^\s]*sinscri/i
 score           MC_WORD_FR_UNSUBSCRIBE          1.00
 
-body            MC_WORD_FR_UNSUBSCRIBE2         /\bd.sabonne/i
+body            MC_WORD_FR_UNSUBSCRIBE2         /\bd[^\s]*sabonne/i
 score           MC_WORD_FR_UNSUBSCRIBE2         1.00
+
+body            MC_WORD_FR_SUBSCRIBE            /\babonne/i
+score           MC_WORD_FR_SUBSCRIBE            0.50
 
 body            __MC_WORD_FR_SUPPRIMER            /\bsupprimer/i
