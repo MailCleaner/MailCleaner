@@ -342,7 +342,7 @@ if ($itsmidnight) {
   print "rotating logs...\n";
   system("touch /tmp/rotate.lock");
   system($config{'SRCDIR'}."/scripts/cron/rotate_logs.sh");
-  system("rm /tmp/rotate.lock");
+  system("rm /tmp/rotate.lock >> /dev/null 2>&1");
   print "done rotating logs.\n";
 
   ##########################
