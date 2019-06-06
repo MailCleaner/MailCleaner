@@ -39,3 +39,6 @@ body            __MC_WORD_DE_UNSUBSCRIBE          /\babmeld/i
 body	        __MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
 
 body		__MC_WORD_DE_SUSCRIBE		/\babonnieren/i
+
+body    MC_DE_UNLIST       /Melde mich von dieser Mailingliste ab/i
+score   MC_DE_UNLIST       2.00
