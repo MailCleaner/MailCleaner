@@ -91,6 +91,7 @@ acl_smtp_connect = acl_check_conn
 acl_smtp_rcpt = acl_check_rcpt
 acl_smtp_data = acl_check_data
 acl_smtp_helo = acl_check_helo
+acl_smtp_mail = acl_check_mail
 acl_smtp_mime = acl_check_mime
 ignore_bounce_errors_after = 0s
 timeout_frozen_after = 4d
@@ -263,6 +264,15 @@ acl_check_helo:
           logwrite      = DEBUG - refused, bad helo - smtp:refused,smtp:refused:bad_helo
  __FI__
     accept hosts        = *
+
+acl_check_mail:
+  # deny if no HELO command given
+  deny
+    condition = ${if def:sender_helo_name {no}{yes}}
+    delay = 10s
+    message = no HELO given before MAIL command
+
+    accept
 
 acl_check_rcpt:
 
@@ -889,7 +899,8 @@ __FI__
  __IF__ DEBUG
           log_message    = DMARC DEBUG: $dmarc_status $dmarc_used_domain
  __FI__
-          add_header     = $dmarc_ar_header
+          add_header     = :at_start:${authresults {$primary_hostname}}
+
 
   warn    dmarc_status   = quarantine
           !authenticated = *
