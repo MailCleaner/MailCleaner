@@ -57,7 +57,6 @@ body            MC_EN_UNSUBSCRIBE               /\bunsubscribe\b/i
 score           MC_EN_UNSUBSCRIBE               1.00
 body            MC_EN_SUBSCRIBE                 /\bsubscribe\b/i
 
-body            MC_WORD_EN_NEWSLETTER           /newsletter/i
-score           MC_WORD_EN_NEWSLETTER           2.0
+body            __MC_WORD_EN_NEWSLETTER           /newsletter/i
 
 body            __MC_WORD_EN_NEWSLETTER2         /Mailing.?list/i
