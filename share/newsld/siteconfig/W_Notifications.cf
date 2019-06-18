@@ -21,6 +21,9 @@
 header		MC_NEWS_EFRMFBMAIL1	From =~ /notification.*\@facebookmail\.(eu|com|fr|ch|de)/i
 score		MC_NEWS_EFRMFBMAIL1	-10.0
 
+header		MC_NEWS_SCHWEIZERPASS	From =~ /bestellung\@schweizerpass\.ch/i
+score		MC_NEWS_SCHWEIZERPASS	-10.0
+
 header		MC_NEWS_EFRMTWITTER1	From =~ /info\@twitter\.(eu|com|fr|ch|de)/i
 score		MC_NEWS_EFRMTWITTER1	-10.0
 
