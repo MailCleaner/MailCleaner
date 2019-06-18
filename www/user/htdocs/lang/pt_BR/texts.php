@@ -107,8 +107,8 @@ $txt['CRITERIAS'] = "Critérios";
 $txt['FORCEMESSAGE'] = "Liberar a mensagem";
 $txt['MESSAGEFORCING'] = "Mensagem liberada";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Pedido de ajustamento do filtro";
-$txt['ANALYSEREQUESTV'] = "Pedir o ajustamento do filtro";
+$txt['ANALYSEREQUEST'] = "Pedido de ajuste do filtro";
+$txt['ANALYSEREQUESTV'] = "Solicitar ajuste no filtro";
 $txt['SCORETEXT'] = "Nota: __PARAM__";
 $txt['CLOSEWINDOW'] = "Fechar a página";
 $txt['CURRENTPAGE'] = "Página __PARAM1__ de __PARAM2__";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Nota de regra";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Exibir conteúdos da mensagem";
+$txt['MESSAGEPREVIEW'] = "Pré-visualização da Mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
