@@ -65,3 +65,6 @@ score		MC_NEWS_EFRMSTEAM1	-10.0
 
 header		MC_NEWS_WETRANSFER      From =~ /noreply\@wetransfer\.com/i
 score		MC_NEWS_WETRANSFER      -10.0
+
+header    MC_NEWS_SWISSTRANSFER      From =~ /no-reply\@swisstransfer\.com/i
+score   MC_NEWS_SWISSTRANSFER      -10.0
