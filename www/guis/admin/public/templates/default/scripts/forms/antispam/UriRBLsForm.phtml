@@ -16,6 +16,7 @@
       <?php echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()))?><br />
     <?php }?>
     </td>
+    <?php echo $this->InputRow($this->form->getElement('avoidhosts'),array('label_addclass'=>'flabeltextarea'));?>
 </tr>
 
 <?php echo $this->InputRow($this->form->getElement('resolve_shorteners'));?> 

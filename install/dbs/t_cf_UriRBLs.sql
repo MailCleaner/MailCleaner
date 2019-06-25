@@ -7,6 +7,7 @@ CREATE TABLE UriRBLs (
   listeduristobespam            int(5) NOT NULL DEFAULT 1,
   listedemailtobespam           int(5) NOT NULL DEFAULT 1,
   resolve_shorteners            int(1) NOT NULL DEFAULT 1,
+  avoidhosts                    blob,
   PRIMARY KEY (set_id)
 );
 

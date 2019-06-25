@@ -25,7 +25,8 @@ no strict 'subs';    # Allow bare words for parameter %'s
 use IO;
 use POSIX qw(:signal_h);    # For Solaris 9 SIG bug workaround
 use MIME::Parser;
-
+use Net::IP;
+use Net::CIDR::Lite;
 use MCDnsLists;
 
 my $MODULE = "UriRBLs";
@@ -53,7 +54,8 @@ sub initialise {
 		TLDsFiles            => 'two-level-tlds.txt tlds.txt',
 		localDomainsFile     => 'domains.list',
 		resolveShorteners    => 1,
-        temporarydir         => '/tmp'
+		avoidhosts           => '',
+                temporarydir         => '/tmp'
 	);
 
 	if ( open( CONFIG, $configfile ) ) {
@@ -102,6 +104,49 @@ sub Checks {
 		);
 		return 0;
 	}
+        my $senderhostname = '';
+        my $senderdomain = $message->{fromdomain};
+        my $senderip = $message->{clientip};
+
+        ## try to find sender hostname 
+        ## find out any previous SPF control
+        foreach my $hl ($global::MS->{mta}->OriginalMsgHeaders($message)) {
+            if ($senderhostname eq '' && $hl =~ m/^Received: from (\S+) \(\[$senderip\]/) {
+                  $senderhostname = $1;
+                  MailScanner::Log::InfoLog("$MODULE found sender hostname: $senderhostname for $senderip on message ".$message->{id});
+            }
+            if ($hl =~ m/^X-MailCleaner-SPF: (.*)/) {
+                 last; ## we can here because X-MailCleaner-SPF will always be after the Received fields.
+            }
+        }
+
+        ## check if in avoided hosts
+        foreach my $avoidhost ( split(/,/, $UriRBLs::conf{avoidhosts})) {
+            if ($avoidhost =~ m/^[\d\.\:\/]+$/) {
+                if ($UriRBLs::conf{debug}) {
+                      MailScanner::Log::InfoLog("$MODULE should avoid control on IP ".$avoidhost." for message ".$message->{id});
+                }
+                my $acidr = Net::CIDR::Lite->new();
+                eval { $acidr->add_any($avoidhost); };
+                if ($acidr->find($message->{clientip})) {
+                     MailScanner::Log::InfoLog("$MODULE not checking UriRBL on ".$message->{clientip}." because IP is whitelisted for message ".$message->{id});
+                     return 0;
+                }
+            }
+            if ($avoidhost =~ m/^[a-zA-Z\.\-\_\d\*]+$/) {
+                  $avoidhost =~ s/([^\\])\./\1\\\./g;
+                  $avoidhost =~ s/^\./\\\./g;
+                  $avoidhost =~ s/([^\\])\*/\1\.\*/g;
+                  $avoidhost =~ s/^\*/.\*/g;
+                  if ($UriRBLs::conf{debug}) {
+                        MailScanner::Log::InfoLog("$MODULE should avoid control on hostname ".$avoidhost." for message ".$message->{id});
+                  }
+                  if ($senderhostname =~ m/$avoidhost$/) {
+                       MailScanner::Log::InfoLog("$MODULE not checking UriRBL on ".$message->{clientip}." because hostname $senderhostname is whitelisted for message ".$message->{id});
+                       return 0;
+                  }
+            }
+         }
 
 	my (@WholeMessage);
 	push( @WholeMessage, "\n" );
