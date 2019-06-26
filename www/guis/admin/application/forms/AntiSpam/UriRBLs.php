@@ -66,7 +66,21 @@ class Default_Form_AntiSpam_UriRBLs extends Default_Form_AntiSpam_Default
             'checkedValue' => "1"
                   ));
         $resolve_shorteners->setValue($as->getParam('resolve_shorteners'));
-        $this->addElement($resolve_shorteners);
+	$this->addElement($resolve_shorteners);
+                require_once('Validate/SMTPHostList.php');
+                $avoidhosts = new Zend_Form_Element_Textarea('avoidhosts', array(
+                      'label'    =>  $t->_('Don\'t check these hosts')." :",
+                      'title'   => $t->_("IPs/hosts added here will not be checked against the RBLs"),
+                      'required'   => false,
+                      'rows' => 5,
+                      'cols' => 30,
+                      'filters'    => array('StringToLower', 'StringTrim')));
+                $avoidhosts->addValidator(new Validate_SMTPHostList());
+                $hoststoavoid = preg_replace('/,\s\;/', "\n", $as->getParam('avoidhosts'));
+                $hoststoavoid = preg_replace('/,/', "\n", $hoststoavoid);
+                $avoidhosts->setValue($hoststoavoid);
+                $this->addElement($avoidhosts);
+
 	}
 	
 	public function setParams($request, $module) {
@@ -88,6 +102,9 @@ class Default_Form_AntiSpam_UriRBLs extends Default_Form_AntiSpam_Default
 		$as->setparam('rbls', $rblstr);
 		$as->setparam('listeduristobespam', $request->getParam('listeduristobespam'));
 		$as->setparam('resolve_shorteners', $request->getParam('resolve_shorteners'));
+                $hoststoavoid = preg_replace('/,\s\;/', '\n', $request->getParam('avoidhosts'));
+                $hoststoavoid = preg_replace('/\s+/', ',', $hoststoavoid);
+                $as->setParam('avoidhosts', $hoststoavoid);
 		$as->save();
 	}
 	
