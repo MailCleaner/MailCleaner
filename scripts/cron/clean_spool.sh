@@ -48,5 +48,7 @@ if [ -d $VARDIR/spool/tmp/mailscanner/spamassassin ]; then
   cd $VARDIR/spool/tmp/mailscanner/spamassassin
   rm -rf MailScanner.* >/dev/null 2>&1
 fi
+find $VARDIR/spool/exim_stage1/scan -type f -mtime +30 -delete
+find $VARDIR/spool/exim_stage1/scan -type d -empty -delete
 cd $VARDIR/spool/tmp
 #find . -ctime +4 -and -type f -exec rm {} \; >/dev/null 2>&1
