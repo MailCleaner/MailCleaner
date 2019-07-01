@@ -185,7 +185,7 @@ rm $VARDIR/www/stats/* >/dev/null 2>&1
 ##########################
 
 if [ -x /usr/bin/savelog ]; then
-  for i in update.log update2.log autolearn.log rules.log spam_sync.log mc_counts-cleaner.log downloadDatas.log; do
+  for i in update.log update2.log autolearn.log rules.log spam_sync.log mc_counts-cleaner.log downloadDatas.log summaries.log updater4mc.log; do
 	if [ -e $VARDIR/log/mailcleaner/$i ]; then
 		savelog -c $DAYSTOKEEP $VARDIR/log/mailcleaner/$i >/dev/null
 	fi

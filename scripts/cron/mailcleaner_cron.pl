@@ -476,8 +476,8 @@ if ($itstime) {
     print "sending daily summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending daily summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 3 1 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
+    system("echo 'Sending daily summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
+    system($config{'SRCDIR'}."/bin/send_summary.pl -a 3 1 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
     print "done daily summaries.\n";
     exit;
   }
@@ -500,8 +500,8 @@ if ($itsweekday) {
     print "sending weekly summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending weekly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 2 7 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
+    system("echo 'Sending weekly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
+    system($config{'SRCDIR'}."/bin/send_summary.pl -a 2 7 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
     print "done sending weekly summaries.\n";
     exit;
   }
@@ -524,8 +524,8 @@ if ($itsmonthday) {
     print "sending monthly summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending monthly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 1 31 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries_$date.log");
+    system("echo 'Sending monthly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
+    system($config{'SRCDIR'}."/bin/send_summary.pl -a 1 31 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
     print "done sending monthly summaries.\n";
     exit;
   }
