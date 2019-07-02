@@ -147,7 +147,7 @@ $txt['HIDEFORCED'] = "Bereits freigegebene Meldungen ausblenden";
 $txt['FORCESPAM'] = "Meldung freigeben";
 // old
 $txt['ASKREASON'] = "Filterregeln anzeigen";
-$txt['CONFSENDANALYSE'] = "Ein Antrag auf Filteranpassung wird an das MailCleaner Analysis Center gesendet; er enthält eine Kopie der Nachricht, die fälschlicherweise blockiert wurde.</br>Hinweis: Eine Filteranpassung ist nicht dasselbe wie Whitelisting oder Blacklisting";
+$txt['CONFSENDANALYSE'] = "Ein Antrag auf Filteranpassung wird an das MailCleaner Analysis Center gesendet; er enthält eine Kopie der Nachricht, die fälschlicherweise blockiert wurde.</br>Hinweis: Eine Filteranpassung ist nicht dasselbe wie Whitelisting oder Blacklisting.";
 $txt['AREYOUSURE'] = "<span class=\"Frage\">W&uuml;nschen Sie wirklich die Analyse der Meldung und dass entsprechende Filterungsanpassungen angewendet werden ?</span>";
 $txt['ASKANALYSE'] = "Filteranpassung anfordern";
 $txt['PAGE'] = "Seite";
