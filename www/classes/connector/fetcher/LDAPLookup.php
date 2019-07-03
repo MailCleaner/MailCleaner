@@ -79,7 +79,8 @@
         ldap_set_option($this->connection_, LDAP_OPT_REFERRALS, 0);
         ldap_set_option($this->connection_, LDAP_OPT_PROTOCOL_VERSION, $settings->getSetting('version'));
 	ldap_set_option($this->connection_, LDAP_OPT_TIMELIMIT, 30);
-	ldap_start_tls($this->connection_);
+	if($settings->getSetting('usessl'))
+	  ldap_start_tls($this->connection_);
         if (!@ldap_bind($this->connection_, $settings->getSetting('binduser'), $settings->getSetting('bindpassword'))) {
           // cannot bind
           echo "Error in bind";
