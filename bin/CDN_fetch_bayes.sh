@@ -1,9 +1,6 @@
 #!/bin/bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
-#   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
-#   Copyright (C) 2015-2017 Mentor Reka <reka.mentor@gmail.com>
-#   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,7 +20,7 @@
 #   This script will fetch the bayesian packs (for spamc) to be learn
 #
 #   Usage:
-#           fetch_autolearn.sh [-r]
+#           CDN_fetch_bayes.sh [-r]
 
 usage()
 {
