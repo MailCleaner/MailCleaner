@@ -20,34 +20,7 @@
 #   This script will fetch the bayesian packs (for spamc) to be learn
 #
 #   Usage:
-#           CDN_fetch_bayes.sh [-r]
-
-usage()
-{
-  cat << EOF
-usage: $0 options
-
-This script will fetch the bayesian packs (for spamc) to be learn
-
-OPTIONS:
-  -r   randomize start of the script, for automated process
-EOF
-}
-
-randomize=false
-
-while getopts ":r" OPTION
-do
-  case $OPTION in
-    r)
-       randomize=true
-       ;;
-    ?)
-       usage
-       exit
-       ;;
-  esac
-done
+#           CDN_fetch_bayes.sh
 
 CONFFILE=/etc/mailcleaner.conf
 SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`

@@ -233,7 +233,7 @@ if ($minute >=0 && $minute < $cron_occurence) {
     if (my $pid_learn = fork) {
     } elsif (defined $pid_learn && $mcDataServicesAvailable) {
       #print "doing auto-learn...";
-      system($config{'SRCDIR'}."/bin/CDN_fetch_bayes.sh ".$randomize_option);
+      system($config{'SRCDIR'}."/bin/CDN_fetch_bayes.sh");
       #print "done.\n";
       exit;
     }
