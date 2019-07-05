@@ -32,7 +32,7 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
-LOGFILE="/tmp/toto"
+LOGFILE="$VARDIR/log/mailcleaner/downloadDatas.log"
 
 . $SRCDIR/lib/lib_utils.sh
 
