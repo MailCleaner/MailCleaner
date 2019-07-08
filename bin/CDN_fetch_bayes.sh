@@ -51,6 +51,15 @@ if [ !  -d $VARDIR/spool/data_credentials/ ]; then
 	mkdir -p $VARDIR/spool/data_credentials/
 fi
 
+# If the bayesian doesnt exist as a file, we remove its md5 associated file
+# That way the re download will be forced
+if [ ! -f $VARDIR/spool/spamassassin/tmp/bayes_toks ]; then
+	rm -f $VARDIR/spool/spamassassin/bayes_toks.md5
+fi
+if [ ! -f $VARDIR/spool/bogofilter/database/wordlist.db ]; then
+        rm -f $VARDIR/spool/bogofilter/database/wordlist.db.md5 > /dev/null 2>&1
+fi
+
 # Getting credentials
 rm -f /tmp/data_credentials > /dev/null 2>&1
 scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no mcscp@cvs.mailcleaner.net:/data_credentials/data_credentials /tmp/data_credentials
