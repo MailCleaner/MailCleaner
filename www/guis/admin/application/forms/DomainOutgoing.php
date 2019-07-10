@@ -176,7 +176,7 @@ class Default_Form_DomainOutgoing extends Zend_Form
 
     public function setParams($request, $domain)
     {
-
+        $user_role = Zend_Registry::get('user')->getUserType();
         if ($user_role == 'administrator') {
             $domain->setPref('allow_smtp_auth', $request->getParam('smtpauth'));
         }
