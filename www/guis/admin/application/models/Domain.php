@@ -220,6 +220,13 @@ class Default_Model_Domain
 		}
 		$ret = $this->getMapper()->delete($this);
 		
+		// Check if this domains has stats (counts) and delete them
+                $counts_path = "/var/mailcleaner/spool/mailcleaner/counts/";
+                $domain_counts = $counts_path . trim($this->getParam('name'));
+                if (file_exists($domain_counts) && is_dir($domain_counts)) {
+                        exec('rm -rf '.escapeshellarg($domain_counts));
+                }
+
 		$params = array('what' => 'domains');
         $slave = new Default_Model_Slave();
         $res = $slave->sendSoapToAll('Service_silentDump', $params);
