@@ -165,10 +165,12 @@ class User extends PrefHandler {
     global $sysconf_;
     global $admin_;
 
-    // TODO: sanitize $u
     if ($u == "") {
         return false;
     }
+    $db_slaveconf = DM_SlaveConfig :: getInstance();
+    $u = $db_slaveconf->sanitize($u);
+
     $this->setPref('username', $u);
     unset($this->addresses_);
     
