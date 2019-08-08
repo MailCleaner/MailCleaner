@@ -397,7 +397,8 @@ sub getQuarantineTemplate {
             en => "Accept this newsletter",
             es => "Acepte este Newsletter",
             fr => "Accepter cette newsletter",
-            it => "Accept this newsletter"
+            it => "Accept this newsletter",
+            nb_NO => "Godta dette Newsletter",
         );
 
         my $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
