@@ -129,12 +129,12 @@ class ConfigUserWWList {
     $antispam_ = new AntiSpam();
     $antispam_->load();
 
-   if ($antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('enable_whitelists'))  {
+   if ($this->type_ == "white" && $antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('enable_whitelists'))  {
         $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
         $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
         $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
    } 
-   else if ($antispam_->getPref('enable_blacklists') && $user_->getDomain()->getPref('enable_blacklists'))  {
+   else if ($this->type_ == "black" && $antispam_->getPref('enable_blacklists') && $user_->getDomain()->getPref('enable_blacklists'))  {
         $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
         $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
         $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
