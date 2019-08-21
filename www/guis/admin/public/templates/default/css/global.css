@@ -121,6 +121,33 @@ textarea {
    text-align: left;
 }
 
+.registerbloc {
+   max-width: 600px;
+   margin-left: auto;
+   margin-right: auto;
+   background-color: #FFFFFF;
+   border: 1px solid #D4D3D2 !important;
+   margin-bottom: 10px;
+}
+
+.registerbloc h1 {
+   margin: 0px;
+   color: #000000;
+   padding-left: 12px;
+   font-weight: normal;
+   text-decoration: none;
+   font-size: 12px;
+   text-shadow:0px 2px #FFF;
+   height: 23px;
+   line-height: 24px;
+   border: 0px;
+   border-bottom: 1px solid #D4D3D2;
+   background-image:none;
+	background-color: #F5F5F5;
+   font-weight: bold;
+   text-align: left;
+}
+
 .globalsubbloc {
    float: right;
    width: 278px;
@@ -217,4 +244,37 @@ textarea {
 
 .addselectbox {
   overflow: auto !important;
+}
+
+.linkrebutton {
+  color: #E93A00;
+  font-weight: bold;
+}
+
+.linkrebuttonnobold {
+  color: #E93A00;
+}
+
+.notunderlined {
+  text-decoration: none;
+}
+
+.notunderlined:hover {
+  text-decoration: none;
+}
+
+.littletick {
+  width: 50%;
+}
+
+.registerblocdiv {
+  min-height: 20px;
+  max-height: 240px;
+  padding: 6px 12px;
+  overflow-y: text-align: justify;
+}
+
+.registerbloccolumn {
+  text-align: left;
+  width: 33%;
 }

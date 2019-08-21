@@ -6,6 +6,109 @@
 ?>
 
 <?php if ($user && $user->getUserType() == 'administrator') {?>
+
+<?php if (!$this->is_registered) { ?>
+<div id="RegisterBloc" class="registerbloc">
+  <h1>Register - Get add-ons</h1>
+    <div class="registerblocdiv">
+     <table style="width:100%">
+          <tr>
+              <th class="registerbloccolumn">Free Entreprise Edition trial</th>
+              <th class="registerbloccolumn">Get commercial Add-ons</th>
+              <th class="registerbloccolumn">Community Edition Registration</th>
+          </tr>
+	  <tr>
+             <td>Test the Enterprise Edition
+                <div>
+                     <table>
+                            <tbody>
+                                   <tr>
+                                       <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                       </td>
+                                       <td class=globalstatusvalue">Commercial RBLs
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                      <td class="globalstatuskey">
+                                          <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                      </td>
+                                      <td class=globalstatusvalue">Additionnal filtering rules
+                                      </td>
+                                   </tr>
+                                   <tr>
+                                      <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                      </td>
+                                      <td class=globalstatusvalue">Support
+                                      </td>
+                                   </tr>
+                            </tbody>
+                     </table>
+                </div>
+             </td>
+             <td>You can add
+                <div>
+                     <table>
+                            <tbody>
+                                   <tr>
+                                       <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                       </td>
+                                       <td class=globalstatusvalue">Kaspersky
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                      <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                      </td>
+                                      <td class=globalstatusvalue">Spamhaus RBL
+                                      </td>
+                                   </tr>
+                            </tbody>
+                     </table>
+                </div>
+             </td>
+             <td>Register your free Community Edition to
+                <div>
+                     <table>
+                            <tbody>
+                                   <tr>
+                                       <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                       </td>
+                                       <td class=globalstatusvalue">be added to our newsletter
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                      <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                      </td>
+                                      <td class=globalstatusvalue">get updates notices
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                      <td class="globalstatuskey">
+                                           <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                      </td>
+                                      <td class=globalstatusvalue">free updates for the bayesian filters
+                                      </td>
+                                   </tr>
+                            </tbody>
+                     </table>
+                </div>
+             </td>
+          </tr>
+          <tr>
+              <td><a class="notunderlined" href="https://www.mailcleaner.net/trial-request.html?key=Tx3kshaf7324fdD0!" target="_blank"><input type="button" class="linkrebutton" value="Enterprise Edition Trial" /></a></td>
+              <td><a class="notunderlined" href="https://www.mailcleaner.net/community-edition-add-ons.html" target="_blank"><input type="button" class="linkrebutton" value="Purchase Add-ons" /></a></td>
+              <td><a class="notunderlined" href="/admin/baseconfiguration/registration"><input type="button" class="linkrebutton" value="Register your Community Edition" /></a></td>
+          </tr>
+    </table>
+   </div>
+</div>
+<?php } ?>
+
 <div class="globalbloc" style="min-height: 0px; padding-bottom: 12px;">
      <h1>InfoBox by MailCleaner Team</h1>
      <div class="maclasseamoi" style="min-height: 20px; max-height: 240px; padding: 6px 12px; overflow-y: scroll; text-align: justify">

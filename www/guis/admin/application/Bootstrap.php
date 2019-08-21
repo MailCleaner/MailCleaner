@@ -106,6 +106,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         if ($sysconf->getOption('ISMASTER') == 'Y') {
              $view->is_slave = 0;
         }
+
+	$view->is_registered = 0;
+        if ($sysconf->getOption('REGISTERED') == '1') {
+             $view->is_registered = 1;
+        }
         
     	return $layout;
     }
