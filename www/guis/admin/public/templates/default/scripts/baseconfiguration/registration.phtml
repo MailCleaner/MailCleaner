@@ -26,6 +26,16 @@
       </div>
 
 	<hr/>
+<?php if (!$this->is_registered) { ?>
+      <div id="freetrial">
+          <?php echo $this->partial('forms/freeTrialForm.phtml'); ?>
+      </div>
+      <hr/>
+<?php } ?>
+      <div id="commercialoptions">
+          <?php echo $this->partial('forms/commercialOptionsForm.phtml', array('is_registered' => $this->is_registered)); ?>
+      </div>
+      <hr/>
 
       <div id="registrationformcontent">
           <?php echo $this->partial('forms/registrationForm.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'images_path' => $this->images_path)); ?>
