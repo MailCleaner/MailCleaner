@@ -1,5 +1,4 @@
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
-#   Copyright (C) 2016 Florian Billebault <florian.billebault@gmail.com>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -15,7 +14,7 @@
 #   along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #
-#   Specific Newsletter rules: Danish
+#   Specific Newsletter rules: Hungarian
 
 body		MC_NEWS_HUUNSUBSENTENCE		/Amennyiben nem szeretne t.bb ilyen e-mailt kapni, k.rj.k kattintson ide leiratkoz.s/i
 score           MC_NEWS_HUUNSUBSENTENCE		1.5
