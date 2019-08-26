@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Esconder mensagens libertadas pelo utilizador";
 $txt['FORCESPAM'] = "libertar a mensagem";
 //old
 $txt['ASKREASON'] = "visualizar regras de filtragem";
-$txt['CONFSENDANALYSE'] = "Vai ser enviado um pedido de ajuste de filtragem para o Centro de Análise do MailCleaner, que inclui uma cópia da mensagem incorretamente bloqueada.</br>Nota: Um pedido de ajuste de filtragem não é o mesmo que colocar em lista branca ou lista negra";
+$txt['CONFSENDANALYSE'] = "Vai ser enviado um pedido de ajuste de filtragem para o Centro de Análise do MailCleaner, que inclui uma cópia da mensagem incorretamente bloqueada.</br>Nota: Um pedido de ajuste de filtragem não é o mesmo que colocar em lista branca ou lista negra.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Tem a certeza que quer que esta mensagem seja analisada e que sejam aplicados ajustes à filtragem?</span>";
 $txt['ASKANALYSE'] = "Pedido de ajuste de filtragem";
 $txt['PAGE'] = "Página";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Pontuação das regras";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Pré-visualização de mensagens";
+$txt['MESSAGEPREVIEW'] = "Mostrar os conteúdos da mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
