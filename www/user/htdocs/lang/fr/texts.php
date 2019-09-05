@@ -6,11 +6,11 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Ici vous pouvez g&eacute;rer vos newsletters.";
-$txt['NEWSLETTERSALLOW'] = "Délivrer";
+$txt['NEWSLETTERMODULE'] = "Lettre d'information";
+$txt['NEWSLETTERSTOPIC'] = "Lettres d'information";
+$txt['NEWSLETTERSTOPICTITLE'] = "Lettres d'information";
+$txt['NEWSLETTERSSHORTHELP'] = "Ici vous pouvez gérer vos lettres d'information.";
+$txt['NEWSLETTERSALLOW'] = "distribuer";
 $txt['NEWSLETTERACCEPT'] = "Accepter cette lettre d'information";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
 /* 
