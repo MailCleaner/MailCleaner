@@ -389,7 +389,7 @@ $txt['ADDRESSPARAMTOPIC'] = "Impostazioni indirizzo";
 $txt['QUARPARAMTOPIC'] = "Mostra quarantena";
 $txt['WARNLISTTOPIC'] = "Warn list";
 $txt['WHITELISTTOPIC'] = "White list";
-$txt['BLACKLISTTOPIC'] = "Black list";
+$txt['BLACKLISTTOPIC'] = "Lista nera";
 $txt['INTERFACETOPICTITLE'] = "impostazioni interfaccia";
 $txt['ADDRESSLISTTOPICTITLE'] = "address group";
 $txt['ADDRESSPARAMTOPICTITLE'] = "impostazioni indirizzo";
@@ -480,3 +480,4 @@ $txt['RECORDALREADYEXISTS'] = "Questo indirizzo &egrave gi&agrave presente nella
  */
 $txt['SESSIONTERMINATED'] = "La tua sessione &egrave scaduta.";
 $txt['BEENLOGGEDOUT'] = "Se vuoi iniziare una nuova sessione, seleziona il seguente link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['NEWSLISTTOPIC'] = "Lista delle notizie";
