@@ -494,11 +494,11 @@ $txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in 
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
 $txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
 //old
-$txt['EDITNEWSLIST'] = "Newsliste bearbeiten";
+$txt['EDITNEWSLIST'] = "Liste der Newsletter verwalten";
 //old
-$txt['NEWSLISTFOR'] = "Newslist für __PARAM__";
-$txt['NEWSLISTTOPIC'] = "Newslist";
-$txt['NEWSLISTTOPICTITLE'] = "Newslist";
+$txt['NEWSLISTFOR'] = "Newsletterliste f&uuml;r __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Liste der Newsletter";
+$txt['NEWSLISTTOPICTITLE'] = "Liste der Newsletter";
 $txt['NEWSLISTSHORTHELP'] = "Die Newsletter-Liste enthält Adressen der gewünschten Newsletter.<br />
                                   Weitere Informationen zur Verwendung der Newsletterliste finden Sie im Handbuch (verfügbar im Abschnitt <a href=\"help.php\">\"Help\"</a>).
 ";
