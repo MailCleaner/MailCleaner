@@ -490,7 +490,7 @@ $txt['EDITNEWSLIST'] = "rediger nyhetsliste";
 $txt['NEWSLISTFOR'] = "Nyhetsliste for __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Nyhetsliste";
 $txt['NEWSLISTTOPICTITLE'] = "nyhetsliste";
-$txt['NEWSLISTSHORTHELP'] = "Nyhetslisten inneholder addressene til ønskede nyhetsbrev.<br />
+$txt['NEWSLISTSHORTHELP'] = "Nyhetsbrevlisten inneholder adressene til ønskede nyhetsbrev.<br />
                                   Sjekk manualen (tilgjengelig i delen <a href=\"help.php\">\"Hjelp\"</a>) for mer info om bruk av nyhetsbrevlisten.
 ";
 $txt['NEWSLISTFORADDRESS'] = "Nyhetsbrevliste for adressen";
