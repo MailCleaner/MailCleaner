@@ -40,5 +40,11 @@ body	        __MC_WORD_DE_UNSUBSCRIBE2         /\abbestell/i
 
 body		__MC_WORD_DE_SUSCRIBE		/\babonnieren/i
 
+body    __MC_DE_WEITERE_INFO     /keine weiteren Informationen/i
+body    __MC_DE_ERHALTEN           /erhalten/i
+
+meta     MC_DE_KEINE_INFO_ERHALTEN ( __MC_DE_WEITERE_INFO && __MC_DE_ERHALTEN )
+score    MC_DE_KEINE_INFO_ERHALTEN 2.0
+
 body    MC_DE_UNLIST       /Melde mich von dieser Mailingliste ab/i
 score   MC_DE_UNLIST       2.00
