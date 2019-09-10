@@ -52,7 +52,7 @@ $txt['DOCUMENTATION'] = "
                          <ul>
                            <li> <h2>Karantenevisning/handlinger</h2>
                               <ul>
-                                <li> <h3>Addresse:</h3>
+                                <li> <h3>Adresse:</h3>
                                    velg hvilken adresse du ønsker å se meldinger i karantene for.
                                 </li>
                                 <li> <h3>tving (<img src=\"/templates/$template/images/force.gif\" align=\"top\" alt=\"\">): </h3>
@@ -78,7 +78,7 @@ $txt['DOCUMENTATION'] = "
                                  <li> <h3>innstillinger for brukerspråk: </h3>
                                     velg hovedspråket ditt her. Ditt grensesnitt, sammendrag og rapporter vil bli endret.
                                  </li>
-                                 <li> <h3>sammenknyttede addresser/alias: </h3>
+                                 <li> <h3>sammenknyttede adresser/alias: </h3>
                                     hvis du har mange adresser alias-er å tilnytte Mailcleaner-grensesnittet, kan du bruke pluss (<img src=\"/templates/$template/images/plus.gif\" align=\"top\" alt=\"\">) og minus (<img src=\"/templates/$template/images/minus.gif\" align=\"top\" alt=\"\">)-tegnet for å legge til eller fjerne adresser.
                                  </li>
                                </ul>
