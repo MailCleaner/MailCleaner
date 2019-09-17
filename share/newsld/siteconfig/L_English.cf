@@ -62,4 +62,4 @@ body            __MC_WORD_EN_NEWSLETTER           /newsletter/i
 body            __MC_WORD_EN_NEWSLETTER2         /Mailing.?list/i
 
 body    MC_REMOVE_FROM    /remove.*from.*email.*(?:update|list)/i
-score   Sendinblue  1.0
+score   MC_REMOVE_FROM  1.0
