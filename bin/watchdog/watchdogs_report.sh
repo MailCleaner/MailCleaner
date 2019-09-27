@@ -32,7 +32,7 @@ mv $DIRBASE/MC_mod*.out $REPORTSWRK/ >/dev/null 2>&1
 cd $DIRBASE >/dev/null 2>&1
 tar cvf - reports.wrk 2>/dev/null  | gzip -9 - > $FILE
 
-scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $FILE mcscp@cvs.mailcleaner.net:/upload/watchdog-reports/ &> /dev/null
+scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $FILE mcscp@team01.mailcleaner.net:/upload/watchdog-reports/ &> /dev/null
 if [[ $? = 0  ]]
 then
     rm -Rf $REPORTSWRK >/dev/null 2>&1
