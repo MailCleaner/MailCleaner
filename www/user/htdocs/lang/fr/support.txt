@@ -5,7 +5,7 @@ $txt['SVERIFYPASS'] = "Vérifiez que le message est bien passé par le filtre Ma
 $txt['SMCLOGTITLE'] = "Mention du passage par mailcleaner.net :";
 $txt['SMCLOGLINE1'] = "Reçu : de mailcleaner.net (daemon filtre)";
 $txt['SMCLOGLINE2'] = "par mailcleaner.net via esmtp (daemon entrant)";
-$txt['SMCFILTERINGLOG'] = "Résultat du filtrage : X-Mailcleaner-Spamscore: oooo";
+$txt['SMCFILTERINGLOG'] = "Résultat du filtrage : X-Mailcleaner-Spamscore : oooo";
 $txt['SFALSENEGTUTOR'] = "Si vraiment il vous semble anormal d'avoir re&ccedil;u ce message, transf&eacute;rez le &agrave; l'adresse <a href=\"mailto:spam@mailcleaner.net\">spam@mailcleaner.net</a>, ou mieux si votre programme e-mail le permet, &quot;transf&eacute;rer en tant que pi&egrave;ce jointe&quot; pour conserver l'ent&ecirc;te compl&ecirc;te du message.<br>Nous analyserons le contenu de ce message et adapterons les crit&egrave;res de filtrage de mailcleaner en cons&eacute;quence pour que tous les autres utilisateurs b&eacute;n&eacute;ficient de cette analyse.";
 $txt['SFALSEPOSTITLE'] = "FAUX-POSITIFS";
 $txt['SFALSEPOSSUB1TITLE'] = "Vous ne recevez pas un courriel qui aurait dû vous parvenir ?";
