@@ -35,82 +35,82 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "biți";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Jan.';
+$txt['MONTHAB1'] = 'Ian.';
 $txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
 $txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
+$txt['MONTHAB5'] = 'Mai';
+$txt['MONTHAB6'] = 'Iunie';
+$txt['MONTHAB7'] = 'Iulie';
 $txt['MONTHAB8'] = 'Aug.';
 $txt['MONTHAB9'] = 'Sept.';
 $txt['MONTHAB10'] = 'Oct.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
+$txt['MONTH1'] = 'Ianuarie';
+$txt['MONTH2'] = 'Februarie';
+$txt['MONTH3'] = 'Martie';
+$txt['MONTH4'] = 'Aprilie';
+$txt['MONTH5'] = 'Mai';
+$txt['MONTH6'] = 'Iunie';
+$txt['MONTH7'] = 'Iulie';
 $txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTH9'] = 'Septembrie';
+$txt['MONTH10'] = 'Octombrie';
+$txt['MONTH11'] = 'Noiembrie';
+$txt['MONTH12'] = 'Decembrie';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect username or password.";
-$txt['SESSIONEXPIRED'] = "Session expired.";
-$txt['LOGININFO'] = "Reminder: Your username and password are the same as your email account";
-$txt['USERNAME'] = "Username";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "Nume de utilizator sau parolă incorect introduse.";
+$txt['SESSIONEXPIRED'] = "Sesiunea curentă a expirat.";
+$txt['LOGININFO'] = "Atenție: Numele de utilizator și parola sunt aceleași ca la contul de email";
+$txt['USERNAME'] = "Nume de utilizator";
+$txt['PASSWORD'] = "Parolă";
 //old
-$txt['ASKLOGIN'] = "Please enter your username and password:";
+$txt['ASKLOGIN'] = "Introduceți numele de utilizator și parola:";
 $txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reset and sent to your e-mail address.";
+$txt['FORGOTPASSWORD'] = "Parola pierdută?";
+$txt['PASSWORDRESET'] = "Parola a fost resetată și trimisă pe contul de email.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Log out";
+$txt['CONFIGURATIONMENU'] = "Configurare";
+$txt['HELPMENU'] = "Ajutor";
+$txt['QUARANTINEMENU'] = "Carantină";
+$txt['STATISTICSMENU'] = "Statistici";
+$txt['LOGOUT'] = "Deconectare";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "sunteți conectat ca:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "adresa principală";
+$txt['PARAMETERS'] = "Setări";
+$txt['QUARANTINE'] = "Carantină";
+$txt['NAVSUPPORT'] = "Suport";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
+$txt['SELECTEDADDRESS'] = "Adresa afișată";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['RESETSEARCH'] = "Afișează întreaga listă a carantinei";
+$txt['ODATE'] = "data";
+$txt['OTIME'] = "ora";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
+$txt['ODESTINATION'] = "receptor";
+$txt['OSENDER'] = "emițător";
 $txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['OSUBJECT'] = "subiect";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "Reguli de filtrare";
+$txt['FORCEMESSAGE'] = "Eliberează mesajul";
+$txt['MESSAGEFORCING'] = "Eliberare de mesaj";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
+$txt['ANALYSEREQUEST'] = "Cerere de adaptare a filtrării";
+$txt['ANALYSEREQUESTV'] = "Solicită o ajustare a filtrării";
 $txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
+$txt['CLOSEWINDOW'] = "Închide fereastra";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
@@ -118,76 +118,76 @@ $txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last 
 //old
 $txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "Filtru";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "căutare avansată";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "mesaje afișate";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "emițător";
+$txt['DATE'] = "Data";
+$txt['HOUR'] = "Ora";
+$txt['FROM'] = "De la";
+$txt['TO'] = "Către";
+$txt['SUBJECT'] = "Subiect";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "Eliberat";
+$txt['ACTION'] = "Acțiune";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['PURGESELECTEDSPAMS'] = "Șterge manual conținutul carantinei";
 //old
 $txt['HIDEFORCED'] = "Hide user-released messages";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "eliberează mesajul";
 //old
-$txt['ASKREASON'] = "display filtering rules";
+$txt['ASKREASON'] = "afișează regulile de filtrare";
 $txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was erroneously blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
-$txt['ASKANALYSE'] = "Filter adjustment request";
-$txt['PAGE'] = "Page";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['ASKANALYSE'] = "Cerere de ajustare a filtrării";
+$txt['PAGE'] = "Pagina";
+$txt['NEXTPAGE'] = "Următorul";
+$txt['PREVIOUSPAGE'] = "Precedentul";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
-$txt['HITRULE'] = "Rule";
-$txt['SCORE'] = "Score";
+$txt['GETREASONSTITLE'] = "Motive de filtrare";
+$txt['HITRULE'] = "Regulă";
+$txt['SCORE'] = "Scor";
 $txt['TOTAL'] = "Total";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
+$txt['SENDANALYSETITLE'] = "Cerere de ajustare a filtrării";
 $txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
-$txt['SENDSUM'] = "Manually send the quarantine report";
-$txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
-$txt['SUMMARYSENDING'] = "Quarantine report transmission";
-$txt['PURGETITLE'] = "Manually purge the quarantine";
-$txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
-$txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
+$txt['SENDSUMTITLE'] = "Trimite manual raportul de carantină";
+$txt['SENDSUM'] = "Trimite manual raportul de carantină";
+$txt['SUMSENTTO'] = "Raportul de carantină a fost trimis către: <strong>__PARAM__</strong>";
+$txt['SUMNOTSENTTO'] = "Raportul de carantină nu poate fi trimis către:<strong>__PARAM__</strong> din cauza unei erori interne.  Vă rugăm să încercați mai târziu.";
+$txt['SUMMARYSENDING'] = "Transmitere raport de carantină";
+$txt['PURGETITLE'] = "Șterge manual conținutul carantinei";
+$txt['PURGEDONE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> a fost eliminat";
+$txt['COULDNOTPURGE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> nu poate fi eliminat din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
 $txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['QUARANTINEPURGE'] = "Ștergere manuală a conținutului carantinei";
+$txt['GROUPQUARANTINES'] = "Toate adresele";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
-$txt['PREFILTERHITS'] = "Pre-filters";
-$txt['BLACKLISTS'] = "Blacklists";
-$txt['FITLERSCORE'] = "Score";
-$txt['NONE'] = "none";
+$txt['INFORMATIONSABOUTMSG'] = "Conținutul mesajului";
+$txt['PREFILTERHITS'] = "Pre-filtrare";
+$txt['BLACKLISTS'] = "Liste negre";
+$txt['FITLERSCORE'] = "Scor";
+$txt['NONE'] = "niciunul";
 $txt['HEADERS'] = "Headers";
 $txt['BODY'] = "Body";
 $txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
+$txt['STORESLAVE'] = "Stocare";
 $txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['DESCRIPTION'] = "Descriere";
+$txt['MESSAGEPREVIEW'] = "Previzualizare mesaj";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -250,7 +250,7 @@ $txt['EDITNEWSLIST'] = "edit newslist";
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
+$txt['SENDER'] = "Emițător";
 $txt['COMMENT'] = "Comment";
 //old
 $txt['ACTIONS'] = "Action";
