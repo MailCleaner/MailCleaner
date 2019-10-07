@@ -8,32 +8,32 @@
 ### newsl
 $txt['NEWSLETTERMODULE'] = "Buletin informativ";
 $txt['NEWSLETTERSTOPIC'] = "Buletine informative";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
+$txt['NEWSLETTERSTOPICTITLE'] = "Buletine informative";
 $txt['NEWSLETTERSSHORTHELP'] = "Aici vă puteți administra buletinele informative.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
+$txt['NEWSLETTERSALLOW'] = "livrează";
+$txt['NEWSLETTERACCEPT'] = "Acceptă acest buletin informativ";
+$txt['SPAM_WHITELIST_DISABLED'] = "Lista nu e activată pentru acest domeniu (contactați-vă administratorul).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['SUBMIT'] = "Trimitere";
+$txt['CANCEL'] = "Anulare";
+$txt['CLOSE'] = "Închidere";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
-$txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['ADD'] = "adăugare";
+$txt['CONFIRM'] = "Confirmare";
+$txt['REFRESH'] = "Împrospătare";
+$txt['SEARCH'] = "Căutare";
+$txt['SEND'] = "Trimitere";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "ștergere";
 /*
  * generic texts
  */
 $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
-$txt['BYTES'] = "bytes";
+$txt['BYTES'] = "biți";
 $txt['DATEFORMAT'] = "_D__M__Y_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
