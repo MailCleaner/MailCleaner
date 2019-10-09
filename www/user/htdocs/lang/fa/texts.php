@@ -6,10 +6,10 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
+$txt['NEWSLETTERMODULE'] = "خبرنامه";
+$txt['NEWSLETTERSTOPIC'] = "خبرنامه ها";
+$txt['NEWSLETTERSTOPICTITLE'] = "خبرنامه ها";
+$txt['NEWSLETTERSSHORTHELP'] = "در این قسمت میتوانید خبرنامه‌ها را اداره کنید.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
 $txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
