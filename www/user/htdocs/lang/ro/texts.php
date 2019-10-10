@@ -188,80 +188,80 @@ $txt['STORESLAVE'] = "Stocare";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Descriere";
 $txt['MESSAGEPREVIEW'] = "Previzualizare mesaj";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "Identificator";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>Sesiunea dumneavoastră MailCleaner s-a încheiat.</p><p>Dacă doriți să începeți o nouă sesiune, click pe link-ul următor:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "Setări personale MailCleaner";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "Setările utilizatorului";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "Setări de adresă";
 //old
-$txt['LANGUAGE'] = "Language";
-$txt['ADDRESS'] = "Address";
+$txt['LANGUAGE'] = "Limbă";
+$txt['ADDRESS'] = "Adresă";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "Grupul de adresă";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "Metodă de procesare a spam-urilor";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "Setări ale raportului de carantină";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Grupul de adresă personal: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "Aplică modificările pentru toate adresele";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "principal";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "Metodă de procesare a spam-urilor";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "carantină";
 //old
 $txt['TAGSUBJECT'] = "tag";
 //old
 $txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "renunță";
 //old
 $txt['SUBJECTTAG'] = "Tag keyword";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
-$txt['NOSUMMARY'] = "No report";
+$txt['SUMMARYFREQ'] = "Frecvență de trimitere a raportului";
+$txt['DAILY'] = "Zilnic";
+$txt['WEEKLY'] = "Săptămânal";
+$txt['MONTHLY'] = "Lunar";
+$txt['NOSUMMARY'] = "Fără raport";
 //old
-$txt['SUMMARYTYPE'] = "Report format";
+$txt['SUMMARYTYPE'] = "Formatul raportului";
 $txt['USEDEFAULT'] = "use default";
 $txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "plaintext";
 //old
-$txt['EDITWHITELIST'] = "edit whitelist";
+$txt['EDITWHITELIST'] = "Editează lista albă";
 //old
-$txt['EDITWARNLIST'] = "edit warnlist";
+$txt['EDITWARNLIST'] = "editează warnlist";
 //old
-$txt['EDITNEWSLIST'] = "edit newslist";
+$txt['EDITNEWSLIST'] = "editează listă nouă";
 /*
  * wwlist management
  */
 //old
 $txt['SENDER'] = "Emițător";
-$txt['COMMENT'] = "Comment";
+$txt['COMMENT'] = "Comentariu";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "Acțiune";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "activ";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "inactiv";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "Intrare";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "Sunteți sigur că vreți să eliminați permanent această intrare?";
 //old
 $txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
 //old
@@ -269,30 +269,30 @@ $txt['WARNLISTFOR'] = "Warnlist for __PARAM__";
 //old
 $txt['NEWSLISTFOR'] = "Newslist for __PARAM__";
 //old
-$txt['STATUS'] = "Status";
+$txt['STATUS'] = "Stare";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "Adaugă o adresă";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "Adresă";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "elimină o adresă";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
+$txt['ADDADDRESSALT'] = "adaugă o adresă";
+$txt['BADADDRESSFORMAT'] = "Adresa dată  nu este validă. Vă rugăm să reîncercați.";
+$txt['NOTFILTEREDDOMAIN'] = "Acest domeniu nu este filtrat de MailCleaner.  Adresa nu a putut fi adăugată.";
+$txt['ALIASALREADYREGISTERD'] = "Această adresă este deja utilizată de un cont MailCleaner. Nu a putut fi adăugată.";
+$txt['ALIASALREADYPENDING'] = "Confirmarea pentru această adresă este în curs.";
+$txt['ALIASPENDING'] = "Confirmarea a fost trimisă pe această adresă.<br/> Din motive de securitate, adresa poate fi adăugată doar dacă are loc confirmarea cererii în decurs de 24 de ore.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "The address has been added.";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
+$txt['ALIASNOTPENDING'] = "Momentan, nu este nicio cerere în curs pentru această adresă.";
+$txt['ALIASADDED'] = "Adresa a fost adăugată.";
+$txt['ALIASREQUESTREMOVED'] = "Cererea a fost anulată.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "Eliminarea adresei";
 //old
 $txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
 $txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
