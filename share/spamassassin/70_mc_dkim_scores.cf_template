@@ -1,0 +1,5 @@
+__IF__ __USE_DKIM__
+score          T_DKIM_INVALID 1.4
+__ELSE__ __USE_DKIM__
+score          T_DKIM_INVALID 0.001
+__FI__ __USE_DKIM__
