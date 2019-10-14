@@ -347,6 +347,12 @@ sub dump_sa_file
                           'share/spamassassin/70_mc_spf_scores.cf_template',
                           'share/spamassassin/70_mc_spf_scores.cf');
   $template->setCondition('__USE_SPF__', $sa_conf{'__USE_SPF__'});
+  return 0 unless $template->dump();
+
+  $template = ConfigTemplate::create(
+                          'share/spamassassin/70_mc_dkim_scores.cf_template',
+                          'share/spamassassin/70_mc_dkim_scores.cf');
+  $template->setCondition('__USE_DKIM__', $sa_conf{'__USE_DKIM__'});
 
   return $template->dump();
 }
