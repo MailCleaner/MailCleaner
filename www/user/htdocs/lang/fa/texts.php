@@ -10,43 +10,43 @@ $txt['NEWSLETTERMODULE'] = "خبرنامه";
 $txt['NEWSLETTERSTOPIC'] = "خبرنامه ها";
 $txt['NEWSLETTERSTOPICTITLE'] = "خبرنامه ها";
 $txt['NEWSLETTERSSHORTHELP'] = "در این قسمت میتوانید خبرنامه‌ها را اداره کنید.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
+$txt['NEWSLETTERSALLOW'] = "ارائه";
+$txt['NEWSLETTERACCEPT'] = "این خبر نامه را قبول کنید.";
+$txt['SPAM_WHITELIST_DISABLED'] = "این فهرست برای این دومین فعال نیست (با مدیره سیستم تماس بگیرید).";
 /*
  * generic buttons
  */
 $txt['SUBMIT'] = "Submit";
-$txt['CANCEL'] = "Cancel";
-$txt['CLOSE'] = "Close";
+$txt['CANCEL'] = "لغو";
+$txt['CLOSE'] = "بستن";
 // old
-$txt['ADD'] = "add";
-$txt['CONFIRM'] = "Confirm";
+$txt['ADD'] = "اضافه کردن";
+$txt['CONFIRM'] = "تایید";
 $txt['REFRESH'] = "Refresh";
-$txt['SEARCH'] = "Search";
-$txt['SEND'] = "Send";
+$txt['SEARCH'] = "جستجو";
+$txt['SEND'] = "ارسال";
 // old
-$txt['CLEAR'] = "clear";
+$txt['CLEAR'] = "حذف";
 /*
  * generic texts
  */
-$txt['GB'] = "GB";
-$txt['MB'] = "MB";
-$txt['KB'] = "KB";
-$txt['BYTES'] = "bytes";
+$txt['GB'] = "گیگابایت";
+$txt['MB'] = "مگابایت";
+$txt['KB'] = "کیلوبایت";
+$txt['BYTES'] = "بایت";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Jan.';
-$txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'May';
-$txt['MONTHAB6'] = 'June';
-$txt['MONTHAB7'] = 'July';
-$txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Sept.';
-$txt['MONTHAB10'] = 'Oct.';
-$txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dec.';
+$txt['MONTHAB1'] = 'ژانویه';
+$txt['MONTHAB2'] = 'فوریه';
+$txt['MONTHAB3'] = 'مارس';
+$txt['MONTHAB4'] = 'آوریل';
+$txt['MONTHAB5'] = 'مه';
+$txt['MONTHAB6'] = 'ژوئن';
+$txt['MONTHAB7'] = 'ژوئيه';
+$txt['MONTHAB8'] = 'اوت';
+$txt['MONTHAB9'] = 'سپتامبر';
+$txt['MONTHAB10'] = 'اکتبر';
+$txt['MONTHAB11'] = 'نوامبر';
+$txt['MONTHAB12'] = 'دسامبر';
 $txt['MONTH1'] = 'January';
 $txt['MONTH2'] = 'February';
 $txt['MONTH3'] = 'March';
