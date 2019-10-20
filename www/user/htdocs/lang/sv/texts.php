@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Göm användarrelaterade meddelanden";
 $txt['FORCESPAM'] = "leverera meddelandet";
 //old
 $txt['ASKREASON'] = "visa filtreringsregler";
-$txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats";
+$txt['CONFSENDANALYSE'] = "En begäran om filterjustering kommer att skickas till MailCleaner Analysis Center; det inkluderar en kopia av meddelandet som felaktigt blockerats.</br>Obs: en filterjustering är inte detsamma som vitlistning eller svartlistning.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Är du säker på att du vill att detta meddelande ska analyseras och att filterjusteringar kan tillämpas?</span>";
 $txt['ASKANALYSE'] = "Begäran om filterjustering";
 $txt['PAGE'] = "Sida";
