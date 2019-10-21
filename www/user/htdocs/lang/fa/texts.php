@@ -47,70 +47,70 @@ $txt['MONTHAB9'] = 'سپتامبر';
 $txt['MONTHAB10'] = 'اکتبر';
 $txt['MONTHAB11'] = 'نوامبر';
 $txt['MONTHAB12'] = 'دسامبر';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTH1'] = 'ژانویه';
+$txt['MONTH2'] = 'فوریه';
+$txt['MONTH3'] = 'مارس';
+$txt['MONTH4'] = 'آوریل';
+$txt['MONTH5'] = 'مه';
+$txt['MONTH6'] = 'ژوئن';
+$txt['MONTH7'] = 'ژوئیه';
+$txt['MONTH8'] = 'اوت';
+$txt['MONTH9'] = 'سپتامبر';
+$txt['MONTH10'] = 'اکتبر';
+$txt['MONTH11'] = 'نوامبر';
+$txt['MONTH12'] = 'دسامبر';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect username or password.";
-$txt['SESSIONEXPIRED'] = "Session expired.";
-$txt['LOGININFO'] = "Reminder: Your username and password are the same as your email account";
-$txt['USERNAME'] = "Username";
-$txt['PASSWORD'] = "Password";
+$txt['BADLOGIN'] = "نامه کاربری یا رمز عبور اشتباه است.";
+$txt['SESSIONEXPIRED'] = "دوره ی ورود به سیستم منقضی شد.";
+$txt['LOGININFO'] = "یادآوری: نام کاربری و رمزعبور شما همان حساب ایمیل شماست.";
+$txt['USERNAME'] = "نام کاربری";
+$txt['PASSWORD'] = "رمز عبور";
 //old
-$txt['ASKLOGIN'] = "Please enter your username and password:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
-$txt['FORGOTPASSWORD'] = "Lost password ?";
-$txt['PASSWORDRESET'] = "The password has been reset and sent to your e-mail address.";
+$txt['ASKLOGIN'] = "لطفا نام کاربری و رمز عبور خود را وارد کنید:";
+$txt['ORGANIZATIONUNIT'] = "واحد سازمان";
+$txt['FORGOTPASSWORD'] = "رمز عبور فراموش شده";
+$txt['PASSWORDRESET'] = "رمز عبور مجدداً تنظیم شده و به آدرس ایمیل شما ارسال شده است.";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "Quarantine";
-$txt['STATISTICSMENU'] = "Statistics";
-$txt['LOGOUT'] = "Log out";
+$txt['CONFIGURATIONMENU'] = "تنظیمات";
+$txt['HELPMENU'] = "کمک";
+$txt['QUARANTINEMENU'] = "قرنطینه";
+$txt['STATISTICSMENU'] = "آمار";
+$txt['LOGOUT'] = "خروج";
 //old
-$txt['LOGGEDAS'] = "you are logged in as:";
+$txt['LOGGEDAS'] = "شما با این عنوان وارد سیستم شده اید:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "آدرس اصلی";
+$txt['PARAMETERS'] = "تنظیمات";
+$txt['QUARANTINE'] = "قرنطینه";
+$txt['NAVSUPPORT'] = "پشتیبانی";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
+$txt['SELECTEDADDRESS'] = "آدرس نمایش داده شده";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
 $txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['RESETSEARCH'] = "لیست کامل قرنطینه را نمایش دهید";
+$txt['ODATE'] = "تاریخ";
+$txt['OTIME'] = "زمان";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "دریافت کننده";
+$txt['OSENDER'] = "فرستنده";
+$txt['OSCORE'] = "نمره";
+$txt['OSUBJECT'] = "موضوع";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "قوانین فیلتر";
+$txt['FORCEMESSAGE'] = "پیام را آزاد کنید";
+$txt['MESSAGEFORCING'] = "آزاد کردن پیام";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
-$txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
+$txt['ANALYSEREQUEST'] = "درخواست تنظیم فیلتر";
+$txt['ANALYSEREQUESTV'] = "درخواست تنظیم فیلتر";
 $txt['SCORETEXT'] = "Score: __PARAM__";
-$txt['CLOSEWINDOW'] = "Close the window";
+$txt['CLOSEWINDOW'] = "بستن پنجره";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
 $txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
@@ -118,21 +118,21 @@ $txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last 
 //old
 $txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
 //old
-$txt['FILTER'] = "Filter";
+$txt['FILTER'] = "فیلتر";
 //old
-$txt['ADVANCEDSEARCH'] = "advanced search";
+$txt['ADVANCEDSEARCH'] = "جستجوی پیشرفته";
 //old
-$txt['SHOWEDMESSAGES'] = "displayed messages";
+$txt['SHOWEDMESSAGES'] = "پیامهای نمایش داده شده";
 //old
-$txt['COMINGFROM'] = "sender";
-$txt['DATE'] = "Date";
-$txt['HOUR'] = "Time";
-$txt['FROM'] = "From";
-$txt['TO'] = "To";
-$txt['SUBJECT'] = "Subject";
+$txt['COMINGFROM'] = "فرستنده";
+$txt['DATE'] = "تاریخ";
+$txt['HOUR'] = "زمان";
+$txt['FROM'] = "از";
+$txt['TO'] = "به";
+$txt['SUBJECT'] = "موضوع";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "آزاد شده";
+$txt['ACTION'] = "عمل";
 //old
 $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 //old
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "نمایش محتوای پیام";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -250,7 +250,7 @@ $txt['EDITNEWSLIST'] = "edit newslist";
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
+$txt['SENDER'] = "فرستنده";
 $txt['COMMENT'] = "Comment";
 //old
 $txt['ACTIONS'] = "Action";
