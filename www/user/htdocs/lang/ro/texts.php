@@ -185,7 +185,7 @@ $txt['HEADERS'] = "Headers";
 $txt['BODY'] = "Body";
 $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Stocare";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['SPAMCSCORE'] = "Scorul regulii";
 $txt['DESCRIPTION'] = "Descriere";
 $txt['MESSAGEPREVIEW'] = "Previzualizare mesaj";
 $txt['ID'] = "Identificator";
@@ -294,102 +294,102 @@ $txt['ALIASREQUESTREMOVED'] = "Cererea a fost anulată.";
 //old
 $txt['REMALIASTITLE'] = "Eliminarea adresei";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "Sunteți sigur că doriți să eliminați adresa: __PARAM__?";
+$txt['ALIASREMOVED'] = "Adresa __PARAM__ a fost eliminată.";
+$txt['CANNOTREMOVEMAINADD'] = "Adresa__PARAM__ este adresa principală. Nu poate fi eliminată.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "Statistici";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ a primit mesaje.";
 //old
 $txt['USERSPAMSSTAT'] = "__PARAM__ spams";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "all…";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
+$txt['ALL'] = "toate…";
+$txt['SEARCHPERIOD'] = "Perioada analizată";
+$txt['LASTDAYS'] = "ultimele zile";
+$txt['LASTMONTHS'] = "ultimele luni";
+$txt['LASTYEARS'] = "ultimii ani";
+$txt['DATESTART'] = "De la";
+$txt['DATESTOP'] = "către";
+$txt['STATFORADDRESS'] = "Statisticile activității pentru: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "Mesaje primite";
+$txt['RECEIVEDVIRUS'] = "Viruși și mesaje periculoase";
+$txt['RECEIVEDSPAM'] = "Mesaje de tip spam";
+$txt['RECEIVEDCLEAN'] = "Mesaje filtrate";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
+$txt['GLOBALSTATSTITLE'] = "Sumar al tuturor adreselor";
 $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "Eroare internă MailCleaner (_PARAM_MESSAGE_ERREUR__). Vă rugăm să contactați administratorul de sistem precizând detaliile problemei.";
+$txt['INCORRECTMSGID'] = "Acțiunea cerută nu a putut fi efectuată deoarece identificatorul mesajului este incorect.";
+$txt['NOSUCHADDR'] = "Adresa furnizată nu este protejată de MailCleaner.";
+$txt['ERRORSENDING'] = "A intervenit o eroare în timpul transmiterii mesajului. Vă rugăm să reîncercați. Dacă problema persistă, vă rugăm să contactați administratorul de sistem.";
+$txt['MSGFORCED'] = "Mesajul a fost eliberat și trimis către cutia dumneavoastră poștală. Ar trebui să îl puteți accesa în câteva minute.";
+$txt['MSGFILENOTFOUND'] = "Acțiunea nu a putut fi efectuată deoarece mesajul nu se mai află în carantină.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "Companie";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "Nume";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "Prenume";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "Număr de telefon";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "Cu ce vă putem ajuta?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "Câmpuri cerute";
 //old
-$txt['SUPPORT'] = "Support";
+$txt['SUPPORT'] = "Asistență";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "Mesajul dumneavoastră a fost trimis.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "Mesajul dumneavoastră nu a putut fi trimis. Vă rugăm să încercați mai târziu.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "Unele câmpuri nu au fost completate corect. Vă rugăm să verificați.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
+$txt['HELP'] = "Ajutor";
+$txt['INTERFACETOPIC'] = "Setările interfeței";
+$txt['INTRODUCTIONTOPIC'] = 'Introducere';
+$txt['INTRODUCTIONTOPICTITLE'] = 'introducere';
+$txt['FIRSTCONTACTTOPIC'] = "Ghid scurt";
+$txt['FIRSTCONTACTTOPICTITLE'] = "ghid scurt";
+$txt['ADDRESSESTOPIC'] = "Adrese utile";
+$txt['ADDRESSESTOPICTITLE'] = "adrese utile";
 $txt['PLUGINTOPIC'] = "Outlook plug-in";
 $txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
-$txt['SUPPORTTOPIC'] = "Support";
-$txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['MOREHELPTOPIC'] = "Manual complet";
+$txt['MOREHELPTOPICTITLE'] = "manual complet";
+$txt['USERMANUALTOPICTITLE'] = "manualul utilizatorului";
+$txt['USERMANUALTOPIC'] = "Manualul utilizatorului";
+$txt['FAQTOPIC'] = "Întrebări frecvente";
+$txt['FAQTOPICTITLE'] = "întrebări frecvente";
+$txt['GLOSSARYTOPIC'] = "Glosar";
+$txt['GLOSSARYTOPICTITLE'] = "glosar";
+$txt['SUPPORTTOPIC'] = "Asistență";
+$txt['SUPPORTTOPICTITLE'] = "asistență";
+$txt['ANALYSETOPIC'] = "Cerere de ajustare a filtrării";
+$txt['ANALYSETOPICTITLE'] = "cerere de ajustare a filtrării";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
+$txt['CONFIGURATION'] = "Configurare";
+$txt['ADDRESSLISTTOPIC'] = "Grupul adresei";
+$txt['ADDRESSPARAMTOPIC'] = "Setările adresei";
 $txt['QUARPARAMTOPIC'] = "Quarantine display";
 $txt['WARNLISTTOPIC'] = "Warnlist";
 $txt['WHITELISTTOPIC'] = "Whitelist";
