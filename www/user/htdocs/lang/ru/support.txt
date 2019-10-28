@@ -14,8 +14,36 @@ $txt['SFALSEPOSSUB3'] = "Иногда списки рассылки блокир
 $txt['SOTHERTITLE'] = "ДРУГИЕ ПРОБЛЕМЫ";
 $txt['SOTHER'] = "У вас есть проблема другого типа с приемом электронной почты и вам не помогли вышеуказанные процедуры? Если это так, обратитесь в Mailcleaner Analysis Center, заполнив эту форму.";
 $txt['DOCTITLE'] = "Справка по интерфейсу пользователя";
-$txt['WEBDOCTITLE'] = "Онлайн-документация";
-$txt['SFALSEPOSSUB2'] = "Из списка карантина вы можете просмотреть критерии, которые Mailcleaner использовал для оценки сообщения как спам, нажав на <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Если вы считаете, что эти критерии не оправданы, вы можете запросить анализ в нашем аналитическом центре, нажав на <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Также вы можете освободить сообщение, нажав на <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\">.";
+$txt['WEBDOCTITLE'] = "Онлайн документация";
+$txt['SFALSEPOSSUB2'] = "Из списка карантина вы можете просмотреть критерии, которые Mailcleaner использовал для оценки сообщения как спам, нажав на <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Если вы считаете, что эти критерии ошибочны, вы можете запросить анализ в нашем аналитическом центре, нажав на <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Также вы можете освободить сообщение, нажав на <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\">.";
 $txt['WEBDOC'] = "<ul><li>Ищите больше информации и документацию на нашем сайте:
 <a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Mailcleaner user documentation</a>
 </li></ul>";
+$txt['FAQTITLE'] = "Понимание Mailcleaner";
+$txt['FAQ'] = "
+               <ul>
+                 <li> <h2>Что представляет из себя Mailcleaner?</h2>
+                      Mailcleaner это фильтр электронной почты, который проверяет ваши входящие сообщения на наличие известного спама, вирусов и другого опасного контента, не допуская его попадания на рабочий стол. Это серверное решение, что подразумевает отсутствие необходимости установки на рабочие станции программного обеспечения для фильтрации электронной почты. Используя веб-интерфейс, вы можете напрямую подключиться к фильтру Mailcleaner, настроить некоторые параметры фильтра, просмотреть заблокированные сообщения.
+                 </li>
+                 <li> <h2>Что такое спам?</h2>
+                      Спам это нежелательные сообщения или рассылки, обычно рекламного содержания. Эти сообщения могут быстро переполнить ваш почтовый ящик. Они, как правило, не опасны, но, тем не менее, действительно раздражают.
+                 </li>
+                 <li> <h2>Что такое вирусы и опасный контент?</h2>
+                      Вирусы - это небольшие программы, которые могут использоваться злоумышленниками для получения контроля над вашим компьютером. Они могут быть отправлены вам по электронной почте в виде вложений и могут заразить вашу систему после открытия (некоторые могут быть активированы без открытия). Опасный контент - то же самое, за исключением того, что он может быть активирован с помощью более интеллектуальных средств, скрываясь непосредственно в содержании сообщения или может быть доставлен снаружи после перехода по ссылке полученной в сообщении. Очень трудно обнаруживается с помощью стандартных фильтров электронной почты, потому что реальный вирус на самом деле не включен в сообщение. Mailcleaner выполняет больше проверок, чтобы предотвратить попадание потенциально опасной электронной почты в ваш почтовый ящик.
+                 </li>
+                 <li> <h2>Критерии антиспама в Mailcleaner</h2>
+                      Mailcleaner использует последовательность проверок для обнаружения спама с максимальной точностью. Он использует, среди прочего, простое сопоставление ключевых слов или фраз, всемирные базы данных спама и статистические токены. Объединение всех этих критериев дает общую оценку для каждого сообщения, после чего Mailcleaner принимает окончательное решение. Спам является быстро меняющейся целью, поэтому проверки должны адаптироваться настолько быстро, насколько это возможно. Задача Mailcleaner - поддерживать качество проверок на максимально высоком уровне.
+                 </li>
+                 <li> <h2>Errors</h2>
+                       Поскольку Mailcleaner - это автоматизированная система фильтрации, она также подвержена ошибкам. Mailcleaner может генерировать два вида ошибок:
+                      <ul>
+                       <li> <h3>False negatives</h3> False negatives - это пропуск события, ложноотрицательное срабатывание  - это спам, который проскочил через фильтры Mailcleaner  и достиг вашего ящика. These are annoying, but as long as the occurance is relatively rare, no significant loss will be endured for your productivity at work. Remember when you got only a couple of spam messages each week? Mailcleaner can get you back to at least this point.
+                       </li>
+                       <li> <h3>False positives</h3> These are more annoying errors, as they are the result of valid e-mails being blocked by the system. If you are not vigilant enough and do not check either your quarantine or reports carefully, this can lead to the loss of important messages. Mailcleaner is optimised to reduce these mistakes as much as possible. However, altough it is very very rare, this can happen. This is why Mailcleaner includes real-time quarantine access and periodic reports to help you minimize the risk of message loss.
+                       </li>
+                      </ul>
+                  </li>
+                  <li> <h2>What you can do to correct Mailcleaner</h2>
+                      Upon Mailcleaner mistakes, the best thing to do is help correct the filter by sending feedback to your administrator. Do not think the best solution is to just white- or blacklist senders as this is just a fast but dirty way (check this for more information). Although it sometimes is the only possibility, it is always better to find out the real cause of the error, and correct it. This can only be done by technical people, so don't hesitate to send feedback following errors to your administrator.
+                  </li>
+                </ul>";
