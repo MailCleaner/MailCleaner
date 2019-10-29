@@ -390,15 +390,15 @@ $txt['ANALYSETOPICTITLE'] = "cerere de ajustare a filtrării";
 $txt['CONFIGURATION'] = "Configurare";
 $txt['ADDRESSLISTTOPIC'] = "Grupul adresei";
 $txt['ADDRESSPARAMTOPIC'] = "Setările adresei";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
+$txt['QUARPARAMTOPIC'] = "Afișarea conținutului carantinei";
 $txt['WARNLISTTOPIC'] = "Warnlist";
 $txt['WHITELISTTOPIC'] = "Whitelist";
 $txt['BLACKLISTTOPIC'] = "Blacklist";
 $txt['NEWSLISTTOPIC'] = "Newslist";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
+$txt['INTERFACETOPICTITLE'] = "setările interfeței";
+$txt['ADDRESSLISTTOPICTITLE'] = "grupul adresei";
+$txt['ADDRESSPARAMTOPICTITLE'] = "setările adresei";
+$txt['QUARPARAMTOPICTITLE'] = "afișarea conținutului carantinei";
 $txt['WARNLISTTOPICTITLE'] = "warnlist";
 $txt['WHITELISTTOPICTITLE'] = "whitelist";
 $txt['BLACKLISTTOPICTITLE'] = "blacklist";
@@ -406,65 +406,65 @@ $txt['NEWSLISTTOPICTITLE'] = "newslist";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "Salvează";
+$txt['CHOOSETHISLANG'] = "Folosește limba engleză ca limbă principală";
+$txt['CHOOSELANGUAGE'] = "Selectarea limbii";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "Acest grup conține toate adresele și aliasurile pe care doriți să le administrați de pe acest cont. Aveți acces la carantină, statistici și setări într-o manieră centralizată, folosind aceleași date de autentificare.";
+$txt['ADDANADDRESS'] = "Adaugă o adresă în grup";
+$txt['ADDTHEADDRESS'] = "&lt; Adaugă o adresă în grup";
+$txt['ADDANADDRESSSHORTHELP'] = "Introduceți adresa pe care doriți să o adăugați.";
+$txt['REMANADDRESS'] = "Eliminați una sau mai multe adrese din grup.";
+$txt['REMTHEADDRESS'] = "Eliminați selecția";
+$txt['REMANADDRESSSHORTHELP'] = "Verificați căsuța de lângă fiecare adresă pe care doriți să o eliminați și apoi click pe butonul de \"Eliminare selecție\".";
+$txt['WAITINGCONFIRMATION'] = "așteptați confirmarea";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
+$txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Verificați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
+$txt['FOREACHSPAMDO'] = "Pentru fiecare mesaj detectat ca spam:";
+$txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca newsletter:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "reține in carantină";
 $txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "other…";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
+$txt['DROPMESSAGE'] = "șterge imediat";
+$txt['SUMMARYSENTFREQ'] = "Frecvență a raporturilor de carantină";
+$txt['SUMMARYFORMAT'] = "Formatul raporturilor de carantină";
+$txt['SUMMARYTO'] = "Trimite raporturile la această adresă";
+$txt['OTHER'] = "alta…";
+$txt['APPLYTOALLADDRESSES'] = "Aplică setările tuturor adreselor";
+$txt['PLAINTEXT'] = "Textul simplu";
 $txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['DIGEST'] = "Asimilează";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Reține mesajele de eroare";
+$txt['PARAMETERSSAVED'] = "Setările dumneavoastră au fost salvate.";
+$txt['NOTSAVED'] = "Setările dumneavoastră nu au putut fi salvate.";
+$txt['INVALIDSUMMARYTO'] = "Această adresă furnizată pentru raporturi este invalidă.";
 /*
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['CONFIGQUARSHORTHELP'] = "Modul de afișare a conținutului carantinei poate fi adaptat (număr de zile și număr de linii) nevoilor dumneavoastră.";
+$txt['QUARNBLINESDISPLAYED'] = "Număr de linii afișate";
+$txt['QUARNBDAYSDISAPLYED'] = "Număr de zile afișate";
+$txt['MASKEALREADYFORCED'] = "Ascunde mesajele eliberate de utilizator";
+$txt['DEFAULTADDRESDISPPLAYED'] = "Adresă afișată în mod implicit";
+$txt['YESTERDAY'] = "Ieri";
+$txt['TODAY'] = "Astăzi";
 /*
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
 \t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
 \t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warnlist. You can also add an optional comment.";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
+$txt['WARNLISTFORADDRESS'] = "Warnlist pentru adresă";
+$txt['ADDAWARNENTRY'] = "Adaugă o adresă listei";
+$txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la warnlist. Puteți adăuga și un comentariu opțional.";
+$txt['ADDTHEENTRY'] = "&lt; Adaugă adresa";
+$txt['REMOVEANENTRY'] = "Dezactivează, activează sau șterge o adresă din listă";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['REMTHEENTRY'] = "Elimină selecția";
+$txt['DISABLETHEENTRY'] = "Dezactivează/activează selecția";
 $txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
                                    Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
@@ -475,28 +475,28 @@ $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresse
 $txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired newsletters.<br />
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletter list usage.
 ";
-$txt['WHITELISTFORADDRESS'] = "Whitelist for the address";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "Enter the address you want to add to the whitelist. You can also add an optional comment.";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "Blacklist for the address";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "Enter the address you want to add to the blacklist. You can also add an optional comment.";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['NEWSLISTFORADDRESS'] = "Newsletter list for the address";
-$txt['ADDANEWSENTRY'] = "Add an address to the list";
-$txt['NEWSLISTENTRYTOADD'] = "Enter the address you want to add to the newsletter list. You can also add an optional comment.";
-$txt['REMOVEANEWSENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
+$txt['WHITELISTFORADDRESS'] = "Whitelist pentru adresă";
+$txt['ADDAWHITEENTRY'] = "Adaugă o adresă listei";
+$txt['WHITELISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la whitelist. Puteți să adăugați și un comentariu opțional.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['BLACKLISTFORADDRESS'] = "Blacklist for adresă";
+$txt['ADDABLACKENTRY'] = "Adaugă o adresă listei";
+$txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la blacklist. Puteți să adăugați și un comentariu opțional.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['NEWSLISTFORADDRESS'] = "Listă de newsletter pentru adresa";
+$txt['ADDANEWSENTRY'] = "Adaugă o adresă listei";
+$txt['NEWSLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de newsletter. Puteți să adăugați și un comentariu opțional.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['RECORDALREADYEXISTS'] = "Această adresă este deja inclusă în listă.";
 /*
  * logout (new)
  */
-$txt['SESSIONTERMINATED'] = "Your session ended.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['SESSIONTERMINATED'] = "Sesiunea dumneavoastră s-a încheiat.";
+$txt['BEENLOGGEDOUT'] = "Dacă doriți să începeți o nouă sesiune click pe link-ul: <a href=\"__PARAM__\" >__PARAM__</a>";
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
-$txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLRELEASEDHEAD'] = "Newsletter-ul a fost acceptat și eliberat.";
+$txt['NLRELEASEDBODY'] = "Newsletter-ul a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
+$txt['NLNOTRELEASEDHEAD'] = "Newsletter-ul nu a fost eliberat";
+$txt['NLNOTRELEASEDBODY'] = "Există o problemă privind eliberarea mesajului. Vă rugăm să încercați mai târziu.";
