@@ -40,11 +40,12 @@ my $DEBUG = 0;
 
 my %greylist_conf = get_greylist_config() or fatal_error("NOGREYLISTDONFIGURATIONFOUND", "no greylistd configuration found");
 
+my $uid = getpwnam( 'mailcleaner' );
+my $gid = getgrnam( 'mailcleaner' );
+
 dump_greylistd_file(\%greylist_conf) or fatal_error("CANNOTDUMPGREYLISTDFILE", $lasterror);
 
 dump_domain_to_avoid($greylist_conf{'__AVOID_DOMAINS_'});
-my $uid = getpwnam( 'mailcleaner' );
-my $gid = getgrnam( 'mailcleaner' );
 
 my $domainsfile = $conf->getOption('VARDIR')."/spool/tmp/mailcleaner/domains_to_greylist.list";
 if ( ! -f $domainsfile) {
