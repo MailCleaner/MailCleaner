@@ -860,27 +860,6 @@ acl_check_mime:
 
 acl_check_data:
 
-# Anti spoofing v2 FB 2016
-
-  deny	  condition = ${if match_domain {${domain:${address:$header_from:}}}{VARDIR/spool/tmp/mailcleaner/domains_to_prevent_spoof.list}}
-  	  condition = ${if ! match_domain {${domain:${address:$header_from:}}}{VARDIR/spool/mailcleaner/domains_antispoofingv2_disable.list}}
-  	  condition	= ${if ! eq {$sender_address_domain}{${domain:${address:$header_from:}}}}
-	  !spf		= pass
-  	  !authenticated = *
-	  !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS ; +relay_from_hosts
-          message       = This domain does not accept mail from itself (from spoofing)
-          set acl_c8    = smtp:refused:refused_spoofing
-          set acl_c9    = STATSADD
-          set acl_c8    = domain:$domain:refused_spoofing
-          set acl_c9    = STATSADD
-          set acl_c8    = domain:$domain:refused
-          set acl_c9    = STATSADD
-          set acl_c8    = smtp:refused
-          set acl_c9    = STATSADD
- __IF__ DEBUG
-          logwrite      = DEBUG - refused, from spoofing attempt $sender_address - from: $header_from: - smtp:refused,smtp:refused:refused_spoofing
- __FI__
-
 __IF__ OUTGOINGVIRUSSCAN
   deny    message =  This message contains malware ($malware_name)
           condition = ${if eq {$acl_c0}{relayed} {1}{0}}
