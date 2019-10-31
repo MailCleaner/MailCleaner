@@ -69,7 +69,7 @@ $txt['USERNAME'] = "Nume de utilizator";
 $txt['PASSWORD'] = "Parolă";
 //old
 $txt['ASKLOGIN'] = "Introduceți numele de utilizator și parola:";
-$txt['ORGANIZATIONUNIT'] = "Organization unit";
+$txt['ORGANIZATIONUNIT'] = "Unitate de organizare";
 $txt['FORGOTPASSWORD'] = "Parola pierdută?";
 $txt['PASSWORDRESET'] = "Parola a fost resetată și trimisă pe contul de email.";
 /*
@@ -91,9 +91,9 @@ $txt['NAVSUPPORT'] = "Suport";
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Adresa afișată";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
+$txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "sortat by __PARAM__";
 $txt['RESETSEARCH'] = "Afișează întreaga listă a carantinei";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "ora";
@@ -109,14 +109,14 @@ $txt['MESSAGEFORCING'] = "Eliberare de mesaj";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Cerere de adaptare a filtrării";
 $txt['ANALYSEREQUESTV'] = "Solicită o ajustare a filtrării";
-$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['SCORETEXT'] = "Scor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Închide fereastra";
 $txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Automatic purge after:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Messages displayed: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modify…</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messages displayed: </strong> __PARAM__ last days. ";
+$txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ days";
+$txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modifică...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ last days. ";
 //old
-$txt['QUARANTINETITLE'] = "Quarantine list for __PARAM__";
+$txt['QUARANTINETITLE'] = "Lista carantinei pentru __PARAM__";
 //old
 $txt['FILTER'] = "Filtru";
 //old
@@ -139,13 +139,13 @@ $txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
 $txt['PURGESELECTEDSPAMS'] = "Șterge manual conținutul carantinei";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "Ascunde mesajele eliberate de utilizator";
 //old
 $txt['FORCESPAM'] = "eliberează mesajul";
 //old
 $txt['ASKREASON'] = "afișează regulile de filtrare";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was erroneously blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting.";
-$txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
+$txt['CONFSENDANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; aceasta include o copie a mesajului care a fost blocat în mod eronat.</br>Notă: O ajustare a filtrului nu este același lucru ca whitelisting sau blacklisting.";
+$txt['AREYOUSURE'] = "<span class=\"question\">Sunteți sigur că doriți ca acest mesaj să fie analizat și să îi fie aplicate ajustări de filtru?</span>";
 $txt['ASKANALYSE'] = "Cerere de ajustare a filtrării";
 $txt['PAGE'] = "Pagina";
 $txt['NEXTPAGE'] = "Următorul";
@@ -157,7 +157,7 @@ $txt['SCORE'] = "Scor";
 $txt['TOTAL'] = "Total";
 //old
 $txt['SENDANALYSETITLE'] = "Cerere de ajustare a filtrării";
-$txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
+$txt['SENTTOANALYSE'] = "O cerere de ajustare a filtrului a fst trimisă către Centrul de Analiză MailCleaner; acest mesaj va fi examinat și este posibil să se aplice corecții de filtru pe parcursul unei zile lucrătoare.";
 /*
  * quick actions
  */
@@ -165,7 +165,7 @@ $txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCl
 $txt['SENDSUMTITLE'] = "Trimite manual raportul de carantină";
 $txt['SENDSUM'] = "Trimite manual raportul de carantină";
 $txt['SUMSENTTO'] = "Raportul de carantină a fost trimis către: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "Raportul de carantină nu poate fi trimis către:<strong>__PARAM__</strong> din cauza unei erori interne.  Vă rugăm să încercați mai târziu.";
+$txt['SUMNOTSENTTO'] = "Raportul de carantină nu poate fi trimis către:<strong>__PARAM__</strong> din cauza unei erori interne. Vă rugăm să reîncercați mai târziu.";
 $txt['SUMMARYSENDING'] = "Transmitere raport de carantină";
 $txt['PURGETITLE'] = "Șterge manual conținutul carantinei";
 $txt['PURGEDONE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> a fost eliminat";
