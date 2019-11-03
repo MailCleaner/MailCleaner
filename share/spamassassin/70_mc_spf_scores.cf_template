@@ -7,13 +7,13 @@ header MC_SPF_PASS X-MailCleaner-SPF =~ /\bpass\b/i
 __IF__ __USE_SPF__
 score MC_SPF_FAIL 10.0
 score MC_SPF_SOFTFAIL 2.0
-score MC_SPF_NEUTRAL 0.0
-score MC_SPF_NONE 0.0
-score MC_SPF_PASS 0.0
+score MC_SPF_NEUTRAL -0.001
+score MC_SPF_NONE -0.001
+score MC_SPF_PASS -0.001
 __ELSE__ __USE_SPF__ 
-score MC_SPF_FAIL 0.0
-score MC_SPF_SOFTFAIL 0.0
-score MC_SPF_NEUTRAL 0.0
-score MC_SPF_NONE 0.0
-score MC_SPF_PASS 0.0
+score MC_SPF_FAIL -0.001
+score MC_SPF_SOFTFAIL -0.001
+score MC_SPF_NEUTRAL -0.001
+score MC_SPF_NONE -0.001
+score MC_SPF_PASS -0.001
 __FI__ __USE_SPF__
