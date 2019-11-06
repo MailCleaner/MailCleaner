@@ -37,13 +37,74 @@ $txt['FAQ'] = "
                  <li> <h2>Errors</h2>
                        Поскольку Mailcleaner - это автоматизированная система фильтрации, она также подвержена ошибкам. Mailcleaner может генерировать два вида ошибок:
                       <ul>
-                       <li> <h3>False negatives</h3> False negatives - это пропуск события, ложноотрицательное срабатывание  - это спам, который проскочил через фильтры Mailcleaner  и достиг вашего ящика. These are annoying, but as long as the occurance is relatively rare, no significant loss will be endured for your productivity at work. Remember when you got only a couple of spam messages each week? Mailcleaner can get you back to at least this point.
+                       <li> <h3>False negatives</h3> False negatives - пропуск события, ложноотрицательное срабатывание  - это спам, который проскочил через фильтры Mailcleaner  и достиг вашего ящика. Это раздражает, но пока случается редко, это незначительно сказывается на вашей производительности.
                        </li>
-                       <li> <h3>False positives</h3> These are more annoying errors, as they are the result of valid e-mails being blocked by the system. If you are not vigilant enough and do not check either your quarantine or reports carefully, this can lead to the loss of important messages. Mailcleaner is optimised to reduce these mistakes as much as possible. However, altough it is very very rare, this can happen. This is why Mailcleaner includes real-time quarantine access and periodic reports to help you minimize the risk of message loss.
+                       <li> <h3>False positives</h3>  False positives - ложная тревога - это более раздражающие ошибки, так как они являются результатом блокировки системой действительно важных сообщений электронной почты. Если вы недостаточно бдительны и не проверяете карантин или отчеты, это может привести к потере важных сообщений. Mailcleaner оптимизирован таким образом, чтобы максимально снизить количество ошибок. Однако, хотя это случается редко, это может произойти. Вот почему Mailcleaner включает доступ к карантину в режиме реального времени и отправляет периодические отчеты, чтобы помочь вам минимизировать риск потери важных сообщений.
                        </li>
                       </ul>
                   </li>
-                  <li> <h2>What you can do to correct Mailcleaner</h2>
-                      Upon Mailcleaner mistakes, the best thing to do is help correct the filter by sending feedback to your administrator. Do not think the best solution is to just white- or blacklist senders as this is just a fast but dirty way (check this for more information). Although it sometimes is the only possibility, it is always better to find out the real cause of the error, and correct it. This can only be done by technical people, so don't hesitate to send feedback following errors to your administrator.
+                  <li> <h2>Как вы можете помочь скорректировать фильтр Mailcleaner</h2>
+                      В случае ошибки Mailcleaner, вы можете помочь скорректировать фильтр, отправив отзыв администратору почтовой системы. Не думайте, что лучшим решением будет простое добавление отправителей в белый или черный списки. Это быстрый, но грубый способ. Хотя иногда это единственная возможность, всегда лучше выяснить истинную причину ошибки и исправить ее. Это могут сделать только технические специалисты, поэтому не стесняйтесь отправлять отзывы об ошибках администратору почтовой системы.
                   </li>
                 </ul>";
+$txt['DOCUMENTATION'] = "
+                         <ul>
+                           <li> <h2>Карантин просмотр/действия</h2>
+                              <ul>
+                                <li> <h3>Адрес:</h3>
+                                   выберите для какого адреса вы хотите просмотреть сообщения в карантине.select which address you want to see the messages quarantined for.
+                                </li>
+                                <li> <h3>Разблокировать сообщение (<img src=\"/templates/$template/images/force.gif\" align=\"top\" alt=\"\">): </h3>
+                                   Чтобы разблокировать сообщение, щелкните на этой иконке. Оно будет доставлено в ваш почтовый ящик.
+                                </li>
+                                <li> <h3>Информация (<img src=\"/templates/$template/images/reasons.gif\" align=\"top\" alt=\"\">): </h3>
+                                   Если вы хотите увидеть почему сообщение было расценено как спам, щелкните по этой иконке. Вы увидите критерии Mailcleaner с соответствующими оценками. При оценке равной 5 или выше, сообщение будет расценено как спам.
+                                </li>
+                                <li> <h3>Отправить на анализ (<img src=\"/templates/$template/images/analyse.gif\" align=\"top\" alt=\"\">): </h3>
+                                   В случае ложного срабатывания нажмите на иконку, соответствующую сообщению, которое было расценено как спам, чтобы отправить отзыв администратору.
+                                </li>
+                                <li> <h3>Опции поиска в карантине: </h3>
+                                   Для поиска сообщений в карантине доступны несколько опций. Количество дней в карантине, количество отображаемых сообщений на странице,  поле поиска по теме или получателю. Заполните поля и нажмите \"Обновить\".
+                                </li>
+                                <li> <h3>Действия: </h3>
+                                   Вы можете удалить (<img src=\"/templates/$template/images/trash.gif\" align=\"top\" alt=\"\">) содержимое карантина полностью в любой момент. Помните, карантин периодически очищается системой (период задается администратором почтовой системы). Эта опция дает вам возможность выполнить очистку по желанию.
+                                   Вы также можете запросить сводку (<img src=\"/templates/$template/images/summary.gif\" align=\"top\" alt=\"\">) по содержимому карантина. Эта та же сводка, которая отправляется периодически.  Опция дает вам возможность запросить сводку по желанию.
+                                </li>
+                              </ul>
+                           </li>
+                           <li> <h2>Параметры</h2>
+                              <ul>
+                                 <li> <h3>Настройки языка пользователя: </h3>
+                                    Выберите основной язык. Настройка изменит язык интерфейса, сводки и отчетов.
+                                 </li>
+                                 <li> <h3>Объединение адресов/псевдонимов: </h3>
+                                    Если вы желаете объединить несколько адресов или псевдонимов электронной почты, просто нажмите плюс (<img src=\"/templates/$template/images/plus.gif\" align=\"top\" alt=\"\">) или минус (<img src=\"/templates/$template/images/minus.gif\" align=\"top\" alt=\"\">), чтобы добавить или удалить адрес или псевдоним.
+                                 </li>
+                               </ul>
+                            </li>
+                            <li> <h2>Настройки на основе адреса: </h2>
+                              Некоторые параметры могут настроены для каждого адреса в отдельности.
+                              <ul>
+                                 <li><h3>Применить ко всем: </h3>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  Используйте это, что бы применить изменения ко всем адресам.
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<li><h3>Режим доставки спама: </h3>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  Выберите что должен сделать Mailcleaner с сообщениями расцененными как спам.
+  \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <ul>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <li><h4>Карантин:</h4> Сообщения будут отправлены в карантин и удалены по расписанию.</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <li><h4>Тег:</h4> Сообщения не будут заблокированы, но в поле темы будет добавлен спам-тег.</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <li><h4>Сброс:</h4> Сообщения будут отброшены. Используйте это с осторожностью, так как это может привести к потере сообщений.</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t </ul>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<li><h3>Помещение возвратов в карантин: </h3>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Эта опция приведет к тому, что Mailcleaner будет помещать в карантин возвраты и уведомления об ошибках электронной почты. Это может быть полезно, если вы стали жертвой массовых отказов электронной почты из-за, например, широко распространенных вирусов. Следует включать только на небольшие промежутки времени, так как это может быть опасным для почтовой системы.
+ \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<li><h3>Спам-тег: </h3>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tВыберите и настройте спам-тег. Он будет добавлен в режиме \"Тег\" в поле темы расцененного как спам сообщения.
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<li><h3>Периодичность доставки отчетов: </h3>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  Выберите периодичность доставки сводки по карантину. С этой периодичностью вы будете получать сообщение содержащее сводку по обнаруженному спаму и содержимому карантина.
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ul>";
