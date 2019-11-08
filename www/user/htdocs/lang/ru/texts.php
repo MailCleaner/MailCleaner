@@ -132,7 +132,8 @@ $txt['HIDEFORCED'] = "Скрыть разблокированные сообще
 $txt['FORCESPAM'] = "разблокировать сообщение";
 //old
 $txt['ASKREASON'] = "отобразить правила фильтрации";
-$txt['CONFSENDANALYSE'] = "Запрос на корректировку фильтра будет отправлен в MailCleaner Analysis Center; данный запрос будет содержать копию письма, которое было ошибочно заблокировано.";
+$txt['CONFSENDANALYSE'] = "Запрос на корректировку фильтра будет отправлен в MailCleaner Analysis Center; данный запрос будет содержать копию письма, которое было ошибочно заблокировано.
+</br>Примечание: Корректировка фильтра не является добавлением адреса отправителя в белый или черный списки.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Вы уверены, что фильтры должны быть скорректированы на основе анализа этого сообщения?</span>";
 $txt['ASKANALYSE'] = "Запрос на корректировку фильтра";
 $txt['PAGE'] = "Страница";
@@ -262,7 +263,7 @@ $txt['STORESLAVE'] = "Хранилище";
 //old
 $txt['MAIN'] = "основной";
 //old
-$txt['DROP'] = "отброшено";
+$txt['DROP'] = "отбросить";
 $txt['SUMMHTML'] = "HTML";
 //old
 $txt['WHITELISTFOR'] = "Белый список для __PARAM__";
@@ -322,3 +323,178 @@ $txt['SPAMCSCORE'] = "Rules score";
 $txt['ADDALIASTITLE'] = "Добавить адрес";
 $txt['MSGFORCED'] = "Сообщение было разблокировано и доставлено в ваш почтовый ящик. Оно должно быть доступно в течение ближайших нескольких минут.";
 $txt['MASKEALREADYFORCED'] = "Скрыть разблокированные сообщения";
+//old
+$txt['QUARBOUNCES'] = "Помещать в карантин сообщения об ошибках доставки электронной почты";
+//old
+$txt['WARNLISTFOR'] = "Warnlist для __PARAM__";
+$txt['RECEIVEDVIRUS'] = "Содержащие вирусы и опасные сообщения";
+$txt['RECEIVEDCLEAN'] = "Чистые сообщения";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ полученных сообщений";
+$txt['GLOBALSTATSTITLE'] = "Сводная информация по всем адресам";
+$txt['FROMDATETODATE'] = "с __PARAM1__.__PARAM2__.__PARAM3__ по __PARAM4__.__PARAM5__.__PARAM6__";
+/*
+ * some error messages
+ */
+$txt['BADARGS'] = "Внутренняя ошибка MailCleaner (_PARAM_MESSAGE_ERREUR__). Пожалуйста сообщите о проблеме администратору почтовой системы.";
+$txt['INCORRECTMSGID'] = "Невозможно выполнить запрошенную операцию из - за неправильного идентификатора сообщения.";
+$txt['NOSUCHADDR'] = "Указанный адрес не находится под защитой MailCleaner.";
+$txt['ERRORSENDING'] = "Во время отправки сообщения возникла ошибка. Пожалуйста, попробуйте еще раз. Если проблема не устраняется, обратитесь к администратору почтовой системы.";
+$txt['MSGFILENOTFOUND'] = "Запрошенное действие не может быть выполнено, так как сообщение больше не находится в карантине.";
+/*
+ * support page (deprecated)
+ */
+//old
+$txt['COMPANY'] = "Компания";
+//old
+$txt['NAME'] = "Имя";
+//old
+$txt['FIRSTNAME'] = "Имя";
+//old
+$txt['EMAIL'] = "Email";
+//old
+$txt['YOURPHONENUMBER'] = "Номер телефона";
+//old
+$txt['WHATCANWEDO'] = "Что мы можем сделать для вас?";
+//old
+$txt['NEEDEDFIELDS'] = "Обязательные поля";
+//old
+$txt['SUPPORT'] = "Служба поддержки";
+//old
+$txt['SUPFORMSENT'] = "Ваше сообщение отправлено.";
+//old
+$txt['CANNOTSENDSUPFORM'] = "Не удалось отправить ваше сообщение.Попробуйте позже.";
+//old
+$txt['BADFORMFIELDS'] = "Некоторые поля неправильны.Проверьте ввод.";
+/*
+ * help page (new)
+ */
+$txt['HELP'] = "Справка";
+$txt['INTERFACETOPIC'] = "Настройки интерфейса";
+$txt['INTRODUCTIONTOPIC'] = 'Введение';
+$txt['INTRODUCTIONTOPICTITLE'] = 'введение';
+$txt['FIRSTCONTACTTOPIC'] = "Краткое руководство";
+$txt['FIRSTCONTACTTOPICTITLE'] = "краткое руководство";
+$txt['ADDRESSESTOPIC'] = "Полезные адреса";
+$txt['ADDRESSESTOPICTITLE'] = "полезные адреса";
+$txt['PLUGINTOPIC'] = "Плагин Outlook";
+$txt['PLUGINTOPICTITLE'] = "Плагин Outlook";
+$txt['MOREHELPTOPIC'] = "Полное руководство";
+$txt['MOREHELPTOPICTITLE'] = "полное руководство";
+$txt['USERMANUALTOPICTITLE'] = "руководство пользователя";
+$txt['USERMANUALTOPIC'] = "Руководство пользователя";
+$txt['FAQTOPIC'] = "Часто задаваемые вопросы";
+$txt['FAQTOPICTITLE'] = "часто задаваемые вопросы";
+$txt['GLOSSARYTOPIC'] = "Глоссарий";
+$txt['GLOSSARYTOPICTITLE'] = "глоссарий";
+$txt['SUPPORTTOPIC'] = "Поддержка";
+$txt['SUPPORTTOPICTITLE'] = "поддержка";
+$txt['ANALYSETOPIC'] = "Запрос на корректировку фильтра";
+$txt['ANALYSETOPICTITLE'] = "запрос на корректировку фильтра";
+/*
+ * configuration menu (new)
+ */
+$txt['CONFIGURATION'] = "Настройка";
+$txt['ADDRESSLISTTOPIC'] = "Группа адресов";
+$txt['ADDRESSPARAMTOPIC'] = "Настройки адреса";
+$txt['QUARPARAMTOPIC'] = "Просмотр карантина";
+$txt['WARNLISTTOPIC'] = "Warnlist";
+$txt['WHITELISTTOPIC'] = "Белый список";
+$txt['BLACKLISTTOPIC'] = "Черный список";
+$txt['INTERFACETOPICTITLE'] = "настройки интерфейса";
+$txt['ADDRESSLISTTOPICTITLE'] = "Группа адресов";
+$txt['ADDRESSPARAMTOPICTITLE'] = "настройки адреса";
+$txt['QUARPARAMTOPICTITLE'] = "просмотр карантина";
+$txt['WARNLISTTOPICTITLE'] = "warnlist";
+$txt['WHITELISTTOPICTITLE'] = "белый список";
+$txt['BLACKLISTTOPICTITLE'] = "чёрный список";
+/*
+ * interface (new)
+ */
+$txt['SAVE'] = "Сохранить";
+$txt['CHOOSETHISLANG'] = "Использовать английский язык в качестве основного языка";
+$txt['CHOOSELANGUAGE'] = "Выбор языка";
+/*
+ * aliases (new)
+ */
+$txt['ADDLISTSHORTHELP'] = "Эта группа содержит все адреса и псевдонимы, которыми вы хотите управлять с этой учетной записи. Вы сможете централизованно получить доступ к их карантину, статистике и настройкам с помощью ваших текущих учетных данных.";
+$txt['ADDANADDRESS'] = "Добавить адрес в группу";
+$txt['ADDTHEADDRESS'] = "&lt; Добавить адрес в группу";
+$txt['ADDANADDRESSSHORTHELP'] = "Введите адрес, который вы хотите добавить.";
+$txt['REMANADDRESS'] = "Удалить один или несколько адресов из группы";
+$txt['REMTHEADDRESS'] = "Удалить выделенные элементы";
+$txt['REMANADDRESSSHORTHELP'] = "Установите флажок рядом с каждым адресом, который хотите удалить, и нажмите кнопку «Удалить выделенные элементы».";
+$txt['WAITINGCONFIRMATION'] = "ожидание подтверждения";
+/*
+ * addresses settings (new)
+ */
+$txt['ADDPARAMSHORTHELP'] = "Режим обработки спама можно настроить для каждого из ваших адресов. Обратитесь к руководству пользователя (доступно в секции <a href=\"help.php\">\"Help\"</a>) для получения дополнительной информации о доступных режимах обработки спама.";
+$txt['FOREACHSPAMDO'] = "Для каждого сообщения, расцененного как спам:";
+$txt['FOREACHNEWSLETTERDO'] = "Для каждого сообщения, расцененного как новостная рассылка:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "поместить в карантин";
+$txt['TAGMESSAGEWITHTAG'] = "доставить со спам-тегом в теме";
+$txt['DROPMESSAGE'] = "немедленно удалить";
+$txt['SUMMARYSENTFREQ'] = "Периодичность отчетов по карантину";
+$txt['SUMMARYFORMAT'] = "Формат отчетов по карантину";
+$txt['SUMMARYTO'] = "Отправка отчетов по этому адресу";
+$txt['OTHER'] = "другие…";
+$txt['APPLYTOALLADDRESSES'] = "Применить настройки ко всем адресам";
+$txt['PLAINTEXT'] = "Простой текст";
+$txt['HTML'] = "HTML";
+$txt['DIGEST'] = "Digest";
+$txt['KEEPBOUNCESINQUARANTINE'] = "Помещать в карантин уведомления об ошибках";
+$txt['PARAMETERSSAVED'] = "Настройки сохранены.";
+$txt['NOTSAVED'] = "Невозможно сохранить настройки.";
+$txt['INVALIDSUMMARYTO'] = "Адрес электронной почты, указанный для отчетов, недействителен";
+/*
+ * quarantine  (new)
+ */
+$txt['CONFIGQUARSHORTHELP'] = "Просмотр карантина может быть настроен (количество дней и строк) в соответствии с вашими потребностями и привычками.";
+$txt['QUARNBLINESDISPLAYED'] = "Количество отображаемых строк";
+$txt['QUARNBDAYSDISAPLYED'] = "Количество отображаемых дней";
+$txt['DEFAULTADDRESDISPPLAYED'] = "Адрес, отображаемый по умолчанию";
+$txt['YESTERDAY'] = "Вчера";
+$txt['TODAY'] = "Сегодня";
+/*
+ * wwlists (new)
+ */
+$txt['WARNLISTSHORTHELP'] = "Если вам необходимо получать уведомление по почте о том, что сообщение от доверенного отправителя было расценено как спам, поместите его адрес в Warnlist. Вы сможете быстро извлечь сообщение из карантина в случае ошибки фильтра.<br />
+\t\t\t\t\t\t\t\t   Предупреждение: эта функция должна использоваться в качестве временного решения, поскольку она снижает общую защиту. 
+\t\t\t\t\t\t\t\t   Более подробная информация об использовании Warnlist содержится в документации (доступно в разделе <a href=\"help.php\">\"Help\"</a>). ";
+$txt['WARNLISTFORADDRESS'] = "Warnlist для адреса";
+$txt['ADDAWARNENTRY'] = "Добавить адрес в список";
+$txt['WARNLISTENTRYTOADD'] = "Введите адрес, который вы хотите добавить в Warnlist. Вы также можете добавить необязательный комментарий.";
+$txt['ADDTHEENTRY'] = "&lt; Добавить адрес";
+$txt['REMOVEANENTRY'] = "Отключить, включить или удалить адрес из списка";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Выберите из списка адрес или адреса, которые вы хотите изменить, и нажмите на необходимую кнопку действия.";
+$txt['REMTHEENTRY'] = "Удалить выделенные элементы";
+$txt['DISABLETHEENTRY'] = "Отключить/включить";
+$txt['WHITELISTSHORTHELP'] = "Белый список содержит адреса доверенных отправителей, сообщения от которых никогда не попадут в карантин.<br />
+                                  Предупреждение: эта функция должна использоваться в качестве временного решения, поскольку она снижает общую защиту. 
+                                  Более подробная информация об использовании Белого списка содержится в документации (доступно в разделе <a href=\"help.php\">\"Help\"</a>). 
+";
+$txt['BLACKLISTSHORTHELP'] = "Чёрный список содержит адреса отправителей, сообщения от которых не будут приниматься.
+                                  Более подробная информация об использовании Чёрного списка содержится в документации (доступно в разделе <a href=\"help.php\">\"Help\"</a>).
+";
+$txt['WHITELISTFORADDRESS'] = "Белый список для адреса";
+$txt['ADDAWHITEENTRY'] = "Добавить адрес в список";
+$txt['WHITELISTENTRYTOADD'] = "Введите адрес, который вы хотите добавить в белый список. Вы можете добавить необязательный комментарий.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Выберите из списка адрес или адреса, которые вы хотите изменить, и нажмите на нужную кнопку действия.";
+$txt['BLACKLISTFORADDRESS'] = "Черный список для адреса";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "Рассылка была разрешена и разблокирована.";
+$txt['NLRELEASEDBODY'] = "Рассылка была разрешена и разблокирована. Она должно быть доступна в вашем ящике в течение ближайших нескольких минут.";
+$txt['NLNOTRELEASEDHEAD'] = "Рассылка не разблокирована";
+$txt['NLNOTRELEASEDBODY'] = "При разблокировке сообщения возникли проблемы. Пожалуйста, повторите попытку позже.";
+//old
+$txt['NEWSLISTFOR'] = "Newslist для __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Newslist";
+$txt['NEWSLISTTOPICTITLE'] = "newslist";
+$txt['NEWSLISTSHORTHELP'] = "Newsletter list содержит адреса разрешенных новостных и рекламных рассылок.<br />
+                                  Более подробная информация об использовании newsletter list содержится в документации (доступно в разделе <a href=\"help.php\">\"Help\"</a>).
+";
+$txt['NEWSLISTFORADDRESS'] = "Newsletter список для адреса";
+$txt['ADDANEWSENTRY'] = "Добавить адрес в список";
+$txt['NEWSLISTENTRYTOADD'] = "Введите адрес, который вы хотите добавить в список newsletter. Вы также можете добавить необязательный комментарий.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Выберите из списка адрес или адреса, которые вы хотите изменить, и нажмите на нужную кнопку действия.";
