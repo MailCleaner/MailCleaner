@@ -2,7 +2,7 @@
 $txt['SFALSENEGSUBTITLE'] = "Вы получили сообщение, которое вы считаете спамом?";
 $txt['SVERIFYPASS'] = "Убедитесь, что сообщение было обработано фильтрами Mailcleaner, просмотрев заголовки электронной почты.";
 $txt['SMCLOGTITLE'] = "В заголовках вы увидите следующие строки, в которых упоминается Mailcleaner:";
-$txt['SMCFILTERINGLOG'] = "";
+$txt['SMCFILTERINGLOG'] = "Result of filtering: X-Mailcleaner-spamscore: oooo";
 $txt['SFALSENEGTUTOR'] = "Если вы действительно считаете, что сообщение является спамом, перешлите его на адрес spam@mailcleaner.net, или, если ваша почтовая программа позволяет это сделать, выберите «Переслать как вложение», чтобы сохранить заголовки писем неповрежденными. Мы проанализируем содержание сообщения и соответствующим образом адаптируем критерии фильтрации почты, чтобы все пользователи Mailcleaner извлекли выгоду из анализа.";
 $txt['SFALSEPOSSUB1TITLE'] = "Вы не получили сообщение, которое должны были получить?";
 $txt['SFALSEPOSSUB1'] = "Вы можете проверить заблокировано ли сообщение фильтром Mailcleaner через веб-интерфейс пользователя в разделе \"Карантин\". Если вы не найдете его в списке карантина, проверьте следующие пункты:";
@@ -108,3 +108,7 @@ $txt['DOCUMENTATION'] = "
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ul>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ul>";
+$txt['SFALSENEGTITLE'] = "FALSE NEGATIVES";
+$txt['SMCLOGLINE1'] = "Received: From mailcleaner.net (filtering daemon)";
+$txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
+$txt['SFALSEPOSTITLE'] = "FALSE POSITIVES";
