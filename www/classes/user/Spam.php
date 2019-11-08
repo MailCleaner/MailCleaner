@@ -510,7 +510,8 @@ public function getFormatedBody() {
     if (!$csdefined && preg_match('/^(\=\?[^?]{3,15}\?Q\?)/', $line, $matches)) {
       $csdefined = 1;
       $charset = $matches[1];
-      $line = $matches[2];
+      if(array_key_exists(2, $matches))
+        $line = $matches[2];
     }
     if (preg_match('/(.*)\?\=$/', $line, $matches)) {
       $line = $matches[1];

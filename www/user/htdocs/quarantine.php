@@ -153,7 +153,7 @@ if (file_exists($file_to_get)) {
 	if (isset($tmp))
 		$content = $content.$tmp;
 } else if (file_exists($default_file_to_get)) {
-	$tmp=file_get_contents(default_file_to_get);
+	$tmp=file_get_contents($default_file_to_get);
 	if (isset($tmp))
 		$content = $content.$tmp;
 } else {
