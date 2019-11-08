@@ -260,11 +260,9 @@ sub process {
 		'spamhandler'
 	);
 	$this->endTimer('Message processing');
-	if ( $this->{quarantined} == 1 ) {
-		$this->startTimer('Message deleting');
-		$this->deleteFiles();
-		$this->endTimer('Message deleting');
-	}
+	$this->startTimer('Message deleting');
+	$this->deleteFiles();
+	$this->endTimer('Message deleting');
 	return 1;
 }
 
@@ -759,7 +757,7 @@ sub quarantine {
 					$this->{daemon}->doLog('Batch : ' .$this->{batchid} . ' ; message : ' . $this->{exim_id} . " problem creating $file: $message", 'spamhandler' );
 				}
 			}
-			return 0;
+			exit 0;
 		}
 	}
 
