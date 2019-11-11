@@ -88,7 +88,7 @@ sub getMessagesToProcess {
 			$this->{daemon}->doLog(
 				$this->{batchid}
 				  . ": NOTICE: message $id has envelope file but no body...",
-				'spmahandler'
+				'spamhandler'
 			);
 		}
 	}

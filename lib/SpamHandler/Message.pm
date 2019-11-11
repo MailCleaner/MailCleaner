@@ -279,7 +279,7 @@ sub loadEnvFile() {
 			chomp( $this->{env_sender} );
 		}
 		else {
-                        if (/([^\/\s]+)/) { # untaint
+                        if (/([^\s]+)/) { # untaint
 			  $this->{env_rcpt} = lc($1);
 			  chomp( $this->{env_rcpt} );
                         }
@@ -745,7 +745,20 @@ sub quarantine {
 	{
 		mkpath(  $config->getOption('VARDIR') . '/spam/'
 			  . $this->{env_domain} . '/'
-		          . $this->{env_rcpt} );
+		          . $this->{env_rcpt},
+			  {error => \my $err}
+		);
+                if ($err && @$err) {
+			for my $diag (@$err) {
+				my ($file, $message) = %$diag;
+				if ($file eq '') {
+					$this->{daemon}->doLog('Batch : ' .$this->{batchid} . ' ; message : ' . $this->{exim_id} . " => general error: $message", 'spamhandler' );
+				} else {
+					$this->{daemon}->doLog('Batch : ' .$this->{batchid} . ' ; message : ' . $this->{exim_id} . " problem creating $file: $message", 'spamhandler' );
+				}
+			}
+			exit 0;
+		}
 	}
 
 	## save the spam file
@@ -779,6 +792,7 @@ sub quarantine {
 #   if ($res !~ /LOGGED BOTH/) {
 #     print " WARNING, logging is weird ($res)";
 #   }
+	return 1;
 }
 
 sub log {
