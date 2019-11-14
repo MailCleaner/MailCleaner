@@ -68,3 +68,6 @@ score		MC_NEWS_WETRANSFER      -10.0
 
 header    MC_NEWS_SWISSTRANSFER      From =~ /no-reply\@swisstransfer\.com/i
 score   MC_NEWS_SWISSTRANSFER      -10.0
+
+header    MC_NEWS_GITHUB      From =~ /\@sgmail.github.com/i
+score     MC_NEWS_GITHUB      -10.0
