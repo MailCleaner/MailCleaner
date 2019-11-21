@@ -28,6 +28,7 @@ class Default_Model_MtaConfig
        'user_reject' => '',
        'recipient_reject' => '',
        'smtp_receive_timeout' => 0,
+	'max_rcpt' => 0,
        'smtp_accept_max' => 0,
        'smtp_reserve' => 0,
        'smtp_load_reserve' => 0,

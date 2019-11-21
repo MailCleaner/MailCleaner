@@ -12,7 +12,9 @@ $this->form->setTranslator($this->t);
  <fieldset id="companysettings">
        <table class="ftable numberfieldtable">
          
-         <?php echo $this->InputRow($this->form->getElement('smtp_receive_timeout'),array('post_field_text'=>$this->t->_('seconds')));?>
+	 <?php echo $this->InputRow($this->form->getElement('smtp_receive_timeout'),array('post_field_text'=>$this->t->_('seconds')));?>
+	 <?php echo $this->InputRow($this->form->getElement('max_rcpt'),array());?>
+	 
           
          <tr>
            <td class="flabel"><?php echo $this->t->_('Maximum simultaneous connections')?> : </td>
