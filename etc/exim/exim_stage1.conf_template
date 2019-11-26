@@ -645,6 +645,8 @@ __IF__ USETLS
  __FI__
 __FI__
 
+.include_if_exists  VARDIR/spool/tmp/exim_stage1/custom_acl_encryption
+
   warn    domains       = +relay_to_domains
           hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
           control       = dmarc_disable_verify
