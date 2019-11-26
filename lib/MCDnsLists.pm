@@ -356,7 +356,7 @@ sub isValidDomain {
 
         $domain =~ s/\%//g;
 
-	if ( $domain =~ m/[a-z0-9\-_.:]+[.:][a-z0-9]{2,6}$/ ) {
+	if ( $domain =~ m/[a-z0-9\-_.:]+[.:][a-z0-9]{2,15}$/ ) {
 		if ($usewhitelist) {
 			foreach my $wd ( keys %{ $this->{whitelistedDomains} } ) {
 				if ( $domain =~ m/([^.]{0,150}\.$wd)$/ || $domain eq $wd ) {
