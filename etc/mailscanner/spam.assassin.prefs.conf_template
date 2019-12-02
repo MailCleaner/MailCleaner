@@ -39,7 +39,6 @@ bayes_ignore_header X-Barracuda-Effective-Source-IP
 bayes_ignore_header X-Barracuda-Apparent-Source-IP
 
 bayes_use_hapaxes 1
-bayes_use_chi2_combining 1
 bayes_auto_expire 0
 lock_method flock
 bayes_file_mode 777
