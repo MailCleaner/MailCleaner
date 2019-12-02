@@ -33,6 +33,9 @@ class ConfigUserWWList {
     if ($_GET['t'] && $_GET['t'] == 'wnews') {
        $this->type_ = 'wnews';
     }
+    if ($_GET['t'] && $_GET['t'] == 'warn') {
+      $this->type_ = 'warn';
+    }
 
     $this->selform_ = new Form('selectadd', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
  	$this->addform_ = new Form('add', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
@@ -143,6 +146,11 @@ class ConfigUserWWList {
         $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
         $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
         $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
+   }
+   else if ($this->type_ == "warn" && $antispam_->getPref('enable_warnlists') && $user_->getDomain()->getPref('enable_warnlists'))  {
+    $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
+    $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
+    $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
    }
    else {
         $replace['__INPUT_ADDADDRESS__'] = $this->addform_->inputDisabled('entry', 38, '');

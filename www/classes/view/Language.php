@@ -251,7 +251,6 @@ class Language
   foreach ($txt as $t => $str) {
     $this->txts_[$t] = $str;
   }
-
   include($this->sysconf_->SRCDIR_."/www/".$this->type_."/htdocs/lang/".$this->lang_."/texts.php");
 
   foreach ($txt as $t => $str) {
@@ -266,7 +265,7 @@ class Language
    * @param  $mode  string return array with fullnames as key if equals to FULLNAMEASKEY, shortcuts as key otherwise
    * @return        array  array of languages
    */
-  public function getLanguages($mode) {
+  public function getLanguages($mode = '') {
     if ($mode == 'FULLNAMEASKEY') {
       return $this->inversed_languages_;
     }
