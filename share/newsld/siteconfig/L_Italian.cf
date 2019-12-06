@@ -37,3 +37,6 @@ score           MC_EXPR_IT_ABBONAMENTO          2.00
 
 body            MC_EXPR_IT_DISDIRE              /disdire la ricezione di questa newsletter/i
 score           MC_EXPR_IT_DISDIRE              2.00
+
+body            MC_EXPR_IT_ANNULLARE            /Per annullare l.iscrizione/i
+score           MC_EXPR_IT_ANNULLARE            1.5
