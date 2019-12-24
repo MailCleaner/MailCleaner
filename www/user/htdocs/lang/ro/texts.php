@@ -91,16 +91,16 @@ $txt['NAVSUPPORT'] = "Suport";
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Adresa afișată";
-$txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sortat by __PARAM__";
+$txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ mesaje";
+$txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ mesaje";
+$txt['ORDEREDBYPARAM'] = "sortat dupa __PARAM__";
 $txt['RESETSEARCH'] = "Afișează întreaga listă a carantinei";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "ora";
 $txt['OSCORE'] = "score";
 $txt['ODESTINATION'] = "receptor";
 $txt['OSENDER'] = "emițător";
-$txt['OSCORE'] = "score";
+$txt['OSCORE'] = "scor";
 $txt['OSUBJECT'] = "subiect";
 //old
 $txt['CRITERIAS'] = "Reguli de filtrare";
@@ -111,10 +111,10 @@ $txt['ANALYSEREQUEST'] = "Cerere de adaptare a filtrării";
 $txt['ANALYSEREQUESTV'] = "Solicită o ajustare a filtrării";
 $txt['SCORETEXT'] = "Scor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Închide fereastra";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modifică...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ last days. ";
+$txt['CURRENTPAGE'] = "Pagina __PARAM1__ of __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ zile";
+$txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ ultimele zile (<a href=\"__PARAM2__\">Modifică...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ ultimele zile. ";
 //old
 $txt['QUARANTINETITLE'] = "Lista carantinei pentru __PARAM__";
 //old
