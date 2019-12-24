@@ -237,15 +237,15 @@ $txt['MONTHLY'] = "Lunar";
 $txt['NOSUMMARY'] = "Niciun raport";
 //old
 $txt['SUMMARYTYPE'] = "Formatul raportului";
-$txt['USEDEFAULT'] = "folosiți varianta implicită";
+$txt['USEDEFAULT'] = "folosiți varianta prestabilită";
 $txt['SUMMHTML'] = "HTML";
-$txt['SUMMTEXT'] = "text simplu";
+$txt['SUMMTEXT'] = "text necodificat";
 //old
 $txt['EDITWHITELIST'] = "editează lista albă";
 //old
-$txt['EDITWARNLIST'] = "editează warnlist";
+$txt['EDITWARNLIST'] = "editează listă de prevenire";
 //old
-$txt['EDITNEWSLIST'] = "editează listă nouă";
+$txt['EDITNEWSLIST'] = "editează listă informativă";
 /*
  * wwlist management
  */
@@ -263,11 +263,11 @@ $txt['WWENTRY'] = "Intrare";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Sunteți sigur că vreți să eliminați permanent această intrare?";
 //old
-$txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
+$txt['WHITELISTFOR'] = "Setează lista albă pentru__PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warnlist for __PARAM__";
+$txt['WARNLISTFOR'] = "Setează lista de prevenire pentru __PARAM__";
 //old
-$txt['NEWSLISTFOR'] = "Newslist for __PARAM__";
+$txt['NEWSLISTFOR'] = "Setează lista informativă pentru__PARAM__";
 //old
 $txt['STATUS'] = "Stare";
 /*
@@ -286,7 +286,7 @@ $txt['NOTFILTEREDDOMAIN'] = "Acest domeniu nu este filtrat de MailCleaner.  Adre
 $txt['ALIASALREADYREGISTERD'] = "Această adresă este deja utilizată de un cont MailCleaner. Nu a putut fi adăugată.";
 $txt['ALIASALREADYPENDING'] = "Confirmarea pentru această adresă este în curs.";
 $txt['ALIASPENDING'] = "Confirmarea a fost trimisă pe această adresă.<br/> Din motive de securitate, adresa poate fi adăugată doar dacă are loc confirmarea cererii în decurs de 24 de ore.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]Cerere de adăugare adresă";
 $txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
 $txt['ALIASNOTPENDING'] = "Momentan, nu este nicio cerere în curs pentru această adresă.";
 $txt['ALIASADDED'] = "Adresa a fost adăugată.";
