@@ -234,7 +234,7 @@ $txt['SUMMARYFREQ'] = "Frecvență de trimitere a raportului";
 $txt['DAILY'] = "Zilnic";
 $txt['WEEKLY'] = "Săptămânal";
 $txt['MONTHLY'] = "Lunar";
-$txt['NOSUMMARY'] = "Fără raport";
+$txt['NOSUMMARY'] = "Niciun raport";
 //old
 $txt['SUMMARYTYPE'] = "Formatul raportului";
 $txt['USEDEFAULT'] = "folosiți varianta implicită";
