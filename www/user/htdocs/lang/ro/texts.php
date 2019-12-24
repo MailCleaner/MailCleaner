@@ -192,7 +192,7 @@ $txt['ID'] = "Identificator";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Sesiunea dumneavoastră MailCleaner s-a încheiat.</p><p>Dacă doriți să începeți o nouă sesiune, click pe link-ul următor:</p>";
+$txt['LOGOUTTEXT'] = "<p>Sesiunea dumneavoastră MailCleaner s-a încheiat.</p><p>Dacă doriți să începeți o nouă sesiune, faceti un click pe link-ul următor:</p>";
 /*
  * parameters page
  */
@@ -224,11 +224,11 @@ $txt['PUTINQUARANTINE'] = "carantină";
 //old
 $txt['TAGSUBJECT'] = "etichetă";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "Trimitere sistematică în carantină a mesajelor de eroare cu privire la livrarea emailurilor";
 //old
 $txt['DROP'] = "renunță";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Cuvânt cheie pentru eticheta";
 //old
 $txt['SUMMARYFREQ'] = "Frecvență de trimitere a raportului";
 $txt['DAILY'] = "Zilnic";
