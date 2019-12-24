@@ -237,11 +237,11 @@ $txt['MONTHLY'] = "Lunar";
 $txt['NOSUMMARY'] = "Fără raport";
 //old
 $txt['SUMMARYTYPE'] = "Formatul raportului";
-$txt['USEDEFAULT'] = "use default";
+$txt['USEDEFAULT'] = "folosiți varianta implicită";
 $txt['SUMMHTML'] = "HTML";
-$txt['SUMMTEXT'] = "plaintext";
+$txt['SUMMTEXT'] = "text simplu";
 //old
-$txt['EDITWHITELIST'] = "Editează lista albă";
+$txt['EDITWHITELIST'] = "editează lista albă";
 //old
 $txt['EDITWARNLIST'] = "editează warnlist";
 //old
