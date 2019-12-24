@@ -134,9 +134,9 @@ $txt['SENDER'] = "Sender";
 $txt['FORCED'] = "Eliberat";
 $txt['ACTION'] = "Acțiune";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(uri)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ ultimele zile";
 $txt['PURGESELECTEDSPAMS'] = "Șterge manual conținutul carantinei";
 //old
 $txt['HIDEFORCED'] = "Ascunde mesajele eliberate de utilizator";
@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Ascunde mesajele eliberate de utilizator";
 $txt['FORCESPAM'] = "eliberează mesajul";
 //old
 $txt['ASKREASON'] = "afișează regulile de filtrare";
-$txt['CONFSENDANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; aceasta include o copie a mesajului care a fost blocat în mod eronat.</br>Notă: O ajustare a filtrului nu este același lucru ca whitelisting sau blacklisting.";
+$txt['CONFSENDANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; aceasta include o copie a mesajului care a fost blocat în mod eronat.</br>Notă: O ajustare a filtrului nu este similară whitelisting-ului sau blacklisting-ului.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Sunteți sigur că doriți ca acest mesaj să fie analizat și să îi fie aplicate ajustări de filtru?</span>";
 $txt['ASKANALYSE'] = "Cerere de ajustare a filtrării";
 $txt['PAGE'] = "Pagina";
@@ -157,7 +157,7 @@ $txt['SCORE'] = "Scor";
 $txt['TOTAL'] = "Total";
 //old
 $txt['SENDANALYSETITLE'] = "Cerere de ajustare a filtrării";
-$txt['SENTTOANALYSE'] = "O cerere de ajustare a filtrului a fst trimisă către Centrul de Analiză MailCleaner; acest mesaj va fi examinat și este posibil să se aplice corecții de filtru pe parcursul unei zile lucrătoare.";
+$txt['SENTTOANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; acest mesaj va fi examinat și este posibil să i se aplice corecții de filtru pe parcursul unei zile lucrătoare.";
 /*
  * quick actions
  */
@@ -169,8 +169,8 @@ $txt['SUMNOTSENTTO'] = "Raportul de carantină nu poate fi trimis către:<strong
 $txt['SUMMARYSENDING'] = "Transmitere raport de carantină";
 $txt['PURGETITLE'] = "Șterge manual conținutul carantinei";
 $txt['PURGEDONE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> a fost eliminat";
-$txt['COULDNOTPURGE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> nu poate fi eliminat din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
-$txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
+$txt['COULDNOTPURGE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> nu a putut fi eliminat din cauza unei erori interne. Vă rugăm să reîncercați mai târziu.";
+$txt['ASKPURGECONFIRM'] = "Sunteți sigur că doriți să eliminați ultimele __PARAM1__ zile din carantină pentru strong>__PARAM2__</strong> ?";
 $txt['QUARANTINEPURGE'] = "Ștergere manuală a conținutului carantinei";
 $txt['GROUPQUARANTINES'] = "Toate adresele";
 /*
@@ -181,11 +181,11 @@ $txt['PREFILTERHITS'] = "Pre-filtrare";
 $txt['BLACKLISTS'] = "Liste negre";
 $txt['FITLERSCORE'] = "Scor";
 $txt['NONE'] = "niciunul";
-$txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
+$txt['HEADERS'] = "Antete";
+$txt['BODY'] = "Corp";
+$txt['PARTS'] = "Părți";
 $txt['STORESLAVE'] = "Stocare";
-$txt['SPAMCSCORE'] = "Scorul regulii";
+$txt['SPAMCSCORE'] = "Scorul regulilor";
 $txt['DESCRIPTION'] = "Descriere";
 $txt['MESSAGEPREVIEW'] = "Vizualizare mesaj";
 $txt['ID'] = "Identificator";
@@ -212,7 +212,7 @@ $txt['FILTERACTIONTITLE'] = "Metodă de procesare a spam-urilor";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "Setări ale raportului de carantină";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Grupul de adresă personal: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Grupul de adresă personal: (__PARAM__ adresă(adrese))";
 //old
 $txt['APPLYALLADDRESSES'] = "Aplică modificările pentru toate adresele";
 //old
