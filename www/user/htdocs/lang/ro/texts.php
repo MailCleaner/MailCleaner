@@ -218,11 +218,11 @@ $txt['APPLYALLADDRESSES'] = "Aplică modificările pentru toate adresele";
 //old
 $txt['MAIN'] = "principal";
 //old
-$txt['SPAMACTION'] = "Metodă de procesare a spam-urilor";
+$txt['SPAMACTION'] = "Mod de procesare a spam-urilor";
 //old
 $txt['PUTINQUARANTINE'] = "carantină";
 //old
-$txt['TAGSUBJECT'] = "tag";
+$txt['TAGSUBJECT'] = "etichetă";
 //old
 $txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
 //old
