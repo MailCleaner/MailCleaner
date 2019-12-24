@@ -105,13 +105,13 @@ $txt['OSUBJECT'] = "subiect";
 //old
 $txt['CRITERIAS'] = "Reguli de filtrare";
 $txt['FORCEMESSAGE'] = "Eliberează mesajul";
-$txt['MESSAGEFORCING'] = "Eliberare de mesaj";
+$txt['MESSAGEFORCING'] = "Eliberarea mesajului";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Cerere de adaptare a filtrării";
 $txt['ANALYSEREQUESTV'] = "Solicită o ajustare a filtrării";
 $txt['SCORETEXT'] = "Scor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Închide fereastra";
-$txt['CURRENTPAGE'] = "Pagina __PARAM1__ of __PARAM2__";
+$txt['CURRENTPAGE'] = "Pagina __PARAM1__ din __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ zile";
 $txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ ultimele zile (<a href=\"__PARAM2__\">Modifică...</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ ultimele zile. ";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Stocare";
 $txt['SPAMCSCORE'] = "Scorul regulii";
 $txt['DESCRIPTION'] = "Descriere";
-$txt['MESSAGEPREVIEW'] = "Previzualizare mesaj";
+$txt['MESSAGEPREVIEW'] = "Vizualizare mesaj";
 $txt['ID'] = "Identificator";
 /*
  * logout page
