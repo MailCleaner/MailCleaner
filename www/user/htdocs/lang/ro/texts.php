@@ -287,7 +287,7 @@ $txt['ALIASALREADYREGISTERD'] = "Această adresă este deja utilizată de un con
 $txt['ALIASALREADYPENDING'] = "Confirmarea pentru această adresă este în curs.";
 $txt['ALIASPENDING'] = "Confirmarea a fost trimisă pe această adresă.<br/> Din motive de securitate, adresa poate fi adăugată doar dacă are loc confirmarea cererii în decurs de 24 de ore.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]Cerere de adăugare adresă";
-$txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
+$txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să reîncercați mai târziu.";
 $txt['ALIASNOTPENDING'] = "Momentan, nu este nicio cerere în curs pentru această adresă.";
 $txt['ALIASADDED'] = "Adresa a fost adăugată.";
 $txt['ALIASREQUESTREMOVED'] = "Cererea a fost anulată.";
@@ -303,11 +303,11 @@ $txt['CANNOTREMOVEMAINADD'] = "Adresa__PARAM__ este adresa principală. Nu poate
 //old
 $txt['USERSTATS'] = "Statistici";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ a primit mesaje.";
+$txt['USERMESGSSTAT'] = "__PARAM__ a primit mesaje";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spam-uri";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ periculos";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ clean";
 $txt['ALL'] = "toate…";
@@ -322,9 +322,9 @@ $txt['RECEIVEDMESSAGES'] = "Mesaje primite";
 $txt['RECEIVEDVIRUS'] = "Viruși și mesaje periculoase";
 $txt['RECEIVEDSPAM'] = "Mesaje de tip spam";
 $txt['RECEIVEDCLEAN'] = "Mesaje filtrate";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ a primit mesaje";
 $txt['GLOBALSTATSTITLE'] = "Sumar al tuturor adreselor";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['FROMDATETODATE'] = "de la __PARAM1__.__PARAM2__.__PARAM3__ către __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
@@ -332,7 +332,7 @@ $txt['BADARGS'] = "Eroare internă MailCleaner (_PARAM_MESSAGE_ERREUR__). Vă ru
 $txt['INCORRECTMSGID'] = "Acțiunea cerută nu a putut fi efectuată deoarece identificatorul mesajului este incorect.";
 $txt['NOSUCHADDR'] = "Adresa furnizată nu este protejată de MailCleaner.";
 $txt['ERRORSENDING'] = "A intervenit o eroare în timpul transmiterii mesajului. Vă rugăm să reîncercați. Dacă problema persistă, vă rugăm să contactați administratorul de sistem.";
-$txt['MSGFORCED'] = "Mesajul a fost eliberat și trimis către cutia dumneavoastră poștală. Ar trebui să îl puteți accesa în câteva minute.";
+$txt['MSGFORCED'] = "Mesajul a fost eliberat și trimis către cutia dumneavoastră poștală electronică. Ar trebui să îl puteți accesa în câteva minute.";
 $txt['MSGFILENOTFOUND'] = "Acțiunea nu a putut fi efectuată deoarece mesajul nu se mai află în carantină.";
 /*
  * support page (deprecated)
@@ -366,12 +366,12 @@ $txt['HELP'] = "Ajutor";
 $txt['INTERFACETOPIC'] = "Setările interfeței";
 $txt['INTRODUCTIONTOPIC'] = 'Introducere';
 $txt['INTRODUCTIONTOPICTITLE'] = 'introducere';
-$txt['FIRSTCONTACTTOPIC'] = "Ghid scurt";
-$txt['FIRSTCONTACTTOPICTITLE'] = "ghid scurt";
+$txt['FIRSTCONTACTTOPIC'] = "Ghid rapid";
+$txt['FIRSTCONTACTTOPICTITLE'] = "ghid rapid";
 $txt['ADDRESSESTOPIC'] = "Adrese utile";
 $txt['ADDRESSESTOPICTITLE'] = "adrese utile";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
+$txt['PLUGINTOPIC'] = "plug-in Outlook";
+$txt['PLUGINTOPICTITLE'] = "plug-in Outlook";
 $txt['MOREHELPTOPIC'] = "Manual complet";
 $txt['MOREHELPTOPICTITLE'] = "manual complet";
 $txt['USERMANUALTOPICTITLE'] = "manualul utilizatorului";
