@@ -391,17 +391,17 @@ $txt['CONFIGURATION'] = "Configurare";
 $txt['ADDRESSLISTTOPIC'] = "Grupul adresei";
 $txt['ADDRESSPARAMTOPIC'] = "Setările adresei";
 $txt['QUARPARAMTOPIC'] = "Afișarea conținutului carantinei";
-$txt['WARNLISTTOPIC'] = "Warnlist";
-$txt['WHITELISTTOPIC'] = "Whitelist";
-$txt['BLACKLISTTOPIC'] = "Blacklist";
+$txt['WARNLISTTOPIC'] = "Listă de avertizare";
+$txt['WHITELISTTOPIC'] = "Listă albă";
+$txt['BLACKLISTTOPIC'] = "Listă neagră";
 $txt['NEWSLISTTOPIC'] = "Newslist";
 $txt['INTERFACETOPICTITLE'] = "setările interfeței";
 $txt['ADDRESSLISTTOPICTITLE'] = "grupul adresei";
 $txt['ADDRESSPARAMTOPICTITLE'] = "setările adresei";
 $txt['QUARPARAMTOPICTITLE'] = "afișarea conținutului carantinei";
-$txt['WARNLISTTOPICTITLE'] = "warnlist";
-$txt['WHITELISTTOPICTITLE'] = "whitelist";
-$txt['BLACKLISTTOPICTITLE'] = "blacklist";
+$txt['WARNLISTTOPICTITLE'] = "listă de avertizare";
+$txt['WHITELISTTOPICTITLE'] = "listă albă";
+$txt['BLACKLISTTOPICTITLE'] = "listă neagră";
 $txt['NEWSLISTTOPICTITLE'] = "newslist";
 /*
  * interface (new)
