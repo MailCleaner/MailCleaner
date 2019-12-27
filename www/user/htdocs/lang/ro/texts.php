@@ -472,18 +472,18 @@ $txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încr
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
 ";
-$txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired newsletters.<br />
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletter list usage.
+$txt['NEWSLISTSHORTHELP'] = "Lista de buletine informative conține adrese ale buletinelor informative dorite.<br />
+                                  Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de buletine informative.
 ";
-$txt['WHITELISTFORADDRESS'] = "Whitelist pentru adresă";
+$txt['WHITELISTFORADDRESS'] = "Listare albă pentru adresă";
 $txt['ADDAWHITEENTRY'] = "Adaugă o adresă listei";
 $txt['WHITELISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la whitelist. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
-$txt['BLACKLISTFORADDRESS'] = "Blacklist for adresă";
+$txt['BLACKLISTFORADDRESS'] = "Listare neagră pentru adresă";
 $txt['ADDABLACKENTRY'] = "Adaugă o adresă listei";
 $txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la blacklist. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
-$txt['NEWSLISTFORADDRESS'] = "Listă de newsletter pentru adresa";
+$txt['NEWSLISTFORADDRESS'] = "Listă de buletin informativ pentru adresă";
 $txt['ADDANEWSENTRY'] = "Adaugă o adresă listei";
 $txt['NEWSLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de newsletter. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
