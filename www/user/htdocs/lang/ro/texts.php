@@ -414,7 +414,7 @@ $txt['CHOOSELANGUAGE'] = "Selectarea limbii";
  */
 $txt['ADDLISTSHORTHELP'] = "Acest grup conține toate adresele și aliasurile pe care doriți să le administrați de pe acest cont. Aveți acces la carantină, statistici și setări într-o manieră centralizată, folosind aceleași date de autentificare.";
 $txt['ADDANADDRESS'] = "Adaugă o adresă în grup";
-$txt['ADDTHEADDRESS'] = "&lt; Adaugă o adresă în grup";
+$txt['ADDTHEADDRESS'] = "&lt; Adaugă adresa în grup";
 $txt['ADDANADDRESSSHORTHELP'] = "Introduceți adresa pe care doriți să o adăugați.";
 $txt['REMANADDRESS'] = "Eliminați una sau mai multe adrese din grup.";
 $txt['REMTHEADDRESS'] = "Eliminați selecția";
