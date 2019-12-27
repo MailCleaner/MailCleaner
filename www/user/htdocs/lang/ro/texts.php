@@ -423,7 +423,7 @@ $txt['WAITINGCONFIRMATION'] = "așteptați confirmarea";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Verificați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
+$txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Consultați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
 $txt['FOREACHSPAMDO'] = "Pentru fiecare mesaj detectat ca spam:";
 $txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca newsletter:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "reține in carantină";
@@ -434,7 +434,7 @@ $txt['SUMMARYFORMAT'] = "Formatul raporturilor de carantină";
 $txt['SUMMARYTO'] = "Trimite raporturile la această adresă";
 $txt['OTHER'] = "alta…";
 $txt['APPLYTOALLADDRESSES'] = "Aplică setările tuturor adreselor";
-$txt['PLAINTEXT'] = "Textul simplu";
+$txt['PLAINTEXT'] = "Text necodificat";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Asimilează";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Reține mesajele de eroare";
