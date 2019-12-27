@@ -457,12 +457,12 @@ $txt['TODAY'] = "Astăzi";
 $txt['WARNLISTSHORTHELP'] = "Lista de avertizare conține adrese de emițător de încredere pentru care doriți să fiți notificat pe email de fiecare dată când se întâmplă ca un mesaj să fie detectat ca spam. Ulterior puteți imediat să eliberați mesajul în caz de eroare de filtrare.<br />
 \t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
 \t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de avertizare. ";
-$txt['WARNLISTFORADDRESS'] = "Warnlist pentru adresă";
+$txt['WARNLISTFORADDRESS'] = "Listă de avertizare pentru adresă";
 $txt['ADDAWARNENTRY'] = "Adaugă o adresă listei";
-$txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la warnlist. Puteți adăuga și un comentariu opțional.";
+$txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de avertizare. Puteți adăuga și un comentariu opțional.";
 $txt['ADDTHEENTRY'] = "&lt; Adaugă adresa";
 $txt['REMOVEANENTRY'] = "Dezactivează, activează sau șterge o adresă din listă";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul atașat acțiunii dorite.";
 $txt['REMTHEENTRY'] = "Elimină selecția";
 $txt['DISABLETHEENTRY'] = "Dezactivează/activează selecția";
 $txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încredere pentru care nicio retenție in carantină nu va avea loc.
