@@ -469,7 +469,7 @@ $txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încr
 \t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
 \t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei albe. 
 ";
-$txt['BLACKLISTSHORTHELP'] = "Lista neagră conține adrese blocate ?ale emițătorilor.
+$txt['BLACKLISTSHORTHELP'] = "Lista neagră conține adrese de emițător blocate.
                                   Consultați manualul  (disponibil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații referitoare la utilizarea listelor negre.
 ";
 $txt['NEWSLISTSHORTHELP'] = "Lista de buletine informative conține adrese ale buletinelor informative dorite.<br />
