@@ -303,13 +303,13 @@ $txt['CANNOTREMOVEMAINADD'] = "Adresa__PARAM__ este adresa principală. Nu poate
 //old
 $txt['USERSTATS'] = "Statistici";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ a primit mesaje";
+$txt['USERMESGSSTAT'] = "__PARAM__ mesaje primite";
 //old
 $txt['USERSPAMSSTAT'] = "__PARAM__ spam-uri";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ periculos";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ curățire";
 $txt['ALL'] = "toate…";
 $txt['SEARCHPERIOD'] = "Perioada analizată";
 $txt['LASTDAYS'] = "ultimele zile";
@@ -394,7 +394,7 @@ $txt['QUARPARAMTOPIC'] = "Afișarea conținutului carantinei";
 $txt['WARNLISTTOPIC'] = "Listă de avertizare";
 $txt['WHITELISTTOPIC'] = "Listă albă";
 $txt['BLACKLISTTOPIC'] = "Listă neagră";
-$txt['NEWSLISTTOPIC'] = "Newslist";
+$txt['NEWSLISTTOPIC'] = "Listă informativă";
 $txt['INTERFACETOPICTITLE'] = "setările interfeței";
 $txt['ADDRESSLISTTOPICTITLE'] = "grupul adresei";
 $txt['ADDRESSPARAMTOPICTITLE'] = "setările adresei";
@@ -402,7 +402,7 @@ $txt['QUARPARAMTOPICTITLE'] = "afișarea conținutului carantinei";
 $txt['WARNLISTTOPICTITLE'] = "listă de avertizare";
 $txt['WHITELISTTOPICTITLE'] = "listă albă";
 $txt['BLACKLISTTOPICTITLE'] = "listă neagră";
-$txt['NEWSLISTTOPICTITLE'] = "newslist";
+$txt['NEWSLISTTOPICTITLE'] = "listă informativă";
 /*
  * interface (new)
  */
