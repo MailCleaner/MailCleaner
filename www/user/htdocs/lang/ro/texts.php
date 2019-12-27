@@ -481,9 +481,9 @@ $txt['WHITELISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăuga
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
 $txt['BLACKLISTFORADDRESS'] = "Listare neagră pentru adresă";
 $txt['ADDABLACKENTRY'] = "Adaugă o adresă listei";
-$txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la blacklist. Puteți să adăugați și un comentariu opțional.";
+$txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista neagră. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
-$txt['NEWSLISTFORADDRESS'] = "Listă de buletin informativ pentru adresă";
+$txt['NEWSLISTFORADDRESS'] = "Listă de buletine informative pentru adresă";
 $txt['ADDANEWSENTRY'] = "Adaugă o adresă listei";
 $txt['NEWSLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de newsletter. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
@@ -496,7 +496,7 @@ $txt['BEENLOGGEDOUT'] = "Dacă doriți să începeți o nouă sesiune click pe l
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter-ul a fost acceptat și eliberat.";
-$txt['NLRELEASEDBODY'] = "Newsletter-ul a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter-ul nu a fost eliberat";
+$txt['NLRELEASEDHEAD'] = "Buletinul informativ a fost acceptat și eliberat.";
+$txt['NLRELEASEDBODY'] = "Buletinul informativ a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
+$txt['NLNOTRELEASEDHEAD'] = "Buletinul informativ nu a fost eliberat";
 $txt['NLNOTRELEASEDBODY'] = "Există o problemă privind eliberarea mesajului. Vă rugăm să încercați mai târziu.";
