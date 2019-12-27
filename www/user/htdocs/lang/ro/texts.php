@@ -425,9 +425,9 @@ $txt['WAITINGCONFIRMATION'] = "așteptați confirmarea";
  */
 $txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Consultați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
 $txt['FOREACHSPAMDO'] = "Pentru fiecare mesaj detectat ca spam:";
-$txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca newsletter:";
+$txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca buletin informativ:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "reține in carantină";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
+$txt['TAGMESSAGEWITHTAG'] = "livrează cu cuvânt cheie de subiect";
 $txt['DROPMESSAGE'] = "șterge imediat";
 $txt['SUMMARYSENTFREQ'] = "Frecvență a raporturilor de carantină";
 $txt['SUMMARYFORMAT'] = "Formatul raporturilor de carantină";
@@ -440,7 +440,7 @@ $txt['DIGEST'] = "Asimilează";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Reține mesajele de eroare";
 $txt['PARAMETERSSAVED'] = "Setările dumneavoastră au fost salvate.";
 $txt['NOTSAVED'] = "Setările dumneavoastră nu au putut fi salvate.";
-$txt['INVALIDSUMMARYTO'] = "Această adresă furnizată pentru raporturi este invalidă.";
+$txt['INVALIDSUMMARYTO'] = "Adresa de email furnizată pentru rapoarte este invalidă.";
 /*
  * quarantine  (new)
  */
@@ -454,9 +454,9 @@ $txt['TODAY'] = "Astăzi";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
+$txt['WARNLISTSHORTHELP'] = "Lista de avertizare conține adrese de emițător de încredere pentru care doriți să fiți notificat pe email de fiecare dată când se întâmplă ca un mesaj să fie detectat ca spam. Ulterior puteți imediat să eliberați mesajul în caz de eroare de filtrare.<br />
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
+\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de avertizare. ";
 $txt['WARNLISTFORADDRESS'] = "Warnlist pentru adresă";
 $txt['ADDAWARNENTRY'] = "Adaugă o adresă listei";
 $txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la warnlist. Puteți adăuga și un comentariu opțional.";
@@ -465,9 +465,9 @@ $txt['REMOVEANENTRY'] = "Dezactivează, activează sau șterge o adresă din lis
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
 $txt['REMTHEENTRY'] = "Elimină selecția";
 $txt['DISABLETHEENTRY'] = "Dezactivează/activează selecția";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+$txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încredere pentru care nicio retenție in carantină nu va avea loc.
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
+\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei albe. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
