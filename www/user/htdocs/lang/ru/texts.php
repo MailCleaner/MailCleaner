@@ -315,7 +315,7 @@ $txt['STATFORADDRESS'] = "Статистика активности для: <str
 $txt['RECEIVEDMESSAGES'] = "Сообщений получено";
 $txt['RECEIVEDSPAM'] = "Спам-сообщения";
 $txt['NONE'] = "none";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['SPAMCSCORE'] = "Оценка по правилам";
 /*
  * alias stuff
  */
@@ -397,14 +397,14 @@ $txt['CONFIGURATION'] = "Настройка";
 $txt['ADDRESSLISTTOPIC'] = "Группа адресов";
 $txt['ADDRESSPARAMTOPIC'] = "Настройки адреса";
 $txt['QUARPARAMTOPIC'] = "Просмотр карантина";
-$txt['WARNLISTTOPIC'] = "Warnlist";
+$txt['WARNLISTTOPIC'] = "список предупреждение";
 $txt['WHITELISTTOPIC'] = "Белый список";
 $txt['BLACKLISTTOPIC'] = "Черный список";
 $txt['INTERFACETOPICTITLE'] = "настройки интерфейса";
 $txt['ADDRESSLISTTOPICTITLE'] = "Группа адресов";
 $txt['ADDRESSPARAMTOPICTITLE'] = "настройки адреса";
 $txt['QUARPARAMTOPICTITLE'] = "просмотр карантина";
-$txt['WARNLISTTOPICTITLE'] = "warnlist";
+$txt['WARNLISTTOPICTITLE'] = "список предупреждение";
 $txt['WHITELISTTOPICTITLE'] = "белый список";
 $txt['BLACKLISTTOPICTITLE'] = "чёрный список";
 /*
@@ -440,7 +440,7 @@ $txt['OTHER'] = "другие…";
 $txt['APPLYTOALLADDRESSES'] = "Применить настройки ко всем адресам";
 $txt['PLAINTEXT'] = "Простой текст";
 $txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
+$txt['DIGEST'] = "режим дайджеста";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Помещать в карантин уведомления об ошибках";
 $txt['PARAMETERSSAVED'] = "Настройки сохранены.";
 $txt['NOTSAVED'] = "Невозможно сохранить настройки.";
