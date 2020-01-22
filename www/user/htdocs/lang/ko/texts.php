@@ -6,12 +6,12 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "간행물";
-$txt['NEWSLETTERSTOPIC'] = "간행물들";
-$txt['NEWSLETTERSTOPICTITLE'] = "간행물들";
-$txt['NEWSLETTERSSHORTHELP'] = "이곳에서 당신의 간행물을 관리 할 수 있습니다.";
+$txt['NEWSLETTERMODULE'] = "뉴스레터";
+$txt['NEWSLETTERSTOPIC'] = "뉴스레터";
+$txt['NEWSLETTERSTOPICTITLE'] = "뉴스레터";
+$txt['NEWSLETTERSSHORTHELP'] = "이곳에서 당신의 뉴스레터를 관리 할 수 있습니다.";
 $txt['NEWSLETTERSALLOW'] = "배달";
-$txt['NEWSLETTERACCEPT'] = "이 간행물 승인";
+$txt['NEWSLETTERACCEPT'] = "이 뉴스레터 허용";
 $txt['SPAM_WHITELIST_DISABLED'] = "해당 리스트는 이 도메인에서 활성화 되지 않았습니다 (관리자에게 문의하세요).";
 /* 
  * generic buttons
@@ -34,7 +34,7 @@ $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
-$txt['DATEFORMAT'] = "_D__M__Y_";
+$txt['DATEFORMAT'] = "_Y__M__D_";
 $txt['MONTHAB1'] = '1월.';
 $txt['MONTHAB2'] = '2월.';
 $txt['MONTHAB3'] = '3월.';
@@ -77,7 +77,7 @@ $txt['PASSWORDRESET'] = "암호가 초기화 되었습니다. 당신의 이메�
  */
 $txt['CONFIGURATIONMENU'] = "구성";
 $txt['HELPMENU'] = "도움말";
-$txt['QUARANTINEMENU'] = "격리";
+$txt['QUARANTINEMENU'] = "격리소";
 $txt['STATISTICSMENU'] = "통계";
 $txt['LOGOUT'] = "로그아웃";
 //old
@@ -93,7 +93,7 @@ $txt['NAVSUPPORT'] = "지원";
 $txt['SELECTEDADDRESS'] = "표시되는 메일주소";
 $txt['QUARANTINESUMMARY'] = "<strong>검역소 :</strong> __PARAM__ 메일들";
 $txt['SEARCHSUMMARY'] = "<strong>검색:</strong> __PARAM__ 메일들";
-$txt['ORDEREDBYPARAM'] = "정렬 기준 __PARAM__";
+$txt['ORDEREDBYPARAM'] = "정렬 __PARAM__";
 $txt['RESETSEARCH'] = "검열된 리스트 모두 표시";
 $txt['ODATE'] = "날자";
 $txt['OTIME'] = "시간";
@@ -112,7 +112,7 @@ $txt['ANALYSEREQUESTV'] = "필터링 수정 요청";
 $txt['SCORETEXT'] = "점수: __PARAM__";
 $txt['CLOSEWINDOW'] = "창 닫기";
 $txt['CURRENTPAGE'] = "페이지 __PARAM2__ 중 __PARAM1__";
-$txt['PURGEINFOS'] = "<strong>지정 일자 후 자동으로 삭제:</strong> __PARAM__ 일";
+$txt['PURGEINFOS'] = "<strong>자동으로 삭제:</strong> __PARAM__ 일 뒤";
 $txt['DISPLAYEDINFOS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM1__ 일 (<a href=\"__PARAM2__\">변경…</a>4). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM__ 일. ";
 //old
@@ -134,342 +134,369 @@ $txt['SENDER'] = "Sender";
 $txt['FORCED'] = "보내기";
 $txt['ACTION'] = "조치";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "전체: __PARAM__ 개의 스팸";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
-$txt['PURGESELECTEDSPAMS'] = "Manually purge the quarantine";
+$txt['FORTHEXLASTDAYS'] = "최근 __PARAM__ 일";
+$txt['PURGESELECTEDSPAMS'] = "검역소에서 수동으로 삭제";
 //old
-$txt['HIDEFORCED'] = "Hide user-released messages";
+$txt['HIDEFORCED'] = "사용자가 전달한 메시지 숨기기";
 //old
-$txt['FORCESPAM'] = "release the message";
+$txt['FORCESPAM'] = "메시지 전달";
 //old
-$txt['ASKREASON'] = "display filtering rules";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.";
-$txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
-$txt['ASKANALYSE'] = "Filter adjustment request";
+$txt['ASKREASON'] = "필터링 규칙 표시";
+$txt['CONFSENDANALYSE'] = "메일 필터링 조절에 대한 요청을 MailCleaner 분석 센터로 보냅니다; 이는 차단된 메시지 사본을 포함합니다. </br> 참고: 필터 조정은 화이트리스트 또는 블랙리스트와 동일하지 않습니다.";
+$txt['AREYOUSURE'] = "<span class=\"question\">이 메시지를 분석하여 필터 조절에 적용할 것을 원하십니까?</span>";
+$txt['ASKANALYSE'] = "필터 조절 요청";
 $txt['PAGE'] = "Page";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['NEXTPAGE'] = "다음";
+$txt['PREVIOUSPAGE'] = "이전";
 //old
-$txt['GETREASONSTITLE'] = "Filtering reasons";
-$txt['HITRULE'] = "Rule";
+$txt['GETREASONSTITLE'] = "필터링된 이유";
+$txt['HITRULE'] = "규칙";
 $txt['SCORE'] = "Score";
 $txt['TOTAL'] = "Total";
 //old
-$txt['SENDANALYSETITLE'] = "Filter adjustment request";
-$txt['SENTTOANALYSE'] = "A filter adjustment request has been sent to the MailCleaner Analysis Center; this message will be examined and filter corrections may be applied within one working day.";
+$txt['SENDANALYSETITLE'] = "필터 조정 요청";
+$txt['SENTTOANALYSE'] = "필터 조절 요청이 MailCleaner 분석 센터로 전달되었습니다; 이 메시지는 검사하여 1일 이내에 필터 보정에 적용됩니다.";
 /*
  * quick actions
  */
 //old
-$txt['SENDSUMTITLE'] = "Manually send the quarantine report";
-$txt['SENDSUM'] = "Manually send the quarantine report";
-$txt['SUMSENTTO'] = "The quarantine report has been sent to: <strong>__PARAM__</strong>";
-$txt['SUMNOTSENTTO'] = "The quarantine report could not be sent to <strong>__PARAM__</strong> because of an internal error. Please try again later.";
-$txt['SUMMARYSENDING'] = "Quarantine report transmission";
-$txt['PURGETITLE'] = "Manually purge the quarantine";
+$txt['SENDSUMTITLE'] = "수동으로 검역소 리포트 발송";
+$txt['SENDSUM'] = "수동으로 검역소 리포트를 발송";
+$txt['SUMSENTTO'] = "검역소 리포트를 다음 메일주소로 발송하였습니다: <strong>__PARAM__</strong>";
+$txt['SUMNOTSENTTO'] = "내부 에러로 인하여 검역소 리포트를 다음에 전달하지 못하였습니다: <strong>__PARAM__</strong> 다음에 다시 시도 하십시오.";
+$txt['SUMMARYSENDING'] = "검역소 보고서 발송";
+$txt['PURGETITLE'] = "수동으로 검역소 내용 삭제";
 $txt['PURGEDONE'] = "The quarantine for <strong>__PARAM__</strong> has been purged";
 $txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not be purged because of an internal error. Please try again later.";
-$txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
-$txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['ASKPURGECONFIRM'] = "최근 __PARAM1__ 일의 메일(<strong>__PARAM2__</strong>)의 검역소 내용을 모두 지우시겠습니까?";
+$txt['QUARANTINEPURGE'] = "수동으로 검역소 내역 삭제";
+$txt['GROUPQUARANTINES'] = "모든 주소";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
+$txt['INFORMATIONSABOUTMSG'] = "메일 내용";
 $txt['PREFILTERHITS'] = "Pre-filters";
-$txt['BLACKLISTS'] = "Blacklists";
+$txt['BLACKLISTS'] = "블랙리스트";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
-$txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Description";
-$txt['MESSAGEPREVIEW'] = "메시지 미리보기";
-$txt['ID'] = "Identifier";
+$txt['HEADERS'] = "헤더";
+$txt['BODY'] = "본문";
+$txt['PARTS'] = "구성";
+$txt['STORESLAVE'] = "스토리지";
+$txt['SPAMCSCORE'] = "규칙 점수";
+$txt['DESCRIPTION'] = "설명";
+$txt['MESSAGEPREVIEW'] = "메시지 내용 표시";
+$txt['ID'] = "식별자";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like to start a new session, click on the following link:</p>";
+$txt['LOGOUTTEXT'] = "<p>MailCleaner 세션이 끝났습니다.</p><p>다시시작하고 싶으면 다음 링크를 클릭하세요:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "Personal MailCleaner settings";
+$txt['PARAMTITLE'] = "개인 MailCleaner 설정";
 //old
-$txt['USERPARAM'] = "User settings";
+$txt['USERPARAM'] = "사용자 설정";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "주소 설정";
 //old
-$txt['LANGUAGE'] = "Language";
-$txt['ADDRESS'] = "Address";
+$txt['LANGUAGE'] = "언어";
+$txt['ADDRESS'] = "주소";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "주소 그룹";
 //old
-$txt['FILTERACTIONTITLE'] = "Spam processing mode";
+$txt['FILTERACTIONTITLE'] = "스팸 처리 모드";
 //old
-$txt['SUMMARYPARAMSTITLE'] = "Quarantine report settings";
+$txt['SUMMARYPARAMSTITLE'] = "검역 보고서 설정";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "개인의 주소 그룹: (__PARAM__ 주소)";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "모든 주소에 변경내용 적용";
 //old
-$txt['MAIN'] = "main";
+$txt['MAIN'] = "메인";
 //old
-$txt['SPAMACTION'] = "Spam processing mode";
+$txt['SPAMACTION'] = "스팸 처리 모드";
 //old
-$txt['PUTINQUARANTINE'] = "quarantine";
+$txt['PUTINQUARANTINE'] = "검역소";
 //old
-$txt['TAGSUBJECT'] = "tag";
+$txt['TAGSUBJECT'] = "테그";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "체계적으로 검역된 전자 메일 배달 오류 메시지";
 //old
-$txt['DROP'] = "drop";
+$txt['DROP'] = "삭제";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "테그 키워드";
 //old
-$txt['SUMMARYFREQ'] = "Report delivery frequency";
-$txt['DAILY'] = "Daily";
-$txt['WEEKLY'] = "Weekly";
-$txt['MONTHLY'] = "Monthly";
+$txt['SUMMARYFREQ'] = "보고서 배달 주기";
+$txt['DAILY'] = "매일";
+$txt['WEEKLY'] = "매주";
+$txt['MONTHLY'] = "매월";
 $txt['NOSUMMARY'] = "No report";
 //old
 $txt['SUMMARYTYPE'] = "Report format";
-$txt['USEDEFAULT'] = "use default";
-$txt['SUMMHTML'] = "HTML";
-$txt['SUMMTEXT'] = "";
+$txt['USEDEFAULT'] = "기본 설정 사용";
+$txt['SUMMHTML'] = "HTML형식";
+$txt['SUMMTEXT'] = "문자로만";
 //old
-$txt['EDITWHITELIST'] = "";
+$txt['EDITWHITELIST'] = "화이트리스트 편집";
 //old
-$txt['EDITWARNLIST'] = "";
+$txt['EDITWARNLIST'] = "경고리스트 편집";
 /*
  * wwlist management
  */
 //old
-$txt['SENDER'] = "Sender";
-$txt['COMMENT'] = "Comment";
+$txt['SENDER'] = "보낸사람";
+$txt['COMMENT'] = "코멘트";
 //old
-$txt['ACTIONS'] = "Action";
+$txt['ACTIONS'] = "실행";
 //old
-$txt['ACTIVE'] = "active";
+$txt['ACTIVE'] = "활성";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "비활성";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "엔트리";
 //old
-$txt['CONFIRMWWENTRYDELETE'] = "Are you sure you want to permanently delete this entry?";
+$txt['CONFIRMWWENTRYDELETE'] = "이 항목을 완전히 삭제 하시겠습니까?";
 //old
-$txt['WHITELISTFOR'] = "";
+$txt['WHITELISTFOR'] = "__PARAM__ 의 화이트리스트";
 //old
-$txt['WARNLISTFOR'] = "";
+$txt['WARNLISTFOR'] = "__PARAM__ 의 경고리스트";
 //old
-$txt['STATUS'] = "Status";
+$txt['STATUS'] = "상태";
 /*
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "Add an address";
+$txt['ADDALIASTITLE'] = "주소 추가";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "주소";
 //old
-$txt['REMADDRESSALT'] = "remove an address";
+$txt['REMADDRESSALT'] = "주소 제거";
 //old
-$txt['ADDADDRESSALT'] = "add an address";
-$txt['BADADDRESSFORMAT'] = "The given address is invalid. Please try again.";
-$txt['NOTFILTEREDDOMAIN'] = "This domain is not filtered by MailCleaner. The address could not be added.";
-$txt['ALIASALREADYREGISTERD'] = "This address is already used by a MailCleaner account. It could not be added.";
-$txt['ALIASALREADYPENDING'] = "A confirmation is already pending for this address.";
-$txt['ALIASPENDING'] = "A confirmation has been sent to this address.<br/> For security reasons, the address will only be added if you confirm the request within 24 hours.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "The request could not be sent because of an internal error. Please try again later.";
-$txt['ALIASNOTPENDING'] = "No request is currently pending for this address.";
-$txt['ALIASADDED'] = "";
-$txt['ALIASREQUESTREMOVED'] = "The request has been canceled.";
+$txt['ADDADDRESSALT'] = "주소 추가";
+$txt['BADADDRESSFORMAT'] = "주소가 유효하지 않습니다. 다시 시도 시도하십시오.";
+$txt['NOTFILTEREDDOMAIN'] = "이 도메인은 MailCleaner에 의해 필터링 되지 않습니다. 주소를 추가할 수 없습니다.";
+$txt['ALIASALREADYREGISTERD'] = "이 주소는 MailCleaner 계정에서 이미 사용 중 입니다. 추가할 수 없습니다.";
+$txt['ALIASALREADYPENDING'] = "이 주소에 대한 확인 요청이 이미 대기 중 입니다.";
+$txt['ALIASPENDING'] = "이 주소에 대한 확인이 요청되었습니다.<br/> 보안상의 이유로 요청한 주소를 24시간 이내에 확인되면 추가 됩니다.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] 주소 추가 요청";
+$txt['ALIASERRORSENDIG'] = "내부 오류로 인해 요청을 보낼 수 없습니다. 나중에 다시 시도하십시오.";
+$txt['ALIASNOTPENDING'] = "현재 이 주소에 대해 보류 중인 요청이 없습니다.";
+$txt['ALIASADDED'] = "주소가 추가되었습니다.";
+$txt['ALIASREQUESTREMOVED'] = "요청이 취소되었습니다.";
 //old
-$txt['REMALIASTITLE'] = "Address removal";
+$txt['REMALIASTITLE'] = "주소 삭제";
 //old
-$txt['REMALIASCONFIRM'] = "Are you sure you want to remove the address: __PARAM__?";
-$txt['ALIASREMOVED'] = "The address __PARAM__ has been removed.";
-$txt['CANNOTREMOVEMAINADD'] = "The address__PARAM__ is the main address. It cannot be removed.";
+$txt['REMALIASCONFIRM'] = "정말로 이 주소( __PARAM__)를 삭제 하시겠습니까? ?";
+$txt['ALIASREMOVED'] = "이 주소(__PARAM__)는 삭제 되었습니다.";
+$txt['CANNOTREMOVEMAINADD'] = "이 주소(__PARAM__)는 기본 주소입니다. 삭제할 수 없습니다.";
 /*
  * statistics page
  */
 //old
-$txt['USERSTATS'] = "Statistics";
+$txt['USERSTATS'] = "통계";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ received messages";
+$txt['USERMESGSSTAT'] = "__PARAM__ 개의 받은 메일";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ 개의 스팸메일";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ 개의 위험 메일";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "";
-$txt['SEARCHPERIOD'] = "Analyzed period";
-$txt['LASTDAYS'] = "last days";
-$txt['LASTMONTHS'] = "last months";
-$txt['LASTYEARS'] = "last years";
-$txt['DATESTART'] = "From";
-$txt['DATESTOP'] = "to";
-$txt['STATFORADDRESS'] = "Activity statistics for: <strong>__PARAM__</strong>";
-$txt['RECEIVEDMESSAGES'] = "Messages received";
-$txt['RECEIVEDVIRUS'] = "Viruses and dangerous messages";
-$txt['RECEIVEDSPAM'] = "Spam messages";
-$txt['RECEIVEDCLEAN'] = "Clean messages";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
-$txt['GLOBALSTATSTITLE'] = "Summary for all addresses";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['USERCLEANSTAT'] = "__PARAM__ 개의 정상 메일";
+$txt['ALL'] = "모두…";
+$txt['SEARCHPERIOD'] = "분석 기간";
+$txt['LASTDAYS'] = "일간";
+$txt['LASTMONTHS'] = "월간";
+$txt['LASTYEARS'] = "년간";
+$txt['DATESTART'] = "부터";
+$txt['DATESTOP'] = "까지";
+$txt['STATFORADDRESS'] = "활동 통계: <strong>__PARAM__</strong>";
+$txt['RECEIVEDMESSAGES'] = "받은 메일";
+$txt['RECEIVEDVIRUS'] = "바이러스 및 위험 메일";
+$txt['RECEIVEDSPAM'] = "스팸 메일";
+$txt['RECEIVEDCLEAN'] = "정상 메일";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ 개의 받은 메일";
+$txt['GLOBALSTATSTITLE'] = "모든 주소에 대한 요약";
+$txt['FROMDATETODATE'] = "__PARAM1__.__PARAM2__.__PARAM3__ 부터 __PARAM4__.__PARAM5__.__PARAM6__ 까지";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
-$txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
-$txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
-$txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
-$txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
+$txt['BADARGS'] = "MailCleaner 내부 에러(_PARAM_MESSAGE_ERREUR__). 자세한 내용은 시스템 관리자에게 문의 하십시오.";
+$txt['INCORRECTMSGID'] = "메시지 식별자가 잘못되어 요청한 작업을 완료 할 수 없습니다.";
+$txt['NOSUCHADDR'] = "주어진 주소는 MailCleaner에 의해 보호되지 않습니다.";
+$txt['ERRORSENDING'] = "메시지를 보내는 중 오류가 발생했습니다. 다시 시도하십시오. 문제가 지속되면 시스템 관리자에게 문의하십시오.";
+$txt['MSGFORCED'] = "메시지가 해제되어 사서함에 전달되었습니다. 몇 분 안에 사용할 수 있어야합니다.";
+$txt['MSGFILENOTFOUND'] = "메시지가 더 이상 검역소에 없으므로 요청한 작업을 완료 할 수 없습니다.";
 /*
  * support page (deprecated)
  */
 //old
-$txt['COMPANY'] = "Company";
+$txt['COMPANY'] = "회사";
 //old
-$txt['NAME'] = "Name";
+$txt['NAME'] = "성";
 //old
-$txt['FIRSTNAME'] = "Firstname";
+$txt['FIRSTNAME'] = "이름";
 //old
 $txt['EMAIL'] = "E-mail";
 //old
-$txt['YOURPHONENUMBER'] = "Phone number";
+$txt['YOURPHONENUMBER'] = "전화번호";
 //old
-$txt['WHATCANWEDO'] = "What can we do for you?";
+$txt['WHATCANWEDO'] = "도움이 필요하십니까?";
 //old
-$txt['NEEDEDFIELDS'] = "Required fields";
+$txt['NEEDEDFIELDS'] = "필수 입력 사항";
 //old
-$txt['SUPPORT'] = "Support";
+$txt['SUPPORT'] = "지원";
 //old
-$txt['SUPFORMSENT'] = "Your message has been sent.";
+$txt['SUPFORMSENT'] = "메시지가 발송되었습니다.";
 //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+$txt['CANNOTSENDSUPFORM'] = "메시지가 발송되지 않았습니다. 나중에 다시시도 하십시오.";
 //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
+$txt['BADFORMFIELDS'] = "일부 항목에 문제가 있습니다. 입력한 내용을 확인해 주십시오.";
 /*
  * help page (new)
  */
-$txt['HELP'] = "Help";
-$txt['INTERFACETOPIC'] = "Interface settings";
-$txt['INTRODUCTIONTOPIC'] = 'Introduction';
-$txt['INTRODUCTIONTOPICTITLE'] = 'introduction';
-$txt['FIRSTCONTACTTOPIC'] = "Quick guide";
-$txt['FIRSTCONTACTTOPICTITLE'] = "quick guide";
-$txt['ADDRESSESTOPIC'] = "Useful addresses";
-$txt['ADDRESSESTOPICTITLE'] = "useful addresses";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
-$txt['MOREHELPTOPIC'] = "Full manual";
-$txt['MOREHELPTOPICTITLE'] = "full manual";
-$txt['USERMANUALTOPICTITLE'] = "user manual";
-$txt['USERMANUALTOPIC'] = "User manual";
-$txt['FAQTOPIC'] = "Frequently Asked Questions";
-$txt['FAQTOPICTITLE'] = "frequently asked questions";
-$txt['GLOSSARYTOPIC'] = "Glossary";
-$txt['GLOSSARYTOPICTITLE'] = "glossary";
-$txt['SUPPORTTOPIC'] = "Support";
-$txt['SUPPORTTOPICTITLE'] = "support";
-$txt['ANALYSETOPIC'] = "Filter adjustment request";
-$txt['ANALYSETOPICTITLE'] = "filter adjustment request";
+$txt['HELP'] = "도움말";
+$txt['INTERFACETOPIC'] = "인터페이스 설정";
+$txt['INTRODUCTIONTOPIC'] = '소개';
+$txt['INTRODUCTIONTOPICTITLE'] = '소개';
+$txt['FIRSTCONTACTTOPIC'] = "빠른 가이드";
+$txt['FIRSTCONTACTTOPICTITLE'] = "빠른 가이드";
+$txt['ADDRESSESTOPIC'] = "유용한 주소";
+$txt['ADDRESSESTOPICTITLE'] = "유용한 주소";
+$txt['PLUGINTOPIC'] = "Outlook 플러그인";
+$txt['PLUGINTOPICTITLE'] = "Outlook 플러그인";
+$txt['MOREHELPTOPIC'] = "전체 설명서";
+$txt['MOREHELPTOPICTITLE'] = "전체 설명서";
+$txt['USERMANUALTOPICTITLE'] = "사용자 설명서";
+$txt['USERMANUALTOPIC'] = "사용자 설명서";
+$txt['FAQTOPIC'] = "자주 물어보는 질문";
+$txt['FAQTOPICTITLE'] = "자주 물어보는 질문";
+$txt['GLOSSARYTOPIC'] = "색인";
+$txt['GLOSSARYTOPICTITLE'] = "색인";
+$txt['SUPPORTTOPIC'] = "지원";
+$txt['SUPPORTTOPICTITLE'] = "지원";
+$txt['ANALYSETOPIC'] = "필터 조정 요청";
+$txt['ANALYSETOPICTITLE'] = "필터 조정 요청";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
-$txt['ADDRESSPARAMTOPIC'] = "Address settings";
-$txt['QUARPARAMTOPIC'] = "Quarantine display";
-$txt['WARNLISTTOPIC'] = "";
-$txt['WHITELISTTOPIC'] = "";
-$txt['BLACKLISTTOPIC'] = "";
-$txt['INTERFACETOPICTITLE'] = "interface settings";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
-$txt['ADDRESSPARAMTOPICTITLE'] = "address settings";
-$txt['QUARPARAMTOPICTITLE'] = "quarantine display";
-$txt['WARNLISTTOPICTITLE'] = "";
-$txt['WHITELISTTOPICTITLE'] = "";
-$txt['BLACKLISTTOPICTITLE'] = "";
+$txt['CONFIGURATION'] = "환경 설정";
+$txt['ADDRESSLISTTOPIC'] = "주소 그룹";
+$txt['ADDRESSPARAMTOPIC'] = "주소 설정";
+$txt['QUARPARAMTOPIC'] = "검역소 표시";
+$txt['WARNLISTTOPIC'] = "경고목록";
+$txt['WHITELISTTOPIC'] = "화이트리스트";
+$txt['BLACKLISTTOPIC'] = "블랙리스트";
+$txt['INTERFACETOPICTITLE'] = "인터페이스 설정";
+$txt['ADDRESSLISTTOPICTITLE'] = "주소 그룹";
+$txt['ADDRESSPARAMTOPICTITLE'] = "주소 설정";
+$txt['QUARPARAMTOPICTITLE'] = "검역소 표시";
+$txt['WARNLISTTOPICTITLE'] = "주의리스트";
+$txt['WHITELISTTOPICTITLE'] = "화이트리스트";
+$txt['BLACKLISTTOPICTITLE'] = "블랙리스트";
 /*
  * interface (new)
  */
-$txt['SAVE'] = "Save";
-$txt['CHOOSETHISLANG'] = "Use English as main language";
-$txt['CHOOSELANGUAGE'] = "Language selection";
+$txt['SAVE'] = "저장";
+$txt['CHOOSETHISLANG'] = "영어를 주 언어로 사용합니다";
+$txt['CHOOSELANGUAGE'] = "언어 선택";
 /*
  * aliases (new)
  */
-$txt['ADDLISTSHORTHELP'] = "This group contains all addresses and aliases you want to manage from this account. You can then access their quarantine, statistics and settings in a centralized way with your current credentials.";
-$txt['ADDANADDRESS'] = "Add an address to a group";
-$txt['ADDTHEADDRESS'] = "&lt; Add the address to the group";
-$txt['ADDANADDRESSSHORTHELP'] = "Enter the address you want to add.";
-$txt['REMANADDRESS'] = "Remove one or more address(es) from the group";
-$txt['REMTHEADDRESS'] = "Remove selection";
-$txt['REMANADDRESSSHORTHELP'] = "Check the box next to each address that you want to remove and click the Remove selection button.";
-$txt['WAITINGCONFIRMATION'] = "waiting for confirmation";
+$txt['ADDLISTSHORTHELP'] = "이 그룹에는 이 계정에서 관리하려는 모든 주소와 가명이 포함되어 있습니다. 현재 자격 증명을 사용하여 검역, 통계 및 설정에 액세스할 수 있다.";
+$txt['ADDANADDRESS'] = "이 주소를 그룹에 추가";
+$txt['ADDTHEADDRESS'] = "&lt; 이 주소를 그룹에 추가";
+$txt['ADDANADDRESSSHORTHELP'] = "추가하고 싶은 주소를 입력하십시오.";
+$txt['REMANADDRESS'] = "그룹에서 삭제하고 싶은 주소 한개 또는 그 이상";
+$txt['REMTHEADDRESS'] = "선택 항목 제거";
+$txt['REMANADDRESSSHORTHELP'] = "제거할 각 주소를 선택하고 선택 항목 제거 버튼을 누르십시오.";
+$txt['WAITINGCONFIRMATION'] = "확인을 기다리고 있습니다";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "The spam processing mode can be customized for each of your addresses. Check the user manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on the different processing modes available.";
-$txt['FOREACHSPAMDO'] = "For each message detected as spam:";
-$txt['FOREACHNEWSLETTERDO'] = "For each message detected as newsletter:";
-$txt['KEEPMESSAGEINQUARANTINE'] = "retain in quarantine";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
-$txt['DROPMESSAGE'] = "immediately delete";
-$txt['SUMMARYSENTFREQ'] = "Frequency of quarantine reports";
-$txt['SUMMARYFORMAT'] = "Format of quarantine reports";
-$txt['SUMMARYTO'] = "Send reports to this address";
-$txt['OTHER'] = "";
-$txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
-$txt['PLAINTEXT'] = "Plain text";
-$txt['HTML'] = "HTML";
-$txt['DIGEST'] = "Digest";
-$txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
-$txt['PARAMETERSSAVED'] = "Your settings have been saved.";
-$txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['ADDPARAMSHORTHELP'] = "스팸 처리 방식은 각 주소에 맞게 사용자 정의할 수 있습니다. 사용 가능한 다양한 처리 모드에 대한 자세한 정보는 사용자용 설명서(<a href=\"help.php\">\"도움말\"</a>에서 사용가능)를 확인하십시오.";
+$txt['FOREACHSPAMDO'] = "스팸으로 탐지된 각 메시지에 대해:";
+$txt['FOREACHNEWSLETTERDO'] = "뉴스레터로 탐지된 각 메시지에 대해:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "검역소에 유지";
+$txt['TAGMESSAGEWITHTAG'] = "제목 키워드와 함께 배달";
+$txt['DROPMESSAGE'] = "바로 삭제";
+$txt['SUMMARYSENTFREQ'] = "검역 보고서의 빈도";
+$txt['SUMMARYFORMAT'] = "검역 보고서 형식";
+$txt['SUMMARYTO'] = "보고서를 이 주소로 보내기";
+$txt['OTHER'] = "다른 주소…";
+$txt['APPLYTOALLADDRESSES'] = "모든 주소에 설정 적용";
+$txt['PLAINTEXT'] = "글자로만";
+$txt['HTML'] = "웹형식";
+$txt['DIGEST'] = "요약";
+$txt['KEEPBOUNCESINQUARANTINE'] = "오류 메시지 유지";
+$txt['PARAMETERSSAVED'] = "설정이 저장되었습니다.";
+$txt['NOTSAVED'] = "설정이 저장되지 않았습니다.";
+$txt['INVALIDSUMMARYTO'] = "보고를 위해 제공된 이메일 주소가 유효하지 않습니다";
 /* 
  * quarantine  (new)
  */
-$txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
-$txt['QUARNBLINESDISPLAYED'] = "Number of lines displayed";
-$txt['QUARNBDAYSDISAPLYED'] = "Number of days displayed";
-$txt['MASKEALREADYFORCED'] = "Hide user-released messages";
-$txt['DEFAULTADDRESDISPPLAYED'] = "Address displayed by default";
-$txt['YESTERDAY'] = "Yesterday";
-$txt['TODAY'] = "Today";
+$txt['CONFIGQUARSHORTHELP'] = "검역 디스플레이는 사용자의 요구와 습관에 맞게 일수 및 라인수를 맞춤 설정할 수 있습니다.";
+$txt['QUARNBLINESDISPLAYED'] = "표시되는 줄 수";
+$txt['QUARNBDAYSDISAPLYED'] = "표시되는 일 수";
+$txt['MASKEALREADYFORCED'] = "사용자가 검역 해제한 메시지 숨기기";
+$txt['DEFAULTADDRESDISPPLAYED'] = "기본으로 보이는 주소";
+$txt['YESTERDAY'] = "어제";
+$txt['TODAY'] = "오늘";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "";
-$txt['WARNLISTFORADDRESS'] = "";
-$txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "";
-$txt['ADDTHEENTRY'] = "&lt; Add the address";
-$txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['REMTHEENTRY'] = "Remove selection";
-$txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "";
-$txt['BLACKLISTSHORTHELP'] = "";
-$txt['WHITELISTFORADDRESS'] = "";
-$txt['ADDAWHITEENTRY'] = "Add an address to the list";
-$txt['WHITELISTENTRYTOADD'] = "";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
-$txt['BLACKLISTFORADDRESS'] = "";
-$txt['ADDABLACKENTRY'] = "Add an address to the list";
-$txt['BLACKLISTENTRYTOADD'] = "";
-$txt['REMOVEABLACKENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
+$txt['WARNLISTSHORTHELP'] = "경고 목록에는 메시지가 스팸으로 탐지될 때마다 이메일로 알림을 받으려는 신뢰할 수 있는 발신자 주소가 포함되어 있다. 필터링 오류가 발생할 경우 메시지를 즉시 해제할 수 있습니다.<br />
+경고: 이 기능은 전체적인 보호를 감소시키기 때문에 임시 해결책으로 사용되어야 합니다.
+경고 목록 사용에 대한 자세한 내용은 설명서( <a href=\"help.php\">\"Help\"</a> 섹션 에서 사용 가능)를 참조하십시오. ";
+$txt['WARNLISTFORADDRESS'] = "이 주소의 경고목록";
+$txt['ADDAWARNENTRY'] = "리스트에 주소 추가";
+$txt['WARNLISTENTRYTOADD'] = "경고목록에 추가하고 싶은 주소를 입력하십시오. 설명도 추가할 수 있습니다.";
+$txt['ADDTHEENTRY'] = "&lt; 주소 추가";
+$txt['REMOVEANENTRY'] = "리스트에서 비활성화, 활성화 또는 삭제";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "변경하고 싶은 주소를 선택하고, 원하는 버튼을 클릭하십시오.";
+$txt['REMTHEENTRY'] = "선택 항목 제거";
+$txt['DISABLETHEENTRY'] = "선택 항목 비활성화/활성화";
+$txt['WHITELISTSHORTHELP'] = "화이트리스트에는  검역서에 보관하지 않을 메일주소가 포함되어야 합니다. <br />
+경고: 이 기능은 전체적인 보호를 감소시키기 때문에 임시 해결책으로 사용되어야 합니다.
+화이트리스트 사용에 대한 자세한 내용은 매뉴얼( <a href=\"help.php\">\"Help\"</a> 섹션에서 사용 가능)을 참조하십시오. 
+";
+$txt['BLACKLISTSHORTHELP'] = "블랙리스트는 수신을 거부할 발신자의 메일주소입니다.
+블랙 리스트 사용에 대한 자세한 내용은 설명서( <a href=\"help.php\">\"도움말\"</a>에서 사용가능)를 참조하십시오.
+";
+$txt['WHITELISTFORADDRESS'] = "이 주소의 화이트 리스트";
+$txt['ADDAWHITEENTRY'] = "목록에 주소 추가";
+$txt['WHITELISTENTRYTOADD'] = "화이트 리스트에 추가하고 싶은 주소를 입력하십시오. 설명을 추가할 수도 있습니다.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "수정하고 싶은 하나이상의 주소를 선택하고, 원하는 버튼을 누르세요.";
+$txt['BLACKLISTFORADDRESS'] = "이 주소의 블랙리스트";
+$txt['ADDABLACKENTRY'] = "목록에 주소 추가";
+$txt['BLACKLISTENTRYTOADD'] = "블랙리스트에 추가하고싶은 주소를 입력하십시오. 설명을 추가할 수도 있습니다.";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "수정하고 싶은 주소를 하나이상 선택하고, 원하는 버튼을 누르세요.";
 $txt['RECORDALREADYEXISTS'] = "이 메일주소가 이미 리스트에 존재합니다.";
 /*
  * logout (new)
  */
 $txt['SESSIONTERMINATED'] = "세션이 끝났습니다.";
-$txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
+$txt['BEENLOGGEDOUT'] = "다시 시작하고 싶으면 다음 링크를 누르세요: <a href=\"__PARAM__\" >__PARAM__</a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "뉴스레터가 허용 및 배달되었습니다.";
+$txt['NLRELEASEDBODY'] = "뉴스레터가 허용 및 배달되었습니다. 몇분 뒤 당신의 메일함에 배달됩니다.";
+$txt['NLNOTRELEASEDHEAD'] = "배달되지 않은 뉴스레터";
+$txt['NLNOTRELEASEDBODY'] = "메시지를 배달하는데 문제가 있습니다. 나중에 다시 시도 하십시오.";
+//old
+$txt['EDITNEWSLIST'] = "뉴스리스트 편집";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__ 의 뉴스리스트";
+$txt['NEWSLISTTOPIC'] = "뉴스리스트";
+$txt['NEWSLISTTOPICTITLE'] = "뉴스리스트";
+$txt['NEWSLISTSHORTHELP'] = "뉴스레터 목록은 수신을 원하는 뉴스레터의 주소입니다.<br />
+뉴스레터 목록 사용에 대한 자세한 내용은 설명서(<a href=\"help.php\">\"도움말\"</a>)를 참조하십시오.
+";
+$txt['NEWSLISTFORADDRESS'] = "이 주소의 뉴스레터 목록";
+$txt['ADDANEWSENTRY'] = "리스트에 주소 추가";
+$txt['NEWSLISTENTRYTOADD'] = "뉴스레터 목록에 추가하고 싶은 주소를 입력하세요. 설명을 추가할 수도 있습니다.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "수정하고 싶은 주소를 하나이상 선택하고 원하는 버튼을 누르세요.";
