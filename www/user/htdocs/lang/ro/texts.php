@@ -16,7 +16,7 @@ $txt['SPAM_WHITELIST_DISABLED'] = "Lista nu e activată pentru acest domeniu (co
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Trimitere";
+$txt['SUBMIT'] = "Înaintare";
 $txt['CANCEL'] = "Anulare";
 $txt['CLOSE'] = "Închidere";
 // old
@@ -93,7 +93,7 @@ $txt['NAVSUPPORT'] = "Suport";
 $txt['SELECTEDADDRESS'] = "Adresa afișată";
 $txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ mesaje";
 $txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ mesaje";
-$txt['ORDEREDBYPARAM'] = "sortat de catre__PARAM__";
+$txt['ORDEREDBYPARAM'] = "sortat dupa__PARAM__";
 $txt['RESETSEARCH'] = "Afișează întreaga listă a carantinei";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "ora";
