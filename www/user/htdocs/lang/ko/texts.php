@@ -249,7 +249,7 @@ $txt['EDITWARNLIST'] = "경고리스트 편집";
  */
 //old
 $txt['SENDER'] = "보낸사람";
-$txt['COMMENT'] = "코멘트";
+$txt['COMMENT'] = "설명";
 //old
 $txt['ACTIONS'] = "실행";
 //old
@@ -359,7 +359,7 @@ $txt['BADFORMFIELDS'] = "일부 항목에 문제가 있습니다. 입력한 내�
  * help page (new)
  */
 $txt['HELP'] = "도움말";
-$txt['INTERFACETOPIC'] = "인터페이스 설정";
+$txt['INTERFACETOPIC'] = "언어 설정";
 $txt['INTRODUCTIONTOPIC'] = '소개';
 $txt['INTRODUCTIONTOPICTITLE'] = '소개';
 $txt['FIRSTCONTACTTOPIC'] = "빠른 가이드";
@@ -387,10 +387,10 @@ $txt['CONFIGURATION'] = "환경 설정";
 $txt['ADDRESSLISTTOPIC'] = "주소 그룹";
 $txt['ADDRESSPARAMTOPIC'] = "주소 설정";
 $txt['QUARPARAMTOPIC'] = "검역소 표시";
-$txt['WARNLISTTOPIC'] = "경고목록";
+$txt['WARNLISTTOPIC'] = "경고리스트";
 $txt['WHITELISTTOPIC'] = "화이트리스트";
 $txt['BLACKLISTTOPIC'] = "블랙리스트";
-$txt['INTERFACETOPICTITLE'] = "인터페이스 설정";
+$txt['INTERFACETOPICTITLE'] = "언어 설정";
 $txt['ADDRESSLISTTOPICTITLE'] = "주소 그룹";
 $txt['ADDRESSPARAMTOPICTITLE'] = "주소 설정";
 $txt['QUARPARAMTOPICTITLE'] = "검역소 표시";
@@ -451,9 +451,9 @@ $txt['TODAY'] = "오늘";
 $txt['WARNLISTSHORTHELP'] = "경고 목록에는 메시지가 스팸으로 탐지될 때마다 이메일로 알림을 받으려는 신뢰할 수 있는 발신자 주소가 포함되어 있다. 필터링 오류가 발생할 경우 메시지를 즉시 해제할 수 있습니다.<br />
 경고: 이 기능은 전체적인 보호를 감소시키기 때문에 임시 해결책으로 사용되어야 합니다.
 경고 목록 사용에 대한 자세한 내용은 설명서( <a href=\"help.php\">\"Help\"</a> 섹션 에서 사용 가능)를 참조하십시오. ";
-$txt['WARNLISTFORADDRESS'] = "이 주소의 경고목록";
+$txt['WARNLISTFORADDRESS'] = "이 주소의 경고리스트";
 $txt['ADDAWARNENTRY'] = "리스트에 주소 추가";
-$txt['WARNLISTENTRYTOADD'] = "경고목록에 추가하고 싶은 주소를 입력하십시오. 설명도 추가할 수 있습니다.";
+$txt['WARNLISTENTRYTOADD'] = "경고리스트에 추가하고 싶은 주소를 입력하십시오. 설명도 추가할 수 있습니다.";
 $txt['ADDTHEENTRY'] = "&lt; 주소 추가";
 $txt['REMOVEANENTRY'] = "리스트에서 비활성화, 활성화 또는 삭제";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "변경하고 싶은 주소를 선택하고, 원하는 버튼을 클릭하십시오.";
