@@ -8,6 +8,8 @@ nl
 pt
 pt_BR
 pt_PT
+ro
+ru
 zh_Hans
 sv
 tr
