@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Hide user-released messages";
 $txt['FORCESPAM'] = "release the message";
 //old
 $txt['ASKREASON'] = "display filtering rules";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting";
+$txt['CONFSENDANALYSE'] = "A szűrőbeállítási kérelmet a rendszer elküldi a MailCleaner Analysis Centernek; tartalmazza az üzenet egy példányát, amelyet tévesen blokkoltak.</br> Megjegyzés: A szűrőkorrekció nem egyezik meg az engedélyezési listával vagy a feketelistára.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
 $txt['ASKANALYSE'] = "Filter adjustment request";
 $txt['PAGE'] = "Page";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
 $txt['DESCRIPTION'] = "Megjegyzés";
-$txt['MESSAGEPREVIEW'] = "Message preview";
+$txt['MESSAGEPREVIEW'] = "Az üzenet tartalmának megjelenítése";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -465,9 +465,9 @@ $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
-                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+$txt['WHITELISTSHORTHELP'] = "Az engedélyezési lista olyan megbízható feladói címeket tartalmaz, amelyeknél soha nem történik karanténmegőrzés.<br>< /> 
+                                   Figyelmeztetés: Ezt a funkciót ideiglenes megoldásként kell használni, mivel csökkenti a teljes védelmet.
+                                  Az engedélyezési lista használatáról további információt a <a>href=\"help.php\"\"help\"</a>) című részben talál. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
