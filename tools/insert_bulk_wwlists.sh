@@ -1,16 +1,18 @@
 #! /bin/bash
 
-FILE=$1
+if [ -z "$1" ]; then
+        echo ""
+        echo "Please provide a file with the format"
+        echo "sender recipient type"
+        echo "if the recipient should be a whole domain, you need to include the '@' sign on it for example @mailcleaner.net"
+        echo "if the rule is for all domains please use --- as domain name"
+        echo "type can be either white or black"
+        exit 0
+fi
 
-if [ ! -f $FILE ];
-then
+FILE=$1
+if [ ! -f $FILE ]; then
 	echo "File $FILE not found!"
-	echo ""
-	echo "Please provide a file with the format"
-	echo "sender recipient type"
-	echo "if the recipient should be a whole domain, you need to include the '@' sign on it for example @mailcleaner.net"
-	echo "if the rule is for all domains please use --- as domain name"
-	echo "type can be either white or black"
 	exit 0
 fi
 
