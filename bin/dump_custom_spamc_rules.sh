@@ -3,11 +3,11 @@ CONF_FILE="/usr/mailcleaner/share/spamassassin/mails_without_LOM"
 RULE_FILE="/usr/mailcleaner/share/spamassassin/93_mails_without_LOM.cf"
 
 # Remove the rule file
-if [ ! -f $RULE_FILE ]; then
+if [ -e $RULE_FILE ]; then
         rm $RULE_FILE
 fi
 
-# dont do anything if the feature is not activated
+# Dont do anything if the feature is not activated
 if [ ! -f $CONF_FILE ]; then
         exit
 fi
