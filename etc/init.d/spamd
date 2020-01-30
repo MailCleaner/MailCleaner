@@ -49,6 +49,8 @@ case "$1" in
   start)
     touch $VARDIR/run/spamd.start.rs
     echo -n "  Starting SpamAssassin daemon: "
+    /usr/mailcleaner/bin/dump_custom_spamc_rules.sh
+
     prepare
     $DAEMON $SPAMDOPTS >/dev/null 2>&1
     echo "started."
