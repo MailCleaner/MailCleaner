@@ -5,49 +5,49 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  */
- 
+
 $htxt['INTRODUCTION'] = '
 <h1>Welcome to a world where the e-mail you get is the e-mail you want.</h1>
 <p>MailCleaner is an extremely powerful antivirus and anti-spam system.</p>
-<p>Based on the latest generation of filtering technology, MailCleaner does not need to be installed on your computer. 
-Instead, it acts before e-mail messages reach your mailbox, at the highest level of the network infrastructure of your company, organization or ISP. 
-MailCleaner relies on sophisticated rules that are updated daily by the engineers of the <em>MailCleaner Analysis Center</em> in response to spammers\' 
-ever-changing strategies and the appearance of new viruses. Thanks to MailCleaner\'s unblinking surveillance, you can be assured 24 hours a day 
+<p>Based on the latest generation of filtering technology, MailCleaner does not need to be installed on your computer.
+Instead, it acts before e-mail messages reach your mailbox, at the highest level of the network infrastructure of your company, organization or ISP.
+MailCleaner relies on sophisticated rules that are updated daily by the engineers of the <em>MailCleaner Analysis Center</em> in response to spammers\'
+ever-changing strategies and the appearance of new viruses. Thanks to MailCleaner\'s unblinking surveillance, you can be assured 24 hours a day
 that you have the best tool to prevent viral attacks, intrusion of dangerous files and undesirable e-mail messages.</p>
 ';
 
 $htxt['FIRSTCONTACT'] = '
 <h1>Take a couple of minutes to discover how MailCleaner works with your e-mail software.</h1>
-<p>This chapter contains all the necessary information to help you master your new antivirus and anti-spam system in just a few minutes. 
+<p>This chapter contains all the necessary information to help you master your new antivirus and anti-spam system in just a few minutes.
 The default configuration of the MailCleaner filter immediately provides you with maximum protection, so you can rely on MailCleaner from the very start.</p>
-<p>MailCleaner requires only minimal attention on your part. It works autonomously to eradicate viruses, identify dangerous content and remove spam from your e-mail 24 hours a day. 
+<p>MailCleaner requires only minimal attention on your part. It works autonomously to eradicate viruses, identify dangerous content and remove spam from your e-mail 24 hours a day.
 MailCleaner works transparently, and you will receive regular quarantine reports that will tell you everything about its activity.</p>
 <h2>Quarantine reports </h2>
-<p>As a MailCleaner user, you will be receiving a quarantine report for each e-mail address that is protected by the system. Quarantine reports may be sent to you daily, 
-weekly, or monthly, depending on the configuration chosen by your e-mail administrator or your Internet Service Provider (ISP). A quarantine report lists all the messages 
+<p>As a MailCleaner user, you will be receiving a quarantine report for each e-mail address that is protected by the system. Quarantine reports may be sent to you daily,
+weekly, or monthly, depending on the configuration chosen by your e-mail administrator or your Internet Service Provider (ISP). A quarantine report lists all the messages
 received in a given period that are identified as spam. These messages are quarantined, meaning that they are retained in a special zone outside of your e-mail system.</p>
-<p>During the first few weeks as a new MailCleaner user, you should examine your quarantine reports carefully to make sure that the system does not inadvertently block any 
+<p>During the first few weeks as a new MailCleaner user, you should examine your quarantine reports carefully to make sure that the system does not inadvertently block any
 legitimate e-mail message that should have been delivered to your mailbox. Such instances are very rare, but not impossible.</p>
-<p>After a test period, you will have the option to disable the delivery of quarantine reports, depending on whether or not you are interested in reviewing 
+<p>After a test period, you will have the option to disable the delivery of quarantine reports, depending on whether or not you are interested in reviewing
 the activity of the filtering system.</p>
 
 <h2>What to do if a message is blocked inadvertently</h2>
-<p>It is possible, although extremely rare, that a message that you want to receive is blocked by MailCleaner.  This may be caused by different factors, such as a non-standard 
-format of the e-mail message or a compromised reputation of the mail server used to send the message. It does not mean that MailCleaner is malfunctioning, but simply that the 
+<p>It is possible, although extremely rare, that a message that you want to receive is blocked by MailCleaner.  This may be caused by different factors, such as a non-standard
+format of the e-mail message or a compromised reputation of the mail server used to send the message. It does not mean that MailCleaner is malfunctioning, but simply that the
 system acts cautiously when encountering an e-mail message with unusual characteristics that cannot be correctly interpreted by a simple scan of the message contents.</p>
 <p>If you encounter such a situation, there are two things you should do:</p>
 <ul>
 <li><em>Release the message</em> from the quarantine to allow it to reach your mailbox.</li>
-<li>Notify the <em>MailCleaner Analysis Center</em> so that the engineers may render the filter more tolerant towards 
+<li>Notify the <em>MailCleaner Analysis Center</em> so that the engineers may render the filter more tolerant towards
   the sender or format of the blocked message. This is referred to as a <em>filter adjustment</em> in the MailCleaner vocabulary.</li>
-</ul> 
-<p>If you are unsure about the nature of the message that has been blocked, you can view its contents before deciding whether it should be released 
+</ul>
+<p>If you are unsure about the nature of the message that has been blocked, you can view its contents before deciding whether it should be released
   or not via the MailCleaner Management Center.</p>
-<p class="note"><strong>Note:</strong> The <em>MailCleaner Analysis Center</em>, located on our premises, is composed of a team of highly specialized engineers whose role 
+<p class="note"><strong>Note:</strong> The <em>MailCleaner Analysis Center</em>, located on our premises, is composed of a team of highly specialized engineers whose role
 is to guarantee the highest possible quality of filtering in response to global spam traffic, emergence of viruses and filter adjustment requests emanating from users worldwide.</p>
 <h3>Viewing the contents of a message</h3>
 <ul>
- <li>To view a message, click on the date, the subject or the preview icon.</li> 
+ <li>To view a message, click on the date, the subject or the preview icon.</li>
  <li>The contents of the message are displayed in a new window.</li>
 </ul>
 <h3>Releasing a quarantined message</h3>
@@ -64,13 +64,13 @@ is to guarantee the highest possible quality of filtering in response to global 
 </ul>
 <p class="note"><strong>Note:</strong> If you use any of the preceding tools available in the quarantine report, your browser will open a new window or a confirmation dialog box.</p>
 <h2>What to do if a spam has not been blocked</h2>
-<p>If a spam slips undetected through the MailCleaner system, the differences between this spam and a legitimate e-mail message are likely very small. 
-In such a situation, MailCleaner chooses to deliver the message to your mailbox. It is better to receive spam on an exceptional basis than to miss a potentially 
+<p>If a spam slips undetected through the MailCleaner system, the differences between this spam and a legitimate e-mail message are likely very small.
+In such a situation, MailCleaner chooses to deliver the message to your mailbox. It is better to receive spam on an exceptional basis than to miss a potentially
 important legitimate message.</p>
 <p>If you receive a spam message, you should request a filter adjustment to fine tune MailCleaner detection rules.</p>
 <h3>Spam received by Microsoft Outlook</h3>
-<p>A plug-in may be added to Microsoft Outlook for Windows to automatically notify MailCleaner that unfiltered spam has been received. 
-This plug-in installs a button in the menu bar that displays the MailCleaner logo and the caption <em>Unwanted</em>.</p> 
+<p>A plug-in may be added to Microsoft Outlook for Windows to automatically notify MailCleaner that unfiltered spam has been received.
+This plug-in installs a button in the menu bar that displays the MailCleaner logo and the caption <em>Unwanted</em>.</p>
 
 <p>To notify the <em>MailCleaner Analysis Center</em> of received spam using the MailCleaner plug-in:</p>
 <ul>
@@ -80,12 +80,12 @@ This plug-in installs a button in the menu bar that displays the MailCleaner log
  <li>You may then delete the spam.</li>
  <li>No confirmation will be sent to you, but your request will be taken into account in the continuous filter adjustment process.</li>
 </ul>
-<p class="note"><strong>Note:</strong> If the MailCleaner plug-in is missing in Outlook, ask your e-mail administrator to install it 
+<p class="note"><strong>Note:</strong> If the MailCleaner plug-in is missing in Outlook, ask your e-mail administrator to install it
 for you or consult the installation instructions in this manual.</p>
 <h3>Spam received by another e-mail program</h3>
 <p>All filter adjustment requests resulting from unwanted spam must be sent manually to a specific e-mail address at the <em>MailCleaner Analysis Center</em>.</p>
-<p><strong>This address is defined by your e-mail administrator or ISP. It cannot be found in this manual.</strong> 
-To obtain this address, click on the Help section of the Management Center and then on Filter Adjustment Request. 
+<p><strong>This address is defined by your e-mail administrator or ISP. It cannot be found in this manual.</strong>
+To obtain this address, click on the Help section of the Management Center and then on Filter Adjustment Request.
 Copy the e-mail address, as it will be needed in the subsequent steps.</p>
 <p>To manually notify the <em>MailCleaner Analysis Center</em> of received spam:</p>
 <ul>
@@ -97,8 +97,8 @@ Copy the e-mail address, as it will be needed in the subsequent steps.</p>
  <li>No confirmation will be sent to you, but your request will be taken into account in the continuous filter adjustment process.</li>
 </ul>
 
-<p class="important"><strong>Important:</strong> Do not forward the contents of the spam message using the copy and paste function. 
-Doing so will prevent the transmission of the long header in the original message which is needed to properly analyze the spam. 
+<p class="important"><strong>Important:</strong> Do not forward the contents of the spam message using the copy and paste function.
+Doing so will prevent the transmission of the long header in the original message which is needed to properly analyze the spam.
 Regardless of your e-mail software or operating system (PC or Mac), you should only use the Resend function (or its equivalent) to send your filter adjustment request. </p>
 <h2>Improving your knowledge of MailCleaner</h2>
 <p>After mastering the basics, you will undoubtedly want to learn more about customizing MailCleaner to precisely fit your needs.</p>
@@ -159,17 +159,17 @@ $htxt['FAQ'] = '
 <p>Een quarantine is een geïsoleerde zone, buiten je mailbox, die de berichten, geïdentificeerd als spam, apart houdt.</p>
 <h4>Filter aanpassing</h4>
 <h3>Wat is een filter aanpassing?</h3>
-<p>Een filter aanpassing valt voor op een verzoek dat je maakt wanneer het gebeurt wanneer een geldige mail verkeerdelijk in quarantaine geplaatst wordt, 
-of als een spam bericht verkeerdelijk in je mailbox geleverd wordt. In het eerste geval zal MailCleaner een regel versoepelen om toleranter te zijn naar een bepaalde zender of 
+<p>Een filter aanpassing valt voor op een verzoek dat je maakt wanneer het gebeurt wanneer een geldige mail verkeerdelijk in quarantaine geplaatst wordt,
+of als een spam bericht verkeerdelijk in je mailbox geleverd wordt. In het eerste geval zal MailCleaner een regel versoepelen om toleranter te zijn naar een bepaalde zender of
  formaat. In het tweede geval wordt MailCleaner strikter.</p>
 <h3>Wat gebeurt er wanneer ik een filter aanpassing vraag?</h3>
-<p>Een kopie van het bericht werd naar het <em>MailCleaner Analysis Center</em> verzonden. Dat bericht wordt onderzocht door MailCleaner ingenieurs en de filter kan worden aangepast.</p> 
+<p>Een kopie van het bericht werd naar het <em>MailCleaner Analysis Center</em> verzonden. Dat bericht wordt onderzocht door MailCleaner ingenieurs en de filter kan worden aangepast.</p>
 <h4>Berichten in quarantine</h4>
 <h3>Een geldige mail werd verkeerdelijk in qurantaine geplaatst. Mat moet ik doen?</h3>
 <p>Laat het bericht los om het toch naar je mailbox te laten brengen en vraag een filter, voor in de quarantine aanpassing, aan.</p>
 <h3>Waarom plaatste MailCleaner een bericht in de quarantine, terwijl ik deze had moeten ontvangen?</h3>
 <p>Zo een situtatie kan gebeuren als het bericht werd doorgegeven door een mail server, die tijdelijk een slechte reputatie had, veroorzaakt door bijvoorbeeld spammers die het gebruiken als een
-spam relay. Of een specifiek, ongebruikelijk format van het bericht, kan een anti-spam regel geactiveerd hebben. 
+spam relay. Of een specifiek, ongebruikelijk format van het bericht, kan een anti-spam regel geactiveerd hebben.
 Het betekent niet dat MailCleaner defect is, maar gewoonweg dat het systeem voorzichtig reageert wanneer het ongebruikelijke eigenschappen van een e-mail bericht tegenkomt en deze
 niet correct geïnterpreteerd kunnen worden door een eenvoudige scan van de bericht inhoud.</p>
 <h3>Hoe laat ik een bericht los?</h3>
@@ -177,26 +177,26 @@ niet correct geïnterpreteerd kunnen worden door een eenvoudige scan van de beri
 <h3>Ik heb een bericht losgelaten, maat wordt nog altijd getoond in de quarantine. Is dat normaal?</h3>
 <p>Een losgelaten bericht wordt in quarantine gehouden voor in het geval je het weer los moet lanten in de toekomst. Het wordt schuin gedrukt weergegeven om aan te geven dat het werd losgelaten.</p>
 <h3>Wat doe ik om geen quarantaine rapporten meer te krijgen?</h3>
-<p>Je kan de frequentie aanpassen voor met welke frequentie quarantaine rapporten verstuurd moeten worden, of je kan deze optie ook uitschakelen in het Configuratie deel van het Management Center. 
+<p>Je kan de frequentie aanpassen voor met welke frequentie quarantaine rapporten verstuurd moeten worden, of je kan deze optie ook uitschakelen in het Configuratie deel van het Management Center.
 Als je kiest om de rapportage uit te schakelen, moet je het Management Center bezoeken om je quarantine te consulteren.</p>
 <h4>Ongeblokkeerde spam</h4>
 <h3>Een spam werd niet gefilterd. Wat doe ik?</h3>
 <p>Gebruik je e-mail programma om een Filter Aanpassing, die de filter regels zal versterken, aan te vragen.</p>
 <h3>Waarom liet MailCleaner spam in mijn mailbox komen?</h3>
-<p>Sommige spam berichten spelen het klaar om door de filter te glippen omdat geen enkele mathematische analyses, die op dat moment van kracht waren, in staat waren om deze de differentiëren van een geldige e-mail. 
-Daarom is het zeer belangrijk dat je deze fout meldt aan het <em>MailCleaner Analysis Center</em>, die dan de gepaste filter regels zullen versterken. 
+<p>Sommige spam berichten spelen het klaar om door de filter te glippen omdat geen enkele mathematische analyses, die op dat moment van kracht waren, in staat waren om deze de differentiëren van een geldige e-mail.
+Daarom is het zeer belangrijk dat je deze fout meldt aan het <em>MailCleaner Analysis Center</em>, die dan de gepaste filter regels zullen versterken.
 In grensgevallen kiest MailCleaner om het bericht in je mailbox af te leveren, omdat het beter is om spam te ontvangen in uitzonderlijke gevallen, dan een mogelijk belangrijk bericht te missen.</p>
 <h2>Virussen en gevaarlijke berichten</h2>
 <h3>Hoe gaat MailCleaner om met virussen?</h3>
 <p>Virussen worden zonder pardon verwijderd.</p>
 <h3>Wat bedoel je met gevaarlijke inhoud?</h3>
-<p>Gevaarlijke inhoud is het type van inhoud dat je e-mail administrator moet filteren als een preventieve maatregel. Voorbeelden zijn bijlagen met uitvoerbare bestanden (.exe) 
+<p>Gevaarlijke inhoud is het type van inhoud dat je e-mail administrator moet filteren als een preventieve maatregel. Voorbeelden zijn bijlagen met uitvoerbare bestanden (.exe)
 of liken naar verdachte websites. MailCleaner verwijdert gevaarlijke inhoud en levert de rest van het bericht naar je mailbox, samen met een uitleg hoe je de administrators
 kan vragen om het volledige bericht toch te kunnen ontvangen.</p>
 <h3>Hoe weet ik dat een bericht gevaarlijke inhoud bevat?</h3>
 <p>Het onderwerp van zo een bericht bevat een sleutelwoord&mdash;usually "{DANGEROUS CONTENT}"&mdash; en ook een bijlage met een uitleg over hoe het te moeten loslaten.</p>
 <h3>Hoe krijg ik deze gevaarlijke inhoud van mijn my e-mail administrator?</h3>
-<p>Volg de instructies in het bericht. Om de weerhouden inhoud te verkrijgen, heb je de ID van het geblokkeerde bericht nodig. 
+<p>Volg de instructies in het bericht. Om de weerhouden inhoud te verkrijgen, heb je de ID van het geblokkeerde bericht nodig.
 Als je administrator gelooft dat de oorspronkelijke bijlage een reële bedreiging vormt, kan hij/zij weigeren om het naar jou door te sturen.</p>
 ';
 
@@ -208,7 +208,7 @@ $htxt['GLOSSARY'] = '
 <p>Een team van gespecialiseerde ingenieurs, die op het MailCleaner hoofdkwartier werken, garanderen dat de hoogste kwaliteit van filteren behaald wordt, tegen het wereldwijde spam verkeer, virus activiteit en door het aanpassen van aanvragen door Mailcleaner gebruikers wereldwijd.</p>
 <h3>Gevaarlijke inhoud</h3>
 <p>In een bericht gevonden verdachte inhoud wordt gefilterd als preventieve maatregel door je ISP of e-mail administrator.</p>
-<h3>Domeinen in bescherming</h3> 
+<h3>Domeinen in bescherming</h3>
 <p>Alle Internet-domeinen behandeld door dezelfde instantie van MailCleaner (voorbeelden: company.com, enterprise.com).</p>
 <h3>Vals negatief</h3>
 <p>Spam dat niet als dusdaning geïdentificeerd werd door de MailCleaner filter. Alle valse negatieven moeten gemeld worden aan het Analysis Center om de gepaste actie te ondernemen.</p>
@@ -252,45 +252,11 @@ $htxt['GLOSSARY'] = '
 <p>Een lijst met e-mail adressen die betrouwbaar zijn en normaal gezien geen spam zouden mogen genereren. Je zal een waarschuwing krijgen van Mailcleaner wanneer een bericht, verzonden van een waarschuw lijst adres, geblokkeerd wordt.</p>
 <h3>Witte lijst</h3>
 <p>Een lijst van e-mail adressen die volledig betrouwbaar zijn. Berichten verzonden van witte lijst adressen zullen nooit geblokkeerd worden door Mailcleaner.</p>
-<h3>Wauw.</h3> 
+<h3>Wauw.</h3>
 <p>Wat we hopen dat jullie zullen zeggen als een MailCleaner gebruiker.</p>
 ';
 
-$htxt['PLUGIN'] = '
-<h1>Beheer niet gefilterde spam vanuit je mailbox.</h1>
-<h6>Een plug-in kan toegevoegd worden aan Microsoft Outlook voor Windows om automatisch MailCleaner te melden dat spam werd ontvangen.
-Deze plug-in installeert een knop in de menu balk die het MailCleaner logo weergeeft en de titel "Ongewenst".</h6>
-<p>Elke aanpassing aanvraag wordt bekeken tijdens het continu lopende filter aanpassing proces.</p>
-<p class="note"><strong>Note:</strong> Je systeembeheerder kan de installatie van Outlook plug-ins op je computer geblokkeerd hebben en zou moeten gecontacteerd worden in dat geval.</p>
-<h2>Download MailCleaner plug-in voor Outlook</h2>
-<p>Voor Microsoft Outlook 2003: <a href="__PLUGIN_OU2003_LINK__">Download</a>
- (Version 1.0.3 &ndash; __PLUGIN_OU2003_SIZE__) </p>
-<p>Voor Microsoft Outlook 2007: <a href="__PLUGIN_OU2007_LINK__">Download</a>
- (Version 1.0.3 &ndash; __PLUGIN_OU2007_SIZE__)</p>
-<h2>De MailCleaner plug-in voor Outlook installeren</h2>
-<p>Om de MailCleaner plug-in voor Outlook voor Windows te installeren:</p>
-<ul>
-<li>Download de laatste versie van de bovenste link.</li>
-<li>Sluit de Outlook toepassing als deze reeds gestart.</li>
-<li>Dubbelklik op het installeer icoon.</li>
-<li>Volg de instructies.</li>
-<li>Een bericht bevestigt de succesvolle installatie van de plug-in.</li>
-<li>Herstart Outlook.</li>
-</ul>
-<p>Een nieuwe knop zou zichtbaar moeten zijn in je Outlook taakbalk.</p>
-<h2>Beheren van valse negatieven met Microsoft Outlook voor Windows</h2>
-<ul>
-<li>Selecteer de ontvangen spam in de lijst met berichten.</li>
-<li>Klik op de "Ongewenst" knop in de taakbalk.</li>
-<li>Een filter aanpassing aanvraag werd verstuurd naar het Analyse Centrum, samen met een kopie van het ongewenste bericht.</li>
-<li>Daarna mag je de spam verwijderen.</li>
-</ul>
-<p>Er wordt geen bevestiging gestuurd naar jou, maar je aanvraag zal behandeld worden tijdens het continu lopende filter aanpassingsproces.</p>
-<h2>Bekijk het ook in de gebruikershandleiding</h2>
-<h3>Filter onnauwkeurigheden </h3>
-<p>Beslis wat te doen wanneer de filter een foute beslissing maakt.</p>
-<p><a href="__MANUAL_ERRORS_LINK__"><img src="__IMAGE_BASE__images/pdf.gif" alt="__MANUAL_ERRORS_NAME__" /></a> <a href="__MANUAL_ERRORS_LINK__">Download hoofdstuk</a> (__MANUAL_ERRORS_SIZE__)</p>
-';
+$htxt['PLUGIN'] = '<h1>Niet meer ondersteund.</h1>';
 
 $htxt['ANALYSE'] = '
 <h1>Filter aanpassing aanvraag</h1>
@@ -300,7 +266,7 @@ $htxt['ANALYSE'] = '
 <p>Het algemene e-mail adres om spam te melden is:</p><p>__SPAM_EMAIL__</p>
 <h2>Hoe spam melden(valse negatieve)</h2>
 <p>Om spam te melden, moet je het bericht versturen naar het bovenstaanden e-mail adres door de "terugzenden" functie&mdash;of zijn equivalente&mdash;van je e-amil software.</p>
-<p>Stuur de inhoud van het spam bericht niet door door middel van de kopieer/plak functie. 
+<p>Stuur de inhoud van het spam bericht niet door door middel van de kopieer/plak functie.
 Dit voorkomt de transmissie van de lange hoofding in het originele bericht en deze is nodig om de spam correct te analyseren.</p>
 <h3>Beheer valse negatieven met Netscape, Mozilla of Thunderbird</h3>
 <ul>
@@ -340,7 +306,7 @@ $htxt['SUPPORT'] = '
 <h6>Onze support en commerciële diensten zijn beschikbaar tijdens de werkuren, van maandag tot vrijdag.</h6>
 <h2>In geval van problemen</h2>
 <p>__SUPPORT_EMAIL__</p>
-<p>Vooraleer je de ondersteuningsdienst contacteert, zorg ervoor dat je probleem niet voorkomt in de __LINKHELP_usermanual__user manual__LINK__ 
+<p>Vooraleer je de ondersteuningsdienst contacteert, zorg ervoor dat je probleem niet voorkomt in de __LINKHELP_usermanual__user manual__LINK__
 of in de __LINKHELP_faq__frequently asked questions__LINK__.</p>
 <h2>Voor commerciële vragen</h2>
 <p>__SALES_EMAIL__</p>

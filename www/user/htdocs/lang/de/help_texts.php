@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  */
- 
+
 $htxt['INTRODUCTION'] = '
 <h1>Willkommen in der Welt der Nachrichten,... die Sie wirklich erhalten m&ouml;chten.</h1>
 <p>MailCleaner ist ein m&auml;chtiges Antivirus- und Antispam-Programm.</p>
@@ -29,12 +29,12 @@ $htxt['FIRSTCONTACT'] = '
 <ul>
 <li><i>Freigabe des E-Mails</i> aus der Quarant&auml;ne,damit es zu Ihrem Postfach gelangen kann ;</li>
 <li>Mitteilung dieses Fehlers an das <i>Analysezentrum</i> von MailCleaner, damit der Filter diesem Absender gegen&uuml;ber toleranter wird. Bei MailCleaner nennen wir dies eine <i>Anpassung des Filters </i>.</li>
-</ul> 
+</ul>
 <p>Wenn Sie Zweifel &uuml;ber die Art des E-Mails haben, k&ouml;nnen Sie es selbstverst&auml;ndlich zuerst ansehen, bevor Sie &uuml;ber seine Freigabe entscheiden.</p>
 <p class="note"><strong>Hinweis:</strong> das <i>Analysezentrum</i> von MailCleaner befindet sich am Sitz des Software-Herausgebers und besteht aus spezialisierten Ingenieuren, die jederzeit die hohe Qualit&auml;t des Filters angesichts des weltweiten Spamverkehrs, der Virenaktivit&auml;t und der Anpassungsbegehren der Benutzer aus aller Welt garantieren.</p>
 <h3>Den Inhalt eines E-Mails ansehen </h3>
 <ul>
- <li>Klicken Sie das Datum, den Betreff oder das Symbol Voransicht an ;</li> 
+ <li>Klicken Sie das Datum, den Betreff oder das Symbol Voransicht an ;</li>
  <li>der Inhalt des E-Mails wir in einem neuen Fenster angezeigt. </li>
 </ul>
 <h3>Das E-Mail aus der Quarant&auml;ne freigeben </h3>
@@ -56,7 +56,7 @@ $htxt['FIRSTCONTACT'] = '
 <p>Wenn ein Spam durch die Maschen des Netzes f&auml;llt und den Weg in Ihr Postfach findet, so bedeutet dies, dass der Unterschied zu einem erw&uuml;nschten E-Mail sehr gering ist. In diesem Fall nimmt MailCleaner die Zustellung in der Annahme vor, dass es weniger schlimm ist, ein Spam zu erhalten als eine m&ouml;glicherweise wichtige Meldung nicht zu bekommen.</p>
 <p>Wenn Sie feststellen, dass es sich in der Tat um Spam handelt, m&uuml;ssen Sie eine Anpassung des Filters verlangen, um die Regeln der Spamerkennung zu verfeinern.</p>
 <h3>Spam mit Microsoft Outlook nicht blockiert</h3>
-<p>Sie k&ouml;nnen dem E-Mail Programm Microsoft Outlook f&uuml;r Windows eine Erweiterung (ein Plug-in) hinzuf&uuml;gen, damit von Ihrem E-Mail Programm aus ein nicht gefiltertes Spam einfach mitgeteilt werden kann. Es wird in der Men&uuml;leiste eine Schaltfl&auml;che mit dem Logo von MailCleaner und dem Text Unerw&uuml;nscht installiert.</p> 
+<p>Sie k&ouml;nnen dem E-Mail Programm Microsoft Outlook f&uuml;r Windows eine Erweiterung (ein Plug-in) hinzuf&uuml;gen, damit von Ihrem E-Mail Programm aus ein nicht gefiltertes Spam einfach mitgeteilt werden kann. Es wird in der Men&uuml;leiste eine Schaltfl&auml;che mit dem Logo von MailCleaner und dem Text Unerw&uuml;nscht installiert.</p>
 
 <p>Um ein Spam mit der MailCleaner Erweiterung mitzuteilen:</p>
 <ul>
@@ -180,7 +180,7 @@ $htxt['GLOSSARY'] = '
 <h3>Begehren um Anpassung des Filters</h3>
 <p>Eine freiwillige Aktion von Ihnen in der Folge der Blockade einer legitimen Nachricht in der Quarant&auml;ne oder der Ankunft eines Spams in Ihrem Postfach. Im ersten Fall macht die Anpassung des Filters MailCleaner gegen&uuml;ber einem bestimmten Absender toleranter. Im zweiten Fall wird MailCleaner aggressiver. Die Begehren werden vom Analysezentrum von MailCleaner behandelt.</p>
 <h3>Ein E-Mail freigeben</h3>
-<p>Eine Freiwillige Aktion, um ein in der Quarant&auml;ne zur&uuml;ckbehaltenes E-Mail an das E-Mail Programm weiterzuleiten.</p> 
+<p>Eine Freiwillige Aktion, um ein in der Quarant&auml;ne zur&uuml;ckbehaltenes E-Mail an das E-Mail Programm weiterzuleiten.</p>
 <h3>Falsche Positivmeldung</h3>
 <p>Legitimes E-Mail, das von MailCleaner als Spam betrachtet wurde. Jede falsche Positivmeldung muss Gegenstand eines Begehrens um Anpassung des Filters bilden.</p>
 <h3>Falsche Negativmeldung</h3>
@@ -194,7 +194,7 @@ $htxt['GLOSSARY'] = '
 <h3>Login</h3>
 <p>Verfahren, das in der Feststellung besteht, ob eine Person wirklich diejenige ist, die sie zu sein vorgibt. Bei MailCleaner gestattet ein erfolgreiches Login dem Benutzer den Zugriff auf seine Quarant&auml;ne.</p>
 <h3>Plug-in</h3>
-<p>Englische Bezeichnung f&uuml;r eine Erweiterung, die in einer Anwendung zu installieren ist. Die Erweiterung MailCleaner f&uuml;r Microsoft Outlook vereinfacht die Mitteilungen &uuml;ber falsche Negativmeldungen.</p> 
+<p>Englische Bezeichnung f&uuml;r eine Erweiterung, die in einer Anwendung zu installieren ist. Die Erweiterung MailCleaner f&uuml;r Microsoft Outlook vereinfacht die Mitteilungen &uuml;ber falsche Negativmeldungen.</p>
 <h3>Provider</h3>
 <p>Unternehmen, das Internet- und E-Mail-Dienstleistungen anbietet. Auf Englisch: ISP (Internet Service Provider).</p>
 <h3>Quarant&auml;ne</h3>
@@ -221,45 +221,11 @@ $htxt['GLOSSARY'] = '
 <p>Liste von Absendern Ihres Vertrauens, sodass Sie f&uuml;r jedes ihrer in der Quarant&auml;ne zur&uuml;ckbehaltene E-Mail eine Warnung erhalten. Auf Englisch: Warn List.</p>
 <h3>Weisse Liste</h3>
 <p>Liste von Absendern Ihres Vertrauens, sodass deren E-Mails nicht in der Quarant&auml;ne zur&uuml;ckbehalten werden. Auf Englisch: White List.</p>
-<h3>Wow</h3> 
+<h3>Wow</h3>
 <p>Das sagen Sie jetzt hoffentlich.</p>
 ';
 
-$htxt['PLUGIN'] = '
-<h1>Um den nicht gefilterten Spam aus Ihrem E-Mail Programm effizient zu verwalten.</h1>
-<h6>Ein Erweiterungsprogramm (Plug-in) kann dem E-Mail Programm Mocrosoft Outlook f&uuml;r Windows zugef&uuml;gt werden. Die notification eines nicht gefiltertes Spam an das Analysezentrum wird vereinfacht.</h6>
-<p>Es wird in der Men&uuml;leiste eine Schaltfl&auml;che mit dem Logo von MailCleaner und dem Text "Unerw&uuml;nscht" installiert.</p>
-<p>Alle Meldungen, die an das Analysezentrum &uuml;bertragen werden, werden gepr&uuml;ft, um eine eventuelle Anpassung des Filters zu festzustellen.</p>
-<p class="note">Hinweiss: Ihr Systemadministrator hat vielleicht die Installation von Outlook Erweiterungen auf Ihrem Computer untersagt. Nehmen Sie gegebenenfalls mit ihm Kontakt auf.</p>
-<h2>Aufladung der MailCleaner Erweiterung f&uuml;r Outlook f&uuml;r Windows</h2>
-<p>F&uuml;r Microsoft Outlook 2003: <a href="__PLUGIN_OU2003_LINK__">Herunterladen</a>
- (Version 1.0.3 &ndash; __PLUGIN_OU2003_SIZE__) </p>
-<p>F&uuml;r Microsoft Outlook 2007: <a href="__PLUGIN_OU2007_LINK__">Herunterladen</a>
- (Version 1.0.3 &ndash; __PLUGIN_OU2007_SIZE__)</p>
-<h2>Installation der MailCleaner Erweiterung f&uuml;r Outlook f&uuml;r Windows</h2>
-<p>Um die Erweiterung f&uuml;r Outlook f&uuml;r Windows zu installieren:</p>
-<ul>
-<li>laden Sie die neuste Version mit den nachfolgenden Link herunter ;</li>
-<li>verlassen Sie Outlook, wenn es aktiv ist ;</li>
-<li>Doppelklicken Sie auf das Installationsprogramm ;</li>
-<li>befolgen Sie die Anweisungen (Es ist m&ouml;glich, dass das Hinzuf&uuml;gen von "Visual Studio 2005 Tools for Office" oder eines anderen Komponenten eines Dritten gefordet wird) ;</li>
-<li>eine Best&auml;tigungsmeldung zeigt Ihnen das Ende der Installation an ;</li>
-<li>starten Sie Outlook erneut.</li>
-</ul>
-<p>Sie finden eine neue Schaltfl&auml;che in Ihrer Werkzeugleiste.</p>
-<h2>Um ein Spam mit der MailCleaner Erweiterung f&uuml;r Outlook f&uuml;r Windows zu melden</h2>
-<ul>
-<li>w&auml;hlen Sie das Spam aus der E-Mail Liste ;</li>
-<li>klicken Sie auf die Schaltfl&auml;che <i>Unerw&uuml;nscht</i> in der Werkzeugleiste ;</li>
-<li>ein Begehren um Anpassung des Filters wird zusammen mit einer Kopie des E-Mails an das <i>Analysezentrum</i> versandt ;</li>
-<li>l&ouml;schen Sie anschliessend das Spam, falls Sie dies w&uuml;nschen.</li>
-</ul>
-<p>Sie erhalten zwar keine Best&auml;tigung, aber Ihre Mitteilung wird im st&auml;ndigen Verfahren der Korrektur des Filters ber&uuml;cksichtigt.</p>
-<h2>Siehe auch das Benutzerhandbuch</h2>
-<h3>Ungenauigkeiten der Filterung</h3>
-<p>Um Massnahmen zu ergreifen, wenn eine Meldung nicht richtig gefiltert wurde.</p>
-<p><a href="__MANUAL_ERRORS_LINK__"><img src="__IMAGE_BASE__images/pdf.gif" alt="__MANUAL_ERRORS_NAME__" /></a> <a href="__MANUAL_ERRORS_LINK__">Kapitel herunterladen</a> (__MANUAL_ERRORS_SIZE__)</p>
-';
+$htxt['PLUGIN'] = '<h1>Wird nicht mehr unterstützt.</h1>';
 
 $htxt['ANALYSE'] = '
 <h1>Begehren um Anpassung des Filters</h1>
@@ -283,7 +249,7 @@ $htxt['ANALYSE'] = '
 <ul>
  <li>W&auml;hlen Sie das Spam aus der E-Mail Liste ;</li>
  <li>W&auml;hlen Sie das Men&uuml; <em>Message</em>, dann den Punkt <em>Weiterleiten</em> ;</li>
- <li>geben Sie als Empf&auml;nger die Adresse des <em>Analysezentrums</em> von MailCleaner ein, die zuvor angegeben wurde ;</li> 
+ <li>geben Sie als Empf&auml;nger die Adresse des <em>Analysezentrums</em> von MailCleaner ein, die zuvor angegeben wurde ;</li>
  <li>ein <em>Begehren um Anpassung des Filters</em> wird zusammen mit einer Kopie des E-Mails versandt ;</li>
  <li>l&ouml;schen Sie anschliessend das Spam, falls Sie dies w&uuml;nschen ;</li>
  <li>Sie erhalten zwar keine Best&auml;tigung, aber Ihre Mitteilung wird im st&auml;ndigen Verfahren der Korrektur des Filters ber&uuml;cksichtigt.</li>
@@ -292,7 +258,7 @@ $htxt['ANALYSE'] = '
 <ul>
  <li>W&auml;hlen Sie das Spam aus der E-Mail Liste ;</li>
  <li>W&auml;hlen Sie das Men&uuml; <em>Message</em>, dann den Punkt <em>Weiterleiten als Anlage</em> ;</li>
- <li>geben Sie als Empf&auml;nger die Adresse des <em>Analysezentrums</em> von MailCleaner ein, die zuvor angegeben wurde ;</li> 
+ <li>geben Sie als Empf&auml;nger die Adresse des <em>Analysezentrums</em> von MailCleaner ein, die zuvor angegeben wurde ;</li>
  <li>ein <em>Begehren um Anpassung des Filters</em> wird zusammen mit einer Kopie des E-Mails versandt ;</li>
  <li>l&ouml;schen Sie anschliessend das Spam, falls Sie dies w&uuml;nschen ;</li>
  <li>Sie erhalten zwar keine Best&auml;tigung, aber Ihre Mitteilung wird im st&auml;ndigen Verfahren der Korrektur des Filters ber&uuml;cksichtigt.</li>
@@ -308,7 +274,7 @@ $htxt['SUPPORT'] = '
 <h6>Unser Supportdienst und unsere Verkaufsabteilung stehen Ihnen w&auml;hrend der B&uuml;rozeiten von Montag bis Freitag zur Verf&uuml;gung.</h6>
 <h2>Im Falle von Schwierigkeiten</h2>
 <p>__SUPPORT_EMAIL__</p>
-<p>Vor der Kontaktaufnahme mit unserem Supportdienst, bitten wir Sie, sicherzustellen, ob Ihr Problem nicht im __LINKHELP_usermanual__Benutzerhandbuch__LINK__ 
+<p>Vor der Kontaktaufnahme mit unserem Supportdienst, bitten wir Sie, sicherzustellen, ob Ihr Problem nicht im __LINKHELP_usermanual__Benutzerhandbuch__LINK__
 oder im Abschnitt __LINKHELP_faq__H&auml;ufig gestellte Fragen__LINK__ behandelt wird.</p>
 <h2>F&uuml;r alle kommerziellen Fragen</h2>
 <p>__SALES_EMAIL__</p>
