@@ -77,7 +77,7 @@ $txt['PASSWORDRESET'] = "암호가 초기화 되었습니다. 당신의 이메�
  */
 $txt['CONFIGURATIONMENU'] = "구성";
 $txt['HELPMENU'] = "도움말";
-$txt['QUARANTINEMENU'] = "격리소";
+$txt['QUARANTINEMENU'] = "검역소";
 $txt['STATISTICSMENU'] = "통계";
 $txt['LOGOUT'] = "로그아웃";
 //old
@@ -113,7 +113,7 @@ $txt['SCORETEXT'] = "점수: __PARAM__";
 $txt['CLOSEWINDOW'] = "창 닫기";
 $txt['CURRENTPAGE'] = "페이지 __PARAM2__ 중 __PARAM1__";
 $txt['PURGEINFOS'] = "<strong>자동으로 삭제:</strong> __PARAM__ 일 뒤";
-$txt['DISPLAYEDINFOS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM1__ 일 (<a href=\"__PARAM2__\">변경…</a>4). ";
+$txt['DISPLAYEDINFOS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM1__ 일 (<a href=\"__PARAM2__\">변경…</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>표시된 메시지들: </strong> 지난 __PARAM__ 일. ";
 //old
 $txt['QUARANTINETITLE'] = "__PARAM__에 검역된 리스트";
