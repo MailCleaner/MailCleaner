@@ -22,3 +22,6 @@ score		MC_NEWS_HXM_JRCG	1.0
 
 header		MC_NEWS_HXM_PHPMAILER	X-Mailer =~ /\bPHP( -_)?Mailer\b/i
 score		MC_NEWS_HXM_PHPMAILER	1.0
+
+header    MC_SPARK    Received =~ /sparkpostmail\.com/i
+score     MC_SPARK    2.0
