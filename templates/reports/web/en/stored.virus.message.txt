@@ -4,8 +4,8 @@ The original e-mail attachment "$filename"
 was believed to be infected by a virus and has been replaced by this warning
 message.
 
-If you wish to receive a copy of the *infected* attachment, if you still wish
-to receive a copy of the original email, please visit the link below:
+If you wish to receive a copy of the *infected* attachment,
+please visit the link below:
 https://www.mailcleaner.net/support/dangerous-content-release.html
 
 At $date the virus scanner said:
