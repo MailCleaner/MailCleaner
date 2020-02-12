@@ -25,7 +25,7 @@ mode=all
 if [ "$2" = "ms" ]; then
  mode=ms
 fi
-export $model
+export $mode
 
 run_mailscanner=0
 HASCOMMTOUCH=0
