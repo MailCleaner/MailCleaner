@@ -313,7 +313,7 @@ acl_check_rcpt:
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
 	  set acl_m_checkspf = $spf_result
   warn    !spf          = pass
-          !hosts        = >; +relay_from_hosts ; NOSPFDMARCHOSTS
+          !hosts        = <; +relay_from_hosts ; NOSPFDMARCHOSTS
           !authenticated = *
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
   warn    !spf          = pass
