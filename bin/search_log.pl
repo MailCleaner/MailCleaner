@@ -111,11 +111,30 @@ foreach my $msg (@nf_messages) {
 	   }
 	}
 	if ($filtermatch) {
-            if ($includerefused || ( $stage1_ids{$msg_o{'id'}} !~ m/rejected RCPT/ ) ) {
+		my $refused = 0;
+		if ( ! $includerefused ) {
+			# List of regexp matching the refused messages
+			my @regex = (
+				'rejected RCPT',
+				'Authentication failed',
+				'535 Incorrect authentication data'
+			);
+
+			foreach my $re (@regex) {
+				if ( $stage1_ids{$msg_o{'id'}} =~ m/$re/ ) {
+					$refused = 1;
+					last;
+				}
+			}
+		}
+		# Only add messages that were not refused
+		push @messages, $msg unless $refused;
+	} else {
+		# Here we add all messages
 		push @messages, $msg;
-            }
 	}
 }
+
 
 print "Found ".@messages." occurrence(s)\n";
 
