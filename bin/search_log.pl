@@ -117,7 +117,9 @@ foreach my $msg (@nf_messages) {
 			my @regex = (
 				'rejected RCPT',
 				'Authentication failed',
-				'535 Incorrect authentication data'
+				'535 Incorrect authentication data',
+				'Plaintext authentication disallowed on non-secure',
+				'no @ found in the subject of an address list match'
 			);
 
 			foreach my $re (@regex) {
