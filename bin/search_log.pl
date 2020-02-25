@@ -117,7 +117,7 @@ foreach my $msg (@nf_messages) {
 			my @regex = (
 				'rejected RCPT',
 				'Authentication failed',
-				'535 Incorrect authentication data',
+				'Authentication not allowed for the domain',
 				'Plaintext authentication disallowed on non-secure',
 				'no @ found in the subject of an address list match'
 			);
@@ -131,9 +131,6 @@ foreach my $msg (@nf_messages) {
 		}
 		# Only add messages that were not refused
 		push @messages, $msg unless $refused;
-	} else {
-		# Here we add all messages
-		push @messages, $msg;
 	}
 }
 
