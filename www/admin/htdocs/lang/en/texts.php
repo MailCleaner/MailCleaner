@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  */
- 
+
 $txt['SUBMIT']                      = "submit";
 $txt['CANCEL']                      = "cancel";
 $txt['CLOSE']                       = "close";
@@ -278,7 +278,7 @@ $txt['LDAPCALLOUT']                 = "LDAP/AD callout configuration";
 $txt['SERVICENEEDRESTART']          = "At least one service needs to be restarted";
 
 $txt['GREYLISTCONFIG']              = "Greylist daemon configuration";
-$txt['GREYRETRYMIN']                = "Minimum retry time"; 
+$txt['GREYRETRYMIN']                = "Minimum retry time";
 $txt['GREYRETRYMAX']                = "Maximum retry time";
 $txt['GREYEXPIRE']                  = "Lifetime of record";
 $txt['AVOIDGREYDOMAINS']            = "Exclude these sender domains";
@@ -323,7 +323,7 @@ $txt['LOCALCHECKS']                 = "Local checks";
 $txt['USESA']                       = "Use SpamAssassin";
 $txt['USEBAYES']                    = "Use Bayesian";
 $txt['AUTOLEARN']                   = "Auto learn";
-$txt['USEFUZZYOCR']                 = "Use text recognition in images";
+$txt['USEOCR']                      = "Use text recognition in images";
 $txt['USEIMAGEINFO']                = "Use image format/size detection";
 $txt['USEPDFINFO']                  = "Use PDF format detection";
 $txt['USEBOTNET']                   = "Use botnet detection";

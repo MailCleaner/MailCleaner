@@ -1,0 +1,22 @@
+ifplugin Mail::SpamAssassin::Plugin::TesseractOcr
+
+tocr_enable __USE_OCR__
+tocr_preprocess __PREPROCESS__
+tocr_msg_timeout __MSG_TIMEOUT__
+tocr_img_timeout __IMG_TIMEOUT__
+tocr_skip_jpg __SKIP_JPG__
+tocr_skip_png __SKIP_PNG__
+tocr_skip_gif __SKIP_GIF__
+tocr_skip_bmp __SKIP_BMP__
+tocr_skip_tif __SKIP_TIF__
+tocr_skip_pdf __SKIP_PDF__
+tocr_min_size __MIN_SIZE__
+tocr_max_size __MAX_SIZE__
+tocr_min_x __MIN_X__
+tocr_max_x __MAX_X__
+tocr_min_y __MIN_Y__
+tocr_max_y __MAX_Y__
+tocr_min_area __MIN_AREA__
+tocr_max_area __MAX_AREA__
+
+endif
