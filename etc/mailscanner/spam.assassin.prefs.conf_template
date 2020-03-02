@@ -14,8 +14,8 @@ bayes_auto_learn_threshold_nonspam 0.1
 
 bayes_ignore_header X-MailCleaner
 bayes_ignore_header X-MailCleaner-ID
-bayes_ignore_header X-MailCleaner-SpamCheck 
-bayes_ignore_header X-MailCleaner-SpamScore 
+bayes_ignore_header X-MailCleaner-SpamCheck
+bayes_ignore_header X-MailCleaner-SpamScore
 bayes_ignore_header X-MailCleaner-Information
 bayes_ignore_header X-MailCleaner-SPF
 bayes_ignore_header X-Newsl
@@ -89,7 +89,3 @@ score    MC_DMARC_QUARANTINE   50.0
 __FI__
 
 envelope_sender_header X-MailCleaner-From
-
-ifplugin FuzzyOcr
-focr_global_wordlist __SRCDIR__/share/spamassassin/FuzzyOcr.words
-endif

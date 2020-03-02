@@ -36,8 +36,7 @@ __IF_IMAGEINFO__loadplugin Mail::SpamAssassin::Plugin::ImageInfo
 __IF_DKIM__loadplugin Mail::SpamAssassin::Plugin::DKIM
 __IF_URIDNSBL__loadplugin Mail::SpamAssassin::Plugin::URIDNSBL
 #__IF_SPF__loadplugin Mail::SpamAssassin::Plugin::SPF
-__IF_FUZZYOCR__loadplugin FuzzyOcr __SRCDIR__/share/spamassassin/plugins/FuzzyOcr.pm
-#__IF_OSCAR__loadplugin OscarOcr __SRCDIR__/share/spamassassin/plugins/OscarOcr.pm
+__IF_OCR__loadplugin Mail::SpamAssassin::Plugin::TesseractOcr
 #__IF_PDFINFO__loadplugin Mail::SpamAssassin::Plugin::PDFInfo  __SRCDIR__/share/spamassassin/plugins/PDFInfo.pm
 __IF_BOTNET__loadplugin Mail::SpamAssassin::Plugin::Botnet __SRCDIR__/share/spamassassin/plugins/Botnet.pm
 #loadplugin PhishPatrol __SRCDIR__/share/spamassassin/plugins/PhishPatrol/PhishPatrol.pm

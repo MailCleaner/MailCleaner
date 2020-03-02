@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  */
- 
+
 /**
  * this is a preference handler
  */
@@ -32,7 +32,7 @@ class Spamc extends PreFilter {
                         'use_pyzor' => 1,
                         'pyzor_timeout' => 20,
                         'sa_rbls' => '',
-                        'use_fuzzyocr' => 1,
+                        'use_ocr' => 1,
                         'use_pdfinfo' => 1,
                         'use_imageinfo' => 1,
                         'use_botnet' => 1,
@@ -51,14 +51,14 @@ public function addSpecPrefs() {
 }
 
 public function getSpecificTMPL() {
-  return "prefilters/Spamc.tmpl";  
+  return "prefilters/Spamc.tmpl";
 }
 
 public function getSpeciticReplace($template, $form) {
   $ret = array(
          "__FORM_INPUTUSEBAYES__" => $form->checkbox('use_bayes', 1, $this->getPref('use_bayes'), '', 1),
          "__FORM_INPUTUSEAUTOLEARN__" => $form->checkbox('bayes_autolearn', 1, $this->getPref('bayes_autolearn'), '', 1),
-         "__FORM_INPUTUSEFUZZYOCR__" => $form->checkbox('use_fuzzyocr', 1, $this->getPref('use_fuzzyocr'), '', 1),
+         "__FORM_INPUTUSEOCR__" => $form->checkbox('use_ocr', 1, $this->getPref('use_ocr'), '', 1),
          "__FORM_INPUTUSEIMAGEINFO__" => $form->checkbox('use_imageinfo', 1, $this->getPref('use_imageinfo'), '', 1),
          "__FORM_INPUTUSEPDFINFO__" => $form->checkbox('use_pdfinfo', 1, $this->getPref('use_pdfinfo'), '', 1),
          "__FORM_INPUTUSERBLS__" => $form->checkbox('use_rbls', 1, $this->getPref('use_rbls'), '', 1),
@@ -69,7 +69,7 @@ public function getSpeciticReplace($template, $form) {
          "__FORM_INPUTUSEDOMAINKEYS__" => $form->checkbox('use_domainkeys', 1, $this->getPref('use_domainkeys'), '', 1),
          "__FORM_INPUTUSEDKIM__" => $form->checkbox('use_dkim', 1, $this->getPref('use_dkim'), '', 1),
          "__FORM_INPUTUSEBOTNET__" => $form->checkbox('use_botnet', 1, $this->getPref('use_botnet'), '', 1),
-         
+
          "__FORM_INPUTRBLSTIMEOUT__" => $form->input('rbls_timeout', 4, $this->getPref('rbls_timeout')),
          "__FORM_INPUTDCCTIMEOUT__" => $form->input('dcc_timeout', 4, $this->getPref('dcc_timeout')),
          "__FORM_INPUTRAZORTIMEOUT__" => $form->input('razor_timeout', 4, $this->getPref('razor_timeout')),
@@ -77,12 +77,12 @@ public function getSpeciticReplace($template, $form) {
          "__FORM_INPUTSPFTIMEOUT__" => $form->input('spf_timeout', 4, $this->getPref('spf_timeout')),
          "__FORM_INPUTDOMAINKEYSTIMEOUT__" => $form->input('domainkeys_timeout', 4, $this->getPref('domainkeys_timeout')),
          "__FORM_INPUTDKIMTIMEOUT__" => $form->input('dkim_timeout', 4, $this->getPref('dkim_timeout')),
-         
+
          "__FORM_INPUTSARBLS__" => $form->input('sa_rbls', 40, $this->getPref('sa_rbls')),
-         
-         
+
+
         );
-  
+
   return $ret;
 }
 
