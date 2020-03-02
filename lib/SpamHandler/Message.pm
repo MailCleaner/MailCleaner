@@ -195,11 +195,11 @@ sub process {
 			$status = "is whitelisted ($whitelisted)";
 			$this->manageWhitelist($whitelisted);
 		}
-		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_global}) == 0) && (int($email->getPref('allow_newsletters')))) {
+		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_spamc}) < 5) && (int($email->getPref('allow_newsletters')))) {
 			$status = "is desired (Newsletter)";
 			$this->manageWhitelist(3);
 		}
-		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_global}) == 0) && ($nwhitelisted)) {
+		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_spamc}) < 5) && ($nwhitelisted)) {
 			$status = "is whitelisted by " . $res_wnews[$nwhitelisted] . " (Newsletter)";
 			$this->manageWhitelist(3);			
 		}
