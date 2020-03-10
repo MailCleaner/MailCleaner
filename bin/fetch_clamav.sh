@@ -91,9 +91,10 @@ for file in $(ls | grep -v "dbs.md5"); do
         MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
 
         # If the file is malformed, remove it
-        if [ ! -z ${MALFORMEDFILE} ] && [ -e ${MALFORMEDFILE} ] ; then
-                rm $MALFORMEDFILE
-                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $MALFORMEDFILE removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
+        if [ ! -z "${MALFORMEDFILE}" ] ; then
+                rm $file
+		# rm /var/mailcleaner/tmp/fetch_files/var/mailcleaner/spool/clamav/$file
+                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $file removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
                 MALFORMEDFILE=''
         fi
 done
