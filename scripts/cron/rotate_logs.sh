@@ -23,7 +23,7 @@
 #   This is a custom log rotate script for mailcleaner logs
 #
 
-DAYSTOKEEP=180
+DAYSTOKEEP=366
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
