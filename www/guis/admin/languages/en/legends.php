@@ -183,6 +183,7 @@ return array(
    'preferences' => 'Preferences',
    'authentication' => 'Users authentication',
    'filtering' => 'Filtering',
+   'advanced' => 'Advanced features',
    'outgoing' => 'Outgoing relay',
    'archiving' => 'Archiving',
    'templates' => 'Templates',

@@ -76,6 +76,18 @@ my $tmpdir = $conf->getOption('VARDIR')."/spool/tmp/exim";
 if ( ! -d $tmpdir) {
   mkdir($tmpdir) or fatal_error("COULDNOTCREATETMPDIR", "could not create temporary directory");
 }
+if ( ! -d $conf->getOption('VARDIR')."/spool/tmp/exim_stage1" ) {
+  mkdir($conf->getOption('VARDIR')."/spool/tmp/exim_stage1") or fatal_error("COULDNOTCREATETMPDIR", "could not create directory");
+}
+if ( ! -d $conf->getOption('VARDIR')."/spool/tmp/exim_stage1/blacklists" ) {
+  mkdir($conf->getOption('VARDIR')."/spool/tmp/exim_stage1/blacklists") or fatal_error("COULDNOTCREATETMPDIR", "could not create directory");
+}
+if ( ! -d $conf->getOption('VARDIR')."/spool/tmp/exim_stage1/rblwhitelists" ) {
+  mkdir($conf->getOption('VARDIR')."/spool/tmp/exim_stage1/rblwhitelists") or fatal_error("COULDNOTCREATETMPDIR", "could not create directory");
+}
+if ( ! -d $conf->getOption('VARDIR')."/spool/tmp/exim_stage1/spamcwhitelists" ) {
+  mkdir($conf->getOption('VARDIR')."/spool/tmp/exim_stage1/spamcwhitelists") or fatal_error("COULDNOTCREATETMPDIR", "could not create directory");
+}
 
 my %sys_conf = get_system_config() or fatal_error("NOSYSTEMCONFIGURATIONFOUND", "no record found for system configuration");
 
@@ -109,6 +121,7 @@ dump_ignore_list($stage1_conf{'spf_dmarc_ignore_hosts'}, 'spf_and_dmarc_ignore_h
 
 ## dump the blacklists files
 dump_blacklists();
+dump_lists_ip_domain();
 
 ## dump certificates
 dump_certificate($stage1_conf{'tls_certificate_data'}, $stage1_conf{'tls_certificate_key'});
@@ -849,6 +862,85 @@ sub dump_blacklists {
       }
    }
 }
+
+
+#############################
+sub dump_lists_ip_domain {
+    my @types = ('black-ip-dom', 'spam-ip-dom', 'white-ip-dom', 'wh-spamc-ip-dom');
+    unlink $conf->getOption('VARDIR') . '/spool/tmp/exim_stage1/blacklists/ip-domain';
+    unlink glob $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/rblwhitelists/*";
+    unlink glob $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/spamcwhitelists/*";
+
+    foreach my $type (@types) {
+        my @row = $db->getListOfHash("SELECT sender, recipient FROM wwlists where type = '$type' order by recipient");
+        my $array_i = scalar @row;
+        
+	next if ( ! $array_i );
+        
+        my $last_domain = '';
+        my $sender_list = '';
+        my $i=0;
+        
+        foreach my $line (@row) {
+                my $current_domain = $$line{'recipient'};
+                $last_domain = $$line{'recipient'}      if ($last_domain eq '');
+                
+                if ( $current_domain ne $last_domain ) {
+        		print_ip_domain_rule($sender_list, $last_domain, $type);
+                        $sender_list = $$line{'sender'} .' ; ';
+                        $last_domain = $current_domain;
+                } else {
+                        $sender_list .= $$line{'sender'} .' ; ';
+                }
+                $i++;
+            }
+        print_ip_domain_rule($sender_list, $last_domain, $type);
+    } 
+}
+
+#############################
+sub print_ip_domain_rule {
+	my ($sender_list, $domain, $type) = @_;
+	my $smtp_rule = '';
+	my $FH_IP_DOM;
+
+	if	( ($type eq 'black-ip-dom') || ($type eq 'spam-ip-dom') )  {
+	    	open $FH_IP_DOM, '>>', $conf->getOption('VARDIR') . '/spool/tmp/exim_stage1/blacklists/ip-domain';
+	} elsif	($type eq 'white-ip-dom') {
+	    	open $FH_IP_DOM, '>>', $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/rblwhitelists/$domain";
+	} elsif	($type eq 'wh-spamc-ip-dom') {
+	    	open $FH_IP_DOM, '>>', $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/spamcwhitelists/$domain";
+	}
+
+	if ($type eq 'spam-ip-dom') {
+		$smtp_rule = <<"END";
+warn    hosts         = <; $sender_list
+        domains       = <; $domain
+	add_header    = X-MailCleaner-Black-IP-DOM: quarantine
+
+END
+	} elsif ($type eq 'black-ip-dom') {
+		$smtp_rule = <<"END";
+deny    hosts         = <; $sender_list
+        domains       = <; $domain
+        message       = blacklisted host by domain: \$sender_host_address
+        set acl_c8    = smtp:refused:host_blacklist
+        set acl_c9    = STATSADD
+        set acl_c8    = smtp:refused
+        set acl_c9    = STATSADD
+
+END
+	} elsif ( ($type eq 'white-ip-dom') || ($type eq 'wh-spamc-ip-dom') ) {
+		my @arr = split(' ; ', $sender_list);
+		foreach ( @arr ) {
+			$smtp_rule .= "$_\n";
+		}
+	}
+
+	print $FH_IP_DOM $smtp_rule;
+	close $FH_IP_DOM;
+}
+
 
 #############################
 sub dump_certificate

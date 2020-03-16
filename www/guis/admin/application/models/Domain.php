@@ -26,8 +26,10 @@ class Default_Model_Domain
 	protected $_aliases = array();
 
 	protected $_configpanels = array('general', 'delivery',
-                                     'addressverification', 'preferences', 
-                                     'authentication', 'filtering', 'outgoing', 'archiving', 'templates');
+		'addressverification', 'preferences',
+		'authentication', 'filtering', 'advanced',
+		'outgoing', 'archiving', 'templates'
+	);
 
 	protected $_prefs;
 	protected $_default_prefs;
