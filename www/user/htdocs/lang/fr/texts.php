@@ -504,7 +504,7 @@ $txt['NEWSLISTTOPICTITLE'] = "liste newsletters";
 $txt['NEWSLISTSHORTHELP'] = "La liste newsletters contient les adresses des newsletters désirées. <br />
 Consultez le manuel (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour plus d'informations sur l'utilisation de la liste newsletters.
 ";
-$txt['NEWSLISTFORADDRESS'] = "Liste newsletters pour l'adresse";
+$txt['NEWSLISTFORADDRESS'] = "Liste d'infolettres pour l'adresse";
 $txt['ADDANEWSENTRY'] = "Ajouter une adresse à la liste";
 $txt['NEWSLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste newsletters. Vous pouvez y associer un commentaire optionnel.";
-$txt['REMOVEANEWSENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adresses que vous souhaitez modifier puis cliquez sur le bouton qui correspond &agrave; l'action d&eacute;sir&eacute;e.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Sélectionner la ou les adresses que vous souhaitez modifier dans la liste et cliquer sur le bouton d'action correspondant.";
