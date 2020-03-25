@@ -64,7 +64,7 @@ $txt['MONTH12'] = 'd&eacute;cembre';
  */
 $txt['BADLOGIN'] = "Nom d'utilisateur ou mot de passe erron&eacute;.";
 $txt['SESSIONEXPIRED'] = "Pour des raisons de s&eacute;curit&eacute;, votre session MailClenaer a automatiquement expir&eacute;.";
-$txt['LOGININFO'] = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte e-mail";
+$txt['LOGININFO'] = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte de courriel";
 $txt['USERNAME'] = "Utilisateur";
 $txt['PASSWORD'] = "Mot de passe";
 //old
@@ -346,7 +346,7 @@ $txt['NAME'] = "Nom";
 //old
 $txt['FIRSTNAME'] = "Pr&eacute;nom";
 //old
-$txt['EMAIL'] = "E-mail";
+$txt['EMAIL'] = "Courriel";
 //old
 $txt['YOURPHONENUMBER'] = "Votre Num&eacute;ro de t&eacute;l&eacute;phone";
 //old
@@ -438,7 +438,7 @@ $txt['PLAINTEXT'] = "Texte brut";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Retenir en quarantaine les messages d'erreur renvoy&eacute;s par les serveurs destinataires";
-$txt['PARAMETERSSAVED'] = "Les param&egrave;tres ont bien &eacute;t&eacute; enregistr&eacute;s et imm&eacute;diatement appliqu&eacute;s.";
+$txt['PARAMETERSSAVED'] = "Vos paramètres ont été enregistrés.";
 $txt['NOTSAVED'] = "Les param&egrave;tres n'ont pas pu &ecirc;tre enregistr&eacute;s";
 $txt['INVALIDSUMMARYTO'] = "L'adresse de destination des rapports n'est pas valide";
 /* 
