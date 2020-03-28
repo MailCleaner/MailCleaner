@@ -197,6 +197,26 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         	$masquerade_outgoing_helo->setChecked(true);
         }
         $this->addElement($masquerade_outgoing_helo);
+
+        $log_subject = new Zend_Form_Element_Checkbox('log_subject', array(
+                    'label'   => $t->_('Include mails subjects in the logs'). " :",
+                    'uncheckedValue' => "0",
+                    'checkedValue' => "1"
+        ));
+        if ($this->_mta->getParam('log_subject')) {
+                $log_subject->setChecked(true);
+        }
+        $this->addElement($log_subject);
+
+        $log_attachments = new Zend_Form_Element_Checkbox('log_attachments', array(
+                    'label'   => $t->_('Include attachement names in the logs'). " :",
+                    'uncheckedValue' => "0",
+                    'checkedValue' => "1"
+        ));
+        if ($this->_mta->getParam('log_attachments')) {
+                $log_attachments->setChecked(true);
+        }
+        $this->addElement($log_attachments);
         
 		
 		$submit = new Zend_Form_Element_Submit('submit', array(
@@ -210,6 +230,8 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         $mta->setparam('outgoing_virus_scan', $request->getParam('outgoing_virus_scan'));
         $mta->setparam('mask_relayed_ip', $request->getParam('mask_relayed_ip'));
         $mta->setparam('masquerade_outgoing_helo', $request->getParam('masquerade_outgoing_helo'));
+        $mta->setparam('log_subject', $request->getParam('log_subject'));
+        $mta->setparam('log_attachments', $request->getParam('log_attachments'));
         $mta->setparam('smtp_enforce_sync', 'false');
         if ($request->getParam('smtp_enforce_sync')) {
 		  $mta->setparam('smtp_enforce_sync', 'true');

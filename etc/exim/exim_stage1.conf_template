@@ -56,7 +56,12 @@ __IF__ ERRORS_REPLY_TO
 errors_reply_to = __ERRORS_REPLY_TO__
 __FI__
 
+__IF__ LOG_SUBJECT
+log_selector = +smtp_confirmation +delivery_size +subject
+__ELSE__ LOG_SUBJECT
 log_selector = +smtp_confirmation +delivery_size
+__FI__
+
 message_logs = true
 exim_user = mailcleaner
 exim_group = mailcleaner
@@ -776,6 +781,11 @@ __FI__
  __FI__
 
 acl_check_mime:
+__IF__ LOG_ATTACHMENTS
+  warn  condition       = ${if def:mime_filename {true}{false}}
+        logwrite        = Attachment: $mime_filename
+__FI__
+
   ## Block .js and .jse in attachments and in zip/rar
   deny	message = Detected forbidden filetype (Security reasons).
 	log_message = Detected forbidden filetype (Security reasons): filename=$mime_filename, recipients=$recipients.
