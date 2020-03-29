@@ -81,6 +81,7 @@ class Default_Form_NetworkDns extends Zend_Form
 				    'filters'    => array('StringTrim')));
 		
 		$heloname->setValue($this->_dns->getHeloName());
+		$heloname->addValidator(new Zend_Validate_Hostname());
 		if ($restrictions->isRestricted('NetworkDns', 'heloname')) {
 			$heloname->setAttrib('disabled', 'disabled');
 		}
