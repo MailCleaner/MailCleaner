@@ -115,6 +115,7 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 	    
 	    $rbltimeout = new  Zend_Form_Element_Text('rbls_timeout', array(
 	        'label'    => $t->_('RBL checks timeout')." :",
+		      'title'  => $t->_('this timeout will apply to ALL RBL checks throughout MailCleaner'),
 		    'required' => true,
 		    'size' => 2,
 	        'class' => 'fieldrighted',
