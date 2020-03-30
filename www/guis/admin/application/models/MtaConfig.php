@@ -57,6 +57,8 @@ class Default_Model_MtaConfig
        'outgoing_virus_scan' => 0,
        'mask_relayed_ip' => 0,
        'masquerade_outgoing_helo' => 0,
+       'log_subject' => 0,
+       'log_attachments' => 0,
        'forbid_clear_auth' => 0,
        'dkim_default_domain' => '',
        'dkim_default_selector' => '',

@@ -251,6 +251,14 @@ sub dump_exim_file
   if ($exim_conf{'masquerade_outgoing_helo'}) {
     $template->setCondition('MASQUERADE_OUTGOING_HELO', 1);
   }
+  $template->setCondition('LOG_SUBJECT', 0);
+  if ($exim_conf{'log_subject'}) {
+    $template->setCondition('LOG_SUBJECT', 1);
+  }
+  $template->setCondition('LOG_ATTACHMENTS', 0);
+  if ($exim_conf{'log_attachments'}) {
+    $template->setCondition('LOG_ATTACHMENTS', 1);
+  }
   $template->setCondition('FORBIDCLEARAUTH', 0);
   if ($exim_conf{'forbid_clear_auth'} && $exim_conf{'__USE_INCOMINGTLS__'}) {
     $template->setCondition('FORBIDCLEARAUTH', 1);
@@ -808,6 +816,8 @@ sub get_exim_config{
         $config{'outgoing_virus_scan'} = $row{'outgoing_virus_scan'};
         $config{'mask_relayed_ip'} = $row{'mask_relayed_ip'};
         $config{'masquerade_outgoing_helo'} = $row{'masquerade_outgoing_helo'};
+        $config{'log_subject'} = $row{'log_subject'};
+        $config{'log_attachments'} = $row{'log_attachments'};
         $config{'reject_bad_spf'} = $row{'reject_bad_spf'};
         $config{'reject_bad_rdns'} = $row{'reject_bad_rdns'};
         $config{'dmarc_follow_reject_policy'} = $row{'dmarc_follow_reject_policy'};
