@@ -67,8 +67,8 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 		$this->addElement($black_ip_dom);
 
 		$spam_ip_dom = new Zend_Form_Element_Textarea('spam_ip_dom', array(
-			'label'    =>  $t->_('Blacklist those IPs at SpamC stage')." :",
-			'title' => $t->_("List of IPs or subnets to be blocked at SpamC stage for the current domain"),
+			'label'    =>  $t->_('Blacklist those IPs at AntiSpam stage')." :",
+			'title' => $t->_("List of IPs or subnets to be blocked at AntiSpam stage for the current domain"),
 			'required'   => false,
 			'rows' => 5,
 			'cols' => 30,
@@ -90,8 +90,8 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 
 
 		$wh_spamc_ip_dom = new Zend_Form_Element_Textarea('wh_spamc_ip_dom', array(
-			'label'    =>  $t->_('Whitelist those IPs at SpamC stage')." :",
-			'title' => $t->_("List of IPs or subnets to be whitelisted at SpamC stage for the current domain"),
+			'label'    =>  $t->_('Whitelist those IPs at AntiSpam stage')." :",
+			'title' => $t->_("List of IPs or subnets to be whitelisted at AntiSpam stage for the current domain"),
 			'required'   => false,
 			'rows' => 5,
 			'cols' => 30,
