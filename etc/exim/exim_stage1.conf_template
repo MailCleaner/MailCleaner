@@ -323,9 +323,12 @@ acl_check_rcpt:
           logwrite      = DEBUG - refused, bad local part 2 - smtp:refused,smtp:refused:bad_local_part2
  __FI__
 
-  warn    hosts          = <; ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/spamcwhitelists/$domain} \
+  warn    remove_header = X-MailCleaner-White-IP-DOM : X-MailCleaner-TrustedIPs
+  warn    hosts         = <; ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/spamcwhitelists/$domain} \
                              {VARDIR/spool/tmp/exim_stage1/spamcwhitelists/$domain}{}}}
           add_header    = X-MailCleaner-White-IP-DOM: WhIPDom
+  warn    hosts         = <; +trusted_hosts
+          add_header    = X-MailCleaner-TrustedIPs: Ok
   warn    spf           = pass
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
 	  set acl_m_checkspf = $spf_result
