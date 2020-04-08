@@ -28,14 +28,16 @@ echo "# Please dont edit this file as it is overwritten by /usr/mailcleaner/bin/
 # We look for each entry in To header
 for i in `cat $CONF_FILE`; do
         echo "header __DOMAIN_$count To =~ /$i/i" >> $RULE_FILE
+        echo "header __DOMAIN_CC_$count Cc =~ /$i/i" >> $RULE_FILE
+        echo "header __DOMAIN_BCC_$count Bcc =~ /$i/i" >> $RULE_FILE
         ((count++))
 done
 
 # Meta for all entries
-echo -n "meta __DOMAINS_NO_MONEY  ( __DOMAIN_0 " >> $RULE_FILE
+echo -n "meta __DOMAINS_NO_MONEY  ( __DOMAIN_0 + __DOMAIN_CC_0 +__DOMAIN_BCC_0 " >> $RULE_FILE
 recount=1
 while [ $recount -lt $count ]; do
-        echo -n "+ __DOMAIN_$recount " >> $RULE_FILE
+        echo -n "+ __DOMAIN_$recount + __DOMAIN_CC_$recount + __DOMAIN_BCC_$recount " >> $RULE_FILE
         ((recount++))
 done
 echo ") >= 1" >> $RULE_FILE
@@ -43,4 +45,5 @@ sed -i 's/\@/\\\@/g' $RULE_FILE
 
 # Meta to remove the LOTS_OF_MONEY rule
 echo "meta DOMAIN_NO_MONEY ( LOTS_OF_MONEY && __DOMAINS_NO_MONEY )" >> $RULE_FILE
+echo "describe DOMAIN_NO_MONEY removes points for mails with LOTS_OF_MONEY rule for certain domains" >> $RULE_FILE
 echo "score DOMAIN_NO_MONEY -2.0" >> $RULE_FILE
