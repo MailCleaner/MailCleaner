@@ -25,7 +25,11 @@ sub initialise {
      putDetailedHeader => 1,
      scoreHeader => "X-$MODULE-score",
      maxSize => 0,
-     timeOut => 100
+     timeOut => 100,
+     decisive_field => 'none',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0,
   );
 
   if (open (CONFIG, $configfile)) {
@@ -42,6 +46,17 @@ sub initialise {
   $Spamc::conf{'command'} =~ s/__CONFIGFILE__/$Spamc::conf{'configFile'}/g;
   $Spamc::conf{'command'} =~ s/__SPAMD_SOCKET__/$Spamc::conf{'spamdSocket'}/g;
   $Spamc::conf{'command'} =~ s/__MAX_SIZE__/$Spamc::conf{'maxSize'}/g;
+
+  if ($Spamc::conf{'pos_decisive'} && ($Spamc::conf{'decisive_field'} eq 'pos_decisive' || $Spamc::conf{'decisive_field'} eq 'both')) {
+    $Spamc::conf{'pos_decisive'} = '+'.$Spamc::conf{'position'}.'+ ';
+  } else {
+    $Spamc::conf{'pos_decisive'} = '~'.$Spamc::conf{'position'}.'~ ';
+  }
+  if ($Spamc::conf{'neg_decisive'} && ($Spamc::conf{'decisive_field'} eq 'neg_decisive' || $Spamc::conf{'decisive_field'} eq 'both')) {
+    $Spamc::conf{'neg_decisive'} = '-'.$Spamc::conf{'position'}.'- ';
+  } else {
+    $Spamc::conf{'neg_decisive'} = '~'.$Spamc::conf{'position'}.'~ ';
+  }
 }
 
 sub Checks {
@@ -75,6 +90,7 @@ sub Checks {
   my $tim = $Spamc::conf{'timeOut'};
   use Mail::SpamAssassin::Timeout;
   my $t = Mail::SpamAssassin::Timeout->new({ secs => $tim });
+  # TODO: Unused var?
   my $is_prespam = 0;
   my $ret = -5;
   my $res = "";
@@ -119,27 +135,30 @@ sub Checks {
   }
   my $rulesum = "";
   foreach my $r (keys %rules) {
-   $rulesum .= ", $r $rules{$r}";
+    $rulesum .= ", $r $rules{$r}";
   }
   $rulesum =~ s/^, //;
+  if ($rulesum eq "") {
+    $rulesum = "NONE";
+  }
 
   if ($ret == 2) {
-    MailScanner::Log::InfoLog("$MODULE result is spam ($score/$limit) for ".$message->{id});
+    MailScanner::Log::InfoLog("$MODULE ".$Spamc::conf{pos_decisive}."result is spam ($score/$limit) for ".$message->{id});
     if ($Spamc::conf{'putSpamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $Spamc::conf{'header'}, "is spam ($score/$limit)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $Spamc::conf{'header'}, $Spamc::conf{pos_decisive}."is spam ($score/$limit)");
     }
-    $message->{prefilterreport} .= ", Spamc (score=$score, required=$limit, $rulesum)";
+    $message->{prefilterreport} .= ", Spamc (".$Spamc::conf{pos_decisive}."score=".$score.", required=".$limit.", ".$rulesum.")";
     return 1;
   }
   if ($ret < 0) {
     MailScanner::Log::InfoLog("$MODULE result is weird ($lines[0]) for ".$message->{id});
     return 0;
   }
-  MailScanner::Log::InfoLog("$MODULE result is not spam ($score/$limit) for ".$message->{id});
+  MailScanner::Log::InfoLog("$MODULE ".$Spamc::conf{neg_decisive}."result is not spam ($score/$limit) for ".$message->{id});
   if ($Spamc::conf{'putHamHeader'}) {
-    $global::MS->{mta}->AddHeaderToOriginal($message, $Spamc::conf{'header'}, "is not spam (score=$score, required=$limit)");
+    $global::MS->{mta}->AddHeaderToOriginal($message, $Spamc::conf{'header'}, $Spamc::conf{neg_decisive}."is not spam ($score/$limit)");
   }
-  $message->{prefilterreport} .= ", Spamc (score=$score, required=$limit, $rulesum)";
+  $message->{prefilterreport} .= ", Spamc (".$Spamc::conf{neg_decisive}."score=".$score.", required=".$limit.", ".$rulesum.")";
   return 0;
 }
 

@@ -120,7 +120,7 @@ sub Checks {
   my $score = 0;
   my $limit = 100;
   my %rules;
-  my $rulesum = "";
+  my $rulesum = "NONE";
 
 ## analyze result
  

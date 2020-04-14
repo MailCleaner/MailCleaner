@@ -29,7 +29,10 @@ sub initialise {
      server_host => 'localhost',
      server_port => 25080,
      threshold => 0,
-     serial => ''
+     serial => '',
+     decisive_field => 'none',
+     pos_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -45,6 +48,12 @@ sub initialise {
   
   $MFInterface = new MailFilters::SpamCureClientInterface();
   $MFInterface->Initialize($MailFilters::conf{'serial'}, $MailFilters::conf{'server_host'}, $MailFilters::conf{'server_port'});    
+
+  if ($MailFilters::conf{'pos_decisive'} && ($MailFilters::conf{'decisive_field'} eq 'pos_decisive' || $MailFilters::conf{'decisive_field'} eq 'both')) {
+    $MailFilters::conf{'pos_decisive'} = '+'.$MailFilters::conf{'position'}.'+ ';
+  } else {
+    $MailFilters::conf{'pos_decisive'} = '~'.$MailFilters::conf{'position'}.'~ ';
+  }
 }
 
 sub Checks {
@@ -86,11 +95,11 @@ sub Checks {
   }
      
   if ($result == 2) {
-      MailScanner::Log::InfoLog("$MODULE result is spam (".$result.") for ".$message->{id});
+      MailScanner::Log::InfoLog("$MODULE ".$MailFilters::conf{pos_decisive}."result is spam (".$result.") for ".$message->{id});
       if ($MailFilters::conf{'putSpamHeader'}) {
-          $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, "is spam (".$result.")");
+          $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, $MailFilters::conf{pos_decisive}."is spam (".$result.")");
       }
-      $message->{prefilterreport} .= ", MailFilters (".$result.")";
+      $message->{prefilterreport} .= ", MailFilters ("$MailFilters::conf{pos_decisive}.$result.")";
         return 1;
     }
     else {

@@ -39,6 +39,9 @@ sub initialise {
      whiterbls => '',
      rwlhits => 1,
      debug => 0,
+     decisive_field => 'none',
+     neg_decisive => 0,
+     position => 0
   );
   @TrustedSources::domainsToSPF_ = ();
   %TrustedSources::localDomains_;
@@ -132,6 +135,13 @@ sub initialise {
   $TrustedSources::dnslists->loadRBLs( $TrustedSources::conf{rblsDefsPath}, $TrustedSources::conf{whiterbls}, 'IPRWL SPFLIST', 
                                 '', '', 
                                 '', $MODULE);
+
+  if ($TrustedSources::conf{'neg_decisive'} && ($TrustedSources::conf{'decisive_field'} eq 'neg_decisive' || $TrustedSources::conf{'decisive_field'} eq 'both')) {
+    $TrustedSources::conf{'neg_decisive'} = '-'.$TrustedSources::conf{'position'}.'- ';
+  } else {
+    $TrustedSources::conf{'neg_decisive'} = '~'.$TrustedSources::conf{'position'}.'~ ';
+  }
+
 }
 
 sub Checks {
@@ -148,7 +158,7 @@ sub Checks {
   my $twolines = 0;
   foreach my $hl ($global::MS->{mta}->OriginalMsgHeaders($message)) {
     #print STDERR "Got line: $hl\n";
-    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {#}
+    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {
     if ($hl =~ m/^received:\s+from[^\[]+\[(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]/i ) {
       $h_id++;
       $full_received{$h_id} = $hl;
@@ -161,7 +171,7 @@ sub Checks {
     if ($hl =~ m/^received:\s+from/i) {
        $twolines = 1;
     }
-    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {#}
+    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {
     if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]?\)?/i) {
       my $potential_ip = $1;
       # avoid time expression that could be mistaken as ipv6
@@ -189,33 +199,7 @@ sub Checks {
       $full_received{$h_id} .= $hl;
       next;
     }
-
-    if ($hl =~ m/^X-MailCleaner-TrustedIPs: Ok/i) {
-      my $string = 'sending IP is in Trusted Sources';
-      if ($TrustedSources::conf{debug}) {
-          MailScanner::Log::InfoLog("$MODULE $string");
-      }
-      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-      if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
-      }
-      $message->{prefilterreport} .= ", $MODULE ($string)";
-      return 0;
-    }
-
-    if ($hl =~ m/^X-MailCleaner-White-IP-DOM: WhIPDom/i) {
-      my $string = 'sending IP is whitelisted for this domain';
-      if ($TrustedSources::conf{debug}) {
-          MailScanner::Log::InfoLog("$MODULE $string");
-      }
-      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-      if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
-      }
-      $message->{prefilterreport} .= ", $MODULE ($string)";
-      return 0;
-    }
-
+    last if ($hl =~ m/^[^rR ]\w+: / );
   }
 
   my $usealltrusted = $TrustedSources::conf{'useAllTrusted'};
@@ -284,13 +268,13 @@ sub Checks {
   if ($self_auth_server > 0) {
     my $string = "message authenticated by SMTP from [".$ip_received{1}."]";
     if ($TrustedSources::conf{debug}) {
-        MailScanner::Log::InfoLog("$MODULE $string");
+        MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."$string");
     }
-    MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+    MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."result is ham ($string) for ".$message->{id});
     if ($TrustedSources::conf{'putHamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_decisive'}."is ham ($string)");
     }
-    $message->{prefilterreport} .= ", $MODULE ($string)";
+    $message->{prefilterreport} .= ", $MODULE (".$TrustedSources::conf{'neg_decisive'}."$string)";
     return 0;
   }
 
@@ -300,13 +284,13 @@ sub Checks {
 
       my $string = "authenticated server found at [".$ip_received{$auth_server}."] from [".$ip_received{$auth_server+1}."]";
       if ($TrustedSources::conf{debug}) {
-        MailScanner::Log::InfoLog("$MODULE $string");
+        MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."$string");
       }
-      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+      MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."result is ham ($string) for ".$message->{id});
       if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_decisive'}."is ham ($string)");
       }
-      $message->{prefilterreport} .= ", $MODULE ($string)";
+      $message->{prefilterreport} .= ", $MODULE (".$TrustedSources::conf{'neg_decisive'}."$string)";
       return 0;
     }
   }
@@ -341,11 +325,11 @@ eval {
   	}
     if ($result->code eq "pass" && $result->local_explanation !~ m/mechanism \'all\' matched/) {
   	  my $string = "SPF record matches ".$message->{from}." [".$ip_received{$first_untrusted}."]";
-  	  MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+  	  MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."result is ham ($string) for ".$message->{id});
           if ($TrustedSources::conf{'putHamHeader'}) {
-             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_decisive'}."is ham ($string)");
           }
-          $message->{prefilterreport} .= ", $MODULE ($string)";
+          $message->{prefilterreport} .= ", $MODULE (".$TrustedSources::conf{'neg_decisive'}."$string)";
           $returnspf = 0;   
      }
     };
@@ -361,10 +345,10 @@ eval {
   my ($data, $hitcount, $header) = $TrustedSources::dnslists->check_dns($message->{clientip}, 'IPRWL', "$MODULE (".$message->{id}.")", $TrustedSources::conf{rwlhits});
   $dnshitcount = $hitcount;
   if ($TrustedSources::conf{rwlhits} && $dnshitcount >= $TrustedSources::conf{rwlhits}) {
-  	my $string = "sender IP address is whitelisted by ".$header;
-    MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+  	my $string = $TrustedSources::conf{'neg_decisive'}."sender IP address is whitelisted by ".$header;
+    MailScanner::Log::InfoLog("$MODULE ".$TrustedSources::conf{'neg_decisive'}."result is ham ($string) for ".$message->{id});
   	if ($TrustedSources::conf{'putHamHeader'}) {
-             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_decisive'}."is ham ($string)");
     }
   	$message->{prefilterreport} .= " $MODULE (".$header.")";
     return 0;
@@ -416,9 +400,9 @@ sub validatedFrom {
 	my $res = $from;
 	if ($from =~ /^SRS\d=[^=@]+\=[^=@]+=([^=@]+)=([^=@]+)\@/i) {   
         $res = $2.'@'.$1;
-        if ($TrustedSources::conf{debug}) {
-          MailScanner::Log::InfoLog("$MODULE (".$message->{id}.") SRS encoded sender decoded to: ".$res. " (from ".$from.")");
-        }
+        	if ($TrustedSources::conf{debug}) {
+          		MailScanner::Log::InfoLog("$MODULE (".$message->{id}.") SRS encoded sender decoded to: ".$res. " (from ".$from.")");
+        	}
 	}
 	return $res;
 }

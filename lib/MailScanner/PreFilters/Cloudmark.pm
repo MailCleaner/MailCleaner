@@ -29,6 +29,10 @@ sub initialise {
      server_port => 2703,
      threshold => 0,
      show_categories => 'yes'
+     decisive_field => 'none',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -40,6 +44,17 @@ sub initialise {
     close CONFIG;
   } else {
     MailScanner::Log::WarnLog("$MODULE configuration file ($configfile) could not be found !");
+  }
+
+  if ($Cloudmark::conf{'pos_decisive'} && ($Cloudmark::conf{'decisive_field'} eq 'pos_decisive' || $Cloudmark::conf{'decisive_field'} eq 'both')) {
+    $Cloudmark::conf{'pos_decisive'} = '+'.$Cloudmark::conf{'position'}.'+ ';
+  } else {
+    $Cloudmark::conf{'pos_decisive'} = '~'.$Cloudmark::conf{'position'}.'~ ';
+  }
+  if ($Cloudmark::conf{'neg_decisive'} && ($Cloudmark::conf{'decisive_field'} eq 'neg_decisive' || $Cloudmark::conf{'decisive_field'} eq 'both')) {
+    $Cloudmark::conf{'neg_decisive'} = '-'.$Cloudmark::conf{'position'}.'- ';
+  } else {
+    $Cloudmark::conf{'neg_decisive'} = '~'.$Cloudmark::conf{'position'}.'~ ';
   }
 }
 
@@ -134,13 +149,13 @@ sub Checks {
         if ($Cloudmark::conf{'putSpamHeader'}) {
           $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is spam (".$score.$result_str.")");
         }
-        $message->{prefilterreport} .= ", Cloudmark (".$score.$result_str.")";
+        $message->{prefilterreport} .= ", Cloudmark (".$Cloudmark::conf{'pos_decisive'}.$score.$result_str.")";
         return 1;
     }
     else {
-        MailScanner::Log::InfoLog("$MODULE result is not spam (".$score.$result_str.") for ".$message->{id});
+        MailScanner::Log::InfoLog("$MODULE ".$Cloudmark::conf{'neg_decisive'}."result is not spam (".$score.$result_str.") for ".$message->{id});
         if ($Cloudmark::conf{'putHamHeader'}) {
-           $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is not spam (".$score.$result_str.")");
+           $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, $Cloudmark::conf{'neg_decisive'}."is not spam (".$score.$result_str.")");
         }
         return 0;
     }
