@@ -973,6 +973,12 @@ batv_redirect:
   domains = +domains_to_check_batv
   data = ${prvscheck {$local_part@$domain} {${lookup {$domain} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}} }
 
+send_to_smart_host:
+  driver = manualroute
+  transport = remote_smtp
+  domains = !+relay_to_domains
+  route_data = ${lookup{${domain:$h_From:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
+
 bypass_router:
   driver = manualroute
   transport = bypass_smtp

@@ -198,6 +198,8 @@ sub parseDestinations {
     	            greylist => $domain->{'greylist'} ,
     	            destinations =>  [ @dest_hosts ],
                     destination => $domain->{'destination'},
+    	            destinations_smarthost =>  [ @dest_hosts ],
+                    destination_smarthost => $domain->{'destination_smarthost'},
                     batv_check => $domain->{'batv_check'},
                     batv_secret => $domain->{'batv_secret'},
                     prevent_spoof => $domain->{'prevent_spoof'},
@@ -206,6 +208,7 @@ sub parseDestinations {
                     dkim_pkey => $domain->{'dkim_pkey'},
                     require_incoming_tls => $domain->{'require_incoming_tls'},
                     require_outgoing_tls => $domain->{'require_outgoing_tls'},
+                    relay_smarthost => $domain->{'relay_smarthost'},
                     options => $options };
   }
 
@@ -243,6 +246,10 @@ sub dumpDomainsFile {
   }
   
   if ( !open(DOMAINSFILE, ">/tmp/domains.list") ) {
+    return 0;
+  }
+  
+  if ( !open(DOMAINSFILESMARTHOST, ">/tmp/domains_smarthost.list") ) {
     return 0;
   }
   
@@ -322,7 +329,15 @@ sub dumpDomainsFile {
     $dest =~ s/\//::/;
     $rule .= $dest;
     print DOMAINSFILE $rule."\n";
-    
+
+    if ($domains{$domain_name}{relay_smarthost} eq 1) {
+	    my $rule_smarthost = $domain_name.":\t\t";
+	    my $dest_smarthost = $domains{$domain_name}{destination_smarthost};
+	    $dest_smarthost =~ s/\//::/;
+	    $rule_smarthost .= $dest_smarthost;
+	    print DOMAINSFILESMARTHOST $rule_smarthost."\n";
+    }
+   
     print SNMPDOMAINSFILE $domains{$domain_name}{'id'}.":".$domain_name."\n";
     
     my $value = $domains{$domain_name}{callout};
@@ -459,6 +474,9 @@ sub dumpDomainsFile {
   close DOMAINSFILE;
   move("/tmp/domains.list","$filepath/domains.list");
   chown $uid, $gid, "$filepath/domains.list";
+  close DOMAINSFILESMARTHOST;
+  move("/tmp/domains_smarthost.list","$filepath/domains_smarthost.list");
+  chown $uid, $gid, "$filepath/domains_smarthost.list";
   close CALLOUTFILE;
   chown $uid, $gid, "$filepath/domains_to_callout.list";
   close ALTCALLOUTFILE;

@@ -172,6 +172,64 @@ class Default_Form_DomainOutgoing extends Zend_Form
         $this->addElement($submit);
 
         $this->setDKIMValues();
+
+
+
+        $relay_smarthost = new Zend_Form_Element_Checkbox('relay_smarthost', array(
+            'label' => $t->_('Relay via Smarthost') . " :",
+            'title' => $t->_("The relayed mails sent to domains that are not hosted on this server will be sent to the smarthost.\nOnly administrator can change that."),
+            'uncheckedValue' => "0",
+            'checkedValue' => "1",
+        ));
+        // Only admin can enable outgoing relay
+        $user_role = Zend_Registry::get('user')->getUserType();
+        if ($user_role != 'administrator') {
+            $relay_smarthost->setAttrib('disabled', true);
+            $relay_smarthost->setAttrib('readonly', true);
+        }
+
+        if ($this->_domain->getParam('relay_smarthost')) {
+            $relay_smarthost->setChecked(true);
+        }
+        $this->addElement($relay_smarthost);
+
+                require_once('Validate/SMTPHostList.php');
+                $servers_smarthost = new Zend_Form_Element_Textarea('servers_smarthost', array(
+                      'label'    =>  $t->_('Server Realy Smarthost')." :",
+                      'title' => $t->_("Name or IP address of the smarthost server to relay to"),
+                      'required'   => false,
+                      'rows' => 5,
+                      'cols' => 30,
+                      'filters'    => array('StringToLower', 'StringTrim')));
+            $servers_smarthost->addValidator(new Validate_SMTPHostList());
+                $servers_smarthost->setValue($this->_domain->getDestinationFieldString_smarthost());
+                $this->addElement($servers_smarthost);
+
+                $port_smarthost = new  Zend_Form_Element_Text('port_smarthost', array(
+                    'label'    => $t->_('Destination port')." :",
+                    'required' => false,
+                    'size' => 4,
+                    'filters'    => array('Alnum', 'StringTrim')));
+            $port_smarthost->setValue($this->_domain->getDestinationPort_smarthost());
+        $port_smarthost->addValidator(new Zend_Validate_Int());
+            $this->addElement($port_smarthost);
+
+            $multiple_smarthost = new Zend_Form_Element_Select('multiple_smarthost', array(
+            'label'      => $t->_('Use multiple servers as')." :",
+            'title' => $t->_("Choose method to deliver mails to destination server"),
+            'required'   => false,
+            'filters'    => array('StringTrim')));
+
+        foreach ($this->_domain->getDestinationActionOptions() as $key => $value) {
+                $multiple_smarthost->addMultiOption($key, $t->_($key));
+                $options = $this->_domain->getDestinationActionOptions();
+                if (in_array($options[$key], $this->_domain->getActiveDestinationOptions())) {
+                    $multiple_smarthost->setValue($key);
+                }
+        }
+        #$multiple_smarthost->setValue('');
+        $this->addElement($multiple_smarthost);
+
     }
 
     public function setParams($request, $domain)
@@ -243,6 +301,14 @@ class Default_Form_DomainOutgoing extends Zend_Form
             throw new Exception('Not all required field provided');
         }
         $this->setDKIMValues();
+
+        if ($user_role == 'administrator') {
+            $domain->setParam('relay_smarthost', $request->getParam('relay_smarthost'));
+        }
+
+	$domain->setDestinationServersFieldString_smarthost($request->getParam('servers_smarthost'));
+        $domain->setDestinationPort_smarthost($request->getParam('port_smarthost'));
+        $domain->setDestinationOption_smarthost($request->getParam('multiple_smarthost'));
 
         return true;
     }
