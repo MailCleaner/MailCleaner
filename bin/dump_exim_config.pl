@@ -639,6 +639,9 @@ sub get_exim_config{
 	$config{'__SMTP_ACCEPT_MAX_PER_HOST__'} = $row{'smtp_accept_max_per_host'};
 	$config{'__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__'} = 0;
         $config{'__CIPHERS__'} = $row{'ciphers'};
+	if ($config{'__CIPHERS__'} eq '') {
+                $config{'__CIPHERS__'} = 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2';
+        }
 	$config{'__SMTP_RECEIVE_TIMEOUT__'} = $row{'smtp_receive_timeout'};
 	$config{'__SMTP_ACCEPT_MAX__'} = $row{'smtp_accept_max'};
     $config{'__SMTP_RESERVE__'} = $row{'smtp_reserve'};
