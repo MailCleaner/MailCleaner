@@ -75,6 +75,7 @@ CREATE TABLE mta_config (
   spf_dmarc_ignore_hosts blob DEFAULT '',
   log_subject bool NOT NULL DEFAULT '0',
   log_attachments bool NOT NULL DEFAULT '0',
+  ciphers              varchar(255) NOT NULL DEFAULT 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2',
   PRIMARY KEY (set_id, stage)
 );
 

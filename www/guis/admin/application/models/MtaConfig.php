@@ -67,7 +67,8 @@ class Default_Model_MtaConfig
        'reject_bad_spf' => 0,
        'reject_bad_rdns' => 0,
        'dmarc_follow_reject_policy' => 0,
-       'dmarc_enable_reports' => 0
+       'dmarc_enable_reports' => 0,
+       'ciphers' => '',
      );
 	
 	protected $_mapper;
