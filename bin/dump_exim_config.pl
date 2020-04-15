@@ -295,6 +295,7 @@ sub dump_exim_file
         $template->setCondition('DISABLE_IPV6', 0);
     }
   }
+  
 
   $template->setReplacements(\%sys_conf);
   $template->setReplacements(\%exim_conf);
@@ -637,6 +638,7 @@ sub get_exim_config{
 
 	$config{'__SMTP_ACCEPT_MAX_PER_HOST__'} = $row{'smtp_accept_max_per_host'};
 	$config{'__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__'} = 0;
+        $config{'__CIPHERS__'} = $row{'ciphers'};
 	$config{'__SMTP_RECEIVE_TIMEOUT__'} = $row{'smtp_receive_timeout'};
 	$config{'__SMTP_ACCEPT_MAX__'} = $row{'smtp_accept_max'};
     $config{'__SMTP_RESERVE__'} = $row{'smtp_reserve'};

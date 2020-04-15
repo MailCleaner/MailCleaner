@@ -15,6 +15,7 @@
           
          <?php echo $this->InputRow($this->form->getElement('forbid_clear_auth'),array('row_class'=>'tls_row '.$this->ssl_display_class));?>
          <?php echo $this->InputRow($this->form->getElement('tls_use_ssmtp_port'),array('row_class'=>'tls_row '.$this->ssl_display_class));?>
+         <?php echo $this->InputRow($this->form->getElement('ciphers'),array('row_class'=>'tls_row '.$this->ssl_display_class));?>
          <?php
            $certdata = ''; 
            if ($this->certdata['valid'] && !$this->certdata['expired']) {
