@@ -64,7 +64,7 @@ $template_->setCondition('DOMAINCHOOSER', $login_->hasDomainChooser());
 $replace = array(
         "__PRINT_STATUS__" => $lang_->print_txt($login_status),
         "__PRINT_LOGININFO__" => $lang_->print_txt($login_reminder),
-	    "__BEGIN_LOGIN_FORM__" => "<form method=\"post\" id=\"login\" action=\"".$_SERVER['PHP_SELF']."\"><div><input type=\"hidden\" name=\"lang\" value=\"".$lang_->getLanguage()."\" /></div>\n",
+	    "__BEGIN_LOGIN_FORM__" => "<form method=\"post\" id=\"login\" action=\"".htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES, 'utf-8')."\"><div><input type=\"hidden\" name=\"lang\" value=\"".$lang_->getLanguage()."\" /></div>\n",
 	    "__END_LOGIN_FORM__" => "</form>\n",
 	    "__LOGIN_FIELD__" => "<input class=\"fieldinput\" type=\"text\" name=\"username\" id=\"usernamefield\" size=\"20\" value=\"".$username."\" />",
 	    "__OU_FIELD__" => "<input class=\"fieldinput\" type=\"text\" name=\"ou\" size=\"20\" />",
