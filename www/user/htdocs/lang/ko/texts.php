@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "이곳에서 당신의 뉴스레터를 관리 �
 $txt['NEWSLETTERSALLOW'] = "배달";
 $txt['NEWSLETTERACCEPT'] = "이 뉴스레터 허용";
 $txt['SPAM_WHITELIST_DISABLED'] = "해당 리스트는 이 도메인에서 활성화 되지 않았습니다 (관리자에게 문의하세요).";
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT'] = "승인";
@@ -428,6 +428,7 @@ $txt['SUMMARYFORMAT'] = "검역 보고서 형식";
 $txt['SUMMARYTO'] = "보고서를 이 주소로 보내기";
 $txt['OTHER'] = "다른 주소…";
 $txt['APPLYTOALLADDRESSES'] = "모든 주소에 설정 적용";
+$txt['ADDTOGROUP'] = "그룹의 모든 주소에 추가";
 $txt['PLAINTEXT'] = "글자로만";
 $txt['HTML'] = "웹형식";
 $txt['DIGEST'] = "요약";
@@ -435,7 +436,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "오류 메시지 유지";
 $txt['PARAMETERSSAVED'] = "설정이 저장되었습니다.";
 $txt['NOTSAVED'] = "설정이 저장되지 않았습니다.";
 $txt['INVALIDSUMMARYTO'] = "보고를 위해 제공된 이메일 주소가 유효하지 않습니다";
-/* 
+/*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "검역 디스플레이는 사용자의 요구와 습관에 맞게 일수 및 라인수를 맞춤 설정할 수 있습니다.";
@@ -461,7 +462,7 @@ $txt['REMTHEENTRY'] = "선택 항목 제거";
 $txt['DISABLETHEENTRY'] = "선택 항목 비활성화/활성화";
 $txt['WHITELISTSHORTHELP'] = "화이트리스트에는  검역서에 보관하지 않을 메일주소가 포함되어야 합니다. <br />
 경고: 이 기능은 전체적인 보호를 감소시키기 때문에 임시 해결책으로 사용되어야 합니다.
-화이트리스트 사용에 대한 자세한 내용은 매뉴얼( <a href=\"help.php\">\"Help\"</a> 섹션에서 사용 가능)을 참조하십시오. 
+화이트리스트 사용에 대한 자세한 내용은 매뉴얼( <a href=\"help.php\">\"Help\"</a> 섹션에서 사용 가능)을 참조하십시오.
 ";
 $txt['BLACKLISTSHORTHELP'] = "블랙리스트는 수신을 거부할 발신자의 메일주소입니다.
 블랙 리스트 사용에 대한 자세한 내용은 설명서( <a href=\"help.php\">\"도움말\"</a>에서 사용가능)를 참조하십시오.

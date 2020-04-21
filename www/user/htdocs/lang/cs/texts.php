@@ -428,6 +428,7 @@ $txt['SUMMARYFORMAT'] = "formát karanténních reportů";
 $txt['SUMMARYTO'] = "odeslat report na tuto adresu";
 $txt['OTHER'] = "ostatní…";
 $txt['APPLYTOALLADDRESSES'] = "použijte nastavení na všechny adresy";
+$txt['ADDTOGROUP'] = "Přidat pro všechny adresy ve skupině";
 $txt['PLAINTEXT'] = "prostý text";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "přehled";
@@ -461,7 +462,7 @@ $txt['REMTHEENTRY'] = "odstranit označené";
 $txt['DISABLETHEENTRY'] = "zakázat/povolit označené";
 $txt['WHITELISTSHORTHELP'] = "seznam povolených obsahuje adresy důvěryhodných odesílatelů, pro které se vůbec nevyskytuje žádná karanténní ochrana. <br />
                                   Upozornění: tato funkce by měla být použita jako dočasné řešení, protože snižuje celkovou ochranu.
-                                  Podrobnější informace o použití seznamu povolených naleznete v příručce (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>). 
+                                  Podrobnější informace o použití seznamu povolených naleznete v příručce (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>).
 ";
 $txt['BLACKLISTSHORTHELP'] = "Seznam zakázaných obsahuje adresu odesílatele na černé listině.
                                   Podrobnější informace o použití seznamu zakázaných naleznete v manuálu (k dispozici v části <a href=\"help.php\"> \"Nápověda\" </a>).

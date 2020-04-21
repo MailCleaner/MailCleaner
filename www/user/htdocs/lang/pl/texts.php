@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Tutaj możesz zarządzać swoimi newsletterami."
 $txt['NEWSLETTERSALLOW'] = "dostarcz";
 $txt['NEWSLETTERACCEPT'] = "Akceptuj ten nwesletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "Lista nie jest aktywna dla tej domeny (skontaktuj się z administratorem).";
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT'] = "Wyślij";
@@ -428,6 +428,7 @@ $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
 $txt['OTHER'] = "inne…";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
+$txt['ADDTOGROUP'] = "Add for all addresses in group";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
@@ -435,7 +436,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Retain error messages";
 $txt['PARAMETERSSAVED'] = "Your settings have been saved.";
 $txt['NOTSAVED'] = "Your settings could not be saved.";
 $txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
-/* 
+/*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "The quarantine display can be customized (number of days and lines) to fit your needs and habits.";
@@ -449,7 +450,7 @@ $txt['TODAY'] = "Dzisiaj";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "Lista ostrzeżeń zawiera zaufane adresy dla, których chcesz powiadomienia gdy wiadomość zostanie uznana za spam. Możesz natychmiast zwolnić wiadomość w przypadku błędnego filtrowania.<br />
-\t\t\t\t\t\t\t\t   Uwaga: Ta funkcjonalność powinna być użyta tymczasowo, gdyż powoduje spadek poziomu ochrony. 
+\t\t\t\t\t\t\t\t   Uwaga: Ta funkcjonalność powinna być użyta tymczasowo, gdyż powoduje spadek poziomu ochrony.
 \t\t\t\t\t\t\t\t   Sprawdź w instrukcji (dostępne w sekcji <a href=\"help.php\">\"Pomoc\"</a>) więcej informacji na temat użycia listy ostrzeżeń. ";
 $txt['WARNLISTFORADDRESS'] = "Lista ostrzeżeń dla adresu";
 $txt['ADDAWARNENTRY'] = "Dodaj adres do listy";
@@ -459,9 +460,9 @@ $txt['REMOVEANENTRY'] = "Wyłącz, włącz lub usuń adres z listy";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Usuń wybrane";
 $txt['DISABLETHEENTRY'] = "Wyłącz/włącz wybrane";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
+$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
                                    Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage.
 ";
 $txt['BLACKLISTSHORTHELP'] = "Czarna lista zawiera adresy nadawców.
                                   Sprawdź w instrukcji  (dostępna w sekcji <a href=\"help.php\">\"Pomoc\"</a>) więcej informacji na temat użycia czarnej listy.

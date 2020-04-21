@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Ici vous pouvez gérer vos lettres d'information
 $txt['NEWSLETTERSALLOW'] = "distribuer";
 $txt['NEWSLETTERACCEPT'] = "Accepter cette lettre d'information";
 $txt['SPAM_WHITELIST_DISABLED'] = "Cette liste n'est pas activée pour ce domaine (Contactez votre administrateur).";
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT'] = "Envoyer";
@@ -434,6 +434,7 @@ $txt['SUMMARYFORMAT'] = "Formatage des rapports de quarantaine&nbsp;";
 $txt['SUMMARYTO'] = "Envoyer les rapports &agrave; cette adresse";
 $txt['OTHER'] = "autre…";
 $txt['APPLYTOALLADDRESSES'] = "Appliquer ces r&eacute;glages &agrave; toutes les adresses";
+$txt['ADDTOGROUP'] = "Ajouter pour toutes les adresses du groupe";
 $txt['PLAINTEXT'] = "Texte brut";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
@@ -441,7 +442,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Retenir en quarantaine les messages d'erreur 
 $txt['PARAMETERSSAVED'] = "Vos paramètres ont été enregistrés.";
 $txt['NOTSAVED'] = "Les param&egrave;tres n'ont pas pu &ecirc;tre enregistr&eacute;s";
 $txt['INVALIDSUMMARYTO'] = "L'adresse de destination des rapports n'est pas valide";
-/* 
+/*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "L'affichage de la quarantaine (nombre de jours et de lignes) peut &ecirc;tre configur&eacute; en fonction de vos besoins et de vos habitudes.";
@@ -454,7 +455,7 @@ $txt['TODAY'] = "Aujourd'hui";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "La liste d'avertissement comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles tout message bloqu&eacute; en 
+$txt['WARNLISTSHORTHELP'] = "La liste d'avertissement comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles tout message bloqu&eacute; en
 quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.<br />
 \tAttention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection.
 \tConsultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
@@ -467,10 +468,10 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "Cochez dans la liste d'avertissement l'adre
 $txt['REMTHEENTRY'] = "Supprimer la s&eacute;lection";
 $txt['DISABLETHEENTRY'] = "D&eacute;sactiver/R&eacute;activer la s&eacute;lection";
 $txt['WHITELISTSHORTHELP'] = "La liste blanche comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles aucune retenue en quarantaine ne sera effectu&eacute;e.<br />
-Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection. 
-Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e. 
+Attention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection.
+Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste blanche de mani&egrave;re avis&eacute;e.
 ";
-$txt['BLACKLISTSHORTHELP'] = "La liste noire comporte des adresses d'exp&eacute;diteurs que vous voulez bloquer. 
+$txt['BLACKLISTSHORTHELP'] = "La liste noire comporte des adresses d'exp&eacute;diteurs que vous voulez bloquer.
 En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier de l'expéditeur spécifié.
 Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste noire de mani&egrave;re avis&eacute;e.
 ";

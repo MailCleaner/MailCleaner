@@ -434,6 +434,7 @@ $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
 $txt['OTHER'] = "other…";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
+$txt['ADDTOGROUP'] = "Add for all addresses in group";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
@@ -455,7 +456,7 @@ $txt['TODAY'] = "Today";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
+\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection.
 \t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
 $txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
@@ -465,9 +466,9 @@ $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br /> 
+$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
                                    Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage.
 ";
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.

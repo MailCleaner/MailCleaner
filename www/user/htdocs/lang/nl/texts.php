@@ -15,7 +15,7 @@ $txt['SPAM_WHITELIST_DISABLED'] = "Deze lijst is niet geactiveerd voor dit domei
 ### missing translations
 $txt['FORGOTPASSWORD'] = "Wachtwoord vergeten ?";
 $txt['PASSWORDRESET'] = "Uw wachtwoord is gereset . Het is verzonden naar uw e-mailadres.";
-/* 
+/*
  * generic buttons
  */
 $txt['SUBMIT'] = "Verzenden";
@@ -429,6 +429,7 @@ $txt['SUMMARYFORMAT'] = "Formaat van quarantaine rapporten";
 $txt['SUMMARYTO'] = "Zend rapporten naar dit adres";
 $txt['OTHER'] = "andere…";
 $txt['APPLYTOALLADDRESSES'] = "Pas instellingen toe op alle adressen";
+$txt['ADDTOGROUP'] = "Toevoegen voor alle adressen in groep";
 $txt['PLAINTEXT'] = "Platte tekst";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Samenvatting";
@@ -436,7 +437,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Behoud foutboodschappen";
 $txt['PARAMETERSSAVED'] = "Je instellingen werden bewaard.";
 $txt['NOTSAVED'] = "Je kan instellingen konden niet bawaard worden.";
 $txt['INVALIDSUMMARYTO'] = "Het opgegeven email adres voor de rapporten is ongeldig";
-/* 
+/*
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "De quarantaine weergave kan worden aangepast (aantal dagen en lijnen) om aan je noden en gewoonten te voldoen.";
@@ -450,7 +451,7 @@ $txt['TODAY'] = "Vandaag";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "De waarschuw lijst bevat vertrouwde zender adressen waarvoor je wilt verwittigd worden via mail telkens een bericht als spam wordt gezien. je kan dan onmiddellijk het bericht loslaten in geval van een filter fout.<br />
-\t\t\t\t\t\t\t\t   Waarschuwing: deze functionaliteit wordt best enkel gebruikt als tijdelijke oplossing omdat het de algemene bescherming verlaagt. 
+\t\t\t\t\t\t\t\t   Waarschuwing: deze functionaliteit wordt best enkel gebruikt als tijdelijke oplossing omdat het de algemene bescherming verlaagt.
 \t\t\t\t\t\t\t\t   Controleeer de handleiding (beschikbaar in sectie <a href=\"help.php\">\"Help\"</a>) voor meer informatie over waarschuw lijst gebruik. ";
 $txt['WARNLISTFORADDRESS'] = "Waarschuw lijst voor het adres";
 $txt['ADDAWARNENTRY'] = "Voeg een adres toe aan de lijst";
@@ -460,9 +461,9 @@ $txt['REMOVEANENTRY'] = "Uitschakelen/inschakelen of het verwijderen adres van d
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selecteer het adres of adressen dat je wilt aanpassen van de lijst en klik op de gewenste actie knop.";
 $txt['REMTHEENTRY'] = "Verwijder selectie";
 $txt['DISABLETHEENTRY'] = "Uitschakeling/inschakeling selectie";
-$txt['WHITELISTSHORTHELP'] = "De witte lijst bevat betrouwbare zender adressen waarbij berichten nooit in quarantaine zullen gehouden worden.<br /> 
+$txt['WHITELISTSHORTHELP'] = "De witte lijst bevat betrouwbare zender adressen waarbij berichten nooit in quarantaine zullen gehouden worden.<br />
                                    Waarschuwing: deze functionaliteit wordt best enkel als tijdelijke oplossing gebruikt omdat het de algemene bescherming verlaagt.
-                                  Controleer de handleiding (beschikbaar in sectie <a href=\"help.php\">\"Help\"</a>) voor meer informatie over witte lijst gebruik. 
+                                  Controleer de handleiding (beschikbaar in sectie <a href=\"help.php\">\"Help\"</a>) voor meer informatie over witte lijst gebruik.
 ";
 $txt['WHITELISTFORADDRESS'] = "Witte lijst voor het adres";
 $txt['ADDAWHITEENTRY'] = "Voeg een adres toe aan de lijst";
