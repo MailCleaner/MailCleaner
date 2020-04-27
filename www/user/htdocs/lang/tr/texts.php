@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Bültenlerinizi buradan yönetebilirsiniz.";
 $txt['NEWSLETTERSALLOW'] = "teslim et";
 $txt['NEWSLETTERACCEPT'] = "Bu bülteni kabul et";
 $txt['SPAM_WHITELIST_DISABLED'] = "Bu alan adı için liste etkinleştirilmedi (Yöneticinizle iletişim kurun).";
-/*
+/* 
  * generic buttons
  */
 $txt['SUBMIT'] = "Gönder";
@@ -428,7 +428,6 @@ $txt['SUMMARYFORMAT'] = "Karantina rapor biçimi";
 $txt['SUMMARYTO'] = "Raporu bu adrese gönder";
 $txt['OTHER'] = "diğer…";
 $txt['APPLYTOALLADDRESSES'] = "Ayarları tüm adresler için uygula";
-$txt['ADDTOGROUP'] = "Gruptaki tüm adresler için ekle";
 $txt['PLAINTEXT'] = "Düz metin";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Özet";
@@ -436,7 +435,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Hata mesajlarını sakla";
 $txt['PARAMETERSSAVED'] = "Ayarlarınız kaydedildi.";
 $txt['NOTSAVED'] = "Ayarlarınız kaydedilemedi.";
 $txt['INVALIDSUMMARYTO'] = "Rapor için verilen eposta adresi yanlış";
-/*
+/* 
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "Karantina ekranı ihtiyaç ve alışkanlıklarınıza göre özelleştirilebilir (gün sayısı ve satırlar).";
@@ -450,7 +449,7 @@ $txt['TODAY'] = "Bugün";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "Uyarı listesi, bir mesaj spam olarak algılandığında e-posta ile bilgilendirilmek istediğiniz güvenilir gönderen adreslerini içerir. Ardından bir filtreleme hatası durumunda mesajı derhal serbest bırakabilirsiniz..<br />
-\t\t\t\t\t\t\t\t   Uyarı: Bu fonksiyon, genel korumayı azalttığı için geçici bir çözüm olarak kullanılmalıdır.
+\t\t\t\t\t\t\t\t   Uyarı: Bu fonksiyon, genel korumayı azalttığı için geçici bir çözüm olarak kullanılmalıdır. 
 \t\t\t\t\t\t\t\t   Uyarı listesi kullanımı hakkında daha fazla bilgi için kılavuza bakın (<a href=\"help.php\"> \"Yardım\" </a> bölümünde bulunur). ";
 $txt['WARNLISTFORADDRESS'] = "adresi için uyarı listesi";
 $txt['ADDAWARNENTRY'] = "Listeye bir adres ekle";
@@ -460,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Devre dışı bırak, etkinleştir veya listeden bir ad
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi veya adresleri seçin ve istediğiniz işlem düğmesine tıklayın.";
 $txt['REMTHEENTRY'] = "Seçimi Kaldır";
 $txt['DISABLETHEENTRY'] = "Devre dışı bırakın/etkinleştirin";
-$txt['WHITELISTSHORTHELP'] = "Beyaz liste, hiçbir karantina korumasının gerçekleşmeyeceği güvenilir gönderen adreslerini içerir.<br />
+$txt['WHITELISTSHORTHELP'] = "Beyaz liste, hiçbir karantina korumasının gerçekleşmeyeceği güvenilir gönderen adreslerini içerir.<br /> 
                                   Uyarı: Bu işlev, genel korumayı azalttığı için geçici çözüm olarak kullanılmalıdır.
-                                  Beyaz liste kullanımı hakkında daha fazla bilgi için kullanıcı kılavuzuna bakın (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) .
+                                  Beyaz liste kullanımı hakkında daha fazla bilgi için kullanıcı kılavuzuna bakın (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) . 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Kara kara listeye gönderen adresleri içerir.
                                   Kara liste kullanımı hakkında daha fazla bilgi için (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) kılavuzuna bakın.

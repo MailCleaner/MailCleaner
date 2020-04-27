@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
 $txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "This list is not activated for this domain (Contact your administrator).";
-/*
+/* 
  * bottoni generici
  */
 $txt['SUBMIT'] = "Ok";
@@ -428,7 +428,6 @@ $txt['SUMMARYFORMAT'] = "Formato rapporto quarantena";
 $txt['SUMMARYTO'] = "Invia rapporto al seguente indirizzo";
 $txt['OTHER'] = "altro…";
 $txt['APPLYTOALLADDRESSES'] = "Applica impostazioni a tutti gli indirizzi";
-$txt['ADDTOGROUP'] = "Aggiungi per tutti gli indirizzi nel gruppo";
 $txt['PLAINTEXT'] = "Testo";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Riassunto";
@@ -436,7 +435,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Conserva messaggi di errore";
 $txt['PARAMETERSSAVED'] = "Il tuo indirizzo &egrave stato salvato.";
 $txt['NOTSAVED'] = "Le tue impostazioni non possono essere salvate.";
 $txt['INVALIDSUMMARYTO'] = "L'indirizzo mail indicato per il rapporto non &egrave valido";
-/*
+/* 
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "La visualizzazione della quarantena pu&ograve essere personalizzata (numero di giorni e righe) per soddisfare le vostre esigenze e abitudini.";
@@ -450,7 +449,7 @@ $txt['TODAY'] = "Oggi";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "La lista contiene gli indirizzi dei mittenti warn di fiducia per i quali si desidera ricevere una notifica via e-mail ogni volta che un messaggio sembra essere rilevato come spam. Egrave possibile rilasciare immediatamente il messaggio in caso di un errore di filtraggio.<br />
-\t\t\t\t\t\t\t\t   Attenzione: questa funzionalit&agrave dovrebbe essere usata come soluzione temporanea in quanto diminuisce la protezione globale.
+\t\t\t\t\t\t\t\t   Attenzione: questa funzionalit&agrave dovrebbe essere usata come soluzione temporanea in quanto diminuisce la protezione globale. 
 \t\t\t\t\t\t\t\t   Consulta il manuale (disponibile nella sezione <a href=\"help.php\">\"Aiuto\"</a>) per avere maggiori informazioni sull'utilizzo della warn list. ";
 $txt['WARNLISTFORADDRESS'] = "Warn list per l'indirizzo";
 $txt['ADDAWARNENTRY'] = "Aggiungi un indirizzo alla lista";
@@ -460,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Disabilita, abilita o rimuovi un indirizzo dalla lista"
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selezionare l'indirizzo o gli indirizzi che si desidera modificare dall'elenco e cliccare sul pulsante di azione desiderata.";
 $txt['REMTHEENTRY'] = "Rimuovi selezione";
 $txt['DISABLETHEENTRY'] = "Disabilita/abilita selezione";
-$txt['WHITELISTSHORTHELP'] = "La white list contiene gli indirizzi dei mittenti attendibili per i quali non potr&agrave mai verificarsi la conservazione in quarantena.<br />
+$txt['WHITELISTSHORTHELP'] = "La white list contiene gli indirizzi dei mittenti attendibili per i quali non potr&agrave mai verificarsi la conservazione in quarantena.<br /> 
                                    Attenzione: questa funzionalit&agrave dovrebbe essere usata come soluzione temporanea in quanto diminuisce la protezione globale.
-                                  Consulta il manuale (disponibile nella sezione <a href=\"help.php\">\"Aiuto\"</a>) per avere maggiori informazioni sull'utilizzo della white list.
+                                  Consulta il manuale (disponibile nella sezione <a href=\"help.php\">\"Aiuto\"</a>) per avere maggiori informazioni sull'utilizzo della white list. 
 ";
 $txt['WHITELISTFORADDRESS'] = "White list per l'indirizzo";
 $txt['ADDAWHITEENTRY'] = "Aggiungi un indirizzo alla lista";

@@ -425,7 +425,6 @@ $txt['SUMMARYFORMAT'] = "隔离报告的格式";
 $txt['SUMMARYTO'] = "将报告发送到此地址";
 $txt['OTHER'] = "其他。。。";
 $txt['APPLYTOALLADDRESSES'] = "将设置应用于所有地址";
-$txt['ADDTOGROUP'] = "为组中的所有地址添加";
 $txt['PLAINTEXT'] = "纯文本";
 $txt['HTML'] = "超文本标记语言";
 $txt['DIGEST'] = "摘要";
@@ -457,9 +456,9 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "从列表中选择要修改的地址或地�
 $txt['REMTHEENTRY'] = "删除选定内容";
 $txt['DISABLETHEENTRY'] = "禁用/启用选择";
 $txt['WHITELISTSHORTHELP'] = "白名单中包含的受信任发件人地址不会发生任何隔离保留. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
-                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。
+                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。 
 ";
-$txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。
+$txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。 
 有关黑列表用法的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。
 ";
 $txt['WHITELISTFORADDRESS'] = "地址白名单";

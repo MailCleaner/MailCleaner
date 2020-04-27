@@ -3,7 +3,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Ketu mund ti menaxhoni newsletters.";
 $txt['NEWSLETTERSALLOW'] = "dergoni";
 $txt['NEWSLETTERACCEPT'] = "Pranoni kete newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "Kjo liste nuk eshte e aktivuar per kete domain (Kontaktoni administratorin e juaj).";
-/*
+/* 
  * generic buttons
  */
 $txt['SUBMIT'] = "Dergo";
@@ -117,4 +117,3 @@ $txt['NEXTPAGE'] = "Tjetër";
 $txt['PREVIOUSPAGE'] = "I mëparshëm";
 //old
 $txt['GETREASONSTITLE'] = "Arsyet e filtrimit";
-$txt['ADDTOGROUP'] = "Shtoni për të gjitha adresat në grup";

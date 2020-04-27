@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Her kan du håndtere dine nyhetsbrev.";
 $txt['NEWSLETTERSALLOW'] = "lever";
 $txt['NEWSLETTERACCEPT'] = "Godta dette nyhetsbrevet";
 $txt['SPAM_WHITELIST_DISABLED'] = "Denne listen er ikke aktivert for dette domenet (kontakt din administrator).";
-/*
+/* 
  * generic buttons
  */
 $txt['SUBMIT'] = "Send inn";
@@ -425,7 +425,6 @@ $txt['SUMMARYFORMAT'] = "Formater for karantenerapporter";
 $txt['SUMMARYTO'] = "Send rapporter til denne adressen";
 $txt['OTHER'] = "annet…";
 $txt['APPLYTOALLADDRESSES'] = "Legg till innstillinger for alle adresser";
-$txt['ADDTOGROUP'] = "Legg til for alle adresser i gruppe";
 $txt['PLAINTEXT'] = "Klartekst";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Portefølje";
@@ -433,7 +432,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Behold feilmeldinger";
 $txt['PARAMETERSSAVED'] = "Innstillingene dine har blitt lagret.";
 $txt['NOTSAVED'] = "Innstillingene dine kunne ikke lagres.";
 $txt['INVALIDSUMMARYTO'] = "E-postadressen tilbudt for rapportene er ugyldig";
-/*
+/* 
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "Karantenevisningen kan tilpasses (antall dager og linjer) for å passe med dine behov og vaner.";
@@ -469,11 +468,11 @@ $txt['BEENLOGGEDOUT'] = "Hvis du ønsker å starte ei ny økt, klikk på denne l
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "Advarselslisten inneholder betrodde avsenderadresser du ønsker å motta merknad per e-post for når en melding blir antatt å være søppelpost. Du kan umiddelbart omgjøre dette i fall en filtreringsfeil har inntruffet.<br />
-\t\t\t\t\t\t\t\t   Advarsel: Denne funksjonen bør brukes som midlertidig løsning, siden det senker den helhetlige beskyttelsen.
+\t\t\t\t\t\t\t\t   Advarsel: Denne funksjonen bør brukes som midlertidig løsning, siden det senker den helhetlige beskyttelsen. 
 \t\t\t\t\t\t\t\t   Sjekk menualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om advarselslistebruk. ";
-$txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser som ikke er innebefattet av karanteneprogrammet.<br />
+$txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser som ikke er innebefattet av karanteneprogrammet.<br /> 
                                    Advarsel: Denne funksjonen bør kun brukes som midlertidig løsning, siden den senker den helhetlige beskyttelsen.
-                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer info om hvitlistebruk.
+                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer info om hvitlistebruk. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Svartelisten inneholder svartelistede avsenderadresser.
                                   Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om svartelistebruk.

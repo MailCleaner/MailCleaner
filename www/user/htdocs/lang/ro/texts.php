@@ -434,7 +434,6 @@ $txt['SUMMARYFORMAT'] = "Formatul raporturilor de carantină";
 $txt['SUMMARYTO'] = "Trimite raporturile la această adresă";
 $txt['OTHER'] = "alta…";
 $txt['APPLYTOALLADDRESSES'] = "Aplică setările tuturor adreselor";
-$txt['ADDTOGROUP'] = "Adăugați pentru toate adresele din grup";
 $txt['PLAINTEXT'] = "Text necodificat";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Asimilează";
@@ -456,7 +455,7 @@ $txt['TODAY'] = "Astăzi";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "Lista de avertizare conține adrese de emițător de încredere pentru care doriți să fiți notificat pe email de fiecare dată când se întâmplă ca un mesaj să fie detectat ca spam. Ulterior puteți imediat să eliberați mesajul în caz de eroare de filtrare.<br />
-\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală.
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
 \t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de avertizare. ";
 $txt['WARNLISTFORADDRESS'] = "Listă de avertizare pentru adresă";
 $txt['ADDAWARNENTRY'] = "Adaugă o adresă listei";
@@ -467,8 +466,8 @@ $txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care dori
 $txt['REMTHEENTRY'] = "Elimină selecția";
 $txt['DISABLETHEENTRY'] = "Dezactivează/activează selecția";
 $txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încredere pentru care nicio retenție in carantină nu va avea loc.
-\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală.
-\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei albe.
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
+\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei albe. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Lista neagră conține adrese de emițător blocate.
                                   Consultați manualul  (disponibil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații referitoare la utilizarea listelor negre.

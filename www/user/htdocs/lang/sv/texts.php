@@ -13,7 +13,7 @@ $txt['NEWSLETTERSSHORTHELP'] = "Här kan du hantera dina nyhetsbrev.";
 $txt['NEWSLETTERSALLOW'] = "leverera";
 $txt['NEWSLETTERACCEPT'] = "Acceptera detta nyhetsbrev";
 $txt['SPAM_WHITELIST_DISABLED'] = "Listan är inte aktiverad för denna domän (kontakta din administratör).";
-/*
+/* 
  * generic buttons
  */
 $txt['SUBMIT'] = "Submit";
@@ -428,7 +428,6 @@ $txt['SUMMARYFORMAT'] = "Format på karantänrapporter";
 $txt['SUMMARYTO'] = "Skicka rapporter till denna adress";
 $txt['OTHER'] = "annat…";
 $txt['APPLYTOALLADDRESSES'] = "Använd inställningar på alla adresser";
-$txt['ADDTOGROUP'] = "Lägg till för alla adresser i grupp";
 $txt['PLAINTEXT'] = "Oformatterad text";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Sammandrag";
@@ -436,7 +435,7 @@ $txt['KEEPBOUNCESINQUARANTINE'] = "Behåll felmeddelanden";
 $txt['PARAMETERSSAVED'] = "Dina inställningar har sparats.";
 $txt['NOTSAVED'] = "Dina inställningar kunde inte sparas.";
 $txt['INVALIDSUMMARYTO'] = "E-postadressen för rapporterna är ogiltig";
-/*
+/* 
  * quarantine  (new)
  */
 $txt['CONFIGQUARSHORTHELP'] = "Karantänsskärmen kan anpassas (antal dagar och rader) för att passa dina behov.";
@@ -450,7 +449,7 @@ $txt['TODAY'] = "Idag";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "Varningslistan innehåller betrodda avsändaradresser för vilka du kommer att aviseras via e-post när ett meddelande råkar detekteras som skräppost. Du kan då omedelbart publiceras meddelandet om det är ett filtreringsfel.<br />
-\t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
+\t\t\t\t\t\t\t\t   Varning : denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet. 
 \t\t\t\t\t\t\t\t   Se manualen (i avsnittet <a href=\"help.php\">\"Hjälp\"</a>) för vidare information om hur varningslistor kan användas. ";
 $txt['WARNLISTFORADDRESS'] = "Varningslista för adressen";
 $txt['ADDAWARNENTRY'] = "Lägg till en adress till listan";
@@ -460,9 +459,9 @@ $txt['REMOVEANENTRY'] = "Inaktivera, aktivera eller ta bort en adress från list
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";
 $txt['REMTHEENTRY'] = "Ta bort val";
 $txt['DISABLETHEENTRY'] = "Inaktivera / aktivera val";
-$txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser för vilka karantän inte någonsin kommer att inträffa.<br />
+$txt['WHITELISTSHORTHELP'] = "Vitlistan innehåller betrodda avsändaradresser för vilka karantän inte någonsin kommer att inträffa.<br /> 
                                    Varning: denna funktion bör användas som en temporär lösning då den minskar det övergripande skyddet.
-                                  Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas.
+                                  Se manualen (i avsnitt <a href=\"help.php\">\"Hjälp\"</a>) för mer information om hur vitlistor kan användas. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Svartlistan innehåller svartlistade avsändaradresser.
                                   Kontrollera manualen (tillgänglig under <a href=\"help.php\">\"Hjälp\"</a>) för mer information om användning av svartlistor.

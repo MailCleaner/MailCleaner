@@ -429,7 +429,6 @@ $txt['SUMMARYFORMAT'] = "Formato de los informes de cuarentena";
 $txt['SUMMARYTO'] = "Send reports to this address";
 $txt['OTHER'] = "";
 $txt['APPLYTOALLADDRESSES'] = "Aplicar los Par&aacute;metros a todas las direcciones";
-$txt['ADDTOGROUP'] = "Agregar para todas las direcciones en el grupo";
 $txt['PLAINTEXT'] = "Texto simple";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";
@@ -451,7 +450,7 @@ $txt['TODAY'] = "Hoy en d&iacute;a";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "La lista de advertencia contiene las direcciones de los remitentes de confianza de los que quiere recibir una notificaci&oacute;n para una cada mensaje que le env&iacute;a y que est&aacute; en cuarentena. Puede inmediatamente liberar el mensaje si es un error de filtraci&oacute;n.<br />
-                                   Atenci&oacute;n: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total.
+                                   Atenci&oacute;n: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total. 
                                    Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista de alarma. ";
 $txt['WARNLISTFORADDRESS'] = "Lista de alarma para la direcci&oacute;n";
 $txt['ADDAWARNENTRY'] = "A&ntilde;adir una direcci&oacute;n a la lista";
@@ -461,9 +460,9 @@ $txt['REMOVEANENTRY'] = "Desactivar, reactivar o suprimir una direcci&oacute;n d
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Seleccione en la lista de alarma la o las direcciones que quiere modificar y haga click en el bot&oacute;n deseado.";
 $txt['REMTHEENTRY'] = "Suprimir la selecci&oacute;n";
 $txt['DISABLETHEENTRY'] = "Desactivar/Reactivar la selecci&oacute;n";
-$txt['WHITELISTSHORTHELP'] = "La lista contiene las direcciones de los remitentes de confianza. Los mensajes de estas personas no sufrir&aacute;n de la cuarentena.<br />
+$txt['WHITELISTSHORTHELP'] = "La lista contiene las direcciones de los remitentes de confianza. Los mensajes de estas personas no sufrir&aacute;n de la cuarentena.<br /> 
                                    Ojo: esta funci&oacute;n tiene que ser utlizada de manera temporal porque impide una protecci&oacute;n total.
-                                  Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista blanca.
+                                  Leer el manual (disponible en la parte <a href=\"help.php\">\"Ayuda\"</a>) para obtener m&aacute;s informaci&oacute;n sobre el uso de la lista blanca. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "La lista negra contiene la dirección del remitente incluida en la lista negra..
                                    Revise el manual (disponible en la sección <a href=\"help.php\">\"Ayuda\"</a>) para obtener más información sobre el uso de la lista negra.
