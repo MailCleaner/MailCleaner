@@ -494,7 +494,7 @@ $txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in 
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
 $txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
 //old
-$txt['EDITNEWSLIST'] = "Liste der Newsletter verwalten";
+$txt['EDITNEWSLIST'] = "Newslist editieren";
 //old
 $txt['NEWSLISTFOR'] = "Newsletterliste f&uuml;r __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Liste der Newsletter";
