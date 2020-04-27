@@ -506,3 +506,4 @@ $txt['NEWSLISTFORADDRESS'] = "Newsletter-Liste für die Adresse";
 $txt['ADDANEWSENTRY'] = "Eine Adresse zur Liste hinzufügen";
 $txt['NEWSLISTENTRYTOADD'] = "Geben Sie die Adresse ein, die Sie in die Newsletterliste aufnehmen möchten. Sie können auch einen optionalen Kommentar hinzufügen.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Wählen Sie die Adresse oder die Adressen, die Sie ändern möchten, aus der Liste aus und klicken Sie auf die gewünschte Aktionsschaltfläche.";
+$txt['ADDTOGROUP'] = "Für alle Adressen in der Gruppe hinzufügen";
