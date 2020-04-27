@@ -499,3 +499,4 @@ $txt['NEWSLISTSHORTHELP'] = "A lista de boletins informativos contém endereços
 ";
 $txt['NEWSLISTFORADDRESS'] = "Lista de boletins informativos para o endereço";
 $txt['NEWSLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de boletins informativos. Você também pode adicionar um comentário opcional.";
+$txt['ADDTOGROUP'] = "Adicionar para todos os endereços no grupo";
