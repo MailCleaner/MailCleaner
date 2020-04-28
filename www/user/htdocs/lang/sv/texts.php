@@ -500,3 +500,4 @@ $txt['NEWSLISTFORADDRESS'] = "Nyhetsbrevslista för adressen";
 $txt['ADDANEWSENTRY'] = "Lägg till en adress till listan";
 $txt['NEWSLISTENTRYTOADD'] = "Ange den adress du vill lägga till i nyhetsbrev listan. Du kan också lägga till en valfri kommentar.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";
+$txt['ADDTOGROUP'] = "Lägg till för alla adresser i grupp";
