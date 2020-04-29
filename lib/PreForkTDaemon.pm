@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -186,18 +187,29 @@ sub initDaemon {
 
     my @pids = $this->readPidFile();
 
-    if (@pids) {
-        require Proc::ProcessTable;
-        my $t = new Proc::ProcessTable;
-        foreach my $p ( @{ $t->table } ) {
-            foreach my $pid (@pids) {
-                if ( $p->pid == $pid ) {
-                    print STDOUT
-                      "(already running) ";
-                    exit 1;
-                }
+    require Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+    my $match = 0;
+    foreach my $p ( @{ $t->table } ) {
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            } elsif (scalar(grep(/$p->{'pid'}/,@pids))) {
+                $match = $p->{'pid'};
+            } else {
+                print STDOUT
+             	"\n  Orphaned process detected ($p->{'pid'})";
             }
         }
+    }
+
+    if ($match) {
+        print STDOUT "  Found $match matching expected PID (already running). Not ";
+        return 1;
+    } else {
+        print STDOUT "  No existing process found. ";
     }
 
     $this->doLog( 'Initializing Daemon', 'daemon' );
@@ -284,9 +296,6 @@ sub exitDaemon {
             sleep 1;
         }
 
-        #if (@pids) {
-        #   print "Terminated all process\n";
-        #}
     }
     if ( -f $this->{pidfile} && !$hardkilled ) {
         unlink( $this->{pidfile} );
@@ -296,19 +305,46 @@ sub exitDaemon {
 sub exitAllDaemon {
     my $this = shift;
 
-    my $pname = $this->{name};
+    my @pids = $this->readPidFile();
+
     require Proc::ProcessTable;
     my $t   = new Proc::ProcessTable;
-    my $pid = $$;
+    my @running = ();
+    my $match = 0;
     foreach my $p ( @{ $t->table } ) {
-        if ( $p->cmndline eq $pname && $p->pid != $pid ) {
-            print "Killing process: "
-              . $p->cmndline . " ("
-              . $p->pid . ", "
-              . $p->state . ")\n";
-            $p->kill(9);
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            }
+            push @running, $p->{'pid'};
+            if (scalar(grep(/$p->{'pid'}/,@pids))) {
+                print STDOUT
+                "\n  Active process detected ($p->{'pid'}). Killing... ";
+                $match = $p->{'pid'};
+            } else {
+                print STDOUT
+             	"\n  Orphaned process detected ($p->{'pid'}). Killing... ";
+            }
+
+            if ($p->kill(9)) {
+                pop @running;
+                print STDOUT "Done\n";
+            } else {
+                print STDOUT "Failed\n";
+            }
         }
     }
+
+    if (scalar @running) {
+        print STDOUT "  Failed to stop all processes (" . join(', ',@running) . ") not "; 
+    } elsif ($match) {
+        print STDOUT "  Successfully ";
+    } else {
+        print STDOUT "  No existing active process found. Not ";
+    }
+
     return 1;
 }
 
