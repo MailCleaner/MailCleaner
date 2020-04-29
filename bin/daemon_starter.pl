@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,7 +21,7 @@
 ##  daemon_starter:
 ##      starter/stopper executable for threaded daemon (based on PreForkTDaemon)
 ##
-##  usage: daemon_starter.pl daemonclass [parameters] (start|stop|stopall|restart|statut)
+##  usage: daemon_starter.pl daemonclass [parameters] (start|stop|restart|status)
 ##
 ##     parameters are configuration file's element that can be forced here.
 ##        syntax is: -optioname value
@@ -42,7 +43,7 @@ if ( @params < 2 ) {
 my $daemon = shift @params;
 my $action = pop @params;
 
-if ( $action !~ /^(start|stop|stopall|restart|status)$/ ) {
+if ( $action !~ /^(start|stop|restart|status)$/ ) {
 	show_usage( 'bad action (' . $action . ')' );
 }
 
@@ -84,13 +85,12 @@ if ( $action eq 'start' ) {
 	$daemon->initDaemon();
 }
 elsif ( $action eq 'stop' ) {
-	$daemon->exitDaemon();
-}
-elsif ( $action eq 'stopall' ) {
 	$daemon->exitAllDaemon();
 }
 elsif ( $action eq 'restart' ) {
-	$daemon->exitDaemon();
+    print "  Stopping... ";
+	$daemon->exitAllDaemon();
+    print "stopped\n  Starting...";
 	$daemon->initDaemon();
 }
 elsif ( $action eq 'status' ) {
@@ -110,7 +110,7 @@ sub show_usage {
 
 	print "daemon_starter: Bad usage ($reason).\n";
 	print
-"\t daemonstarter daemon [parameters] (start|stop|stopall|restart|statut)\n";
+"\t daemonstarter daemon [parameters] (start|stop|stopall|status)\n";
 
 	exit 1;
 }
