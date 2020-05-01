@@ -39,6 +39,16 @@ class Default_Form_SmtpTls extends ZendX_JQuery_Form
             $sslenable->setChecked(true);
 	    }
 	    $this->addElement($sslenable);
+
+            $ciphers = new  Zend_Form_Element_Text('ciphers', array(
+                        'label'    => $t->_('Accepted ciphers')." :",
+			'title' => $t->_("If you are unsure about what to set there, leave the field empty to get default value"),
+                        'required' => false,
+                        'size' => 40,
+                        'filters'    => array()));
+            $ciphers->setValue($this->_mta->getParam('ciphers'));
+            $this->addElement($ciphers);
+
 	    
 	    $ssmtplisten = new Zend_Form_Element_Checkbox('tls_use_ssmtp_port', array(
 	        'label'   => $t->_('Enable obsolete SMTPS port 465'). " :",
@@ -146,16 +156,22 @@ class Default_Form_SmtpTls extends ZendX_JQuery_Form
         $restrictions = Zend_Registry::get('restrictions');
 		$mta->setParam('use_incoming_tls', $request->getParam('use_incoming_tls'));
 		if ($request->getParam('use_incoming_tls')) {
-             $mta->setParam('forbid_clear_auth', $request->getParam('forbid_clear_auth'));
-             $mta->setParam('tls_use_ssmtp_port', $request->getParam('tls_use_ssmtp_port'));
-             if (!$restrictions->isRestricted('ServicesSMTP', 'certificate')) {
-		         $mta->setParam('tls_certificate_data', $request->getParam('tls_certificate_data'));
-	             $mta->setParam('tls_certificate_key', $request->getParam('tls_certificate_key'));
-             }
-             $mta->setParam('hosts_require_tls', $request->getParam('hosts_require_tls'));
-             $mta->setParam('hosts_require_incoming_tls', $request->getParam('hosts_require_incoming_tls'));
-             $mta->setParam('domains_require_tls_from', $request->getParam('domains_require_tls_from'));
-             $mta->setParam('domains_require_tls_to', $request->getParam('domains_require_tls_to'));
+			$mta->setParam('forbid_clear_auth', $request->getParam('forbid_clear_auth'));
+			$mta->setParam('tls_use_ssmtp_port', $request->getParam('tls_use_ssmtp_port'));
+			if (!$restrictions->isRestricted('ServicesSMTP', 'certificate')) {
+				$mta->setParam('tls_certificate_data', $request->getParam('tls_certificate_data'));
+				$mta->setParam('tls_certificate_key', $request->getParam('tls_certificate_key'));
+			}
+			$mta->setParam('hosts_require_tls', $request->getParam('hosts_require_tls'));
+			$mta->setParam('hosts_require_incoming_tls', $request->getParam('hosts_require_incoming_tls'));
+			$mta->setParam('domains_require_tls_from', $request->getParam('domains_require_tls_from'));
+			$mta->setParam('domains_require_tls_to', $request->getParam('domains_require_tls_to'));
+			if ( $request->getParam('ciphers') == '')  {
+				$mta->setParam('ciphers', 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2');
+			} else {
+				$mta->setParam('ciphers', $request->getParam('ciphers'));
+			}
+
 		}
 	}
 	

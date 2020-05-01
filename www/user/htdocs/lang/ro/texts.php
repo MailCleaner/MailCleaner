@@ -16,7 +16,7 @@ $txt['SPAM_WHITELIST_DISABLED'] = "Lista nu e activată pentru acest domeniu (co
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Trimitere";
+$txt['SUBMIT'] = "Înaintare";
 $txt['CANCEL'] = "Anulare";
 $txt['CLOSE'] = "Închidere";
 // old
@@ -34,7 +34,7 @@ $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "biți";
-$txt['DATEFORMAT'] = "_D__M__Y_";
+$txt['DATEFORMAT'] = "_Z__L__A_";
 $txt['MONTHAB1'] = 'Ian.';
 $txt['MONTHAB2'] = 'Feb.';
 $txt['MONTHAB3'] = 'Mar.';
@@ -91,30 +91,30 @@ $txt['NAVSUPPORT'] = "Suport";
  * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Adresa afișată";
-$txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sortat by __PARAM__";
+$txt['QUARANTINESUMMARY'] = "<strong>În carantină:</strong> __PARAM__ mesaje";
+$txt['SEARCHSUMMARY'] = "<strong>Caută:</strong> __PARAM__ mesaje";
+$txt['ORDEREDBYPARAM'] = "sortat dupa__PARAM__";
 $txt['RESETSEARCH'] = "Afișează întreaga listă a carantinei";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "ora";
 $txt['OSCORE'] = "score";
 $txt['ODESTINATION'] = "receptor";
 $txt['OSENDER'] = "emițător";
-$txt['OSCORE'] = "score";
+$txt['OSCORE'] = "scor";
 $txt['OSUBJECT'] = "subiect";
 //old
 $txt['CRITERIAS'] = "Reguli de filtrare";
 $txt['FORCEMESSAGE'] = "Eliberează mesajul";
-$txt['MESSAGEFORCING'] = "Eliberare de mesaj";
+$txt['MESSAGEFORCING'] = "Eliberarea mesajului";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Cerere de adaptare a filtrării";
 $txt['ANALYSEREQUESTV'] = "Solicită o ajustare a filtrării";
 $txt['SCORETEXT'] = "Scor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Închide fereastra";
-$txt['CURRENTPAGE'] = "Page __PARAM1__ of __PARAM2__";
-$txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ days";
-$txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ last days (<a href=\"__PARAM2__\">Modifică...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ last days. ";
+$txt['CURRENTPAGE'] = "Pagina __PARAM1__ din __PARAM2__";
+$txt['PURGEINFOS'] = "<strong>Eliminare automată după:</strong> __PARAM__ zile";
+$txt['DISPLAYEDINFOS'] = "<strong>Mesaje afișate: </strong> __PARAM1__ ultimele zile (<a href=\"__PARAM2__\">Modifică...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Mesaje afișate: </strong> __PARAM__ ultimele zile. ";
 //old
 $txt['QUARANTINETITLE'] = "Lista carantinei pentru __PARAM__";
 //old
@@ -134,9 +134,9 @@ $txt['SENDER'] = "Sender";
 $txt['FORCED'] = "Eliberat";
 $txt['ACTION'] = "Acțiune";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(uri)";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ ultimele zile";
 $txt['PURGESELECTEDSPAMS'] = "Șterge manual conținutul carantinei";
 //old
 $txt['HIDEFORCED'] = "Ascunde mesajele eliberate de utilizator";
@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Ascunde mesajele eliberate de utilizator";
 $txt['FORCESPAM'] = "eliberează mesajul";
 //old
 $txt['ASKREASON'] = "afișează regulile de filtrare";
-$txt['CONFSENDANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; aceasta include o copie a mesajului care a fost blocat în mod eronat.</br>Notă: O ajustare a filtrului nu este același lucru ca whitelisting sau blacklisting.";
+$txt['CONFSENDANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; aceasta include o copie a mesajului care a fost blocat în mod eronat.</br>Notă: O ajustare a filtrului nu este similară whitelisting-ului sau blacklisting-ului.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Sunteți sigur că doriți ca acest mesaj să fie analizat și să îi fie aplicate ajustări de filtru?</span>";
 $txt['ASKANALYSE'] = "Cerere de ajustare a filtrării";
 $txt['PAGE'] = "Pagina";
@@ -157,7 +157,7 @@ $txt['SCORE'] = "Scor";
 $txt['TOTAL'] = "Total";
 //old
 $txt['SENDANALYSETITLE'] = "Cerere de ajustare a filtrării";
-$txt['SENTTOANALYSE'] = "O cerere de ajustare a filtrului a fst trimisă către Centrul de Analiză MailCleaner; acest mesaj va fi examinat și este posibil să se aplice corecții de filtru pe parcursul unei zile lucrătoare.";
+$txt['SENTTOANALYSE'] = "O cerere de ajustare a filtrului a fost trimisă către Centrul de Analiză MailCleaner; acest mesaj va fi examinat și este posibil să i se aplice corecții de filtru pe parcursul unei zile lucrătoare.";
 /*
  * quick actions
  */
@@ -169,8 +169,8 @@ $txt['SUMNOTSENTTO'] = "Raportul de carantină nu poate fi trimis către:<strong
 $txt['SUMMARYSENDING'] = "Transmitere raport de carantină";
 $txt['PURGETITLE'] = "Șterge manual conținutul carantinei";
 $txt['PURGEDONE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> a fost eliminat";
-$txt['COULDNOTPURGE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> nu poate fi eliminat din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
-$txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
+$txt['COULDNOTPURGE'] = "Conținutul carantinei pentru <strong>__PARAM__</strong> nu a putut fi eliminat din cauza unei erori interne. Vă rugăm să reîncercați mai târziu.";
+$txt['ASKPURGECONFIRM'] = "Sunteți sigur că doriți să eliminați ultimele __PARAM1__ zile din carantină pentru strong>__PARAM2__</strong> ?";
 $txt['QUARANTINEPURGE'] = "Ștergere manuală a conținutului carantinei";
 $txt['GROUPQUARANTINES'] = "Toate adresele";
 /*
@@ -181,18 +181,18 @@ $txt['PREFILTERHITS'] = "Pre-filtrare";
 $txt['BLACKLISTS'] = "Liste negre";
 $txt['FITLERSCORE'] = "Scor";
 $txt['NONE'] = "niciunul";
-$txt['HEADERS'] = "Headers";
-$txt['BODY'] = "Body";
-$txt['PARTS'] = "Parts";
+$txt['HEADERS'] = "Antete";
+$txt['BODY'] = "Corp";
+$txt['PARTS'] = "Părți";
 $txt['STORESLAVE'] = "Stocare";
-$txt['SPAMCSCORE'] = "Scorul regulii";
+$txt['SPAMCSCORE'] = "Scorul regulilor";
 $txt['DESCRIPTION'] = "Descriere";
-$txt['MESSAGEPREVIEW'] = "Previzualizare mesaj";
+$txt['MESSAGEPREVIEW'] = "Vizualizare mesaj";
 $txt['ID'] = "Identificator";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Sesiunea dumneavoastră MailCleaner s-a încheiat.</p><p>Dacă doriți să începeți o nouă sesiune, click pe link-ul următor:</p>";
+$txt['LOGOUTTEXT'] = "<p>Sesiunea dumneavoastră MailCleaner s-a încheiat.</p><p>Dacă doriți să începeți o nouă sesiune, faceti un click pe link-ul următor:</p>";
 /*
  * parameters page
  */
@@ -212,40 +212,40 @@ $txt['FILTERACTIONTITLE'] = "Metodă de procesare a spam-urilor";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "Setări ale raportului de carantină";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Grupul de adresă personal: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "Grupul de adresă personal: (__PARAM__ adresă(adrese))";
 //old
 $txt['APPLYALLADDRESSES'] = "Aplică modificările pentru toate adresele";
 //old
 $txt['MAIN'] = "principal";
 //old
-$txt['SPAMACTION'] = "Metodă de procesare a spam-urilor";
+$txt['SPAMACTION'] = "Mod de procesare a spam-urilor";
 //old
 $txt['PUTINQUARANTINE'] = "carantină";
 //old
-$txt['TAGSUBJECT'] = "tag";
+$txt['TAGSUBJECT'] = "etichetă";
 //old
-$txt['QUARBOUNCES'] = "Systematically quarantine e-mail delivery error messages";
+$txt['QUARBOUNCES'] = "Trimitere sistematică în carantină a mesajelor de eroare cu privire la livrarea emailurilor";
 //old
 $txt['DROP'] = "renunță";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Cuvânt cheie pentru eticheta";
 //old
 $txt['SUMMARYFREQ'] = "Frecvență de trimitere a raportului";
 $txt['DAILY'] = "Zilnic";
 $txt['WEEKLY'] = "Săptămânal";
 $txt['MONTHLY'] = "Lunar";
-$txt['NOSUMMARY'] = "Fără raport";
+$txt['NOSUMMARY'] = "Niciun raport";
 //old
 $txt['SUMMARYTYPE'] = "Formatul raportului";
-$txt['USEDEFAULT'] = "use default";
+$txt['USEDEFAULT'] = "folosiți varianta prestabilită";
 $txt['SUMMHTML'] = "HTML";
-$txt['SUMMTEXT'] = "plaintext";
+$txt['SUMMTEXT'] = "text necodificat";
 //old
-$txt['EDITWHITELIST'] = "Editează lista albă";
+$txt['EDITWHITELIST'] = "editează lista albă";
 //old
-$txt['EDITWARNLIST'] = "editează warnlist";
+$txt['EDITWARNLIST'] = "editează listă de prevenire";
 //old
-$txt['EDITNEWSLIST'] = "editează listă nouă";
+$txt['EDITNEWSLIST'] = "editează listă informativă";
 /*
  * wwlist management
  */
@@ -263,11 +263,11 @@ $txt['WWENTRY'] = "Intrare";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "Sunteți sigur că vreți să eliminați permanent această intrare?";
 //old
-$txt['WHITELISTFOR'] = "Whitelist for __PARAM__";
+$txt['WHITELISTFOR'] = "Setează lista albă pentru__PARAM__";
 //old
-$txt['WARNLISTFOR'] = "Warnlist for __PARAM__";
+$txt['WARNLISTFOR'] = "Setează lista de prevenire pentru __PARAM__";
 //old
-$txt['NEWSLISTFOR'] = "Newslist for __PARAM__";
+$txt['NEWSLISTFOR'] = "Setează lista informativă pentru__PARAM__";
 //old
 $txt['STATUS'] = "Stare";
 /*
@@ -286,8 +286,8 @@ $txt['NOTFILTEREDDOMAIN'] = "Acest domeniu nu este filtrat de MailCleaner.  Adre
 $txt['ALIASALREADYREGISTERD'] = "Această adresă este deja utilizată de un cont MailCleaner. Nu a putut fi adăugată.";
 $txt['ALIASALREADYPENDING'] = "Confirmarea pentru această adresă este în curs.";
 $txt['ALIASPENDING'] = "Confirmarea a fost trimisă pe această adresă.<br/> Din motive de securitate, adresa poate fi adăugată doar dacă are loc confirmarea cererii în decurs de 24 de ore.";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Address addition request";
-$txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să încercați mai târziu.";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]Cerere de adăugare adresă";
+$txt['ALIASERRORSENDIG'] = "Cererea nu a fost trimisă din cauza unei erori interne. Vă rugăm să reîncercați mai târziu.";
 $txt['ALIASNOTPENDING'] = "Momentan, nu este nicio cerere în curs pentru această adresă.";
 $txt['ALIASADDED'] = "Adresa a fost adăugată.";
 $txt['ALIASREQUESTREMOVED'] = "Cererea a fost anulată.";
@@ -303,13 +303,13 @@ $txt['CANNOTREMOVEMAINADD'] = "Adresa__PARAM__ este adresa principală. Nu poate
 //old
 $txt['USERSTATS'] = "Statistici";
 //old
-$txt['USERMESGSSTAT'] = "__PARAM__ a primit mesaje.";
+$txt['USERMESGSSTAT'] = "__PARAM__ mesaje primite";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__PARAM__ spam-uri";
 //old
-$txt['USERSDANGEROUSSTAT'] = "__PARAM__ dangerous";
+$txt['USERSDANGEROUSSTAT'] = "__PARAM__ periculos";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
+$txt['USERCLEANSTAT'] = "__PARAM__ curățire";
 $txt['ALL'] = "toate…";
 $txt['SEARCHPERIOD'] = "Perioada analizată";
 $txt['LASTDAYS'] = "ultimele zile";
@@ -322,9 +322,9 @@ $txt['RECEIVEDMESSAGES'] = "Mesaje primite";
 $txt['RECEIVEDVIRUS'] = "Viruși și mesaje periculoase";
 $txt['RECEIVEDSPAM'] = "Mesaje de tip spam";
 $txt['RECEIVEDCLEAN'] = "Mesaje filtrate";
-$txt['NBPROCESSEDMSGS'] = "__PARAM__ received messages";
+$txt['NBPROCESSEDMSGS'] = "__PARAM__ a primit mesaje";
 $txt['GLOBALSTATSTITLE'] = "Sumar al tuturor adreselor";
-$txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__PARAM5__.__PARAM6__";
+$txt['FROMDATETODATE'] = "de la __PARAM1__.__PARAM2__.__PARAM3__ către __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
@@ -332,7 +332,7 @@ $txt['BADARGS'] = "Eroare internă MailCleaner (_PARAM_MESSAGE_ERREUR__). Vă ru
 $txt['INCORRECTMSGID'] = "Acțiunea cerută nu a putut fi efectuată deoarece identificatorul mesajului este incorect.";
 $txt['NOSUCHADDR'] = "Adresa furnizată nu este protejată de MailCleaner.";
 $txt['ERRORSENDING'] = "A intervenit o eroare în timpul transmiterii mesajului. Vă rugăm să reîncercați. Dacă problema persistă, vă rugăm să contactați administratorul de sistem.";
-$txt['MSGFORCED'] = "Mesajul a fost eliberat și trimis către cutia dumneavoastră poștală. Ar trebui să îl puteți accesa în câteva minute.";
+$txt['MSGFORCED'] = "Mesajul a fost eliberat și trimis către cutia dumneavoastră poștală electronică. Ar trebui să îl puteți accesa în câteva minute.";
 $txt['MSGFILENOTFOUND'] = "Acțiunea nu a putut fi efectuată deoarece mesajul nu se mai află în carantină.";
 /*
  * support page (deprecated)
@@ -366,12 +366,12 @@ $txt['HELP'] = "Ajutor";
 $txt['INTERFACETOPIC'] = "Setările interfeței";
 $txt['INTRODUCTIONTOPIC'] = 'Introducere';
 $txt['INTRODUCTIONTOPICTITLE'] = 'introducere';
-$txt['FIRSTCONTACTTOPIC'] = "Ghid scurt";
-$txt['FIRSTCONTACTTOPICTITLE'] = "ghid scurt";
+$txt['FIRSTCONTACTTOPIC'] = "Ghid rapid";
+$txt['FIRSTCONTACTTOPICTITLE'] = "ghid rapid";
 $txt['ADDRESSESTOPIC'] = "Adrese utile";
 $txt['ADDRESSESTOPICTITLE'] = "adrese utile";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
+$txt['PLUGINTOPIC'] = "plug-in Outlook";
+$txt['PLUGINTOPICTITLE'] = "plug-in Outlook";
 $txt['MOREHELPTOPIC'] = "Manual complet";
 $txt['MOREHELPTOPICTITLE'] = "manual complet";
 $txt['USERMANUALTOPICTITLE'] = "manualul utilizatorului";
@@ -391,18 +391,18 @@ $txt['CONFIGURATION'] = "Configurare";
 $txt['ADDRESSLISTTOPIC'] = "Grupul adresei";
 $txt['ADDRESSPARAMTOPIC'] = "Setările adresei";
 $txt['QUARPARAMTOPIC'] = "Afișarea conținutului carantinei";
-$txt['WARNLISTTOPIC'] = "Warnlist";
-$txt['WHITELISTTOPIC'] = "Whitelist";
-$txt['BLACKLISTTOPIC'] = "Blacklist";
-$txt['NEWSLISTTOPIC'] = "Newslist";
+$txt['WARNLISTTOPIC'] = "Listă de avertizare";
+$txt['WHITELISTTOPIC'] = "Listă albă";
+$txt['BLACKLISTTOPIC'] = "Listă neagră";
+$txt['NEWSLISTTOPIC'] = "Listă informativă";
 $txt['INTERFACETOPICTITLE'] = "setările interfeței";
 $txt['ADDRESSLISTTOPICTITLE'] = "grupul adresei";
 $txt['ADDRESSPARAMTOPICTITLE'] = "setările adresei";
 $txt['QUARPARAMTOPICTITLE'] = "afișarea conținutului carantinei";
-$txt['WARNLISTTOPICTITLE'] = "warnlist";
-$txt['WHITELISTTOPICTITLE'] = "whitelist";
-$txt['BLACKLISTTOPICTITLE'] = "blacklist";
-$txt['NEWSLISTTOPICTITLE'] = "newslist";
+$txt['WARNLISTTOPICTITLE'] = "listă de avertizare";
+$txt['WHITELISTTOPICTITLE'] = "listă albă";
+$txt['BLACKLISTTOPICTITLE'] = "listă neagră";
+$txt['NEWSLISTTOPICTITLE'] = "listă informativă";
 /*
  * interface (new)
  */
@@ -414,7 +414,7 @@ $txt['CHOOSELANGUAGE'] = "Selectarea limbii";
  */
 $txt['ADDLISTSHORTHELP'] = "Acest grup conține toate adresele și aliasurile pe care doriți să le administrați de pe acest cont. Aveți acces la carantină, statistici și setări într-o manieră centralizată, folosind aceleași date de autentificare.";
 $txt['ADDANADDRESS'] = "Adaugă o adresă în grup";
-$txt['ADDTHEADDRESS'] = "&lt; Adaugă o adresă în grup";
+$txt['ADDTHEADDRESS'] = "&lt; Adaugă adresa în grup";
 $txt['ADDANADDRESSSHORTHELP'] = "Introduceți adresa pe care doriți să o adăugați.";
 $txt['REMANADDRESS'] = "Eliminați una sau mai multe adrese din grup.";
 $txt['REMTHEADDRESS'] = "Eliminați selecția";
@@ -423,24 +423,24 @@ $txt['WAITINGCONFIRMATION'] = "așteptați confirmarea";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Verificați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
+$txt['ADDPARAMSHORTHELP'] = "Modul de procesare al spam-urilor poate fi adaptat pentru fiecare adresă a dumneavoastră. Consultați manualul utilizatorului (valabil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre diferitele moduri de procesare.";
 $txt['FOREACHSPAMDO'] = "Pentru fiecare mesaj detectat ca spam:";
-$txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca newsletter:";
+$txt['FOREACHNEWSLETTERDO'] = "Pentru fiecare mesaj detectat ca buletin informativ:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "reține in carantină";
-$txt['TAGMESSAGEWITHTAG'] = "deliver with subject keyword";
+$txt['TAGMESSAGEWITHTAG'] = "livrează cu cuvânt cheie de subiect";
 $txt['DROPMESSAGE'] = "șterge imediat";
 $txt['SUMMARYSENTFREQ'] = "Frecvență a raporturilor de carantină";
 $txt['SUMMARYFORMAT'] = "Formatul raporturilor de carantină";
 $txt['SUMMARYTO'] = "Trimite raporturile la această adresă";
 $txt['OTHER'] = "alta…";
 $txt['APPLYTOALLADDRESSES'] = "Aplică setările tuturor adreselor";
-$txt['PLAINTEXT'] = "Textul simplu";
+$txt['PLAINTEXT'] = "Text necodificat";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Asimilează";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Reține mesajele de eroare";
 $txt['PARAMETERSSAVED'] = "Setările dumneavoastră au fost salvate.";
 $txt['NOTSAVED'] = "Setările dumneavoastră nu au putut fi salvate.";
-$txt['INVALIDSUMMARYTO'] = "Această adresă furnizată pentru raporturi este invalidă.";
+$txt['INVALIDSUMMARYTO'] = "Adresa de email furnizată pentru rapoarte este invalidă.";
 /*
  * quarantine  (new)
  */
@@ -454,36 +454,36 @@ $txt['TODAY'] = "Astăzi";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
-\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
-\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warnlist pentru adresă";
+$txt['WARNLISTSHORTHELP'] = "Lista de avertizare conține adrese de emițător de încredere pentru care doriți să fiți notificat pe email de fiecare dată când se întâmplă ca un mesaj să fie detectat ca spam. Ulterior puteți imediat să eliberați mesajul în caz de eroare de filtrare.<br />
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
+\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de avertizare. ";
+$txt['WARNLISTFORADDRESS'] = "Listă de avertizare pentru adresă";
 $txt['ADDAWARNENTRY'] = "Adaugă o adresă listei";
-$txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la warnlist. Puteți adăuga și un comentariu opțional.";
+$txt['WARNLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de avertizare. Puteți adăuga și un comentariu opțional.";
 $txt['ADDTHEENTRY'] = "&lt; Adaugă adresa";
 $txt['REMOVEANENTRY'] = "Dezactivează, activează sau șterge o adresă din listă";
-$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul atașat acțiunii dorite.";
 $txt['REMTHEENTRY'] = "Elimină selecția";
 $txt['DISABLETHEENTRY'] = "Dezactivează/activează selecția";
-$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
+$txt['WHITELISTSHORTHELP'] = "Lista albă conține adrese de emițător de încredere pentru care nicio retenție in carantină nu va avea loc.
+\t\t\t\t\t\t\t\t   Atenție: Această funcționalitate ar trebui folosită ca o soluție temporară întrucât scade protecția generală. 
+\t\t\t\t\t\t\t\t   Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei albe. 
 ";
-$txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.
+$txt['BLACKLISTSHORTHELP'] = "Lista neagră conține adrese de emițător blocate.
+                                  Consultați manualul  (disponibil în secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații referitoare la utilizarea listelor negre.
 ";
-$txt['NEWSLISTSHORTHELP'] = "The newsletter list contains addresses of desired newsletters.<br />
-                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on newsletter list usage.
+$txt['NEWSLISTSHORTHELP'] = "Lista de buletine informative conține adrese ale buletinelor informative dorite.<br />
+                                  Verificați manualul (disponibil la secțiunea <a href=\"help.php\">\"Help\"</a>) pentru mai multe informații despre utilizarea listei de buletine informative.
 ";
-$txt['WHITELISTFORADDRESS'] = "Whitelist pentru adresă";
+$txt['WHITELISTFORADDRESS'] = "Listare albă pentru adresă";
 $txt['ADDAWHITEENTRY'] = "Adaugă o adresă listei";
 $txt['WHITELISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la whitelist. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEAWHITEENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
-$txt['BLACKLISTFORADDRESS'] = "Blacklist for adresă";
+$txt['BLACKLISTFORADDRESS'] = "Listare neagră pentru adresă";
 $txt['ADDABLACKENTRY'] = "Adaugă o adresă listei";
-$txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la blacklist. Puteți să adăugați și un comentariu opțional.";
+$txt['BLACKLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista neagră. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEABLACKENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
-$txt['NEWSLISTFORADDRESS'] = "Listă de newsletter pentru adresa";
+$txt['NEWSLISTFORADDRESS'] = "Listă de buletine informative pentru adresă";
 $txt['ADDANEWSENTRY'] = "Adaugă o adresă listei";
 $txt['NEWSLISTENTRYTOADD'] = "Introduceți adresa pe care doriți să o adăugați la lista de newsletter. Puteți să adăugați și un comentariu opțional.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selectați adresa sau adresele pe care doriți să le modificați din listă și apoi click pe butonul destinat acțiunii dorite.";
@@ -496,7 +496,7 @@ $txt['BEENLOGGEDOUT'] = "Dacă doriți să începeți o nouă sesiune click pe l
 /*
  * Newsletters release
  */
-$txt['NLRELEASEDHEAD'] = "Newsletter-ul a fost acceptat și eliberat.";
-$txt['NLRELEASEDBODY'] = "Newsletter-ul a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
-$txt['NLNOTRELEASEDHEAD'] = "Newsletter-ul nu a fost eliberat";
+$txt['NLRELEASEDHEAD'] = "Buletinul informativ a fost acceptat și eliberat.";
+$txt['NLRELEASEDBODY'] = "Buletinul informativ a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
+$txt['NLNOTRELEASEDHEAD'] = "Buletinul informativ nu a fost eliberat";
 $txt['NLNOTRELEASEDBODY'] = "Există o problemă privind eliberarea mesajului. Vă rugăm să încercați mai târziu.";

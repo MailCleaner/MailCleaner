@@ -148,7 +148,7 @@ sub Checks {
   my $twolines = 0;
   foreach my $hl ($global::MS->{mta}->OriginalMsgHeaders($message)) {
     #print STDERR "Got line: $hl\n";
-    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {
+    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {#}
     if ($hl =~ m/^received:\s+from[^\[]+\[(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]/i ) {
       $h_id++;
       $full_received{$h_id} = $hl;
@@ -161,7 +161,7 @@ sub Checks {
     if ($hl =~ m/^received:\s+from/i) {
        $twolines = 1;
     }
-    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {
+    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {#}
     if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]?\)?/i) {
       my $potential_ip = $1;
       # avoid time expression that could be mistaken as ipv6
@@ -189,7 +189,33 @@ sub Checks {
       $full_received{$h_id} .= $hl;
       next;
     }
-    last if ($hl =~ m/^[^rR ]\w+: / );
+
+    if ($hl =~ m/^X-MailCleaner-TrustedIPs: Ok/i) {
+      my $string = 'sending IP is in Trusted Sources';
+      if ($TrustedSources::conf{debug}) {
+          MailScanner::Log::InfoLog("$MODULE $string");
+      }
+      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+      if ($TrustedSources::conf{'putHamHeader'}) {
+        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+      }
+      $message->{prefilterreport} .= ", $MODULE ($string)";
+      return 0;
+    }
+
+    if ($hl =~ m/^X-MailCleaner-White-IP-DOM: WhIPDom/i) {
+      my $string = 'sending IP is whitelisted for this domain';
+      if ($TrustedSources::conf{debug}) {
+          MailScanner::Log::InfoLog("$MODULE $string");
+      }
+      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+      if ($TrustedSources::conf{'putHamHeader'}) {
+        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+      }
+      $message->{prefilterreport} .= ", $MODULE ($string)";
+      return 0;
+    }
+
   }
 
   my $usealltrusted = $TrustedSources::conf{'useAllTrusted'};

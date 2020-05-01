@@ -12,9 +12,9 @@ $txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
 $txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
 $txt['NEWSLETTERACCEPT'] = "Acepte este Newsletter";
-$txt['SPAM_WHITELIST_DISABLED'] = "list no activa para este dominio (Contacto con el administrator)";
+$txt['SPAM_WHITELIST_DISABLED'] = "list no activa para este dominio (Contacto con el administrator).";
 ### missing translations
-$txt['FORGOTPASSWORD'] = "Contraseña olvidada";
+$txt['FORGOTPASSWORD'] = "Contraseña olvidada?";
 $txt['PASSWORDRESET'] = "La contraseña ha sido reseted. Se ha enviado a su correo electrónico.";
 /* 
  * generic buttons
@@ -341,7 +341,7 @@ $txt['NAME'] = "Name";
 //old
 $txt['FIRSTNAME'] = "Firstname";
 //old
-$txt['EMAIL'] = "E-mail";
+$txt['EMAIL'] = "Correo";
 //old
 $txt['YOURPHONENUMBER'] = "Phone number";
 //old
@@ -435,7 +435,7 @@ $txt['DIGEST'] = "Digest";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Detener los mensajes de error";
 $txt['PARAMETERSSAVED'] = "Sus par&aacute;metros fueron guardados.";
 $txt['NOTSAVED'] = "Your settings could not be saved.";
-$txt['INVALIDSUMMARYTO'] = "The email address provided for the reports is invalid";
+$txt['INVALIDSUMMARYTO'] = "La dirección de correo electrónico proporcionada para los informes no es válida";
 /* 
  * quarantine  (new)
  */

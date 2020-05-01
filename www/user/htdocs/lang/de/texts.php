@@ -494,7 +494,7 @@ $txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in 
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
 $txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
 //old
-$txt['EDITNEWSLIST'] = "Liste der Newsletter verwalten";
+$txt['EDITNEWSLIST'] = "Newslist editieren";
 //old
 $txt['NEWSLISTFOR'] = "Newsletterliste f&uuml;r __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Liste der Newsletter";
@@ -506,3 +506,4 @@ $txt['NEWSLISTFORADDRESS'] = "Newsletter-Liste für die Adresse";
 $txt['ADDANEWSENTRY'] = "Eine Adresse zur Liste hinzufügen";
 $txt['NEWSLISTENTRYTOADD'] = "Geben Sie die Adresse ein, die Sie in die Newsletterliste aufnehmen möchten. Sie können auch einen optionalen Kommentar hinzufügen.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Wählen Sie die Adresse oder die Adressen, die Sie ändern möchten, aus der Liste aus und klicken Sie auf die gewünschte Aktionsschaltfläche.";
+$txt['ADDTOGROUP'] = "Für alle Adressen in der Gruppe hinzufügen";

@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Esconder mensagens liberadas para usuários";
 $txt['FORCESPAM'] = "Liberar a mensagem";
 //old
 $txt['ASKREASON'] = "Mostrar regras de filtros";
-$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.</br>Note: Um ajuste de filtro não é o mesmo que lista branca ou lista negra";
+$txt['CONFSENDANALYSE'] = "Uma requisição de ajuste de filtro será enviado ao Centro de Análise da MailCleaner; ela inclui uma cópia da mensagem que foi erroneamente bloqueada.</br>Note: Um ajuste de filtro não é o mesmo que lista branca ou lista negra.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Você tem certeza que esta mensagem seja analisada e filtros de ajuste sejam aplicados?</span>";
 $txt['ASKANALYSE'] = "Pedido de ajustamento de filtro";
 $txt['PAGE'] = "Página";
@@ -187,7 +187,7 @@ $txt['PARTS'] = "Partes";
 $txt['STORESLAVE'] = "Armazenamento";
 $txt['SPAMCSCORE'] = "Nota de regra";
 $txt['DESCRIPTION'] = "Descrição";
-$txt['MESSAGEPREVIEW'] = "Pré-visualização da Mensagem";
+$txt['MESSAGEPREVIEW'] = "Exibir o conteúdo da mensagem";
 $txt['ID'] = "Identificador";
 /*
  * logout page
@@ -499,3 +499,4 @@ $txt['NEWSLISTSHORTHELP'] = "A lista de boletins informativos contém endereços
 ";
 $txt['NEWSLISTFORADDRESS'] = "Lista de boletins informativos para o endereço";
 $txt['NEWSLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de boletins informativos. Você também pode adicionar um comentário opcional.";
+$txt['ADDTOGROUP'] = "Adicionar para todos os endereços no grupo";

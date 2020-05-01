@@ -5,6 +5,7 @@ HOSTID=`grep 'HOSTID' /etc/mailcleaner.conf | sed 's/ //g' | cut -d '=' -f2`
 TIME=`date +%s`
 
 DIRBASE='/var/mailcleaner/spool/watchdog/'
+PIDDIR='/var/mailcleaner/run/watchdog/'
 REPORTSWRK=$DIRBASE'reports.wrk'
 FILE=$DIRBASE"reports/report-$CLIENTID-$HOSTID-$TIME.tar.gz"
 
@@ -14,6 +15,7 @@ fi
 
 # Nettoyage
 find $DIRBASE -type f -mtime +5 -exec rm {} \; > /dev/null 2>&1
+find $PIDDIR -type f -mmin +120 -exec rm {} \; > /dev/null 2>&1
 
 # Création du dossier temporaire, copie des fichiers et compression
 if [ ! -d "$REPORTSWRK"  ]; then

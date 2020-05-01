@@ -57,6 +57,8 @@ class Default_Model_MtaConfig
        'outgoing_virus_scan' => 0,
        'mask_relayed_ip' => 0,
        'masquerade_outgoing_helo' => 0,
+       'log_subject' => 0,
+       'log_attachments' => 0,
        'forbid_clear_auth' => 0,
        'dkim_default_domain' => '',
        'dkim_default_selector' => '',
@@ -65,7 +67,8 @@ class Default_Model_MtaConfig
        'reject_bad_spf' => 0,
        'reject_bad_rdns' => 0,
        'dmarc_follow_reject_policy' => 0,
-       'dmarc_enable_reports' => 0
+       'dmarc_enable_reports' => 0,
+       'ciphers' => '',
      );
 	
 	protected $_mapper;

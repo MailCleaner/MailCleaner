@@ -39,7 +39,7 @@ __IF__ USETLS
 tls_advertise_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
-tls_require_ciphers = ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2
+tls_require_ciphers = __CIPHERS__
 openssl_options = +no_sslv2 +no_sslv3
 __ELSE__ USETLS
 tls_advertise_hosts =
@@ -56,7 +56,12 @@ __IF__ ERRORS_REPLY_TO
 errors_reply_to = __ERRORS_REPLY_TO__
 __FI__
 
+__IF__ LOG_SUBJECT
+log_selector = +smtp_confirmation +delivery_size +subject
+__ELSE__ LOG_SUBJECT
 log_selector = +smtp_confirmation +delivery_size
+__FI__
+
 message_logs = true
 exim_user = mailcleaner
 exim_group = mailcleaner
@@ -220,8 +225,11 @@ warn ratelimit          = __TRUSTED_RATELIMIT_RULE__
  __FI__
 __FI__
 
+
 __IF__ RBL
-deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts ;\ 
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           dnslists      = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
@@ -241,6 +249,9 @@ deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
 __FI__
 
   deny    hosts         = HOSTBLACKLIST
+          !hosts        = <; 127.0.0.1 ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           message       = blacklisted host: $sender_host_address
           set acl_c8    = smtp:refused:host_blacklist
           set acl_c9    = STATSADD
@@ -254,6 +265,9 @@ __FI__
 
 acl_check_helo:
     deny    condition     = ${if eq {$sender_helo_name}{ylmf-pc} {yes}{no}}
+          !hosts        = <; 127.0.0.1 ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           log_message   = HELO/EHLO blocked
           message       = HELO/EHLO blocked
           set acl_c8    = smtp:refused:bad_helo
@@ -309,14 +323,23 @@ acl_check_rcpt:
           logwrite      = DEBUG - refused, bad local part 2 - smtp:refused,smtp:refused:bad_local_part2
  __FI__
 
+  warn    remove_header = X-MailCleaner-White-IP-DOM : X-MailCleaner-TrustedIPs
+  warn    hosts         = <; ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/spamcwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/spamcwhitelists/$domain}{}}}
+          add_header    = X-MailCleaner-White-IP-DOM: WhIPDom
+  warn    hosts         = <; +trusted_hosts
+          add_header    = X-MailCleaner-TrustedIPs: Ok
   warn    spf           = pass
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
 	  set acl_m_checkspf = $spf_result
   warn    !spf          = pass
-          !hosts        = +relay_from_hosts
+          !hosts        = <; +relay_from_hosts ; NOSPFDMARCHOSTS
           !authenticated = *
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
-
+  warn    !spf          = pass
+          hosts         = NOSPFDMARCHOSTS
+          remove_header = X-MailCleaner-SPF
+          add_header    = :after_received:X-MailCleaner-SPF: whitelisted (was $spf_result)
   deny    message       = This domain does not accept unsigned bounces.
           senders       = :
           domains       = +domains_to_check_batv
@@ -391,7 +414,9 @@ acl_check_rcpt:
 
   deny    domains       = +domains_to_preventspoof
           !authenticated = *
-          !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts
+          !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           condition     = ${if eq {$domain}{$sender_address_domain}}
 	  !spf		= pass
           message       = This domain does not accept mail from itself (spoofing)
@@ -412,7 +437,9 @@ acl_check_rcpt:
           logwrite      = Invalid reverse DNS for $sender_host_address (port $received_port)
 
 __IF__ REJECTBADRDNS
-  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           condition     = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
           condition     = ${if eq {$received_port}{587} {0}{1}}
           !authenticated = *
@@ -494,7 +521,9 @@ __IF__ SENDERVERIFY
 __FI__
 
 __IF__ RCPTRBL
-  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts ; \
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           dnslists = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
@@ -519,7 +548,9 @@ __FI__
 
 __IF__ BSRBL
   deny    senders = :
-          !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+          !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           !spf          = pass
           dnslists      = __BSRBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
@@ -543,7 +574,9 @@ __IF__ BSRBL
  __FI__
 __FI__
 __IF__ REJECTBADSPF
-  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
+  deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           spf           = fail
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message       = $sender_host_address is not allowed to send mail from ${if eq {$sender_address_domain}{} {(helo)$sender_helo_name}{$sender_address_domain}} (SPF failure)
@@ -561,6 +594,8 @@ __IF__ REJECTBADSPF
           logwrite      = DEBUG - refused, $sender_host_address is not allowed to send mail from $sender_address_domain (SPF failure) - smtp:refused,smtp:refused:badspf
  __FI__
 __FI__
+
+.include_if_exists  VARDIR/spool/tmp/exim_stage1/blacklists/ip-domain
 
  defer
           !spf          = pass
@@ -648,7 +683,9 @@ __FI__
 .include_if_exists  VARDIR/spool/tmp/exim_stage1/custom_acl_encryption
 
   warn    domains       = +relay_to_domains
-          hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
+          hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts ;\
+                           ${expand:${if exists {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain} \
+                             {VARDIR/spool/tmp/exim_stage1/rblwhitelists/$domain}{}}}
           control       = dmarc_disable_verify
  __IF__ DEBUG
           logwrite      = DMARC DEBUG: disabling dmarc from $sender_host_address, sender $sender_address
@@ -747,6 +784,11 @@ __FI__
  __FI__
 
 acl_check_mime:
+__IF__ LOG_ATTACHMENTS
+  warn  condition       = ${if def:mime_filename {true}{false}}
+        logwrite        = Attachment: $mime_filename
+__FI__
+
   ## Block .js and .jse in attachments and in zip/rar
   deny	message = Detected forbidden filetype (Security reasons).
 	log_message = Detected forbidden filetype (Security reasons): filename=$mime_filename, recipients=$recipients.
@@ -930,6 +972,12 @@ batv_redirect:
   driver = redirect
   domains = +domains_to_check_batv
   data = ${prvscheck {$local_part@$domain} {${lookup {$domain} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}} }
+
+send_to_smart_host:
+  driver = manualroute
+  transport = remote_smtp
+  domains = !+relay_to_domains
+  route_data = ${lookup{${domain:$h_From:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
 
 bypass_router:
   driver = manualroute

@@ -38,6 +38,7 @@ HASKASPERSKY=0
 
 prepare () {
   $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
+  $SRCDIR/bin/dump_html_controls_wl.pl >/dev/null 2>&1
   $SRCDIR/bin/dump_domains.pl >/dev/null 2>&1
   $SRCDIR/bin/dump_clamav_config.pl >/dev/null 2>&1
   chown -R mailcleaner:mailcleaner $SRCDIR/etc/mailscanner >/dev/null 2>&1

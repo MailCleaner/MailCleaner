@@ -183,6 +183,7 @@ return array(
    'preferences' => 'Preferences',
    'authentication' => 'Users authentication',
    'filtering' => 'Filtering',
+   'advanced' => 'Advanced features',
    'outgoing' => 'Outgoing relay',
    'archiving' => 'Archiving',
    'templates' => 'Templates',
@@ -212,6 +213,8 @@ return array(
    'addlook_mysql' => 'fetch address(es) from SQL database',
    'addlook_local' => 'fetch address(es) in local database',
    'Allow SMTP auth' => 'Allow users to use SMTP authentication',
+   'Relay via Smarthost' => 'Use a smarthost to relay to',
+   'Server Realy Smarthost' => 'Smarthost servers',
 
 ## domain filtering
    'Enable antispoof' => 'Reject unauthorized messages from this domain',

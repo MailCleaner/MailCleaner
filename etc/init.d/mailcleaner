@@ -68,7 +68,8 @@ case "$1" in
     $INITDIR/$MYMASTER start
     $INITDIR/$MYSLAVE start
     sleep 5
-    $INITDIR/$FW start
+    # To avoid  having the firewall down during all the MailCleaner services restart, we restart it here
+    $INITDIR/$FW restart
     echo -n "  Resyncing DB... "
     $INITDIR/$MYSLAVE restart 2>&1 > /dev/null
     echo "done."
@@ -120,7 +121,6 @@ case "$1" in
     $INITDIR/$STATSDAEMON stop
     $INITDIR/$PREFTDAEMON stop
     $INITDIR/$SPAMLOGGER stop
-    $INITDIR/$FW stop
     $INITDIR/$MYSLAVE stop
     $INITDIR/$MYMASTER stop
       ;;

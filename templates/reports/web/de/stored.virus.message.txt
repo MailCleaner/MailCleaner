@@ -3,9 +3,8 @@ Dies ist eine Nachricht vom Mailcleaner
 Der Dateianhang "$filename"
 ist von einem Virus verseucht und wurde durch diese Nachricht ersetzt.
 
-Wenn Sie eine Kopie der Original Nachricht wuenschen, wenden Sie sich bitte
-per Mail oder Telefon an Ihren Systemadministrator. Bitte halten Sie diese 
-Meldung bereit.
+Wenn Sie eine Kopie der Original Nachricht wuenschen, gehen Sie bitte zur :
+https://www.mailcleaner.net/support/support-request.html
 
 Am $date meldete der Virenscanner folgendes:
 $report

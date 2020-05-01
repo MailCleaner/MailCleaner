@@ -111,11 +111,31 @@ foreach my $msg (@nf_messages) {
 	   }
 	}
 	if ($filtermatch) {
-            if ($includerefused || ( $stage1_ids{$msg_o{'id'}} !~ m/rejected RCPT/ ) ) {
-		push @messages, $msg;
-            }
+		my $refused = 0;
+		if ( ! $includerefused ) {
+			# List of regexp matching the refused messages
+			my @regex = (
+				'rejected RCPT',
+				'Authentication failed',
+				'Authentication not allowed for the domain',
+				'Plaintext authentication disallowed on non-secure',
+				'no @ found in the subject of an address list match',
+				'fixed_login authenticator failed',
+				'SSL verify error .during R-verify'
+			);
+
+			foreach my $re (@regex) {
+				if ( $stage1_ids{$msg_o{'id'}} =~ m/$re/ ) {
+					$refused = 1;
+					last;
+				}
+			}
+		}
+		# Only add messages that were not refused
+		push @messages, $msg unless $refused;
 	}
 }
+
 
 print "Found ".@messages." occurrence(s)\n";
 

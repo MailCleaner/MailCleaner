@@ -1,0 +1,4 @@
+<?php
+$txt['SFALSENEGSUBTITLE'] = "스팸으로 고려하고 싶은 메일을 받은 적이 있습니까?";
+$txt['SMCLOGLINE1'] = "받음: mailcleaner.net 으로 부터 (필터링 데몬)";
+$txt['SMCFILTERINGLOG'] = "필터링 결과: X-Mailcleaner-spamscore: oooo";

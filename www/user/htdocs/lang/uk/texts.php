@@ -6,27 +6,27 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "Hírlevél";
-$txt['NEWSLETTERSTOPIC'] = "Hírlevelek";
-$txt['NEWSLETTERSTOPICTITLE'] = "Hírlevelek";
-$txt['NEWSLETTERSSHORTHELP'] = "Itt kezelheti a hírleveleket.";
+$txt['NEWSLETTERMODULE'] = "Newsletter";
+$txt['NEWSLETTERSTOPIC'] = "Newsletters";
+$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
+$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Elfogadja ezt a hírlevelet";
-$txt['SPAM_WHITELIST_DISABLED'] = "Ez a lista nem aktívált ehhez a tartományhoz (Forduljon a Rendszergazdához).";
+$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
 /*
  * generic buttons
  */
-$txt['SUBMIT'] = "Elküld";
-$txt['CANCEL'] = "Mégse";
-$txt['CLOSE'] = "Bezárás";
+$txt['SUBMIT'] = "Submit";
+$txt['CANCEL'] = "Cancel";
+$txt['CLOSE'] = "Close";
 // old
 $txt['ADD'] = "add";
-$txt['CONFIRM'] = "Jóváhagyás";
-$txt['REFRESH'] = "Frissítés";
-$txt['SEARCH'] = "Keresés";
-$txt['SEND'] = "Elküld";
+$txt['CONFIRM'] = "Confirm";
+$txt['REFRESH'] = "Refresh";
+$txt['SEARCH'] = "Search";
+$txt['SEND'] = "Send";
 // old
-$txt['CLEAR'] = "Törlés";
+$txt['CLEAR'] = "clear";
 /*
  * generic texts
  */
@@ -37,24 +37,24 @@ $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
 $txt['MONTHAB1'] = 'Jan.';
 $txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Már.';
-$txt['MONTHAB4'] = 'Ápr.';
-$txt['MONTHAB5'] = 'Máj.';
-$txt['MONTHAB6'] = 'Jún.';
-$txt['MONTHAB7'] = 'Júl.';
+$txt['MONTHAB3'] = 'Mar.';
+$txt['MONTHAB4'] = 'Apr.';
+$txt['MONTHAB5'] = 'May';
+$txt['MONTHAB6'] = 'June';
+$txt['MONTHAB7'] = 'July';
 $txt['MONTHAB8'] = 'Aug.';
-$txt['MONTHAB9'] = 'Szept.';
-$txt['MONTHAB10'] = 'Okt.';
+$txt['MONTHAB9'] = 'Sept.';
+$txt['MONTHAB10'] = 'Oct.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
-$txt['MONTH1'] = 'Január';
-$txt['MONTH2'] = 'Február';
-$txt['MONTH3'] = 'Március';
-$txt['MONTH4'] = 'Április';
-$txt['MONTH5'] = 'Május';
-$txt['MONTH6'] = 'Június';
-$txt['MONTH7'] = 'Július';
-$txt['MONTH8'] = 'Augusztus';
+$txt['MONTH1'] = 'January';
+$txt['MONTH2'] = 'February';
+$txt['MONTH3'] = 'March';
+$txt['MONTH4'] = 'April';
+$txt['MONTH5'] = 'May';
+$txt['MONTH6'] = 'June';
+$txt['MONTH7'] = 'July';
+$txt['MONTH8'] = 'August';
 $txt['MONTH9'] = 'September';
 $txt['MONTH10'] = 'October';
 $txt['MONTH11'] = 'November';
@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Hide user-released messages";
 $txt['FORCESPAM'] = "release the message";
 //old
 $txt['ASKREASON'] = "display filtering rules";
-$txt['CONFSENDANALYSE'] = "A szűrőbeállítási kérelmet a rendszer elküldi a MailCleaner Analysis Centernek; tartalmazza az üzenet egy példányát, amelyet tévesen blokkoltak.</br> Megjegyzés: A szűrőkorrekció nem egyezik meg az engedélyezési listával vagy a feketelistára.";
+$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was erroneously blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
 $txt['ASKANALYSE'] = "Filter adjustment request";
 $txt['PAGE'] = "Page";
@@ -186,8 +186,8 @@ $txt['BODY'] = "Body";
 $txt['PARTS'] = "Parts";
 $txt['STORESLAVE'] = "Storage";
 $txt['SPAMCSCORE'] = "Rules score";
-$txt['DESCRIPTION'] = "Megjegyzés";
-$txt['MESSAGEPREVIEW'] = "Az üzenet tartalmának megjelenítése";
+$txt['DESCRIPTION'] = "Description";
+$txt['MESSAGEPREVIEW'] = "Message preview";
 $txt['ID'] = "Identifier";
 /*
  * logout page
@@ -199,11 +199,11 @@ $txt['LOGOUTTEXT'] = "<p>Your MailCleaner session ended.</p><p>If you would like
 //old
 $txt['PARAMTITLE'] = "Personal MailCleaner settings";
 //old
-$txt['USERPARAM'] = "Felhasználi beállítások";
+$txt['USERPARAM'] = "User settings";
 //old
-$txt['ADDRESSPARAM'] = "Cím beállítások";
+$txt['ADDRESSPARAM'] = "Address settings";
 //old
-$txt['LANGUAGE'] = "Nyelv";
+$txt['LANGUAGE'] = "Language";
 $txt['ADDRESS'] = "Address";
 //old
 $txt['ADDRALIASTITLE'] = "Address group";
@@ -465,9 +465,9 @@ $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "Az engedélyezési lista olyan megbízható feladói címeket tartalmaz, amelyeknél soha nem történik karanténmegőrzés.<br>< /> 
-                                   Figyelmeztetés: Ezt a funkciót ideiglenes megoldásként kell használni, mivel csökkenti a teljes védelmet.
-                                  Az engedélyezési lista használatáról további információt a <a>href=\"help.php\"\"help\"</a>) című részben talál. 
+$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
+                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.

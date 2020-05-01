@@ -76,6 +76,10 @@ fi
 
 ret=$(downloadDatas "$VARDIR/spool/clamav/" "clamav3" $randomize "clamav" "\|main.cvd\|bytecode.cvd\|daily.cvd\|mirrors.dat" "noexit")
 
+if [ ! -d "$VARDIR/spool/tmp/clamav" ]; then
+        mkdir "$VARDIR/spool/tmp/clamav"
+fi
+
 # Creating a test file, the content doesnt matter
 testfile=/tmp/scan-test.txt
 if [ ! -e ${testfile} ]; then
@@ -86,15 +90,31 @@ fi
 cd /var/mailcleaner/spool/clamav
 # Foreach file
 for file in $(ls | grep -v "dbs.md5"); do
-#        echo "Checking ${file}"
-        # test if it is malformed
-        MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
 
-        # If the file is malformed, remove it
-        if [ ! -z ${MALFORMEDFILE} ] && [ -e ${MALFORMEDFILE} ] ; then
-                rm $MALFORMEDFILE
-                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $MALFORMEDFILE removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
-                MALFORMEDFILE=''
+        # Check if we should re run test on this file
+        PERFORM_VERIFICATION=1
+        if [ -e "$VARDIR/spool/tmp/clamav/$file" ]; then
+                CURRENT_MD5SUM=`md5sum $file |sed -e 's/ .*//'`
+                LAST_MD5SUM=`cat "$VARDIR/spool/tmp/clamav/$file"`
+                if [ "$CURRENT_MD5SUM" = "$LAST_MD5SUM" ]; then
+                        PERFORM_VERIFICATION=0
+                else
+                        rm "$VARDIR/spool/tmp/clamav/$file"
+                fi
+        fi
+
+        # test if it is malformed
+        if [ "$PERFORM_VERIFICATION" -eq "1" ]; then
+	        MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
+
+	        # If the file is malformed, remove it
+        	if [ ! -z "${MALFORMEDFILE}" ] ; then
+                	rm $file
+	                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $file removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
+        	        MALFORMEDFILE=''
+		else
+			echo $CURRENT_MD5SUM > "$VARDIR/spool/tmp/clamav/$file"
+		fi
         fi
 done
 cd -
@@ -102,7 +122,7 @@ cd -
 ## restart clamd daemon
 if [[ "$ret" -eq "1" ]]; then
 	kill -USR2 `cat $VARDIR/run/clamav/clamd.pid 2>/dev/null` > /dev/null 2>&1 
-	log "Database reloaded"
+	log "ClamAV - Database reloaded"
 fi
 
 removeLockFile "$FILE_NAME"
