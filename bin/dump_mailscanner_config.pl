@@ -472,7 +472,9 @@ sub dump_ocr_config
                           'etc/mailscanner/TesseractOcr.cf_template',
                           'share/spamassassin/TesseractOcr.cf');
   my %replace = ();
-  $replace{"__USE_OCR__"} = getModuleStatus('__USE_OCR__');
+  my %row = $db->getHashRow("SELECT use_ocr FROM antispam WHERE set_id=1");
+  $replace{"__USE_OCR__"} = $row{'use_ocr'};
+
   my @list = $db->getListOfHash('SELECT preprocess, msg_timeout, img_timeout, skip_jpg, skip_png, skip_gif, skip_bmp, skip_tif, skip_pdf, min_size, max_size, min_x, max_x, min_y, max_y, min_area, max_area FROM tocr_config');
   my %settings = %{$list[0]};
   foreach my $key (keys %settings) {
