@@ -223,6 +223,33 @@ sub do_start_script {
       }
     }
   }
+  
+  my @blacklist_files = ('/usr/mailcleaner/etc/firewall/blacklist.txt', '/usr/mailcleaner/etc/firewall/blacklist_custom.txt');
+  my $blacklist = 0;
+  my $blacklist_script = '/usr/mailcleaner/etc/firewall/blacklist';
+  unlink $blacklist_script;
+  foreach my $blacklist_file (@blacklist_files) {
+     if ( -e $blacklist_file ) {
+       if ( open(BLACK_IP, '<', $blacklist_file) ) {
+            open(BLACKLIST, '>>', $blacklist_script);
+            if ( $blacklist == 0 ) {
+               print BLACKLIST "#! /bin/sh\n\n";
+            }
+	    $blacklist = 1;
+            foreach my $IP (<BLACK_IP>) {
+                chomp($IP);
+                print BLACKLIST "iptables -A INPUT -s $IP -j DROP\n";
+            }
+            close BLACKLIST;
+            close BLACK_IP;
+       }
+     }
+  }
+  if ( $blacklist == 1 ) {
+    chmod 0755, $blacklist_script;
+    print START "\n$blacklist_script\n";
+  }
+   
   close START;
 
   chmod 0755, $start_script;
