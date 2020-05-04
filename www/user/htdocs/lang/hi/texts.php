@@ -91,3 +91,45 @@ $txt['NEWSLETTERSTOPIC'] = "समाचार पत्र";
  */
 ### newsl
 $txt['NEWSLETTERMODULE'] = "समाचार पत्र";
+$txt['CONFSENDANALYSE'] = "एक फ़िल्टर समायोजन अनुरोध MailCleaner विश्लेषण केंद्र को भेजा जाएगा; इसमें उस संदेश की एक प्रति शामिल है जिसे त्रुटिपूर्ण रूप से अवरुद्ध किया गया था।";
+//old
+$txt['ASKREASON'] = "फ़िल्टरिंग नियम प्रदर्शित करें";
+//old
+$txt['FORCESPAM'] = "संदेश जारी करें";
+//old
+$txt['HIDEFORCED'] = "उपयोगकर्ता-रिलीज़ किए गए संदेश छिपाएँ";
+$txt['PURGESELECTEDSPAMS'] = "मैन्युअल रूप से संगरोध शुद्ध करें";
+$txt['ACTION'] = "कार्य";
+$txt['FORCED'] = "रिहा";
+/*
+ * wwlist management
+ */
+//old
+$txt['SENDER'] = "प्रेषक";
+$txt['SUBJECT'] = "विषय";
+$txt['TO'] = "सेवा";
+$txt['FROM'] = "से";
+$txt['HOUR'] = "समय";
+$txt['DATE'] = "तारीख";
+//old
+$txt['COMINGFROM'] = "प्रेषक";
+//old
+$txt['SHOWEDMESSAGES'] = "प्रदर्शित संदेश";
+//old
+$txt['ADVANCEDSEARCH'] = "उन्नत खोज";
+//old
+$txt['FILTER'] = "फ़िल्टर";
+$txt['CLOSEWINDOW'] = "खिड़की बंद कर दो";
+$txt['ANALYSEREQUESTV'] = "फ़िल्टर समायोजन का अनुरोध करें";
+$txt['ANALYSEREQUEST'] = "फ़िल्टर समायोजन अनुरोध";
+$txt['MESSAGEFORCING'] = "संदेश जारी";
+$txt['FORCEMESSAGE'] = "संदेश जारी करें";
+//old
+$txt['CRITERIAS'] = "फ़िल्टर नियम";
+$txt['OSUBJECT'] = "विषय";
+$txt['OSENDER'] = "प्रेषक";
+$txt['ODESTINATION'] = "प्राप्त करने वाला";
+$txt['OSCORE'] = "स्कोर";
+$txt['OTIME'] = "समय";
+$txt['ODATE'] = "तारीख";
+$txt['RESETSEARCH'] = "पूर्ण संगरोध सूची प्रदर्शित करें";
