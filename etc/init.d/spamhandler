@@ -32,6 +32,15 @@ case "$1" in
     rm $VARDIR/run/$STARTERCLASS.*.rs >/dev/null 2>&1
     echo "started";
   ;;
+  # Testing
+  multistart)
+    touch $VARDIR/run/$STARTERCLASS.start.rs
+    echo -n "  Starting $VISIBLENAME:"
+    $DAEMON $DAEMONCLASS $OPTIONS multistart
+    rm $VARDIR/run/$STARTERCLASS.stopped >/dev/null 2>&1
+    rm $VARDIR/run/$STARTERCLASS.*.rs >/dev/null 2>&1
+    echo "started";
+  ;;
   stop)
     touch $VARDIR/run/$STARTERCLASS.stop.rs
     echo -n "  Stopping $VISIBLENAME: "

@@ -43,7 +43,9 @@ if ( @params < 2 ) {
 my $daemon = shift @params;
 my $action = pop @params;
 
-if ( $action !~ /^(start|stop|restart|status)$/ ) {
+# Testing
+#if ( $action !~ /^(start|stop|restart|status)$/ ) {
+if ( $action !~ /^(start|multistart|stop|restart|status)$/ ) {
 	show_usage( 'bad action (' . $action . ')' );
 }
 
@@ -83,6 +85,9 @@ my $daemon = new $daemon( \%options );
 
 if ( $action eq 'start' ) {
 	$daemon->initDaemon();
+}
+elsif ( $action eq 'multistart' ) {
+	$daemon->multiInitDaemon();
 }
 elsif ( $action eq 'stop' ) {
 	$daemon->exitAllDaemon();
