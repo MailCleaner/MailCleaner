@@ -1,6 +1,4 @@
-#! /bin/sh
-
-
+#!/bin/bash
 export PATH=$PATH:/sbin:/usr/sbin
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
@@ -12,10 +10,21 @@ if [ "VARDIR" = "" ]; then
   VARDIR=/var/mailcleaner
 fi
 
+ACTION=$1
 DAEMON=$SRCDIR/bin/daemon_starter.pl
 DAEMONCLASS=PrefTDaemon
 STARTERCLASS=preftdaemon
 VISIBLENAME="Preferences daemon"
+
+check_lockfile () {
+    for STATE in start stop restart; do
+        if [ -f $VARDIR/run/$STARTERCLASS.$STATE.rs ]; then
+            echo "failed to $ACTION."
+            echo "  Init locked: already running $STATE ($VARDIR/run/$STARTERCLASS.$STATE.rs)"
+            exit
+        fi
+    done
+}
 
 case "$2" in
   -d)
@@ -27,42 +36,45 @@ esac
 
 case "$1" in
   start)
-    touch $VARDIR/run/$STARTERCLASS.start.rs
     echo -n "  Starting $VISIBLENAME: "
+    check_lockfile
+    touch $VARDIR/run/$STARTERCLASS.start.rs
     $DAEMON $DAEMONCLASS $OPTIONS start
-    echo "started."
+    rm $VARDIR/run/$STARTERCLASS.start.rs >/dev/null 2>&1
+  ;;
+  # Testing
+  multistart)
+    touch $VARDIR/run/$STARTERCLASS.starting.rs
+    echo -n "  Starting $VISIBLENAME: "
+    $DAEMON $DAEMONCLASS $OPTIONS multistart
     rm $VARDIR/run/$STARTERCLASS.stopped >/dev/null 2>&1
     rm $VARDIR/run/$STARTERCLASS.*.rs >/dev/null 2>&1
-    
   ;;
   stop)
-    touch $VARDIR/run/$STARTERCLASS.stop.rs
     echo -n "  Stopping $VISIBLENAME: "
+    check_lockfile
+    touch $VARDIR/run/$STARTERCLASS.stop.rs
     $DAEMON $DAEMONCLASS $OPTIONS stop
-    echo "stopped."
+    rm $VARDIR/run/$STARTERCLASS.pid >/dev/null 2>&1
     rm $VARDIR/run/$STARTERCLASS.stop.rs >/dev/null 2>&1
-    touch $VARDIR/run/$STARTERCLASS.stopped
-  ;;
-  stopall)
-    touch $VARDIR/run/$STARTERCLASS.stop.rs
-    echo -n "  Stopping $VISIBLENAME: "
-    $DAEMON $DAEMONCLASS $OPTIONS stopall
-    echo "stopped."
-    rm $VARDIR/run/$STARTERCLASS.stop.rs >/dev/null 2>&1
-    touch $VARDIR/run/$STARTERCLASS.stopped
   ;;
   restart)
+    echo -n "  Stopping $VISIBLENAME: "
+    check_lockfile
     touch $VARDIR/run/$STARTERCLASS.restart.rs
-    echo -n "  Restarting $VISIBLENAME: "
-    $DAEMON $DAEMONCLASS $OPTIONS restart
-    echo "restarted."
+    $DAEMON $DAEMONCLASS $OPTIONS stop
+    rm $VARDIR/run/$STARTERCLASS.pid >/dev/null 2>&1
+    echo -n "  Starting $VISIBLENAME: "
+    $DAEMON $DAEMONCLASS $OPTIONS start
     rm $VARDIR/run/$STARTERCLASS.restart.rs >/dev/null 2>&1
   ;;
   status)
+    echo -n "  $VISIBLENAME: "
+    check_lockfile
     $DAEMON $DAEMONCLASS $OPTIONS status
   ;;
   *)
-    echo "Usage: $SRCDIR/etc/init.d/$STARTERCLASS {start|stop|stopall|restart|status}"
+    echo "Usage: $SRCDIR/etc/init.d/$STARTERCLASS {start|stop|restart|status}"
     exit 1
 esac
 

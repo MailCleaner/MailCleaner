@@ -163,6 +163,8 @@ sub create {
 
 sub initDaemon {
     my $this = shift;
+    my $result = 'not started';
+    my @errors;
 
     ## change user and group if needed
     if ( $this->{'gid'} ) {
@@ -190,6 +192,7 @@ sub initDaemon {
     require Proc::ProcessTable;
     my $t = new Proc::ProcessTable;
     my $match = 0;
+    my @errors;
     foreach my $p ( @{ $t->table } ) {
         my $cmndline = $p->{'cmndline'};
         $cmndline =~ s/\s*$//g;
@@ -199,17 +202,14 @@ sub initDaemon {
             } elsif (scalar(grep(/$p->{'pid'}/,@pids))) {
                 $match = $p->{'pid'};
             } else {
-                print STDOUT
-             	"\n  Orphaned process detected ($p->{'pid'})";
+                $p->kill(9);
             }
         }
     }
 
     if ($match) {
-        print STDOUT "  Found $match matching expected PID (already running). Not ";
-        return 1;
-    } else {
-        print STDOUT "  No existing process found. ";
+        push @errors, "Found $match matching expected PID (already running).";
+        output("not started", @errors);
     }
 
     $this->doLog( 'Initializing Daemon', 'daemon' );
@@ -224,36 +224,45 @@ sub initDaemon {
     if ( $this->{daemonize} ) {
 
         # first daemonize
-        open STDIN,  '/dev/null';
-        open STDOUT, '>>/dev/null';
-        open STDERR, '>>/dev/null';
         my $pid = fork;
         if ($pid) {
-            my $cmd = "echo $pid > " . $this->{pidfile};
-            `$cmd`;
-        }
-        if ($pid) {
+            # parent
+            open my $fh, ">>", $this->{pidfile};
+            print $fh $pid;
+            close $fh;
             $this->doLog( 'Deamonized with PID ' . $pid, 'daemon' );
+            $result = "started.";
+            output($result,@errors);
+            exit();
+        } elsif ($pid == -1) {
+            # failed
+            $result = "not started.";
+            push @errors, "Couldn't fork: $!";
+            output($result,@errors);
+        } else {
+            # child
+            open STDIN,  '/dev/null';
+            open STDOUT, '>>/dev/null';
+            open STDERR, '>>/dev/null';
+            setsid();
+            umask 0;
         }
-        exit if $pid;
-        die "Couldn't fork: $!" unless defined($pid);
-        setsid();
-        umask 0;
-    }
-    else {
+    } else {
         my $pid = $$;
-        my $cmd = "echo $pid > " . $this->{pidfile};
-        `$cmd`;
+        open my $fh, ">>", $this->{pidfile};
+        print $fh $pid;
+        close $fh;
     }
 
     $this->preForkHook();
-
     $this->forkChildren();
 }
 
 # Testing. Easy way to start excess processes
 sub multiInitDaemon {
     my $this = shift;
+    my $result = 'not started';
+    my @errors;
 
     ## change user and group if needed
     if ( $this->{'gid'} ) {
@@ -293,10 +302,6 @@ sub multiInitDaemon {
         open STDERR, '>>/dev/null';
         my $pid = fork;
         if ($pid) {
-            my $cmd = "echo $pid > " . $this->{pidfile};
-            `$cmd`;
-        }
-        if ($pid) {
             $this->doLog( 'Deamonized with PID ' . $pid, 'daemon' );
         }
         exit if $pid;
@@ -306,8 +311,6 @@ sub multiInitDaemon {
     }
     else {
         my $pid = $$;
-        my $cmd = "echo $pid > " . $this->{pidfile};
-        `$cmd`;
     }
 
     $this->preForkHook();
@@ -315,65 +318,17 @@ sub multiInitDaemon {
     $this->forkChildren();
 }
 
-
 sub exitDaemon {
     my $this = shift;
-
+    my $result = 'not stopped';
     my $time_before_hardkill = $this->{time_before_hardkill};
-    my @pids                 = $this->readPidFile();
-    my $hardkilled           = 0;
-    if (@pids) {
-        while (<PIDFILE>) {
-            if (/(\d+)/) {
-                push @pids, $1;
-            }
-        }
 
-        ## first send a TERM signal
-        foreach my $pid (@pids) {
-            kill 15, $pid;
-        }
-        sleep 1;
-        my $start_ps = [gettimeofday];
-        ## then wait for processes to die, or kill'em if wait is too long
-        my $pidstillhere = 1;
-        while ( $pidstillhere && @pids ) {
-            my $t = new Proc::ProcessTable;
-            $pidstillhere = 0;
-            foreach my $p ( @{ $t->table } ) {
-                foreach my $pid (@pids) {
-                    if ( $p->pid == $pid ) {
-                        if ( tv_interval($start_ps) > $time_before_hardkill ) {
-                            print STDOUT "Hard killing process: "
-                              . $p->pid . " ("
-                              . $p->cmndline . ")\n";
-                            $p->kill(9);
-                            $hardkilled++;
-                            next;
-                        }
-                        else {
-                            $p->kill(15);
-                            $pidstillhere = 1;
-                        }
-                    }
-                }
-            }
-            sleep 1;
-        }
-
-    }
-    if ( -f $this->{pidfile} && !$hardkilled ) {
-        unlink( $this->{pidfile} );
-    }
-}
-
-sub exitAllDaemon {
-    my $this = shift;
-
+    my @errors;
     my @pids = $this->readPidFile();
 
     require Proc::ProcessTable;
-    my $t   = new Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+
     my @running = ();
     my $match = 0;
     foreach my $p ( @{ $t->table } ) {
@@ -385,32 +340,50 @@ sub exitAllDaemon {
             }
             push @running, $p->{'pid'};
             if (scalar(grep(/$p->{'pid'}/,@pids))) {
-                print STDOUT
-                "\n  Active process detected ($p->{'pid'}). Killing... ";
+                push @errors, "Active process detected ($p->{'pid'}). Killing... ";
                 $match = $p->{'pid'};
             } else {
-                print STDOUT
-             	"\n  Orphaned process detected ($p->{'pid'}). Killing... ";
+                push @errors, "Orphaned process detected ($p->{'pid'}). Killing... ";
             }
 
-            if ($p->kill(9)) {
-                pop @running;
-                print STDOUT "Done\n";
+            my $pidstillhere = 1;
+            my $start_ps = [gettimeofday];
+            while ($pidstillhere) {
+                if ( tv_interval($start_ps) > $time_before_hardkill ) {
+                    $p->kill(9);
+                    last;
+                } else {
+                    $p->kill(15);
+                }
+                sleep 1;
+                $pidstillhere = 0;
+                my $n = new Proc::ProcessTable;
+                foreach ( @{$t->table} ) {
+                    if ($_->{'pid'} == $p->{'pid'}) {
+                        $pidstillhere = 1;
+                        last;
+                    }
+                }
+            }
+            if ($pidstillhere) {
+                $errors[scalar(@errors)-1] .= "Failed.";
             } else {
-                print STDOUT "Failed\n";
+                pop @running;
+                $errors[scalar(@errors)-1] .= "Done.";
             }
         }
     }
 
     if (scalar @running) {
-        print STDOUT "  Failed to stop all processes (" . join(', ',@running) . ") not "; 
+        push @errors, "Failed to stop all processes (" . join(', ',@running) . ") not stopped."; 
     } elsif ($match) {
-        print STDOUT "  Successfully ";
+        $result = "stopped.";
+        @errors = ();
     } else {
-        print STDOUT "  No existing active process found. Not ";
+        push @errors, "No existing active process found.";
     }
 
-    return 1;
+    output($result,@errors);
 }
 
 sub status {
@@ -557,9 +530,53 @@ sub postKillHook {
 
 sub statusHook {
     my $this = shift;
+    my @errors;
 
-    print "No status available for this daemon.\n";
-    exit;
+    my @pids = $this->readPidFile();
+    my $time_before_hardkill = $this->{time_before_hardkill};
+
+    require Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+    my @match;
+    foreach my $p ( @{ $t->table } ) {
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            } elsif (scalar(grep(/$p->{'pid'}/,@pids))) {
+                push @match, $p->{'pid'};
+            } else {
+             	push @errors, "Orphaned process detected ($p->{'pid'})";
+            }
+        }
+    }
+
+    if (scalar(@pids)) {
+        if (scalar(@match) == scalar(@pids)) {
+            if (scalar(@errors)) {
+                return "running with errors.\n  " . join('\n  ',@errors);
+            } else {
+                return "running.";
+            }
+        } else {
+            my @missing;
+            foreach (@pids) {
+                unless (scalar(grep(/$_/,@{ $t->table }))) {
+                    push @missing, $_;
+                }
+            }
+            if (scalar @missing) {
+                push @errors, "Expected PIDs from PID file not found: " . join(', ',@missing);
+            }
+        }
+    }
+
+    if (scalar(@errors)) {
+        return "not running, but errors found.\n  " . join('\n  ',@errors);
+    } else {
+        return "not running.";
+    } 
 }
 
 #### Threads tools
@@ -704,4 +721,16 @@ sub profile_output {
     }
     $this->doLog($out);
 }
+
+sub output {
+    my ($result,@errors) = @_;
+    if (scalar @errors) {
+        print STDOUT "$result\n  " . join("\n  ",@errors) . "\n";
+        return 1;
+    } else {
+        print STDOUT $result . "\n";
+        return 0;
+    }
+}
+
 1;

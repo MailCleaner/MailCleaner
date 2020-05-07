@@ -90,21 +90,23 @@ elsif ( $action eq 'multistart' ) {
 	$daemon->multiInitDaemon();
 }
 elsif ( $action eq 'stop' ) {
-	$daemon->exitAllDaemon();
+	$daemon->exitDaemon();
 }
 elsif ( $action eq 'restart' ) {
     print "  Stopping... ";
-	$daemon->exitAllDaemon();
+	$daemon->exitDaemon();
     print "stopped\n  Starting...";
 	$daemon->initDaemon();
 }
 elsif ( $action eq 'status' ) {
 	my $res = $daemon->status();
-	if ( $res =~ /^_/ ) {
+    if ( $res =~ /^_/ ) {
 		print "No status available (" . $res . ")\n";
-	}
-	else {
-		print $res. "\n";
+    } elsif ( $res =~ /NOSERVER/ ) {
+        print "not running.\n";
+    } else {
+        $res =~ s/^\-/running.\n-/;
+		print $res . "\n";
 	}
 }
 
