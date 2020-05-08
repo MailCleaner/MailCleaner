@@ -133,3 +133,6 @@ $txt['OSCORE'] = "स्कोर";
 $txt['OTIME'] = "समय";
 $txt['ODATE'] = "तारीख";
 $txt['RESETSEARCH'] = "पूर्ण संगरोध सूची प्रदर्शित करें";
+$txt['NEXTPAGE'] = "आगे";
+$txt['PAGE'] = "पृष्ठ";
+$txt['ASKANALYSE'] = "फ़िल्टर समायोजन अनुरोध";
