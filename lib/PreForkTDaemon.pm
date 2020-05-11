@@ -258,66 +258,6 @@ sub initDaemon {
     $this->forkChildren();
 }
 
-# Testing. Easy way to start excess processes
-sub multiInitDaemon {
-    my $this = shift;
-    my $result = 'not started';
-    my @errors;
-
-    ## change user and group if needed
-    if ( $this->{'gid'} ) {
-        ( $(, $) ) = ( $this->{'gid'}, $this->{'gid'} );
-        $( == $this->{'gid'} && $) == $this->{'gid'}
-          or die "Can't set GID " . $this->{'gid'};
-        $) = $this->{'gid'};
-    }
-    if ( $this->{'uid'} ) {
-        ( $<, $> ) = ( $this->{'uid'}, $this->{'uid'} );
-        $< == $this->{'uid'} && $> == $this->{'uid'}
-          or die "Can't set UID " . $this->{'uid'};
-    }
-    $this->doLog(
-        'Set UID to ' . $this->{'runasgroup'} . "(" . $< . ")",
-        'daemon'
-    );
-    $this->doLog(
-        'Set GID to ' . $this->{'runasgroup'} . "(" . $( . ")",
-        'daemon'
-    );
-
-    $this->doLog( 'Initializing Daemon', 'daemon' );
-
-# first install some critical signal handler so that main script wont get killed
-    $SIG{ALRM} =
-      sub { $this->doLog( "Got alarm signal.. nothing to do", 'daemon' ); };
-    $SIG{PIPE} = sub {
-        $this->doLog( "Got PIPE signal.. nothing to do", 'daemon' );
-    };
-
-    if ( $this->{daemonize} ) {
-
-        # first daemonize
-        open STDIN,  '/dev/null';
-        open STDOUT, '>>/dev/null';
-        open STDERR, '>>/dev/null';
-        my $pid = fork;
-        if ($pid) {
-            $this->doLog( 'Deamonized with PID ' . $pid, 'daemon' );
-        }
-        exit if $pid;
-        die "Couldn't fork: $!" unless defined($pid);
-        setsid();
-        umask 0;
-    }
-    else {
-        my $pid = $$;
-    }
-
-    $this->preForkHook();
-
-    $this->forkChildren();
-}
-
 sub exitDaemon {
     my $this = shift;
     my $result = 'not stopped';
