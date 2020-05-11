@@ -43,8 +43,6 @@ if ( @params < 2 ) {
 my $daemon = shift @params;
 my $action = pop @params;
 
-# Testing
-#if ( $action !~ /^(start|stop|restart|status)$/ ) {
 if ( $action !~ /^(start|stop|restart|status)$/ ) {
 	show_usage( 'bad action (' . $action . ')' );
 }
@@ -114,7 +112,7 @@ sub show_usage {
 
 	print "daemon_starter: Bad usage ($reason).\n";
 	print
-"\t daemonstarter daemon [parameters] (start|stop|stopall|status)\n";
+"\t daemonstarter daemon [parameters] (start|stop|restart|status)\n";
 
 	exit 1;
 }
