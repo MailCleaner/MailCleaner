@@ -63,7 +63,7 @@ class Default_Form_DomainGeneral extends Zend_Form
                 'uncheckedValue' => "0",
                 'checkedValue' => "1"));
 
-            if ($this->_domain->getPref('active')) {
+            if ($this->_domain->getParam('active')) {
                 $enabledomain->setChecked(true);
             }
 	    $domain_active_value = strtolower($this->_domain->getParam('active')) == "true" ? true : false;
@@ -140,6 +140,9 @@ class Default_Form_DomainGeneral extends Zend_Form
 		}
 		$alias = preg_split('/\n/', $request->getParam('aliases'));
 		sort($alias);
+
+		$domain->setParam('active', $request->getParam('enabledomain'));
+
 		return $domain->setAliases($alias);
 	}
 
