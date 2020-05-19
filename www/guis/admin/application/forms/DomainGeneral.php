@@ -66,8 +66,6 @@ class Default_Form_DomainGeneral extends Zend_Form
             if ($this->_domain->getParam('active')) {
                 $enabledomain->setChecked(true);
             }
-	    $domain_active_value = strtolower($this->_domain->getParam('active')) == "true" ? true : false;
-	    $enabledomain->setValue($domain_active_value);
             $this->addElement($enabledomain);
 
 
