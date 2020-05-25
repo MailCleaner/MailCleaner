@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -59,7 +60,7 @@ $time_in{'gathering_config'} = time() - $previous_time;
 $previous_time = time();
 
 ######### Dump domains list
-my @domain_list = $slave_db->getListOfHash("SELECT * FROM domain d, domain_pref dp WHERE d.active='true' AND d.name != '__global__' AND d.prefs=dp.id");
+my @domain_list = $slave_db->getListOfHash("SELECT * FROM domain d, domain_pref dp WHERE (d.active='true' || d.active=1) AND d.name != '__global__' AND d.prefs=dp.id");
 
 if (!@domain_list) {
  die('file not dumped, no domain could be retrieved');
