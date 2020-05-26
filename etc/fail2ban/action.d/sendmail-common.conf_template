@@ -1,0 +1,23 @@
+# Fail2Ban configuration file
+#
+# Common settings for sendmail actions
+#
+# Users can override the defaults in sendmail-common.local
+
+[INCLUDES]
+
+after = sendmail-common.local
+
+[Init]
+
+# Recipient mail address
+#
+dest = {{ dest_email }} 
+
+# Sender mail address
+#
+sender = {{ src_email }} 
+
+# Sender display name
+#
+sendername = {{ src_name }} 
