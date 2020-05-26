@@ -136,3 +136,9 @@ $txt['RESETSEARCH'] = "पूर्ण संगरोध सूची प्र
 $txt['NEXTPAGE'] = "आगे";
 $txt['PAGE'] = "पृष्ठ";
 $txt['ASKANALYSE'] = "फ़िल्टर समायोजन अनुरोध";
+$txt['TOTAL'] = "संपूर्ण";
+$txt['SCORE'] = "स्कोर";
+$txt['HITRULE'] = "नियम";
+//old
+$txt['GETREASONSTITLE'] = "छानने के कारण";
+$txt['PREVIOUSPAGE'] = "पिछला";
