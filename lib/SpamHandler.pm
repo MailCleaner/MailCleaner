@@ -122,7 +122,7 @@ sub mainLoopHook() {
  
         threads->detach();
         $this->doLog( "Thread " . $t->tid . " detached.", 'daemon' );
-	$this->disconnect();
+        #$this->disconnect();
         threads->exit();
         $this->doLog( "Huho... Thread " . $t->tid . " still working though...",
             'daemon', 'error' );

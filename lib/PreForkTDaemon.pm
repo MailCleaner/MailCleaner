@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -162,6 +163,8 @@ sub create {
 
 sub initDaemon {
     my $this = shift;
+    my $result = 'not started';
+    my @errors;
 
     ## change user and group if needed
     if ( $this->{'gid'} ) {
@@ -186,18 +189,27 @@ sub initDaemon {
 
     my @pids = $this->readPidFile();
 
-    if (@pids) {
-        require Proc::ProcessTable;
-        my $t = new Proc::ProcessTable;
-        foreach my $p ( @{ $t->table } ) {
-            foreach my $pid (@pids) {
-                if ( $p->pid == $pid ) {
-                    print STDOUT
-                      "(already running) ";
-                    exit 1;
-                }
+    require Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+    my $match = 0;
+    my @errors;
+    foreach my $p ( @{ $t->table } ) {
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            } elsif (scalar(grep(/$p->{'pid'}/,@pids))) {
+                $match = $p->{'pid'};
+            } else {
+                $p->kill(9);
             }
         }
+    }
+
+    if ($match) {
+        push @errors, "Found $match matching expected PID (already running).";
+        output("not started", @errors);
     }
 
     $this->doLog( 'Initializing Daemon', 'daemon' );
@@ -212,104 +224,106 @@ sub initDaemon {
     if ( $this->{daemonize} ) {
 
         # first daemonize
-        open STDIN,  '/dev/null';
-        open STDOUT, '>>/dev/null';
-        open STDERR, '>>/dev/null';
         my $pid = fork;
         if ($pid) {
-            my $cmd = "echo $pid > " . $this->{pidfile};
-            `$cmd`;
-        }
-        if ($pid) {
+            # parent
+            open my $fh, ">>", $this->{pidfile};
+            print $fh $pid;
+            close $fh;
             $this->doLog( 'Deamonized with PID ' . $pid, 'daemon' );
+            $result = "started.";
+            output($result,@errors);
+            exit();
+        } elsif ($pid == -1) {
+            # failed
+            $result = "not started.";
+            push @errors, "Couldn't fork: $!";
+            output($result,@errors);
+        } else {
+            # child
+            open STDIN,  '/dev/null';
+            open STDOUT, '>>/dev/null';
+            open STDERR, '>>/dev/null';
+            setsid();
+            umask 0;
         }
-        exit if $pid;
-        die "Couldn't fork: $!" unless defined($pid);
-        setsid();
-        umask 0;
-    }
-    else {
+    } else {
         my $pid = $$;
-        my $cmd = "echo $pid > " . $this->{pidfile};
-        `$cmd`;
+        open my $fh, ">>", $this->{pidfile};
+        print $fh $pid;
+        close $fh;
     }
 
     $this->preForkHook();
-
     $this->forkChildren();
 }
 
 sub exitDaemon {
     my $this = shift;
-
+    my $result = 'not stopped';
     my $time_before_hardkill = $this->{time_before_hardkill};
-    my @pids                 = $this->readPidFile();
-    my $hardkilled           = 0;
-    if (@pids) {
-        while (<PIDFILE>) {
-            if (/(\d+)/) {
-                push @pids, $1;
-            }
-        }
 
-        ## first send a TERM signal
-        foreach my $pid (@pids) {
-            kill 15, $pid;
-        }
-        sleep 1;
-        my $start_ps = [gettimeofday];
-        ## then wait for processes to die, or kill'em if wait is too long
-        my $pidstillhere = 1;
-        while ( $pidstillhere && @pids ) {
-            my $t = new Proc::ProcessTable;
-            $pidstillhere = 0;
-            foreach my $p ( @{ $t->table } ) {
-                foreach my $pid (@pids) {
-                    if ( $p->pid == $pid ) {
-                        if ( tv_interval($start_ps) > $time_before_hardkill ) {
-                            print STDOUT "Hard killing process: "
-                              . $p->pid . " ("
-                              . $p->cmndline . ")\n";
-                            $p->kill(9);
-                            $hardkilled++;
-                            next;
-                        }
-                        else {
-                            $p->kill(15);
-                            $pidstillhere = 1;
-                        }
+    my @errors;
+    my @pids = $this->readPidFile();
+
+    require Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+
+    my @running = ();
+    my $match = 0;
+    foreach my $p ( @{ $t->table } ) {
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            }
+            push @running, $p->{'pid'};
+            if (scalar(grep(/$p->{'pid'}/,@pids))) {
+                push @errors, "Active process detected ($p->{'pid'}). Killing... ";
+                $match = $p->{'pid'};
+            } else {
+                push @errors, "Orphaned process detected ($p->{'pid'}). Killing... ";
+            }
+
+            my $pidstillhere = 1;
+            my $start_ps = [gettimeofday];
+            while ($pidstillhere) {
+                if ( tv_interval($start_ps) > $time_before_hardkill ) {
+                    $p->kill(9);
+                    last;
+                } else {
+                    $p->kill(15);
+                }
+                sleep 1;
+                $pidstillhere = 0;
+                my $n = new Proc::ProcessTable;
+                foreach ( @{$t->table} ) {
+                    if ($_->{'pid'} == $p->{'pid'}) {
+                        $pidstillhere = 1;
+                        last;
                     }
                 }
             }
-            sleep 1;
-        }
-
-        #if (@pids) {
-        #   print "Terminated all process\n";
-        #}
-    }
-    if ( -f $this->{pidfile} && !$hardkilled ) {
-        unlink( $this->{pidfile} );
-    }
-}
-
-sub exitAllDaemon {
-    my $this = shift;
-
-    my $pname = $this->{name};
-    require Proc::ProcessTable;
-    my $t   = new Proc::ProcessTable;
-    my $pid = $$;
-    foreach my $p ( @{ $t->table } ) {
-        if ( $p->cmndline eq $pname && $p->pid != $pid ) {
-            print "Killing process: "
-              . $p->cmndline . " ("
-              . $p->pid . ", "
-              . $p->state . ")\n";
-            $p->kill(9);
+            if ($pidstillhere) {
+                $errors[scalar(@errors)-1] .= "Failed.";
+            } else {
+                pop @running;
+                $errors[scalar(@errors)-1] .= "Done.";
+            }
         }
     }
-    return 1;
+
+    if (scalar @running) {
+        push @errors, "Failed to stop all processes (" . join(', ',@running) . ") not stopped."; 
+    } elsif ($match) {
+        $result = "stopped.";
+        @errors = ();
+    } else {
+        push @errors, "No existing active process found.";
+    }
+
+    output($result,@errors);
 }
 
 sub status {
@@ -456,9 +470,53 @@ sub postKillHook {
 
 sub statusHook {
     my $this = shift;
+    my @errors;
 
-    print "No status available for this daemon.\n";
-    exit;
+    my @pids = $this->readPidFile();
+    my $time_before_hardkill = $this->{time_before_hardkill};
+
+    require Proc::ProcessTable;
+    my $t = new Proc::ProcessTable;
+    my @match;
+    foreach my $p ( @{ $t->table } ) {
+        my $cmndline = $p->{'cmndline'};
+        $cmndline =~ s/\s*$//g;
+        if ($cmndline eq $this->{'name'}) {
+            if ($p->{'pid'} == $$) {
+                next;
+            } elsif (scalar(grep(/$p->{'pid'}/,@pids))) {
+                push @match, $p->{'pid'};
+            } else {
+             	push @errors, "Orphaned process detected ($p->{'pid'})";
+            }
+        }
+    }
+
+    if (scalar(@pids)) {
+        if (scalar(@match) == scalar(@pids)) {
+            if (scalar(@errors)) {
+                return "running with errors.\n  " . join('\n  ',@errors);
+            } else {
+                return "running.";
+            }
+        } else {
+            my @missing;
+            foreach (@pids) {
+                unless (scalar(grep(/$_/,@{ $t->table }))) {
+                    push @missing, $_;
+                }
+            }
+            if (scalar @missing) {
+                push @errors, "Expected PIDs from PID file not found: " . join(', ',@missing);
+            }
+        }
+    }
+
+    if (scalar(@errors)) {
+        return "not running, but errors found.\n  " . join('\n  ',@errors);
+    } else {
+        return "not running.";
+    } 
 }
 
 #### Threads tools
@@ -603,4 +661,16 @@ sub profile_output {
     }
     $this->doLog($out);
 }
+
+sub output {
+    my ($result,@errors) = @_;
+    if (scalar @errors) {
+        print STDOUT "$result\n  " . join("\n  ",@errors) . "\n";
+        return 1;
+    } else {
+        print STDOUT $result . "\n";
+        return 0;
+    }
+}
+
 1;
