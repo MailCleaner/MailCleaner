@@ -381,6 +381,16 @@ if ($itsmidnight) {
     exit;
   }
 
+  if (my $pid_clkav = fork) {
+  } elsif (defined $pid_clkav) {
+    print "cleaning Kaspersky temporary files...\n";
+    system($config{'SRCDIR'}."/scripts/cron/clean_kav_tmp.sh >/dev/null 2>&1");
+    print "done cleaning kaspersky temporary files.\n";
+    exit;
+  }
+
+
+
   ###########################
   ## network antispam updates
   ###########################
