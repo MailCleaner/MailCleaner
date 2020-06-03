@@ -209,7 +209,7 @@ sub initDaemon {
 
     if ($match) {
         push @errors, "Found $match matching expected PID (already running).";
-        output("not started", @errors);
+        return output("not started", @errors);
     }
 
     $this->doLog( 'Initializing Daemon', 'daemon' );
@@ -232,13 +232,13 @@ sub initDaemon {
             close $fh;
             $this->doLog( 'Deamonized with PID ' . $pid, 'daemon' );
             $result = "started.";
-            output($result,@errors);
+            return output($result,@errors);
             exit();
         } elsif ($pid == -1) {
             # failed
             $result = "not started.";
             push @errors, "Couldn't fork: $!";
-            output($result,@errors);
+            return output($result,@errors);
         } else {
             # child
             open STDIN,  '/dev/null';
@@ -323,7 +323,7 @@ sub exitDaemon {
         push @errors, "No existing active process found.";
     }
 
-    output($result,@errors);
+    return output($result,@errors);
 }
 
 sub status {
