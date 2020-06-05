@@ -271,7 +271,7 @@ class Api_Model_DomainAPI
 	private function setupParams($domain, $params) {
 		## aliases
 		if (isset($params['aliases'])) {
-			$domain->setAliases(preg_split('/[^a-zA-Z0-9.-_]/', $params['aliases']));
+			$domain->setAliases(preg_split('/[^a-zA-Z0-9\.\-_]/', $params['aliases']));
 		}
 		## general options
 		foreach (array('systemsender', 'falseneg_to', 'falsepos_to', 'supportname', 'supportemail') as $pref) {
