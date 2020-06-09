@@ -219,7 +219,7 @@ class SystemConfig extends PrefHandler {
 
         $db_slaveconf = DM_SlaveConfig :: getInstance();
 
-        $query = "SELECT name FROM domain WHERE active='true' AND name != '__global__'";
+        $query = "SELECT name FROM domain WHERE (active='true' OR active=1) AND name != '__global__'";
         if (isset ($admin_) && $admin_->getPref('domains') != '*') {
             $query .= " AND (";
             foreach ($admin_->getDomains() as $dom) {
