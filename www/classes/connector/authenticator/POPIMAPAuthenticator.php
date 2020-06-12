@@ -77,7 +77,7 @@ class POPIMAPAuthenticator extends AuthManager {
        $res = imap_open($dn, $username, $_POST['password']);
                     
        if ($res) {
-	  imap_close($res);
+          imap_close($res);
        	  $this->status_ = 0;
        	  return true;
        }
