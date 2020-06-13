@@ -113,7 +113,7 @@ $txt['SCORETEXT'] = "Skor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Pencereyi kapat";
 $txt['CURRENTPAGE'] = "Sayfa __PARAM1__ de __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>sonra otomatik temizle:</strong> __PARAM__ gün";
-$txt['DISPLAYEDINFOS'] = "<strong>Grüntülenen mesajlar: </strong> son  __PARAM1__ gün (<a href=\"__PARAM2__\">Düzenle...</a>). ";
+$txt['DISPLAYEDINFOS'] = "<strong>Görüntülenen mesajlar: </strong> son __PARAM1__ gün (<a href=\"__PARAM2__\">Değiştir…</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Görüntülenen Mesalar: </strong> son __PARAM__ günde. ";
 //old
 $txt['QUARANTINETITLE'] = "Karantina listesi __PARAM__";
@@ -488,7 +488,8 @@ $txt['NEWSLISTFORADDRESS'] = "Adres için bülten listesi";
 $txt['ADDANEWSENTRY'] = "Lİsteye bir adres ekle";
 $txt['NEWSLISTTOPIC'] = "Bülten";
 $txt['NEWSLISTTOPICTITLE'] = "bülten";
-$txt['NEWSLISTSHORTHELP'] = "Bülten listesi istediğiniz haber bültenleri adreslerini içerir <br /> bülten listesi kullanımı hakkında daha fazla bilgi için (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) kılavuzuna bakın.
+$txt['NEWSLISTSHORTHELP'] = "Bülten listesi istediğiniz haber bültenleri adreslerini içerir.<br />
+                                  Bülten listesi kullanımı hakkında daha fazla bilgi için kılavuza (<a href=\"help.php\">\"Yardım\"</a> bölümünden kullanılabilir) bakın.
 ";
 $txt['NEWSLISTENTRYTOADD'] = "Bülten listesine eklemek istediğiniz adresi girin. İsteğe bağlı bir açıklama da ekleyebilirsiniz.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi veya adresleri seçin ve istediğiniz işlem düğmesine tıklayın.";
