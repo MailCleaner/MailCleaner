@@ -191,7 +191,7 @@ sub process {
 		## Blacklist
 		if ($blacklisted) {
 			$this->manageBlacklist($blacklisted);
-            $this->{decisive_module}{module} = 'blacklisted ('.$blacklisted.')';
+            $this->{decisive_module}{module} = 'blacklisted';
 			if ( $delivery_type == 3 ) {
                 $status = "want drop";
             }
@@ -212,8 +212,8 @@ sub process {
 
         ## Whitelist
 		elsif ($whitelisted) {
-			$status = "is deliver";
-            $this->{decisive_module}{module} = 'whitelisted ('.$whitelisted.')';
+			$status = "is whitelisted ($whitelisted)";
+            $this->{decisive_module}{module} = undef;
 			$this->manageWhitelist($whitelisted);
 		}
 
