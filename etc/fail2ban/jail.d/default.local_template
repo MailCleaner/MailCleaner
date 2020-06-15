@@ -7,5 +7,6 @@ port = {{ port }}
 filter = {{ filter }}
 ignoreip = 193.246.63.0/24 195.176.194.0/24 {% for host in whitelist  %}{{ host }} {% endfor %}
 banaction = {{ banaction }}
+            {{ send_mail }}
             {{ send_rbl }}
 logpath = {{ logpath }}
