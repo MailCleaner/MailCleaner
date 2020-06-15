@@ -453,12 +453,10 @@ sub loadScores {
 	my $line;
 
 	if ( !defined( $this->{headers}{'x-mailcleaner-spamcheck'} ) ) {
-        # DEBUG
 	    $this->{daemon}->doLog(
             $this->{batchid} . ": " . $this->{id} . " no spamcheck header",
-		    'spamhandler', 'info'
+		    'spamhandler', 'warn'
         );
-
 		return 0;
 	}
 
@@ -469,10 +467,10 @@ sub loadScores {
 	}
 
 	$line = $this->{headers}{'x-mailcleaner-spamcheck'};
-    # DEBUG
+
 	$this->{daemon}->doLog(
-        $this->{batchid} . ": " . $this->{id} . " spamcheck header: " . $line,
-		'spamhandler', 'info'
+        $this->{batchid} . ": " . $this->{id} . "Processing spamcheck header: " . $line,
+		'spamhandler', 'debug'
     );
 
 	if ( $line =~ /Newsl \(/ ) {
@@ -483,11 +481,6 @@ sub loadScores {
 			$this->{sc_global} += 1; 
 			$this->{prefilters} .= ", Newsl";
 		}
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND Newsl: ".$this->{sc_newsl}."\n",
-		    'spamhandler', 'info'
-        );
 	}
 
 	if ( $line =~ /NiceBayes \(([\d.]+%)\)/ ) {
@@ -496,11 +489,6 @@ sub loadScores {
 		$this->decisiveModule('NiceBayes',$line);
 		$this->{sc_global} += 3;
 		$this->{prefilters} .= ", NiceBayes";
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND NiceBayes: ".$this->{sc_nicebayes}."\n",
-		    'spamhandler', 'info'
-        );
 	}
 
     if ( $line =~ /(Commtouch|MessageSniffer) \([^)]+\)/ ) {
@@ -509,11 +497,6 @@ sub loadScores {
 	        $this->{sc_global} += 3;
             $this->{prefilters} .= ", ".$1;
 		}
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND $1\n",
-		    'spamhandler', 'info'
-        );
     }
 
 	if ( $line =~ /PreRBLs \(([^\)]*)\)/ ) {
@@ -528,11 +511,6 @@ sub loadScores {
 			$this->{sc_global}++;
 		}
 		$this->{prefilters} .= ", PreRbls";
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND PreRBLS: ".$this->{sc_prerbls}."\n",
-		    'spamhandler', 'info'
-        );
 	}
 
 	if ( $line =~ /Spamc \(/ ) {
@@ -546,12 +524,6 @@ sub loadScores {
 		if ( int( $this->{sc_spamc} ) >= 7 )  { $this->{sc_global}++; }
 		if ( int( $this->{sc_spamc} ) >= 10 ) { $this->{sc_global}++; }
 		if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
-
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND SpamC: ".$this->{sc_spamc}."\n",
-		    'spamhandler', 'info'
-        );
 	}
 
 	if ( $line =~ /ClamSpam \(([^\)]*)\)/ ) {
@@ -561,12 +533,6 @@ sub loadScores {
 			$this->{sc_global} += 4;
 		}
 		$this->{prefilters} .= ", ClamSpam";
-
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND ClamSpam: ".$this->{sc_clamspam}."\n",
-		    'spamhandler', 'info'
-        );
 	}
 
 	if ( $line =~ /UriRBLs \(/ ) {
@@ -576,14 +542,10 @@ sub loadScores {
 		if ($1 ne 'too big') {
 			$this->{sc_global} += 4;
 		}
-		$this->{prefilters} .= ", UriRBLs ($this->{sc_urirbls})";
-
-        # DEBUG
-	    $this->{daemon}->doLog(
-		    $this->{id}." "."FOUND UriRBLs: ".$this->{sc_urirbls}."\n",
-		    'spamhandler', 'info'
-        );
+		$this->{prefilters} .= ", UriRBLs";
 	}
+
+    $this->{prefilters} =~ s/^, //;
 
 	return 1;
 }
@@ -987,12 +949,6 @@ sub decisiveModule {
 	my $this = shift;
 	my ($module, $line) = @_;
 	
-    # DEBUG
-	$this->{daemon}->doLog(
-		$this->{id}." "."Processing: ".$module." from: ".$line."\n",
-		'spamhandler', 'info'
-    );
-
 	$line =~ s/.*$module \(([\+\-~]\d+[\+\-~]).*/$1/;
 	my $position = my $decisive = $line;
 	$decisive =~ s/([\+\-~])\d+[\+\-~]/$1/;
@@ -1001,19 +957,23 @@ sub decisiveModule {
 		return 0;
 	}
 	if ($decisive eq '-' && $position < $this->{decisive_module}{position}) {
-		$this->{daemon}->doLog("Updating decisive_module $module $position negative", 'spamhandler', 'info');
+		$this->{daemon}->doLog("Updating decisive_module $module $position negative", 'spamhandler', 'debug');
 		%{$this->{decisive_module}} = (
 			'module' => $module,
 			'position' => $position,
 			'action' => 'negative'
 		);
 	} elsif ($decisive eq '+' && $position < $this->{decisive_module}{position}) {
-		$this->{daemon}->doLog("Updating decisive_module $module $position positive", 'spamhandler', 'info');
+		$this->{daemon}->doLog("Updating decisive_module $module $position positive", 'spamhandler', 'debug');
 		%{$this->{decisive_module}} = (
 			'module' => $module,
 			'position' => $position,
 			'action' => 'positive'
 		);
+	} elsif ($decisive eq '~' && $position < $this->{decisive_module}{position}) {
+		$this->{daemon}->doLog("Found undecisive $module of priority $position, not updating decisive_module", 'spamhandler', 'debug');
+	} elsif ($position > $this->{decisive_module}{position}) {
+		$this->{daemon}->doLog("Found $module of lower priority $position, not updating decisive_module", 'spamhandler', 'debug');
 	}
 }
 
