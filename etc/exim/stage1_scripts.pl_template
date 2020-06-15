@@ -72,5 +72,95 @@ sub external_callout_build_return {
   $str .= ' message="'.$message.'"';
   
   return $str;
- }
+}
+
+sub SMTP_WL_IP_Dom {
+  my $domain = shift;
+  my $IP = shift;
+
+  my $file = "/var/mailcleaner/spool/tmp/exim_stage1/rblwhitelists/$domain";
+
+  return 'false' if ( ! -e $file );
+  return 'false' if ( ! open FH, '<', $file);
+
+  my @IPs = <FH>;
+  close(FH);
+  chomp(@IPs);
+
+  use Net::CIDR::Lite;
+  my $WhIPs = Net::CIDR::Lite->new();
+__IF__ DISABLE_IPV6
+__ELSE__
+  my $WhIPs6 = Net::CIDR::Lite->new();
+__FI__
+  foreach (@IPs) {
+__IF__ DISABLE_IPV6
+__ELSE__
+    if ($_ =~ m/:/) {
+      eval { $WhIPs6->add_any($_); };
+    } else {
+__FI__
+      eval { $WhIPs->add_any($_); };
+__IF__ DISABLE_IPV6
+__ELSE__
+    }
+__FI__
+  }
+
+  if (
+__IF__ DISABLE_IPV6
+__ELSE__
+    ( $IP =~ /:/ && WhIPs6->find($IP) ) || 
+__FI__
+    ( $IP !~ /:/ && $WhIPs->find($IP) ) ) {
+    Exim::log_write("IP $IP is whitelisted for $domain (SMTP)"); 
+    return 'true';
+  }
+  return 'false';
+}
+
+sub SpamC_WL_IP_Dom {
+  my $domain = shift;
+  my $IP = shift;
+
+  my $file = "/var/mailcleaner/spool/tmp/exim_stage1/spamcwhitelists/$domain";
+
+  return 'false' if ( ! -e $file );
+  return 'false' if ( ! open FH, '<', $file);
+
+  my @IPs = <FH>;
+  close(FH);
+  chomp(@IPs);
+
+  use Net::CIDR::Lite;
+  my $WhIPs = Net::CIDR::Lite->new();
+__IF__ DISABLE_IPV6
+__ELSE__
+  my $WhIPs6 = Net::CIDR::Lite->new();
+__FI__
+  foreach (@IPs) {
+__IF__ DISABLE_IPV6
+__ELSE__
+    if ($_ =~ m/:/) {
+      eval { $WhIPs6->add_any($_); };
+    } else {
+__FI__
+      eval { $WhIPs->add_any($_); };
+__IF__ DISABLE_IPV6
+__ELSE__
+    }
+__FI__
+  }
+
+  if (
+__IF__ DISABLE_IPV6
+__ELSE__
+    ( $IP =~ /:/ && WhIPs6->find($IP) ) || 
+__FI__
+    ( $IP !~ /:/ && $WhIPs->find($IP) ) ) {
+    Exim::log_write("IP $IP is whitelisted for $domain (SpamC)"); 
+    return 'true';
+  }
+  return 'false';
+}
 

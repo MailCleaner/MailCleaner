@@ -110,6 +110,7 @@ case "$1" in
     fi
      ;;
   stop)
+    rm $VARDIR/run/*.rs 2>&1 > /dev/null
     echo "Stopping $NAME: "
     $INITDIR/$APACHE stop
     $INITDIR/$EXIM1 stop

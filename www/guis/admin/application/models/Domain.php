@@ -544,7 +544,7 @@ class Default_Model_Domain
 
 	public function getDestinationFieldString_smarthost() {
 		$str = '';
-		foreach ($this->_destinations_smarthost as $destination) {
+		foreach ($this->_destinations_smarthost as $destination_smarthost) {
 			if ($destination_smarthost['port'] == '') {
 				$destination_smarthost['port'] = $this->_destination_port_smarthost;
 			}

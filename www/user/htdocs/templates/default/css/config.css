@@ -412,10 +412,6 @@ hr {
   margin-right: 2px !important;
 }
 
-#addentrypanel p {
-  margin-bottom: 3px !important;
-}
-
 #selectadd select {
   margin-left: 10px !important;
 }
@@ -448,17 +444,12 @@ hr {
   padding-right: 6px !important;
 }
 
-
-#rementrypanel p {
+#addentrypanel p, #rementrypanel p {
   margin-bottom: 4px !important;
 }
 
 #rementrypanel .shorthelp {
   margin-bottom: 23px !important;
-}
-
-#addentrypanel .submitbutton {
-  margin-bottom: 10px;
 }
 
 #rementrypanel .submitbutton {

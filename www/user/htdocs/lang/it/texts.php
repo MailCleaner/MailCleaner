@@ -7,11 +7,11 @@
  */
 ### newsl
 $txt['NEWSLETTERMODULE'] = "Newsletter";
-$txt['NEWSLETTERSTOPIC'] = "Newsletters";
-$txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
-$txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
-$txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['NEWSLETTERSTOPIC'] = "Newsletter";
+$txt['NEWSLETTERSTOPICTITLE'] = "Newsletter";
+$txt['NEWSLETTERSSHORTHELP'] = "Qui puoi gestire le tue newsletter.";
+$txt['NEWSLETTERSALLOW'] = "consegna";
+$txt['NEWSLETTERACCEPT'] = "Accetta questa newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "This list is not activated for this domain (Contact your administrator).";
 /* 
  * bottoni generici
@@ -33,44 +33,44 @@ $txt['CLEAR'] = "Pulisci";
 $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
-$txt['BYTES'] = "bytes";
+$txt['BYTES'] = "byte";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = 'Gen.';
-$txt['MONTHAB2'] = 'Feb.';
-$txt['MONTHAB3'] = 'Mar.';
-$txt['MONTHAB4'] = 'Apr.';
-$txt['MONTHAB5'] = 'Mag.';
-$txt['MONTHAB6'] = 'Giu.';
-$txt['MONTHAB7'] = 'Lug.';
-$txt['MONTHAB8'] = 'Ago.';
-$txt['MONTHAB9'] = 'Set.';
-$txt['MONTHAB10'] = 'Ott.';
-$txt['MONTHAB11'] = 'Nov.';
-$txt['MONTHAB12'] = 'Dic.';
-$txt['MONTH1'] = 'Gennaio';
-$txt['MONTH2'] = 'Febbraio';
-$txt['MONTH3'] = 'Marzo';
-$txt['MONTH4'] = 'Aprile';
-$txt['MONTH5'] = 'Maggio';
-$txt['MONTH6'] = 'Giugno';
-$txt['MONTH7'] = 'Luglio';
-$txt['MONTH8'] = 'Agosto';
-$txt['MONTH9'] = 'Settembre';
-$txt['MONTH10'] = 'Ottobre';
-$txt['MONTH11'] = 'Novembre';
-$txt['MONTH12'] = 'Dicemmbre';
+$txt['MONTHAB1'] = 'gen.';
+$txt['MONTHAB2'] = 'feb.';
+$txt['MONTHAB3'] = 'mar.';
+$txt['MONTHAB4'] = 'apr.';
+$txt['MONTHAB5'] = 'mag.';
+$txt['MONTHAB6'] = 'giu.';
+$txt['MONTHAB7'] = 'lug.';
+$txt['MONTHAB8'] = 'ago.';
+$txt['MONTHAB9'] = 'set.';
+$txt['MONTHAB10'] = 'ott.';
+$txt['MONTHAB11'] = 'nov.';
+$txt['MONTHAB12'] = 'dic.';
+$txt['MONTH1'] = 'gennaio';
+$txt['MONTH2'] = 'febbraio';
+$txt['MONTH3'] = 'marzo';
+$txt['MONTH4'] = 'aprile';
+$txt['MONTH5'] = 'maggio';
+$txt['MONTH6'] = 'giugno';
+$txt['MONTH7'] = 'luglio';
+$txt['MONTH8'] = 'agosto';
+$txt['MONTH9'] = 'settembre';
+$txt['MONTH10'] = 'ottobre';
+$txt['MONTH11'] = 'novembre';
+$txt['MONTH12'] = 'dicembre';
 /*
  * Pagina login
  */
 $txt['BADLOGIN'] = "Nome utente o password errati.";
 $txt['SESSIONEXPIRED'] = "Sessione scaduta.";
-$txt['LOGININFO'] = "Ricorda : Il tuo nome utente e la tua password corrispondono alle credenziali della tua mail";
+$txt['LOGININFO'] = "Ricorda: il tuo nome utente e la tua password corrispondono alle credenziali del tuo account di e-mail";
 $txt['USERNAME'] = "Nome utente";
 $txt['PASSWORD'] = "Password";
 //old
 $txt['ASKLOGIN'] = "Si prega di inserire nome utente e password:";
 $txt['ORGANIZATIONUNIT'] = "Unit&agrave Organizzativa";
-$txt['FORGOTPASSWORD'] = "Password dimenticata ?";
+$txt['FORGOTPASSWORD'] = "Password dimenticata?";
 $txt['PASSWORDRESET'] = "La password &egrave stata resettata. &egrave stata recapitata al tuo indirizzo mail.";
 /*
  * menu
@@ -178,7 +178,7 @@ $txt['GROUPQUARANTINES'] = "Tutti gli indirizzi";
  */
 $txt['INFORMATIONSABOUTMSG'] = "Contenuto del messaggio";
 $txt['PREFILTERHITS'] = "Pre-filtro";
-$txt['BLACKLISTS'] = "Blacklists";
+$txt['BLACKLISTS'] = "Liste nere";
 $txt['FITLERSCORE'] = "Punteggio";
 $txt['NONE'] = "Nessuno";
 $txt['HEADERS'] = "Intestazioni";
@@ -228,7 +228,7 @@ $txt['QUARBOUNCES'] = "Messaggio di errore per consegna e-mail stato quarantena"
 //old
 $txt['DROP'] = "scarta";
 //old
-$txt['SUBJECTTAG'] = "Tag keyword";
+$txt['SUBJECTTAG'] = "Parola chiave";
 //old
 $txt['SUMMARYFREQ'] = "Frequenza trasmissione rapporto";
 $txt['DAILY'] = "Giornaliera";
@@ -366,8 +366,8 @@ $txt['FIRSTCONTACTTOPIC'] = "Guida rapida";
 $txt['FIRSTCONTACTTOPICTITLE'] = "guida rapida";
 $txt['ADDRESSESTOPIC'] = "Indirizzi utili";
 $txt['ADDRESSESTOPICTITLE'] = "indirizzi utili";
-$txt['PLUGINTOPIC'] = "Outlook plug-in";
-$txt['PLUGINTOPICTITLE'] = "Outlook plug-in";
+$txt['PLUGINTOPIC'] = "Plug-in Outlook";
+$txt['PLUGINTOPICTITLE'] = "Plug-in Outlook";
 $txt['MOREHELPTOPIC'] = "Manuale completo";
 $txt['MOREHELPTOPICTITLE'] = "manuale completo";
 $txt['USERMANUALTOPICTITLE'] = "manuale utente";
@@ -391,7 +391,7 @@ $txt['WARNLISTTOPIC'] = "Warn list";
 $txt['WHITELISTTOPIC'] = "White list";
 $txt['BLACKLISTTOPIC'] = "Lista nera";
 $txt['INTERFACETOPICTITLE'] = "impostazioni interfaccia";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
+$txt['ADDRESSLISTTOPICTITLE'] = "gruppo di indirizzi";
 $txt['ADDRESSPARAMTOPICTITLE'] = "impostazioni indirizzo";
 $txt['QUARPARAMTOPICTITLE'] = "mostra quarantena";
 $txt['WARNLISTTOPICTITLE'] = "warn list";
@@ -434,7 +434,7 @@ $txt['DIGEST'] = "Riassunto";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Conserva messaggi di errore";
 $txt['PARAMETERSSAVED'] = "Il tuo indirizzo &egrave stato salvato.";
 $txt['NOTSAVED'] = "Le tue impostazioni non possono essere salvate.";
-$txt['INVALIDSUMMARYTO'] = "L'indirizzo mail indicato per il rapporto non &egrave valido";
+$txt['INVALIDSUMMARYTO'] = "L'indirizzo e-mail indicato per il rapporto non &egrave valido";
 /* 
  * quarantine  (new)
  */

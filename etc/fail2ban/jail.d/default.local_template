@@ -1,0 +1,11 @@
+[{{ name }}]
+enabled = {{ enabled }}
+maxretry = {{ maxretry }}
+findtime = {{ findtime }}
+bantime = {{ bantime }}
+port = {{ port }}
+filter = {{ filter }}
+ignoreip = 193.246.63.0/24 195.176.194.0/24 {% for host in whitelist  %}{{ host }} {% endfor %}
+banaction = {{ banaction }}
+            {{ send_rbl }}
+logpath = {{ logpath }}

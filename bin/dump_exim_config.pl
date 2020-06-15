@@ -99,6 +99,11 @@ dump_master_file($conf->getOption('VARDIR')."/spool/mailcleaner/master.conf", \%
 dump_spam_route();
 
 my %exim_conf;
+
+## dump the blacklists files
+dump_blacklists();
+dump_lists_ip_domain();
+
 my $syslog_restart = 0;
 foreach my $stage (@eximids) {
 	%exim_conf = get_exim_config($stage) or fatal_error("NOEXIMCONFIGURATIONFOUND", "no exim configuration found for stage $stage");
@@ -117,11 +122,6 @@ if (!$stage1_conf{'spf_dmarc_ignore_hosts'}) {
   $stage1_conf{'spf_dmarc_ignore_hosts'} = '';
 }
 dump_ignore_list($stage1_conf{'spf_dmarc_ignore_hosts'}, 'spf_and_dmarc_ignore_hosts');
-
-
-## dump the blacklists files
-dump_blacklists();
-dump_lists_ip_domain();
 
 ## dump certificates
 dump_certificate($stage1_conf{'tls_certificate_data'}, $stage1_conf{'tls_certificate_key'});
@@ -295,6 +295,7 @@ sub dump_exim_file
         $template->setCondition('DISABLE_IPV6', 0);
     }
   }
+  
 
   $template->setReplacements(\%sys_conf);
   $template->setReplacements(\%exim_conf);
@@ -637,6 +638,10 @@ sub get_exim_config{
 
 	$config{'__SMTP_ACCEPT_MAX_PER_HOST__'} = $row{'smtp_accept_max_per_host'};
 	$config{'__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__'} = 0;
+        $config{'__CIPHERS__'} = $row{'ciphers'};
+	if ($config{'__CIPHERS__'} eq '') {
+                $config{'__CIPHERS__'} = 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2';
+        }
 	$config{'__SMTP_RECEIVE_TIMEOUT__'} = $row{'smtp_receive_timeout'};
 	$config{'__SMTP_ACCEPT_MAX__'} = $row{'smtp_accept_max'};
     $config{'__SMTP_RESERVE__'} = $row{'smtp_reserve'};
@@ -880,6 +885,16 @@ sub dump_lists_ip_domain {
     unlink $conf->getOption('VARDIR') . '/spool/tmp/exim_stage1/blacklists/ip-domain';
     unlink glob $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/rblwhitelists/*";
     unlink glob $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/spamcwhitelists/*";
+
+    my $request = "SELECT count(*) FROM wwlists where type in (";
+    foreach my $type (@types) {
+	$request .= "'$type', ";
+    }
+    $request =~ s/, $/);/;
+    my $count = $db->getCount($request);
+    if ($count eq 0) {
+	return;
+    }
 
     foreach my $type (@types) {
         my @row = $db->getListOfHash("SELECT sender, recipient FROM wwlists where type = '$type' order by recipient");

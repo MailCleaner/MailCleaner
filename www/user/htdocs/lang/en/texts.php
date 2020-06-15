@@ -434,6 +434,7 @@ $txt['SUMMARYFORMAT'] = "Format of quarantine reports";
 $txt['SUMMARYTO'] = "Send reports to this address";
 $txt['OTHER'] = "other…";
 $txt['APPLYTOALLADDRESSES'] = "Apply settings to all addresses";
+$txt['ADDTOGROUP'] = "Add for all addresses in group";
 $txt['PLAINTEXT'] = "Plain text";
 $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Digest";

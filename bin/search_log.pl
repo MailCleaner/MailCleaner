@@ -120,7 +120,8 @@ foreach my $msg (@nf_messages) {
 				'Authentication not allowed for the domain',
 				'Plaintext authentication disallowed on non-secure',
 				'no @ found in the subject of an address list match',
-				'fixed_login authenticator failed'
+				'fixed_login authenticator failed',
+				'SSL verify error .during R-verify'
 			);
 
 			foreach my $re (@regex) {

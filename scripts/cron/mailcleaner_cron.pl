@@ -175,6 +175,8 @@ if (my $pid_rules = fork) {
   system($config{'SRCDIR'}."/bin/fetch_newsl_rules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_modules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_config.sh ".$randomize_option);
+  system($config{'SRCDIR'}."/bin/fetch_blacklist_firewall_rules.sh ".$randomize_option);
+
   #print "done.\n";
   exit;
 }
@@ -378,6 +380,16 @@ if ($itsmidnight) {
     print "done cleaning virus quarantine.\n";
     exit;
   }
+
+  if (my $pid_clkav = fork) {
+  } elsif (defined $pid_clkav) {
+    print "cleaning Kaspersky temporary files...\n";
+    system($config{'SRCDIR'}."/scripts/cron/clean_kav_tmp.sh >/dev/null 2>&1");
+    print "done cleaning kaspersky temporary files.\n";
+    exit;
+  }
+
+
 
   ###########################
   ## network antispam updates

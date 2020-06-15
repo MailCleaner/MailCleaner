@@ -294,7 +294,7 @@ class Default_Model_Slave
     }
 
     public function getHostVersion() {
-        return $this->getSNMPValue('MAILCLEANER-MIB::version'); 
+        return $this->getSNMPValue('MAILCLEANER-MIB::productVersion'); 
     }
 
     public function getHostPatchLevel() {

@@ -107,13 +107,13 @@ $txt['CRITERIAS'] = "Filtreleme kuralları";
 $txt['FORCEMESSAGE'] = "Mesajı serbest bırak";
 $txt['MESSAGEFORCING'] = "Mesaj bırak";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filtre düzenleme talebi";
+$txt['ANALYSEREQUEST'] = "Filtre ayarlama talebi";
 $txt['ANALYSEREQUESTV'] = "Bir filtre ayarlaması isteğinde bulunun";
 $txt['SCORETEXT'] = "Skor: __PARAM__";
 $txt['CLOSEWINDOW'] = "Pencereyi kapat";
 $txt['CURRENTPAGE'] = "Sayfa __PARAM1__ de __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>sonra otomatik temizle:</strong> __PARAM__ gün";
-$txt['DISPLAYEDINFOS'] = "<strong>Grüntülenen mesajlar: </strong> son  __PARAM1__ gün (<a href=\"__PARAM2__\">Düzenle...</a>). ";
+$txt['DISPLAYEDINFOS'] = "<strong>Görüntülenen mesajlar: </strong> son __PARAM1__ gün (<a href=\"__PARAM2__\">Değiştir…</a>). ";
 $txt['DISPLAYEDINFOSS'] = "<strong>Görüntülenen Mesalar: </strong> son __PARAM__ günde. ";
 //old
 $txt['QUARANTINETITLE'] = "Karantina listesi __PARAM__";
@@ -144,9 +144,9 @@ $txt['HIDEFORCED'] = "Kullanıcı tarafından açılan mesajları gizle";
 $txt['FORCESPAM'] = "mesajı serbest bırak";
 //old
 $txt['ASKREASON'] = "filtreleme kurallarını göster";
-$txt['CONFSENDANALYSE'] = "MailCleaner Analiz Merkezi'ne bir filtre ayar talebi gönderilecektir; yanlış engellenmiş mesajın bir kopyasını içerir. </br> Not: Bir filtre ayarı beyaz listeyle veya kara listeyle aynı değildir";
+$txt['CONFSENDANALYSE'] = "MailCleaner Analiz Merkezi'ne bir filtre ayar talebi gönderilecektir; yanlışlıkla engellenmiş mesajın bir kopyasını içerir.</br>Not: Bir filtre ayarı beyaz veya kara listeye almakla aynı şey değildir.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Bu mesajın analiz edilmesini ve filtre ayarlamalarının uygulanmasını istediğinizden emin misiniz?</span>";
-$txt['ASKANALYSE'] = "Filter düzenleme talebi";
+$txt['ASKANALYSE'] = "Filtre ayarlama talebi";
 $txt['PAGE'] = "Sayfa";
 $txt['NEXTPAGE'] = "Sonraki";
 $txt['PREVIOUSPAGE'] = "Önceki";
@@ -488,7 +488,8 @@ $txt['NEWSLISTFORADDRESS'] = "Adres için bülten listesi";
 $txt['ADDANEWSENTRY'] = "Lİsteye bir adres ekle";
 $txt['NEWSLISTTOPIC'] = "Bülten";
 $txt['NEWSLISTTOPICTITLE'] = "bülten";
-$txt['NEWSLISTSHORTHELP'] = "Bülten listesi istediğiniz haber bültenleri adreslerini içerir <br /> bülten listesi kullanımı hakkında daha fazla bilgi için (<a href=\"help.php\"> \"Yardım\"</a> bölümünde kullanılabilir) kılavuzuna bakın.
+$txt['NEWSLISTSHORTHELP'] = "Bülten listesi istediğiniz haber bültenleri adreslerini içerir.<br />
+                                  Bülten listesi kullanımı hakkında daha fazla bilgi için kılavuza (<a href=\"help.php\">\"Yardım\"</a> bölümünden kullanılabilir) bakın.
 ";
 $txt['NEWSLISTENTRYTOADD'] = "Bülten listesine eklemek istediğiniz adresi girin. İsteğe bağlı bir açıklama da ekleyebilirsiniz.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi veya adresleri seçin ve istediğiniz işlem düğmesine tıklayın.";
@@ -499,3 +500,4 @@ $txt['NLRELEASEDHEAD'] = "Bültene izin verildi ve serbest bırakıldı.";
 $txt['NLRELEASEDBODY'] = "Bültene izin verildi ve serbest bırakıldı. Posta kutunuza birkaç dakika içinde bülten teslim edilir.";
 $txt['NLNOTRELEASEDHEAD'] = "Bülten yayınlanmadı";
 $txt['NLNOTRELEASEDBODY'] = "Mesaj bırakmadan bir hata oluştu. Lütfen daha sonra yeniden deneyin.";
+$txt['ADDTOGROUP'] = "Gruptaki tüm adresler için ekle";

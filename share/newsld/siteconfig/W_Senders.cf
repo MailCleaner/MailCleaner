@@ -17,6 +17,10 @@
 #
 #   Whitelisted sender list
 
+
+header		MC_DOMAIN_IP_WHITELIST	X-MailCleaner-White-IP-DOM =~ /WhIPDom/i
+score     MC_DOMAIN_IP_WHITELIST  -50.0
+
 header		MC_NEWS_WFRMMC		From =~ /.*\@mailcleaner\.(com|ch|net|org)/i
 score		MC_NEWS_WFRMMC		-20.0
 
