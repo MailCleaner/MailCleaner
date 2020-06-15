@@ -191,6 +191,7 @@ sub process {
 		## Blacklist
 		if ($blacklisted) {
 			$this->manageBlacklist($blacklisted);
+            $this->{decisive_module}{module} = 'blacklisted ('.$blacklisted.')';
 			if ( $delivery_type == 3 ) {
                 $status = "want drop";
             }
@@ -211,58 +212,62 @@ sub process {
 
         ## Whitelist
 		elsif ($whitelisted) {
-			$status = "is whitelisted ($whitelisted)";
+			$status = "is deliver";
+            $this->{decisive_module}{module} = 'whitelisted ('.$whitelisted.')';
 			$this->manageWhitelist($whitelisted);
-		}
-
-        ## Warnlist
-		elsif ( (defined $this->{decisive_module}{module}) && $this->{decisive_module}{action} eq 'positive' && $warnlisted ) {
-			$status = " is warnlisted ($warnlisted) ";
-			$this->quarantine();
-			my $id =
-			$email->sendWarnlistHit( $this->{env_sender}, $warnlisted,
-				$this->{exim_id} );
-			if ($id) {
-				$this->{daemon}->doLog(
-					$this->{batchid}
-					. ": message "
-					. $this->{exim_id}
-					. " warn message ready to be delivered with new id: "
-					. $id,
-					'spamhandler', 'info'
-				);
-			}
-			else {
-				$this->{daemon}->doLog(
-					$this->{batchid}
-					. ": message "
-					. $this->{exim_id}
-					. " warn message could not be delivered.",
-					'spamhandler', 'error'
-				);
-			}
 		}
 
         ## Spam
         elsif ( defined $this->{decisive_module}{module} && $this->{decisive_module}{action} eq 'positive' ) {
-            $status = "is spam ($this->{decisive_module}{module})";
-			if ( $delivery_type == 3 ) {
-                $status = "want drop";
-            }
-            elsif ( $delivery_type == 2 ) {
-                $status = "want quarantine";
-                $this->quarantine();
-            }
-            elsif ( $this->{bounce} ) {
-				$status = "(bounce)";
-                $this->quarantine();
-            }
-			else {
-				$status = "want tag";
-				$this->sendMeAnyway();
+            ## Warnlist
+		    if ( $warnlisted ) {
+			    $status = " is warnlisted ($warnlisted) ";
+                $this->{decisive_module}{module} = 'warnlisted';
+			    $this->quarantine();
+			    my $id =
+			    $email->sendWarnlistHit( $this->{env_sender}, $warnlisted,
+				    $this->{exim_id} );
+			    if ($id) {
+				    $this->{daemon}->doLog(
+					    $this->{batchid}
+					    . ": message "
+					    . $this->{exim_id}
+					    . " warn message ready to be delivered with new id: "
+					    . $id,
+					'spamhandler', 'info'
+				    );
+			    }
+			    else {
+				    $this->{daemon}->doLog(
+					    $this->{batchid}
+					    . ": message "
+					    . $this->{exim_id}
+					    . " warn message could not be delivered.",
+					    'spamhandler', 'error'
+				    );
+			    }
+		    }
+            # Is spam, and no warnlist
+            else {
+                $status = "is spam ($this->{decisive_module}{module})";
+			    if ( $delivery_type == 3 ) {
+                    $status = "want drop";
+                }
+                elsif ( $delivery_type == 2 ) {
+                    $status = "want quarantine";
+                    $this->quarantine();
+                }
+                elsif ( $this->{bounce} ) {
+				    $status = "(bounce)";
+                    $this->quarantine();
+                }
+			    else {
+				    $status = "want tag";
+				    $this->sendMeAnyway();
+                }
             }
         }
-
+    
         ## Ham
         elsif ( defined $this->{decisive_module}{module} ) {
 
