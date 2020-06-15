@@ -77,6 +77,12 @@ sub new {
 		sc_global         => 0,
 		prefilters        => '',
 
+	    decisive_module     => {
+		    module => undef,
+		    position => 100,
+		    action => undef
+        },
+
 		quarantined => 0,
 
 		fullmsg     => '',
@@ -136,9 +142,10 @@ sub load {
 		return 0;
 	}
 
-	$this->{daemon}
-	  ->doLog( $this->{batchid} . ": " . $this->{id} . " message loaded",
-		'spamhandler', 'debug' );
+	$this->{daemon}->doLog(
+        $this->{batchid} . ": " . $this->{id} . " message loaded",
+		'spamhandler', 'debug'
+    );
 	$this->endTimer('Message load');
 }
 
@@ -149,116 +156,168 @@ sub process {
 	my $email = Email::create( $this->{env_rcpt} );
 	return 0 if !$email;
 
-	my $status = '';
+	my $status = ' not spam';
 
 	## check what to do with message
+    
+    # If uncheckable (consumed licenses, etc. don't filter
 	if ( defined($this->{accounting}) && !$this->{accounting}->checkCheckeableUser( $this->{env_rcpt} ) ) {
 		$status = $this->{accounting}->getLastMessage();
 		$this->manageUncheckeable($status);
 	}
+    
+    # Otherwise get policies and determine action
 	else {
-	        $this->startTimer('Message fetch prefs');
+
+	    $this->startTimer('Message fetch prefs');
 		my $delivery_type = int( $email->getPref( 'delivery_type', 1 ) );
 		$this->endTimer('Message fetch prefs');
 		$this->startTimer('Message fetch ww');
+
+        # Policies
 		my $whitelisted =
 		  $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} );
 		my $warnlisted =
 		  $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
 		my $blacklisted =
-                  ($email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_from} ));
+            $email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_from});
 		my @res_wnews = ('NOTIN','System','Domain','User');
 		my $nwhitelisted =
 		  $email->loadedIsWWListed( 'wnews', $this->{msg_from} ) || $email->loadedIsWWListed( 'wnews', $this->{env_sender} );
 		$this->endTimer('Message fetch ww');
 
-		$this->{daemon}->doLog("Delivery_type: " . $delivery_type . " Blacklisted: " . $blacklisted);		
-		## Black list
+        # Action
+
+		## Blacklist
 		if ($blacklisted) {
 			$this->manageBlacklist($blacklisted);
-			$status = "is blacklisted ($blacklisted)";
 			if ( $delivery_type == 3 ) {
-                                $status = " want drop";
-                        }
-                        elsif ( $delivery_type == 2 || $this->{bounce} ) {
-                                $status = " want quarantine";
-				if ( $this->{bounce} ) { $status = " (bounce)"; }
-                                $this->quarantine();
-                        }
+                $status = "want drop";
+            }
+            elsif ( $delivery_type == 2 ) {
+                $status = "want quarantine";
+                $this->quarantine();
+            }
+            elsif ( $this->{bounce} ) {
+				$status = "(bounce)";
+                $this->quarantine();
+            }
 			else {
 				## The blacklisted mail is delivered with header X-MailCleaner-Status: blacklisted (level)
-				$status = " want tag";
+				$status = "want tag";
 				$this->sendMeAnyway();
 			}
 		}
+
+        ## Whitelist
 		elsif ($whitelisted) {
 			$status = "is whitelisted ($whitelisted)";
 			$this->manageWhitelist($whitelisted);
 		}
-		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_spamc}) < 5) && (int($email->getPref('allow_newsletters')))) {
-			$status = "is desired (Newsletter)";
-			$this->manageWhitelist(3);
-		}
-		elsif ((int($this->{sc_newsl}) >= 5) && (int($this->{sc_spamc}) < 5) && ($nwhitelisted)) {
-			$status = "is whitelisted by " . $res_wnews[$nwhitelisted] . " (Newsletter)";
-			$this->manageWhitelist(3);			
-		}
-		else {
-			if ( $delivery_type == 3 ) {
-				$status = " want drop";
-			}
-			elsif ( $delivery_type == 2 && $warnlisted ) {
-				$status = " is warnlisted ($warnlisted) ";
-				$this->quarantine();
-				my $id =
-				  $email->sendWarnlistHit( $this->{env_sender}, $warnlisted,
-					$this->{exim_id} );
-				if ($id) {
-					$this->{daemon}->doLog(
-						$this->{batchid}
-						  . ": message "
-						  . $this->{exim_id}
-						  . " warn message ready to be delivered with new id: "
-						  . $id,
-						'spamhandler', 'info'
-					);
-				}
-				else {
-					$this->{daemon}->doLog(
-						$this->{batchid}
-						  . ": message "
-						  . $this->{exim_id}
-						  . " warn message could not be delivered.",
-						'spamhandler', 'error'
-					);
-				}
-			}
-			elsif ( $delivery_type == 2 || $this->{bounce} ) {
-				$status = " want quarantine";
-				if ( $this->{bounce} ) { $status = " (bounce)"; }
-				$this->quarantine();
+
+        ## Warnlist
+		elsif ( (defined $this->{decisive_module}{module}) && $this->{decisive_module}{action} eq 'positive' && $warnlisted ) {
+			$status = " is warnlisted ($warnlisted) ";
+			$this->quarantine();
+			my $id =
+			$email->sendWarnlistHit( $this->{env_sender}, $warnlisted,
+				$this->{exim_id} );
+			if ($id) {
+				$this->{daemon}->doLog(
+					$this->{batchid}
+					. ": message "
+					. $this->{exim_id}
+					. " warn message ready to be delivered with new id: "
+					. $id,
+					'spamhandler', 'info'
+				);
 			}
 			else {
-				$status = " want tag";
-				my $tag = $email->getPref( 'spam_tag', '{Spam?}' );
-				$this->manageTagMode($tag);
+				$this->{daemon}->doLog(
+					$this->{batchid}
+					. ": message "
+					. $this->{exim_id}
+					. " warn message could not be delivered.",
+					'spamhandler', 'error'
+				);
 			}
 		}
-	}
+
+        ## Spam
+        elsif ( defined $this->{decisive_module}{module} && $this->{decisive_module}{action} eq 'positive' ) {
+            $status = "is spam ($this->{decisive_module}{module})";
+			if ( $delivery_type == 3 ) {
+                $status = "want drop";
+            }
+            elsif ( $delivery_type == 2 ) {
+                $status = "want quarantine";
+                $this->quarantine();
+            }
+            elsif ( $this->{bounce} ) {
+				$status = "(bounce)";
+                $this->quarantine();
+            }
+			else {
+				$status = "want tag";
+				$this->sendMeAnyway();
+            }
+        }
+
+        ## Ham
+        elsif ( defined $this->{decisive_module}{module} ) {
+
+            ## Newsletter
+		    if (int( $this->{sc_newsl} ) >= 5 ) {
+                if ($email->getPref('allow_newsletters')) {
+			        $status = "is desired (Newsletter)";
+                    $this->{decisive_module}{module} = undef;
+			        $this->manageWhitelist(3);
+                }
+		        elsif ($nwhitelisted) {
+		    	    $status = "is whitelisted by " . $res_wnews[$nwhitelisted] . " (Newsletter)";
+                    $this->{decisive_module}{module} = undef;
+		    	    $this->manageWhitelist(3);			
+		        }
+		        else {
+                    $status = "is newsletter";
+                    $this->{decisive_module}{module} = 'Newsl';
+			        if ( $delivery_type == 3 ) {
+                        $status = "want drop";
+                    }
+                    elsif ( $delivery_type == 2 ) {
+                        $status = "want quarantine";
+                        $this->quarantine();
+                    }
+                    elsif ( $this->{bounce} ) {
+				        $status = "(bounce)";
+                        $this->quarantine();
+                    }
+			        else {
+				        $status = "want tag";
+				        $this->sendMeAnyway();
+                    }
+		        }
+	        }
+            # Neither newsletter, nor spam
+            else {
+            }
+        }
+    }
 	
+	my $log = $this->{batchid}
+		. ": message "
+		. $this->{exim_id} . " R:<"
+		. $this->{env_rcpt} . "> S:<"
+		. $this->{env_sender}
+		. "> status: "
+		. $status;
+	if (!defined $this->{decisive_module}{module}) {
+		$log .= ", score: ".$this->{sc_global};
+	} else {
+		$log .= ", module: ".$this->{decisive_module}{module};
+	}
 	## log status and finish
-	$this->{daemon}->doLog(
-		$this->{batchid}
-		  . ": message "
-		  . $this->{exim_id} . " R:<"
-		  . $this->{env_rcpt} . "> S:<"
-		  . $this->{env_sender}
-		  . "> score: "
-		  . $this->{sc_global}
-		  . " status: "
-		  . $status,
-		'spamhandler'
-	);
+	$this->{daemon}->doLog($log, 'spamhandler', 'info');
 	$this->endTimer('Message processing');
 	$this->startTimer('Message deleting');
 	$this->deleteFiles();
@@ -393,35 +452,72 @@ sub loadScores {
 	my $this = shift;
 	my $line;
 
-	$this->{sc_global} = 0;
-
 	if ( !defined( $this->{headers}{'x-mailcleaner-spamcheck'} ) ) {
+        # DEBUG
+	    $this->{daemon}->doLog(
+            $this->{batchid} . ": " . $this->{id} . " no spamcheck header",
+		    'spamhandler', 'info'
+        );
+
 		return 0;
 	}
 
 	if ( defined( $this->{headers}{'x-mailcleaner-status'} ) ) {
-		$line = $this->{headers}{'x-mailcleaner-status'};
-		if ( $line =~ /Blacklisted/ ) {
+		if ( $this->{headers}{'x-mailcleaner-status'} =~ /Blacklisted/ ) {
 			$this->{prefilters} .= ", Blacklist";
 		}
 	}
 
 	$line = $this->{headers}{'x-mailcleaner-spamcheck'};
+    # DEBUG
+	$this->{daemon}->doLog(
+        $this->{batchid} . ": " . $this->{id} . " spamcheck header: " . $line,
+		'spamhandler', 'info'
+    );
+
+	if ( $line =~ /Newsl \(/ ) {
+		$this->{sc_newsl} = $line;
+        $this->{sc_newsl} =~ s/.*Newsl \([\+\-~]\d[\+\-~] score=(\d+\.\d+),.*/$1/;
+        # Not processed as decisive module
+		if ( int( $this->{sc_newsl} ) >= 5 )  {
+			$this->{sc_global} += 1; 
+			$this->{prefilters} .= ", Newsl";
+		}
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND Newsl: ".$this->{sc_newsl}."\n",
+		    'spamhandler', 'info'
+        );
+	}
 
 	if ( $line =~ /NiceBayes \(([\d.]+%)\)/ ) {
-		$this->{sc_nicebayes} = $1;
+		$this->{sc_nicebayes} = $line;
+		$this->{sc_nicebayes} =~ s/NiceBayes \(([\d.]+%)\)/$1/;
+		$this->decisiveModule('NiceBayes',$line);
 		$this->{sc_global} += 3;
 		$this->{prefilters} .= ", NiceBayes";
-
-		#print "FOUND NiceBayes: ".$this->{sc_nicebayes}."\n";
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND NiceBayes: ".$this->{sc_nicebayes}."\n",
+		    'spamhandler', 'info'
+        );
 	}
-        if ( $line =~ /(Commtouch|MessageSniffer) \([^)]+\)/ ) {
-		if ($1 ne 'too big') {
-	                $this->{sc_global} += 3;
+
+    if ( $line =~ /(Commtouch|MessageSniffer) \([^)]+\)/ ) {
+		if ($2 ne 'too big') {
+			$this->decisiveModule($1,$line);
+	        $this->{sc_global} += 3;
+            $this->{prefilters} .= ", ".$1;
 		}
-                $this->{prefilters} .= ", ".$1;
-        }
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND $1\n",
+		    'spamhandler', 'info'
+        );
+    }
+
 	if ( $line =~ /PreRBLs \(([^\)]*)\)/ ) {
+		$this->decisiveModule('PreRBLs',$line);
 		my @rbls = split( ',', $1 );
 		$this->{sc_prerbls} = @rbls;
 		$this->{sc_global} += 2;    ## one rbl scores 2
@@ -432,11 +528,17 @@ sub loadScores {
 			$this->{sc_global}++;
 		}
 		$this->{prefilters} .= ", PreRbls";
-
-		#print "FOUND PreRBLS: ".$this->{sc_prerbls}."\n";
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND PreRBLS: ".$this->{sc_prerbls}."\n",
+		    'spamhandler', 'info'
+        );
 	}
-	if ( $line =~ /Spamc \(score=([\d.]+)/ ) {
-		$this->{sc_spamc} = $1;
+
+	if ( $line =~ /Spamc \(/ ) {
+		$this->decisiveModule('Spamc',$line);
+		$this->{sc_spamc} = $line;
+        $this->{sc_spamc} =~ s/.*Spamc \([\+\-~]\d[\+\-~] score=(\d+\.\d+),.*/$1/;
 		if ( int( $this->{sc_spamc} ) >= 5 )  {
 			$this->{sc_global}++;
 			$this->{prefilters} .= ", SpamC";
@@ -445,37 +547,44 @@ sub loadScores {
 		if ( int( $this->{sc_spamc} ) >= 10 ) { $this->{sc_global}++; }
 		if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
 
-		#print "FOUND SpamC: ".$this->{sc_spamc}."\n";
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND SpamC: ".$this->{sc_spamc}."\n",
+		    'spamhandler', 'info'
+        );
 	}
-	if ( $line =~ /Newsl \(score=([\d.]+)/ ) {
-		$this->{sc_newsl} = $1;
-		if ( int( $this->{sc_newsl} ) >= 5 )  {
-#			$this->{sc_global} += 1; 
-			$this->{prefilters} .= ", Newsl";
-		}
 
-		#print "FOUND Newsl: ".$this->{sc_newsl}."\n";
-	}
 	if ( $line =~ /ClamSpam \(([^\)]*)\)/ ) {
+		$this->decisiveModule('ClamSpam',$line);
 		$this->{sc_clamspam} = $1;
 		if ($1 ne 'too big') {
 			$this->{sc_global} += 4;
 		}
 		$this->{prefilters} .= ", ClamSpam";
 
-		#print "FOUND ClamSpam: ".$this->{sc_clamspam}."\n";
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND ClamSpam: ".$this->{sc_clamspam}."\n",
+		    'spamhandler', 'info'
+        );
 	}
-	if ( $line =~ /UriRBLs \(([^\)]*)\)/ ) {
-		$this->{sc_urirbls} = $1;
+
+	if ( $line =~ /UriRBLs \(/ ) {
+		$this->decisiveModule('UriRBLs',$line);
+		$this->{sc_urirbls} = $line;
+		$this->{sc_urirbls} =~ s/.*UriRBLs \([\+\-]\d[\+\-] ([^\)])\).*/$1/;
 		if ($1 ne 'too big') {
 			$this->{sc_global} += 4;
 		}
-		$this->{prefilters} .= ", UriRBLs";
+		$this->{prefilters} .= ", UriRBLs ($this->{sc_urirbls})";
 
-		#print "FOUND UriRBLs: ".$this->{sc_urirbls}."\n";
+        # DEBUG
+	    $this->{daemon}->doLog(
+		    $this->{id}." "."FOUND UriRBLs: ".$this->{sc_urirbls}."\n",
+		    'spamhandler', 'info'
+        );
 	}
 
-	$this->{prefilters} =~ s/^\s*,\s*//;
 	return 1;
 }
 
@@ -824,16 +933,14 @@ sub log {
 		return 0;
 	}
 
-	# Florian Billebault - Newsletter - 201512
-	my $isNewsletter = 0;
-	if ( int( $this->{sc_newsl} ) >= 5 )  { $isNewsletter = 1; }
+	my $isNewsletter = (int( $this->{sc_newsl} ) >= 5 ) || 0;
 	
 	my $res = $p->execute(
 		$this->{env_domain}, $this->{env_tolocal},
 		$this->{env_sender}, $this->{exim_id},
 		$this->{sc_spamc},   $this->{sc_prerbls},
 		$this->{prefilters}, $this->{headers}{subject},
-		$this->{sc_global},  $$inmasterh, $isNewsletter
+		69,  $$inmasterh, $isNewsletter
 	);
 	if ( !$res ) {
 		$this->{daemon}->doLog(
@@ -876,6 +983,40 @@ sub log {
 	return $loggedonce;
 }
 
+sub decisiveModule {
+	my $this = shift;
+	my ($module, $line) = @_;
+	
+    # DEBUG
+	$this->{daemon}->doLog(
+		$this->{id}." "."Processing: ".$module." from: ".$line."\n",
+		'spamhandler', 'info'
+    );
+
+	$line =~ s/.*$module \(([\+\-~]\d+[\+\-~]).*/$1/;
+	my $position = my $decisive = $line;
+	$decisive =~ s/([\+\-~])\d+[\+\-~]/$1/;
+	$position =~ s/[\+\-~](\d+)[\+\-~]/$1/;
+	if (!defined $decisive || !defined $position) {
+		return 0;
+	}
+	if ($decisive eq '-' && $position < $this->{decisive_module}{position}) {
+		$this->{daemon}->doLog("Updating decisive_module $module $position negative", 'spamhandler', 'info');
+		%{$this->{decisive_module}} = (
+			'module' => $module,
+			'position' => $position,
+			'action' => 'negative'
+		);
+	} elsif ($decisive eq '+' && $position < $this->{decisive_module}{position}) {
+		$this->{daemon}->doLog("Updating decisive_module $module $position positive", 'spamhandler', 'info');
+		%{$this->{decisive_module}} = (
+			'module' => $module,
+			'position' => $position,
+			'action' => 'positive'
+		);
+	}
+}
+
 #######
 ## profiling timers
 
@@ -899,4 +1040,5 @@ sub getTimers {
 	my $this = shift;
 	return $this->{'timers'};
 }
+
 1;
