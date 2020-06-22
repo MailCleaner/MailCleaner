@@ -2,8 +2,8 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2006, Olivier Diserens; 2020, John Mertz
  *
  * This is the users interface settings
  */
@@ -73,35 +73,40 @@ class ConfigUserWWList {
             if ($addposted['entry'] && $addposted['entry'] != "") {
                 require_once('user/WWEntry.php');
                 $new = new WWEntry();
-                $sender = preg_replace('/[^a-zA-Z0-9\!\#\$\%\@&\*\+\-\=\?\^\_\`\{\|\}\~\.\,]/', '', $addposted['entry']);
+                // FILTER_VALIDATE_DOMAIN requires PHP >= 7; must do manually
+                if (!filter_var($addposted['entry'], FILTER_VALIDATE_EMAIL) && !preg_match('/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/', $addposted['entry'])) {
+                    $this->message_ = 'Add ' . $addposted['entry'] . ' failed (invalid sender)'; 
+                } else {
+                    $sender = $addposted['entry'];
 
-                if (isset($addposted['togroup'])) {
-                    $this->message_ = 'Adding ' . $sender . ' to:';
-                    foreach ($user_->getAddresses() as $address => $ismain) {
+                    if (isset($addposted['togroup'])) {
+                        $this->message_ = 'Adding ' . $sender . ' to:';
+                        foreach ($user_->getAddresses() as $address => $ismain) {
+                            $new->load(0);
+                            $new->setPref('sender', $sender);
+                            $new->setPref('comments', $addposted['comment']);
+                            $new->setPref('type', $this->type_);
+                            $new->setPref('status', '1');
+                            $new->setPref('recipient', $address);
+                            if ($new->save()) {
+                                $this->message_ .= ' ' . $address . '(success),';
+                            } else {
+                                $this->message_ .= ' ' . $address . '(failed),';
+                            }
+                            $this->message_ = preg_replace('/,$/', '', $this->message_);
+                        }
+                    } else {
                         $new->load(0);
                         $new->setPref('sender', $sender);
                         $new->setPref('comments', $addposted['comment']);
                         $new->setPref('type', $this->type_);
                         $new->setPref('status', '1');
-                        $new->setPref('recipient', $address);
+                        $new->setPref('recipient', $this->add_);
                         if ($new->save()) {
-                            $this->message_ .= ' ' . $address . '(success),';
-                        } else {
-                            $this->message_ .= ' ' . $address . '(failed),';
+                            $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(success)';
                         }
-                        $this->message_ = preg_replace('/,$/', '', $this->message_);
+                        $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(failed)';
                     }
-                } else {
-                    $new->load(0);
-                    $new->setPref('sender', $sender);
-                    $new->setPref('comments', $addposted['comment']);
-                    $new->setPref('type', $this->type_);
-                    $new->setPref('status', '1');
-                    $new->setPref('recipient', $this->add_);
-                    if ($new->save()) {
-                        $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(success)';
-                    }
-                    $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(failed)';
                 }
             }
             $this->wwlist_->reload();
@@ -112,13 +117,7 @@ class ConfigUserWWList {
                 $matches = array();
                 if ($val == 1 && preg_match("/^ent_(\S+)/", $key, $matches)) {
                     if (preg_match('/_cb$/', $key)) { continue; }
-                    $add = str_replace('_AAA_', '@', $matches[1]);
-                    $add = str_replace('_PPP_', '.', $add);
-                    $add = str_replace('_SSS_', ' ', $add);
-                    $add = str_replace('_CCC_', '*', $add);
-                    $add = str_replace('UUU', '-', $add);
-                    $add = str_replace('_ppp_', '+', $add);
-                    $add = str_replace('_EEE_', '=', $add);
+			        $add = $this->wwlist_->decodeVarName($matches[1]);
                     if ($remposted['wantdisable'] && $remposted['wantdisable'] > 0) {
                         $ent = $this->wwlist_->getEntryByPref('sender', $add);
                         if ($ent->getPref('status') < 1) {
@@ -127,7 +126,6 @@ class ConfigUserWWList {
                             $ent->disable();
                         }
                     } else {
-                        // removing entry ($add)
                         $ent = $this->wwlist_->getEntryByPref('sender', $add);
                         $ent->delete();
                         $this->wwlist_->reload();
@@ -201,12 +199,7 @@ class ConfigUserWWList {
             }
             $t = $template->getTemplate('ENTRY');
             $entrytext = htmlentities($entry->getPref('sender'));
-            $cleanentry = str_replace('@', '_AAA_', $entrytext);
-            $cleanentry = str_replace('.', '_PPP_', $cleanentry);
-            $cleanentry = str_replace(' ', '_SSS_', $cleanentry);
-            $cleanentry = str_replace('*', '_CCC_', $cleanentry);
-            $cleanentry = str_replace('+', '_ppp_', $cleanentry);
-            $cleanentry = str_replace('=', '_EEE_', $cleanentry);
+            $cleanentry = $this->wwlist_->encodeVarName($entrytext);
             $t = str_replace('__ENTRY__', $entrytext, $t);
             $t = str_replace('__INPUT_CHECKBOXENTRY__', $f->checkbox('ent_'.$cleanentry, 1, 0, '', 1).$f->hidden('id', $entry->getPref('id')), $t);
 
