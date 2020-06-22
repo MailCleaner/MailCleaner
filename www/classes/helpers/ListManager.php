@@ -250,5 +250,46 @@ class ListManager {
     $ret .= "}";
   return $ret;
 }
+
+public function encodeVarName($var) {
+    $var = str_replace('@', '_AAA_', $var);
+    $var = str_replace('.', '_PPP_', $var);
+    $var = str_replace(' ', '_SSS_', $var);
+    $var = str_replace('*', '_CCC_', $var);
+    $var = str_replace('-', '_UUU_', $var);
+    $var = str_replace('?', '_QQQ_', $var);
+    $var = str_replace('#', '_ooo_', $var);
+    $var = str_replace('%', '_ccc_', $var);
+    $var = str_replace('!', '_eee_', $var);
+    $var = str_replace('$', '_ddd_', $var);
+    $var = str_replace('^', '_uuu_', $var);
+    $var = str_replace('&amp;', '_aaa_', $var);
+    $var = str_replace('(', '_bbb_', $var);
+    $var = str_replace(')', '_BBB_', $var);
+    $var = str_replace('+', '_ppp_', $var);
+    $var = str_replace('=', '_EEE_', $var);
+    return $var;
+}
+
+public function decodeVarName($var) {
+    $var = str_replace('_AAA_', '@', $var);
+    $var = str_replace('_PPP_', '.', $var);
+    $var = str_replace('_SSS_', ' ', $var);
+    $var = str_replace('_CCC_', '*', $var);
+    $var = str_replace('_UUU_', '-', $var);
+    $var = str_replace('_QQQ_', '?', $var);
+    $var = str_replace('_ooo_', '#', $var);
+    $var = str_replace('_ccc_', '%', $var);
+    $var = str_replace('_eee_', '!', $var);
+    $var = str_replace('_ddd_', '$', $var);
+    $var = str_replace('_uuu_', '^', $var);
+    $var = str_replace('_aaa_', '&', $var);
+    $var = str_replace('_bbb_', '(', $var);
+    $var = str_replace('_BBB_', ')', $var);
+    $var = str_replace('_ppp_', '+', $var);
+    $var = str_replace('_EEE_', '=', $var);
+    return $var;
+}
+
 }
 ?>
