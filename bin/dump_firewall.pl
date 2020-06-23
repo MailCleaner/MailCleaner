@@ -234,11 +234,15 @@ sub do_start_script {
             open(BLACKLIST, '>>', $blacklist_script);
             if ( $blacklist == 0 ) {
                print BLACKLIST "#! /bin/sh\n\n";
+               print BLACKLIST "iptables -N BLACKLIST\n";
+               print BLACKLIST "iptables -A BLACKLIST -j RETURN\n";
+               print BLACKLIST "iptables -I INPUT 1 -j BLACKLIST\n\n";
+
             }
 	    $blacklist = 1;
             foreach my $IP (<BLACK_IP>) {
                 chomp($IP);
-                print BLACKLIST "iptables -A INPUT -s $IP -j DROP\n";
+                print BLACKLIST "iptables -I BLACKLIST 1 -s $IP -j DROP\n";
             }
             close BLACKLIST;
             close BLACK_IP;
