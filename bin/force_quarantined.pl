@@ -66,7 +66,7 @@ my $hrpart;
 my $header;
 my $is_multiline_id = 0;
 while (<HFILE>) {
-   if (/^(\d+)I (\S+):\s*<([^@]+)@([^>]+)>\s*$/m) {
+   if (/^(\d+)I (\S+):\s*<([^@]+)@([^>]+)>/m) {
      # Do this if the Message ID is on a single line
      $hsize = $1;
      $hname = $2;
@@ -82,7 +82,7 @@ while (<HFILE>) {
      $hsize = $1;
      $hname = $2;
    } else {
-     if ($is_multiline_id && /^\s+<([^@]+)@([^>]+)>\s*$/){
+     if ($is_multiline_id && /^\s+<([^@]+)@([^>]+)>/){
         # Do this if the Message ID is on two lines
         $is_multiline_id = 0;
         $hlpart = $1;
