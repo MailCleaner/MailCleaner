@@ -160,11 +160,12 @@ class DomainController extends Zend_Controller_Action
        #$view->searchdomainurl = Zend_Controller_Action_HelperBroker::getStaticHelper('url')->url(array('controller' => 'domain', 'action' => 'search', 'sname' => $view->sname));
 
     	$message = '';
+        $user = Zend_Registry::get('user');
         if ($this->getRequest()->isPost()) {
             if ($panelform->isValid($request->getPost())) {
                 try {
                   $is_domain_active = $view->domain->getParam('active');
-                  if ($request->get('enabledomain')) {
+                  if ($request->get('enabledomain') && $user->getUserType() == 'administrator') {
 		      $view->domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false");
                   } else {
                       $view->domain->setParam('active', $is_domain_active);
@@ -177,10 +178,13 @@ class DomainController extends Zend_Controller_Action
                       $panelform->_blacklist = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
                       $panelform->_newslist = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
                   }
-            	  $view->domain->save();
-            	  $view->domain->saveAliases();
-            	  $message = 'OK data saved';
-            	  
+                  if ($panel == 'general' && $user->getUserType() != 'administrator') {
+                      throw new Exception('only configurable by admin role');
+                  } else {
+                      $view->domain->save();
+                      $view->domain->saveAliases();
+                      $message = 'OK data saved';
+                  }
             	} catch (Exception $e) {
             	  $message = 'NOK error saving data ('.$e->getMessage().')';
             	}
