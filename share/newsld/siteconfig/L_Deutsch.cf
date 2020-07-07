@@ -48,3 +48,5 @@ score    MC_DE_KEINE_INFO_ERHALTEN 2.0
 
 body    MC_DE_UNLIST       /Melde mich von dieser Mailingliste ab/i
 score   MC_DE_UNLIST       2.00
+
+body    __MC_SHOW_DE         /\bAnsicht im Browser\b/i

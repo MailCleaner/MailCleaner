@@ -29,3 +29,14 @@ score		MC_NEWS_SFRMELASTICEMAIL	2.00
 
 header		MC_NEWS_SFRMSCHOBERNEWS		From =~ /\@schober-news.com/i
 score		MC_NEWS_SFRMSCHOBERNEWS		2.00
+
+header          MC_CAWI                         Received =~ /\bcawi-survey.com\b/i
+score           MC_CAWI                         2.0
+
+#Received: from [UNAVAILABLE] ([90.183.123.151] helo=emailing.ipsos.cz)
+header          MC_IPSOS_RCVD                   Received =~ /Ipsos/i
+score           MC_IPSOS_RCVD                   2.0
+
+#Message-ID: 2c678427f7d929eb8db26744c5198484@emailing.ipsos.cz
+header          MC_IPSOS_MSG                    Message-ID =~ /Ipsos/i
+score           MC_IPSOS_MSG                    2.0

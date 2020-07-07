@@ -19,3 +19,6 @@
 body            __MC_WORD_RO_NEWSLETTER         /buletinului informativ/i
 
 body            __MC_WORD_RO_NEWSLETTER2        /buletinul informativ/i
+
+body  MC_UNSUBSCRIBE_RO     /\bdezabon[ea]/i
+score MC_UNSUBSCRIBE_RO  2.0
