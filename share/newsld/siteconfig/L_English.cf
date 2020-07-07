@@ -66,3 +66,5 @@ body            __MC_WORD_EN_NEWSLETTER2         /Mailing.?list/i
 
 body    MC_REMOVE_FROM    /remove.*from.*email.*(?:update|list)/i
 score   MC_REMOVE_FROM  1.0
+
+body    __MC_SHOW_EMAIL_BROWSER_EN     /\bShow email in browser\b/i
