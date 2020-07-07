@@ -430,6 +430,7 @@ acl_check_rcpt:
  __FI__
 
   warn    condition     = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
+          !authenticated = *
           add_header    = X-MailCleaner-RDNS: invalid reverse DNS for $sender_host_address
           logwrite      = Invalid reverse DNS for $sender_host_address (port $received_port)
 
