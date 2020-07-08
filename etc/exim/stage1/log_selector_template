@@ -1,0 +1,5 @@
+__IF__ LOG_SUBJECT
+log_selector = +smtp_confirmation +delivery_size +subject
+__ELSE__ LOG_SUBJECT
+log_selector = +smtp_confirmation +delivery_size
+__FI__
