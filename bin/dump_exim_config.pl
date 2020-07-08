@@ -107,6 +107,30 @@ dump_lists_ip_domain();
 my $syslog_restart = 0;
 foreach my $stage (@eximids) {
 	%exim_conf = get_exim_config($stage) or fatal_error("NOEXIMCONFIGURATIONFOUND", "no exim configuration found for stage $stage");
+
+	# Generate the included files and the associated customized files 
+	my $custom = 0;
+	while ( $custom != 2) {
+		my $dir;
+		my $dest_dir;
+		if ($custom) {
+			$dir = "/usr/mailcleaner/etc/exim/custom/stage$stage";
+			$dest_dir = "custom/stage$stage";
+		} else {
+			$dir = "/usr/mailcleaner/etc/exim/stage$stage";
+			$dest_dir = "stage$stage";
+		}
+		if ( -d "$dir") {
+			my @conf_files = glob("$dir/*_template");
+			foreach my $current_file (@conf_files) {
+				$current_file =~ s/.*\///;
+				dump_exim_file($stage, "$dest_dir/$current_file") or fatal_error("CANNOTDUMPEXIMFILE", $lasterror);
+			}
+		}
+		$custom ++;
+	}
+
+
 	dump_exim_file($stage) or fatal_error("CANNOTDUMPEXIMFILE", $lasterror);
 }
 my $stage = 1;
@@ -158,11 +182,26 @@ print "DUMPSUCCESSFUL";
 #############################
 sub dump_exim_file
 {
-  my $stage = shift;
+  my ($stage, $include_file) = @_;
 
-  my $template = ConfigTemplate::create(
+  # If include =1 we are generating the files included in the exim configuration
+  my $include = 0;
+  if ( defined($include_file) ) {
+    $include = 1;
+  }
+
+  my $template;
+  if ( ! $include ) {
+    $template = ConfigTemplate::create(
                           "etc/exim/exim_stage$stage.conf_template",
                           "etc/exim/exim_stage$stage.conf");
+  } else {
+    my $dest_file = $include_file;
+    $dest_file =~ s/_template$//;
+    $template = ConfigTemplate::create(
+                          "etc/exim/$include_file",
+                          "etc/exim/$dest_file");
+  }
 
   my $if_syslog = "#no syslog_facility";
   $exim_conf{'__IF_USE_SYSLOGENABLED__'} = "";
@@ -301,6 +340,9 @@ sub dump_exim_file
   $template->setReplacements(\%exim_conf);
 
   my $ret = $template->dump();
+
+  # Below is not needed when we are generating the files included in exim configuration
+  return $ret if ( $include );
 
   my $target_file = $conf->getOption('SRCDIR')."/etc/exim/exim_stage$stage.conf";
   my $tmptarget_file = $conf->getOption('VARDIR')."/spool/tmp/exim/exim_stage$stage.conf";

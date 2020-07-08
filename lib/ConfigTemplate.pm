@@ -31,6 +31,10 @@ our @ISA        = qw(Exporter);
 our @EXPORT     = qw(create dumpFile);
 our $VERSION    = 1.0;
 
+my $conf = ReadConfig::getInstance();
+my $SRCDIR=$conf->getOption('SRCDIR');
+my $VARDIR=$conf->getOption('VARDIR');
+
 ###
 # create the dumper
 # @param  $template    string  base template file
@@ -43,9 +47,6 @@ sub create {
   
   return if !$templatefile || $templatefile eq "";
   return if !$targetfile || $targetfile eq "";
-  my $conf = ReadConfig::getInstance();
-  my $SRCDIR=$conf->getOption('SRCDIR');
-  my $VARDIR=$conf->getOption('VARDIR');
   
   $templatefile =~ s/__SRCDIR__/$SRCDIR/g;
   $templatefile =~ s/__VARDIR__/$VARDIR/g;
@@ -182,7 +183,31 @@ sub dump {
   	  $ev_hidden = 0;
   	  next;
   	}        
-  	
+	# Includes a file in the exim configuration
+	# First looks for a equivalent customised file
+  	if ($line =~/__INCLUDE__ *(.*)/) {
+	  my $inc_file = $1;
+	  my $path_file;
+	  $inc_file =~ s/_template$//;
+# Version using .include_if_exists
+	  if ( -f "$SRCDIR/etc/exim/custom/$inc_file" ) {
+	    $path_file = "$SRCDIR/etc/exim/custom/$inc_file";
+#	    $ret .= ".include_if_exists __SRCDIR__/etc/exim/custom/$inc_file\n";
+	  } elsif ( -f "$SRCDIR/etc/exim/$inc_file" ) {
+	    $path_file = "$SRCDIR/etc/exim/$inc_file";
+#	    $ret .= ".include_if_exists __SRCDIR__/etc/exim/$inc_file\n";
+          }
+
+	  open(PATHFILE, '<', $path_file);
+	  my @contains = <PATHFILE>;
+	  close(PATHFILE);
+	  chomp(@contains);
+	  foreach (@contains) {
+	    $ret .= "$_\n";
+	  }
+
+	  next;
+	}
   	if ($line =~  /\_\_TMPL\_([A-Z0-9]+)\_START\_\_/) {
       $in_hidden = 1;
       next;
@@ -213,14 +238,20 @@ sub dump {
      if (!defined($this->{replacements}{$tag})) {
        $this->{replacements}{$tag} = "";
      }
-     $ret =~ s/$tag/$this->{replacements}{$tag}/g;
+     if ( defined ($ret) ) {
+	     $ret =~ s/$tag/$this->{replacements}{$tag}/g;
+     }
   }
   
   foreach my $tag ( keys %wellknown ) {
-    $ret =~ s/$tag/$wellknown{$tag}/g;
+     if ( defined ($ret) ) {
+        $ret =~ s/$tag/$wellknown{$tag}/g;
+     }
   }
   
-  print TARGET $ret;
+  if ( defined ($ret) ) {
+    print TARGET $ret;
+  }
   close TARGET;
   my $uid = getpwnam( 'mailcleaner' );
   my $gid = getgrnam( 'mailcleaner' );

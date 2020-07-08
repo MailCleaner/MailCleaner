@@ -17,10 +17,7 @@ ADDRESSESDIR = VARDIR/spool/mailcleaner/addresses
 DKIMFILE = VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list
 FROZENSENDERS = VARDIR/spool/tmp/exim/frozen_senders
 
-ldap_default_servers = <; __AD_SERVERS__
-LDAP_AD_BINDDN = "__AD_BINDDN__"
-LDAP_AD_PASS = "__AD_PASS__"
-LDAP_AD_BASE_DN = __AD_BASEDN__
+__INCLUDE__ stage1/ldap
 
 av_scanner = clamd:127.0.0.1 3310
 
@@ -56,11 +53,7 @@ __IF__ ERRORS_REPLY_TO
 errors_reply_to = __ERRORS_REPLY_TO__
 __FI__
 
-__IF__ LOG_SUBJECT
-log_selector = +smtp_confirmation +delivery_size +subject
-__ELSE__ LOG_SUBJECT
-log_selector = +smtp_confirmation +delivery_size
-__FI__
+__INCLUDE__ stage1/log_selector
 
 message_logs = true
 exim_user = mailcleaner
@@ -72,6 +65,8 @@ never_users = root
 helo_allow_chars = _
 __IF_USE_SYSLOG__
 
+__INCLUDE__ stage1/force_disable_ipv6
+
 smtp_enforce_sync = __SMTP_ENFORCE_SYNC__
 smtp_accept_max_per_host = ${if match_ip{$sender_host_address}{+trusted_hosts}{__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__}{__SMTP_ACCEPT_MAX_PER_HOST__}}
 smtp_receive_timeout = __SMTP_RECEIVE_TIMEOUT__
@@ -81,6 +76,8 @@ deliver_queue_load_max = __SMTP_LOAD_RESERVE__
 smtp_accept_queue_per_connection = 1000
 smtp_accept_max_per_connection = __SMTP_ACCEPT_MAX_PER_CONNECTION__
 queue_run_max = 5
+
+__INCLUDE__ stage1/cluster_settings
 
 delay_warning = 4h:8h:24h
 delay_warning_condition = ${if or {\
@@ -99,7 +96,9 @@ acl_smtp_helo = acl_check_helo
 acl_smtp_mail = acl_check_mail
 acl_smtp_mime = acl_check_mime
 ignore_bounce_errors_after = 0s
-timeout_frozen_after = 4d
+
+__INCLUDE__ stage1/frozen_time
+
 message_size_limit = __GLOBAL_MAXMSGSIZE__
 accept_8bitmime = true
 allow_mx_to_ip = __ALLOW_MX_TO_IP__
@@ -145,6 +144,9 @@ hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__
 hostlist   no_ratelimit_hosts = <; __NO_RATELIMIT_HOSTS__
 domainlist relayrefuseddomains = VARDIR/spool/tmp/exim/blacklists/relaytodomains
 RELAYDEST = VARDIR/spool/tmp/mailcleaner/relay_accepteddest.list
+
+#FULLWHITELIST
+addresslist full_whitelisted_senders = lsearch;VARDIR/spool/mailcleaner/full_whitelisted_senders.list
 
 smtp_accept_reserve = __SMTP_RESERVE__
 smtp_reserve_hosts = ${if eq{$interface_port}{587}{*}{+relay_from_hosts}}
@@ -262,7 +264,7 @@ __FI__
   accept  hosts = <; __SMTP_CONN_ACCESS__ ; 127.0.0.1
 
 acl_check_helo:
-    deny    condition     = ${if eq {$sender_helo_name}{ylmf-pc} {yes}{no}}
+  deny    condition     = ${if eq {$sender_helo_name}{ylmf-pc} {yes}{no}}
           !hosts        = <; 127.0.0.1
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
           log_message   = HELO/EHLO blocked
@@ -287,9 +289,14 @@ acl_check_mail:
 
 acl_check_rcpt:
 
+# FULLWHITELIST
+  accept
+          hosts         = +trusted_hosts
+          senders       = +full_whitelisted_senders
+
   accept  hosts = <; ;
   deny    !domains      = +relay_to_domains
-          !hosts        = +relay_from_hosts
+          !hosts        = <; +relay_from_hosts
           !authenticated = *
           message       = relay not permitted
           log_message   = relay not permitted
@@ -329,7 +336,7 @@ acl_check_rcpt:
           add_header    = X-MailCleaner-TrustedIPs: Ok
   warn    spf           = pass
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
-	  set acl_m_checkspf = $spf_result
+          set acl_m_checkspf = $spf_result
   warn    !spf          = pass
           !hosts        = <; +relay_from_hosts ; NOSPFDMARCHOSTS
           !authenticated = *
@@ -412,7 +419,7 @@ acl_check_rcpt:
 
   deny    domains       = +domains_to_preventspoof
           !authenticated = *
-          !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts 
+          !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
           condition     = ${if eq {$domain}{$sender_address_domain}}
 	  !spf		= pass
@@ -470,6 +477,9 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - refused, callout refused (addlist): $local_part@$domain - smtp:refused,smtp:refused:callout
  __FI__
+
+ __INCLUDE__ stage1/acl_cluster_settings
+
   deny    domains       = +domains_to_callout : +domains_to_altcallout
           !verify       = recipient/callout=__CALLOUT_TIMEOUT__s,defer_ok
           set acl_c8    = smtp:refused:callout
@@ -504,6 +514,9 @@ __FI__
 
 __IF__ SENDERVERIFY
   deny    !verify       = sender
+
+__INCLUDE__ stage1/sender_verify_wl
+
           set acl_c8    = smtp:refused:sender_verify
           set acl_c9    = STATSADD
           set acl_c8    = domain:$domain:sender_verify_refused
@@ -599,6 +612,7 @@ __FI__
           log_message   = greylisted (spf: $spf_result)
           domains       = +domains_to_greylist
           !senders      = :
+          condition     = ${if !def:acl_c1}
           condition     = ${if eq {$received_port}{587} {0}{1}}
           !hosts        = <; +trusted_hosts ; \
                             ${if exists {__SRCDIR__/etc/greylistd/whitelist-hosts}\
@@ -676,6 +690,8 @@ __FI__
 
 .include_if_exists  VARDIR/spool/tmp/exim_stage1/custom_acl_encryption
 
+__INCLUDE__ stage1/recipient_verification
+
   warn    domains       = +relay_to_domains
           hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
           condition    = ${if eq{$acl_m0}{true}{yes}{no}}
@@ -711,7 +727,7 @@ __FI__
          set   acl_c1  = authenticated
 
  accept  domains       = +relay_to_domains
-          verify        = recipient
+         verify        = recipient
  __IF__ DEBUG
           logwrite      = DEBUG - accepted, valid recipient: $local_part@$domain
  __FI__
@@ -777,6 +793,11 @@ __FI__
  __FI__
 
 acl_check_mime:
+
+# FULLWHITELIST
+  accept  hosts         = +trusted_hosts
+          senders       = +full_whitelisted_senders
+
 __IF__ LOG_ATTACHMENTS
   warn  condition       = ${if def:mime_filename {true}{false}}
         logwrite        = Attachment: $mime_filename
@@ -897,6 +918,12 @@ __FI__
 
 acl_check_data:
 
+# FULLWHITELIST
+  accept  remove_header = X-MailCleaner-FullWhitelist
+          remove_header = X-Newsl
+          hosts         = +trusted_hosts
+          senders       = +full_whitelisted_senders
+
 __IF__ OUTGOINGVIRUSSCAN
   deny    message =  This message contains malware ($malware_name)
           condition = ${if eq {$acl_c0}{relayed} {1}{0}}
@@ -961,6 +988,14 @@ begin routers
 
 .include_if_exists SRCDIR/etc/exim/mc_binary/mc_router
 
+# FULLWHITELIST
+full_whitelist:
+  driver     = accept
+  transport  = bypass_full_whitelist
+  condition  = ${if match_ip{$sender_host_address}{+trusted_hosts} {yes}}
+  senders    = +full_whitelisted_senders
+  headers_add = X-MailCleaner-FullWhitelist: fully whitelisted
+
 batv_redirect:
   driver = redirect
   domains = +domains_to_check_batv
@@ -971,6 +1006,8 @@ send_to_smart_host:
   transport = remote_smtp
   domains = !+relay_to_domains
   route_data = ${lookup{${domain:$h_From:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
+
+__INCLUDE__ stage1/routers_cluster_settings
 
 bypass_router:
   driver = manualroute
@@ -1061,6 +1098,7 @@ filter_forward:
   self = send
   route_list = * 127.0.0.1 byname
   headers_remove = X-MailCleaner:X-MailCleaner-Forced
+__INCLUDE__ stage1/filter_forward
 
 dnslookup_freeze:
   driver = redirect
@@ -1085,12 +1123,23 @@ dnslookup:
   ignore_target_hosts = <; 0.0.0.0 ; 127.0.0.0/8
   no_more
 
+__INCLUDE__ stage1/routers
+
 ######################################################################
 #                      TRANSPORTS CONFIGURATION                      #
 ######################################################################
 begin transports
 
 .include_if_exists SRCDIR/etc/exim/mc_binary/mc_transport
+
+# FULLWHITELIST
+bypass_full_whitelist:
+  driver = smtp
+  helo_data = __HELO_NAME__
+  allow_localhost = true
+  hosts = localhost
+  interface = 127.0.0.1
+  port = 2525
 
 bypass_smtp:
   driver = smtp
@@ -1206,6 +1255,8 @@ address_list_transport:
   timeout = 10m
   log_output = true
 
+__INCLUDE__ stage1/transports
+
 ######################################################################
 #                      RETRY CONFIGURATION                           #
 ######################################################################
@@ -1220,7 +1271,8 @@ begin retry
 ######################################################################
 #                      REWRITE CONFIGURATION                         #
 ######################################################################
-begin rewrite
+
+__INCLUDE__ stage1/rewrite_configuration
 
 ######################################################################
 #                   AUTHENTICATION CONFIGURATION                     #

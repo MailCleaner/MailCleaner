@@ -1,0 +1,4 @@
+ldap_default_servers = <; __AD_SERVERS__
+LDAP_AD_BINDDN = "__AD_BINDDN__"
+LDAP_AD_PASS = "__AD_PASS__"
+LDAP_AD_BASE_DN = __AD_BASEDN__
