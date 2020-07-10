@@ -111,6 +111,7 @@ filter_newsletter:
   headers_remove = Subject
   headers_add = "${perl{getNoNewsTagSubject}}"
   headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 filter_blacklist:
   driver = accept
@@ -119,6 +120,7 @@ filter_blacklist:
   transport = spam_store
   headers_add = X-MailCleaner-Status: Blacklisted (${perl{getBlacklistedFlag}{$local_part}{$domain}})
   headers_remove = X-MailCleaner-Status
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 __IF__ TAGMODEBYPASSWHITELISTS
 filter_checktag_mx:
@@ -136,6 +138,7 @@ filter_checktag_mx:
   headers_add = "${perl{getTaggedSubject}}"
   headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
 #  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 filter_checktag:
   driver = manualroute
@@ -153,6 +156,7 @@ filter_checktag:
   headers_add = "${perl{getTaggedSubject}}"
   headers_add = X-Auto-Response-Suppress: DR, NDR, RN, NRN, OOF, AutoReply
 #  headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 __FI__
 
 filter_checkspam:
@@ -171,6 +175,7 @@ filter_checkbounces:
                    }{yes}{no} \
                }
   headers_add = X-MailCleaner-Bounce: bounce message
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 __IF__ USEARCHIVER
 archiver_route:
@@ -180,7 +185,8 @@ archiver_route:
   local_parts = ${if exists{ARCHIVERDIR/${domain}} {nwildlsearch;ARCHIVERDIR/${domain}} {} }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
-  self = send
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
+self = send
   unseen
   no_verify
 __FI__
@@ -203,6 +209,7 @@ copyto_route:
   unseen
   repeat_use = false
   no_verify
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 filter_forward_mx:
   driver = dnslookup
@@ -210,6 +217,7 @@ filter_forward_mx:
   domains = !@ : +forward_by_mx
   headers_remove = X-MailCleaner-Bounce
   headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 filter_forward:
   driver = manualroute
@@ -219,6 +227,7 @@ filter_forward:
   hosts_randomize = true
   headers_remove = X-MailCleaner-Bounce
   headers_add = X-MailCleaner-ReportURL: __REPORT_URL__
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 dnslookup_gateway:
   driver = manualroute
@@ -227,12 +236,14 @@ dnslookup_gateway:
   transport = remote_smtp
   route_list = wildlsearch;;VARDIR/spool/mailcleaner/smtp_proxy.conf $value
   ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 dnslookup:
   driver = dnslookup
   domains = ! +local_domains : ! +relay_to_domains
   transport = remote_smtp
   ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 ####################
 ## local deliveries
@@ -243,6 +254,7 @@ system_aliases:
   data = ${lookup{$local_part}lsearch{/etc/aliases}}
   file_transport = address_file
   pipe_transport = address_pipe
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 userforward:
   driver = redirect
@@ -254,12 +266,14 @@ userforward:
   file_transport = address_file
   pipe_transport = address_pipe
   reply_transport = address_reply
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 localuser:
   driver = accept
   check_local_user
   transport = local_delivery
   cannot_route_message = Unknown user
+  headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path
 
 ######################################################################
 #                      TRANSPORTS CONFIGURATION                      #
