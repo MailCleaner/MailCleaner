@@ -1,2 +1,4 @@
-body MC_ UNSUBSCRIBE_TU /\bÜyelikten Ayrıl\b/i
-score MC_ UNSUBSCRIBE_TU 2.0
+
+
+body            MC_TU_UNSUBSCRIBE /\bÜyelikten Ayrıl\b/i
+score           MC_TU_UNSUBSCRIBE 1.0
