@@ -17,7 +17,7 @@ sub new {
     
         # and return the new plugin object
         return $self;
-} 
+}
 
 sub _domain {
         my ($string) = @_;
@@ -26,8 +26,20 @@ sub _domain {
         return $1;
 }
 
+# Forbids the use of given strings in a URL that also contains the domain of a recipient
+# List of strings in /usr/mailcleaner/share/spamassassin/plugins/UriTuning.list
 sub gglapi_domain {
         my ($self, $permsgstatus, $body, $body_html) = @_;
+	my @elems;
+
+	# This module only runs if we have a file of domains to exclude
+	return 0 if ( ! -f '/usr/mailcleaner/share/spamassassin/plugins/UriTuning.list' );
+
+	# Get list of strings
+	open LIST, '<', '/usr/mailcleaner/share/spamassassin/plugins/UriTuning.list';
+	@elems = <LIST>;
+	close LIST;
+	chomp(@elems);
 
         # Recipient detection
         my $Recipients = lc( $permsgstatus->get('X-MailCleaner-recipients') );
@@ -38,18 +50,25 @@ sub gglapi_domain {
                 $Recip = _domain($Recip);
                 $AllRecipientsDomains{$Recip} = 1;
         }
+
         # URI detection
         my $uris = $permsgstatus->get_uri_detail_list ();
 
+	# For all URIs
         while (my($uri, $info) = each %{$uris}) {
-                if ( $uri =~ m/googleapis.com/ ) {
-                        foreach my $k (keys %AllRecipientsDomains) {
-                                if ($uri =~ m/\Q$k/) {
-                                        return 1;
-                                }
-                        }
+		# Check if it contains one of the strings
+		foreach my $elem (@elems) {
+	                if ( $uri =~ m/\Q$elem/ ) {
+				# Check if it contains one of the recipient s domain
+				foreach my $k (keys %AllRecipientsDomains) {
+                        	        if ($uri =~ m/\Q$k/) {
+                                	        return 1;
+	                                }
+        	                }
+			}
                 }
         }
 
+	# If we are here nothing was found
         return 0;
 }
