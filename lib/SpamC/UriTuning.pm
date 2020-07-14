@@ -1,4 +1,3 @@
-Mail::SpamAssassin::Plugin::dbg("Botnet: checking IPINHOSTNAME");
 package UriTuning;
 
 use Mail::SpamAssassin::Plugin;
