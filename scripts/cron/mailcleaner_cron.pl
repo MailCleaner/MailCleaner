@@ -172,6 +172,7 @@ if (my $pid_rules = fork) {
   #print "doing rules updates...";
   system($config{'SRCDIR'}."/bin/fetch_clamspam.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_spamc_rules.sh ".$randomize_option);
+  system($config{'SRCDIR'}."/bin/fetch_spamc_modules_conf.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_newsl_rules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_modules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_config.sh ".$randomize_option);
