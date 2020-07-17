@@ -282,7 +282,7 @@ $txt['REMADDRESSALT'] = "Adresse l&ouml;schen";
 // old
 $txt['ADDADDRESSALT'] = "Adresse beif&uuml;gen";
 $txt['BADADDRESSFORMAT'] = "Eingegebene Adresse ung&uuml;ltig. Bitte geben Sie die Adresse nochmal ein.";
-$txt['NOTFILTEREDDOMAIN'] = "Dieses Domain  ist vom MailCleaner nicht filtriert. Demzufolge kann die Adresse nicht zugef&uuml;gt werden.";
+$txt['NOTFILTEREDDOMAIN'] = "Dieses Domain ist vom MailCleaner nicht filtriert. Demzufolge kann die Adresse nicht zugef&uuml;gt werden.";
 $txt['ALIASALREADYREGISTERD'] = "Adresse bereits registriert ! Diese Adresse wird nicht zugef&uuml;gt, denn sie ist bereits von MailCleaner gepr&uuml;ft.";
 $txt['ALIASALREADYPENDING'] = "Eine Anfrage f&uuml;r diese Adresse ist bereits vorhanden.";
 $txt['ALIASPENDING'] = "An diese Adresse wurde eine Bestätigung gesendet.<br/> Aus Sicherheitsgründen wird die Adresse nur dann hinzugefügt, wenn Sie die Anfrage innerhalb von 24 Stunden bestätigen.";
@@ -475,7 +475,7 @@ $txt['BLACKLISTSHORTHELP'] = "Die schwarze Liste enthält die gesperrte Absender
 $txt['WHITELISTFORADDRESS'] = "Wei&szlig;e Liste f&uuml;r die Adresse";
 $txt['ADDAWHITEENTRY'] = "Adresse in die Wei&szlig;e Liste zuf&uuml;gen";
 $txt['WHITELISTENTRYTOADD'] = "Adresse eintragen, die Sie zur Wei&szlig;e Liste zuf&uuml;gen m&ouml;chten. Sie k&ouml;nnen einen zus&auml;tzlichen Kommentar anf&uuml;gen.";
-$txt['REMOVEAWHITEENTRYSHORTHELP'] = "W&auml;hlen Sie in der Wei&szlig;e Liste  die Adresse(n) die Sie &auml;ndern m&ouml;chten, dann klicken Sie auf die entsprechende Schaltfl&auml;che.";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "W&auml;hlen Sie in der Wei&szlig;e Liste die Adresse(n) die Sie &auml;ndern m&ouml;chten, dann klicken Sie auf die entsprechende Schaltfl&auml;che.";
 $txt['BLACKLISTFORADDRESS'] = "Schwarze Liste für die Adresse";
 $txt['ADDABLACKENTRY'] = "Fügen Sie eine Adresse in die Liste";
 $txt['BLACKLISTENTRYTOADD'] = "Geben Sie die Adresse, die Sie auf die schwarze Liste hinzufügen möchten. Sie können auch einen optionalen Kommentar ein.";
