@@ -68,10 +68,10 @@ $txt['LOGININFO'] = "Rappel : votre nom d'utilisateur et mot de passe sont ceux 
 $txt['USERNAME'] = "Utilisateur";
 $txt['PASSWORD'] = "Mot de passe";
 //old
-$txt['ASKLOGIN'] = "Veuillez entrer votre nom d'utilisateur et votre mot de passe pour acc&eacute;der aux outils clients: <span class=\"important\">(il s'agit du nom d'utilisateur et du mot de passe de votre compte e-mail)</span>";
+$txt['ASKLOGIN'] = "Veuillez entrer votre nom d'utilisateur ou votre mot de passe :";
 $txt['ORGANIZATIONUNIT'] = "Unit&eacute; ou d&eacute;partement";
 $txt['FORGOTPASSWORD'] = "Mot de passe perdu ?";
-$txt['PASSWORDRESET'] = "Le mot de passe a &eacute;t&eacute; r&eacute;initialis&eacute; et vous a &eacute;t&eacute; envoy&eacute; par e-mail.";
+$txt['PASSWORDRESET'] = "Le mot de passe a &eacute;t&eacute; r&eacute;initialis&eacute; et vous a &eacute;t&eacute; envoy&eacute; par courriel.";
 /*
  * menu
  */
@@ -136,7 +136,7 @@ $txt['SENDER'] = "Exp&eacute;diteur&nbsp;";
 $txt['FORCED'] = "Lib&eacute;r";
 $txt['ACTION'] = "Action";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Total : __PARAM__ spam(s)";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ derniers jours";
 $txt['PURGESELECTEDSPAMS'] = "Purger manuellement la quarantaine";
@@ -455,7 +455,7 @@ $txt['TODAY'] = "Aujourd'hui";
  * wwlists (new)
  */
 $txt['WARNLISTSHORTHELP'] = "La liste d'avertissement comporte des adresses d'exp&eacute;diteurs de confiance, pour lesquelles tout message bloqu&eacute; en 
-quarantaine vous est notifi&eacute; par un courrier. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.<br />
+quarantaine vous est notifi&eacute; par un courriel. Il vous est alors possible de lib&eacute;rer imm&eacute;diatement le message si vous estimez qu'il a &eacute;t&eacute; retenu &agrave; tort.<br />
 \tAttention : l'utilisation de cette fonction ne devrait &ecirc;tre que temporaire car elle diminue votre protection.
 \tConsultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste d'avertissement de mani&egrave;re avis&eacute;e. ";
 $txt['WARNLISTFORADDRESS'] = "Liste d'avertissement pour l'adresse";
@@ -475,7 +475,7 @@ En ajoutant une adresse dans la liste noire, vous ne recevrez plus de courrier d
 Consultez le manuel utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour savoir comment utiliser la liste noire de mani&egrave;re avis&eacute;e.
 ";
 $txt['WHITELISTFORADDRESS'] = "Liste blanche pour l'adresse";
-$txt['BLACKLISTFORADDRESS'] = "Liste noire  pour l'adresse";
+$txt['BLACKLISTFORADDRESS'] = "Liste noire pour l'adresse";
 $txt['ADDAWHITEENTRY'] = "Ajouter une adresse &agrave; la liste";
 $txt['WHITELISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste blanche. Vous pouvez y associer un commentaire optionnel.";
 $txt['BLACKLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste noire. Vous pouvez y associer un commentaire optionnel.";
@@ -508,3 +508,4 @@ $txt['NEWSLISTFORADDRESS'] = "Liste d'infolettres pour l'adresse";
 $txt['ADDANEWSENTRY'] = "Ajouter une adresse à la liste";
 $txt['NEWSLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste newsletters. Vous pouvez y associer un commentaire optionnel.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Sélectionnez la ou les adresses que vous souhaitez modifier dans la liste et cliquez sur le bouton d'action correspondant.";
+$txt['ADDTOGROUP'] = "Ajouter pour toutes les adresses dans le groupe";
