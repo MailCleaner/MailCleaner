@@ -113,8 +113,8 @@ $txt['SCORETEXT'] = "Punteggio: __PARAM__";
 $txt['CLOSEWINDOW'] = "Chiudi la finestra";
 $txt['CURRENTPAGE'] = "Pagina __PARAM1__ di __PARAM2__";
 $txt['PURGEINFOS'] = "<strong>Elimina automaticamente se pi&ugrave vecchi di:</strong> __PARAM__ giorni";
-$txt['DISPLAYEDINFOS'] = "<strong>Messaggi visualizzati: </strong>ultimi  __PARAM1__  giorni (<a href=\"__PARAM2__\">Modifica...</a>). ";
-$txt['DISPLAYEDINFOSS'] = "<strong>Messaggi visualizzati: </strong>ultimi  __PARAM__  giorni. ";
+$txt['DISPLAYEDINFOS'] = "<strong>Messaggi visualizzati: </strong>ultimi __PARAM1__  giorni (<a href=\"__PARAM2__\">Modifica...</a>). ";
+$txt['DISPLAYEDINFOSS'] = "<strong>Messaggi visualizzati: </strong>ultimi __PARAM__  giorni. ";
 //old
 $txt['QUARANTINETITLE'] = "Elenco Quarantena per __PARAM__";
 //old
@@ -136,7 +136,7 @@ $txt['ACTION'] = "Azione";
 //old
 $txt['TOTALSPAMS'] = "Totale: __PARAM__ spam(s)";
 //old
-$txt['FORTHEXLASTDAYS'] = "ultimi  __PARAM__  giorni";
+$txt['FORTHEXLASTDAYS'] = "ultimi __PARAM__  giorni";
 $txt['PURGESELECTEDSPAMS'] = "Svuota manualmente la quarantena";
 //old
 $txt['HIDEFORCED'] = "Nascondi i messaggi utente rilasciati";
