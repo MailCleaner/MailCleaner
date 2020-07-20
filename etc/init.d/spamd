@@ -50,6 +50,7 @@ case "$1" in
     touch $VARDIR/run/spamd.start.rs
     echo -n "  Starting SpamAssassin daemon: "
     /usr/mailcleaner/bin/dump_custom_spamc_rules.sh
+    /usr/mailcleaner/bin/dump_spamc_double_items.pl
 
     prepare
     $DAEMON $SPAMDOPTS >/dev/null 2>&1
