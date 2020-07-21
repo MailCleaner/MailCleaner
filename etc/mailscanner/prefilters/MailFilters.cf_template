@@ -4,3 +4,7 @@ putSpamHeader=__PUTSPAMHEADER__
 timeOut=__TIMEOUT__
 maxSize=__MAXSIZE__
 serial=2D3F311B-5C9E-428C-8EC5-DE9D166ACA53
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

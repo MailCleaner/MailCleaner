@@ -57,6 +57,12 @@ sub initialise {
      SFNTimeout => 10,
      tmpDir => '/tmp/MessageSniffer',
      MaxTempFileSize => 64 * 1024, 
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -68,6 +74,17 @@ sub initialise {
     close CONFIG;
   } else {
     MailScanner::Log::WarnLog("$MODULE configuration file ($configfile) could not be found !");
+  }
+
+  if ($MessageSniffer::conf{'pos_decisive'} && ($MessageSniffer::conf{'decisive_field'} eq 'pos_decisive' || $MessageSniffer::conf{'decisive_field'} eq 'both')) {
+    $MessageSniffer::conf{'pos_text'} = '+'.$MessageSniffer::conf{'position'}.'+ ';
+  } else {
+    $MessageSniffer::conf{'pos_text'} = '~'.$MessageSniffer::conf{'position'}.'~ ';
+  }
+  if ($MessageSniffer::conf{'neg_decisive'} && ($MessageSniffer::conf{'decisive_field'} eq 'neg_decisive' || $MessageSniffer::conf{'decisive_field'} eq 'both')) {
+    $MessageSniffer::conf{'neg_text'} = '-'.$MessageSniffer::conf{'position'}.'- ';
+  } else {
+    $MessageSniffer::conf{'neg_text'} = '~'.$MessageSniffer::conf{'position'}.'~ ';
   }
 }
 
@@ -151,18 +168,18 @@ sub Checks {
 
   if ($SNF_XCI_Return->{code} > 0) {
     ## is spam
-    MailScanner::Log::InfoLog("$MODULE result is spam ($desc) for ".$message->{id});
+    MailScanner::Log::InfoLog("$MODULE (position ".$MessageSniffer::conf{position}.": ".($MessageSniffer::conf{pos_decisive})?'':'not '."decisive) result is spam ($desc) for ".$message->{id});
     if ($MessageSniffer::conf{'putSpamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, "is spam ($desc)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, $MessageSniffer::conf{pos_text}."is spam ($desc)");
     }
-    $message->{prefilterreport} .= ", MessageSniffer ($desc)";
+    $message->{prefilterreport} .= ", MessageSniffer (position=".$MessageSniffer::conf{position}.", decisive=".(($MessageSniffer::conf{pos_decisive})?'spam':'false').", "."$desc)";
     return 1;
   } 
-  MailScanner::Log::InfoLog("$MODULE result is not spam ($desc) for ".$message->{id});
+  MailScanner::Log::InfoLog("$MODULE (position ".$MessageSniffer::conf{position}.": ".($MessageSniffer::conf{neg_decisive})?'':'not '."decisive) result is not spam ($desc) for ".$message->{id});
   if ($MessageSniffer::conf{'putHamHeader'}) {
-    $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, "is not spam ($desc)");
+    $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, $MessageSniffer::conf{neg_text}."is not spam ($desc)");
   }
-  #$message->{prefilterreport} .= ", MessageSniffer ($desc)";
+  $message->{prefilterreport} .= ", MessageSniffer (position=".$MessageSniffer::conf{position}.", decisive=".(($MessageSniffer::conf{neg_decisive})?'ham':'false').", "."$desc)";
   return 0;
 }
 

@@ -38,7 +38,13 @@ sub initialise {
      use_ctipd => 1,
      ctipd_server_host => 'localhost',
      ctipd_server_port => 8086,
-     ctipd_blocktempfail => 0
+     ctipd_blocktempfail => 0,
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -52,6 +58,17 @@ sub initialise {
     MailScanner::Log::WarnLog("$MODULE configuration file ($configfile) could not be found !");
   }
   $Commtouch::lwp = new LWP::UserAgent;
+
+  if ($Commtouch::conf{'pos_decisive'} && ($Commtouch::conf{'decisive_field'} eq 'pos_decisive' || $Commtouch::conf{'decisive_field'} eq 'both')) {
+    $Commtouch::conf{'pos_text'} = '+'.$Commtouch::conf{'position'}.'+ ';
+  } else {
+    $Commtouch::conf{'pos_text'} = '~'.$Commtouch::conf{'position'}.'~ ';
+  }
+  if ($Commtouch::conf{'neg_decisive'} && ($Commtouch::conf{'decisive_field'} eq 'neg_decisive' || $Commtouch::conf{'decisive_field'} eq 'both')) {
+    $Commtouch::conf{'neg_text'} = '-'.$Commtouch::conf{'position'}.'- ';
+  } else {
+    $Commtouch::conf{'neg_text'} = '~'.$Commtouch::conf{'position'}.'~ ';
+  }
 }
 
 sub Checks {
@@ -136,11 +153,11 @@ sub Checks {
         $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}."-ctIPd-RefID", $refid);
    
         if ($action_result eq 'permfail' || ($action_result eq 'tempfail' && $Commtouch::conf{'ctipd_blocktempfail'})) {
-        	MailScanner::Log::InfoLog("$MODULE result is spam (ip: ".$action_result.") for ".$message->{id});
+            MailScanner::Log::InfoLog("$MODULE (position ".$Commtouch::conf{position}.": ".($Commtouch::conf{pos_decisive})?'':'not '."decisive) result is spam (ip: ".$action_result.") for ".$message->{id});
             if ($Commtouch::conf{'putSpamHeader'}) {
-               $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, "is spam (ip: $action_result)");
+               $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, $Commtouch::conf{'pos_text'}."is spam (ip: $action_result)");
             }
-            $message->{prefilterreport} .= ", Commtouch (ip: $action_result)";
+            $message->{prefilterreport} .= ", Commtouch (position=".$Commtouch::conf{position}.", decisive=".(($Commtouch::conf{pos_decisive})?'spam':'false').", ip: $action_result)";
             return 1;
         } elsif ($action_result eq 'tempfail') {
         	$ctipd_header = "ip: $action_result";
@@ -240,32 +257,33 @@ sub Checks {
   
     ## find out spam and VOD positives
     if ($spam_result eq 'Confirmed' || 
-         ( $spam_result eq 'Bulk' && $Commtouch::conf{'detect_spam_bulk'}) ||
-         ( $spam_result eq 'Suspected' && $Commtouch::conf{'detect_spam_suspected'}) ) {
+        ( $spam_result eq 'Bulk' && $Commtouch::conf{'detect_spam_bulk'}) ||
+        ( $spam_result eq 'Suspected' && $Commtouch::conf{'detect_spam_suspected'}) ) {
          	
-  	  MailScanner::Log::InfoLog("$MODULE result is spam (".$ctipd_header."Spam: $spam_result) for ".$message->{id});
-  	  if ($Commtouch::conf{'putSpamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, "is spam (".$ctipd_header."Spam: $spam_result)");
+      MailScanner::Log::InfoLog("$MODULE (position ".$Commtouch::conf{position}.": ".($Commtouch::conf{pos_decisive})?'':'not '."decisive) result is spam (".$ctipd_header."Spam: $spam_result) for ".$message->{id});
+      if ($Commtouch::conf{'putSpamHeader'}) {
+        $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, $Commtouch::conf{'pos_text'}."is spam (".$ctipd_header."Spam: $spam_result)");
       }
-      $message->{prefilterreport} .= ", Commtouch (".$ctipd_header."Spam: $spam_result)";
+      $message->{prefilterreport} .= ", Commtouch (position=".$Commtouch::conf{position}.", decisive=".(($Commtouch::conf{pos_decisive})?'spam':'false').", ".$ctipd_header."Spam: $spam_result)";
       return 1;
     }
   
     if ($vod_result eq 'Virus' ||
         ($vod_result eq 'High' && $Commtouch::conf{'detect_vod_high'}) ||
         ($vod_result eq 'Medium' && $Commtouch::conf{'detect_vod_medium'}) ) {
-      MailScanner::Log::InfoLog("$MODULE result is spam (".$ctipd_header."VOD: $vod_result) for ".$message->{id});
+      MailScanner::Log::InfoLog("$MODULE (position ".$Commtouch::conf{position}.": ".($Commtouch::conf{pos_decisive})?'':'not '."decisive) result is spam (".$ctipd_header."VOD: $vod_result) for ".$message->{id});
       if ($Commtouch::conf{'putSpamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, "is spam (".$ctipd_header."VOD: $vod_result)");
+        $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, $Commtouch::conf{'pos_text'}."is spam (".$ctipd_header."VOD: $vod_result)");
       }
-      $message->{prefilterreport} .= ", Commtouch (".$ctipd_header."VOD: $vod_result)";
+      $message->{prefilterreport} .= ", Commtouch (position=".$Commtouch::conf{position}.", decisive=".(($Commtouch::conf{pos_decisive})?'spam':'false').", ".$ctipd_header."VOD: $vod_result)";
       return 1;	
     }
-  
-    MailScanner::Log::InfoLog("$MODULE result is not spam (".$ctipd_header."Spam: $spam_result, VOD: $vod_result) for ".$message->{id});
+ 
+    MailScanner::Log::InfoLog("$MODULE (position ".$Commtouch::conf{position}.": ".($Commtouch::conf{neg_decisive})?'':'not '."decisive) result is not spam (".$ctipd_header."Spam: $spam_result, VOD: $vod_result) for ".$message->{id});
     if ($Commtouch::conf{'putHamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, "is not spam (".$ctipd_header."Spam: $spam_result, VOD: $vod_result)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $Commtouch::conf{'header'}, $Commtouch::conf{'neg_text'}."is not spam (".$ctipd_header."Spam: $spam_result, VOD: $vod_result)");
     }
+    $message->{prefilterreport} .= ", Commtouch (position=".$Commtouch::conf{position}.", decisive=".(($Commtouch::conf{neg_decisive})?'ham':'false').", ".$ctipd_header."VOD: $vod_result)";
     return 0;
   }
   

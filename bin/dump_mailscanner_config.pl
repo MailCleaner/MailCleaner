@@ -385,6 +385,10 @@ sub dump_prefilter_files {
         $replace{'__MAXSIZE__'} = $prefilter->{'maxSize'} || '0';
         $replace{'__PUTSPAMHEADER__'} = $prefilter->{'putSpamHeader'} || '0';
         $replace{'__PUTHAMHEADER__'} = $prefilter->{'putHamHeader'} || '0';
+        $replace{'__POSITION__'} = $prefilter->{'position'} || '0';
+        $replace{'__DECISIVE_FIELD__'} = $prefilter->{'decisive_field'} || 'none';
+        $replace{'__POS_DECISIVE__'} = $prefilter->{'pos_decisive'} || '0';
+        $replace{'__NEG_DECISIVE__'} = $prefilter->{'neg_decisive'} || '0';
         $template->setReplacements(\%replace);
 
 	my %spec_replace = ();

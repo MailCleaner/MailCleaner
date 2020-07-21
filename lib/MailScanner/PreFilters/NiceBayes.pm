@@ -26,7 +26,13 @@ sub initialise {
      maxSize => 0,
      active => 0,
      timeOut => 10,
-     avoidHeaders => ''
+     avoidHeaders => '',
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -55,6 +61,17 @@ sub initialise {
   }
 
   $NiceBayes::conf{'command'} =~ s/__CONFIGFILE__/$NiceBayes::conf{'configFile'}/g;
+
+  if ($NiceBayes::conf{'pos_decisive'} && ($NiceBayes::conf{'decisive_field'} eq 'pos_decisive' || $NiceBayes::conf{'decisive_field'} eq 'both')) {
+    $NiceBayes::conf{'pos_text'} = '+'.$NiceBayes::conf{'position'}.'+ ';
+  } else {
+    $NiceBayes::conf{'pos_text'} = '~'.$NiceBayes::conf{'position'}.'~ ';
+  }
+  if ($NiceBayes::conf{'neg_decisive'} && ($NiceBayes::conf{'decisive_field'} eq 'neg_decisive' || $NiceBayes::conf{'decisive_field'} eq 'both')) {
+    $NiceBayes::conf{'neg_text'} = '-'.$NiceBayes::conf{'position'}.'- ';
+  } else {
+    $NiceBayes::conf{'neg_text'} = '~'.$NiceBayes::conf{'position'}.'~ ';
+  }
 }
 
 sub Checks {
@@ -139,21 +156,22 @@ sub Checks {
   }
 
   if ($ret == 2) {
-    MailScanner::Log::InfoLog("$MODULE result is spam ($score%) for ".$message->{id});
+    MailScanner::Log::InfoLog("$MODULE (position ".$NiceBayes::conf{position}.": ".($NiceBayes::conf{pos_decisive})?'':'not '."decisive) result is spam ($score%) for ".$message->{id});
     if ($NiceBayes::conf{'putSpamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $NiceBayes::conf{'header'}, "is spam ($score%)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $NiceBayes::conf{'header'}, $NiceBayes::conf{'pos_text'}."is spam ($score%)");
     }
-    $message->{prefilterreport} .= ", NiceBayes ($score%)";
+    $message->{prefilterreport} .= ", NiceBayes (position=".$NiceBayes::conf{position}.", decisive=".(($NiceBayes::conf{pos_decisive})?'spam':'false').", $score\%)";
     return 1;
   }
   if ($ret < 0) {
-    MailScanner::Log::InfoLog("$MODULE result is weird ($res) for ".$message->{id});
+    MailScanner::Log::InfoLog("$MODULE result is weird ($res ".$NiceBayes::conf{'command'}.") for ".$message->{id});
     return 0;
   }
-  MailScanner::Log::InfoLog("$MODULE result is not spam ($score%) for ".$message->{id});
+  MailScanner::Log::InfoLog("$MODULE (position ".$NiceBayes::conf{position}.": ".($NiceBayes::conf{neg_decisive})?'':'not '."decisive) result is not spam ($score%) for ".$message->{id});
   if ($NiceBayes::conf{'putHamHeader'}) {
-    $global::MS->{mta}->AddHeaderToOriginal($message, $NiceBayes::conf{'header'}, "is not spam ($score%)");
+    $global::MS->{mta}->AddHeaderToOriginal($message, $NiceBayes::conf{'header'}, $NiceBayes::conf{'neg_text'}."is not spam ($score%)");
   }
+  $message->{prefilterreport} .= ", NiceBayes (position=".$NiceBayes::conf{position}.", decisive=".(($NiceBayes::conf{neg_decisive})?'ham':'false').", $score\%)";
   return 0;
 }
 

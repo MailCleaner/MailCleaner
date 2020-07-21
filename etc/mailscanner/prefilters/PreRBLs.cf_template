@@ -13,3 +13,7 @@ spamhits=__SPAMHITS__
 avoidgoodspf=__AVOIDGOODSPF__
 avoidhosts=__AVOIDHOSTS__
 debug=0
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

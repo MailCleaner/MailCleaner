@@ -39,6 +39,12 @@ sub initialise {
      avoidgoodspf => 0,
      avoidhosts => '',
      debug => 0,
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -67,6 +73,17 @@ sub initialise {
       }
       close MAPFILE;
     }
+  }
+
+  if ($PreRBLs::conf{'pos_decisive'} && ($PreRBLs::conf{'decisive_field'} eq 'pos_decisive' || $PreRBLs::conf{'decisive_field'} eq 'both')) {
+    $PreRBLs::conf{'pos_text'} = '+'.$PreRBLs::conf{'position'}.'+ ';
+  } else {
+    $PreRBLs::conf{'pos_text'} = '~'.$PreRBLs::conf{'position'}.'~ ';
+  }
+  if ($PreRBLs::conf{'neg_decisive'} && ($PreRBLs::conf{'decisive_field'} eq 'neg_decisive' || $PreRBLs::conf{'decisive_field'} eq 'both')) {
+    $PreRBLs::conf{'neg_text'} = '-'.$PreRBLs::conf{'position'}.'- ';
+  } else {
+    $PreRBLs::conf{'neg_text'} = '~'.$PreRBLs::conf{'position'}.'~ ';
   }
 }
 
@@ -184,18 +201,18 @@ sub Checks {
   $wholeheader =~ s/,,+/,/;
   
   if ($dnshitcount > 0 || $bsdnshitcount > 0) {
-    $message->{prefilterreport} .= ", PreRBLs ($wholeheader)";
+    $message->{prefilterreport} .= ", PreRBLs (position=".$PreRBLs::conf{position}.", decisive=".(($PreRBLs::conf{pos_decisive})?'spam':'false').", ".$wholeheader.")";
     if ($message->{isspam}) {
-      MailScanner::Log::InfoLog("$MODULE result is spam ($wholeheader) for ".$message->{id});
+      MailScanner::Log::InfoLog("$MODULE (position ".$PreRBLs::conf{position}.": ".($PreRBLs::conf{pos_decisive})?'':'not '."decisive) result is spam ($wholeheader) for ".$message->{id});
       if ($PreRBLs::conf{'putSpamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader)");
+        $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, $PreRBLs::conf{'pos_text'}."is spam ($wholeheader)");
       }
       return 1;
     }
     if ($wholeheader ne '') {
-      MailScanner::Log::InfoLog("$MODULE result is not spam ($wholeheader) for ".$message->{id});
+      MailScanner::Log::InfoLog("$MODULE (position ".$PreRBLs::conf{position}.": ".($PreRBLs::conf{neg_decisive})?'':'not '."decisive) result is not spam ($wholeheader) for ".$message->{id});
       if ($PreRBLs::conf{'putSpamHeader'}) {
-         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader)");
+         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, $PreRBLs::conf{'neg_text'}."is not spam ($wholeheader)");
       }
     }
   }
