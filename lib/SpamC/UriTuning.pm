@@ -46,7 +46,7 @@ sub gglapi_domain {
         chomp($Recipients);
         my @AllRecipients = split(', ', $Recipients);
         my %AllRecipientsDomains;
-        foreach my $Recip(@AllRecipients) {
+        foreach my $Recip (@AllRecipients) {
                 $Recip = _domain($Recip);
                 $AllRecipientsDomains{$Recip} = 1;
         }
