@@ -73,6 +73,7 @@ if ($days !~ /^\d+$/) {
 my $lockfile_name = 'send_summary_' . $days . 'd';
 my $rc = create_lockfile($lockfile_name, undef, time+10*60*60, 'send_summary');
 if ($rc == 0) {
+  print "CANNOTLOCK $lockfile_name\n";
   exit;
 }
 
@@ -185,11 +186,21 @@ foreach my $a (@addresses) {
   }
   my $query = "INSERT INTO digest_access VALUES('$hash', DATE(NOW()), DATE_SUB(NOW(), INTERVAL $days DAY), DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)), '$a');";
   if ($conf_db->execute($query)) {
-        $replace{'__DIGEST_ID__'} = $hash;
+    $replace{'__DIGEST_ID__'} = $hash;
   } else {
-    	print 'COULDNOTSAVEDIGESTID '.$query;
+    my $query = "SELECT address FROM digest_access WHERE id = '$hash';";
+    my $old = ($conf_db->getListOfHash($query))[0]->{address};
+    if ($old eq $a) {
+      my $query = "UPDATE digest_access SET date_in = DATE(NOW()), date_start = DATE_SUB(NOW(), INTERVAL $days DAY), date_expire = DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)) WHERE id = '$hash';";
+      if ($conf_db->execute($query)){
+        $replace{'__DIGEST_ID__'} = $hash;
+      } else {
+        print 'COULDNOTUPDATEEXPIRY '.$query."\n";
+      }
+    } else {
+      print 'COULDNOTUPDATEEXPIRY for different address '.$a.' '.$query."\n";
+    }
   }
-  #}
   $template->setReplacements(\%replace);
   my $result = $template->send($to, 10);
   if ($result) {
@@ -200,7 +211,7 @@ foreach my $a (@addresses) {
         $a = join(',', $email->getLinkedAddresses());
     }
     if (!$to) {
-        $to = $email->getAddress();
+        $to = $email->getUser()->getMainAddress();
     }
     print "$date SUMSENT to $to for $a (days: $days, spams: $nbspams, id: $result)\n";
   }
