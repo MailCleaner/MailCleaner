@@ -177,7 +177,7 @@ foreach my $a (@addresses) {
   #if ($type eq 'digest') {
   ## create new digest and save it
   my $firstspam = $spams[0];
-  my $str = $firstspam->{exim_id}.'-'.$firstspam->{time_in}.'-'.@spams.'-'.time();
+  my $str = $firstspam->{exim_id}.'-'.$firstspam->{time_in}.'-'.@spams.'-'.time().$a;
   $str =~ s/:/-/g;
   my $hash = sha1_hex($str);
   $replace{'__DIGEST_ID__'} = 'NOTGENERATED';
