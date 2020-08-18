@@ -147,6 +147,14 @@ if [ -x /usr/bin/savelog ]; then
   done
 fi
 
+###########################
+## MessageSniffer rotate ##
+###########################
+
+if [ -d $VARDIR/log/messagesniffer ]; then
+  find $VARDIR/log/messagesniffer/*[0-9].log.xml -mtime +7 -exec rm {} \;
+fi
+
 #####################
 ## apache rotating ##
 #####################
