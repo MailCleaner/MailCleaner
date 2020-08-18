@@ -74,7 +74,7 @@ class ConfigUserWWList {
                 require_once('user/WWEntry.php');
                 $new = new WWEntry();
                 // FILTER_VALIDATE_DOMAIN requires PHP >= 7; must do manually
-                if (!filter_var($addposted['entry'], FILTER_VALIDATE_EMAIL) && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $addposted['entry']) && !preg_match('/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/', $addposted['entry'])) {
+                if (!filter_var($addposted['entry'], FILTER_VALIDATE_EMAIL) && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $addposted['entry']) && !preg_match('/^@?([a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/', $addposted['entry'])) { 
                     $this->message_ = 'Add ' . $addposted['entry'] . ' failed (invalid sender)'; 
                 } else {
                     $sender = $addposted['entry'];
