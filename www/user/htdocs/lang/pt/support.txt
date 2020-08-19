@@ -15,7 +15,7 @@ $txt['SFALSEPOSSUB1POINT2'] = "a mensagem teve a oportunidade de ser processada 
 $txt['SFALSEPOSSUB2TITLE'] = "Uma mensagem foi considerada spam e não compreende o porquê?";
 $txt['SFALSEPOSSUB2'] = "Através da lista de quarentena, pode ver os critérios que o Mailcleaner usou para considerar a mensagem como spam através do botão <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Se achar que os critérios não são justificáveis, pode pedir uma análise ao nosso centro de análise carregando no botão <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Pode também libertar a mensagem carregando no botão <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\">.";
 $txt['SFALSEPOSSUB3TITLE'] = "Listas de correio";
-$txt['SFALSEPOSSUB3'] = "Ocasionalmente algumas listas de correio são bloqueadas pelo Mailcleaner. Isto deve-se à sua formatação que muitas das vezes é semelhante à do spam. Pode requerer uma análise destas mensagens como explicado acima, e o nosso centro de análise tratará de colocar estas listas de correio em listas brancas para prevenir que estas sejam bloqueadas no futuro.";
+$txt['SFALSEPOSSUB3'] = "Ocasionalmente algumas listas de correio são bloqueadas pelo Mailcleaner. Isto deve-se à sua formatação que muitas das vezes é semelhante à do spam. Pode requerer uma análise destas mensagens como explicado acima, e o nosso centro de análise tratará de pôr estas listas de correio em listas brancas para prevenir que estas sejam bloqueadas no futuro.";
 $txt['SOTHERTITLE'] = "OUTROS PROBLEMAS";
 $txt['SOTHER'] = "Tem um problema diferente com a receção do seu e-mail, e seguiu todos os procedimentos descritos acima sem nenhum resultado positivo? Se sim, por favor entre em contacto com o Centro de Análise do Mailcleaner preenchendo este formulário.";
 $txt['FAQTITLE'] = "Noções básicas sobre o Mailcleaner";
@@ -45,7 +45,7 @@ $txt['FAQ'] = "
                       </ul>
                   </li>
                   <li> <h2>O que pode fazer para corrigir o Mailcleaner</h2>
-                      Após um erro efetuado pelo Mailcleaner, o melhor a fazer para ajudar a corrigir o filtro é dar feedback ao seu administrador. Não pense que a melhor solução é colocar os remetentes em lista branca ou em lista negra, já que isto é só uma forma rápida mas pouco eficiente de resolver o problema (consulte isto para mais informações). Embora às vezes possa ser a única solução, é melhor descobrir a verdadeira causa do erro e corrigi-la. Isto só pode ser feito por pessoas técnicas especializadas, pelo que não hesite em os reportar ao seu administrador.
+                      Após um erro efetuado pelo Mailcleaner, o melhor a fazer para ajudar a corrigir o filtro é dar feedback ao seu administrador. Não pense que a melhor solução é pôr os remetentes em lista branca ou em lista negra, já que isto é só uma forma rápida mas pouco eficiente de resolver o problema (consulte isto para mais informações). Embora às vezes possa ser a única solução, é melhor descobrir a verdadeira causa do erro e corrigi-la. Isto só pode ser feito por pessoas técnicas especializadas, pelo que não hesite em os reportar ao seu administrador.
                   </li>
                 </ul>";
 $txt['DOCUMENTATION'] = "
