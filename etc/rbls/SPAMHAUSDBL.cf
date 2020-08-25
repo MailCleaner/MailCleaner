@@ -1,5 +1,0 @@
-name=SPAMHAUSDBL
-type=URIRBL
-dnsname=dbl.spamhaus.org
-sublist=127.0.1.\d+,SPAMHAUSDBL,Spamhaus domain blocklist
-callonip=0
