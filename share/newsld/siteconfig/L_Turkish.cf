@@ -1,5 +1,0 @@
-body            MC_TU_NEWSL /\bb.lten\b/i
-score           MC_TU_NEWSL 1.0
-
-body            MC_TU_UNSUBSCRIBE /yelikten Ayrıl\b/i
-score           MC_TU_UNSUBSCRIBE 2.0
