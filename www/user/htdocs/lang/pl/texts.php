@@ -144,7 +144,8 @@ $txt['HIDEFORCED'] = "Ukryj wiadomości zwolnione przez użytkownika";
 $txt['FORCESPAM'] = "zwolnij wiadomość";
 //old
 $txt['ASKREASON'] = "wyświetl reguły filtrowania";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.</br> Uwaga: Zmiana filtrowania jest czym innym niż whitelista czy blacklista";
+$txt['CONFSENDANALYSE'] = "Prośba o dostosowanie filtra zostanie wysłana do Centrum Analiz MailCleaner; prośba będzie zawierała kopię wiadomości, która została błędnie zablokowana.</br> Uwaga: Dostosowanie filtrowania jest czym innym niż dodanie 
+ do białej (whitelist) lub czarnej (blacklist) listy.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Na pewno chcesz analizować tę wiadomość, zmiany filtrowania mogą zostać zastosowane?</span>";
 $txt['ASKANALYSE'] = "Żądanie zmiany filtrowania";
 $txt['PAGE'] = "Strona";
