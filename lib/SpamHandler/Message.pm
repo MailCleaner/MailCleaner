@@ -161,8 +161,10 @@ sub process {
 		my $delivery_type = int( $email->getPref( 'delivery_type', 1 ) );
 		$this->endTimer('Message fetch prefs');
 		$this->startTimer('Message fetch ww');
-		my $whitelisted =
-		  $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} );
+		my $whitelisted = (
+		  $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} ) ||
+		  $email->hasInWhiteWarnList( 'whitelist', $this->{msg_from} )
+		);
 		my $warnlisted =
 		  $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
 		my $blacklisted =
@@ -378,6 +380,9 @@ sub loadMsgFile() {
 	## check for standard (but untrusted) headers
 	if ( defined( $this->{headers}{'from'} ) ) {
 		$this->{msg_from} = $this->{headers}{'from'};
+		if ( $this->{headers}{'from'} =~ m/<.*>/ ) {
+			$this->{msg_from} =~ s/.*<([^>]*)>/$1/ 
+		}
 	}
 	if ( defined( $this->{headers}{'date'} ) ) {
 		$this->{msg_date} = $this->{headers}{'date'};
