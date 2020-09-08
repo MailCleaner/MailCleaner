@@ -9,6 +9,13 @@
 # Description:       MailCleaner
 ### END INIT INFO
 
+APACHE_RESTART=1
+if [ ! -z $2 ]; then
+    if [ "$2" = "no-apache" ]; then
+       APACHE_RESTART=0
+    fi
+fi
+
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "$SRCDIR" = "" ]; then
   SRCDIR=/opt/mailcleaner
@@ -81,7 +88,9 @@ case "$1" in
     $INITDIR/$EXIM2 start
     $INITDIR/$EXIM1 start
     $INITDIR/$GREYLISTD start
-    $INITDIR/$APACHE start
+    if [ $APACHE_RESTART -eq 1 ]; then
+        $INITDIR/$APACHE start
+    fi
 
     FIRSTUPDATE_LOG="${VARDIR}/log/mailcleaner/first-start.log"
     FIRSTUPDATE_FLAG_DIR="${VARDIR}/run/configurator"
@@ -112,7 +121,9 @@ case "$1" in
   stop)
     rm $VARDIR/run/*.rs 2>&1 > /dev/null
     echo "Stopping $NAME: "
-    $INITDIR/$APACHE stop
+    if [ $APACHE_RESTART -eq 1 ]; then
+       $INITDIR/$APACHE stop
+    fi
     $INITDIR/$EXIM1 stop
     $INITDIR/$EXIM2 stop
     $INITDIR/$EXIM4 stop
@@ -126,9 +137,9 @@ case "$1" in
     $INITDIR/$MYMASTER stop
       ;;
   restart)
-	$0 stop
+	$0 stop $2
 	sleep 4
-	$0 start
+	$0 start $2
     ;;
 
   *)
