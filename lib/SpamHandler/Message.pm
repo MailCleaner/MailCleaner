@@ -161,10 +161,19 @@ sub process {
 		my $delivery_type = int( $email->getPref( 'delivery_type', 1 ) );
 		$this->endTimer('Message fetch prefs');
 		$this->startTimer('Message fetch ww');
-		my $whitelisted = (
-		  $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} ) ||
-		  $email->hasInWhiteWarnList( 'whitelist', $this->{msg_from} )
-		);
+		my $whitelisted;
+
+		# if the flag file to activate whitelist also on msg_from is there
+		if ( -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from') {
+			$whitelisted = (
+			  $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} ) ||
+			  $email->hasInWhiteWarnList( 'whitelist', $this->{msg_from} )
+			);
+		# else whitelists are only applied to SMTP From
+		} else {
+			$whitelisted = $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} );
+		}
+
 		my $warnlisted =
 		  $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
 		my $blacklisted =
