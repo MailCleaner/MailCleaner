@@ -22,6 +22,7 @@ CREATE TABLE antispam (
   enable_warnlists               bool NOT NULL DEFAULT '0',
   enable_blacklists               bool NOT NULL DEFAULT '0',
   tag_mode_bypass_whitelist      bool NOT NULL DEFAULT '1',
+  whitelist_both_from            bool NOT NULL DEFAULT '0',
   trusted_ips					  blob,
   use_fuzzyocr                   bool NOT NULL DEFAULT '1',
   use_pdfinfo                    bool NOT NULL DEFAULT '1',

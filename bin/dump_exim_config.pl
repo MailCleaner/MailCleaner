@@ -273,6 +273,17 @@ sub dump_exim_file
   if ($sys_conf{'__TAGMODEBYPASSWHITELISTS__'}) {
     $template->setCondition('TAGMODEBYPASSWHITELISTS', 1);
   }
+  if ($sys_conf{'__WHITELISTBOTHFROM__'}) {
+	if ( ! -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from' ) {
+		open WLFH, '>', '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from';
+		close WLFH;
+	}
+
+  } else {
+	if ( -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from' ) {
+		unlink '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from';
+	}
+  }
   $template->setCondition('USETLS', $exim_conf{'__USE_INCOMINGTLS__'});
   $template->setCondition('USEARCHIVER', 0);
   if ($sys_conf{'use_archiver'}) {
@@ -445,7 +456,8 @@ sub get_system_config
 	my %sconfig = ();
     my %row = $db->getHashRow("SELECT hostname, default_domain, sysadmin, clientid, ad_server, ad_param, smtp_proxy,
                            syslog_host, sc.use_syslog, do_stockme, use_ssl, servername, use_archiver, archiver_host,
-                           trusted_ips, tag_mode_bypass_whitelist FROM system_conf sc, antispam an, httpd_config hc");
+                           trusted_ips, tag_mode_bypass_whitelist,whitelist_both_from
+                            FROM system_conf sc, antispam an, httpd_config hc");
     return unless %row;
 
  	$sconfig{'__PRIMARY_HOSTNAME__'} = $row{'hostname'};
@@ -505,6 +517,7 @@ sub get_system_config
     	$sconfig{'__TRUSTED_HOSTS__'} =~ s/\s+/ ; /g;
     }
     $sconfig{'__TAGMODEBYPASSWHITELISTS__'} = $row{'tag_mode_bypass_whitelist'};
+    $sconfig{'__WHITELISTBOTHFROM__'} = $row{'whitelist_both_from'};
 
 
     my $http = "http://";
