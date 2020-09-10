@@ -79,7 +79,6 @@ if ($today_str !~ m/^(\d\d\d\d)(\d\d)(\d\d)$/) {
 }
 my %today = ( 'year' => $1, 'month' => $2, 'day' => $3 );
 my $LOGDIR=$conf->getOption('VARDIR')."/log";
-
 if ($start > $today_str && $stop > $today_str) {
   $starto{'year'}--;
   $start = sprintf('%04d%02d%02d', $starto{'year'}, $starto{'month'}, $starto{'day'});
@@ -503,19 +502,42 @@ sub printBatchResult {
   
   print $_datein."|".$config->getOption('HOSTID')."|".$_senderhostname."|".$_senderhostip."|".$_accepted."|".$_relayed."|".$_inreport."|".$msg_o{'id'}."|".$_from."|".$_tos."|".$msg_o{'nid'};
   
+  # $_spam will be 0 for ham, 1 for spam, 2 for newsletter and 3 for spam and newsletter
   my $_spam = 0;
   my $_spamreport = '';
   my $_content = '';
   my $_contentreport = '';
   my $_fstatus = '';
-
   foreach my $line (split '\n', $ms_ids{$msg_o{'nid'}}) {
-  	if ($line =~ m/to\ \S+\ is\ (not spam|spam)[^,]*, (.*)/) {
+ 	if ($line =~ m/to\ \S+\ is\ (not spam|spam)[^,]*, (.*)/) {
   		if ($1 eq 'spam') {
-  			$_spam = 1;
+			if ($_spam eq 2) {
+  			     $_spam = 3;
+			} else {
+  			     $_spam = 1;
+			}
+
+
   		}
   		$_spamreport = $2;
   	}
+	if ($line =~ m/to\ \S+\ is\ (not spam|spam).*Newsl \(score=([^,]*), required=([^,]*)/) {
+		if ( int($2) >= int($3) ) {
+		
+			if ($_spam eq 1) {
+  			     $_spam = 3;
+			} else {
+	  		     $_spam = 2;
+			}
+		}
+	}
+        if ($line =~ m/result is newsletter/) {
+		if ($_spam eq 1) {
+  		     $_spam += 2;
+		} else {
+  		     $_spam = 2;
+		}
+        }
   	## TO DO: check for viruses and content...
   	if ($line =~ m/Content Checks: Detected (.*)/) {
   		$_content = 'Detected';
@@ -611,11 +633,6 @@ sub processStage4Logs {
             if ($shline =~ /want tag/) {
                 $outreport = 'Tagged';
             }
-            if ($shline =~ /want quarantine/) {
-                $outreport = 'Quarantined';
-                $dateout = $date;
-                $outdateset = 1;
-            }
             if ($shline =~ /want drop/) {
                 $outreport = 'Dropped';
                 $dateout = $date;
@@ -626,6 +643,11 @@ sub processStage4Logs {
             }
             if ($shline =~ /is whitelisted/) {
                 $outreport = 'Whitelisted';
+            }
+            if ($shline =~ /want quarantine/) {
+                $outreport = 'Quarantined';
+                $dateout = $date;
+                $outdateset = 1;
             }
         }
     }
@@ -688,6 +710,7 @@ sub getFileListFromDates {
   my $i = $start_count;
   while ($i >= -1) {
      my $tfile = getFileFromCount($filename, $i);
+
      if ($tfile ne 'NOTVALID') {
         my %logdate = getDateFromLog($tfile);
         if (%logdate) {

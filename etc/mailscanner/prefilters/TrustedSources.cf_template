@@ -3,7 +3,6 @@ putHamHeader=__PUTHAMHEADER__
 putSpamHeader=__PUTSPAMHEADER__
 timeOut=__TIMEOUT__
 maxSize=__MAXSIZE__
-
 useAllTrusted=__USE_ALLTRUSTED__
 useAuthServers=__USE_AUTHSERVERS__
 useSPFOnLocal=__USE_SPFONLOCAL__
@@ -17,3 +16,7 @@ rblsDefsPath=__SRCDIR__/etc/rbls
 whiterbls=__WHITERBLS__
 debug=0
 spflists=
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

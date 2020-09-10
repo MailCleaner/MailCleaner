@@ -97,7 +97,13 @@
    <td class="c_tos" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanAddress($element->getParam('tos'), 1)?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;"><?php echo $element->getCleanParam('tos')?></td>  
    <td class="c_spam" onmouseover="javascript:showHideToolTip(event, true, '<?php echo $element->getCleanParam('spamreport')?>', 'L'); return true;" onmouseout="javascript:showHideToolTip(event, false, '', 'L'); return true;">
      <?php if ($element->getParam('spam')) {?>
-       <span class="m_rejected"><?php echo $this->t->_('spam')?></span>
+       <?php if ($element->getParam('spam') == 1) {?>
+         <span class="m_rejected"><?php echo $this->t->_('spam')?></span>
+       <?php } elseif ($element->getParam('spam') == 2) {?>
+         <span class="m_rejected"><?php echo $this->t->_('newsl')?></span>
+       <?php } elseif ($element->getParam('spam') == 3) {?>
+         <span class="m_rejected"><?php echo $this->t->_('spam and newsl')?></span>
+       <?php }?>
      <?php } else { ?>
        <span>-</span>
      <?php }?>   

@@ -26,6 +26,10 @@ sub initialise {
      scoreHeader => "X-$MODULE-result",
      maxSize => 0,
      timeOut => 20,
+     decisive_field => 'none',
+     pos_text => '',
+     pos_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -40,6 +44,12 @@ sub initialise {
   }
   $ClamSpam::conf{'command'} =~ s/__CONFIGFILE__/$ClamSpam::conf{'configFile'}/g;
   $ClamSpam::conf{'command'} =~ s/__CLAM_DB__/$ClamSpam::conf{'clamdb'}/g;
+
+  if ($ClamSpam::conf{'pos_decisive'} && ($ClamSpam::conf{'decisive_field'} eq 'pos_decisive' || $ClamSpam::conf{'decisive_field'} eq 'both')) {
+    $ClamSpam::conf{'pos_text'} = 'position : '.$ClamSpam::conf{'position'}. ', spam decisive';
+  } else {
+    $ClamSpam::conf{'pos_text'} = 'position : '.$ClamSpam::conf{'position'}. 'not decisive';
+  }
 }
 
 sub Checks {
@@ -105,9 +115,10 @@ sub Checks {
   if ($ret == 2) {
     MailScanner::Log::InfoLog("$MODULE result is spam ($spamfound) for ".$message->{id});
     if ($ClamSpam::conf{'putSpamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $ClamSpam::conf{'header'}, "is spam ($spamfound)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $ClamSpam::conf{'header'}, "is spam ($spamfound) " .$ClamSpam::conf{'pos_text'});
     }
-    $message->{prefilterreport} .= ", ClamSpam ($spamfound)";
+    $message->{prefilterreport} .= ", ClamSpam ($spamfound, " .$ClamSpam::conf{pos_text}.")";
+
     return 1;
   }
   return 0;
