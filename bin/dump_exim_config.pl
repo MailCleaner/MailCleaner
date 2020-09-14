@@ -102,7 +102,7 @@ my %exim_conf;
 
 ## dump the blacklists files
 dump_blacklists();
-dump_lists_ip_domain();
+$exim_conf{'__LISTS_PER_DOMAIN__'} = dump_lists_ip_domain();
 
 my $syslog_restart = 0;
 foreach my $stage (@eximids) {
@@ -337,6 +337,8 @@ sub dump_exim_file
   if ($exim_conf{'__ERRORS_REPLY_TO__'} ne '') {
   	$template->setCondition('ERRORS_REPLY_TO', 1);
   }
+
+  template->setCondition('__LISTS_PER_DOMAIN__', $exim_conf{'__LISTS_PER_DOMAIN__'});
 
   my @net_interfaces = get_interfaces();
   $template->setCondition('DISABLE_IPV6', 1);
@@ -948,7 +950,7 @@ sub dump_lists_ip_domain {
     $request =~ s/, $/);/;
     my $count = $db->getCount($request);
     if ($count eq 0) {
-	return;
+	return 0;
     }
 
     foreach my $type (@types) {
@@ -976,6 +978,7 @@ sub dump_lists_ip_domain {
             }
         print_ip_domain_rule($sender_list, $last_domain, $type);
     } 
+    return 1;
 }
 
 #############################
