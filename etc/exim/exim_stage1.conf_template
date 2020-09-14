@@ -201,7 +201,9 @@ __FI__
 
 __IF__ RBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI
           dnslists      = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
@@ -222,7 +224,9 @@ __FI__
 
   deny    hosts         = HOSTBLACKLIST
           !hosts        = <; 127.0.0.1 
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           message       = blacklisted host: $sender_host_address
           set acl_c8    = smtp:refused:host_blacklist
           set acl_c9    = STATSADD
@@ -237,7 +241,9 @@ __FI__
 acl_check_helo:
   deny    condition     = ${if eq {$sender_helo_name}{ylmf-pc} {yes}{no}}
           !hosts        = <; 127.0.0.1
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           log_message   = HELO/EHLO blocked
           message       = HELO/EHLO blocked
           set acl_c8    = smtp:refused:bad_helo
@@ -298,10 +304,14 @@ acl_check_rcpt:
           logwrite      = DEBUG - refused, bad local part 2 - smtp:refused,smtp:refused:bad_local_part2
  __FI__
 
+__IF__ __LISTS_PER_DOMAIN__
   warn    set acl_m0    = ${perl{SMTP_WL_IP_Dom}{$domain}{$sender_host_address}}
   warn    set acl_m1    = ${perl{SpamC_WL_IP_Dom}{$domain}{$sender_host_address}}
+__FI__
   __INCLUDE__ stage1/remove_headers
+__IF__ __LISTS_PER_DOMAIN__
   warn    condition    = ${if eq{$acl_m1}{true}{yes}{no}}
+__FI__
           add_header    = X-MailCleaner-White-IP-DOM: WhIPDom
   warn    hosts         = <; +trusted_hosts
           add_header    = X-MailCleaner-TrustedIPs: Ok
@@ -391,7 +401,9 @@ acl_check_rcpt:
   deny    domains       = +domains_to_preventspoof
           !authenticated = *
           !hosts        = <; NORBLHOSTS; NOSPFDMARCHOSTS; +relay_from_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           condition     = ${if eq {$domain}{$sender_address_domain}}
 	  !spf		= pass
           message       = This domain does not accept mail from itself (spoofing)
@@ -414,7 +426,9 @@ acl_check_rcpt:
 
 __IF__ REJECTBADRDNS
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           condition     = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
           condition     = ${if eq {$received_port}{587} {0}{1}}
           !authenticated = *
@@ -503,7 +517,9 @@ __FI__
 
 __IF__ RCPTRBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           dnslists = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
@@ -529,7 +545,9 @@ __FI__
 __IF__ BSRBL
   deny    senders = :
           !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           !spf          = pass
           dnslists      = __BSRBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
@@ -554,7 +572,9 @@ __IF__ BSRBL
 __FI__
 __IF__ REJECTBADSPF
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           spf           = fail
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message       = $sender_host_address is not allowed to send mail from ${if eq {$sender_address_domain}{} {(helo)$sender_helo_name}{$sender_address_domain}} (SPF failure)
@@ -665,7 +685,9 @@ __INCLUDE__ stage1/recipient_verification
 
   warn    domains       = +relay_to_domains
           hosts         = <; 127.0.0.1 ; NORBLHOSTS ; NOSPFDMARCHOSTS ; +trusted_hosts
+__IF__ __LISTS_PER_DOMAIN__
           condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           control       = dmarc_disable_verify
  __IF__ DEBUG
           logwrite      = DMARC DEBUG: disabling dmarc from $sender_host_address, sender $sender_address

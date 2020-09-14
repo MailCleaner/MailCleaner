@@ -11,6 +11,14 @@
 	<table class="ftable">
 		<tr>
 			<td colspan=2 text-align="center" align="center">
+
+				<a href="https://support.mailcleaner.net/boards/3/topics/85-white-black-lists-per-domain-restrictions">Only the server Administrator is allowed to add entries</a><br />
+				<a href="https://support.mailcleaner.net/boards/3/topics/85-white-black-lists-per-domain-restrictions">Click HERE for more informations about associated limitations</a>
+			</td>
+		</tr>
+		<tr><td colspan="2"><hr /></td></tr>
+		<tr>
+			<td colspan=2 text-align="center" align="center">
 				SMTP Stage
 			</td>
 			<?php echo $this->InputRow($this->form->getElement('black_ip_dom'),array('label_addclass'=>'flabeltextarea'));?>
@@ -27,8 +35,7 @@
 		<tr><td colspan="2"><hr /></td></tr>
 		<tr>
 			<td colspan=2 text-align="center" align="center">
-				Modifications will be taken into account at midnight (server time)<br />
-				If you need those sooner, please contact the administrator of this server and ask him to restart the "Incoming MTA"
+				Please restart the "Incoming MTA" if you made any changes
 			</td>
 			<td colspan="2">
 			<?php echo $this->SubmitRow($this->form->getElement('submit'));?>

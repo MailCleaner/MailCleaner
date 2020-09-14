@@ -19,6 +19,7 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 		$this->setMethod('post');
 			
 		$t = Zend_Registry::get('translate');
+		$user_role = Zend_Registry::get('user')->getUserType();
 
 		$this->setAttrib('id', 'domain_form');
 		$panellist = new Zend_Form_Element_Select('domainpanel', array(
@@ -64,6 +65,10 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 		);
 		$black_ip_dom->addValidator(new Validate_IpList());
 		$black_ip_dom->setValue($wwelement->fetchAllField($this->_domain->getParam('name'), 'black-ip-dom', 'sender'));
+	        if ($user_role != 'administrator') {
+			$black_ip_dom->setAttrib('disabled', true);
+			$black_ip_dom->setAttrib('readonly', true);
+		}
 		$this->addElement($black_ip_dom);
 
 		$spam_ip_dom = new Zend_Form_Element_Textarea('spam_ip_dom', array(
@@ -75,6 +80,10 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 			'filters'    => array('StringToLower', 'StringTrim')));
 		$spam_ip_dom->addValidator(new Validate_IpList());
 		$spam_ip_dom->setValue($wwelement->fetchAllField($this->_domain->getParam('name'), 'spam-ip-dom', 'sender'));
+	        if ($user_role != 'administrator') {
+			$spam_ip_dom->setAttrib('disabled', true);
+			$spam_ip_dom->setAttrib('readonly', true);
+		}
 		$this->addElement($spam_ip_dom);
 
 		$white_ip_dom = new Zend_Form_Element_Textarea('white_ip_dom', array(
@@ -86,6 +95,10 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 			'filters'    => array('StringToLower', 'StringTrim')));
 		$white_ip_dom->addValidator(new Validate_IpList());
 		$white_ip_dom->setValue($wwelement->fetchAllField($this->_domain->getParam('name'), 'white-ip-dom', 'sender'));
+	        if ($user_role != 'administrator') {
+			$white_ip_dom->setAttrib('disabled', true);
+			$white_ip_dom->setAttrib('readonly', true);
+		}
 		$this->addElement($white_ip_dom);
 
 
@@ -98,6 +111,10 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 			'filters'    => array('StringToLower', 'StringTrim')));
 		$wh_spamc_ip_dom->addValidator(new Validate_IpList());
 		$wh_spamc_ip_dom->setValue($wwelement->fetchAllField($this->_domain->getParam('name'), 'wh-spamc-ip-dom', 'sender'));
+	        if ($user_role != 'administrator') {
+			$wh_spamc_ip_dom->setAttrib('disabled', true);
+			$wh_spamc_ip_dom->setAttrib('readonly', true);
+		}
 		$this->addElement($wh_spamc_ip_dom);
 
 
@@ -105,6 +122,10 @@ class Default_Form_DomainAdvanced extends Zend_Form {
 		$submit = new Zend_Form_Element_Submit('submit', array(
 			'label'    => $t->_('Submit'))
 		);
+	        if ($user_role != 'administrator') {
+			$submit->setAttrib('disabled', true);
+			$submit->setAttrib('readonly', true);
+		}
 		$this->addElement($submit);	
 	}
 
