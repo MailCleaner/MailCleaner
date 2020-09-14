@@ -5,3 +5,7 @@ timeOut=__TIMEOUT__
 maxSize=__MAXSIZE__
 configFile=__SRCDIR__/etc/mailscanner/prefilters/bogo_nicebayes.cf
 avoidHeaders=received,x-mailcleaner,x-commtouch,x-nicebayes,x-spamc,x-trustedsources,x-messagesniffer,x-clamspam,x-prerbls,x-urirbls
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

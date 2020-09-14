@@ -4,3 +4,7 @@ putSpamHeader=1
 clamdb=__SRCDIR__/share/clamspam
 configFile=__SRCDIR__/etc/clamav/clamspamd.conf
 maxSize=__MAXSIZE__
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

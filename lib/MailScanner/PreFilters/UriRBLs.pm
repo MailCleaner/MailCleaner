@@ -55,7 +55,13 @@ sub initialise {
 		localDomainsFile     => 'domains.list',
 		resolveShorteners    => 1,
 		avoidhosts           => '',
-                temporarydir         => '/tmp'
+		temporarydir         => '/tmp',
+     		decisive_field 	     => 'none',
+                pos_text             => '',
+                neg_text             => '',
+     		pos_decisive 	     => 0,
+     		neg_decisive 	     => 0,
+     		position 	     => 0
 	);
 
 	if ( open( CONFIG, $configfile ) ) {
@@ -79,6 +85,17 @@ sub initialise {
 		$UriRBLs::conf{TLDsFiles},    $UriRBLs::conf{localDomainsFile},
 		$MODULE
 	);
+
+  	if ($UriRBLs::conf{'pos_decisive'} && ($UriRBLs::conf{'decisive_field'} eq 'pos_decisive' || $UriRBLs::conf{'decisive_field'} eq 'both')) {
+    		$UriRBLs::conf{'pos_text'} = 'position : '.$UriRBLs::conf{'position'}.', spam decisive';
+  	} else {
+    		$UriRBLs::conf{'pos_text'} = 'position : '.$UriRBLs::conf{'position'}.', not decisive';
+  	}
+  	if ($UriRBLs::conf{'neg_decisive'} && ($UriRBLs::conf{'decisive_field'} eq 'neg_decisive' || $UriRBLs::conf{'decisive_field'} eq 'both')) {
+    		$UriRBLs::conf{'neg_text'} = 'position : '.$UriRBLs::conf{'position'}.', ham decisive';
+  	} else {
+    		$UriRBLs::conf{'neg_text'} = 'position : '.$UriRBLs::conf{'position'}.', not decisive';
+  	}
 }
 
 sub Checks {
@@ -237,25 +254,23 @@ sub Checks {
 		|| $ehits >= $UriRBLs::conf{'listedemailtobespam'} )
 	{
 		print "HITS: $uhits-$ehits\n";
-		$message->{prefilterreport} .= ", UriRBLs ($fullheader)";
-		MailScanner::Log::InfoLog(
-			"$MODULE result is spam ($fullheader) for " . $message->{id} );
+ 		$message->{prefilterreport} .= ", UriRBLs (position=".$UriRBLs::conf{position}.", decisive=".(($UriRBLs::conf{pos_decisive})?'spam':'false').", ".$fullheader.")";
+		MailScanner::Log::InfoLog("$MODULE result is spam (".$fullheader.") for " . $message->{id} );
 		if ( $UriRBLs::conf{'putSpamHeader'} ) {
 			$global::MS->{mta}->AddHeaderToOriginal(
 				$message,
 				$UriRBLs::conf{'header'},
-				"is spam ($fullheader)"
+ 				"is spam ($fullheader) ".$UriRBLs::conf{'pos_text'}
 			);
 		}
 		return 1;
 	}
 	if ( $UriRBLs::conf{'putHamHeader'} ) {
-		MailScanner::Log::InfoLog(
-			"$MODULE result is not spam ($fullheader) for " . $message->{id} );
+		MailScanner::Log::InfoLog("$MODULE result is not spam (".$fullheader.") for " . $message->{id} );
 		$global::MS->{mta}->AddHeaderToOriginal(
 			$message,
 			$UriRBLs::conf{'header'},
-			"is not spam ($fullheader)"
+ 			"is not spam ($fullheader) ".$UriRBLs::conf{'neg_text'}
 		);
 	}
 	return 0;

@@ -39,6 +39,12 @@ sub initialise {
      avoidgoodspf => 0,
      avoidhosts => '',
      debug => 0,
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -67,6 +73,17 @@ sub initialise {
       }
       close MAPFILE;
     }
+  }
+
+  if ($PreRBLs::conf{'pos_decisive'} && ($PreRBLs::conf{'decisive_field'} eq 'pos_decisive' || $PreRBLs::conf{'decisive_field'} eq 'both')) {
+    $PreRBLs::conf{'pos_text'} = 'position : '.$PreRBLs::conf{'position'}.', spam decisive';
+  } else {
+    $PreRBLs::conf{'pos_text'} = 'position : '.$PreRBLs::conf{'position'}.', not decisive';
+  }
+  if ($PreRBLs::conf{'neg_decisive'} && ($PreRBLs::conf{'decisive_field'} eq 'neg_decisive' || $PreRBLs::conf{'decisive_field'} eq 'both')) {
+    $PreRBLs::conf{'neg_text'} = 'position : '.$PreRBLs::conf{'position'}.', ham decisive';
+  } else {
+    $PreRBLs::conf{'neg_text'} = 'position : '.$PreRBLs::conf{'position'}.', not decisive';
   }
 }
 
@@ -184,21 +201,23 @@ sub Checks {
   $wholeheader =~ s/,,+/,/;
   
   if ($dnshitcount > 0 || $bsdnshitcount > 0) {
-    $message->{prefilterreport} .= ", PreRBLs ($wholeheader)";
+    $message->{prefilterreport} .= ", PreRBLs ($wholeheader ".$PreRBLs::conf{'pos_text'}.")";
     if ($message->{isspam}) {
       MailScanner::Log::InfoLog("$MODULE result is spam ($wholeheader) for ".$message->{id});
       if ($PreRBLs::conf{'putSpamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader)");
+        $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader) ".$PreRBLs::conf{'pos_text'});
       }
+
       return 1;
     }
     if ($wholeheader ne '') {
       MailScanner::Log::InfoLog("$MODULE result is not spam ($wholeheader) for ".$message->{id});
       if ($PreRBLs::conf{'putSpamHeader'}) {
-         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader)");
+         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader) ".$PreRBLs::conf{'neg_text'});
       }
     }
   }
+
   return 0;
 }
 

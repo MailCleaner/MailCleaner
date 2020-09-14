@@ -28,7 +28,13 @@ sub initialise {
      server_host => 'localhost',
      server_port => 2703,
      threshold => 0,
-     show_categories => 'yes'
+     show_categories => 'yes',
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -40,6 +46,17 @@ sub initialise {
     close CONFIG;
   } else {
     MailScanner::Log::WarnLog("$MODULE configuration file ($configfile) could not be found !");
+  }
+
+  if ($Cloudmark::conf{'pos_decisive'} && ($Cloudmark::conf{'decisive_field'} eq 'pos_decisive' || $Cloudmark::conf{'decisive_field'} eq 'both')) {
+    $Cloudmark::conf{'pos_text'} = 'position : '.$Cloudmark::conf{'position'}.', spam decisive';
+  } else {
+    $Cloudmark::conf{'pos_text'} = 'position : '.$Cloudmark::conf{'position'}.', not decisive';
+  }
+  if ($Cloudmark::conf{'neg_decisive'} && ($Cloudmark::conf{'decisive_field'} eq 'neg_decisive' || $Cloudmark::conf{'decisive_field'} eq 'both')) {
+    $Cloudmark::conf{'neg_text'} = 'position : '.$Cloudmark::conf{'position'}.', ham decisive';
+  } else {
+    $Cloudmark::conf{'neg_text'} = 'position : '.$Cloudmark::conf{'position'}.', not decisive';
   }
 }
 
@@ -132,16 +149,19 @@ sub Checks {
     if ($score > $Cloudmark::conf{'threshold'}) {
         MailScanner::Log::InfoLog("$MODULE result is spam (".$score.$result_str.") for ".$message->{id});
         if ($Cloudmark::conf{'putSpamHeader'}) {
-          $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is spam (".$score.$result_str.")");
+          $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is spam (".$score.$result_str.", ".$Cloudmark::conf{pos_text} .")");
         }
-        $message->{prefilterreport} .= ", Cloudmark (".$score.$result_str.")";
+        $message->{prefilterreport} .= ", Cloudmark (".$score.$result_str.", ".$Cloudmark::conf{pos_text} .")");
+
         return 1;
     }
     else {
         MailScanner::Log::InfoLog("$MODULE result is not spam (".$score.$result_str.") for ".$message->{id});
         if ($Cloudmark::conf{'putHamHeader'}) {
-           $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is not spam (".$score.$result_str.")");
+           $global::MS->{mta}->AddHeaderToOriginal($message, $Cloudmark::conf{'header'}, "is not spam (".$score.$result_str.", ".$Cloudmark::conf{neg_text} .")");
         }
+        $message->{prefilterreport} .= ", Cloudmark (".$score.$result_str.", ".$Cloudmark::conf{neg_text} .")");
+
         return 0;
     }
     
