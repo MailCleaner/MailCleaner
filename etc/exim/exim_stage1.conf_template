@@ -156,36 +156,7 @@ dmarc_history_file = VARDIR/spool/tmp/exim/dmarc.history
 __FI__
 dmarc_tld_file = SRCDIR/etc/rbls/effective_tlds.txt
 
-LDAP_AD_MAIL_RCPT = \
-  user=${quote:${lookup{user}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}} \
-  pass=${quote:${lookup{pass}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}} \
-  nettime=10 \
-  ${if >{${strlen:${lookup{usessl}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}{ldaps://} {ldap://}}\
-  ${lookup{server}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}/${lookup{basedn}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}} \
-  ?mail?sub?\
-${if >{${strlen:${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}\
- {(&\
-  (memberOf=${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}})\
- }\
-}\
-  (|\
-    (&\
-      (|\
-        (objectClass=user)\
-        (objectClass=publicFolder)\
-        (objectClass=group)\
-      )\
-      (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
-    )\
-    (mail=${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
-    (otherMailbox=smtp:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
-    (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
-    (uid=${quote_ldap:${local_part}})\
-    (cn=${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
-  )\
-${if >{${strlen:${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}\
- {)}\
-}
+__INCLUDE__ stage1/ldap_callout
 
 STATSADD = ${readsocket{/var/mailcleaner/run/statsdaemon.sock}{ADD $acl_c8 1}{2s}{\n}{ \
                ${run{/bin/sh -c 'echo "ADD $acl_c8 1" >> /tmp/missed_stats.${tod_logfile}'}{}{command failed}} \
