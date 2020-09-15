@@ -338,7 +338,7 @@ sub dump_exim_file
   	$template->setCondition('ERRORS_REPLY_TO', 1);
   }
 
-  template->setCondition('__LISTS_PER_DOMAIN__', $exim_conf{'__LISTS_PER_DOMAIN__'});
+  $template->setCondition('__LISTS_PER_DOMAIN__', $exim_conf{'__LISTS_PER_DOMAIN__'});
 
   my @net_interfaces = get_interfaces();
   $template->setCondition('DISABLE_IPV6', 1);
