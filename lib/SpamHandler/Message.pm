@@ -138,7 +138,7 @@ sub load {
     else {
         $this->{daemon}->doLog(
             $this->{batchid} . ": " . $this->{id} . " No message file found !",
-            'spamhandler'
+            'spamhandler', 'debug'
         );
         return 0;
     }
@@ -1039,28 +1039,38 @@ sub decisiveModule {
     
     $line =~ s/.*$module \(([^\)]*)\).*/$1/;
     my $position = my $decisive = $line;
-    $decisive =~ s/.*decisive=([^,]*),.*/$1/;
-    $position =~ s/.*position=(\d+).*/$1/;
+    $decisive =~ s/.*, ?([^ ]*) decisive.*/$1/;
+    $position =~ s/.*, ?position ?: ?(\d+).*/$1/;
+    $this->{daemon}->doLog('Current decisive module is "'.$this->{decisive_module}{'module'}.'" with action "'.$this->{decisive_module}{'action'}.'" and position "'.$this->{decisive_module}{'position'}.'"','spamhandler', 'debug');
     if (!defined $decisive || !defined $position) {
+        $this->{daemon}->doLog("Failed to discover decisive or position value for $module: $line", 'spamhandler', 'debug');
         return 0;
     }
     if ($position >= $this->{decisive_module}{position}) {
         $this->{daemon}->doLog("Found $module of lower priority $position, not updating decisive_module", 'spamhandler', 'debug');
-    } elsif ($decisive eq 'false') {
-        $this->{daemon}->doLog("Found undecisive $module of priority $position, not updating decisive_module", 'spamhandler', 'debug');
-    } elsif ($decisive eq 'ham') {
-        $this->{daemon}->doLog("Updating decisive_module $module $position negative", 'spamhandler', 'debug');
+    # If there is two modules of the same position (this would be a bug), then prefer the spam
+    } elsif ( ($position == $this->{decisive_module}{position}) && ($decisive eq 'spam') ) {
+        $this->{daemon}->doLog("Found positively decisive module $module of equal priority $position, updating decisive_module", 'spamhandler', 'debug');
         %{$this->{decisive_module}} = (
             'module' => $module,
             'position' => $position,
-            'action' => 'negative'
+            'action' => 'positive'
         );
+    } elsif ($decisive eq 'false') {
+        $this->{daemon}->doLog("Found undecisive $module of priority $position, not updating decisive_module", 'spamhandler', 'debug');
     } elsif ($decisive eq 'spam') {
         $this->{daemon}->doLog("Updating decisive_module $module $position positive", 'spamhandler', 'debug');
         %{$this->{decisive_module}} = (
             'module' => $module,
             'position' => $position,
             'action' => 'positive'
+        );
+    } elsif ($decisive eq 'ham') {
+        $this->{daemon}->doLog("Updating decisive_module $module $position negative", 'spamhandler', 'debug');
+        %{$this->{decisive_module}} = (
+            'module' => $module,
+            'position' => $position,
+            'action' => 'negative'
         );
     } else {
         $this->{daemon}->doLog("Found $module with unrecognized decisive value '$decisive', not updating decisive_module", 'spamhandler', 'debug');
