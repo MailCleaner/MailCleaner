@@ -311,8 +311,8 @@ __FI__
   __INCLUDE__ stage1/remove_headers
 __IF__ __LISTS_PER_DOMAIN__
   warn    condition    = ${if eq{$acl_m1}{true}{yes}{no}}
-__FI__
           add_header    = X-MailCleaner-White-IP-DOM: WhIPDom
+__FI__
   warn    hosts         = <; +trusted_hosts
           add_header    = X-MailCleaner-TrustedIPs: Ok
   warn    spf           = pass
