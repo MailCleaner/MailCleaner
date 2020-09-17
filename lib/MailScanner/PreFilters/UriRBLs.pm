@@ -254,7 +254,7 @@ sub Checks {
 		|| $ehits >= $UriRBLs::conf{'listedemailtobespam'} )
 	{
 		print "HITS: $uhits-$ehits\n";
- 		$message->{prefilterreport} .= ", UriRBLs (position=".$UriRBLs::conf{position}.", decisive=".(($UriRBLs::conf{pos_decisive})?'spam':'false').", ".$fullheader.")";
+ 		$message->{prefilterreport} .= " $MODULE ($fullheader, ".$UriRBLs::conf{pos_text}.")";
 		MailScanner::Log::InfoLog("$MODULE result is spam (".$fullheader.") for " . $message->{id} );
 		if ( $UriRBLs::conf{'putSpamHeader'} ) {
 			$global::MS->{mta}->AddHeaderToOriginal(
