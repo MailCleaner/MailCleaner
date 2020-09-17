@@ -1037,7 +1037,8 @@ sub decisiveModule {
     my $this = shift;
     my ($module, $line) = @_;
     
-    $line =~ s/.*$module \(([^\)]*)\).*/$1/;
+    $line =~ s/.*$module \((.*)/$1/;
+    $line =~ s/decisive\).*/decisive/;
     my $position = my $decisive = $line;
     $decisive =~ s/.*, ?([^ ]*) decisive.*/$1/;
     $position =~ s/.*, ?position ?: ?(\d+).*/$1/;
