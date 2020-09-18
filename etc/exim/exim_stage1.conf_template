@@ -203,7 +203,7 @@ __IF__ RBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
 __IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
-__FI
+__FI__
           dnslists      = __RBLS__
           condition     = ${if eq {$received_port}{587} {0}{1}}
           message = Blacklisted in ${perl{hideToken}{$dnslist_domain}}: $dnslist_text
