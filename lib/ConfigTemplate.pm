@@ -148,6 +148,7 @@ sub dump {
   my $ret;
   my $in_hidden = 0;
   my $if_hidden = 0;
+  my @if_hist = ();
   my $ev_hidden = 0;
   while (<FILE>) {
   	my $line = $_;
@@ -155,7 +156,10 @@ sub dump {
   	if ($line =~ /__IF__\s+(\S+)/) {
   	  if (!$this->getCondition($1)) {
   	  	$if_hidden = 1;
-  	  }
+  	  } else {
+  	  	$if_hidden = 0;
+	  }
+	  push @if_hist, $if_hidden;
   	  next;
   	}
   	if ($line =~ /__ELSE__\s+(\S+)/) {
@@ -167,7 +171,12 @@ sub dump {
   	  next;
   	}
   	if ($line =~/__FI__/) {
-  	  $if_hidden = 0;
+	  pop @if_hist;
+	  if ( scalar @if_hist != 0 ) {
+	    $if_hidden = $if_hist[scalar(@if_hist)-1];
+	  } else {
+	    $if_hidden = 0;
+	  }
   	  next;
   	}
 
@@ -186,6 +195,7 @@ sub dump {
 	# Includes a file in the exim configuration
 	# First looks for a equivalent customised file
   	if ($line =~/__INCLUDE__ *(.*)/) {
+          next if ($if_hidden );
 	  my $inc_file = $1;
 	  my $path_file;
 	  $inc_file =~ s/_template$//;
