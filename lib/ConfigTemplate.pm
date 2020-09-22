@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -42,40 +43,40 @@ my $VARDIR=$conf->getOption('VARDIR');
 # @return              this
 ###
 sub create {
-  my $templatefile = shift;
-  my $targetfile = shift;
-  
-  return if !$templatefile || $templatefile eq "";
-  return if !$targetfile || $targetfile eq "";
-  
-  $templatefile =~ s/__SRCDIR__/$SRCDIR/g;
-  $templatefile =~ s/__VARDIR__/$VARDIR/g;
-  if ($templatefile =~ m/^[^\/]/) {
-  	$templatefile = $conf->getOption('SRCDIR')."/".$templatefile;
-  }
-  $targetfile =~ s/__SRCDIR__/$SRCDIR/g;
-  $targetfile =~ s/__VARDIR__/$VARDIR/g;
-  if ($targetfile =~ m/^[^\/]/) {
-  	$targetfile = $conf->getOption('SRCDIR')."/".$targetfile;
-  }
-  
-  my %replacements = ();
-  my %subtemplates = ();
-  my %conditions = ();
-  
-  my $this = {
-         templatefile => $templatefile,
-         targetfile => $targetfile,
-         %replacements => (),
-         %subtemplates => (),
-         %conditions => ()
-         };
-  
-  #print "Will use template: ".$this->{templatefile}."\n";    
-  bless $this, "ConfigTemplate";
-  
-  $this->preParseTemplate();
-  return $this;
+    my $templatefile = shift;
+    my $targetfile = shift;
+
+    return if !$templatefile || $templatefile eq "";
+    return if !$targetfile || $targetfile eq "";
+
+    $templatefile =~ s/__SRCDIR__/$SRCDIR/g;
+    $templatefile =~ s/__VARDIR__/$VARDIR/g;
+    if ($templatefile =~ m/^[^\/]/) {
+        $templatefile = $conf->getOption('SRCDIR')."/".$templatefile;
+    }
+    $targetfile =~ s/__SRCDIR__/$SRCDIR/g;
+    $targetfile =~ s/__VARDIR__/$VARDIR/g;
+    if ($targetfile =~ m/^[^\/]/) {
+        $targetfile = $conf->getOption('SRCDIR')."/".$targetfile;
+    }
+
+    my %replacements = ();
+    my %subtemplates = ();
+    my %conditions = ();
+
+    my $this = {
+        templatefile => $templatefile,
+        targetfile => $targetfile,
+        %replacements => (),
+        %subtemplates => (),
+        %conditions => ()
+    };
+
+    #print "Will use template: ".$this->{templatefile}."\n";
+    bless $this, "ConfigTemplate";
+
+    $this->preParseTemplate();
+    return $this;
 }
 
 ###
@@ -83,39 +84,39 @@ sub create {
 # @return        boolean   true on success, false on failure
 ###
 sub preParseTemplate {
-  my $this = shift;	
+    my $this = shift;
 
-  my $in_template = "";
-  return 0 if (!open(FILE, $this->{templatefile}));
-  while (<FILE>) {
-  	my $line = $_;
-  	
-  	if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_START\_\_/) {
-      $in_template = $1;
-      $this->{subtemplates}{$in_template} = "";
-      next;
-  	}
-  	if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_STOP\_\_/) {
-      $in_template = "";
-      next;
-  	}
-  	if ($in_template !~ /^$/) {
-  	  $this->{subtemplates}{$in_template} .= $line;
-  	  next;
-  	}
-  }  
-  close FILE;
-  return 1;
+    my $in_template = "";
+    return 0 if (!open(FILE, $this->{templatefile}));
+    while (<FILE>) {
+        my $line = $_;
+
+        if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_START\_\_/) {
+            $in_template = $1;
+            $this->{subtemplates}{$in_template} = "";
+            next;
+        }
+        if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_STOP\_\_/) {
+            $in_template = "";
+            next;
+        }
+        if ($in_template !~ /^$/) {
+          $this->{subtemplates}{$in_template} .= $line;
+          next;
+        }
+    }
+    close FILE;
+    return 1;
 }
 
 sub getSubTemplate {
-  my $this = shift;
-  my $tmplname = shift;
-  
-  if (defined($this->{subtemplates}{$tmplname})) {
-  	return $this->{subtemplates}{$tmplname};
-  }
-  return "";
+    my $this = shift;
+    my $tmplname = shift;
+
+    if (defined($this->{subtemplates}{$tmplname})) {
+        return $this->{subtemplates}{$tmplname};
+    }
+    return "";
 }
 
 ###
@@ -124,14 +125,14 @@ sub getSubTemplate {
 # @return           boolean  true on success, false on failure
 ###
 sub setReplacements {
-  my $this = shift;
-  my $replace_h = shift;
-  my %replace = %{$replace_h};
-  
-  foreach my $tag (keys %replace) {
-  	$this->{replacements}{$tag} = $replace{$tag};
-  }
-  return 1;
+    my $this = shift;
+    my $replace_h = shift;
+    my %replace = %{$replace_h};
+
+    foreach my $tag (keys %replace) {
+        $this->{replacements}{$tag} = $replace{$tag};
+    }
+    return 1;
 }
 
 
@@ -139,153 +140,185 @@ sub setReplacements {
 # dump to destination file
 ###
 sub dump {
-  my $this = shift;
-  
-  return 0 if (!open(FILE, $this->{templatefile}));
-  return 0 if (!open(TARGET, ">".$this->{targetfile}));
-  
-  #print "Will dump to target: ".$this->{targetfile}."\n";
-  my $ret;
-  my $in_hidden = 0;
-  my $if_hidden = 0;
-  my @if_hist = ();
-  my $ev_hidden = 0;
-  while (<FILE>) {
-  	my $line = $_;
-  	
-  	if ($line =~ /__IF__\s+(\S+)/) {
-  	  if (!$this->getCondition($1)) {
-  	  	$if_hidden = 1;
-  	  } else {
-  	  	$if_hidden = 0;
-	  }
-	  push @if_hist, $if_hidden;
-  	  next;
-  	}
-  	if ($line =~ /__ELSE__\s+(\S+)/) {
-  	  if ($this->getCondition($1)) {
-  	  	$if_hidden = 1;
-  	  } else {
-  	  	$if_hidden = 0;
-  	  }
-  	  next;
-  	}
-  	if ($line =~/__FI__/) {
-	  pop @if_hist;
-	  if ( scalar @if_hist != 0 ) {
-	    $if_hidden = $if_hist[scalar(@if_hist)-1];
-	  } else {
-	    $if_hidden = 0;
-	  }
-  	  next;
-  	}
+    my $this = shift;
 
-  	if ($line =~  /__EVAL__\s+(.*)$/) {
-	  if (! eval "$1") {
-            $ev_hidden = 1;
-	  } else {
-	    $ev_hidden = 0;
-	  }
+    return 0 if (!open(FILE, $this->{templatefile}));
+    return 0 if (!open(TARGET, ">".$this->{targetfile}));
+
+    #print "Will dump to target: ".$this->{targetfile}."\n";
+    my $ret;
+    my $in_hidden = 0;
+    my $ev_hidden = 0;
+    # Track nested __IF__ conditions
+    my @if_hist = ();
+    # Track number of False conditions in stack
+    my $if_hidden = 0;
+    # Track file line for debug purposes
+    my $lc = 0;
+    while (<FILE>) {
+        my $line = $_;
+        $lc++;
+
+        if ($line =~ /__IF__\s+(\S+)/) {
+            if ($this->getCondition($1)) {
+                push @if_hist, $1;
+                #print STDERR "Adding $1 $if_hidden ".scalar(@if_hist)." (".$this->{templatefile}.":$lc)\n";
+            } else {
+                push @if_hist, "!".$1;
+                $if_hidden++;
+                #print STDERR "Adding !$1 $if_hidden ".scalar(@if_hist)." (".$this->{templatefile}.":$lc)\n";
+            }
+            next;
+        }
+
+        # __IF__ condition True, do nothing until __FI__
+        if ($line =~ /__ELSE__\s+(\S+)/) {
+            unless (scalar(@if_hist)) {
+                die "__ELSE__ $1 without preceeding __IF__ (".$this->{templatefile}.":$lc)\n";
+            }
+            if ($if_hist[scalar(@if_hist)-1] eq $1) {
+                $if_hist[scalar(@if_hist)-1] = '!' . $if_hist[scalar(@if_hist)-1];
+                $if_hidden++;
+                #print STDERR "Continuing !$1 $if_hidden ".scalar(@if_hist)." (".$this->{templatefile}.":$lc)\n";
+            } elsif ($if_hist[scalar(@if_hist)-1] eq "!".$1) {
+                $if_hist[scalar(@if_hist)-1] =~ s/^!//;
+                $if_hidden--;
+                #print STDERR "Continuing ".$if_hist[scalar(@if_hist)-1]." $if_hidden ".scalar(@if_hist)." (".$this->{templatefile}.":$lc)\n";
+            } else {
+                die "__ELSE__ tag $1 without preceeding __IF__ (".$this->{templatefile}.":$lc)\n";
+            }
+            next;
+        }
+
+        if ($line =~/__FI__/) {
+            unless (scalar(@if_hist)) {
+                die "__FI__ without preceeding __IF__ (".$this->{templatefile}.":$lc)\n";
+            }
+            #print STDERR "current if condition is " . $if_hist[scalar(@if_hist)-1] . "\n";
+            if ($if_hist[scalar(@if_hist)-1] =~ /^!/) {
+                  $if_hidden--;
+            }
+            #print STDERR "Ending ".$if_hist[scalar(@if_hist)-1]." $if_hidden ".(scalar(@if_hist)-1)." (".$this->{templatefile}.":$lc)\n";
+            pop @if_hist;
+            next;
+        }
+
+        if ($line =~  /__EVAL__\s+(.*)$/) {
+            if (! eval "$1") {
+                $ev_hidden = 1;
+            } else {
+                $ev_hidden = 0;
+            }
+            next;
+        }
+
+        if ($line =~/__LAVE__/) {
+          $ev_hidden = 0;
           next;
-  	}
-  	if ($line =~/__LAVE__/) {
-  	  $ev_hidden = 0;
-  	  next;
-  	}        
-	# Includes a file in the exim configuration
-	# First looks for a equivalent customised file
-  	if ($line =~/__INCLUDE__ *(.*)/) {
-          next if ($if_hidden );
-	  my $inc_file = $1;
-	  my $path_file;
-	  $inc_file =~ s/_template$//;
-# Version using .include_if_exists
-	  if ( -f "$SRCDIR/etc/exim/custom/$inc_file" ) {
-	    $path_file = "$SRCDIR/etc/exim/custom/$inc_file";
-#	    $ret .= ".include_if_exists __SRCDIR__/etc/exim/custom/$inc_file\n";
-	  } elsif ( -f "$SRCDIR/etc/exim/$inc_file" ) {
-	    $path_file = "$SRCDIR/etc/exim/$inc_file";
-#	    $ret .= ".include_if_exists __SRCDIR__/etc/exim/$inc_file\n";
-          }
+        }
 
-	  open(PATHFILE, '<', $path_file);
-	  my @contains = <PATHFILE>;
-	  close(PATHFILE);
-	  chomp(@contains);
-	  foreach (@contains) {
-	    $ret .= "$_\n";
-	  }
+        # Includes a file in the exim configuration
+        # First looks for a equivalent customised file
+        if ($line =~/__INCLUDE__ *(.*)/) {
+            my $inc_file = $1;
+            my $path_file;
+            $inc_file =~ s/_template$//;
+            # Version using .include_if_exists
+            if ( -f "$SRCDIR/etc/exim/custom/$inc_file" ) {
+                $path_file = "$SRCDIR/etc/exim/custom/$inc_file";
+                #        $ret .= ".include_if_exists __SRCDIR__/etc/exim/custom/$inc_file\n";
+            } elsif ( -f "$SRCDIR/etc/exim/$inc_file" ) {
+                $path_file = "$SRCDIR/etc/exim/$inc_file";
+                #        $ret .= ".include_if_exists __SRCDIR__/etc/exim/$inc_file\n";
+            }
 
-	  next;
-	}
-  	if ($line =~  /\_\_TMPL\_([A-Z0-9]+)\_START\_\_/) {
-      $in_hidden = 1;
-      next;
-  	}
-  	if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_STOP\_\_/) {
-      $in_hidden = 0;
-      next;
-  	}
-  	
-  	if (!$in_hidden && !$if_hidden && !$ev_hidden) {
-          $ret .= $line;
-  	}
-  }
-  close FILE;
-  
-  ## do the replacements
-  
-  ## replace well known tags
-  my $conf = ReadConfig::getInstance();
-  
-  my %wellknown = (
-    '__SRCDIR__' => $conf->getOption('SRCDIR'),
-    '__VARDIR__' => $conf->getOption('VARDIR'),
-  );
-	
-  ## replace given tags
-  foreach my $tag (keys %{$this->{replacements}}) {
-     if (!defined($this->{replacements}{$tag})) {
-       $this->{replacements}{$tag} = "";
-     }
-     if ( defined ($ret) ) {
-	     $ret =~ s/$tag/$this->{replacements}{$tag}/g;
-     }
-  }
-  
-  foreach my $tag ( keys %wellknown ) {
-     if ( defined ($ret) ) {
-        $ret =~ s/$tag/$wellknown{$tag}/g;
-     }
-  }
-  
-  if ( defined ($ret) ) {
-    print TARGET $ret;
-  }
-  close TARGET;
-  my $uid = getpwnam( 'mailcleaner' );
-  my $gid = getgrnam( 'mailcleaner' );
-  chown $uid, $gid, $this->{targetfile};
-  return 1;
+            open(PATHFILE, '<', $path_file);
+            my @contains = <PATHFILE>;
+            close(PATHFILE);
+            chomp(@contains);
+            foreach (@contains) {
+                $ret .= "$_\n";
+            }
+
+            next;
+        }
+        if ($line =~  /\_\_TMPL\_([A-Z0-9]+)\_START\_\_/) {
+            $in_hidden = 1;
+            next;
+        }
+        if ($line =~ /\_\_TMPL\_([A-Z0-9]+)\_STOP\_\_/) {
+            $in_hidden = 0;
+            next;
+        }
+
+        #if ($this->{templatefile} eq "/usr/mailcleaner/etc/exim/exim_stage1.conf_template") {
+            #print STDERR "in: $in_hidden if: $if_hidden ev: $ev_hidden\n";
+        #}
+        if (!$in_hidden && !$if_hidden && !$ev_hidden) {
+            #if ($this->{templatefile} eq "/usr/mailcleaner/etc/exim/exim_stage1.conf_template") {
+                #print STDERR "/usr/mailcleaner/etc/exim/exim_stage1.conf_template\n" . $line;
+            #}
+            $ret .= $line;
+        }
+    }
+    close FILE;
+
+    ## do the replacements
+
+    ## replace well known tags
+    my $conf = ReadConfig::getInstance();
+
+    my %wellknown = (
+        '__SRCDIR__' => $conf->getOption('SRCDIR'),
+        '__VARDIR__' => $conf->getOption('VARDIR'),
+    );
+
+    ## replace given tags
+    foreach my $tag (keys %{$this->{replacements}}) {
+        if (!defined($this->{replacements}{$tag})) {
+            $this->{replacements}{$tag} = "";
+        }
+        if ( defined ($ret) ) {
+            $ret =~ s/$tag/$this->{replacements}{$tag}/g;
+        }
+    }
+
+    foreach my $tag ( keys %wellknown ) {
+        if ( defined ($ret) ) {
+             $ret =~ s/$tag/$wellknown{$tag}/g;
+        }
+    }
+
+    if ( defined ($ret) ) {
+        #if ($this->{targetfile} eq "/usr/mailcleaner/etc/exim/exim_stage1.conf") {
+            #print $ret;
+        #}
+        print TARGET $ret;
+    }
+    close TARGET;
+    my $uid = getpwnam( 'mailcleaner' );
+    my $gid = getgrnam( 'mailcleaner' );
+    chown $uid, $gid, $this->{targetfile};
+    return 1;
 }
 
 sub setCondition {
-  my $this = shift;
-  my $condition = shift;
-  my $value = shift;
-  
-  $this->{conditions}{$condition} = $value;
-  return 1;
+    my $this = shift;
+    my $condition = shift;
+    my $value = shift;
+
+    $this->{conditions}{$condition} = $value;
+    return 1;
 }
 
 sub getCondition {
-  my $this = shift;
-  my $condition = shift;
-  
-  if (defined($this->{conditions}{$condition})) {
-  	return $this->{conditions}{$condition};
-  }
-  return 0;
+    my $this = shift;
+    my $condition = shift;
+
+    if (defined($this->{conditions}{$condition})) {
+        return $this->{conditions}{$condition};
+    }
+    return 0;
 }
 
 1;
