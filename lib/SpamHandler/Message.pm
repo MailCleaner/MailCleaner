@@ -1057,7 +1057,7 @@ sub decisiveModule {
             'position' => $position,
             'action' => 'positive'
         );
-    } elsif ($decisive eq 'false') {
+    } elsif ($decisive eq 'not') {
         $this->{daemon}->doLog("Found undecisive $module of priority $position, not updating decisive_module", 'spamhandler', 'debug');
     } elsif ($decisive eq 'spam') {
         $this->{daemon}->doLog("Updating decisive_module $module $position positive", 'spamhandler', 'debug');

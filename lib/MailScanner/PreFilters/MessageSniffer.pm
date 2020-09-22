@@ -174,12 +174,13 @@ sub Checks {
     }
     $message->{prefilterreport} .= ", MessageSniffer ($desc, ".$MessageSniffer::conf{pos_text}.")";
     return 1;
-  } 
-  MailScanner::Log::InfoLog("$MODULE result is not spam ($desc) for ".$message->{id});
-  if ($MessageSniffer::conf{'putHamHeader'}) {
-    $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, "is not spam ($desc, ".$MessageSniffer::conf{neg_text}. ")");
+  } elsif ($SNF_XCI_Return->{code} == 0) {
+    MailScanner::Log::InfoLog("$MODULE result is not spam ($desc) for ".$message->{id});
+    if ($MessageSniffer::conf{'putHamHeader'}) {
+      $global::MS->{mta}->AddHeaderToOriginal($message, $MessageSniffer::conf{'header'}, "is not spam ($desc, ".$MessageSniffer::conf{neg_text}. ")");
+    }
+    $message->{prefilterreport} .= ", MessageSniffer ($desc, ".$MessageSniffer::conf{neg_text}.")";
   }
-  $message->{prefilterreport} .= ", MessageSniffer ($desc, ".$MessageSniffer::conf{pos_text}.")";
   return 0;
 }
 
