@@ -200,21 +200,19 @@ sub Checks {
   $wholeheader =~ s/,+$//;
   $wholeheader =~ s/,,+/,/;
   
-  if ($dnshitcount > 0 || $bsdnshitcount > 0) {
-    $message->{prefilterreport} .= ", PreRBLs ($wholeheader ".$PreRBLs::conf{'pos_text'}.")";
-    if ($message->{isspam}) {
-      MailScanner::Log::InfoLog("$MODULE result is spam ($wholeheader) for ".$message->{id});
-      if ($PreRBLs::conf{'putSpamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader) ".$PreRBLs::conf{'pos_text'});
-      }
-
-      return 1;
+  if ($message->{isspam}) {
+    MailScanner::Log::InfoLog("$MODULE result is spam ($wholeheader) for ".$message->{id});
+    if ($PreRBLs::conf{'putSpamHeader'}) {
+      $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader) ".$PreRBLs::conf{'pos_text'});
     }
-    if ($wholeheader ne '') {
-      MailScanner::Log::InfoLog("$MODULE result is not spam ($wholeheader) for ".$message->{id});
-      if ($PreRBLs::conf{'putSpamHeader'}) {
-         $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader) ".$PreRBLs::conf{'neg_text'});
-      }
+
+    $message->{prefilterreport} .= ", PreRBLs ($wholeheader ".$PreRBLs::conf{'pos_text'}.")";
+    return 1;
+  }
+  if ($wholeheader ne '') {
+    MailScanner::Log::InfoLog("$MODULE result is not spam ($wholeheader) for ".$message->{id});
+    if ($PreRBLs::conf{'putSpamHeader'}) {
+       $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is not spam ($wholeheader) ".$PreRBLs::conf{'neg_text'});
     }
   }
 
