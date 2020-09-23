@@ -568,7 +568,7 @@ sub loadScores {
         'spamhandler', 'info'
     );
 
-    if ( $line =~ /.*Newsl \([^\)]*score=(\d+\.\d+),.*/ ) {
+    if ( $line =~ /.*Newsl \(score=(\d+\.\d+),.*/ ) {
         $this->{sc_newsl} = $1;
         # Not processed as decisive module
         if ( $this->{sc_newsl} >= 5 )  {
@@ -589,7 +589,7 @@ sub loadScores {
         $this->{prefilters} .= ", NiceBayes";
     }
 
-    if ( $line =~ /.*(Commtouch|MessageSniffer) \([^\)]*, (.*)\).*/ ) {
+    if ( $line =~ /.*(Commtouch|MessageSniffer) \(([^\)]*)/ ) {
         if ($2 ne 'too big') {
             $this->decisiveModule($1,$line);
             $this->{sc_global} += 3;
@@ -597,7 +597,7 @@ sub loadScores {
         }
     }
 
-    if ( $line =~ /.*(PreRBLs|UriRBLs) \([^\)]*, (.*)\).*/ ) {
+    if ( $line =~ /.*(PreRBLs|UriRBLs) \(([^\)]*), ?position/ ) {
         my $rbls = scalar(split( ',', $2 ));
         if ($1 eq 'PreRBLs') {
             $this->{sc_prerbls} = $rbls;
@@ -609,7 +609,7 @@ sub loadScores {
         $this->{prefilters} .= ", $1";
     }
 
-    if ( $line =~ /.*Spamc \([^\)]*score=(\d+\.\d+),.*/ ) {
+    if ( $line =~ /.*Spamc \(score=(\d+\.\d+),.*/ ) {
         $this->{sc_spamc} = $1;
         $this->decisiveModule('Spamc',$line);
         if ( int( $this->{sc_spamc} ) >= 5 )  {
@@ -621,7 +621,7 @@ sub loadScores {
         if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
     }
 
-    if ( $line =~ /.*ClamSpam \([^\)]*, (.*)\).*/ ) {
+    if ( $line =~ /.*ClamSpam \(([^,]*),/ ) {
         $this->decisiveModule('ClamSpam',$line);
         $this->{sc_clamspam} = $1;
         if ($1 ne 'too big') {
