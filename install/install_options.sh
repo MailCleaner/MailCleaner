@@ -145,7 +145,7 @@ function kaspersky() {
   fi
 
   printf "Please provide Kaspersky licenses informations. \n"
-  read -p "The PATH to the Kaspersky license file (ended with .key): "  key_file
+  read -p "The PATH to the Kaspersky license file (ended with .key or .KEY): "  key_file
 
   # check if file exists
   if [[ ! -e ${key_file} ]]; then
@@ -153,7 +153,7 @@ function kaspersky() {
     exit 1
   fi
 
-  if [[ ${key_file} != *.key ]]; then
+  if [[ $(echo $key_file | sed 's/.KEY/\L&/g') != *.key ]]; then
     echo "The file ${key_file} is not a Kaspersky key file"
     exit 1
   fi
@@ -169,8 +169,8 @@ function kaspersky() {
   # Update Kaspersky databases
   printf "Updating Kaspersky databases ... \n"
   $SRCDIR/etc/init.d/kaspersky stop &>> $LOGILFE
-  cp -f ${key_file} $KASPERSKYSCANNER/bin/ &>> $LOGILFE
-  cp -f ${key_file} $KASPERSKYUPDATER/bin/ &>> $LOGILFE
+  cp -f ${key_file} $KASPERSKYSCANNER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
+  cp -f ${key_file} $KASPERSKYUPDATER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
   ls $KASPERSKYUPDATER/bin/*.key &>> $LOGILFE
   
   if $KASPERSKYUPDATER/bin/keepup2date8.sh --licinfo --simplelic | grep "0x00000000. Success"; then
