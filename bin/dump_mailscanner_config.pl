@@ -53,8 +53,7 @@ dump_prefilter_files() or fatal_error("CANNOTDUMPPREFILTERS", $lasterror);
 dump_virus_file() or fatal_error("CANNOTDUMPVIRUSFILE", $lasterror);
 dump_filename_config() or fatal_error("NOFILENAMECONFIGURATIONFOUND", "no record found for filenames");
 dump_filetype_config() or fatal_error("NOFILETYPECONFIGURATIONFOUND", "no record found for filetypes");
-dump_Oscar_config();
-dump_FuzzyOcr_config();
+dump_ocr_config();
 dump_saplugins_conf();
 dump_dnsblacklists_conf();
 
@@ -76,7 +75,7 @@ sub get_system_config
 	}
 	$config{'__ORGNAME__'} = $row{'organisation'};
 	$config{'__LANG__'} = $row{'default_language'};
-	
+
 	return %config;
 }
 
@@ -96,14 +95,14 @@ sub get_ms_config
 					max_message_size, max_attach_size, max_archive_depth, send_notices, notices_to, trusted_ips, max_attachments_per_message,
 					spamhits, highspamhits, lists  FROM antivirus v, antispam s, PreRBLs pr WHERE v.set_id=1 AND s.set_id=1 AND pr.set_id=1");
   return unless %row;
-  
+
   foreach my $key (keys %row) {
   	if (!defined($row{$key}) || $row{$key} eq "") {
           #print " changin $key to no\n";
   	  $row{$key} = "no";
   	}
   }
-  
+
   my %config;
   $config{'__VIRUSSCANNERS__'} = $scanners;
   $config{'__SCANNERTIMEOUT__'} = $row{'scanner_timeout'};
@@ -118,8 +117,8 @@ sub get_ms_config
   $config{'__SENDNOTICE__'} = $row{'send_notices'};
   $config{'__NOTICETO__'} = $row{'notices_to'};
 
-  $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
+  $config{'__TRUSTEDIPS__'} = "";
+  if ($row{'trusted_ips'}) {
     $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
   }
   $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
@@ -139,7 +138,7 @@ sub get_ms_config
 				allow_webbugs, silent_webbugs, allow_codebase, silent_codebase, notify_sender, wh_passwd_archives
 				FROM dangerouscontent WHERE set_id=1");
   return unless %row;
-  
+
   foreach my $key (keys %row) {
 	if (defined($row{$key})) {
   		if ($row{$key} eq "") {
@@ -196,7 +195,7 @@ sub get_ms_config
   if ($memsize > 5000000) { $config{'__NBPROCESSES__'} = 12; }
   if ($memsize > 20000000) { $config{'__NBPROCESSES__'} = 20; }
   $config{'__NBSAPROCESSES__'} = $config{'__NBPROCESSES__'} + 1;
-    
+
   ## generate prefilters option
   my $pfoption = "";
   foreach my $pfh (@prefilters) {
@@ -204,7 +203,7 @@ sub get_ms_config
     $pfoption .= $pf{'name'}.":".$pf{'pos_decisive'}.":".$pf{'neg_decisive'}." ";
   }
   $config{'__PREFILTERS__'} = $pfoption;
-    
+
   return %config;
 }
 
@@ -212,13 +211,13 @@ sub get_ms_config
 sub get_sa_config
 {
   my %config;
-  
-  my %row = $db->getHashRow("SELECT use_bayes, bayes_autolearn, ok_languages, ok_locales, use_rbls, rbls_timeout, use_dcc, 
+
+  my %row = $db->getHashRow("SELECT use_bayes, bayes_autolearn, ok_languages, ok_locales, use_rbls, rbls_timeout, use_dcc,
 				dcc_timeout, use_razor, razor_timeout, use_pyzor, pyzor_timeout, trusted_ips, sa_rbls,
-				spf_timeout, use_spf, dkim_timeout, use_dkim, dmarc_follow_quarantine_policy, 
-				use_fuzzyocr, use_imageinfo, use_pdfinfo, use_botnet FROM antispam WHERE set_id=1");
+				spf_timeout, use_spf, dkim_timeout, use_dkim, dmarc_follow_quarantine_policy,
+				use_ocr, use_imageinfo, use_pdfinfo, use_botnet FROM antispam WHERE set_id=1");
   return unless %row;
-  
+
   $config{'__USE_BAYES__'} = $row{'use_bayes'};
   $config{'__BAYES_AUTOLEARN__'} = $row{'bayes_autolearn'};
   $config{'__OK_LOCALES__'} = $row{'ok_locales'};
@@ -234,24 +233,24 @@ sub get_sa_config
   $config{'__USE_PYZOR__'} = $row{'use_pyzor'};
   $config{'__PYZOR_TIMEOUT__'} = $row{'pyzor_timeout'};
 
-  $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
+  $config{'__TRUSTEDIPS__'} = "";
+  if ($row{'trusted_ips'}) {
     $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
   }
   $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
   $config{'__TRUSTEDIPS__'} =~ s/\s+/ /g;
   $config{'__SA_RBLS__'} = $row{'sa_rbls'};
-  
+
   $config{'__USE_SPF__'} = $row{'use_spf'};
   $config{'__SPF_TIMEOUT__'} = $row{'spf_timeout'};
   $config{'__USE_DKIM__'} = $row{'use_dkim'};
   $config{'__DKIM_TIMEOUT__'} = $row{'dkim_timeout'};
-  $config{'__USE_FUZZYOCR__'} = $row{'use_fuzzyocr'};
+  $config{'__USE_OCR__'} = $row{'use_ocr'};
   $config{'__USE_IMAGEINFO__'} = $row{'use_imageinfo'};
   $config{'__USE_PDFINFO__'} = $row{'use_pdfinfo'};
   $config{'__USE_BOTNET__'} = $row{'use_botnet'};
   $config{'__QUARANTINE_DMARC__'} = $row{'dmarc_follow_quarantine_policy'};
-  
+
   my $cmd = 'ifconfig  | grep \'inet addr:\'| grep -v \'127.0.0.1\' | cut -d: -f2 | awk \'{ print $1}\'';
   my $ip = `$cmd`;
   chop($ip);
@@ -272,7 +271,7 @@ sub get_active_scanners
   my @list = $db->getListOfHash("SELECT name from scanner WHERE active=1");
   return "none" unless @list;
   return "none" if @list < 1;
-  
+
   my $ret = "";
   foreach my $elh (@list) {
   	my %el = %{$elh};
@@ -291,8 +290,8 @@ sub get_dnslists {
 sub dump_ms_file
 {
   my $template = ConfigTemplate::create(
-                          'etc/mailscanner/MailScanner.conf_template', 
-                          'etc/mailscanner/MailScanner.conf');  
+                          'etc/mailscanner/MailScanner.conf_template',
+                          'etc/mailscanner/MailScanner.conf');
   $template->setReplacements(\%sys_conf);
   $template->setReplacements(\%ms_conf);
   return $template->dump();
@@ -302,8 +301,8 @@ sub dump_ms_file
 sub dump_sa_file
 {
   my $template = ConfigTemplate::create(
-                          'etc/mailscanner/spam.assassin.prefs.conf_template', 
-                          'etc/mailscanner/spam.assassin.prefs.conf');  
+                          'etc/mailscanner/spam.assassin.prefs.conf_template',
+                          'etc/mailscanner/spam.assassin.prefs.conf');
   $template->setReplacements(\%sa_conf);
   $template->setCondition('QUARANTINE_DMARC', 0);
   if ($sa_conf{'__QUARANTINE_DMARC__'}) {
@@ -311,19 +310,19 @@ sub dump_sa_file
   }
 
   return 0 unless $template->dump();
-  
+
   $template = ConfigTemplate::create(
-                          'etc/mailscanner/spamd.conf_template', 
-                          'etc/mailscanner/spamd.conf');  
+                          'etc/mailscanner/spamd.conf_template',
+                          'etc/mailscanner/spamd.conf');
   $template->setReplacements(\%sa_conf);
   $template->setReplacements(\%ms_conf);
   return 0 unless $template->dump();
 
   $template = ConfigTemplate::create(
-                          'etc/mailscanner/newsld.conf_template', 
-                          'etc/mailscanner/newsld.conf');  
+                          'etc/mailscanner/newsld.conf_template',
+                          'etc/mailscanner/newsld.conf');
   return 0 unless $template->dump();
-  
+
   $template = ConfigTemplate::create(
                           'share/spamassassin/92_mc_dnsbl_disabled.cf_template',
                           'share/spamassassin/92_mc_dnsbl_disabled.cf');
@@ -360,7 +359,7 @@ sub dump_sa_file
 #############################
 sub dump_prefilter_files {
   my $basedir=$conf->getOption('SRCDIR')."/etc/mailscanner/prefilters";
-	
+
   return 1 if ( ! -d $basedir) ;
   opendir(QDIR, $basedir) or die "Couldn't read directory $basedir";
   while(my $entry = readdir(QDIR)) {
@@ -377,7 +376,7 @@ sub dump_prefilter_files {
       }
       #if (defined($prefilter->{'name'})) {
         my $template = ConfigTemplate::create($templatefile, $destfile);
-      	
+
         my %replace = ();
         $replace{'__HEADER__'} = $prefilter->{'header'} || 'X-'.$pfname;
         $replace{'__PREFILTERNAME__'} = $prefilter->{'name'} || $pfname;
@@ -395,7 +394,7 @@ sub dump_prefilter_files {
 	if (getPrefilterSpecConfig($prefilter->{'name'}, \%spec_replace)) {
 	  $template->setReplacements(\%spec_replace);
 	}
-        
+
         my $specmodule = "dumpers::$pfname";
         my $specmodfile = "dumpers/$pfname.pm";
         if ( -f $conf->getOption('SRCDIR')."/lib/$specmodfile") {
@@ -432,26 +431,8 @@ sub getPrefilterSpecConfig {
 sub dump_virus_file
 {
   my $template = ConfigTemplate::create(
-                          'etc/mailscanner/virus.scanners.conf_template', 
+                          'etc/mailscanner/virus.scanners.conf_template',
                           'etc/mailscanner/virus.scanners.conf');
-  return $template->dump();
-}
-
-#############################
-sub dump_Oscar_config
-{
-  my $template = ConfigTemplate::create(
-                          'etc/mailscanner/OscarOcr.cf_template', 
-                          'share/spamassassin/OscarOcr.cf');  
-  return $template->dump();
-}
-
-#############################
-sub dump_FuzzyOcr_config
-{
-  my $template = ConfigTemplate::create(
-                          'etc/mailscanner/FuzzyOcr.cf_template', 
-                          'share/spamassassin/FuzzyOcr.cf');  
   return $template->dump();
 }
 
@@ -459,7 +440,7 @@ sub dump_FuzzyOcr_config
 sub dump_saplugins_conf
 {
   my $template = ConfigTemplate::create(
-                          'etc/mailscanner/sa_plugins.pre', 
+                          'etc/mailscanner/sa_plugins.pre',
                           'share/spamassassin/sa_plugins.pre');
   my %replace = (
           '__IF_DCC__' => getModuleStatus('__USE_DCC__'),
@@ -470,8 +451,7 @@ sub dump_saplugins_conf
           '__IF_DKIM__' => getModuleStatus('__USE_DKIM__'),
           '__IF_URIDNSBL__' => getModuleStatus('__USE_RBLS__'),
           '__IF_SPF__' => getModuleStatus('__USE_SPF__'),
-          '__IF_FUZZYOCR__' => getModuleStatus('__USE_FUZZYOCR__'),
-          '__IF_OSCAR__' => getModuleStatus('__USE_FUZZYOCR__'),
+          '__IF_OCR__' => getModuleStatus('__USE_OCR__'),
           '__IF_PDFINFO__' => getModuleStatus('__USE_PDFINFO__'),
           '__IF_BOTNET__' => getModuleStatus('__USE_BOTNET__'),
         );
@@ -482,7 +462,7 @@ sub dump_saplugins_conf
 
 sub getModuleStatus {
   my $module = shift;
- 
+
   if (defined($sa_conf{$module}) && $sa_conf{$module} < 1) {
   	return "#";
   }
@@ -490,12 +470,31 @@ sub getModuleStatus {
 }
 
 #############################
+sub dump_ocr_config
+{
+  my $template = ConfigTemplate::create(
+                          'etc/mailscanner/TesseractOcr.cf_template',
+                          'share/spamassassin/TesseractOcr.cf');
+  my %replace = ();
+  my %row = $db->getHashRow("SELECT use_ocr FROM antispam WHERE set_id=1");
+  $replace{"__USE_OCR__"} = $row{'use_ocr'};
+
+  my @list = $db->getListOfHash('SELECT preprocess, msg_timeout, img_timeout, skip_jpg, skip_png, skip_gif, skip_bmp, skip_tif, skip_pdf, min_size, max_size, min_x, max_x, min_y, max_y, min_area, max_area FROM tocr_config');
+  my %settings = %{$list[0]};
+  foreach my $key (keys %settings) {
+      $replace{"__".uc($key)."__"} = $settings{$key};
+  }
+  $template->setReplacements(\%replace);
+  return $template->dump();
+}
+
+#############################
 sub dump_filename_config
 {
   my $template = ConfigTemplate::create(
-                          'etc/mailscanner/filename.rules.conf_template', 
-                          'etc/mailscanner/filename.rules.conf');  
-  
+                          'etc/mailscanner/filename.rules.conf_template',
+                          'etc/mailscanner/filename.rules.conf');
+
   my $subtmpl = $template->getSubTemplate('FILENAME');
   my $res = "";
   my @list = $db->getListOfHash('SELECT status, rule, name, description FROM filename where status="deny"');
@@ -514,7 +513,7 @@ sub dump_filename_config
   	$sub =~ s/__DESCRIPTION__/$el{'description'}/g;
   	$res .= "$sub";
   }
-  
+
   my %replace = (
                  '__FILENAME_LIST__' => $res
               );
@@ -526,9 +525,9 @@ sub dump_filename_config
 sub dump_filetype_config
 {
    my $template = ConfigTemplate::create(
-                          'etc/mailscanner/filetype.rules.conf_template', 
-                          'etc/mailscanner/filetype.rules.conf');  
-  
+                          'etc/mailscanner/filetype.rules.conf_template',
+                          'etc/mailscanner/filetype.rules.conf');
+
   my $subtmpl = $template->getSubTemplate('FILETYPE');
   my $res = "";
   my @list = $db->getListOfHash('SELECT status, type, name, description FROM filetype');
@@ -541,7 +540,7 @@ sub dump_filetype_config
   	$sub =~ s/__DESCRIPTION__/$el{'description'}/g;
   	$res .= "$sub";
   }
-  
+
   my %replace = (
                  '__FILETYPE_LIST__' => $res
               );
@@ -575,14 +574,14 @@ sub dump_dnsblacklists_conf
  # 	 $sub =~ s/__URL__/$el{'url'}/g;
  # 	 $res .= "$sub";
  # }
-  
+
   my %replace = (
                  '__DNSLIST_LIST__' => $res
                 );
   $template->setReplacements(\%replace);
   return $template->dump();
 }
- 
+
 #############################
 sub fatal_error
 {
