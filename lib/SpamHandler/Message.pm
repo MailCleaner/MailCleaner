@@ -530,7 +530,8 @@ sub loadMsgFile() {
     ## check for standard (but untrusted) headers
     if ( defined( $this->{headers}{'from'} ) ) {
 	if ( $this->{headers}{'from'} =~ m/<.*>/ ) {
-		$this->{msg_from} =~ s/.*<([^>]*)>/$1/
+		$this->{msg_from} = $this->{headers}{'from'};
+		$this->{msg_from} =~ s/.*<([^>]*)>/$1/;
 	} else {
 		$this->{msg_from} = $this->{headers}{'from'};
 	}
