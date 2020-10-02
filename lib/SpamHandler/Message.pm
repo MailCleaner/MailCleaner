@@ -406,6 +406,7 @@ sub process {
             unless ($this->{decisive_module}{action} == 'negative') {
                 $this->{decisive_module}{module} = undef;
             }
+            $this->sendMeAnyway();
         }
     }
 
@@ -549,6 +550,11 @@ sub loadScores {
     my $line;
 
     if ( !defined( $this->{headers}{'x-mailcleaner-spamcheck'} ) ) {
+        %{$this->{decisive_module}} = (
+            'module' => 'NOHEADER',
+            'position' => 0,
+            'action' => 'negative'
+        );
         $this->{daemon}->doLog(
         $this->{batchid} . ": " . $this->{id} . " no spamcheck header",
             'spamhandler', 'warn'
