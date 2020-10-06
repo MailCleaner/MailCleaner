@@ -76,7 +76,7 @@ ret=$(downloadDatas "$SRCDIR/etc/firewall/" "firewall" $randomize "null" "" "noe
 if [[ "$ret" -eq "1" ]]; then
         /usr/mailcleaner/bin/dump_firewall.pl
 	sleep 3
-	if [-f "/usr/mailcleaner/etc/firewall/blacklist"]; then
+	if [ -f "/usr/mailcleaner/etc/firewall/blacklist" ]; then
 	        /usr/mailcleaner/etc/firewall/blacklist
 	fi
 fi
