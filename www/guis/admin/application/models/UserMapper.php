@@ -105,14 +105,23 @@ class Default_Model_UserMapper
         $query->where('domain = ?', $params['domain']);
         $resultSet = $this->getDbTable()->fetchAll($query);
         foreach ($resultSet as $row) {
-            $entry = new Default_Model_User();
-            $entry->setId($row['id']);
-            if ($domain->isAuthLocal()) {
-                $entry->setParam('username', $row['username']);
-            } else {
-                $entry->setParam('username', $row['username'] . ' (local)');
+            $duplicate = 0;
+            foreach ($entries as $e) {
+                if ($e->getParam('username') == $row['username']) {
+                    $duplicate = 1;
+                    break;
+                }
             }
-            $entries[] = $entry;
+            if ($duplicate == 0) {
+                $entry = new Default_Model_User();
+                $entry->setId($row['id']);
+                #if ($domain->getPref('auth_type') == 'ldap') {
+                    #$entry->setParam('username', $row['username'] . ' (local)');
+                #} else {
+                    $entry->setParam('username', $row['username']);
+                #}
+                $entries[] = $entry;
+            }
         }
         return $entries;
     }
