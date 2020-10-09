@@ -94,6 +94,15 @@ function spamhaus() {
     exit 1
   fi
 
+  while [[ "$shpackage" != "1" && "$shpackage" != "2" && "$shpackage" != "3" && "$shpackage" != "0" ]]; do
+    printf "Do you want to install \n   1 - the ZEN package\n   2 - the Content package\n   3 - Both of them\n   0 - Exit\nWARNING : if you already have a package and want to add a new one afterwards, make sure the token are the same and answer 3\n"
+    read -p "Package number: "  shpackage
+  done
+  if [[ "$shpackage" -eq 0 ]]; then
+	  echo "No modifications made\n"
+	  exit;
+  fi
+
   printf "Please provide SpamHaus licenses informations. \n"
   read -p "Your SpamHaus token: "  token
 
@@ -103,37 +112,167 @@ function spamhaus() {
     exit 1
   fi
 
-  printf "Installing SpamHaus RBL ... \n"
+  printf "Installing SpamHaus RBLs... \n"
 
-  # Create the RBL configuration file
-  read -d '' RBL_CONTENT <<EOF
-name=SPAMHAUSDQS
+
+
+### ZEN package
+  if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
+    if [ -e "${SRCDIR}/etc/rbls/SPAMHAUSSBL.cf" ]; then
+      rm -f "${SRCDIR}/etc/rbls/SPAMHAUSSBL.cf"
+    fi
+
+    if [ -e "${SRCDIR}/etc/rbls/SPAMHAUSDQS.cf" ]; then
+      rm -f "${SRCDIR}/etc/rbls/SPAMHAUSDQS.cf"
+    fi
+
+    # Create the RBL configuration file
+    read -d '' RBL_CONTENT <<EOF
+name=SPAMHAUSZEN
 type=IPRBL
 dnsname=${token}.zen.dq.spamhaus.net
 sublist=127.0.0.\d+,SPAMHAUS,spamhaus.org list
 EOF
 
-  echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSDQS.cf
+    echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSZEN.cf
+  fi 
+
+
+
+
+### Content package
+  if [[ "$shpackage" -eq "2" ||  "$shpackage" -eq "3" ]]; then
+    # Create the RBL configuration file
+    read -d '' RBL_CONTENT <<EOF
+name=SPAMHAUSDBL
+type=URIRBL
+dnsname=${token}.dbl.dq.spamhaus.net
+sublist=127.0.1.\d+,SPAMHAUSDBL,Spamhaus domain blocklist
+callonip=1
+ishbl=0
+EOF
+
+    echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSDBL.cf
+
+
+
+
+    # Create the RBL configuration file
+    read -d '' RBL_CONTENT <<EOF
+name=SPAMHAUSHBL
+type=URIRBL
+dnsname=${token}.hbl.dq.spamhaus.net
+sublist=127.0.0.\d+,SPAMHAUSHBL,Spamhaus Hash blocklist
+callonip=0
+ishbl=1
+EOF
+
+    echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSHBL.cf
+
+
+
+
+    # Create the RBL configuration file
+    read -d '' RBL_CONTENT <<EOF
+name=SPAMHAUSZRD
+type=URIRBL
+dnsname=${token}.zrd.dq.spamhaus.net
+sublist=127.0.0.\d+,SPAMHAUSZRD,Spamhaus Zero Reputation list
+EOF
+
+    echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSZRD.cf
+  fi
+
+
+
 
   # Override SpamAssassin default rules
-  read -d '' RBL_SPAMC_OVERRIDE <<EOF
+  if [[ "$shpackage" -eq "1" || "$shpackage" -eq "2" ||  "$shpackage" -eq "3" ]]; then
+### All packages
+    if [ -e "${SRCDIR}/share/spamassassin/60_spamhaus_override.cf" ]; then
+      rm -f "${SRCDIR}/share/spamassassin/60_spamhaus_override.cf"
+    fi
+  fi
+### Zen package
+  if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
+    read -d '' RBL_SPAMC_OVERRIDE <<EOF
 header __RCVD_IN_ZEN eval:check_rbl('zen','${token}.zen.dq.spamhaus.net.')
+header RCVD_IN_SBL eval:check_rbl('zen-lastexternal', '${token}.zen.dq.spamhaus.net.', '127.0.0.2')
+score  RCVD_IN_SBL 2.0
+header RCVD_IN_CSS eval:check_rbl('zen-lastexternal', '${token}.zen.dq.spamhaus.net.', '127.0.0.3')
+score  RCVD_IN_CSS 2.0
 header RCVD_IN_XBL eval:check_rbl('zen-lastexternal', '${token}.zen.dq.spamhaus.net.', '127.0.0.[45678]')
+score  RCVD_IN_XBL 2.0
 header RCVD_IN_PBL eval:check_rbl('zen-lastexternal', '${token}.zen.dq.spamhaus.net.', '127.0.0.1[01]')
+score  RCVD_IN_PBL 2.0
 
 ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     uridnssub URIBL_SBL             ${token}.zen.dq.spamhaus.net. A 127.0.0.2
+    score     URIBL_SBL 2.5
     uridnsbl  URIBL_SBL_A           ${token}.sbl.dq.spamhaus.net. A
 endif # Mail::SpamAssassin::Plugin::URIDNSBL
 EOF
 
-  echo "${RBL_SPAMC_OVERRIDE}" > ${SRCDIR}/share/spamassassin/60_spamhaus_override.cf
+    echo "${RBL_SPAMC_OVERRIDE}" >> ${SRCDIR}/share/spamassassin/60_spamhaus_override.cf
+  fi
+
+### Content package
+  if [[ "$shpackage" -eq "2" ||  "$shpackage" -eq "3" ]]; then
+
+    read -d '' RBL_SPAMC_OVERRIDE <<EOF
+ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
+    urirhssub URIBL_DBL_SPAM        ${token}.dbl.dq.spamhaus.net. A 127.0.1.2
+    score     URIBL_DBL_SPAM 2.5
+    urirhssub URIBL_DBL_REDIR       ${token}.dbl.dq.spamhaus.net. A 127.0.1.3
+    score     URIBL_DBL_REDIR 2.5
+    urirhssub URIBL_DBL_PHISH       ${token}.dbl.dq.spamhaus.net. A 127.0.1.4
+    score     URIBL_DBL_PHISH 2.5
+    urirhssub URIBL_DBL_MALWARE     ${token}.dbl.dq.spamhaus.net. A 127.0.1.5
+    score     URIBL_DBL_MALWARE 2.5
+    urirhssub URIBL_DBL_BOTNETCC    ${token}.dbl.dq.spamhaus.net. A 127.0.1.6
+    score     URIBL_DBL_MALWARE 2.5
+    urirhssub URIBL_DBL_ABUSE_SPAM  ${token}.dbl.dq.spamhaus.net. A 127.0.1.102
+    score     URIBL_DBL_ABUSE_SPAM 2.5
+    urirhssub URIBL_DBL_ABUSE_REDIR ${token}.dbl.dq.spamhaus.net. A 127.0.1.103
+    score     URIBL_DBL_ABUSE_REDIR 2.5
+    urirhssub URIBL_DBL_ABUSE_PHISH ${token}.dbl.dq.spamhaus.net. A 127.0.1.104
+    score     URIBL_DBL_ABUSE_PHISH 2.5
+    urirhssub URIBL_DBL_ABUSE_MALW  ${token}.dbl.dq.spamhaus.net. A 127.0.1.105
+    score     URIBL_DBL_ABUSE_MALW 2.5
+    urirhssub URIBL_DBL_ABUSE_BOTCC ${token}.dbl.dq.spamhaus.net. A 127.0.1.106
+    score     URIBL_DBL_ABUSE_BOTCC 2.5
+    urirhssub URIBL_DBL_ERROR       ${token}.dbl.dq.spamhaus.net. A 127.0.1.255
+    score     URIBL_DBL_ERROR 2.5
+
+    if can(Mail::SpamAssassin::Plugin::URIDNSBL::has_tflags_domains_only)
+        urirhsbl URIBL_ZRD ${token}.zrd.dq.spamhaus.net. A
+        body     URIBL_ZRD eval:check_uridnsbl('URIBL_ZRD')
+        describe URIBL_ZRD Contains a URL listed in the Spamhaus ZRD blocklist
+        tflags   URIBL_ZRD net domains_only
+        score    URIBL_ZRD 2.5
+    endif # if can
+endif # Mail::SpamAssassin::Plugin::URIDNSBL
+EOF
+
+    echo "${RBL_SPAMC_OVERRIDE}" >> ${SRCDIR}/share/spamassassin/60_spamhaus_override.cf
+  fi
+
 
   # Enable SpamHaus at PreRBLs level
-  echo 'UPDATE PreRBLs set lists=concat(lists, " SPAMHAUSDQS");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+### ZEN
+  if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
+    echo 'UPDATE PreRBLs set lists=concat(lists, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+    echo 'UPDATE antispam set sa_rbls=concat(sa_rbls, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+  fi
+### Content
+  if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
+    echo 'UPDATE UriRBLs set rbls=concat(lists, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+    echo 'UPDATE antispam set sa_rblsconcat(sa_rbls, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+  fi
+
   printf "SpamHaus installed. \n"  
   printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
-    printf "In order to enable SpamHaus, please restart the filtering engine: \n"
+  printf "In order to enable SpamHaus, please restart the filtering engine: \n"
   printf "\t ${SRCDIR}/etc/init.d/mailscanner restart \n"  
   exit 0
 }
