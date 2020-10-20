@@ -604,16 +604,19 @@ sub loadScores {
         }
     }
 
-    if ( $line =~ /.*(PreRBLs|UriRBLs) \(([^\)]*), ?position/ ) {
-        my $rbls = scalar(split( ',', $2 ));
-        if ($1 eq 'PreRBLs') {
-            $this->{sc_prerbls} = $rbls;
-        } else {
-            $this->{sc_urirbls} = $rbls;
-        }
-        $this->decisiveModule($1,$line);
+    if ( $line =~ /.*PreRBLs \(([^ ]*) ?position/ ) {
+        $this->{sc_prerbls} = 1;
+        $this->decisiveModule('PreRBLs',$line);
+        $this->{sc_global} += 2;
+        $this->{prefilters} .= ", PreRBLs";
+    }
+
+    if ( $line =~ /.*UriRBLs \(([^\)]*), ?position/ ) {
+        my $rbls = scalar(split( ',', $1 ));
+        $this->{sc_urirbls} = $rbls;
+        $this->decisiveModule('UriRBLs',$line);
         $this->{sc_global} += $rbls + 1;
-        $this->{prefilters} .= ", $1";
+        $this->{prefilters} .= ", UriRBLs";
     }
 
     if ( $line =~ /.*Spamc \(score=(\d+\.\d+),.*/ ) {
