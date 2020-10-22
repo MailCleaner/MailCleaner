@@ -7,5 +7,6 @@ CREATE TABLE fail2ban_conf (
         src_email               varchar(150) NOT NULL,
         src_name                varchar(150) NOT NULL,
         dest_email              varchar(150) NOT NULL,
+        chain                   varchar(150) NOT NULL,
         PRIMARY KEY (id)
 );
