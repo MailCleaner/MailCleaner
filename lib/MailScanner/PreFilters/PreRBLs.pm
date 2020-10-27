@@ -206,7 +206,7 @@ sub Checks {
       $global::MS->{mta}->AddHeaderToOriginal($message, $PreRBLs::conf{'header'}, "is spam ($wholeheader) ".$PreRBLs::conf{'pos_text'});
     }
 
-    $message->{prefilterreport} .= ", PreRBLs ($wholeheader ".$PreRBLs::conf{'pos_text'}.")";
+    $message->{prefilterreport} .= ", PreRBLs ($wholeheader, ".$PreRBLs::conf{'pos_text'}.")";
     return 1;
   }
   if ($wholeheader ne '') {
