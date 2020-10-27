@@ -604,8 +604,9 @@ sub loadScores {
         }
     }
 
-    if ( $line =~ /.*PreRBLs \(([^ ]*) ?position/ ) {
-        $this->{sc_prerbls} = 1;
+    if ( $line =~ /.*PreRBLs \(([^\)]*), ?position/ ) {
+        my $rbls = scalar(split( ',', $1 ));
+        $this->{sc_prerbls} = $rbls;
         $this->decisiveModule('PreRBLs',$line);
         $this->{sc_global} += 2;
         $this->{prefilters} .= ", PreRBLs";
