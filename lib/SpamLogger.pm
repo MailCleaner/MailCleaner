@@ -143,7 +143,7 @@ sub logInMaster {
   else {
 	$table = 'misc';
   }
-  my $query =  "INSERT INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_rbls, M_prefilter, M_subject, M_globalscore, forced, in_master, store_slave) ".
+  my $query =  "INSERT IGNORE INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_rbls, M_prefilter, M_subject, M_globalscore, forced, in_master, store_slave) ".
                         "VALUES (NOW(), NOW(), '".$message{todomain}."', '".$message{tolocal}."', ".
                         "'".$message{sender}."', '".$message{id}."', ".
                         "'".$message{score}."', '".$message{rbls}."', '". $message{prefilter}."', '".$message{subject}."', '".$message{globalscore}."', '0', '0', '".$this->{slaveID}."')";
@@ -178,7 +178,7 @@ sub logInSlave {
   else {
 	$table = 'misc';
   }
-  my $query =  "INSERT INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_rbls, M_prefilter, M_subject, M_globalscore, forced, in_master, store_slave) ".
+  my $query =  "INSERT IGNORE INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_rbls, M_prefilter, M_subject, M_globalscore, forced, in_master, store_slave) ".
                         "VALUES (NOW(), NOW(), '".$message{todomain}."', '".$message{tolocal}."', ".
                         "'".$message{sender}."', '".$message{id}."', ".
                         "'".$message{score}."', '".$message{rbls}."', '". $message{prefilter}."', '".$message{subject}."', '".$message{globalscore}."', '0', '".$master_stored."', '".$this->{slaveID}."')";
