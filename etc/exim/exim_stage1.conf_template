@@ -138,6 +138,7 @@ domainlist domains_require_tls_to = VARDIR/spool/tmp/mailcleaner/domains_require
 domainlist domains_require_tls_from = VARDIR/spool/tmp/mailcleaner/domains_require_tls_from.list
 domainlist local_domains_require_incoming_tls = VARDIR/spool/tmp/mailcleaner/local_domains_require_incoming_tls.list
 domainlist local_domains_require_outgoing_tls = VARDIR/spool/tmp/mailcleaner/local_domains_require_outgoing_tls.list
+domainlist no_caps_domains = VARDIR/spool/tmp/mailcleaner/no_caps_domains.list
 
 hostlist   relay_from_hosts = <; 127.0.0.1 ; __RELAY_FROM_HOSTS__
 hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__
@@ -304,6 +305,21 @@ acl_check_rcpt:
           logwrite      = DEBUG - refused, bad local part 2 - smtp:refused,smtp:refused:bad_local_part2
  __FI__
 
+  deny    domains       = +no_caps_domains
+          condition     = ${perl{no_caps_in_domain}{$sender_address_domain}}
+          message       = This domain does not accept sender addresses using capital letters
+          set acl_c8    = smtp:refused:refused_nonbatv
+          set acl_c9    = STATSADD
+          set acl_c8    = domain:$domain:refused_nonbatv
+          set acl_c9    = STATSADD
+          set acl_c8    = domain:$domain:refused
+          set acl_c9    = STATSADD
+          set acl_c8    = smtp:refused
+          set acl_c9    = STATSADD
+ __IF__ DEBUG
+          logwrite      = DEBUG - refused, $sender_address_domain contains capital letters
+ __FI__
+
 __IF__ __LISTS_PER_DOMAIN__
   warn    set acl_m0    = ${perl{SMTP_WL_IP_Dom}{$domain}{$sender_host_address}}
   warn    set acl_m1    = ${perl{SpamC_WL_IP_Dom}{$domain}{$sender_host_address}}
@@ -404,7 +420,7 @@ __FI__
 __IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
 __FI__
-          condition     = ${if eq {$domain}{$sender_address_domain}}
+          condition     = ${perl{prevent_domain_from}{$domain}{$sender_address_domain}}
 	  !spf		= pass
           message       = This domain does not accept mail from itself (spoofing)
           set acl_c8    = smtp:refused:refused_spoofing

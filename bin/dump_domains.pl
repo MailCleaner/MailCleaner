@@ -205,6 +205,7 @@ sub parseDestinations {
                     batv_secret => $domain->{'batv_secret'},
                     prevent_spoof => $domain->{'prevent_spoof'},
                     dkim_domain => $domain->{'dkim_domain'},
+		    reject_capital_domain => $domain->{'reject_capital_domain'},
                     dkim_selector => $domain->{'dkim_selector'},
                     dkim_pkey => $domain->{'dkim_pkey'},
                     require_incoming_tls => $domain->{'require_incoming_tls'},
@@ -283,6 +284,9 @@ sub dumpDomainsFile {
   }
   if ( !open(PREVENTSPOOFFILE, ">$filepath/domains_to_prevent_spoof.list")) {
     return 0;
+  }
+  if ( !open(NOCAPSDOMAINS, ">$filepath/no_caps_domains.list")) {
+     return 0;
   }
   if ( !open(REQUIREOUTGOINGTLS, ">$filepath/local_domains_require_outgoing_tls.list")) {
     return 0;
@@ -436,6 +440,10 @@ sub dumpDomainsFile {
     if ($value eq "true" || $value eq "1") {
       print PREVENTSPOOFFILE $domain_name."\n";
     }
+    $value = $domains{$domain_name}{reject_capital_domain};
+    if ($value eq "true" || $value eq "1") {
+      print NOCAPSDOMAINS $domain_name."\n";
+    }   
     $value = $domains{$domain_name}{require_outgoing_tls};
     if ($value eq "true" || $value eq "1") {
       print REQUIREOUTGOINGTLS $domain_name."\n";
@@ -499,6 +507,8 @@ sub dumpDomainsFile {
   close PREVENTSPOOFFILE;
   chown $uid, $gid, "$filepath/domains_to_prevent_spoof.list";
   close REQUIREINCOMINGTLS;
+  chown $uid, $gid, "$filepath/no_caps_domains.list";
+  close NOCAPSDOMAINS;
   chown $uid, $gid, "$filepath/local_domains_require_incoming_tls.list";
   close REQUIREOUTGOINGTLS;
   chown $uid, $gid, "$filepath/local_domains_require_outgoing_tls.list";

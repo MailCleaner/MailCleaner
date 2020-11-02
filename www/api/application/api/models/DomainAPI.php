@@ -80,6 +80,7 @@ class Api_Model_DomainAPI
 	 *     notice_wwlists => can be 0 or 1, enable adminsitrator warning when white or warn lists hit
 	 *     prevent_spoof => can be 0 or 1, enable antispoofing
 	 *     require_incoming_tls => can be 0 or 1, reject unencrypted sessions to this domain
+	 *     reject_capital_domain => can be 0 or 1, rejects domain names containing capitals (if set to 0)
 	 *    
 	 *   Outgoing:
 	 *     allow_smtp_auth =>  can be 0 or 1, set if users can authenticate using SMTP for relaying
@@ -398,8 +399,8 @@ class Api_Model_DomainAPI
         	if (isset($params[$key]) && preg_match('/^[01]$/', $params[$key])) {
         		$domain->setPref($storekey, $params[$key]);
         	}
-        }
-        foreach (array('prevent_spoof', 'require_incoming_tls') as $key) {
+	}
+        foreach (array('prevent_spoof', 'require_incoming_tls', 'reject_capital_domain') as $key) {
         	if ( isset($params[$key]) && preg_match('/^[01]$/', $params[$key])) {
         		$domain->setPref($key, $params[$key]);
         	}
@@ -524,8 +525,8 @@ class Api_Model_DomainAPI
             }
         }
         
-        ## Filtering, Templates
-	    foreach (array('prevent_spoof', 'require_incoming_tls', 'spamwall', 'contentwall', 'viruswall', 'greylist', 'web_template', 'summary_template') as $key) {
+	## Filtering, Templates
+        foreach (array('prevent_spoof', 'require_incoming_tls', 'spamwall', 'contentwall', 'viruswall', 'greylist', 'web_template', 'summary_template', 'reject_capital_domain') as $key) {
             if (empty($params) || in_array($key, $params)) {
             	if (!$domain->getPref($key)) {
             		$data[$key] = "0";

@@ -12,7 +12,7 @@
        <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
        <table class="ftable" id="domainfilteringtable">
        
-          <?php foreach (array('spamwall', 'contentwall', 'greylist', 'prevent_spoof', 'require_incoming_tls', 'allow_newsletters') as $f) {?>
+          <?php foreach (array('spamwall', 'contentwall', 'greylist', 'prevent_spoof', 'reject_capital_domain', 'require_incoming_tls', 'allow_newsletters') as $f) {?>
           <?php echo $this->InputRow($this->form->getElement($f));?>
           <?php }?>
           
