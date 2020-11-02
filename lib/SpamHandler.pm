@@ -201,7 +201,7 @@ sub connectDatabases {
 		{
 			my %db_prepare = ();
 			$this->{prepared}{$dbname}{$t} = $db->prepare(
-				    'INSERT INTO spam_' . $t
+				    'INSERT IGNORE INTO spam_' . $t
 				  . ' (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_rbls, M_prefilter, M_subject, M_globalscore, forced, in_master, store_slave, is_newsletter) 
                                                                         VALUES(NOW(),   NOW(),     ?,         ? ,     ? ,       ?,      ?,      ?,        ?,          ?,             ?,      \'0\',     ?,'
 				  . $this->{storeslave} . ', ?)'
