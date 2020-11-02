@@ -102,7 +102,18 @@ class Default_Form_DomainFiltering extends Zend_Form
             $antispoof->setChecked(true);
         }
         $this->addElement($antispoof);
-        
+
+	$reject_capital_domain = new Zend_Form_Element_Checkbox('reject_capital_domain', array(
+            'label'   => $t->_('Reject domains containing capital letters'). " :",
+            'title' => $t->_("Forbidss the use of capital letters in the sender s domain name."),
+            'uncheckedValue' => "0",
+            'checkedValue' => "1"
+                  ));
+        if ($this->_domain->getPref('reject_capital_domain')) {
+            $reject_capital_domain->setChecked(true);
+        }
+	$this->addElement($reject_capital_domain);
+
         $require_incoming_tls = new Zend_Form_Element_Checkbox('require_incoming_tls', array(
 	        'label'   => $t->_('Reject unencrypted SMTP sessions to this domain'). " :",
                 'title' => $t->_("Refuse all unencrypted connection with other MTA"),
@@ -216,7 +227,8 @@ class Default_Form_DomainFiltering extends Zend_Form
 
     	$domain->setPref('viruswall', $domain->getPref('contentwall'));
     	$domain->setParam('greylist', $request->getParam('greylist'));
-        $domain->setPref('prevent_spoof', $request->getParam('prevent_spoof'));
+	$domain->setPref('prevent_spoof', $request->getParam('prevent_spoof'));
+	$domain->setPref('reject_capital_domain', $request->getParam('reject_capital_domain'));
         $domain->setPref('require_incoming_tls', $request->getParam('require_incoming_tls'));
  
         ### newsl

@@ -164,3 +164,17 @@ __FI__
   return 'false';
 }
 
+sub prevent_domain_from {
+  my $domain = shift;
+  my $sender_address_domain = shift;
+
+  return 'true' if ( lc($domain) eq lc($sender_address_domain) );
+  return 'false';
+}
+
+sub no_caps_in_domain {
+  my $sender_address_domain = shift;
+
+  return 'true' if ( $sender_address_domain =~ m/[A-Z]/ );
+  return 'false';
+}
