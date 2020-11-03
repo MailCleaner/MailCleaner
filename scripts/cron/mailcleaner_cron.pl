@@ -111,6 +111,8 @@ foreach my $key (keys %proc) {
   }
 }
 
+system("$config{'SRCDIR'}/bin/resync_db.sh -C");
+
 my $cmd = "grep 'Pre Filters' ".$config{'SRCDIR'}."/etc/mailscanner/MailScanner.conf | grep 'Commtouch'";
 my $hascommtouch=`$cmd`;
 if ($hascommtouch ne '') {

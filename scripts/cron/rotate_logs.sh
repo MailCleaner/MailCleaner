@@ -247,3 +247,7 @@ if [ -e /opt/commtouch/etc/init.d/ctipd.init_d ] && [ -f /opt/commtouch/etc/ctip
    /opt/commtouch/etc/init.d/ctipd.init_d start
 fi
 
+################0##
+## Resync checks ##
+###################
+find $VARDIR/spool/resync/ -type f -mtime +$DAYSTOKEEP -exec rm -f {} \;
