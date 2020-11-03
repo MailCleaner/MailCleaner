@@ -103,7 +103,7 @@ CREATE TABLE domain_pref (
   require_incoming_tls           bool NOT NULL DEFAULT '0',
   require_outgoing_tls           bool NOT NULL DEFAULT '0',
   allow_newsletters              tinyint(1) NOT NULL DEFAULT '0',
-  reject_capital_domain          tinyint(1) NOT NULL DEFAULT '1',
+  reject_capital_domain          tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 );
 
