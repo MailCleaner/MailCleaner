@@ -75,6 +75,7 @@ sub new {
         sc_clamspam       => 0,
         sc_trustedsources => 0,
         sc_urirbls        => 0,
+        sc_machinelearning=> 0,
         sc_global         => 0,
         prefilters        => '',
 
@@ -639,6 +640,12 @@ sub loadScores {
             $this->{sc_global} += 4;
         }
         $this->{prefilters} .= ", ClamSpam";
+    }
+
+    if ( $line =~ /.*MachineLearning \((not applied \()?([\d.]+)%.*/ ) {
+        $this->decisiveModule('MachineLearning',$line);
+        $this->{sc_machinelearning} = $2;
+        $this->{prefilters} .= ", MachineLearning";
     }
 
     $this->{prefilters} =~ s/^, //;
