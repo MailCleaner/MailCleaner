@@ -16,4 +16,4 @@ IFS=$'\n' sorted=($(sort <<<"${ARR[*]}")); unset IFS
 for i in "${sorted[@]}"; do
    list+="$i-"
 done
-echo "cpu: ${list::
+echo "cpu: ${list::-1}"
