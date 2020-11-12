@@ -500,3 +500,4 @@ $txt['NEWSLISTFORADDRESS'] = "이 주소의 뉴스레터 목록";
 $txt['ADDANEWSENTRY'] = "리스트에 주소 추가";
 $txt['NEWSLISTENTRYTOADD'] = "뉴스레터 목록에 추가하고 싶은 주소를 입력하세요. 설명을 추가할 수도 있습니다.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "수정하고 싶은 주소를 하나이상 선택하고 원하는 버튼을 누르세요.";
+$txt['ADDTOGROUP'] = "그룹의 모든 주소에 추가";
