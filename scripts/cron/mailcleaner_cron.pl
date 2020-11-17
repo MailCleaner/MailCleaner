@@ -218,6 +218,19 @@ my $minute = `date +%M`;
 if ($minute >=0 && $minute < $cron_occurence) {
     
   ######################
+  # jobs every 4 hours #
+  ######################
+  my $hour = `date +%H`;
+  unless ($hour%4) {
+
+    #######################
+    # check and resync DB #
+    #######################
+    system("$config{'SRCDIR'}/bin/resync_db.sh -C");
+
+  }
+
+  ######################
   ## update anti-viruses
   ######################
   if (my $pid_av = fork) {

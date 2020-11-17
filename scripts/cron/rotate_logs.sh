@@ -247,3 +247,9 @@ if [ -e /opt/commtouch/etc/init.d/ctipd.init_d ] && [ -f /opt/commtouch/etc/ctip
    /opt/commtouch/etc/init.d/ctipd.init_d start
 fi
 
+################0##
+## Resync checks ##
+###################
+if [ -s $VARDIR/log/mailcleaner/resync/resync.log ]; then
+    savelog -c $DAYSTOKEEP $VARDIR/log/mailcleaner/resync/resync.log >/dev/null;
+fi
