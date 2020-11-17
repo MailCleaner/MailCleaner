@@ -68,7 +68,7 @@ foreach my $s_h (@slavesarray) {
   }
 
   foreach my $l ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','misc', 'num') {
-    my $dumpcmd = "/opt/mysql5/bin/mysqldump -t --skip-opt -h".$s_h->{'hostname'}." -P".$s_h->{'port'}." -umailcleaner -p".$s_h->{'password'}." mc_spool spam_$l -w \"in_master='0' and ( date_in < '$date' or ( date_in = '$date' and time_in < '$time') )\"";
+    my $dumpcmd = "/opt/mysql5/bin/mysqldump --insert-ignore -t --skip-opt -h".$s_h->{'hostname'}." -P".$s_h->{'port'}." -umailcleaner -p".$s_h->{'password'}." mc_spool spam_$l -w \"in_master='0' and ( date_in < '$date' or ( date_in = '$date' and time_in < '$time') )\"";
     output("($sid) - exporting spam_$l ...");
     my $res = `$dumpcmd > $TMPDIR/spam_$l-$sid.sql`;
     if ( ! $res eq '' ) {
