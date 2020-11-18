@@ -19,9 +19,64 @@
 #
 #
 #   This script will resync the configuration database
-#   Usage: 
-#           resync_db.sh 
+#	usage: resync_db.sh [-F] [-C] [MHOST MPASS]
+#	-F     Force resync. Ignore sync test
+#	-C     Run as cron. Sends STDOUT to $LOGDIR
+#	MHOST  master hostname
+#	MPASS  master password
 
+function check_status() {
+  echo "Checking slave status..."
+
+  STATUS=$(echo 'show slave status\G' | /usr/mailcleaner/bin/mc_mysql -s)
+  if grep -vq "Slave_SQL_Running: Yes" <<< $(echo $STATUS); then
+    echo "Slave_SQL_Running failed"
+    RUN=1
+  elif grep -vq "Slave_IO_Running: Yes" <<< $(echo $STATUS); then
+    echo "Slave_IO_Running failed"
+    RUN=1
+  fi
+}
+
+LOGDIR="/var/mailcleaner/log/mailcleaner/resync"
+MHOST=''
+MPASS=''
+
+if [ ! -d $LOGDIR ]; then
+  mkdir -p $LOGDIR
+fi
+
+for var in "$@"; do
+  if [[ $var == '-F' ]]; then
+    RUN=1
+  elif [[ $var == '-C' ]]; then
+    exec 1>>"$LOGDIR/resync.log"
+    exec 2>"/dev/null"
+    # If failed on previous cron run, this file will exist with a count of failures
+    if [ -e $LOGDIR/fail_count ]; then
+      # If it has failed 6 times stop trying
+      if [[ "`cat $LOGDIR/fail_count`" -ge 6 ]]; then
+        echo "Failed to resync too many times. Exitting."
+        exit
+      fi
+    fi
+  # First default is master host
+  elif [[ $MHOST == '' ]]; then
+    MHOST=$var
+  # Second default is master pass
+  elif [[ $MPASS == '' ]]; then
+    MPASS=$var
+  # If both of the above are set, this var is excess
+  else
+    echo "Invalid or excess option '$var'.
+usage: $0 [-F] [MHOST MPASS]
+  -F     Force resync. Ignore sync test
+  -C     Run as cron. Sends STDOUT to $LOGDIR
+  MHOST  master hostname
+  MPASS  master password"
+    exit
+  fi
+done
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
@@ -31,20 +86,39 @@ SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
   SRCDIR=/var/mailcleaner
 fi
+
 echo "starting slave db..."
 $SRCDIR/etc/init.d/mysql_slave start
 sleep 5
 
+check_status
+if [[ $RUN != 1 ]]; then
+  echo "DBs are already in sync. Run with -F to force resync anyways." 
+  if [[ -e $LOGDIR/fail_count ]]; then
+    echo "Removing fail_count file"
+    rm $LOGDIR/fail_count
+  fi
+  exit
+else
+  # Clear RUN as it will be used for the post-sync test result as well
+  RUN=0
+  echo "Running resync..."
+fi
+
+# Resync
+
 MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
 echo "select hostname, password from master;" | $SRCDIR/bin/mc_mysql -s mc_config | grep -v 'password' | tr -t '[:blank:]' ':' > /var/tmp/master.conf
-export MHOST=`cat /var/tmp/master.conf | cut -d':' -f1`
-export MPASS=`cat /var/tmp/master.conf | cut -d':' -f2`
 
-if [ "$1" != "" ]; then
-  export MHOST=$1
+if [ "$MHOST" != "" ]; then
+  export $MHOST
+else 
+  export MHOST=`cat /var/tmp/master.conf | cut -d':' -f1`
 fi
-if [ "$2" != "" ]; then
-  export MPASS=$2
+if [ "$MPASS" != "" ]; then
+  export $MPASS
+else
+  export MPASS=`cat /var/tmp/master.conf | cut -d':' -f2`
 fi
 
 /opt/mysql5/bin/mysqldump -S$VARDIR/run/mysql_slave/mysqld.sock -umailcleaner -p$MYMAILCLEANERPWD mc_config update_patch > /var/tmp/updates.sql
@@ -75,3 +149,24 @@ $SRCDIR/etc/init.d/mysql_slave restart
 sleep 5
 $SRCDIR/bin/mc_mysql -s mc_config < /var/tmp/updates.sql
 
+# Run the check again and record results
+check_status
+if [[ $RUN != 1 ]]; then
+  echo "Resync successful." 
+  # If there were previous failures, remove that flag file
+  if [[ -e $LOGDIR/fail_count ]]; then
+    echo "Removing fail_count file"
+    rm $LOGDIR/fail_count
+  fi
+  exit
+else
+  # If there were previous failures, get count and increment
+  if [[ -e $LOGDIR/fail_count ]]; then
+    COUNT=`cat $LOGDIR/fail_count`
+    ((COUNT+=1))
+  else
+    COUNT=1
+  fi
+  # Set failure flag
+  echo $COUNT > $LOGDIR/fail_count
+fi

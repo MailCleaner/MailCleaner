@@ -64,7 +64,21 @@ if (defined $options{h}) {
   usage();
 }
 
+###########################
+# We need the DB to be okay to make sure we are dropping
+# the right informations in configuration files
+###########################
+my $minute = `date +%M`;
+if ($minute >=0 && $minute < $cron_occurence) {
+  my $hour = `date +%H`;
+  unless ($hour%4) {
 
+    #######################
+    # check and resync DB #
+    #######################
+    system("$config{'SRCDIR'}/bin/resync_db.sh -C");
+  }
+}
 ########################################
 ########################################
 # process $cron_occurence minutes jobs #
@@ -214,7 +228,6 @@ if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && -e $config
 #######################
 #######################
 
-my $minute = `date +%M`;
 if ($minute >=0 && $minute < $cron_occurence) {
     
   ######################
