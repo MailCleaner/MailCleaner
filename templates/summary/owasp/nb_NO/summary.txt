@@ -1,0 +1,40 @@
+Subject: MailCleaner karantene rapport
+Hei,
+
+Dette er Mailcleaner-rapporten de siste ??NBDAYS dagene.
+
+For adressen: ??ADDRESS
+
+Følgende sammendrag viser alle meldingene som er blokkert av
+Mailcleaner.
+
+Hvis en av disse meldingene ikke burde vært blokkert, kan du tvinge den til å bli levert
+ved å klikke på lenken "Levér:".
+
+Meldingene som er oppført, blir ødelagt om ??SPAMNBDAYS dager.
+
+Hvis du ønsker å tilpasse innstillingene dine for MailCleaner, eller
+se sanntid karantenen, vennligst besøk brukergrensesnittet på:
+
+??WEBBASEURL
+
+----
+
+Her er listen over meldinger som er blokkert:
+
+??START_LIST
+------------------------------------------------------
+Message ID: ??ID
+        From: ??FROM
+        Date: ??DATE
+        Subject: ??SUBJECT
+        Force: ??FORCEURL/fm.php?id=3D??ID&a=3D??ADDRESS&s=3D??STOREID&lang=3D??LANGUAGE
+	??NEWSLETTER_TXT
+??END_LIST
+
+------------------------------------------------------
+Dette er en automatisk melding sendt av MailCleaner.
+Ikke svar.
+For mer informasjon: ??MAILCLEANERURL
+
+??SUMSIGNATURE
