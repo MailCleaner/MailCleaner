@@ -151,6 +151,9 @@ sub get_ms_config
   $config{'__BLOCKUNENCRYPT__'} = $row{'block_unencrypt'};
   if ($row{'allow_passwd_archives'} eq 'yes')   {
         $config{'__ALLOWPWDARCHIVES__'} = 'yes';
+        open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        print FH "FromOrTo:\tdefault\tyes";
+        close FH
   } else {
         $config{'__ALLOWPWDARCHIVES__'} = '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
         open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
