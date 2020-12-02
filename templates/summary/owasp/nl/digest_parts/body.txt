@@ -1,0 +1,12 @@
+Onderwerp: MailCleaner quarantine
+
+Je MailCleaner quarantine bevat nieuwe berichten die werden gededecteerd als spam sinds de laatste __NBDAYS__ dagen.
+
+Klik hier om de quarantine te bekijken: __BASEURL__/?d=__DIGEST_ID__
+
+Zonder een actie zullen deze berichten in quarantine blijven tot __SPAMNBDAYS__ dagen na hun aankomst.
+
+--------------------------------------------------------------------------------------
+Dit is een automatisch bericht verzonden door MailCleaner.
+Gelieve niet te antwoorden.
+Voor meer informatie: __BASEURL__

@@ -121,8 +121,9 @@ foreach my $a (@addresses) {
   my $domain = $email->getDomainObject();
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
+  my $temp_id = $domain->getPref('summary_template');
   # In case of missing translation for summaries
-  if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$domain->getPref('summary_template')."/$lang") {
+  if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id."/$lang") {
     $lang = 'en';
   }
   my $to = $email->getPref('summary_to');
@@ -131,9 +132,9 @@ foreach my $a (@addresses) {
     $type = 'html';
   }
   if ($type eq 'digest') {
-    $template = MailTemplate::create('summary', 'digest', $domain->getPref('summary_template'), \$email, $lang, 'html');
+    $template = MailTemplate::create('summary', 'digest', $temp_id, \$email, $lang, 'html');
   } else {
-    $template = MailTemplate::create('summary', 'summary', $domain->getPref('summary_template'), \$email, $lang, $type);
+    $template = MailTemplate::create('summary', 'summary', $temp_id, \$email, $lang, $type);
   }
 
   my ($end_year, $end_month,$end_day) = Today();
@@ -142,8 +143,8 @@ foreach my $a (@addresses) {
   my @spams;
   getFullQuarantine($a, \@spams, $email);
 
-  my $textquarantine = getQuarantineTemplate($template, $template->getSubTemplate('LIST'), \@spams, 'text', $lang);
-  my $htmlquarantine = getQuarantineTemplate($template, $template->getSubTemplate('HTMLQUARANTINE'), \@spams, 'html', $lang);
+  my $textquarantine = getQuarantineTemplate($template, $template->getSubTemplate('LIST'), \@spams, 'text', $lang, $temp_id);
+  my $htmlquarantine = getQuarantineTemplate($template, $template->getSubTemplate('HTMLQUARANTINE'), \@spams, 'html', $lang, $temp_id);
 
   my $end = DateTime->new('year' => $end_year, 'month' => $end_month, 'day' => $end_day );
   $end->set_locale($lang);
@@ -323,6 +324,7 @@ sub getQuarantineTemplate {
   my $spams = shift;
   my $type = shift;
   my $lang = shift;
+  my $temp_id = shift;
 
   my $ret = "";
   my $i = 0;
@@ -412,13 +414,23 @@ sub getQuarantineTemplate {
             nb_NO => "Godta dette Newsletter",
         );
 
-        my $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
+        my $newsletter;
+        if ($temp_id eq 'owasp') {
+            $newsletter = "<li><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/a><\/li>";
+        } else {
+            $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
+        }
         $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
 
         my $newsletter_txt = "$titles{$lang}: __FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}";
         $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
     } else {
-        my $newsletter = "<td style=\"width:26;border:0;\"><span><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/td>";
+        my $newsletter;
+        if ($temp_id eq 'owasp') {
+            $newsletter = "<li><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/li>";
+        } else {
+            $newsletter = "<td style=\"width:26;border:0;\"><span><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/td>";
+        }
         $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
 
         my $newsletter_txt = "";
