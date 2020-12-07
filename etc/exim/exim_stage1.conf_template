@@ -142,6 +142,7 @@ domainlist no_caps_domains = VARDIR/spool/tmp/mailcleaner/no_caps_domains.list
 
 hostlist   relay_from_hosts = <; 127.0.0.1 ; __RELAY_FROM_HOSTS__
 hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__
+hostlist   html_ctrl_hosts = <; __HTML_CTRL_WL_HOSTS__
 hostlist   no_ratelimit_hosts = <; __NO_RATELIMIT_HOSTS__
 domainlist relayrefuseddomains = VARDIR/spool/tmp/exim/blacklists/relaytodomains
 RELAYDEST = VARDIR/spool/tmp/mailcleaner/relay_accepteddest.list
@@ -331,6 +332,8 @@ __IF__ __LISTS_PER_DOMAIN__
 __FI__
   warn    hosts         = <; +trusted_hosts
           add_header    = X-MailCleaner-TrustedIPs: Ok
+  warn    hosts         = <; +html_ctrl_hosts
+          add_header    = X-MailCleaner-HTML-WL: Ok
   warn    spf           = pass
           add_header    = :after_received:X-MailCleaner-SPF: $spf_result
           set acl_m_checkspf = $spf_result
