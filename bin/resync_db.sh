@@ -39,6 +39,7 @@ function check_status() {
 }
 
 LOGDIR="/var/mailcleaner/log/mailcleaner/resync"
+LOCKFILE='/var/mailcleaner/spool/tmp/resync_db'
 MHOST=''
 MPASS=''
 
@@ -53,10 +54,14 @@ for var in "$@"; do
     exec 1>>"$LOGDIR/resync.log"
     exec 2>"/dev/null"
     # If failed on previous cron run, this file will exist with a count of failures
-    if [ -e $LOGDIR/fail_count ]; then
+    if [ -e $LOCKFILE ]; then
       # If it has failed 6 times stop trying
-      if [[ "`cat $LOGDIR/fail_count`" -ge 6 ]]; then
-        echo "Failed to resync too many times. Exitting."
+      if test `find "/var/mailcleaner/spool/tmp/resync_db" -mmin +230`; then
+        echo "Last try is more than 4 hours ago. Trying to fix"
+        rm "/var/mailcleaner/spool/tmp/resync_db"
+        RUN=1
+      else
+        echo "Last try is too recent. Exiting"
         exit
       fi
     fi
@@ -94,10 +99,6 @@ sleep 5
 check_status
 if [[ $RUN != 1 ]]; then
   echo "DBs are already in sync. Run with -F to force resync anyways." 
-  if [[ -e $LOGDIR/fail_count ]]; then
-    echo "Removing fail_count file"
-    rm $LOGDIR/fail_count
-  fi
   exit
 else
   # Clear RUN as it will be used for the post-sync test result as well
@@ -154,19 +155,8 @@ check_status
 if [[ $RUN != 1 ]]; then
   echo "Resync successful." 
   # If there were previous failures, remove that flag file
-  if [[ -e $LOGDIR/fail_count ]]; then
-    echo "Removing fail_count file"
-    rm $LOGDIR/fail_count
+  if [[ -e $LOCKFILE ]]; then
+    echo "Removing lockfile"
+    rm $LOCKFILE
   fi
-  exit
-else
-  # If there were previous failures, get count and increment
-  if [[ -e $LOGDIR/fail_count ]]; then
-    COUNT=`cat $LOGDIR/fail_count`
-    ((COUNT+=1))
-  else
-    COUNT=1
-  fi
-  # Set failure flag
-  echo $COUNT > $LOGDIR/fail_count
 fi

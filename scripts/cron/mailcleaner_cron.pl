@@ -27,12 +27,14 @@ use strict;
 use DBI;
 use LWP::UserAgent;
 use Getopt::Std;
+require '/usr/mailcleaner/lib/lib_utils.pl';
 
 my $cron_occurence=15;  # in minutes..
 my $itsmidnight=0;
 my $itstime=0;
 my $itsweekday=0;
 my $itsmonthday=0;
+my $minute = `date +%M`;
 
 my %config = readConfig("/etc/mailcleaner.conf");
 my $lockfile = '/var/mailcleaner/spool/tmp/mailcleaner_cron.lock';
@@ -68,17 +70,22 @@ if (defined $options{h}) {
 # We need the DB to be okay to make sure we are dropping
 # the right informations in configuration files
 ###########################
-my $minute = `date +%M`;
-if ($minute >=0 && $minute < $cron_occurence) {
-  my $hour = `date +%H`;
-  unless ($hour%4) {
+# check for lock
+my $lockfile_name = 'resync_db';
+my $rc = create_lock_file($lockfile_name, undef, time+4*60*60, 'resync_db');
+if ($rc != 0) {
 
-    #######################
-    # check and resync DB #
-    #######################
-    system("$config{'SRCDIR'}/bin/resync_db.sh -C");
-  }
+  #######################
+  # check and resync DB #
+  #######################
+  system("$config{'SRCDIR'}/bin/resync_db.sh -C");
 }
+
+########################################
+# check and remove ClamAv temp folders #
+########################################
+system("$config{'SRCDIR'}/scripts/cron/clean_clamav_tmp.sh");
+
 ########################################
 ########################################
 # process $cron_occurence minutes jobs #
