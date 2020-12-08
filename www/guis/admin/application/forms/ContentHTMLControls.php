@@ -11,6 +11,7 @@
 class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 {
 	protected $_dangerouscontent;
+	protected $_antispam;
 	protected $_fields = array(
 		   'allow_iframe' => array('text' => 'IFrame objects', 'silent' => 'silent_iframe'),
 		   'allow_form' => array('text' => 'Formulars', 'silent' => 'silent_form'),
@@ -19,8 +20,9 @@ class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 		   'allow_webbugs' => array('text' => 'Web Bugs', 'silent' => 'silent_webbugs'),
 		);
 	
-	public function __construct($dc) {
+	public function __construct($dc,$as) {
 		$this->_dangerouscontent = $dc;
+		$this->_antispam = $as;
 		parent::__construct();
 	}
 	
@@ -65,6 +67,17 @@ class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 	      $this->addElement($sff);
 		}
         
+		require_once('Validate/IpList.php');
+		$trustednet = new Zend_Form_Element_Textarea('html_wl_ips', array(
+		      'label'    =>  $t->_('Trusted IPs/Networks')." :",
+                      'title' => $t->_("These IP/ranges are whitelist for the HTML controls"),
+		      'required'   => false,
+		      'rows' => 5,
+		      'cols' => 30,
+		      'filters'    => array('StringToLower', 'StringTrim')));
+	    $trustednet->addValidator(new Validate_IpList());
+		$trustednet->setValue($this->_antispam->getParam('html_wl_ips'));
+		$this->addElement($trustednet);
 	    
 		$submit = new Zend_Form_Element_Submit('submit', array(
 		     'label'    => $t->_('Submit')));
@@ -72,7 +85,7 @@ class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 		
 	}
 	
-	public function setParams($request, $dc) {
+	public function setParams($request, $dc, $as) {
 		foreach ($this->_fields as $mf => $f) {
 			$dc->setParam($mf, $request->getParam($mf));
 			if ($request->getParam($f['silent'])) {
@@ -82,5 +95,7 @@ class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 			}
 		}
         $dc->save();
+		$as->setparam('html_wl_ips', $request->getParam('html_wl_ips'));
+        $as->save();
 	}
 }
