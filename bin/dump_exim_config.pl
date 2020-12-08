@@ -458,7 +458,7 @@ sub get_system_config
 	my %sconfig = ();
     my %row = $db->getHashRow("SELECT hostname, default_domain, sysadmin, clientid, ad_server, ad_param, smtp_proxy,
                            syslog_host, sc.use_syslog, do_stockme, use_ssl, servername, use_archiver, archiver_host,
-                           trusted_ips, tag_mode_bypass_whitelist,whitelist_both_from
+			   trusted_ips, html_wl_ips, tag_mode_bypass_whitelist,whitelist_both_from
                             FROM system_conf sc, antispam an, httpd_config hc");
     return unless %row;
 
@@ -517,6 +517,11 @@ sub get_system_config
     if ($row{'trusted_ips'}) {
     	$sconfig{'__TRUSTED_HOSTS__'} = $row{'trusted_ips'};
     	$sconfig{'__TRUSTED_HOSTS__'} =~ s/\s+/ ; /g;
+    }
+    $sconfig{'__HTML_CTRL_WL_HOSTS__'} = '';
+    if ($row{'html_wl_ips'}) {
+        $sconfig{'__HTML_CTRL_WL_HOSTS__'} = $row{'html_wl_ips'};
+        $sconfig{'__HTML_CTRL_WL_HOSTS__'} =~ s/\s+/ ; /g;
     }
     $sconfig{'__TAGMODEBYPASSWHITELISTS__'} = $row{'tag_mode_bypass_whitelist'};
     $sconfig{'__WHITELISTBOTHFROM__'} = $row{'whitelist_both_from'};
