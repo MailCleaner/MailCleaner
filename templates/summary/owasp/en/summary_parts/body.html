@@ -61,6 +61,10 @@ body, #body {
   line-height: 20px;
 }
 
+ul.actions {
+  height: 23px;
+}
+
 #footer {
   margin-bottom:25px;
   margin-top: 7px;
@@ -77,10 +81,7 @@ img {
 }
 
 #quar-table {
-  margin: 16px;
-  padding: 0px;
-  border-left: solid 1px #CCC1C9;
-  border-top: solid 1px #CCC1C9;
+  padding: 16px;
 }
 
 #quar-table td, #quar-table th {
@@ -141,21 +142,21 @@ th {
     <!-- QUARANTINE -->
     <table width="100%" cellspacing="0" cellpadding="0" id="quar-table">
       <tr>
-        <th colspan="5"><div class="qt"><b>In quarantine:</b> __NBSPAMS__ messages</div></th>
+        <th colspan="5" style="border-left: solid 1px #CCC1C9; border-top: solid 1px #CCC1C9;"><div class="qt"><b>In quarantine:</b> __NBSPAMS__ messages</div></th>
       </tr>
       <!-- HEAD -->
       <tr>
-        <th width="88px" style="width:88px;"><div class="qt">Action</div></th>
+        <th width="88px" style="width:88px; border-left: solid 1px #CCC1C9;"><div class="qt">Action</div></th>
         <th width="116px" style="width:140px;"><div class="qt">Date</div></th>
         <th width="204px" style="width:204px;"><div class="qt">Sender</div></th>
-        <th><div class="qt">Subject</div></th>
+        <th width="100%" style="width:100%"><div class="qt">Subject</div></th>
         <th align="center" width="55px" style="width:55px;"><div class="qt">Score</div></th>
       </tr>
  
       <!-- DATA -->
 __TMPL_HTMLQUARANTINE_START__
       <tr>
-        <td>
+        <td style="border-left: solid 1px #CCC1C9;">
           <ul class="actions">
             <li><a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Release the message"><img src="cid:r.gif" width="16px" height="23px" alt=""></a></li>
             <li><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Message preview"><img src="cid:i.gif" width="16px" height="23px" alt=""></a></li>
