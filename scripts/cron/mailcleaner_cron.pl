@@ -197,7 +197,8 @@ if (my $pid_rules = fork) {
   system($config{'SRCDIR'}."/bin/fetch_newsl_rules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_modules.sh ".$randomize_option);
   system($config{'SRCDIR'}."/bin/fetch_watchdog_config.sh ".$randomize_option);
-  system($config{'SRCDIR'}."/bin/fetch_blacklist_firewall_rules.sh ".$randomize_option);
+  system($config{'SRCDIR'}."/bin/fetch_administrator.sh ".$randomize_option);
+	
 
   #print "done.\n";
   exit;
