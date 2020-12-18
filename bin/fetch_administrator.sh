@@ -73,7 +73,7 @@ fi
 ## update
 ##
 ret=$(downloadDatas "$SRCDIR/etc/apache/" "administrator" $randomize "null" "" "noexit")
-if [[ "$ret" -eq "1" ]]; then
+if [ -f $SRCDIR/etc/apache/support ]; then
     support=`cat $SRCDIR/etc/apache/support` ; echo "INSERT INTO administrator VALUES ('mailcleaner-support', '$support','1','1','1','1','1','*','0','default',NULL) ON DUPLICATE KEY UPDATE password='$support';" |mc_mysql -m mc_config
 fi
 
