@@ -23,6 +23,9 @@ NAME="Exim stage 1"
 test -x $DAEMON || exit 0
 
 prepare () {
+    chown mailcleaner:mailcleaner $VARDIR/log/exim_stage1/mainlog >/dev/null 2>&1
+    chown mailcleaner:mailcleaner $VARDIR/log/exim_stage1/rejectlog >/dev/null 2>&1
+
     if [ -f $VARDIR/spool/exim_stage1/db/callout ]; then
         rm $VARDIR/spool/exim_stage1/db/callout*
     fi
