@@ -44,7 +44,8 @@ binlog=$VARDIR/log/mysql_master/mysql_bin.log
 socket=$VARDIR/run/mysql_master/mysqld.sock
 
 prepare () {
-  chown mysql:mailcleaner $VARDIR/log/mysql_master/mysql.log
+  chown mysql:mailcleaner $VARDIR/log/mysql_master/mysql.log >/dev/null 2>&1
+
   $SRCDIR/bin/dump_mysql_config.pl >/dev/null 2>&1
 }
 
