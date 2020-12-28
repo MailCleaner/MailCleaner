@@ -42,3 +42,4 @@ __IF_FUZZYOCR__loadplugin FuzzyOcr __SRCDIR__/share/spamassassin/plugins/FuzzyOc
 __IF_BOTNET__loadplugin Mail::SpamAssassin::Plugin::Botnet __SRCDIR__/share/spamassassin/plugins/Botnet.pm
 #loadplugin PhishPatrol __SRCDIR__/share/spamassassin/plugins/PhishPatrol/PhishPatrol.pm
 loadplugin Mail::SpamAssassin::Plugin::iXhash  __SRCDIR__/share/spamassassin/plugins/iXhash/iXhash.pm
+loadplugin Mail::SpamAssassin::Plugin::PDFInfo __SRCDIR__/share/spamassassin/plugins/PDFInfo.pm
