@@ -1,1 +1,1 @@
-warn    remove_header = X-MailCleaner-White-IP-DOM : X-MailCleaner-TrustedIPs : X-MailCleaner-MachineLearning : X-MailCleaner-HTML-WL
+warn    remove_header = X-MailCleaner-White-IP-DOM : X-MailCleaner-TrustedIPs : X-MailCleaner-MachineLearning0 : X-MailCleaner-MachineLearning1 : X-MailCleaner-HTML-WL
