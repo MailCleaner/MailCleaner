@@ -990,9 +990,11 @@ __FI__
           logwrite      = DEBUG - accepted data, final acceptance - smtp:accepted
  __FI__
 
-add_header = :after_received:X-MailCleaner-recipients: $recipients
-add_header = :after_received:X-MailCleaner-sender_address: $sender_address
-add_header = :after_received:X-MailCleaner-return_path: $return_path
+  warn    !hosts        = <; +relay_from_hosts
+          !authenticated = *
+          add_header = :after_received:X-MailCleaner-recipients: $recipients
+          add_header = :after_received:X-MailCleaner-sender_address: $sender_address
+          add_header = :after_received:X-MailCleaner-return_path: $return_path
 ######################################################################
 #                      ROUTERS CONFIGURATION                         #
 #               Specifies how addresses are handled                  #
