@@ -184,7 +184,7 @@ $txt['PARTS'] = "Deler";
 $txt['STORESLAVE'] = "Lagring";
 $txt['SPAMCSCORE'] = "Regelpoengsummer";
 $txt['DESCRIPTION'] = "Beskrivelse";
-$txt['MESSAGEPREVIEW'] = "Meldingsforhåndsvisning";
+$txt['MESSAGEPREVIEW'] = "Vis meldingens innhold";
 $txt['ID'] = "Identifikator";
 /*
  * logout page
