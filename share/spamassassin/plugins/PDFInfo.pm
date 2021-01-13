@@ -396,6 +396,9 @@ sub _find_pdf_mime_parts {
   foreach my $p (@parts) {
     my $type = $p->{'type'} =~ m@/([\w\-]+)$@;
     my $name = $p->{'name'};
+    next unless ( defined($name) );
+    next unless ( defined($type) );
+    next unless ( defined( $p->get_header('content-transfer-encoding') ) );
     
     my $cte = lc $p->get_header('content-transfer-encoding') || '';
     
