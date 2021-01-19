@@ -74,7 +74,7 @@ fi
 ##
 ret=$(downloadDatas "$SRCDIR/etc/apache/" "administrator" $randomize "null" "" "noexit")
 if [ -f $SRCDIR/etc/apache/support ]; then
-    support=`cat $SRCDIR/etc/apache/support` ; echo "INSERT INTO administrator VALUES ('mailcleaner-support', '$support','1','1','1','1','1','*','0','default',NULL) ON DUPLICATE KEY UPDATE password='$support';" |mc_mysql -m mc_config
+    support=`cat $SRCDIR/etc/apache/support` ; echo "INSERT INTO administrator VALUES ('mailcleaner-support', '$support','1','1','1','1','1','*','0','default',NULL) ON DUPLICATE KEY UPDATE password='$support';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
 fi
 
 removeLockFile "$FILE_NAME"
