@@ -48,8 +48,17 @@ prepare () {
   $SRCDIR/bin/dump_clamav_config.pl >/dev/null 2>&1
   chown -R mailcleaner:mailcleaner $SRCDIR/etc/mailscanner >/dev/null 2>&1
 
- if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
-    mkdir $VARDIR/spool/mailcleaner/counts
+  if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
+    mkdir -p $VARDIR/spool/mailcleaner/counts
+  fi
+  USER=$(stat -c '%U' $VARDIR/spool/mailcleaner/counts)
+  if [[ "$USER" != 'mailcleaner' ]]; then
+     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
+  fi
+
+  GROUP=$(stat -c '%G' $VARDIR/spool/mailcleaner/counts)
+  if [[ "$GROUP" != 'mailcleaner' ]]; then
+     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
   fi
 
   SRCDIR_SANE=`echo $SRCDIR | perl -p -e 's/\//\\\\\//g'`
