@@ -112,12 +112,12 @@ MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3
 echo "select hostname, password from master;" | $SRCDIR/bin/mc_mysql -s mc_config | grep -v 'password' | tr -t '[:blank:]' ':' > /var/tmp/master.conf
 
 if [ "$MHOST" != "" ]; then
-  export $MHOST
+  export MHOST
 else 
   export MHOST=`cat /var/tmp/master.conf | cut -d':' -f1`
 fi
 if [ "$MPASS" != "" ]; then
-  export $MPASS
+  export MPASS
 else
   export MPASS=`cat /var/tmp/master.conf | cut -d':' -f2`
 fi
