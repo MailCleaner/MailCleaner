@@ -197,51 +197,8 @@ sub process {
 
         # Action
 
-        ## Blacklist
-        if ($blacklisted) {
-            $status = "is blacklisted ($blacklisted)";
-            $this->manageBlacklist($blacklisted);
-            $this->{decisive_module}{module} = 'blacklisted';
-            if ($delivery_type == 1) {
-                $status .= ": want tag";
-                my $tag = $email->getPref( 'spam_tag', '{Spam?}' );
-                $this->manageTagMode($tag);
-            } elsif ( $warnlisted ) {
-                $status .= ": warn";
-                $this->{decisive_module}{module} = 'warnlisted';
-                $this->quarantine();
-                my $id =
-                    $email->sendWarnlistHit( $this->{env_sender}, $warnlisted, $this->{exim_id} );
-                if ($id) {
-                    $this->{daemon}->doLog(
-                        $this->{batchid}
-                            . ": message "
-                            . $this->{exim_id}
-                            . " warn message ready to be delivered with new id: "
-                            . $id,
-                        'spamhandler', 'info'
-                    );
-                } else {
-                    $this->{daemon}->doLog(
-                        $this->{batchid}
-                            . ": message "
-                            . $this->{exim_id}
-                            . " warn message could not be delivered.",
-                        'spamhandler', 'error'
-                    );
-                }
-            } elsif ( $delivery_type == 3 ) {
-                $status .= ": want drop";
-            } elsif ( $this->{bounce} ) {
-                $status .= ": (bounce)";
-                $this->quarantine();
-            } else {
-                $status .= ": want quarantine";
-                $this->quarantine();
-            }
-
         ## Whitelist
-        } elsif ($whitelisted) {
+        if ($whitelisted) {
 
             ## Newsletter
             if ( $this->{sc_newsl} >= 5 ) {
@@ -303,6 +260,49 @@ sub process {
                 $this->{decisive_module}{module} = undef;
                 $this->manageWhitelist($whitelisted);
             }
+        ## Blacklist
+	} elsif ($blacklisted) {
+            $status = "is blacklisted ($blacklisted)";
+            $this->manageBlacklist($blacklisted);
+            $this->{decisive_module}{module} = 'blacklisted';
+            if ($delivery_type == 1) {
+                $status .= ": want tag";
+                my $tag = $email->getPref( 'spam_tag', '{Spam?}' );
+                $this->manageTagMode($tag);
+            } elsif ( $warnlisted ) {
+                $status .= ": warn";
+                $this->{decisive_module}{module} = 'warnlisted';
+                $this->quarantine();
+                my $id =
+                    $email->sendWarnlistHit( $this->{env_sender}, $warnlisted, $this->{exim_id} );
+                if ($id) {
+                    $this->{daemon}->doLog(
+                        $this->{batchid}
+                            . ": message "
+                            . $this->{exim_id}
+                            . " warn message ready to be delivered with new id: "
+                            . $id,
+                        'spamhandler', 'info'
+                    );
+                } else {
+                    $this->{daemon}->doLog(
+                        $this->{batchid}
+                            . ": message "
+                            . $this->{exim_id}
+                            . " warn message could not be delivered.",
+                        'spamhandler', 'error'
+                    );
+                }
+            } elsif ( $delivery_type == 3 ) {
+                $status .= ": want drop";
+            } elsif ( $this->{bounce} ) {
+                $status .= ": (bounce)";
+                $this->quarantine();
+            } else {
+                $status .= ": want quarantine";
+                $this->quarantine();
+            }
+
 
         ## Spam
         } elsif ( defined $this->{decisive_module}{module} && $this->{decisive_module}{action} eq 'positive' ) {
