@@ -48,21 +48,21 @@ $txt['MONTHAB10'] = 'Oct.';
 $txt['MONTHAB11'] = 'Nov.';
 $txt['MONTHAB12'] = 'Dec.';
 $txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTH2'] = 'Лютий';
+$txt['MONTH3'] = 'Березень';
+$txt['MONTH4'] = 'Квітень';
+$txt['MONTH5'] = 'Травень';
+$txt['MONTH6'] = 'Червень';
+$txt['MONTH7'] = 'Липень';
+$txt['MONTH8'] = 'Серпень';
+$txt['MONTH9'] = 'Вересень';
+$txt['MONTH10'] = 'Жовтень';
+$txt['MONTH11'] = 'Листопад';
+$txt['MONTH12'] = 'Грудень';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "Incorrect username or password.";
+$txt['BADLOGIN'] = "Неправильне ім'я користувача або пароль.";
 $txt['SESSIONEXPIRED'] = "Session expired.";
 $txt['LOGININFO'] = "Reminder: Your username and password are the same as your email account";
 $txt['USERNAME'] = "Username";
