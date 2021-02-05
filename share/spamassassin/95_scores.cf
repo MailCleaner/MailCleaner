@@ -1,14 +1,14 @@
 
-score BAYES_00  0  0 -1.5    0.001
-score BAYES_05  0  0 -0.3    0.001
-score BAYES_20  0  0 -0.001  0.001
-score BAYES_40  0  0 -0.001  0.001
-score BAYES_50  0  0  2.0    0.001
-score BAYES_60  0  0  2.5    1.0
-score BAYES_80  0  0  2.7    2.0
-score BAYES_95  0  0  3.2    2.5
-score BAYES_99  0  0  3.8    3.0
-score BAYES_999 0  0  0.2    0.5
+score BAYES_00  -1.5
+score BAYES_05  -0.5
+score BAYES_20  -0.001
+score BAYES_40  0
+score BAYES_50  0
+score BAYES_60  0
+score BAYES_80  1.0
+score BAYES_95  1.5
+score BAYES_99  2.0
+score BAYES_999 0.5
 
 ## SCORES : GENERAL
 
