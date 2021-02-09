@@ -1,6 +1,6 @@
-socketpath=/var/mailcleaner/spool/newsld/newsld.sock
+socketpath=/var/mailcleaner/run/newsld.sock
 max-children=11
-pidfile=/var/mailcleaner/spool/newsld/newsld.pid
+pidfile=/var/mailcleaner/run/newsld.pid
 syslog=/var/mailcleaner/log/mailscanner/newsld.log
 username=mailcleaner
 groupname=mailcleaner

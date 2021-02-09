@@ -1,5 +1,5 @@
 LogFile __VARDIR__/log/clamav/clamd.log
-PidFile __VARDIR__/run/clamav/clamd.pid
+PidFile __VARDIR__/run/clamd.pid
 TemporaryDirectory __VARDIR__/spool/tmp
 DatabaseDirectory __VARDIR__/spool/clamav
 LocalSocket __VARDIR__/run/clamav/clamd.sock
