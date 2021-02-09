@@ -1,72 +1,51 @@
-#! /bin/sh
-# /etc/init.d/clamd: start ClamAV daemon.
+#!/usr/bin/perl
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#
+#   /etc/init.d/clamspamd: service management for ClamSpamD
 
-export PATH=$PATH:/sbin:/usr/sbin
+use strict;
+use warnings;
 
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "SRCDIR" = "" ]; then
-  SRCDIR=/opt/mailcleaner
-fi
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
-fi
+use lib '/usr/mailcleaner/lib';
+use ManageServices;
 
-DAEMON=/opt/clamav/sbin/clamd
-CLAMDDOPTS="--config-file=$SRCDIR/etc/clamav/clamspamd.conf"
+our $service = 'clamspamd';
 
-chown -R clamav:clamav $VARDIR/log/clamav
+my $manager = ManageServices->new( 'autoStart' => 0 ) || die "Failed to create object: $!\n";
+$manager->loadModule($service) || die "Could not load module for service: $service\n";
 
-prepare () {
-  $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
-  $SRCDIR/bin/dump_clamav_config.pl >/dev/null 2>&1
+unless (scalar(@ARGV) && defined($manager->{'module'}->{'actions'}->{$ARGV[0]})) {
+	print "\nusage: $0 <action>\n\n";
+	$manager->usage($service);
+	exit();
 }
 
-case "$1" in
-  start)
-    touch $VARDIR/run/clamspamd.start.rs
-    echo -n "  Starting ClamSpam daemon: "
-    prepare
-    if [ ! -d $VARDIR/spool/clamspam ]; then
-      mkdir $VARDIR/spool/clamspam >/dev/null 2>&1
-    fi
-    DBFILEEXISTS=`ls -l $VARDIR/spool/clamspam/*db 2>&1 | grep 'No such file'`
-    #DBFILES=`ls $VARDIR/spool/clamspam/*db 2>&1`
-    #if [ "$DBFILES" != "" ]; then
-    if [ "$DBFILEEXISTS" = "" ]; then
-      $DAEMON $CLAMDDOPTS
-      echo "started."
-      rm $VARDIR/run/clamspamd.stopped >/dev/null 2>&1
-    else 
-      echo "no database, not started."
-      touch $VARDIR/run/clamspamd.stopped
-    fi
-    if [ -f $VARDIR/run/clamspamd.rn ]; then
-      rm $VARDIR/run/clamspamd.rn
-	fi
-    rm $VARDIR/run/clamspamd.*.rs >/dev/null 2>&1
-    ;;
-  stop)
-    touch $VARDIR/run/clamspamd.stop.rs
-    echo -n "  Stopping ClamSpam daemon: "
-    CLAMDPID=`pgrep -f clamspamd.conf`
-    if [ ! "$CLAMDPID" = "" ]; then
-      kill -KILL $CLAMDPID >/dev/null 2>&1
-      sleep 3
-    fi
-    echo "stopped."
-    touch $VARDIR/run/clamspamd.stopped
-    rm $VARDIR/run/clamspamd.stop.rs >/dev/null 2>&1
-    ;;
-  restart|reload|force-reload)
-    touch $VARDIR/run/clamspamd.restart.rs
-	$0 stop
-	sleep 3
-	$0 start
-    ;;
-  *)
-    echo "Usage: /etc/init.d/clamspamd {start|stop|restart}"
-    exit 1
-esac
+my $action = shift;
 
-exit 0
+my $status = $manager->{'module'}->{'actions'}->{$action}->{'cmd'}($manager);
+
+if (defined($status) ) {
+	print $manager->{'services'}->{$service}->{'name'} . ': ';
+	if ($status =~ m/^\-?\d$/) {
+		print $manager->{'codes'}->{$status}->{'verbose'} . "\n";
+	} else {
+		print $status . "\n";
+	}
+} 

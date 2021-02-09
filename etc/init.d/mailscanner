@@ -107,22 +107,10 @@ case "$1" in
       # start dcc daemon
       $SRCDIR/etc/init.d/dccifd start
       # then start clamav and SpamAssassin daemons
-      CLAMDPIDS=`pgrep clamd.conf`
-      if [ "$CLAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/clamd start
-      fi
-      CLAMDPIDS=`pgrep clamspamd.conf`
-      if [ "$CLAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/clamspamd start
-      fi
-      SPAMDPIDS=`pgrep spamd`
-      if [ "$SPAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/spamd start
-      fi
-      NEWSLDPIDS=`pgrep newsld`
-      if [ "$NEWSLDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/newsld start
-      fi
+      $SRCDIR/etc/init.d/clamd start
+      $SRCDIR/etc/init.d/clamspamd start
+      $SRCDIR/etc/init.d/spamd start
+      $SRCDIR/etc/init.d/newsld start
       if [ $HASCOMMTOUCH = 1 ]; then
          $SRCDIR/etc/init.d/commtouch start
       fi

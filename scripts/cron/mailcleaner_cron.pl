@@ -56,6 +56,13 @@ EOF
   exit;
 }
 
+if (-e $lockfile) {
+  die "Found lockfile $lockfile\n";
+} else {
+  open(my $LOCK, '>', $lockfile);
+  close($LOCK);
+}
+
 my %options=();
 getopts(":Rh", \%options);
 my $randomize_option=" -r";
@@ -317,6 +324,7 @@ if (!$slave_dbh) {
   sleep 2;
   $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_slave start";
   `$cmd`;
+  unlink($lockfile);
   exit 1;
 }
 
@@ -574,6 +582,10 @@ if ( -e $config{'VARDIR'}."/run/mailcleaner.rn") {
 	system($config{'SRCDIR'}."/etc/init.d/mailcleaner restart &>> /dev/null");
 	system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
 }
+
+sleep(1);
+unlink($lockfile);
+system($config{'SRCDIR'}."/scripts/cron/service_checks.pl");
 
 ####################################################################################
 
