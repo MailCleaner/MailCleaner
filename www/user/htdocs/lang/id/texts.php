@@ -500,3 +500,4 @@ $txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
 $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
 $txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['ADDTOGROUP'] = "Tambahkan untuk semua alamat dalam grup";
