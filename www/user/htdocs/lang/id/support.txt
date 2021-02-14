@@ -20,3 +20,5 @@ $txt['SOTHER'] = "Apakah Anda memiliki masalah lain mengenai penerimaan e-mail, 
 $txt['FAQTITLE'] = "Memahami Mailcleaner";
 $txt['DOCTITLE'] = "Bantuan antarmuka untuk pengguna";
 $txt['WEBDOCTITLE'] = "Dokumentasi online";
+$txt['WEBDOC'] = "<ul> <li> Informasi dan dokumentasi lebih lanjut dapat ditemukan di situs web kami: <a href=\"https://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\"> dokumentasi pengguna Mailcleaner </a> </li> </ul>";
+$txt['SVERIFYPASS'] = "Periksa apakah pesan telah diproses oleh filter Mailcleaner dengan melihat header email.";
