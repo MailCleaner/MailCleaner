@@ -184,6 +184,7 @@ return array(
    'authentication' => 'Users authentication',
    'filtering' => 'Filtering',
    'advanced' => 'Advanced features',
+   'spamcovercharge' => 'SpamC rules adjustment',
    'outgoing' => 'Outgoing relay',
    'archiving' => 'Archiving',
    'templates' => 'Templates',

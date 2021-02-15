@@ -72,8 +72,8 @@ sub setup
 	my $class = shift;
 
 	$self->doLog('Dumping MailScanner config...', 'daemon');
-	if (system($self->{'SRCDIR'}.'/bin/dump_custom_spamc_rules.sh 2>&1 >/dev/null')) {
-		$self->doLog('dump_custom_spamc_rules.sh failed', 'daemon');
+	if (system($self->{'SRCDIR'}.'/bin/dump_custom_spamc_rules.pl 2>&1 >/dev/null')) {
+		$self->doLog('dump_custom_spamc_rules.pl failed', 'daemon');
 	}
 	if (system($self->{'SRCDIR'}.'/bin/dump_spamc_double_items.pl 2>&1 >/dev/null')) {
 		$self->doLog('dump_spamc_double_items.pl failed', 'daemon');
