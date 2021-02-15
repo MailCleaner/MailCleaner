@@ -36,7 +36,9 @@ class Validate_IpList extends Zend_Validate_Abstract
         $addresses = preg_split('/[,\s]+/', $value);
         foreach ($addresses as $address) {
           $address = preg_replace('/\/\d+$/', '', $address);
-          if (! $validator->isValid($address)) {
+          if (preg_match('/\/(a|A|aaaa|AAAA|mx|MX|spf|SPF)$/', $address)) {
+		next;
+          } elseif (! $validator->isValid($address)) {
           	  $this->ip = $address;
           	  $this->_error(self::MSG_BADIP);
               return false;

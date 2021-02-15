@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -33,6 +34,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 require ConfigTemplate;
 require DB;
 require MCDnsLists;
+require GetDNS;
 
 my $db = DB::connect('slave', 'mc_config');
 my $conf = ReadConfig::getInstance();
@@ -120,10 +122,8 @@ sub get_ms_config
 
   $config{'__TRUSTEDIPS__'} = ""; 
   if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
+    $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'}));
   }
-  $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
-  $config{'__TRUSTEDIPS__'} =~ s/\s+/ /g;
   $config{'__SPAMHITS__'} = $row{'spamhits'};
   $config{'__HIGHSPAMHITS__'} = $row{'highspamhits'};
   $config{'__SPAMLISTS__'} = $row{'lists'};
@@ -239,10 +239,8 @@ sub get_sa_config
 
   $config{'__TRUSTEDIPS__'} = ""; 
   if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
+    $config{'__TRUSTEDIPS__'} = join(" ", expand_host_string($row{'trusted_ips'}));
   }
-  $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
-  $config{'__TRUSTEDIPS__'} =~ s/\s+/ /g;
   $config{'__SA_RBLS__'} = $row{'sa_rbls'};
   
   $config{'__USE_SPF__'} = $row{'use_spf'};
@@ -398,12 +396,15 @@ sub dump_prefilter_files {
 	if (getPrefilterSpecConfig($prefilter->{'name'}, \%spec_replace)) {
 	  $template->setReplacements(\%spec_replace);
 	}
-        
+
         my $specmodule = "dumpers::$pfname";
         my $specmodfile = "dumpers/$pfname.pm";
         if ( -f $conf->getOption('SRCDIR')."/lib/$specmodfile") {
           require $specmodfile;
           my %specreplaces = $specmodule->get_specific_config();
+          if (defined($specreplaces{'__AVOIDHOSTS__'})) {
+            $specreplaces{'__AVOIDHOSTS__'} = join(" ",expand_host_string($specreplaces{'__AVOIDHOSTS__'}));
+          }
           $template->setReplacements(\%specreplaces);
         }
         $template->dump();
@@ -606,3 +607,9 @@ sub log_dns
   #print $str."\n";
 }
 
+sub expand_host_string
+{
+    my $string = shift;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string);
+}

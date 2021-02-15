@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -39,6 +40,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 }
 require ConfigTemplate;
 require MCDnsLists;
+require GetDNS;
 require DB;
 
 my $DEBUG = 1;
@@ -515,13 +517,11 @@ sub get_system_config
      }
     $sconfig{'__TRUSTED_HOSTS__'} = '';
     if ($row{'trusted_ips'}) {
-    	$sconfig{'__TRUSTED_HOSTS__'} = $row{'trusted_ips'};
-    	$sconfig{'__TRUSTED_HOSTS__'} =~ s/\s+/ ; /g;
+        $sconfig{'__TRUSTED_HOSTS__'} = join(' ; ', expand_host_string($row{'trusted_ips'}));
     }
     $sconfig{'__HTML_CTRL_WL_HOSTS__'} = '';
     if ($row{'html_wl_ips'}) {
-        $sconfig{'__HTML_CTRL_WL_HOSTS__'} = $row{'html_wl_ips'};
-        $sconfig{'__HTML_CTRL_WL_HOSTS__'} =~ s/\s+/ ; /g;
+        $sconfig{'__HTML_CTRL_WL_HOSTS__'} = join(' ; ', expand_host_string($row{'html_wl_ips'}));
     }
     $sconfig{'__TAGMODEBYPASSWHITELISTS__'} = $row{'tag_mode_bypass_whitelist'};
     $sconfig{'__WHITELISTBOTHFROM__'} = $row{'whitelist_both_from'};
@@ -714,12 +714,10 @@ sub get_exim_config{
 	$config{'__RECEIVED_HEADER_TEXT__'} = $row{'header_txt'};
 	$config{'__RELAY_FROM_HOSTS__'} = $row{'relay_from_hosts'};
         if ($config{'__RELAY_FROM_HOSTS__'}) {
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\s\:\s/ ; /g;
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\r\n/ ; /g;
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\n/ ; /g;
+          $config{'__RELAY_FROM_HOSTS__'} = join(' ; ',expand_host_string($config{'__RELAY_FROM_HOSTS__'}));
         }
     if (defined( $row{'no_ratelimit_hosts'}) && $row{'no_ratelimit_hosts'} ne '' ) {
-          $config{'__NO_RATELIMIT_HOSTS__'} = $m_infos{'host'}." ; ".$row{'no_ratelimit_hosts'};
+          $config{'__NO_RATELIMIT_HOSTS__'} = $m_infos{'host'}." ; ".join(' ; ',expand_host_string($row{'no_ratelimit_hosts'}));
     } else {
          $config{'__NO_RATELIMIT_HOSTS__'} = $m_infos{'host'};
     }
@@ -727,9 +725,7 @@ sub get_exim_config{
         $config{'__RELAY_FROM_HOSTS__'} = '';
     }
     if ($config{'__NO_RATELIMIT_HOSTS__'}) {
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\s\:\s/ ; /g;
-          $config{'__NO_RATELIMIT_HOSTS__'} =~ s/\r\n/ ; /g;
-          $config{'__NO_RATELIMIT_HOSTS__'} =~ s/\n/ ; /g;
+          $config{'__NO_RATELIMIT_HOSTS__'} = join(' ; ',expand_host_string($config{'__SMTP_CONN_ACCESS__'}));
     }
     if (defined( $row{'hosts_require_tls'}) ) {
           $config{'__HOSTS_REQUIRE_TLS__'} = $row{'hosts_require_tls'};
@@ -737,9 +733,7 @@ sub get_exim_config{
     	 $config{'__HOSTS_REQUIRE_TLS__'} = '';
     }
     if ($config{'__HOSTS_REQUIRE_TLS__'}) {
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\s\:\s/ ; /g;
-          $config{'__HOSTS_REQUIRE_TLS__'} =~ s/\r\n/ ; /g;
-          $config{'__HOSTS_REQUIRE_TLS__'} =~ s/\n/ ; /g;
+          $config{'__HOSTS_REQUIRE_TLS__'} = join(' ; ',expand_host_string($config{'__SMTP_CONN_ACCESS__'}));
     }
 
     if (defined( $row{'hosts_require_incoming_tls'}) ) {
@@ -748,7 +742,6 @@ sub get_exim_config{
          $config{'__HOSTS_REQUIRE_INCOMING_TLS__'} = '';
     }
     if ($config{'__HOSTS_REQUIRE_INCOMING_TLS__'}) {
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\s\:\s/ ; /g;
           $config{'__HOSTS_REQUIRE_INCOMING_TLS__'} =~ s/\r\n/ ; /g;
           $config{'__HOSTS_REQUIRE_INCOMING_TLS__'} =~ s/\n/ ; /g;
     }
@@ -771,9 +764,7 @@ sub get_exim_config{
 
 	$config{'__SMTP_CONN_ACCESS__'} = $row{'smtp_conn_access'};
         if ($config{'__SMTP_CONN_ACCESS__'}) {
-          $config{'__RELAY_FROM_HOSTS__'} =~ s/\s\:\s/ ; /g;
-          $config{'__SMTP_CONN_ACCESS__'} =~ s/\r\n/ ; /g;
-          $config{'__SMTP_CONN_ACCESS__'} =~ s/\n/ ; /g;
+          $config{'__SMTP_CONN_ACCESS__'} = join(' ; ',expand_host_string($config{'__SMTP_CONN_ACCESS__'}));
         }
 	$config{'__MAX_RCPT__'} = $row{'max_rcpt'};
 	$config{'__MAX_RECEIVED__'} = $row{'received_headers_max'};
@@ -903,12 +894,14 @@ sub dump_ignore_list  {
 
    my $file = $tmpdir.'/'.$filename;
 
+   my @list = expand_host_string($ignorehosts);
    if (open(RBLFILE, ">$file")) {
-
-       foreach my $host (split("\n", $ignorehosts)) {
+       foreach my $host (@list) {
            print RBLFILE $host."\n";
        }
        close RBLFILE;
+   } else {
+       print STDERR "Failed to open $file\n";
    }
 }
 
@@ -926,7 +919,7 @@ sub dump_blacklists {
      if (open(FILE, ">$filepath")) {
          if ($incoming_config{$file}) {
            if ($file =~ /host_reject/) {
-              foreach my $host (split(/[\n\s;]/, $incoming_config{$file})) {
+              foreach my $host (expand_host_string($incoming_config{$file})) {
                  print FILE $host."\n";
               }
            } else {
@@ -936,6 +929,8 @@ sub dump_blacklists {
            }
          }
          close FILE;
+      } else {
+         print STDERR "Failed to open $filepath: $!\n";
       }
    }
 }
@@ -1000,6 +995,7 @@ sub print_ip_domain_rule {
 	    	open $FH_IP_DOM, '>>', $conf->getOption('VARDIR') . "/spool/tmp/exim_stage1/spamcwhitelists/$domain";
 	}
 
+	$sender_list = join(' ; ', expand_host_string($sender_list));
 	if ($type eq 'spam-ip-dom') {
 		$smtp_rule = <<"END";
 warn    hosts         = <; $sender_list
@@ -1149,4 +1145,11 @@ sub is_ipv6_disabled
     } else {
         return 0
     }
+}
+
+sub expand_host_string
+{
+    my $string = shift;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string);
 }
