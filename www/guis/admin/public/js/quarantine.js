@@ -73,9 +73,22 @@ function launchSearch() {
        url += '/hiderejected/'+$("#hiderejected").val();
     }
 
-    if ($('#showNewslettersOnly').is(':checked')) {
+    if ($('#showSpamOnly').is(':checked')) {
+        url += '/showSpamOnly/' + $('#showSpamOnly').val();
+        url += '/showNewslettersOnly/0';
+    } else if ($('#showNewslettersOnly').is(':checked')) {
         url += '/showNewslettersOnly/' + $('#showNewslettersOnly').val();
     }
+    $('#showSpamOnly').change(function () {
+        if ($(this).attr("checked")) {
+            $('#showNewslettersOnly').attr('checked', false);
+        }
+    });
+    $('#showNewslettersOnly').change(function () {
+        if ($(this).attr("checked")) {
+            $('#showSpamOnly').attr('checked', false);
+        }
+    });
     
     if ($("#reference").val()) {
     	var ref = $("#reference").val();

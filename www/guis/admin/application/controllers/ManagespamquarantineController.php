@@ -13,7 +13,7 @@ class ManagespamquarantineController extends Zend_Controller_Action
 	protected function getSearchParams() {
 		$request = $this->getRequest();
 		$params = array();
-		foreach (array('search', 'domain', 'sender', 'subject', 'mpp', 'page', 'sort', 'forced', 'fd', 'fm', 'td', 'tm', 'hidedup', 'showNewslettersOnly') as $param) {
+		foreach (array('search', 'domain', 'sender', 'subject', 'mpp', 'page', 'sort', 'forced', 'fd', 'fm', 'td', 'tm', 'hidedup', 'showSpamOnly', 'showNewslettersOnly') as $param) {
 			$params[$param] = '';
 			if ($request->getParam($param)) {
 				$params[$param] = $request->getParam($param);

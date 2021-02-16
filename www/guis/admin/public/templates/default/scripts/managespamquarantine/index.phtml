@@ -24,6 +24,9 @@
         <?php echo $this->InputRow($this->form->getElement('hidedup'),array('nobox'=>true,'field_only'=>true,'post_field_text'=>$this->form->getElement('hidedup')->getLabel()));?>
       </div>
       <div class="searchcheck">
+        <?php echo $this->InputRow($this->form->getElement('showSpamOnly'),array('nobox'=>true,'field_only'=>true,'post_field_text'=>$this->form->getElement('showSpamOnly')->getLabel()));?>
+      </div>
+      <div class="searchcheck">
         <?php echo $this->InputRow($this->form->getElement('showNewslettersOnly'),array('nobox'=>true,'field_only'=>true,'post_field_text'=>$this->form->getElement('showNewslettersOnly')->getLabel()));?>
       </div>        
     </div>
