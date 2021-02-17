@@ -52,7 +52,7 @@ our %defaultActions = (
 		'desc'		=> 'get current status',
 		'cmd'		=> sub { 
 			my $self = shift;
-			return $self->status();
+			return $self->status(0);
 		},
 	},
 	'enable'	=> {
@@ -73,7 +73,7 @@ our %defaultActions = (
 		'desc'		=> 'get process id(s) for service',
 		'cmd'		=> sub {
 			my $self = shift;
-			if ($self->status() == 7) {
+			if ($self->status(0) == 7) {
 				return $self->clearFlags(7);
 			}
 			my @pids = $self->pids();
@@ -300,7 +300,7 @@ sub loadModule
 			'ndelay,pid,nofatal', $self->{'module'}->{'syslog_facility'} );
 	}
 
-	$self->{'module'}->{'state'} = $self->status($service);
+	$self->{'module'}->{'state'} = $self->status();
 	unless (defined($self->{'module'}->{'state'})) {
 		$self->{'module'}->{'state'} = 0;
 	}
@@ -464,6 +464,10 @@ sub status
 		my $service = shift || die "Either run \$self->loadModule('service_name') first\nor run with service name: \$self->status('service_name')";
 		$self->loadModule($service);
 	}
+	my $autoStart = shift;
+	unless (defined($autoStart)) {
+		$autoStart = $self->{'autoStart'};
+	}
 
 	my $status = 0;
 	my $running = $self->findProcess();
@@ -494,7 +498,7 @@ sub status
 					$self->{'codes'}->{$i}->{'suffix'}))[9] 
 					< (time() - 60) )
 				{
-					if ($self->{'autoStart'}) {
+					if ($autoStart) {
 						return $self->clearFlags($self->restart());
 					} else {
 						return $self->clearFlags(3);
@@ -506,7 +510,7 @@ sub status
 		if ($running) {
 			return $self->clearFlags(1);
 		} else {
-			if ($self->{'autoStart'}) {
+			if ($autoStart) {
 				return $self->clearFlags($self->start());
 			} else {
 				return $self->clearFlags(0);
@@ -525,7 +529,7 @@ sub start
 		$self->loadModule($service);
 	}
 
-	if ($self->status() == 7) {
+	if ($self->status(0) == 7) {
 		return $self->clearFlags(7);
 	}
 
@@ -775,7 +779,7 @@ sub checkAll
 	foreach my $service (keys(%{$self->{'services'}})) {
 		$self->{'service'} = $service;
 		$self->loadModule($service);
-		$results{$service} = $self->status($service);
+		$results{$service} = $self->status();
 	}
 	return \%results;
 }
