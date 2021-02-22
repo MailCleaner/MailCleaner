@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -27,6 +28,11 @@
 use strict;
 use DBI();
 use Net::DNS;
+if ($0 =~ m/(\S*)\/\S+.pl$/) {
+  my $path = $1."/../lib";
+  unshift (@INC, $path);
+}
+require GetDNS;
 
 my $DEBUG = 1;
 
@@ -123,7 +129,7 @@ sub get_external_rules {
      #next if ($ref->{'allowed_ip'} !~ /^(\d+.){3}\d+\/?\d*$/);
      next if ($ref->{'port'} !~ /^\d+[\:\|]?\d*$/);
      next if ($ref->{'protocol'} !~ /^(TCP|UDP|ICMP)$/i);
-     foreach my $ip (split(/[\s,]+/, $ref->{'allowed_ip'})) {
+     foreach my $ip (expand_host_string($ref->{'allowed_ip'})) {
        if ($ip =~ m/^[0-9\.\:]{3,40}\/?\d*$/) {
            $rules{"host ".$ip.", service ".$ref->{'service'}} = [ $ref->{'port'}, $ref->{'protocol'}, $ip];
        }
@@ -342,4 +348,11 @@ sub fatal_error
                 print "\n Full information: $full \n";
         }
         exit(0);
+}
+
+sub expand_host_string
+{
+    my $string = shift;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string);
 }

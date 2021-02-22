@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -28,6 +29,11 @@
 use strict;
 use DBI();
 use File::Path qw(mkpath);
+if ($0 =~ m/(\S*)\/\S+.pl$/) {
+  my $path = $1."/../lib";
+  unshift (@INC, $path);
+}
+require GetDNS;
 
 my $DEBUG = 1;
 
@@ -79,8 +85,7 @@ sub dump_snmpd_file
                 return 0;
         }
 
- 	my @ips = split(/[\:\s]/, $snmpd_conf{'__ALLOWEDIP__'});
-        push @ips, '127.0.0.1';
+ 	my @ips = expand_host_string($snmpd_conf{'__ALLOWEDIP__'}.' 127.0.0.1');
 	my $ip;
 	foreach $ip ( keys %master_hosts) {
 		print TARGET "com2sec local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
@@ -124,7 +129,7 @@ sub get_snmpd_config{
         }
         my $ref = $sth->fetchrow_hashref() or return;
 
-	$config{'__ALLOWEDIP__'} = $ref->{'allowed_ip'};
+	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'}));
 	$config{'__COMMUNITY__'} = $ref->{'community'};
 	$config{'__DISKS__'} = $ref->{'disks'};
 
@@ -192,4 +197,11 @@ sub readConfig
         }
         close CONFIG;
 	return %config;
+}
+
+sub expand_host_string
+{
+    my $string = shift;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string);
 }
