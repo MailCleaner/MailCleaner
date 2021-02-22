@@ -55,6 +55,8 @@ sub dumper {
 				return ( '0.0.0.0/0' );
 			} elsif (defined($cache{$item})) {
 				next;
+			} elsif ($item =~ m#\*#) {
+                                $cache{$item} = $item;
 			} elsif ($item =~ m#/\d+$#) {
 				$cache{$item} = $item;
 			} elsif ($self->validIP4($item)) {
@@ -106,7 +108,10 @@ sub dumper {
 					}
 					$cache{$item} = 'cached';
 				}
-			}
+			} else {
+                                delete($cache{$item});
+                                print(STDERR "Did not understand hostlist entry $item\n");
+                        }
 		}
 
 		$continue = 0;
