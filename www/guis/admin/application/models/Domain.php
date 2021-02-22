@@ -29,7 +29,7 @@ class Default_Model_Domain
 
 	protected $_configpanels = array('general', 'delivery',
 		'addressverification', 'preferences',
-		'authentication', 'filtering', 'advanced',
+		'authentication', 'filtering', 'advanced', 'spamcovercharge', 
 		'outgoing', 'archiving', 'templates'
 	);
 

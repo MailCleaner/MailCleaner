@@ -90,6 +90,28 @@ class Default_Model_WWElementMapper
 	}
      }
 
+     public function setSpamcOvercharge($domain, $comments, $type) {
+	$comments_array = explode("\r\n", $comments);
+
+	// To ensure, we remove dropped entries, we drop all and recreate all
+	$this->getDbTable()->delete("recipient='$domain' and type='$type'");
+
+	if ($comments != '') {
+		foreach ($comments_array as $comment) {
+			$this->getDbTable()->insert(
+				array(
+					'sender'	=> '',
+					'recipient'	=> $domain,
+					'type'		=> $type,
+					'expiracy'	=> '',
+					'status'	=> 1,
+					'comments'	=> $comment,
+				)
+	
+			);
+		}
+	}
+     }
 
     public function save(Default_Model_WWElement $element) {
        $data = $element->getParamArray();
