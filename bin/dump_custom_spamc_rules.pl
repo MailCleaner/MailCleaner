@@ -85,13 +85,15 @@ sub print_sender_rules {
 # first remove file if exists
 unlink $rules_file if ( -f $rules_file );
 
+
+# get list of SpamC exceptions
+my @wwlists = $db->getListOfHash("SELECT * from wwlists where type = 'SpamC' order by comments ASC, sender DESC");
+exit if (!@wwlists);
 if ( ! open(RULEFILE, '>', $rules_file )) {
     print STDERR "Cannot open full log file: $rules_file\n";
     exit();
 }
 
-# get list of SpamC exceptions
-my @wwlists = $db->getListOfHash("SELECT * from wwlists where type = 'SpamC' order by comments ASC, sender DESC");
 my $current_rule;
 my $current_rule_w;
 my $current_sender;
