@@ -39,6 +39,8 @@ class SpamQuarantine extends Quarantine {
                       'days'          => DEFAULT_DAYS,
                       'mask_forced'   => 0,
                       'mask_bounces'  => 0,
+                      'spam_only'     => 0,
+                      'newsl_only'    => 0,
                       'group_quarantines' => 0,
                       'msg_per_page'  => DEFAULT_MSGS,
                       'order'         => array('date', 'desc'),
@@ -168,7 +170,7 @@ public function load() {
      $where = "( ";
      foreach ($addresses as $address) {
        if (preg_match('/(\S+)\@(\S+)/', $address, $matches)) {
-         $where .= "(to_domain='".$matches[2]."' AND to_user='".$matches[1]."') OR ";
+         $where .= "(to_domain='".$matches[2]."' AND (to_user='".$matches[1]."' OR to_user LIKE '".$matches[1]."+%')) OR ";
        }
      }
      $where = preg_replace('/OR $/', '', $where);
@@ -194,6 +196,11 @@ public function load() {
    if ($this->getFilter('mask_bounces')) {
       //@todo correct this filter
       //$where .= " AND NOT sender LIKE '\*%'";
+   }
+   if ($this->getFilter('showSpamOnly') || (isset($clean_filters['spam_only']) && $clean_filters['spam_only'] == 1)) {
+      $where .= " AND is_newsletter != 1";
+   } elseif ($this->getFilter('showNewslettersOnly') || (isset($clean_filters['newsl_only']) && $clean_filters['newsl_only'] == 1)) {
+      $where .= " AND is_newsletter = 1";
    }
 
    // select the correct spam table

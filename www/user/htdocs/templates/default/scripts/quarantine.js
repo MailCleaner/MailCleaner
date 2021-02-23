@@ -96,3 +96,21 @@ function groupAddresses() {
     }
     document.getElementById('filter').submit();
 }
+
+function showSpamOnly() {
+    spam = document.getElementById('filter_spam_only_cb');
+    if (spam.checked) {
+        document.getElementById('filter_newsl_only_cb').checked=false;
+        document.getElementById('filter_newsl_only_checkbox').value=0;
+    }
+    document.getElementById('filter').submit();
+}
+
+function showNewslOnly() {
+    newsl = document.getElementById('filter_newsl_only_cb');
+    if (newsl.checked) {
+        document.getElementById('filter_spam_only_cb').checked=false;
+        document.getElementById('filter_spam_only_checkbox').value=0;
+    }
+    document.getElementById('filter').submit();
+}
