@@ -37,6 +37,8 @@
    var lang = '__LANG__';
    var nb_days = '__NB_DAYS__';
    var mask_forced = '__MASK_FORCED__';
+   var spam_only= 0;
+   var newsl_only= 0;
    
   __INCLUDE_JS_SCRIPTS__
   </script>
@@ -115,7 +117,9 @@ __FI__ MSGTODISPLAY
 __BEGIN_FILTER_FORM__
 <div id="addressselectpanel">
 	<p>__LANG_SELECTEDADDRESS__: </p>
-	__ADDRESS_SELECTOR__ __GROUPQUARANTINES__ __LANG_GROUPQUARANTINES__
+	__ADDRESS_SELECTOR__ __GROUPQUARANTINES__ __LANG_GROUPQUARANTINES__<br/>
+	__SPAMONLY__ __LANG_SPAMONLY__<br/>
+	__NEWSLONLY__ __LANG_NEWSLONLY__
 </div>
 
  <div id="searchpanel">
@@ -135,7 +139,7 @@ __DEFAULT__ DESC_IMG = <img src="images/orderby_desc.png" alt="" />
    
 __IF__ filtered
    <tr id="quarantinebanner">
-     <td colspan="5"><img src="images/searchheader.png" alt="MailCleaner" /><p>__SEARCH_SUMMARY__ &mdash; <strong>__LANG_CRITERIAS__</strong> :
+     <td colspan="6"><img src="images/searchheader.png" alt="MailCleaner" /><p>__SEARCH_SUMMARY__ &mdash; <strong>__LANG_CRITERIAS__</strong> :
        __CRITERIA_SUMMARY__</p><a class="resetsearch" href="__LINK_THISPAGE__">__LANG_RESETSEARCH__</a></td>
    </tr>
 __ELSE__ filtered

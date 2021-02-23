@@ -173,6 +173,8 @@ $txt['COULDNOTPURGE'] = "The quarantine for <strong>__PARAM__</strong> could not
 $txt['ASKPURGECONFIRM'] = "Are you sure you want to purge the last __PARAM1__ days of the quarantine for <strong>__PARAM2__</strong> ?";
 $txt['QUARANTINEPURGE'] = "Manual purge of the quarantine";
 $txt['GROUPQUARANTINES'] = "All addresses";
+$txt['SPAMONLY'] = "Show spam only";
+$txt['NEWSLONLY'] = "Show newsletters only";
 /*
  * preview panel
  */
