@@ -30,7 +30,7 @@ if (isset($_GET['l'])) {
 if (!isset($_GET['id']) || !isset($_GET['a']) || !isset($_GET['s'])) {
   die ("BADPARAMS");
 }
-if (!is_exim_id($_GET['id']) || !is_email($_GET['a']) || !is_numeric($_GET['s'])) {
+if (!is_exim_id($_GET['id']) || !filter_var($_GET['a'], FILTER_VALIDATE_EMAIL) || !is_numeric($_GET['s'])) {
   die ("BADPARAMS");
 }
 
