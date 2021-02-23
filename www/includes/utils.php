@@ -15,9 +15,8 @@ function is_exim_id($id) {
 }
 
 function is_email($a) {
-	$a = urldecode($a);
-        if(preg_match('/^[_a-z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+(\.[_a-z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~]]+)*@[a-z0-9-]+(\.[a-z0-9-]{2,})+$/i', $a)) {
-                return true;
+	if (filter_var($a, FILTER_VALIDATE_EMAIL)) {
+        	return true;
         }
         return false;
 }
