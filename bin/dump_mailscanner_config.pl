@@ -122,7 +122,7 @@ sub get_ms_config
 
   $config{'__TRUSTEDIPS__'} = ""; 
   if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'}));
+    $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
   $config{'__SPAMHITS__'} = $row{'spamhits'};
   $config{'__HIGHSPAMHITS__'} = $row{'highspamhits'};
@@ -239,7 +239,7 @@ sub get_sa_config
 
   $config{'__TRUSTEDIPS__'} = ""; 
   if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = join(" ", expand_host_string($row{'trusted_ips'}));
+    $config{'__TRUSTEDIPS__'} = join(" ", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
   $config{'__SA_RBLS__'} = $row{'sa_rbls'};
   
@@ -403,7 +403,7 @@ sub dump_prefilter_files {
           require $specmodfile;
           my %specreplaces = $specmodule->get_specific_config();
           if (defined($specreplaces{'__AVOIDHOSTS__'})) {
-            $specreplaces{'__AVOIDHOSTS__'} = join(" ",expand_host_string($specreplaces{'__AVOIDHOSTS__'}));
+            $specreplaces{'__AVOIDHOSTS__'} = join(" ",expand_host_string($specreplaces{'__AVOIDHOSTS__'},('dumper'=>'mailscanner/avoidhosts')));
           }
           $template->setReplacements(\%specreplaces);
         }
@@ -610,6 +610,7 @@ sub log_dns
 sub expand_host_string
 {
     my $string = shift;
+    my %args = @_;
     my $dns = GetDNS->new();
-    return $dns->dumper($string);
+    return $dns->dumper($string,%args);
 }

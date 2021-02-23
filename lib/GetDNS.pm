@@ -23,11 +23,19 @@ sub new
 sub dumper {
 	my $self = shift;
 	my $raw = shift;
+	my %args = @_;
 
 	unless (defined($raw)) {
 		return ();
 	}
 
+	unless (defined($args{'dumper'})) {
+		$args{'dumper'} = 'unknown';
+	}
+
+	unless (defined($args{'log'})) {
+		$args{'log'} = '/var/mailcleaner/log/mailcleaner/dumper.log';
+	}
 	# Disabling recursion in order to utilize caching
 	my $recursion = $self->{recursion};
 	$self->{recursion} = 0;
@@ -47,12 +55,13 @@ sub dumper {
 		}
 	}
 
+	my @invalid;
 	my $continue;
 	do {
 		foreach my $item (keys %cache) {
-			if ($item eq '*' || $item eq '0.0.0.0/0') {
+			if ($item eq '*') {
 				$self->{recursion} = $recursion;
-				return ( '0.0.0.0/0' );
+				return ( '::0/0', '0.0.0.0/0' );
 			} elsif (defined($cache{$item})) {
 				next;
 			} elsif ($item =~ m#\*#) {
@@ -109,8 +118,8 @@ sub dumper {
 					$cache{$item} = 'cached';
 				}
 			} else {
+				push(@invalid,$item);
                                 delete($cache{$item});
-                                print(STDERR "Did not understand hostlist entry $item\n");
                         }
 		}
 
@@ -121,6 +130,15 @@ sub dumper {
 			}
 		}
 	} while ($continue);
+
+	if (scalar(@invalid)) {
+		if (open(my $fh, '>>', $args{'log'})) {
+		        print($fh "Did not understand hostlist entries '" .
+				join("', '",@invalid) .
+				"' in '$args{'dumper'}'\n");
+			close($fh);
+		}
+	}
 
 	foreach (keys %cache) {
 		if ($cache{$_} eq 'cached') {
