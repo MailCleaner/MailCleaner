@@ -85,7 +85,7 @@ sub dump_snmpd_file
                 return 0;
         }
 
- 	my @ips = expand_host_string($snmpd_conf{'__ALLOWEDIP__'}.' 127.0.0.1');
+ 	my @ips = expand_host_string($snmpd_conf{'__ALLOWEDIP__'}.' 127.0.0.1',('dumper'=>'snmp/allowedip'));
 	my $ip;
 	foreach $ip ( keys %master_hosts) {
 		print TARGET "com2sec local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
@@ -129,7 +129,7 @@ sub get_snmpd_config{
         }
         my $ref = $sth->fetchrow_hashref() or return;
 
-	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'}));
+	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'mailscanner/allowedip')));
 	$config{'__COMMUNITY__'} = $ref->{'community'};
 	$config{'__DISKS__'} = $ref->{'disks'};
 
@@ -202,6 +202,7 @@ sub readConfig
 sub expand_host_string
 {
     my $string = shift;
+    my %args = @_;
     my $dns = GetDNS->new();
-    return $dns->dumper($string);
+    return $dns->dumper($string,%args);
 }

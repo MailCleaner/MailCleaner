@@ -129,8 +129,9 @@ sub get_external_rules {
      #next if ($ref->{'allowed_ip'} !~ /^(\d+.){3}\d+\/?\d*$/);
      next if ($ref->{'port'} !~ /^\d+[\:\|]?\d*$/);
      next if ($ref->{'protocol'} !~ /^(TCP|UDP|ICMP)$/i);
-     foreach my $ip (expand_host_string($ref->{'allowed_ip'})) {
-       if ($ip =~ m/^[0-9\.\:]{3,40}\/?\d*$/) {
+     foreach my $ip (expand_host_string($ref->{'allowed_ip'},('dumper'=>'snmp/allowedip'))) {
+       # IPs already validated and converted to CIDR in expand_host_string, just remove non-CIDR entries
+       if ($ip =~ m#/\d+$#) {
            $rules{"host ".$ip.", service ".$ref->{'service'}} = [ $ref->{'port'}, $ref->{'protocol'}, $ip];
        }
      }
@@ -353,6 +354,7 @@ sub fatal_error
 sub expand_host_string
 {
     my $string = shift;
+    my %args = @_;
     my $dns = GetDNS->new();
-    return $dns->dumper($string);
+    return $dns->dumper($string,%args);
 }
