@@ -502,6 +502,14 @@ sub get_system_config
 	}
 	$sconfig{'__SMTP_PROXY__'} = $row{'smtp_proxy'};
 	$sconfig{'__SYSLOG_HOST__'} = $row{'syslog_host'};
+	if ( -f '/usr/mailcleaner/etc/mailcleaner/syslog/force_syslog_on_this_host') {
+		if (open(FH, '<', '/usr/mailcleaner/etc/mailcleaner/syslog/force_syslog_on_this_host') ) {
+			my $line = <FH>;
+			chomp $line;
+			$sconfig{'__SYSLOG_HOST__'} = $line;
+			close FH;
+		}
+	}
 	$sconfig{'__ANTISPAM_SYSLOG__'} = $row{'use_syslog'};
     $sconfig{'__STOCKME__'} = $row{'do_stockme'};
 
