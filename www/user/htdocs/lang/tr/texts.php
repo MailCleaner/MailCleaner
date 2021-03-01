@@ -501,3 +501,5 @@ $txt['NLRELEASEDBODY'] = "Bültene izin verildi ve serbest bırakıldı. Posta k
 $txt['NLNOTRELEASEDHEAD'] = "Bülten yayınlanmadı";
 $txt['NLNOTRELEASEDBODY'] = "Mesaj bırakmadan bir hata oluştu. Lütfen daha sonra yeniden deneyin.";
 $txt['ADDTOGROUP'] = "Gruptaki tüm adresler için ekle";
+$txt['NEWSLONLY'] = "Yalnızca bültenleri göster";
+$txt['SPAMONLY'] = "Yalnızca spam göster";
