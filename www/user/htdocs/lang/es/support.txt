@@ -1,25 +1,25 @@
 <?php
 $txt['SFALSENEGTITLE'] = "FALSO NEGATIVO";
 $txt['SFALSENEGSUBTITLE'] = "¿Has recibido un mensaje que consideras spam?";
-$txt['SVERIFYPASS'] = "Compruebe que el filtro Mailcleaner ha procesado el mensaje consultando las cabeceras de correo electrónico.";
+$txt['SVERIFYPASS'] = "Compruebe que el mensaje a sido procesado por el filtro de Mailcleaner mirando el encabezado del correo.";
 $txt['SMCLOGTITLE'] = "En los encabezados, verá las siguientes líneas que mencionan Mailcleaner:";
-$txt['SMCLOGLINE1'] = "Recibido: de mailcleaner.net (filtrado de demonio)";
-$txt['SMCLOGLINE2'] = "por mailcleaner.net con esmtp (deminio entrante)";
-$txt['SMCFILTERINGLOG'] = "Resultado del filtro : X-Mailcleaner-Spamscore: oooo";
-$txt['SFALSENEGTUTOR'] = "Si le parece anormal haber recibido este mensaje, transfieralo a la direcci&oacute;n analyse@mailcleaner.net. Si vuestro programa e-mail lo permite, transfieralo vinculado a un correo paraconservar la cabecera completa del mensaje. Nosotros analisaremos el contenido de su mensaje y adaptaremos los criterios de filtraje de mailcleaner cosa que los dem&acute;s utilisadores tambien beneficien.";
-$txt['SFALSEPOSTITLE'] = "FALSO-POSITIVO";
-$txt['SFALSEPOSSUB1TITLE'] = "Usted no recibi&oacute; un correo que esperaba ?";
-$txt['SFALSEPOSSUB1'] = "Usted puede controlar si el mensaje no fue retenido por MailCleaner, verificando en la interfaz web disponible bajo el enlace cuarentena.  Si usted no encuentra el correo en la lista, verifique los puntos siguientes:";
+$txt['SMCLOGLINE1'] = "Recibido: De mailcleaner.net (filtrado demonio)";
+$txt['SMCLOGLINE2'] = "por mailcleaner.net con esmtp (demonio entrante)";
+$txt['SMCFILTERINGLOG'] = "Resultado del filtro : X-Mailcleaner-spamscore: oooo";
+$txt['SFALSENEGTUTOR'] = "Si realmente cree que el mensaje es spam, por favor transfiéralo a spam@mailcleaner.net, o mejor aún, si su programa de correo electrónico lo permite, elija \"Trasferir como adjunto\" para mantener el encabezado del correo intacto. Nuestro centro de análisis diseminará el contenido del mensaje y adaptar los criterios del filtro de Mailcleaner en consecuencia, para que todos los usuarios de Mailcleaner se beneficien.";
+$txt['SFALSEPOSTITLE'] = "FALSOS POSITIVOS";
+$txt['SFALSEPOSSUB1TITLE'] = "¿No recibió un correo que esperaba?";
+$txt['SFALSEPOSSUB1'] = "Usted puede verificar si el mensaje fue bloqueado por MailCleaner a través de la interfaz de usuario web disponible bajo el encabezado \"Cuarentena\". Si usted no lo encuentra en la lista de cuarentena, por favor verifique los puntos siguientes:";
 $txt['SFALSEPOSSUB1POINT1'] = "la dirección de destino utilizada por el remitente es correcta";
 $txt['SFALSEPOSSUB1POINT2'] = "el correo electrónico tuvo la oportunidad de ser procesado (un proceso que puede tardar unos minutos)";
-$txt['SFALSEPOSSUB2TITLE'] = "¿Un correo ha sido considerado como spam y usted no entiende porque?";
-$txt['SFALSEPOSSUB2'] = "Bajo el enlace cuarentena, usted puede visualisar los criterios por los cuales Mailcleaner ha considerado el mensaje como un spam pulsando bajo el siguiente icono <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Si usted estima que los criterios no son justificados, usted nos puede pedir el analisis pulsando el siguiente enlace <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Usted puede liberar el mensaje pulsando el icono <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\"> .";
-$txt['SFALSEPOSSUB3TITLE'] = "Lista de correos";
-$txt['SFALSEPOSSUB3'] = "Puede suceder que ciertas listas sean bloqueadas por Mailcleaner.  Es debido al formato de la lista muy parecida a los spams.  Usted puede pedir el an&aacute;lisis de estos mensajes de la misma manera que precedentemente, nos encargaremos de poner la lista en las listas-blancas.";
+$txt['SFALSEPOSSUB2TITLE'] = "¿Un correo ha sido considerado spam y usted no entiende por qué?";
+$txt['SFALSEPOSSUB2'] = "Bajo la lista de cuarentena, usted puede ver los criterios por los cuales Mailcleaner ha considerado el mensaje como spam a través de <img src=\"/templates/$template/images/support/reasons.gif\" align=\"middle\" alt=\"\">. Si usted estima que los criterios no son justificados, usted puede solicitar un análisis a nuestro centro de análisis al dar clic en <img src=\"/templates/$template/images/support/analyse.gif\" align=\"middle\" alt=\"\">. Usted puede liberar el mensaje dando clic en <img src=\"/templates/$template/images/support/force.gif\" align=\"middle\" alt=\"\">.";
+$txt['SFALSEPOSSUB3TITLE'] = "Listas de correo";
+$txt['SFALSEPOSSUB3'] = "En ocasiones, algunas listas de correo son bloqueadas por Mailcleaner. Esto es debido a su formato, la cual es similar al spam. Usted puede pedir un análisis de estos mensajes como se explica arriba, y nuestro centro de análisis se encargará de ponerlas en la lista blanca para prevenir que se bloquen en el futuro.";
 $txt['SOTHERTITLE'] = "OTROS PROBLEMAS";
-$txt['SOTHER'] = "Usted tiene otros problemas con la recepci&oacute;n de vuestros correos, usted sigui&oacute; el procedimiento sin resultado o tiene otro problema?  Entonces tome contacto con nuestra division de ayuda  Mailcleaner  llenando el siguiente formulario.";
+$txt['SOTHER'] = "¿Experimenta usted otros problemas con la recepción de correos, y ha seguido los procedimientos descritos sin que se resuelva el problema? Si es así, contacte al Centro de Análisis de Mailcleaner llenando este formato.";
 $txt['FAQTITLE'] = "Comprendiendo Mailcleaner";
-$txt['DOCTITLE'] = "Interfaz de usuario de ayuda";
+$txt['DOCTITLE'] = "Ayuda de interfaz de usuario";
 $txt['WEBDOCTITLE'] = "Documentación en línea";
 $txt['FAQ'] = "
                <ul> 1
@@ -109,6 +109,4 @@ elige y personaliza el mensaje que aparecerá en el asunto de los spams etiqueta
 </ul>
 </li>
 </ul>";
-$txt['WEBDOC'] = "<ul><li>Más información y documentación en nuestro sitio web:
-<a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Documentación del usuario de Mailcleaner</a></li>
-</ul>";
+$txt['WEBDOC'] = "<ul><li>Más información y documentación en nuestro sitio web: <a href=\"http://wiki2.mailcleaner.net/doku.php/documentation:userfaq\" target=\"_blank\">Documentación de usuario de Mailcleaner</a></li></ul>";
