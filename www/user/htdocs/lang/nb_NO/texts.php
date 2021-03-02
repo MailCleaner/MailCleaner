@@ -498,3 +498,5 @@ $txt['ADDANEWSENTRY'] = "Legg til en adresse i listen";
 $txt['NEWSLISTENTRYTOADD'] = "Skriv inn adressen du ønsker å legge til i nyhetsbrevlisten. Du kan også legge til en valgfri kommentar.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Velg en adresse eller adresser du ønsker å endre fra listen og klikk på ønsket handlingsknapp.";
 $txt['ADDTOGROUP'] = "Legg til for alle adresser i gruppe";
+$txt['NEWSLONLY'] = "Kun vis nyhetsbrev";
+$txt['SPAMONLY'] = "Kun vis søppelpost";
