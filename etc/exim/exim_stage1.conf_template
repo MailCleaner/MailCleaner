@@ -984,17 +984,18 @@ __ELSE__ REJECTDMARC
           log_message    = Message from $dmarc_used_domain failed sender's DMARC policy, should reject.
 __FI__
 
+  warn    !hosts        = <; +relay_from_hosts
+          !authenticated = *
+          add_header = :after_received:X-MailCleaner-recipients: $recipients
+          add_header = :after_received:X-MailCleaner-sender_address: $sender_address
+          add_header = :after_received:X-MailCleaner-return_path: $return_path
+
   accept  set acl_c8    = smtp:accepted
           set acl_c9    = STATSADD
  __IF__ DEBUG
           logwrite      = DEBUG - accepted data, final acceptance - smtp:accepted
  __FI__
 
-  warn    !hosts        = <; +relay_from_hosts
-          !authenticated = *
-          add_header = :after_received:X-MailCleaner-recipients: $recipients
-          add_header = :after_received:X-MailCleaner-sender_address: $sender_address
-          add_header = :after_received:X-MailCleaner-return_path: $return_path
 ######################################################################
 #                      ROUTERS CONFIGURATION                         #
 #               Specifies how addresses are handled                  #
