@@ -18,7 +18,7 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-package ManageServices::ClamSpamD;
+package ManageServices::NTPD;
 
 use strict;
 use warnings;
@@ -30,7 +30,7 @@ sub init
 	my $module = shift;
 	my $class = shift;
 	my $self = $class->SUPER::createModule( config($class) );
-	bless $self, 'ManageServices::ClamSpamD';
+	bless $self, 'ManageServices::NTPD';
 
 	return $self;
 }
@@ -40,25 +40,19 @@ sub config
 	my $class = shift;
 
 	my $config = {
-		'name' 		=> 'clamspamd',
-		'cmndline'	=> 'clamav/clamspamd.conf',
-		'cmd'		=> '/opt/clamav/sbin/clamd',
-		'conffile'	=> $class->{'conf'}->getOption('SRCDIR').'/etc/clamav/clamspamd.conf',
-		'pidfile'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamspamd.pid',
-		'logfile'	=> $class->{'conf'}->getOption('VARDIR').'/log/clamav/clamspamd.log',
-		'localsocket'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamav/clamspamd.sock',
-		'children'	=> 1,
-		'user'		=> 'clamav',
-		'group'		=> 'clamav',
-		'daemonize'	=> 'yes',
+		'name' 		=> 'ntpd',
+		'cmndline'	=> '/usr/sbin/ntpd',
+		'cmd'		=> '/usr/sbin/ntpd',
+		'pidfile'	=> '/var/run/ntpd.pid',
+		'user'		=> 'ntp',
+		'group'		=> 'ntp',
+		'daemonize'	=> 'no',
 		'forks'		=> 0,
-		'nouserconfig'  => 'yes',
-		'syslog_facility' => '',
+		'syslog_facility' => 'local1',
 		'debug'		=> 0,
 		'log_sets'	=> 'all',
 		'loglevel'	=> 'info',
 		'timeout'	=> 5,
-		'checktimer'	=> 10,
 		'actions'	=> {},
 	};
 	
@@ -69,8 +63,11 @@ sub setup
 {
 	my $self = shift;
 	my $class = shift;
-	
-	return 0;
+
+	$self->{'cmd'} .= ' -p ' . $self->{'pidfile'} . ' -g -u ' .
+		$self->{'uid'} . ':' . $self->{'gid'};
+
+	return 1;
 }
 
 sub preFork
@@ -87,10 +84,9 @@ sub mainLoop
 	my $class = shift;
 	
 	my $cmd = $self->{'cmd'};
-	$cmd .= ' --config-file=' . $self->{'conffile'};
 	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
-	
+	system("$cmd");
+
 	return 1;
 }
 

@@ -8,6 +8,7 @@ use threads ();
 use threads::shared;
 use Time::HiRes qw( gettimeofday tv_interval );
 use POSIX;
+use Sys::Syslog;
 require ReadConfig;
 require ConfigTemplate;
 
@@ -234,6 +235,11 @@ sub getServices
 			'module'	=> 'NewslD',
 			'critical'	=> 1,
 		},
+		'ntpd'		=> {
+			'name'		=> 'NTPD',
+			'module'	=> 'NTPD',
+			'critical'	=> 1,
+		},
 		#'preftdaemon'	=> {
 			#'name'		=> 'Preferences daemon',
 			#'module'	=> 'PrefTDaemon',
@@ -339,7 +345,7 @@ sub getConfig
 	}
 
 	$self->{'module'}->{'uid'} = $self->{'module'}->{'user'} ? getpwnam( $self->{'module'}->{'user'} ) : 0;
-	$self->{'module'}->{'gid'} = $self->{'module'}->{'group'} ? getpwnam( $self->{'module'}->{'group'} ) : 0;
+	$self->{'module'}->{'gid'} = $self->{'module'}->{'group'} ? getgrnam( $self->{'module'}->{'group'} ) : 0;
 
 	foreach my $key (keys %{$self->{'module'}}) {
 		if (!defined($self->{'module'}->{$key})) {
@@ -378,6 +384,9 @@ sub findProcess
 			next;
 		}
 		if ($p->{'cmndline'} =~ m#$self->{'module'}->{'cmndline'}#) {
+			if ($p->{'state'} eq 'defunct') {
+				next;
+			}
 			return $p->{'pid'};
 		}
 	}
@@ -403,6 +412,9 @@ sub pids
 			next;
 		}
 		if ($p->{'cmndline'} =~ m#$self->{'module'}->{'cmndline'}#) {
+			if ($p->{'state'} eq 'defunct') {
+				next;
+			}
 			push(@pids,$p->{'pid'});
 		}
 	}
