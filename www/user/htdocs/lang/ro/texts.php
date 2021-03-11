@@ -500,3 +500,6 @@ $txt['NLRELEASEDHEAD'] = "Buletinul informativ a fost acceptat și eliberat.";
 $txt['NLRELEASEDBODY'] = "Buletinul informativ a fost acceptat și eliberat. Ar trebui să ajungă în căsuța dumneavoastră poștală în câteva minute.";
 $txt['NLNOTRELEASEDHEAD'] = "Buletinul informativ nu a fost eliberat";
 $txt['NLNOTRELEASEDBODY'] = "Există o problemă privind eliberarea mesajului. Vă rugăm să încercați mai târziu.";
+$txt['ADDTOGROUP'] = "Adăugați pentru toate adresele din grup";
+$txt['NEWSLONLY'] = "Afișați doar newsletter-ele";
+$txt['SPAMONLY'] = "Afișați doar spam-urile";
