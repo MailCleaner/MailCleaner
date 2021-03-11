@@ -25,8 +25,16 @@ $http = new HTTPDConfig();
 $http->load();
 
 $http_sheme = 'http';
+$port = '';
 if ($http->getPref('use_ssl')) {
 	$http_sheme = 'https';
+	if ($http->getPref('https_port') != 443) {
+		$port = ':' . $http->getPref('https_port');
+	}
+} else {
+	if ($http->getPref('http_port') != 80) {
+		$port = ':' . $http->getPref('http_port');
+	}
 }
 
 // Check if this is a registered version
@@ -45,7 +53,7 @@ if ($is_enterprise) {
 // prepare replacements
 $replace = array(
     "__BASE_URL__" => $_SERVER['SERVER_NAME'],
-    "__BEENLOGGEDOUT__" => $lang_->print_txt_param('BEENLOGGEDOUT', $http_sheme."://".$_SERVER['SERVER_NAME']),
+    "__BEENLOGGEDOUT__" => $lang_->print_txt_param('BEENLOGGEDOUT', $http_sheme."://".$_SERVER['SERVER_NAME'].$port),
     "__MCLINK__" => $mclink,
     "__MCLINKLABEL__" => $mclinklabel,
 );
