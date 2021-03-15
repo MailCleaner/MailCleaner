@@ -11,7 +11,7 @@ $txt['NEWSLETTERSTOPIC'] = "Newslettery";
 $txt['NEWSLETTERSTOPICTITLE'] = "Newslettery";
 $txt['NEWSLETTERSSHORTHELP'] = "Tutaj możesz zarządzać swoimi newsletterami.";
 $txt['NEWSLETTERSALLOW'] = "dostarcz";
-$txt['NEWSLETTERACCEPT'] = "Akceptuj ten nwesletter";
+$txt['NEWSLETTERACCEPT'] = "Akceptuj ten newsletter";
 $txt['SPAM_WHITELIST_DISABLED'] = "Lista nie jest aktywna dla tej domeny (skontaktuj się z administratorem).";
 /* 
  * generic buttons
