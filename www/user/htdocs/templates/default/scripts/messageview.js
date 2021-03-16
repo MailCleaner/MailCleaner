@@ -27,7 +27,7 @@ function openclosepanel(panel) {
 
 function redimAndForce() {
   redim(popup_width, popup_height);
-  document.location = 'fm.php?a='+email_address+'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up';
+  document.location = 'fm.php?a='+encodeURIComponent(email_address)+'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up&n='+news;
 }
 
 function redimAndAnalyse() {
