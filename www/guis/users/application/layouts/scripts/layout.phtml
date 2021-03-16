@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/unlogged.css'); ?>" media="screen" />
     <script src="<?php echo $this->baseUrl('scripts/popup.js'); ?>" type="text/javascript" charset="utf-8"></script>
   </head>
-  <body onload="javascript:disableCloseButton();">
+  <body onload="disableCloseWithoutReferrer();">
        <div id="container">
            <?php echo $this->layout()->content ?>
        </div>

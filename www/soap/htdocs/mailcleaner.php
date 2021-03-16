@@ -24,7 +24,9 @@ require_once('parts/processes.php');
 
 $server->addFunction(array(
                         "forceContent",
-                        "addNewsletterToWhitelist",
+                        "addToNewslist",
+                        "addToWhitelist",
+                        "addToBlacklist",
                         "getHeaders",
                         "getMIMEPart",
                         "getBody",

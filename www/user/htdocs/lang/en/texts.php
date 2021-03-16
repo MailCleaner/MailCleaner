@@ -503,3 +503,37 @@ $txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
 $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
 $txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+/*
+ * Newsletter rule
+ */
+$txt['NEWSLISTHEAD'] = "Newslist rule has been added.";
+$txt['NEWSLISTBODY'] = "A newsletter whitelist rule has been added. Future messages from this sender will not be flagged if detected as a newsletter.";
+$txt['NOTNEWSLISTHEAD'] = "Newslist rule has not been added.";
+$txt['NOTNEWSLISTBODY'] = "There was a problem adding the newsletter whitelist. Please try again later.";
+/*
+ * Whitelist rule
+ */
+$txt['WHITELISTHEAD'] = "Whitelist rule has been added.";
+$txt['WHITELISTBODY'] = "A whitelist rule has been added. Future messages from this sender will not be flagged if detected as a spam.";
+$txt['NOTWHITELISTHEAD'] = "Whitelist rule has not been added.";
+$txt['NOTWHITELISTBODY'] = "There was a problem adding the whitelist. Please try again later.";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['NEWSWHITELISTHEAD'] = "Newslist and whitelist rules have been added.";
+$txt['NEWSWHITELISTBODY'] = "A newslist and whitelist rule have been added. Future messages from this sender will not be flagged if detected as a newsletter or a spam.";
+$txt['NEWSNOTWHITEHEAD'] = "Newslist has been added but whitelist has not.";
+$txt['NEWSNOTWHITEBODY'] = "A newsletter whitelist rule has been added, however, there was a problem adding the whitelist rule. Please try again later.";
+$txt['WHITENOTNEWSHEAD'] = "Whitelist has been added but newslist has not.";
+$txt['WHITENOTNEWSBODY'] = "A whitelist rule has been added, however, there was a problem adding the newsletter whitelist rule. Please try again later.";
+$txt['NOTNEWSWHITEHEAD'] = "Neither newslist nor whitelist rule have not been added.";
+$txt['NOTNEWSWHITEBODY'] = "There was a problem adding these rules. Please try again later.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['BLACKLISTHEAD'] = "Blacklist rule has been added.";
+$txt['BLACKLISTBODY'] = "A blacklist rule has been added. Future messages from this sender will always be flagged as a spam.";
+$txt['NOTBLACKLISTHEAD'] = "Blacklist rule has not been added.";
+$txt['NOTBLACKLISTBODY'] = "There was a problem adding the blacklist. Please try again later.";
+//
+$txt['ADDRULE'] = "Adding WWList rule";

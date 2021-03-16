@@ -69,7 +69,7 @@ p {
   display: inline;
   margin-left: 10px;
   white-space: nowrap;
-  width: 90px;
+  min-width: 90px;
 }
 
 .question {

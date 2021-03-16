@@ -15,10 +15,10 @@ $(document).ready(function(){
 var popup_width = 500;
 var cpopup_height = 200;
 
-function redimAndForce(msgid, storeid) {
+function redimAndForce(msgid, storeid, news) {
 	  redim(popup_width, cpopup_height);
 	  document.location = baseurl+'/managecontentquarantine/force/id/'+msgid+"/s/"+storeid
-		+ '/lang/en/pop/up'
+		+ '/lang/en/pop/up/n/' + news
 }
 
 function redim(width, height) {

@@ -323,16 +323,17 @@ public function getHTMLList($to) {
     $template = str_replace('__SCORE__', $spam->getGlobalScore($to), $template);
     $template = str_replace('__SCOREVALUE__', $spam->getCleanData('M_globalscore'), $template);
     $template = str_replace('__SCORETEXT__', $lang_->print_txt_param("SCORETEXT", $spam->getCleanData('M_globalscore')), $template);
-    $template = str_replace('__TO_ADD__', $spam->getCleanData('to'), $template);
+    $template = str_replace('__TO_ADD__', urlencode($spam->getCleanData('to')), $template);
     if ($spam->getData('forced')) $template = preg_replace("/__FORCE__(.*)__FORCE__/", "$1", $template);
     else $template = preg_replace("/__FORCE__(.*)__FORCE__/", "", $template);
 
-    $template = str_replace('__FORCETARGET__', urlencode("/fm.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
-    $template = str_replace('__REASONSTARGET__', urlencode("/vi.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
-    $template = str_replace('__ANALYSETARGET__', urlencode("/send_to_analyse.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
+    $template = str_replace('__FORCETARGET__', urlencode("/fm.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()."&n=".$spam->getCleanData('is_newsletter')), $template);
+    $template = str_replace('__REASONSTARGET__', urlencode("/vi.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
+    $template = str_replace('__ANALYSETARGET__', urlencode("/send_to_analyse.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
   
     $template = str_replace('__MSG_ID__', urlencode($spam->getCleanData('exim_id')), $template);
     $template = str_replace('__STORE_ID__', urlencode($spam->getCleanData('store_slave')), $template);
+    $template = str_replace('__NEWS__', $spam->getCleanData('is_newsletter'), $template);
     $template = str_replace('__ROW_ID__', $i, $template);
     $template = str_replace('__FORCED__', $spam->getCleanData('forced'), $template);
     if ($spam->getCleanData('forced')) {
@@ -360,7 +361,7 @@ public function getHTMLList($to) {
         $result = $db->getHash($query);
 
         if (empty($result)) {
-	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
+	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . urlencode($recipient);
             $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" data-a="%s" href="%s" class="allow">%s</a></span>';
             $rule = 'allow';
             $label = $lang_->print_txt('NEWSLETTERACCEPT');
