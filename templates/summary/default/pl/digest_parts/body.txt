@@ -1,0 +1,11 @@
+Temat: Kwarantanna MailCleaner
+
+Twoja kwarantanna MailCleaner zawiera nowe wiadomości, które zostały wykryte jako spam od ostatnich __NBDAYS__ dni.
+
+Kliknij tutaj, aby przejrzeć kwarantannę: __BASEURL__/?d=__DIGEST_ID__
+
+Bez podjęcia żadnych działań wiadomości pozostaną w kwarantannie przez __SPAMNBDAYS__ dni od ich przysłania.
+
+-------------------------------------------------- ------------------------------------
+To jest automatyczna wiadomość wygenerowana przez MailCleaner. Proszę nie odpowiadać.
+Więcej informacji: __BASEURL__

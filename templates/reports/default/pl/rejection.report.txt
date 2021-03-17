@@ -1,0 +1,19 @@
+Do: $to
+Od: $from
+Temat: Niepożądana poczta została odrzucona
+X-%org-name%-MailScanner: generated
+
+Wysłałeś do nas wiadomość e-mail, która nie została zaakceptowana przez co 
+odrzucona. Prosimy nie wysyłać do nas więcej wiadomości na ten adres:
+  Do: $to
+  Temat: $subject
+  Data: $date
+
+Jeśli masz jakieś pytania na ten temat lub uważasz, że otrzymałeś
+ten komunikat omyłkowo, skontaktuj się z administratorami systemu.
+
+-- 
+MailScanner
+Email Virus Scanner
+%org-long-name%
+%web-site%

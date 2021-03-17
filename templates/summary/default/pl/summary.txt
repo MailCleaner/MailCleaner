@@ -1,0 +1,37 @@
+Temat: Raport kwarantanny MailCleaner
+Cześć,
+
+To jest raport Mailcleaner z ostatnich ??NBDAYS dnia/dni.
+
+Na adres: ??ADDRESS
+
+Poniższe podsumowanie zawiera listę wszystkich wiadomości, które zostały zablokowane przez Mailcleaner.
+
+Jeśli jedna z tych wiadomości nie powinna zostać zablokowana, możesz wymusić jej dostarczone przez kliknięcie w link „Dostarcz:”.
+
+Wymienione wiadomości zostaną skasowane za ??SPAMNBDAYS dni.
+
+Jeśli chcesz dostosować ustawienia MailCleaner lub zobaczyć kwarantannę w czasie rzeczywistym, odwiedź interfejs użytkownika pod adresem:
+
+??WEBBASEURL
+
+----
+
+Oto lista wiadomości, które zostały zablokowane:
+
+??START_LIST
+------------------------------------------------------
+Message ID: ??ID
+        Od: ??FROM
+        Data: ??DATE
+        Temat: ??SUBJECT
+        Dostarcz: ??FORCEURL/fm.php?id=3D??ID&a=3D??ADDRESS&s=3D??STOREID&lang=3D??LANGUAGE
+	??NEWSLETTER_TXT
+??END_LIST
+
+------------------------------------------------------
+To jest automatyczna wiadomość wysłana przez MailCleaner.
+Proszę nie odpowiadać.
+Więcej informacji: ??MAILCLEANERURL
+
+??SUMSIGNATURE
