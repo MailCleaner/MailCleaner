@@ -1,0 +1,13 @@
+To jest wiadomość od MailCleaner
+----------------------------------
+Oryginalna wiadomość e-mail zawierała potencjalnie niebezpieczne treści,
+które zostały usunięte dla twojego bezpieczeństwa.
+
+Treść jest niebezpieczna, ponieważ często jest używana do rozprzestrzeniania wirusów lub w celu zdobycia
+Twoich danych osobowych lub poufnych informacji, takich jak hasła lub kredyty numery kart.
+
+W dniu $date filtry treści zweryfikowały:
+$report
+Uwaga dla administratora: $hostname w $datenumber/$id
+-- 
+Mailcleaner
