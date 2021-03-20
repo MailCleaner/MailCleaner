@@ -383,7 +383,7 @@ $txt['ANALYSETOPICTITLE'] = "żądanie dostosowania filtra";
 /*
  * configuration menu (new)
  */
-$txt['CONFIGURATION'] = "Configuration";
+$txt['CONFIGURATION'] = "Konfiguracja";
 $txt['ADDRESSLISTTOPIC'] = "Grupa adresowa";
 $txt['ADDRESSPARAMTOPIC'] = "Ustawienia adresu";
 $txt['QUARPARAMTOPIC'] = "Wyświetlanie kwarantanny";
@@ -483,9 +483,9 @@ $txt['BEENLOGGEDOUT'] = "Jeśli chcesz rozpocząć nową sesję, naciśnij ten l
 //old
 $txt['EDITNEWSLIST'] = "edytuj nową listę";
 //old
-$txt['NEWSLISTFOR'] = "Nowa lista __PARAM__";
-$txt['NEWSLISTTOPIC'] = "Nowa lista";
-$txt['NEWSLISTTOPICTITLE'] = "nowa lista";
+$txt['NEWSLISTFOR'] = "Newsletter dla __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Lista biuletynów";
+$txt['NEWSLISTTOPICTITLE'] = "Lista dla biuletynów";
 $txt['NEWSLISTSHORTHELP'] = "Lista biuletynów zawiera adresy żądanych biuletynów. <br />
 Sprawdź instrukcję (dostępną w sekcji <a href=\"help.php\"> „Pomoc” </a>), aby uzyskać więcej informacji na temat korzystania z listy biuletynów.
 ";
