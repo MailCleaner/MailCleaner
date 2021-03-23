@@ -127,15 +127,21 @@ my @launched_process    = ();
 my @ignore_process	    = qw/watchdogs.pl watchdog_report.sh/;
 
 # Création du répertoire d'écriture si besoin
+my @old = ();
 if( ! -d WATCHDOG_TMP  ) {
     mkdir(WATCHDOG_TMP, 0755);
+} else {
+    @old = glob(WATCHDOG_TMP."*");
 }
+
 #####
 # Lancement des watchdog-tools
 
 # récupérer le liste des fichiers du répertoire $watchdog_tools
 chdir(WATCHDOG_BIN) or exit(1);
 my @files	= glob('MC_mod_*');
+push(@files,glob('EE_mod_*'));
+push(@files,glob('CUSTOM_mod_*'));
 @files		= sort { $a cmp $b } @files;
 
 # Pour chaque fichier
@@ -156,6 +162,24 @@ foreach my $file (@files) {
 
 	if ($current_process{EXEC_MODE} eq 'Parralel')	{ push(@processes_par, \%current_process); }
 	else                    						{ push(@processes_seq, \%current_process); }
+	# Supprimer le fichier ancien
+	my @remaining = ();
+	foreach (@old) {
+		if ($_ =~ m/$current_process{file_no_extension}/) {
+			unlink($_);
+		} else {
+			push(@remaining,$_);
+		}
+	}
+	@old = @remaining;
+}
+
+if (scalar(@old)) {
+	foreach (@old) {
+		if ((-M "$_") > 1) {
+			unlink($_);
+		}
+	}
 }
 
 # Un seul tableau de tous les process dans lequel tous les process à lancer en // sont au début
@@ -164,9 +188,9 @@ push(@processes, @processes_par, @processes_seq);
 #####
 # Lancement du process en // ou en sequentiel
 foreach my $current_process (@processes) {
-	next if grep( /^$current_process->{file}$/, @ignore_process );
+    next if grep( /^$current_process->{file}$/, @ignore_process );
     next if ( $current_process->{file} =~ /~$/ );
-	next if ( ! -f $current_process->{file} );
+    next if ( ! -f $current_process->{file} );
     # Lancement du processus en fonction du mode
     next unless ( ($mode eq 'All') || ($current_process->{TAGS} =~ m/$mode/) );
 
