@@ -192,8 +192,8 @@ if [ "$REGISTERED" = "1" ];then
 	rm -rf $SRCDIR/share/newsld/siteconfig/* >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/exim/mc_binary/* >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/rbls/* >/dev/null 2>&1
-	rm -rf $SRCDIR/bin/watchdog/MC_* >/dev/null 2>&1
-	rm -rf $SRCDIR/etc/watchdog/MC_* >/dev/null 2>&1
+	rm -rf $SRCDIR/bin/watchdog/EE_* >/dev/null 2>&1
+	rm -rf $SRCDIR/etc/watchdog/EE_* >/dev/null 2>&1
 	rm -rf $SRCDIR/bin/watchdog/dbs.md5 >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/watchdog/dbs.md5 >/dev/null 2>&1
 	rm -rf $SRCDIR/updates/* >/dev/null 2>&1

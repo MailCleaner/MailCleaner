@@ -1,1 +1,11 @@
 Place your Watchdog configuration modules here.
+
+Please respect the following naming conventions:
+
+MC_mod_*	- Default, built-in Community Edition modules
+EE_mod_*	- Additional Enterprise Edition modules
+CUSTOM_mod_*	- Your custom modules
+
+Note that each configuration file must have any accompanying script in ../../bin/watchdog
+
+For more information on existing and custom watchdogs, see: https://support.mailcleaner.net/boards/3/topics/82-watchdogs
