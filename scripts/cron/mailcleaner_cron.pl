@@ -161,6 +161,11 @@ unless ($skip) {
   ########################################
   system("$config{'SRCDIR'}/scripts/cron/clean_clamav_tmp.sh");
 
+  ####################################################
+  # check inodes occupation and old counts if needed #
+  ####################################################
+  system("$config{'SRCDIR'}/scripts/cron/inodes_check.sh");
+
   ########################################
   ########################################
   # process $cron_occurence minutes jobs #
