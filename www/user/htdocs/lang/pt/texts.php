@@ -498,3 +498,5 @@ $txt['ADDANEWSENTRY'] = "Adicionar um endereço à lista";
 $txt['NEWSLISTENTRYTOADD'] = "Introduza o endereço que deseja adicionar à lista de newsletter. Pode também adicionar um comentário opcional.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecionar da lista o endereço ou endereços que deseja modificar e carregue no botão da ação desejada.";
 $txt['ADDTOGROUP'] = "Adicionar a todos os endereços no grupo";
+$txt['NEWSLONLY'] = "Mostrar apenas boletins";
+$txt['SPAMONLY'] = "Mostrar apenas spam";
