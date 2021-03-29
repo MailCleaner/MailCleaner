@@ -3,4 +3,4 @@ runasgroup=mailcleaner
 prefork = 5
 reportspamtodnslists=0
 reportrbls=
-syslog_facility=
+syslog_facility=local1
