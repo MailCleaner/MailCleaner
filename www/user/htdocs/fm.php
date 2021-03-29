@@ -13,6 +13,7 @@ require_once("system/SystemConfig.php");
 require_once("utils.php");
 require_once("view/Template.php");
 require_once("system/Soaper.php");
+require_once("config/AntiSpam.php");
 
 // get global objects instances
 $sysconf_ = SystemConfig::getInstance();
@@ -41,6 +42,7 @@ if ($ret != "OK") {
 } else {
     // actually force the message
     $res = $soaper->queryParam('forceSpam', array($_GET['id'], $_GET['a']));
+    $res = preg_replace('/^(\S*)\s.*/', '$1', $res);
 } 
 
 // get the view objects
@@ -52,6 +54,31 @@ $template_ = new Template($template_model);
 $replace = array(
   '__MESSAGE__' => $lang_->print_txt($res)
 );
+
+$replace['__ACTIONS__'] = '';
+
+// Check for whitelist permission
+$dom = $_GET['a'];
+$dom = preg_replace('/^.*@([^@]*)$/', '$1', $dom);
+$antispam_ = new AntiSpam();
+$antispam_->load();
+$domain = new Domain();
+$domain->load($dom);
+$can_whitelist = ( $domain->getPref('enable_whitelists') || (($domain->getPref('enable_whitelists') == null) && $antispam_->getPref('enable_whitelists')) );
+
+// Enumerate permitted action buttons
+if (isset($_GET['n']) && $_GET['n'] == 1) {
+  $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newslist" onclick="location = \'/newslist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . '"></input>';
+  if ($can_whitelist) {
+  $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . ' + ' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+  }
+} else {
+  if ($can_whitelist) {
+    $replace['__ACTIONS__'] .= '<input type="button" class="button" id="whitelist" onclick="location = \'/whitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+    $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . ' + ' . $lang_->print_txt("NEWSLISTTOPIC") . '" />';
+  }
+}
+
 // output result page
 $template_->output($replace);
 ?>

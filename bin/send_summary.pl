@@ -291,14 +291,14 @@ sub getFullQuarantine {
     $table = 'spam_misc';
   }
 
-  my $addwhere = "to_domain='$to_domain' AND to_user='$to_local'";
+  my $addwhere = "to_domain='$to_domain' AND (to_user='$to_local' OR to_user LIKE '$to_local+%')";
   if ($email) {
       if ($email->getUserPref('gui_group_quarantines')) {
           $table = 'spam';
           $addwhere = "";
           foreach my $add ($email->getLinkedAddresses()) {
             if ($add =~ m/(\S+)\@(\S+)/) {
-               $addwhere .= " OR (to_domain='$2' AND to_user='$1')";
+               $addwhere .= " OR (to_domain='$2' AND (to_user='$1' OR to_user LIKE '$1+%'))";
             }
           }
           $addwhere =~ s/^\ OR\ //;
@@ -330,127 +330,112 @@ sub getQuarantineTemplate {
   my $i = 0;
   my $bullet_filled = $template->getDefaultValue('FILLEDBULLET');
   my $bullet_empty = $template->getDefaultValue('EMPTYBULLET');
-  foreach my $spam (@{$spams}) {
-  	my $tmp = $tmpl;
-  	if ($type eq 'html') {
-  		use HTML::Entities;
-  	  foreach my $key (keys %{$spam}) {
-  	  	$spam->{$key} = encode_entities($spam->{$key});
+
+  use URI::Escape;
+
+  # SPAM
+  my $spamblock = '';
+  my $newsblock = '';
+  foreach my $item (@{$spams}) {
+    my $tmp = $tmpl;
+    if ($type eq 'html') {
+  	  use HTML::Entities;
+  	  foreach my $key (keys %{$item}) {
+  	    $item->{$key} = encode_entities($item->{$key});
   	  }
-  	}
-
-   my $gscore = "";
-   my $score = $spam->{'M_globalscore'};
-   for (my $i=1; $i < 5; $i++) {
-  	if ($score >= $i) {
-  	  $gscore .= $bullet_filled;
-  	} else {
-  	  $gscore .= $bullet_empty;
-  	}
-   }
-   if ($score > 4 || $score < 0) {
-     $score = 4;
-   }
-   my $pictoscore = $template->getDefaultValue("SCORE".$score);
-
-
-
-  	my  $s_local = "";
-  	my  $s_domain = "";
-  	if ($spam->{'sender'} =~ /^(\S+)\@(\S+)$/) {
-  	   $s_local = $1;
-  	   $s_domain = $2;
-  	   if ($type eq 'html') {
-         $s_local =~  s/^(\S{20}).*$/\1.../;
-  	     $s_domain =~  s/^(\S{20}).*$/\1.../;
-  	   }
-  	}
-        my $text_from = $spam->{'sender'};
-  	my $s_subject = $spam->{'M_subject'};
-        my $text_subject = $spam->{'M_subject'};
-
-        my $decoded = eval { decode("MIME-Header", $s_subject); };
-        if ($decoded) {
-            $decoded =~ s/^(.{100}).*$/\1.../;
-            my $encoded = encode("utf8", $decoded);
-            $text_subject = $decoded;
-
-            $decoded =~ s/^(.{50}).*$/\1.../;
-            $encoded = encode("utf8", $decoded);
-            $s_subject = $encoded;
-        } else {
-          $s_subject =~ s/^(.{50}).*$/\1.../;
-        }
-
-        my $tmpfrom = '';
-        if ($s_local ne '' && $s_domain ne '') {
-           $tmpfrom = $s_local.'@'.$s_domain;
-        }
-        $tmp =~ s/(\_\_|\?\?)FROM(\_\_)?/$tmpfrom/g;
-        $tmp =~ s/(\_\_|\?\?)TEXTFROM(\_\_)?/$text_from/g;
-  	$tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$spam->{exim_id}/g;
-  	$tmp =~ s/(\_\_|\?\?)SUBJECT(\_\_)?/$s_subject/g;
-        $tmp =~ s/(\_\_|\?\?)TEXTSUBJECT(\_\_)?/$text_subject/g;
-
-    my $spamdate = DateTime->new(
-                'year' => $spam->{'M_y'}, 'month' => $spam->{'M_m'}, 'day' => $spam->{'M_d'},
-                'hour' => $spam->{'T_h'}, 'minute' =>  $spam->{'T_m'}, 'second' =>  $spam->{'T_s'}
-                );
-    $spamdate->set_locale($lang);
-    my $strdate = Encode::encode('UTF-8', $spamdate->strftime("%c"));
-
-  	$tmp =~ s/\_\_SINGLEDATE\_\_/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'}/g;
-    $tmp =~ s/\_\_SINGLETIME\_\_/$spam->{'time_in'}/g;
-    $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
-    $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$spam->{'to_user'}\@$spam->{'to_domain'}/g;
-
-    if ($spam->{'is_newsletter'} > 0) {
-        my %titles = (
-            de => "Diese Newsletter annehmen",
-            en => "Accept this newsletter",
-            es => "Acepte este Newsletter",
-            fr => "Accepter cette newsletter",
-            it => "Accept this newsletter",
-            nb_NO => "Godta dette Newsletter",
-        );
-
-        my $newsletter;
-        if ($temp_id eq 'owasp') {
-            $newsletter = "<li><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/a><\/li>";
-        } else {
-            $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
-        }
-        $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
-
-        my $newsletter_txt = "$titles{$lang}: __FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}";
-        $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
-    } else {
-        my $newsletter;
-        if ($temp_id eq 'owasp') {
-            $newsletter = "<li><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/li>";
-        } else {
-            $newsletter = "<td style=\"width:26;border:0;\"><span><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/td>";
-        }
-        $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
-
-        my $newsletter_txt = "";
-        $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
     }
 
+    my $gscore = "";
+    my $score = $item->{'M_globalscore'};
+    for (my $i=1; $i < 5; $i++) {
+      if ($score >= $i) {
+  	$gscore .= $bullet_filled;
+      } else {
+  	$gscore .= $bullet_empty;
+      }
+    }
+    if ($score > 4 || $score < 0) {
+      $score = 4;
+    }
+    my $pictoscore = $template->getDefaultValue("SCORE".$score);
 
+    my $s_local = "";
+    my $s_domain = "";
+    if ($item->{'sender'} =~ /^(\S+)\@(\S+)$/) {
+      $s_local = $1;
+      $s_domain = $2;
+      if ($type eq 'html') {
+        $s_local =~  s/^(\S{20}).*$/\1.../;
+  	$s_domain =~  s/^(\S{20}).*$/\1.../;
+      }
+    }
 
-  	$tmp =~ s/\_\_SCORE\_\_/$gscore/g;
-  	$tmp =~ s/\_\_SCOREPICTO\_\_/$pictoscore/g;
-  	$tmp =~ s/(\_\_|\?\?)STOREID(\_\_)?/$spam->{'store_slave'}/g;
-  	$tmp =~ s/(\_\_|\?\?)DATE(\_\_)?/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'} $spam->{'time_in'}/g;
-  	if ($i++ % 2) {
+    my $text_from = $item->{'sender'};
+    my $s_subject = $item->{'M_subject'};
+    my $text_subject = $item->{'M_subject'};
+
+    my $decoded = eval { decode("MIME-Header", $s_subject); };
+    if ($decoded) {
+       $decoded =~ s/^(.{100}).*$/\1.../;
+       my $encoded = encode("utf8", $decoded);
+       $text_subject = $decoded;
+       $decoded =~ s/^(.{50}).*$/\1.../;
+       $encoded = encode("utf8", $decoded);
+       $s_subject = $encoded;
+    } else {
+     $s_subject =~ s/^(.{50}).*$/\1.../;
+    }
+
+    my $tmpfrom = '';
+    if ($s_local ne '' && $s_domain ne '') {
+      $tmpfrom = $s_local.'@'.$s_domain;
+    }
+    $tmp =~ s/(\_\_|\?\?)NEWSLETTER(\_\_)?//g;
+    $tmp =~ s/(\_\_|\?\?)FROM(\_\_)?/$tmpfrom/g;
+    $tmp =~ s/(\_\_|\?\?)TEXTFROM(\_\_)?/$text_from/g;
+    $tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$item->{exim_id}/g;
+    $tmp =~ s/(\_\_|\?\?)SUBJECT(\_\_)?/$s_subject/g;
+    $tmp =~ s/(\_\_|\?\?)TEXTSUBJECT(\_\_)?/$text_subject/g;
+
+    my $itemdate = DateTime->new(
+      'year' => $item->{'M_y'}, 'month' => $item->{'M_m'}, 'day' => $item->{'M_d'},
+      'hour' => $item->{'T_h'}, 'minute' =>  $item->{'T_m'}, 'second' =>  $item->{'T_s'}
+    );
+    $itemdate->set_locale($lang);
+    my $strdate = Encode::encode('UTF-8', $itemdate->strftime("%c"));
+
+    $tmp =~ s/\_\_SINGLEDATE\_\_/$item->{'M_d'}-$item->{'M_m'}-$item->{'M_y'}/g;
+    $tmp =~ s/\_\_SINGLETIME\_\_/$item->{'time_in'}/g;
+    $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
+    my $tmprcpt = uri_escape($item->{'to_user'}.'@'.$item->{'to_domain'});
+    if ($item->{'is_newsletter'} > 0) {
+      $tmprcpt .= '&n=1';
+    }
+    $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$tmprcpt/g;
+    $tmp =~ s/\_\_SCORE\_\_/$gscore/g;
+    $tmp =~ s/\_\_SCOREPICTO\_\_/$pictoscore/g;
+    $tmp =~ s/(\_\_|\?\?)STOREID(\_\_)?/$item->{'store_slave'}/g;
+    $tmp =~ s/(\_\_|\?\?)DATE(\_\_)?/$item->{'M_d'}-$item->{'M_m'}-$item->{'M_y'} $item->{'time_in'}/g;
+    if ($i++ % 2) {
       $tmp =~ s/__ALTCOLOR__(\S{7})/$1/g;
     } else {
       $tmp =~ s/\ bgcolor=\"__ALTCOLOR__\S{7}\"//g;
     }
-
-  	$ret .= $tmp;
+    if ($item->{'is_newsletter'} > 0) {
+      $newsblock .= $tmp;
+    } else {
+      $spamblock .= $tmp;
+    }
   }
 
-    return $ret;
+  if ($newsblock) {
+    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Newsletters</b></div></th></tr>';
+    $ret .= $newsblock;
+  }
+  if ($spamblock) {
+    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Spam</b></div></th></tr>';
+    $ret .= $spamblock;
+  }
+  return $ret;
+
 }

@@ -24,7 +24,7 @@
     }
   </script>
   </head>
-<body onload="javascript:parentLoadSearch();disableCloseButton();">
+  <body onload="javascript:parentLoadSearch();disableCloseWithoutReferrer();">
 
 <div id="container">
 <form  id="input" method="post" action="">
@@ -37,7 +37,7 @@
  </div>
 
  <div id="buttons">
-   <input type="button" class="button" id="close" onclick="javascript:closeMe();" value="__LANG_CLOSE__" />
+   __ACTIONS__<input type="button" class="button" id="close" onclick="javascript:closeMe();" value="__LANG_CLOSE__" />
  </div>
 </form>
 </div>

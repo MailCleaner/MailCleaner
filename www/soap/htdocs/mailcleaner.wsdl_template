@@ -138,11 +138,25 @@
 <message name='forceSpamResponse'>
   <part name='Result' type='xsd:string'/>
 </message>
-<message name='addNewsletterToWhitelistRequest'>
+<message name='addToNewslistRequest'>
   <part name='dest' type='xsd:string'/>
   <part name='sender' type='xsd:string'/>
 </message>
-<message name='addNewsletterToWhitelistResponse'>
+<message name='addToNewslistResponse'>
+  <part name='Result' type='xsd:string'/>
+</message>
+<message name='addToWhitelistRequest'>
+  <part name='dest' type='xsd:string'/>
+  <part name='sender' type='xsd:string'/>
+</message>
+<message name='addToWhitelistResponse'>
+  <part name='Result' type='xsd:string'/>
+</message>
+<message name='addToBlacklistRequest'>
+  <part name='dest' type='xsd:string'/>
+  <part name='sender' type='xsd:string'/>
+</message>
+<message name='addToBlacklistResponse'>
   <part name='Result' type='xsd:string'/>
 </message>
 <message name='getReasonsRequest'>
@@ -303,9 +317,17 @@
     <input message='tns:forceSpamRequest'/>
     <output message='tns:forceSpamResponse'/>
   </operation>
-  <operation name='addNewsletterToWhitelist'>
-    <input message='tns:addNewsletterToWhitelistRequest'/>
-    <output message='tns:addNewsletterToWhitelistResponse'/>
+  <operation name='addToNewslist'>
+    <input message='tns:addToNewslistRequest'/>
+    <output message='tns:addToNewslistResponse'/>
+  </operation>
+  <operation name='addToWhitelist'>
+    <input message='tns:addToWhitelistRequest'/>
+    <output message='tns:addToWhitelistResponse'/>
+  </operation>
+  <operation name='addToBlacklist'>
+    <input message='tns:addToBlacklistRequest'/>
+    <output message='tns:addToBlacklistResponse'/>
   </operation>
   <operation name='getReasons'>
     <input message='tns:getReasonsRequest'/>
@@ -447,8 +469,30 @@
         encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
     </output>
   </operation>
-  <operation name='addNewsletterToWhitelist'>
-    <soap:operation soapAction='urn:localhost-mailcleaner#addNewsletterToWhitelist'/>
+  <operation name='addToNewslist'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#addToNewslist'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='addToWhitelist'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#addToWhitelist'/>
+    <input>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </input>
+    <output>
+      <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
+        encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+    </output>
+  </operation>
+  <operation name='addToBlacklist'>
+    <soap:operation soapAction='urn:localhost-mailcleaner#addToBlacklist'/>
     <input>
       <soap:body use='encoded' namespace='urn:localhost-mailcleaner'
         encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>

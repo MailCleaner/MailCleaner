@@ -176,7 +176,7 @@ __DEFAULT__ FORCED_IMG = images/released_off.png
 
  __TMPL_QUARANTINE_START__
 <tr class="quarantine_content __FORCEDCLASS__" onmouseover="highlightActionIcon('__ROW_ID__', __FORCED__, ''); return true;" onmouseout="highlightActionIcon('__ROW_ID__', __FORCED__, '_off'); return true;">
-  <td class="c_action"><a href="javascript:force('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="__FORCE_ICON__" id="r__ROW_ID__" alt="release" /></a>
+  <td class="c_action"><a href="javascript:force('__MSG_ID__','__STORE_ID__', '__TO__', '__NEWS__');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="__FORCE_ICON__" id="r__ROW_ID__" alt="release" /></a>
 <a href="javascript:infos('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="images/info_off.png" id="v__ROW_ID__" class="middleactionincon" alt="info" /></a>
 <a href="javascript:analyse('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'sa', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="images/analyse_off.png" id="a__ROW_ID__" alt="analyse" /></a></td>
   <td onclick="javascript:infos('__MSG_ID__','__STORE_ID__', '__TO__');">__DATE__&nbsp;&nbsp;&nbsp;__TIME__</td>

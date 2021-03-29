@@ -67,8 +67,8 @@ function highlightActionIcon(img_row, forced, img_ext) {
   elem.src = img_src3;
 }
 
-function force(msgid, storeid, to) {
-  window.open('fm.php?a='+ encodeURIComponent(to) +'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up', '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
+function force(msgid, storeid, to, news, spam) {
+  window.open('fm.php?a='+ encodeURIComponent(to) +'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up&n='+news, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
 }
 
 function summary() {
