@@ -1,4 +1,4 @@
-Temat: Raport kwarantanny MailCleaner
+Subject: Raport kwarantanny MailCleaner
 Cześć,
 
 To jest raport Mailcleaner z ostatnich ??NBDAYS dnia/dni.

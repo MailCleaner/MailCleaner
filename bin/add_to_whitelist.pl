@@ -36,29 +36,29 @@ my %config = readConfig("/etc/mailcleaner.conf");
 my $dest = shift;
 my $sender = shift;
 if (not isValidEmail($dest)){
-    die("DESTNOTVALID");
+    err("DESTNOTVALID");
 }
 if (not isValidEmail($sender)){
-    die("SENDERNOTVALID");
+    err("SENDERNOTVALID");
 }
 
-my $dbh = DB::connect('master', 'mc_config') || die("CANNOTCONNECTDB\n");
+my $dbh = DB::connect('master', 'mc_config') || err("CANNOTCONNECTDB");
 
 # Remove content after plus in address so that rule applies to base address
 $dest =~ s/([^\+]+)\+([^\@]+)\@(.*)/$1\@$3/;
 
 # WWLists don't have unique indexes, check for duplicate first
-my $sth = $dbh->prepare("SELECT * FROM wwlists WHERE sender = ? AND recipient = ? AND type = 'white'") || die("CANNOTSELECTDB\n");
+my $sth = $dbh->prepare("SELECT * FROM wwlists WHERE sender = ? AND recipient = ? AND type = 'white'") || err("CANNOTSELECTDB");
 $sth->execute($sender, $dest);
 if ($sth->fetchrow_arrayref()) {
-    die("DUPLICATEENTRY\n");
+    err("DUPLICATEENTRY");
 }
 
 $sth = $dbh->prepare("INSERT INTO wwlists (sender, recipient, type, expiracy, status, comments)
     values (?, ?, 'white', '0000-00-00', 1, '[Whitelist]')");
 $sth->execute($sender, $dest);
 unless ($sth->rows() > 0) {
-    die("CANNOTINSERTDB\n");
+    err("CANNOTINSERTDB");
 }
 
 print("OK");
@@ -79,7 +79,7 @@ sub readConfig
         my %config;
         my ($var, $value);
 
-        open CONFIG, $configfile or die "Cannot open $configfile: $!\n";
+        open CONFIG, $configfile || err("CONFIGREADFAIL");
         while (<CONFIG>) {
                 chomp;                  # no newline
                 s/#.*$//;                # no comments
@@ -93,4 +93,11 @@ sub readConfig
         }
         close CONFIG;
         return %config;
+}
+
+sub err
+{
+	my $err = shift || "UNKNOWNERROR";
+	print $err . "\n";
+        exit(1);
 }
