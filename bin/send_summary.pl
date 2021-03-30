@@ -3,6 +3,7 @@
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
 #   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -122,6 +123,9 @@ foreach my $a (@addresses) {
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
   my $temp_id = $domain->getPref('summary_template');
+  if (! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id) {
+    $temp_id = 'default';
+  }
   # In case of missing translation for summaries
   if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id."/$lang") {
     $lang = 'en';
@@ -428,12 +432,34 @@ sub getQuarantineTemplate {
     }
   }
 
+  my %lang_news = (
+    'de' => 'Newslettern',
+    'en' => 'Newsletters',
+    'es' => 'Boletines Informativos',
+    'fr' => 'Newsletters',
+    'it' => 'Newsletter',
+    'nb_NO' => 'Nyhetsbrev',
+    'nl' => 'Nieuwsbrieven',
+    'pl' => 'Biuletynów'
+  ); 
+
+  my %lang_spam = (
+    'de' => 'Spam',
+    'en' => 'Spam',
+    'es' => 'Spam',
+    'fr' => 'Spam',
+    'it' => 'Spam',
+    'nb_NO' => 'Spam',
+    'nl' => 'Spam',
+    'pl' => 'Spamu'
+  ); 
+
   if ($newsblock) {
-    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Newsletters</b></div></th></tr>';
+    $ret .= '<tr id="news"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_news{$lang})) ? $lang_news{$lang} : 'Newsletters' ) . '</b></div></th></tr>';
     $ret .= $newsblock;
   }
   if ($spamblock) {
-    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Spam</b></div></th></tr>';
+    $ret .= '<tr id="spam"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_spam{$lang})) ? $lang_spam{$lang} : 'Spam' ) . '</b></div></th></tr>';
     $ret .= $spamblock;
   }
   return $ret;

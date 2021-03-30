@@ -330,7 +330,7 @@ $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
+$txt['BADARGS'] = "Internal MailCleaner error (__PARAM__). Please contact your system administrator with details of the problem.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
 $txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
@@ -497,43 +497,61 @@ $txt['RECORDALREADYEXISTS'] = "This address is already present in the list.";
 $txt['SESSIONTERMINATED'] = "Your session ended.";
 $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this link: <a href=\"__PARAM__\" >__PARAM__</a>";
 /*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Failed to load message (it may no longer exist).";
+$txt['CANNOTCONNECTDB'] = "Failed to connect to database.";
+$txt['CANNOTSELECTDB'] = "Failed to search database.";
+$txt['CANNOTINSERTDB'] = "Failed to insert into database.";
+$txt['CONFIGREADFAIL'] = "Failed to read configuration file.";
+$txt['DUPLICATEENTRY'] = "A duplicate entry already exists.";
+$txt['DESTNOTVALID'] = "Invalid destination address.";
+$txt['SENDERNOTVALID'] = "Invalid sender address.";
+$txt['UNKNOWNERROR'] = "An unknown error has occured.";
+/*
  * Newsletters release
  */
 $txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
 $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message.";
 /*
  * Newsletter rule
  */
+$txt['ADDNEWSLIST'] = "Accept all future newsletters from the same sender?";
 $txt['NEWSLISTHEAD'] = "Newslist rule has been added.";
 $txt['NEWSLISTBODY'] = "A newsletter whitelist rule has been added. Future messages from this sender will not be flagged if detected as a newsletter.";
 $txt['NOTNEWSLISTHEAD'] = "Newslist rule has not been added.";
-$txt['NOTNEWSLISTBODY'] = "There was a problem adding the newsletter whitelist. Please try again later.";
+$txt['NOTNEWSLISTBODY'] = "There was a problem adding the newsletter whitelist.";
 /*
  * Whitelist rule
  */
+$txt['ADDWHITELIST'] = "Whitelist all future spams from the same sender?";
 $txt['WHITELISTHEAD'] = "Whitelist rule has been added.";
 $txt['WHITELISTBODY'] = "A whitelist rule has been added. Future messages from this sender will not be flagged if detected as a spam.";
 $txt['NOTWHITELISTHEAD'] = "Whitelist rule has not been added.";
-$txt['NOTWHITELISTBODY'] = "There was a problem adding the whitelist. Please try again later.";
+$txt['NOTWHITELISTBODY'] = "There was a problem adding the whitelist.";
 /*
  * Newslist and Whitelist rule
  */
+$txt['ADDNEWSWHITELIST'] = "Accept all future newsletters from the same sender? Also whitelist all spam messages from this sender?";
+$txt['ADDWHITENEWSLIST'] = "Whitelist all future spams from the same sender? Also accept any newsletters from this sender?";
 $txt['NEWSWHITELISTHEAD'] = "Newslist and whitelist rules have been added.";
 $txt['NEWSWHITELISTBODY'] = "A newslist and whitelist rule have been added. Future messages from this sender will not be flagged if detected as a newsletter or a spam.";
 $txt['NEWSNOTWHITEHEAD'] = "Newslist has been added but whitelist has not.";
-$txt['NEWSNOTWHITEBODY'] = "A newsletter whitelist rule has been added, however, there was a problem adding the whitelist rule. Please try again later.";
+$txt['NEWSNOTWHITEBODY'] = "A newsletter rule has been added, however, there was a problem adding the whitelist rule.";
 $txt['WHITENOTNEWSHEAD'] = "Whitelist has been added but newslist has not.";
-$txt['WHITENOTNEWSBODY'] = "A whitelist rule has been added, however, there was a problem adding the newsletter whitelist rule. Please try again later.";
+$txt['WHITENOTNEWSBODY'] = "A whitelist rule has been added, however, there was a problem adding the newsletter whitelist rule.";
 $txt['NOTNEWSWHITEHEAD'] = "Neither newslist nor whitelist rule have not been added.";
-$txt['NOTNEWSWHITEBODY'] = "There was a problem adding these rules. Please try again later.";
+$txt['NOTNEWSWHITEBODY'] = "There was a problem adding these rules.";
 /*
  * Blacklist rule (not currently implemented)
  */
+$txt['ADDBLACKLIST'] = "Blacklist all future mail from the same sender?";
 $txt['BLACKLISTHEAD'] = "Blacklist rule has been added.";
 $txt['BLACKLISTBODY'] = "A blacklist rule has been added. Future messages from this sender will always be flagged as a spam.";
 $txt['NOTBLACKLISTHEAD'] = "Blacklist rule has not been added.";
-$txt['NOTBLACKLISTBODY'] = "There was a problem adding the blacklist. Please try again later.";
+$txt['NOTBLACKLISTBODY'] = "There was a problem adding the blacklist.";
 //
+$txt['ADDITIONALACTION'] = "Additional actions:";
 $txt['ADDRULE'] = "Adding WWList rule";
