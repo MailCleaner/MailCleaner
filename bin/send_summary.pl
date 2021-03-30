@@ -3,6 +3,7 @@
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
 #   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -122,6 +123,9 @@ foreach my $a (@addresses) {
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
   my $temp_id = $domain->getPref('summary_template');
+  if (! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id) {
+    $temp_id = 'default';
+  }
   # In case of missing translation for summaries
   if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id."/$lang") {
     $lang = 'en';
@@ -333,7 +337,28 @@ sub getQuarantineTemplate {
 
   use URI::Escape;
 
-  # SPAM
+  my %lang_news = (
+    'de' => 'Newsletter',
+    'en' => 'Newsletter',
+    'es' => 'Boletin Informativo',
+    'fr' => 'Newsletter',
+    'it' => 'Newsletter',
+    'nb_NO' => 'Nyhetsbrev',
+    'nl' => 'Nieuwsbrief',
+    'pl' => 'Biuletyn'
+  );
+
+  my %lang_spam = (
+    'de' => 'Spam',
+    'en' => 'Spam',
+    'es' => 'Spam',
+    'fr' => 'Spam',
+    'it' => 'Spam',
+    'nb_NO' => 'Spam',
+    'nl' => 'Spam',
+    'pl' => 'Spamu'
+  );
+
   my $spamblock = '';
   my $newsblock = '';
   foreach my $item (@{$spams}) {
@@ -343,6 +368,10 @@ sub getQuarantineTemplate {
   	  foreach my $key (keys %{$item}) {
   	    $item->{$key} = encode_entities($item->{$key});
   	  }
+    } else {
+      if ($item->{'is_newsletter'} > 0) {
+        $tmp =~ s/((\_\_|\?\?)ID(\_\_)?)/$1 ($lang_news{$lang})/;
+      }
     }
 
     my $gscore = "";
@@ -390,7 +419,7 @@ sub getQuarantineTemplate {
     if ($s_local ne '' && $s_domain ne '') {
       $tmpfrom = $s_local.'@'.$s_domain;
     }
-    $tmp =~ s/(\_\_|\?\?)NEWSLETTER(\_\_)?//g;
+    $tmp =~ s/(\_\_|\?\?)NEWSLETTER(_TXT)?(\_\_)?//g;
     $tmp =~ s/(\_\_|\?\?)FROM(\_\_)?/$tmpfrom/g;
     $tmp =~ s/(\_\_|\?\?)TEXTFROM(\_\_)?/$text_from/g;
     $tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$item->{exim_id}/g;
@@ -412,6 +441,7 @@ sub getQuarantineTemplate {
       $tmprcpt .= '&n=1';
     }
     $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$tmprcpt/g;
+    $tmp =~ s/(\_\_|\?\?)ADDRESS(\_\_)?/$tmprcpt/g;
     $tmp =~ s/\_\_SCORE\_\_/$gscore/g;
     $tmp =~ s/\_\_SCOREPICTO\_\_/$pictoscore/g;
     $tmp =~ s/(\_\_|\?\?)STOREID(\_\_)?/$item->{'store_slave'}/g;
@@ -421,19 +451,23 @@ sub getQuarantineTemplate {
     } else {
       $tmp =~ s/\ bgcolor=\"__ALTCOLOR__\S{7}\"//g;
     }
-    if ($item->{'is_newsletter'} > 0) {
+    if ($item->{'is_newsletter'} > 0 && $type eq 'html') {
       $newsblock .= $tmp;
     } else {
       $spamblock .= $tmp;
     }
   }
 
-  if ($newsblock) {
-    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Newsletters</b></div></th></tr>';
-    $ret .= $newsblock;
-  }
-  if ($spamblock) {
-    $ret .= '<tr><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>Spam</b></div></th></tr>';
+  if ($type eq 'html') {
+    if ($newsblock) {
+      $ret .= '<tr id="news"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_news{$lang})) ? $lang_news{$lang} : 'Newsletters' ) . '</b></div></th></tr>';
+      $ret .= $newsblock;
+    }
+    if ($spamblock) {
+      $ret .= '<tr id="spam"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_spam{$lang})) ? $lang_spam{$lang} : 'Spam' ) . '</b></div></th></tr>';
+      $ret .= $spamblock;
+    }
+  } else {
     $ret .= $spamblock;
   }
   return $ret;
