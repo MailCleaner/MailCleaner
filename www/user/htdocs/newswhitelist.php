@@ -5,7 +5,7 @@
  * @author John Mertz
  * @copyright 2021, MailCleaner
  *
- * This is the controler for the newsletter and whitelist page
+ * This is the controler for the newslist + whitelist page
  */
 
 
@@ -80,24 +80,18 @@ function get_master_soap_host() {
  * @param array $allowed_response Authorized responses
  * @return bool Status of the request. If True, everything went well
  */
-function send_SOAP_request($host, $request, $params, $allowed_response) {
+function send_SOAP_request($host, $request, $params) {
     $soaper = new Soaper();
     $ret = @$soaper->load($host);
-    if ($ret != "OK") {
-        return False;
+    if ($ret == "OK") {
+        return $soaper->queryParam($request, $params);
     } else {
-        $res = $soaper->queryParam($request, $params);
-        if (! in_array($res, $allowed_response)) {
-            return False;
-        }
-        return True;
+        return "FAILEDCONNMASTER";
     }
 }
 
 // get the global objects instances
 $lang_ = Language::getInstance('user');
-
-$bad_arg = False;
 
 // set the language from what is passed in url
 if (isset($_GET['lang'])) {
@@ -111,10 +105,10 @@ if (isset($_GET['l'])) {
 
 
 // Cheking if the necessary arguments are here
-$in_args = array($_GET['id'], $_GET['a']);
+$in_args = array('id', 'a');
 foreach ($in_args as $arg) {
-    if (! isset($arg)){
-        $bad_arg = True;
+    if (!isset($_GET[$arg])){
+        $bad_arg = $arg;
     }
 }
 
@@ -124,77 +118,69 @@ foreach ($in_args as $arg) {
 $exim_id = $_GET['id'];
 $dest = $_GET['a'];
 
-if (!$bad_arg) {
+if (!isset($bad_arg)) {
 
     // Get the Spam mail
     $spam_mail = new Spam();
     $spam_mail->loadDatas($exim_id, $dest);
-    $spam_mail->loadHeadersAndBody();
+    if (!$spam_mail->loadHeadersAndBody()) {
+        $is_sender_added_to_news = $lang_->print_txt('CANNOTLOADMESSAGE');
+        $is_sender_added_to_wl = $lang_->print_txt('CANNOTLOADMESSAGE');
+    } else {
 
+        // Get both sender and from addresses
+        $sender = get_sender_address($spam_mail);
+        $sender_body = get_sender_address_body($spam_mail);
 
-    // Get both sender and from addresses
-    $sender_body = get_sender_address_body($spam_mail);
-    $sender = get_sender_address($spam_mail);
+        $slave = get_soap_host($exim_id, $dest);
+        $master = get_master_soap_host();
 
-    $slave = get_soap_host($exim_id, $dest);
-    $master = get_master_soap_host();
+        $is_sender_added_to_news = send_SOAP_request(
+            $master,
+            "addToNewslist",
+            array($dest, $sender_body)
+        );
+        if ($is_sender_added_to_news != 'OK') {
+            $is_sender_added_to_news = $lang_->print_txt($is_sender_added_to_news);
+        }
 
-    $is_sender_body_added_to_news = send_SOAP_request(
-        $master,
-        "addToNewslist",
-        array($dest, $sender_body),
-        array("OK", "DUPLICATEENTRY")
-    );
-
-    $is_sender_added_to_news = send_SOAP_request(
-        $master,
-        "addToNewslist",
-        array($dest, $sender),
-        array("OK", "DUPLICATEENTRY")
-    );
-
-    $is_sender_body_added_to_wl = send_SOAP_request(
-        $master,
-        "addToWhitelist",
-        array($dest, $sender_body),
-        array("OK", "DUPLICATEENTRY")
-    );
-
-    $is_sender_added_to_wl = send_SOAP_request(
-        $master,
-        "addToWhitelist",
-        array($dest, $sender),
-        array("OK", "DUPLICATEENTRY")
-    );
+        $is_sender_added_to_wl = send_SOAP_request(
+            $master,
+            "addToWhitelist",
+            array($dest, $sender)
+        );
+        if ($is_sender_added_to_wl != 'OK') {
+            $is_sender_added_to_wl = $lang_->print_txt($is_sender_added_to_wl);
+        }
+    }
 
 } else {
-    $is_sender_added_to_news = False;
-    $is_sender_body_added_to_news = False;
-    $is_sender_added_to_wl = False;
-    $is_sender_body_added_to_wl = False;
-}
-
-// Setting the page text
-if ( ( $is_sender_body_added_to_news || $is_sender_added_to_news ) && ( $is_sender_body_added_to_wl || $is_sender_added_to_wl ) ) {
-    $message_head = "NEWSWHITELISTHEAD";
-    $message = "NEWSWHITELISTBODY";
-} elseif ( $is_sender_body_added_to_news || $is_sender_added_to_news ) {
-    $message_head = "NEWSNOTWHITEHEAD";
-    $message = "NEWSNOTWHITEBODY";
-} elseif ( $is_sender_body_added_to_wl || $is_sender_added_to_wl ) {
-    $message_head = "WHITENOTNEWSHEAD";
-    $message = "WHITENOTNEWSBODY";
-} else {
-    $message_head = "NOTNEWSWHITEHEAD";
-    $message = "NOTNEWSWHITEBODY";
+    $is_sender_added_to_news = $lang_->print_txt_param('BADARGS', $bad_arg);
+    $is_sender_added_to_wl = $lang_->print_txt_param('BADARGS', $bad_arg);
 }
 
 // Parse the template
 $template_ = new Template('add_rule.tmpl');
-$replace = array(
-    '__HEAD__' => $lang_->print_txt($message_head),
-    '__MESSAGE__' => $lang_->print_txt($message),
-);
+$replace = array();
+
+// Setting the page text
+if ($is_sender_added_to_wl == 'OK' && $is_sender_added_to_wl == 'OK') {
+    $replace['__HEAD__'] = $lang_->print_txt('NEWSWHITEHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('NEWSWHITEBODY');
+} elseif ($is_sender_added_to_news == 'OK') {
+    $replace['__HEAD__'] = $lang_->print_txt('NEWSNOTWHITEHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('NEWSNOTWHITEBODY') . ' ' . $is_sender_added_to_wl;
+} elseif ($is_sender_added_to_wl == 'OK') {
+    $replace['__HEAD__'] = $lang_->print_txt('WHITENOTNEWSHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('WHITENOTNEWSBODY') . ' ' . $is_sender_added_to_news;
+} else {
+    $replace['__HEAD__'] = $lang_->print_txt('NOTNEWSWHITEHEAD');
+    if ($is_sender_added_to_news == $is_sender_added_to_wl) {
+        $replace['__MESSAGE__'] = $lang_->print_txt('NOTNEWSWHITEBODY') . ' ' . $is_sender_added_to_news;
+    } else {
+        $replace['__MESSAGE__'] = $lang_->print_txt('NOTNEWSWHITEBODY') . ' ' . $lang_->print_txt('NEWSLISTTOPIC') . ': ' . $is_sender_added_to_news . ' ' . $lang_->print_txt('WHITELISTTOPIC') . ': ' . $is_sender_added_to_wl;
+    }
+}
 
 // display page
 $template_->output($replace);
