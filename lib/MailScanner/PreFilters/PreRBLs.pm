@@ -162,7 +162,7 @@ sub Checks {
       ($data, $hitcount, $header) = $PreRBLs::dnslists->check_dns($message->{clientip}, 'IPRBL', "$MODULE (".$message->{id}.")", $PreRBLs::conf{spamhits});
       $dnshitcount = $hitcount;
       $wholeheader .= ','.$header;
-      if ($PreRBLs::conf{spamhits} && $dnshitcount >= $PreRBLs::conf{spamhits}) {
+      if ($PreRBLs::conf{spamhits} && $dnshitcount >= $PreRBLs::conf{spamhits} && $PreRBLs::conf{'pos_decisive'} == 1) {
   	  $continue = 0;
   	  $message->{isspam} = 1;
   	  $message->{isrblspam} = 1;
@@ -175,7 +175,7 @@ sub Checks {
     ($data, $hitcount, $header) = $PreRBLs::dnslists->check_dns($senderdomain, 'DNSRBL', "$MODULE (".$message->{id}.")", $PreRBLs::conf{spamhits});
     $dnshitcount += $hitcount;
     $wholeheader .= ','.$header;
-    if ($PreRBLs::conf{spamhits} && $dnshitcount >= $PreRBLs::conf{spamhits}) {
+    if ($PreRBLs::conf{spamhits} && $dnshitcount >= $PreRBLs::conf{spamhits} && $PreRBLs::conf{'pos_decisive'} == 1) {
       $continue = 0;
       $message->{isspam} = 1;
       $message->{isrblspam} = 1;
@@ -189,7 +189,7 @@ sub Checks {
     ($data, $hitcount, $header) = $PreRBLs::dnslists->check_dns($message->{clientip}, 'BSRBL', "$MODULE (".$message->{id}.")", $PreRBLs::conf{spamhits}, $PreRBLs::conf{bsspamhits});
     $bsdnshitcount = $hitcount;
     $wholeheader .= ','.$header;
-    if ($PreRBLs::conf{bsspamhits} && $bsdnshitcount >= $PreRBLs::conf{bsspamhits}) {
+    if ($PreRBLs::conf{bsspamhits} && $bsdnshitcount >= $PreRBLs::conf{bsspamhits} && $PreRBLs::conf{'pos_decisive'} == 1) {
       $continue = 0;
       $message->{isspam} = 1;
       $message->{isrblspam} = 1;
