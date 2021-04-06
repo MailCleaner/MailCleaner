@@ -68,14 +68,20 @@ $can_whitelist = ( $domain->getPref('enable_whitelists') || (($domain->getPref('
 
 // Enumerate permitted action buttons
 if (isset($_GET['n']) && $_GET['n'] == 1) {
-  $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newslist" onclick="location = \'/newslist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . '"></input>';
+  $replace['__MESSAGE__'] .= '<hr style="font-size: 35px;" /><p><b>' . $lang_->print_txt('ADDITIONALACTION') . '</b></p>';
+  $news = '<input type="button" class="button" id="newslist" onclick="location = \'/newslist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . '"></input>';
   if ($can_whitelist) {
-  $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . ' + ' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSWHITELIST') . '</p>';
+    $news .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . ' + ' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+  } else {
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSLIST') . '</p>';
   }
+  $replace['__ACTIONS__'] .= $news;
 } else {
   if ($can_whitelist) {
-    $replace['__ACTIONS__'] .= '<input type="button" class="button" id="whitelist" onclick="location = \'/whitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
-    $replace['__ACTIONS__'] .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . ' + ' . $lang_->print_txt("NEWSLISTTOPIC") . '" />';
+    $replace['__MESSAGE__'] .= '<hr style="font-size: 35px;" /><p><b>' . $lang_->print_txt('ADDITIONALACTION') . '</b></p>';
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDWHITELIST') . '</p>';
+    $replace['__ACTIONS__'] = '<input type="button" class="button" id="whitelist" onclick="location = \'/whitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
   }
 }
 

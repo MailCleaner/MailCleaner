@@ -5,7 +5,7 @@
  * @author John Mertz
  * @copyright 2021, MailCleaner
  *
- * This is the controler for the blacklist
+ * This is the controler for the blacklist page
  */
 
 
@@ -19,24 +19,6 @@ require_once('user/WWEntry.php');
 require_once('user/Spam.php');
 require_once('view/Template.php');
 require_once('system/Soaper.php');
-
-/**
- * Gets the sender (From of the body) of the email with a given Spam object
- * @param Spam object $spam_mail The mail concerned
- * @return string The from email address of the sender of the email
- */
-function get_sender_address_body($spam_mail) {
-    // Get the mail sender
-    $headers = $spam_mail->getHeadersArray();
-
-    $sender = array();
-    preg_match('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($headers['From']), $sender);
-
-    if (!empty($sender[1])) {
-        return $sender[1];
-    }
-    return false;
-}
 
 /**
  * Gets the sender (MAIL FROM) of the email with a given Spam object
@@ -80,24 +62,18 @@ function get_master_soap_host() {
  * @param array $allowed_response Authorized responses
  * @return bool Status of the request. If True, everything went well
  */
-function send_SOAP_request($host, $request, $params, $allowed_response) {
+function send_SOAP_request($host, $request, $params) {
     $soaper = new Soaper();
     $ret = @$soaper->load($host);
-    if ($ret != "OK") {
-        return False;
+    if ($ret == "OK") {
+        return $soaper->queryParam($request, $params);
     } else {
-        $res = $soaper->queryParam($request, $params);
-        if (! in_array($res, $allowed_response)) {
-            return False;
-        }
-        return True;
+        return "FAILEDCONNMASTER";
     }
 }
 
 // get the global objects instances
 $lang_ = Language::getInstance('user');
-
-$bad_arg = False;
 
 // set the language from what is passed in url
 if (isset($_GET['lang'])) {
@@ -111,10 +87,10 @@ if (isset($_GET['l'])) {
 
 
 // Cheking if the necessary arguments are here
-$in_args = array($_GET['id'], $_GET['a']);
+$in_args = array('id', 'a');
 foreach ($in_args as $arg) {
-    if (! isset($arg)){
-        $bad_arg = True;
+    if (!isset($_GET[$arg])){
+        $bad_arg = $arg;
     }
 }
 
@@ -124,55 +100,47 @@ foreach ($in_args as $arg) {
 $exim_id = $_GET['id'];
 $dest = $_GET['a'];
 
-if (!$bad_arg) {
+if (!isset($bad_arg)) {
 
     // Get the Spam mail
     $spam_mail = new Spam();
     $spam_mail->loadDatas($exim_id, $dest);
-    $spam_mail->loadHeadersAndBody();
+    if (!$spam_mail->loadHeadersAndBody()) {
+        $is_sender_added_to_bl = $lang_->print_txt('CANNOTLOADMESSAGE');
+    } else {
 
+        // Get both sender and from addresses
+        $sender = get_sender_address($spam_mail);
 
-    // Get both sender and from addresses
-    $sender_body = get_sender_address_body($spam_mail);
-    $sender = get_sender_address($spam_mail);
+        $slave = get_soap_host($exim_id, $dest);
+        $master = get_master_soap_host();
 
-    $slave = get_soap_host($exim_id, $dest);
-    $master = get_master_soap_host();
-
-    $is_sender_body_added_to_bl = send_SOAP_request(
-        $master,
-        "addToBlacklist",
-        array($dest, $sender_body),
-        array("OK", "DUPLICATEENTRY")
-    );
-
-    $is_sender_added_to_bl = send_SOAP_request(
-        $master,
-        "addToBlacklist",
-        array($dest, $sender),
-        array("OK", "DUPLICATEENTRY")
-    );
+        $is_sender_added_to_bl = send_SOAP_request(
+            $master,
+            "addToBlacklist",
+            array($dest, $sender)
+        );
+        if ($is_sender_added_to_bl != 'OK') {
+            $is_sender_added_to_bl = $lang_->print_txt($is_sender_added_to_bl);
+        }
+    }
 
 } else {
-    $is_sender_added_to_bl = False;
-    $is_sender_body_added_to_bl = False;
-}
-
-// Setting the page text
-if ($is_sender_body_added_to_bl || $is_sender_added_to_bl) {
-    $message_head = "NLBLACKLISTHEAD";
-    $message = "NLBLACKLISTBODY";
-} else {
-    $message_head = "NLNOTBLACKLISTHEAD";
-    $message = "NLNOTBLACKLISTBODY";
+    $is_sender_added_to_bl = $lang_->print_txt_param('BADARGS', $bad_arg);
 }
 
 // Parse the template
 $template_ = new Template('add_rule.tmpl');
-$replace = array(
-    '__HEAD__' => $lang_->print_txt($message_head),
-    '__MESSAGE__' => $lang_->print_txt($message),
-);
+$replace = array();
+
+// Setting the page text
+if ($is_sender_added_to_bl == 'OK') {
+    $replace['__HEAD__'] = $lang_->print_txt('BLACKLISTHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('BLACKLISTBODY');
+} else {
+    $replace['__HEAD__'] = $lang_->print_txt('NOTBLACKLISTHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('NOTBLACKLISTBODY') . ' ' . $is_sender_added_to_bl;
+}
 
 // display page
 $template_->output($replace);
