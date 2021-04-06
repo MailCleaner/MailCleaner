@@ -65,13 +65,19 @@ Session.vim
 # auto-generated tag files
 tags
 
-bin/watchdog/
-etc/watchdog/
+bin/watchdog/EE_mod*
+bin/watchdog/CUSTOM_mod*
+bin/watchdog/files.filter
+etc/watchdog/EE_mod*
+etc/watchdog/CUSTOM_mod*
+etc/watchdog/files.filter
+www/guis/admin/public/downloads/watchdogs.html
 etc/rbls/
 share/newsld/siteconfig/
 share/spamassassin/
 etc/autoconf/
 etc/exim/mc_binary/
 updates/
+etc/mailcleaner/version.def
 
 # End of https://www.gitignore.io/api/emacs,vim
