@@ -63,7 +63,7 @@ $txt['MONTH12'] = 'd&eacute;cembre';
  * login page
  */
 $txt['BADLOGIN'] = "Nom d'utilisateur ou mot de passe erron&eacute;.";
-$txt['SESSIONEXPIRED'] = "Pour des raisons de s&eacute;curit&eacute;, votre session MailClenaer a automatiquement expir&eacute;.";
+$txt['SESSIONEXPIRED'] = "Session expirée.";
 $txt['LOGININFO'] = "Rappel : votre nom d'utilisateur et mot de passe sont ceux de votre compte de courriel";
 $txt['USERNAME'] = "Utilisateur";
 $txt['PASSWORD'] = "Mot de passe";
@@ -423,9 +423,9 @@ $txt['WAITINGCONFIRMATION'] = "en attente de confirmation";
 /*
  * addresses settings (new)
  */
-$txt['ADDPARAMSHORTHELP'] = "Le mode de filtrage de MailCleaner est personnalisable pour chacune de vos adresses ou alias. Consultez le manuel de l'utilisateur (disponible dans la section <a href=\"help.php\">\"Aide\"</a>) pour une description pr&eacute;cise des diff&eacute;rents types de filtrage.";
-$txt['FOREACHSPAMDO'] = "Pour chaque message consid&eacute;r&eacute; comme spam :";
-$txt['FOREACHNEWSLETTERDO'] = "Pour chaque message consid&eacute;r&eacute; comme newsletter :";
+$txt['ADDPARAMSHORTHELP'] = "Le mode de filtrage de MailCleaner est personnalisable pour chacune de vos adresses ou alias. Consultez le manuel de l'utilisateur (disponible dans la section <a href=\"help.php\">« Aide »</a>) pour une description pr&eacute;cise des diff&eacute;rents types de filtrage.";
+$txt['FOREACHSPAMDO'] = "Pour chaque message consid&eacute;r&eacute; comme indésirable :";
+$txt['FOREACHNEWSLETTERDO'] = "Pour chaque message consid&eacute;r&eacute; comme lettre d'information :";
 $txt['KEEPMESSAGEINQUARANTINE'] = "Retenir en quarantaine";
 $txt['TAGMESSAGEWITHTAG'] = "D&eacute;livrer en marquant l'objet avec le mot-cl&eacute;&nbsp;";
 $txt['DROPMESSAGE'] = "Supprimer imm&eacute;diatement";
@@ -492,8 +492,8 @@ $txt['REMOVEABLACKENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adre
  * Newsletters release
  */
 $txt['NLRELEASEDHEAD'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;.";
-$txt['NLRELEASEDBODY'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;. Elle sera d&eacute;livr&eacute;e dans votre boite dans quelques minutes.";
-$txt['NLNOTRELEASEDHEAD'] = "La Newsletter n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
+$txt['NLRELEASEDBODY'] = "La lettre d'information a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;. Elle sera d&eacute;livr&eacute;e dans votre boite dans quelques minutes.";
+$txt['NLNOTRELEASEDHEAD'] = "La lettre d'information n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
 $txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message. Veuillez réessayer plus tard.";
 //old
 $txt['EDITNEWSLIST'] = "Modifier la liste newsletters";
@@ -509,5 +509,5 @@ $txt['ADDANEWSENTRY'] = "Ajouter une adresse à la liste";
 $txt['NEWSLISTENTRYTOADD'] = "Indiquez l'adresse que vous souhaitez ajouter &agrave; la liste newsletters. Vous pouvez y associer un commentaire optionnel.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Sélectionnez la ou les adresses que vous souhaitez modifier dans la liste et cliquez sur le bouton d'action correspondant.";
 $txt['ADDTOGROUP'] = "Ajouter pour toutes les adresses dans le groupe";
-$txt['NEWSLONLY'] = "Montrer uniquement les newsletters";
-$txt['SPAMONLY'] = "Montrer uniquement les spams";
+$txt['NEWSLONLY'] = "Montrer uniquement les infolettres";
+$txt['SPAMONLY'] = "Montrer uniquement les indésirables";
