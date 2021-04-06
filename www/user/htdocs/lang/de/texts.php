@@ -147,7 +147,7 @@ $txt['HIDEFORCED'] = "Bereits freigegebene Meldungen ausblenden";
 $txt['FORCESPAM'] = "Meldung freigeben";
 // old
 $txt['ASKREASON'] = "Filterregeln anzeigen";
-$txt['CONFSENDANALYSE'] = "Ein Antrag auf Filteranpassung wird an das MailCleaner Analysis Center gesendet; er enthält eine Kopie der Nachricht, die fälschlicherweise blockiert wurde.</br>Hinweis: Eine Filteranpassung ist nicht dasselbe wie Whitelisting oder Blacklisting.";
+$txt['CONFSENDANALYSE'] = "Ein Antrag auf Filteranpassung wird an das MailCleaner Analysis Center gesendet; er enthält eine Kopie der Nachricht, die fälschlicherweise blockiert wurde.</br>Hinweis: Eine Filteranpassung ist nicht dasselbe wie eine Nachricht zu Weißen oder Schwarzen Liste verschieben.";
 $txt['AREYOUSURE'] = "<span class=\"Frage\">W&uuml;nschen Sie wirklich die Analyse der Meldung und dass entsprechende Filterungsanpassungen angewendet werden ?</span>";
 $txt['ASKANALYSE'] = "Filteranpassung anfordern";
 $txt['PAGE'] = "Seite";
@@ -195,7 +195,7 @@ $txt['ID'] = "Erkennung";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p>Ihre MailCleaner Session ist beendet.</p><p>Wenn Sie erneut einloggen m&ouml;chten, bitte tippen Sie Folgendes:</p>";
+$txt['LOGOUTTEXT'] = "<p>Ihre MailCleaner Session ist beendet.</p><p>Wenn Sie erneut anmelden m&ouml;chten, bitte tippen Sie Folgendes:</p>";
 /*
  * parameters page
  */
@@ -283,11 +283,11 @@ $txt['REMADDRESSALT'] = "Adresse l&ouml;schen";
 $txt['ADDADDRESSALT'] = "Adresse beif&uuml;gen";
 $txt['BADADDRESSFORMAT'] = "Eingegebene Adresse ung&uuml;ltig. Bitte geben Sie die Adresse nochmal ein.";
 $txt['NOTFILTEREDDOMAIN'] = "Dieses Domain ist vom MailCleaner nicht filtriert. Demzufolge kann die Adresse nicht zugef&uuml;gt werden.";
-$txt['ALIASALREADYREGISTERD'] = "Adresse bereits registriert ! Diese Adresse wird nicht zugef&uuml;gt, denn sie ist bereits von MailCleaner gepr&uuml;ft.";
+$txt['ALIASALREADYREGISTERD'] = "Adresse bereits registriert! Diese Adresse wird nicht zugef&uuml;gt, denn sie ist bereits von MailCleaner gepr&uuml;ft.";
 $txt['ALIASALREADYPENDING'] = "Eine Anfrage f&uuml;r diese Adresse ist bereits vorhanden.";
 $txt['ALIASPENDING'] = "An diese Adresse wurde eine Bestätigung gesendet.<br/> Aus Sicherheitsgründen wird die Adresse nur dann hinzugefügt, wenn Sie die Anfrage innerhalb von 24 Stunden bestätigen.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Anfrage um Adresse/Alias beizuf&uuml;gen";
-$txt['ALIASERRORSENDIG'] = "Fehler beim Versenden der Best&auml;tigung eingetreten. Die Best&auml;tugungsanfrage kann nicht an die angezeigte Adresse geschickt werden. Versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt wenden Sie sich an Ihren E-Mail Administrator.";
+$txt['ALIASERRORSENDIG'] = "Die Anfrage konnte aufgrund eines internen Fehlers nicht gesendet werden. Bitte versuchen Sie es später noch einmal.";
 $txt['ALIASNOTPENDING'] = "F&uuml;r das Zuf&uuml;gen dieser Adresse wurde keine Anfrage gemacht.";
 $txt['ALIASADDED'] = "Adresse wurde erfolgreich zugef&uuml;gt.";
 $txt['ALIASREQUESTREMOVED'] = "Anfrage um Adresse Beizuf&uuml;gen ist gel&ouml;scht.";
@@ -328,10 +328,10 @@ $txt['FROMDATETODATE'] = "Von __PARAM1__.__PARAM2__.__PARAM3__ bis __PARAM4__.__
 /*
  * some errors messages
  */
-$txt['BADARGS'] = "Interner Fehler des MailCleaners (_PARAM_MESSAGE_ERREUR__). Wenden Sie sich an Ihrer E-Mail Administrator.";
+$txt['BADARGS'] = "Interner Fehler des MailCleaners (_PARAM_MESSAGE_ERREUR__). Wenden Sie sich an Ihrer E-Mail-Administrator.";
 $txt['INCORRECTMSGID'] = "Die gew&uuml;nschte Aktion kann nicht ausgef&uuml;hrt werden, weil die Meldungserkennung falsch ist.";
 $txt['NOSUCHADDR'] = "Die angegebene Adresse ist von MailCleaner nicht gepr&uuml;ft.";
-$txt['ERRORSENDING'] = "Fehler beim Absenden aufgetreten. Bitte versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt, wenden Sie sich an Ihren E-Mail Administrator.";
+$txt['ERRORSENDING'] = "Fehler beim Absenden aufgetreten. Bitte versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt, wenden Sie sich an Ihren E-Mail-Administrator.";
 $txt['MSGFORCED'] = "Meldung wurde freigegeben.<br/>Sie wird in wenigen Augenblicken in Ihren Postfach eingeworfen.";
 $txt['MSGFILENOTFOUND'] = "Die gew&uuml;nschte Aktion kann nicht ausgef&uuml;hrt werden, weil die vorbemerkte Meldung in der Quarant&auml;ne nicht mehr vorhanden ist.";
 /*
@@ -422,7 +422,7 @@ $txt['WAITINGCONFIRMATION'] = "Warten auf Bestätigung";
  * addresses settings (new)
  */
 $txt['ADDPARAMSHORTHELP'] = "Der Filterungsmodus von MailCleaner ist f&uuml;r jede Ihrer Adressen oder Aliases m&ouml;glich. F&uuml;r eine genaue Beschreibung der verschiedenen Filterungsmodus, wenden Sie sich an das Benutzerhandbuch(verf&uuml;gbar im Abschnitt <a href=\"help.php\">\"Hilfe\"</a>).";
-$txt['ADDPARAMSHORTHELP'] = "Der Filterungsmodus von MailCleaner ist f&uuml;r jede Ihrer Adressen oder Aliases m&ouml;glich. F&uuml;r eine genaue Beschreibung der verschiedenen Filterungsmodus, wenden Sie sich an das Benutzerhandbuch(verf&uuml;gbar im Abschnitt <a href=\"help.php\">\"Hilfe\"</a>).";
+$txt['ADDPARAMSHORTHELP'] = "Der Filterungsmodus von MailCleaner ist f&uuml;r jede Ihrer Adressen oder Aliases m&ouml;glich. F&uuml;r eine genaue Beschreibung der verschiedenen Filterungsmodus, wenden Sie sich an das Benutzerhandbuch(verf&uuml;gbar im Abschnitt <a href=\"help.php\">„Hilfe“</a>).";
 $txt['FOREACHSPAMDO'] = "Für jede als Spam erkannte Nachricht:";
 $txt['FOREACHNEWSLETTERDO'] = "Für jede Nachricht, die als Newsletter erkannt wurde:";
 $txt['KEEPMESSAGEINQUARANTINE'] = "Zur&uuml;ckhalten der Meldung in Quarant&auml;ne";
@@ -433,7 +433,7 @@ $txt['SUMMARYSENTFREQ'] = "Versand der Quarant&auml;neberichten an die ausgew&au
 $txt['SUMMARYFORMAT'] = "Versand der Quarant&auml;neberichten mit dem Format";
 $txt['SUMMARYTO'] = "Berichte an diese Adresse senden";
 $txt['OTHER'] = "Weitere …";
-$txt['APPLYTOALLADDRESSES'] = "Anwenden dieser Regeln f&uuml;r alle E-Mail Adressen";
+$txt['APPLYTOALLADDRESSES'] = "Anwenden dieser Regeln f&uuml;r alle E-Mail-Adressen";
 $txt['PLAINTEXT'] = "Brutto-Text";
 $txt['HTML'] = "Formatiert (HTML)";
 $txt['DIGEST'] = "Digest";
@@ -456,7 +456,7 @@ $txt['TODAY'] = "Heute";
  */
 $txt['WARNLISTSHORTHELP'] = "Die Warnliste enthält vertrauenswürdige Absenderadressen, für die Sie per E-Mail benachrichtigt werden möchten, wenn eine Nachricht als Spam erkannt wird. Sie können die Nachricht dann im Falle eines Filterfehlers sofort freigeben.<br />
 \t\t\t\t\t\t\t\t   Warnhinweis: Diese Funktionalität sollte als temporäre Lösung verwendet werden, da sie den Gesamtschutz verringert.
-\t\t\t\t\t\t\t\t   Weitere Informationen zur Verwendung der Warnliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">\"Help\"</a>). ";
+\t\t\t\t\t\t\t\t   Weitere Informationen zur Verwendung der Warnliste finden Sie im Handbuch (siehe Abschnitt <a href=\"help.php\">„Hilfe“</a>). ";
 $txt['WARNLISTFORADDRESS'] = "Warnliste f&uuml;r die Adresse";
 $txt['ADDAWARNENTRY'] = "Adresse in die Warnliste zuf&uuml;gen";
 $txt['WARNLISTENTRYTOADD'] = "Adresse eintragen, die Sie zur Warnliste zuf&uuml;gen m&ouml;chten. Sie k&ouml;nnen einen zus&auml;tzlichen Kommentar anf&uuml;gen.";
@@ -507,3 +507,5 @@ $txt['ADDANEWSENTRY'] = "Eine Adresse zur Liste hinzufügen";
 $txt['NEWSLISTENTRYTOADD'] = "Geben Sie die Adresse ein, die Sie in die Newsletterliste aufnehmen möchten. Sie können auch einen optionalen Kommentar hinzufügen.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Wählen Sie die Adresse oder die Adressen, die Sie ändern möchten, aus der Liste aus und klicken Sie auf die gewünschte Aktionsschaltfläche.";
 $txt['ADDTOGROUP'] = "Für alle Adressen in der Gruppe hinzufügen";
+$txt['NEWSLONLY'] = "Nur Newsletter anzeigen";
+$txt['SPAMONLY'] = "Nur Spam anzeigen";
