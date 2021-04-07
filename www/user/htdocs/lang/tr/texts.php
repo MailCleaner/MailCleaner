@@ -105,7 +105,7 @@ $txt['OSUBJECT'] = "konu";
 //old
 $txt['CRITERIAS'] = "Filtreleme kuralları";
 $txt['FORCEMESSAGE'] = "Mesajı serbest bırak";
-$txt['MESSAGEFORCING'] = "Mesaj bırak";
+$txt['MESSAGEFORCING'] = "Mesaj serbest bırak";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
 $txt['ANALYSEREQUEST'] = "Filtre ayarlama talebi";
 $txt['ANALYSEREQUESTV'] = "Bir filtre ayarlaması isteğinde bulunun";
@@ -131,7 +131,7 @@ $txt['FROM'] = "Kimden";
 $txt['TO'] = "Kime";
 $txt['SUBJECT'] = "Konu";
 $txt['SENDER'] = "Sender";
-$txt['FORCED'] = "Yayınlandı";
+$txt['FORCED'] = "Serbest bırakıldı";
 $txt['ACTION'] = "Eylem";
 //old
 $txt['TOTALSPAMS'] = "Toplam: __PARAM__ spam";
@@ -139,12 +139,12 @@ $txt['TOTALSPAMS'] = "Toplam: __PARAM__ spam";
 $txt['FORTHEXLASTDAYS'] = "son __PARAM__ gün";
 $txt['PURGESELECTEDSPAMS'] = "Karantinayı manuel olarak temizle";
 //old
-$txt['HIDEFORCED'] = "Kullanıcı tarafından açılan mesajları gizle";
+$txt['HIDEFORCED'] = "Kullanıcı tarafından serbest bırakılan mesajları gizle";
 //old
 $txt['FORCESPAM'] = "mesajı serbest bırak";
 //old
 $txt['ASKREASON'] = "filtreleme kurallarını göster";
-$txt['CONFSENDANALYSE'] = "MailCleaner Analiz Merkezi'ne bir filtre ayar talebi gönderilecektir; yanlışlıkla engellenmiş mesajın bir kopyasını içerir.</br>Not: Bir filtre ayarı beyaz veya kara listeye almakla aynı şey değildir.";
+$txt['CONFSENDANALYSE'] = "MailCleaner Çözümleme Merkezine bir filtre ayar talebi gönderilecektir; yanlışlıkla engellenmiş mesajın bir kopyasını içerir.</br>Not: Bir filtre ayarı beyaz veya kara listeye almakla aynı şey değildir.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Bu mesajın analiz edilmesini ve filtre ayarlamalarının uygulanmasını istediğinizden emin misiniz?</span>";
 $txt['ASKANALYSE'] = "Filtre ayarlama talebi";
 $txt['PAGE'] = "Sayfa";
@@ -157,7 +157,7 @@ $txt['SCORE'] = "Skor";
 $txt['TOTAL'] = "Toplam";
 //old
 $txt['SENDANALYSETITLE'] = "Filtre düzenleme talebi";
-$txt['SENTTOANALYSE'] = "MailCleaner Analiz Merkezi'ne bir filtre düzenleme talebi gönderildi; bu mesaj incelenecek ve filtre düzeltmeleri bir iş günü içerisinde uygulanacaktır.";
+$txt['SENTTOANALYSE'] = "MailCleaner Çözümleme Merkezine bir filtre düzenleme talebi gönderildi; bu mesaj incelenecek ve filtre düzeltmeleri bir iş günü içerisinde uygulanacaktır.";
 /*
  * quick actions
  */
@@ -324,11 +324,11 @@ $txt['FROMDATETODATE'] = "kimden __PARAM1__.__PARAM2__.__PARAM3__ kime __PARAM4_
 /*
  * some error messages
  */
-$txt['BADARGS'] = "MailCleaner iç hatası (_PARAM_MESSAGE_ERREUR__). Lütfen hata detaylarıyla birlikte sistem yöneticisine başvurun.";
+$txt['BADARGS'] = "MailCleaner iç hatası (__PARAM__). Lütfen hata ayrıntılarıyla birlikte sistem yöneticisine başvurun.";
 $txt['INCORRECTMSGID'] = "İleti tanımlayıcısı yanlış olduğu için istenilen eylem tamamlanamadı.";
 $txt['NOSUCHADDR'] = "Verilen adres MailCleaner tarafından korunamaz.";
 $txt['ERRORSENDING'] = "Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun.";
-$txt['MSGFORCED'] = "Mesaj serbest bırakıldı ve posta kutunuza teslim edildi. Önümüzdeki birkaç dakika içinde kullanıma sunulması gerekir.";
+$txt['MSGFORCED'] = "Mesaj serbest bırakıldı ve posta kutunuza teslim edildi. Önümüzdeki birkaç dakika içinde hazır olacaktır.";
 $txt['MSGFILENOTFOUND'] = "İleti artık karantinada olmadığından, istenilen eylem tamamlanamadı.";
 /*
  * support page (deprecated)
@@ -441,7 +441,7 @@ $txt['INVALIDSUMMARYTO'] = "Rapor için verilen eposta adresi yanlış";
 $txt['CONFIGQUARSHORTHELP'] = "Karantina ekranı ihtiyaç ve alışkanlıklarınıza göre özelleştirilebilir (gün sayısı ve satırlar).";
 $txt['QUARNBLINESDISPLAYED'] = "Görüntülenecek satır sayısı";
 $txt['QUARNBDAYSDISAPLYED'] = "Görüntülenen gün sayısını";
-$txt['MASKEALREADYFORCED'] = "Kullanıcı tarafından açılan mesajları gizle";
+$txt['MASKEALREADYFORCED'] = "Kullanıcı tarafından serbest bırakılan mesajları gizle";
 $txt['DEFAULTADDRESDISPPLAYED'] = "Varsayılan olarak görüntülenen adres";
 $txt['YESTERDAY'] = "Dün";
 $txt['TODAY'] = "Bugün";
@@ -450,7 +450,7 @@ $txt['TODAY'] = "Bugün";
  */
 $txt['WARNLISTSHORTHELP'] = "Uyarı listesi, bir mesaj spam olarak algılandığında e-posta ile bilgilendirilmek istediğiniz güvenilir gönderen adreslerini içerir. Ardından bir filtreleme hatası durumunda mesajı derhal serbest bırakabilirsiniz..<br />
 \t\t\t\t\t\t\t\t   Uyarı: Bu fonksiyon, genel korumayı azalttığı için geçici bir çözüm olarak kullanılmalıdır. 
-\t\t\t\t\t\t\t\t   Uyarı listesi kullanımı hakkında daha fazla bilgi için kılavuza bakın (<a href=\"help.php\"> \"Yardım\" </a> bölümünde bulunur). ";
+\t\t\t\t\t\t\t\t   Uyarı listesi kullanımı hakkında daha fazla bilgi için kılavuza bakın (<a href=\"help.php\">\"Yardım\"</a> bölümünde bulunur). ";
 $txt['WARNLISTFORADDRESS'] = "adresi için uyarı listesi";
 $txt['ADDAWARNENTRY'] = "Listeye bir adres ekle";
 $txt['WARNLISTENTRYTOADD'] = "Uayrı listesi için eklemek istediğiniz adresi girin. İsteğe bağlı bir açıklama da ekleyebilirsiniz.";
@@ -481,7 +481,7 @@ $txt['RECORDALREADYEXISTS'] = "Bu adres listede zaten var.";
 $txt['SESSIONTERMINATED'] = "Oturumunuz sona erdi.";
 $txt['BEENLOGGEDOUT'] = "Eğer yeni bir oturum başlatmak istiyorsunuz, bu bağlantıyı tıklatın: <a href=\"__PARAM__\" >__PARAM__</a>";
 //old
-$txt['EDITNEWSLIST'] = "beyaz listeyi düzenle";
+$txt['EDITNEWSLIST'] = "bülteni düzenle";
 //old
 $txt['NEWSLISTFOR'] = "__PARAM__ için bülten";
 $txt['NEWSLISTFORADDRESS'] = "Adres için bülten listesi";
@@ -497,9 +497,61 @@ $txt['REMOVEANEWSENTRYSHORTHELP'] = "Listeden değiştirmek istediğiniz adresi 
  * Newsletters release
  */
 $txt['NLRELEASEDHEAD'] = "Bültene izin verildi ve serbest bırakıldı.";
-$txt['NLRELEASEDBODY'] = "Bültene izin verildi ve serbest bırakıldı. Posta kutunuza birkaç dakika içinde bülten teslim edilir.";
-$txt['NLNOTRELEASEDHEAD'] = "Bülten yayınlanmadı";
-$txt['NLNOTRELEASEDBODY'] = "Mesaj bırakmadan bir hata oluştu. Lütfen daha sonra yeniden deneyin.";
+$txt['NLRELEASEDBODY'] = "Bültene izin verildi ve serbest bırakıldı. Birkaç dakika içinde posta kutunuza teslim edilecektir.";
+$txt['NLNOTRELEASEDHEAD'] = "Bülten serbest bırakılmadı";
+$txt['NLNOTRELEASEDBODY'] = "Mesajınızı serbest bırakırken bir sorun oluştu.";
 $txt['ADDTOGROUP'] = "Gruptaki tüm adresler için ekle";
 $txt['NEWSLONLY'] = "Yalnızca bültenleri göster";
 $txt['SPAMONLY'] = "Yalnızca spam göster";
+$txt['ADDRULE'] = "WWList kuralı ekleme";
+//
+$txt['ADDITIONALACTION'] = "Ek eylemler:";
+$txt['NOTBLACKLISTBODY'] = "Kara liste eklenirken bir sorun oluştu.";
+$txt['NOTBLACKLISTHEAD'] = "Kara liste kuralı eklenmedi.";
+$txt['BLACKLISTBODY'] = "Bir kara liste kuralı eklendi. Bu gönderenden gelecek mesajlar her zaman spam olarak işaretlenecektir.";
+$txt['BLACKLISTHEAD'] = "Kara liste kuralı eklendi.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Aynı gönderenden gelecek tüm e-postalar kara listeye alınsın mı?";
+$txt['NOTNEWSWHITEBODY'] = "Bu kurallar eklenirken bir sorun oluştu.";
+$txt['NOTNEWSWHITEHEAD'] = "Ne bülten ne de beyaz liste kuralı eklenmedi.";
+$txt['WHITENOTNEWSBODY'] = "Bir beyaz liste kuralı eklendi, ancak bülten beyaz liste kuralı eklenirken bir sorun oluştu.";
+$txt['WHITENOTNEWSHEAD'] = "Beyaz liste eklendi ancak bülten eklenmedi.";
+$txt['NEWSNOTWHITEBODY'] = "Bir bülten kuralı eklendi, ancak beyaz liste kuralı eklenirken bir sorun oluştu.";
+$txt['NEWSNOTWHITEHEAD'] = "Bülten eklendi ancak beyaz liste eklenmedi.";
+$txt['NEWSWHITELISTBODY'] = "Bir bülten ve beyaz liste kuralı eklendi. Bu gönderenden gelecek mesajlar, bülten veya spam olarak algılanırsa işaretlenmeyecektir.";
+$txt['NEWSWHITELISTHEAD'] = "Bülten ve beyaz liste kuralları eklendi.";
+$txt['ADDWHITENEWSLIST'] = "Aynı gönderenden gelecek tüm spamlar beyaz listeye eklensin mi? Ayrıca bu gönderenden gelen her bülten kabul edilsin mi?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Aynı gönderenden gelecek tüm bültenler kabul edilsin mi? Ayrıca bu gönderenden gelen tüm spam mesajlar beyaz listeye eklensin mi?";
+$txt['NOTWHITELISTBODY'] = "Beyaz liste eklenirken bir sorun oluştu.";
+$txt['NOTWHITELISTHEAD'] = "Beyaz liste kuralı eklenmedi.";
+$txt['WHITELISTBODY'] = "Beyaz liste kuralı eklendi. Bu gönderenden gelecek mesajlar, spam olarak algılanırsa işaretlenmeyecektir.";
+$txt['WHITELISTHEAD'] = "Beyaz liste kuralı eklendi.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Aynı gönderenden gelecek tüm spamlar beyaz listeye eklensin mi?";
+$txt['NOTNEWSLISTBODY'] = "Bülten beyaz listesi eklenirken bir sorun oluştu.";
+$txt['NOTNEWSLISTHEAD'] = "Bülten kuralı eklenmedi.";
+$txt['NEWSLISTBODY'] = "Bir bülten beyaz listesi kuralı eklendi. Bu gönderenden gelecek mesajlar, bülten olarak algılanırsa işaretlenmeyecektir.";
+$txt['NEWSLISTHEAD'] = "Bülten kuralı eklendi.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Aynı gönderenin gelecekteki tüm bültenleri kabul edilsin mi?";
+$txt['UNKNOWNERROR'] = "Bilinmeyen bir hata oluştu.";
+$txt['SENDERNOTVALID'] = "Geçersiz gönderen adresi.";
+$txt['DESTNOTVALID'] = "Geçersiz hedef adresi.";
+$txt['DUPLICATEENTRY'] = "Yinelenen bir girdi zaten var.";
+$txt['CONFIGREADFAIL'] = "Yapılandırma dosyası okunamadı.";
+$txt['CANNOTINSERTDB'] = "Veri tabanına eklenemedi.";
+$txt['CANNOTSELECTDB'] = "Veri tabanı aranamadı.";
+$txt['CANNOTCONNECTDB'] = "Veri tabanına bağlanılamadı.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Mesaj yüklenemedi (artık var olmayabilir).";
