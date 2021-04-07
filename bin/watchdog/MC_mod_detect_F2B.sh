@@ -30,10 +30,8 @@ my_own_exit()
 #### MAIN
 #### Lorsque le module a trouvé une erreur, il est censé sortir avec my_own_exit "#ERREUR" (avec #ERREUR : chiffre : retour de la commande)
 NB_PROCESS=`ps fauxw |grep fail2ban-server |grep -v 'grep '|grep -v 'MC_mod_'|wc -l`
-#if [[ $NB_PROCESS -ne 1 ]]; then
-if [[ $NB_PROCESS -eq 1 ]]; then
-    echo "fail2ban-server is running" > $OUT_FILE
-#    echo "fail2ban-server is not running (or has too many processes)" > $OUT_FILE
+if [[ $NB_PROCESS -ne 1 ]]; then
+    echo "fail2ban-server is not running (or has too many processes)" > $OUT_FILE
     my_own_exit "1"
 fi
 
