@@ -42,12 +42,9 @@ img.score {
   color: #8bf;
 }
 
-#anchors {
-  padding: 0px;
-  margin: 0px;
-}
-
 #legend {
+  color: #666666;
+  width: 100%;
   padding: 12px 16px 0px 16px;
 }
 
@@ -56,17 +53,9 @@ img.score {
   padding: 0px;
 }
 
-#legend ul, .actions {
-  list-style: none;
+#anchors, .actions {
   margin: 0px;
-  display: flex;
   padding: 0px;
-}
-
-#legend li {
-  width: 33%;
-  display: inline-block;
-  color: #666666;
 }
 
 #legend img {
@@ -78,7 +67,7 @@ img.score {
   display: inline;
   color: #666666;
   padding-left: 10px;
-  vertical-align: bottom;
+  font-size: 14px;
   line-height: 20px;
 }
 
@@ -157,11 +146,13 @@ th {
     <!-- LEGEND -->
     <div id="legend">
       <b>Przypomnienie o dostępnych czynnościach</b>
-      <ul>
-        <li><img class="icon" alt="" src="cid:roff.gif"><p>Dostarcz wiadomość</p></li>
-        <li><img class="icon" alt="" src="cid:ioff.gif"><p>Podgląd wiadomości</p></li>
-        <li><img class="icon" alt="" src="cid:aoff.gif"><p>Poproś o dostosowanie filtra</p></li>
-      </ul>
+      <table>
+        <tr>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:roff.gif"></td><td style="width: 33%;"><p>Dostarcz wiadomość</p></td>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:ioff.gif"></td><td style="width: 33%;"><p>Podgląd wiadomości</p></td>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:aoff.gif"></td><td style="width: 33%;"><p>Poproś o dostosowanie filtra</p></td>
+        </tr>
+      </table>
       <br/>
       <b id="anchors">Przejdź do <a href="#news">Biuletynów</a> lub <a href="#spam">Spamu</a></b>
     </div>
@@ -173,10 +164,10 @@ th {
       </tr>
       <!-- HEAD -->
       <tr>
-        <th style="width: 88px; border-left: solid 1px #CCC1C9;"><div class="qt">Akcje</div></th>
+        <th style="width: 48px; border-left: solid 1px #CCC1C9;"><div class="qt">Akcje</div></th>
         <th style="width: 116px;"><div class="qt">Data</div></th>
         <th style="width: 204px;"><div class="qt">Nadawca</div></th>
-        <th style="width: 305px;"><div class="qt">Temat</div></th>
+        <th style="width: 345px;"><div class="qt">Temat</div></th>
         <th style="width: 55px;"><div class="qt">Wynik</div></th>
       </tr>
  
@@ -184,11 +175,11 @@ th {
 __TMPL_HTMLQUARANTINE_START__
       <tr>
         <td style="border-left: solid 1px #CCC1C9;">
-          <ul class="actions">
-            <li><a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Release the message"><img class="icon" src="cid:r.gif" alt=""></a></li>
-            <li><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Message preview"><img class="icon" src="cid:i.gif" alt=""></a></li>
-            <li><a href="__FORCEURL__/send_to_analyse.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Request a filter adjustment"><img class="icon" src="cid:a.gif" alt=""></a></li>
-          </ul>
+          <div class="actions">
+            <a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Release the message"><img class="icon" src="cid:r.gif" alt=""></a>
+            <a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Message preview"><img class="icon" src="cid:i.gif" alt=""></a>
+            <a href="__FORCEURL__/send_to_analyse.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Request a filter adjustment"><img class="icon" src="cid:a.gif" alt=""></a>
+          </div>
         </td>
         <td><div class="qt" style="text-align: right;">__SINGLEDATETIME__</div></td>
         <td><div class="qt"><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__">__FROM__</a></div></td>
