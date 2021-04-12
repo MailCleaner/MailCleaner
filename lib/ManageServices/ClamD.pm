@@ -70,7 +70,12 @@ sub setup
 	my $self = shift;
 	my $class = shift;
 
-	return 0;
+	$self->doLog('Dumping ClamD config...', 'daemon');
+	if (system($self->{'SRCDIR'}.'/bin/dump_clamav_config.pl 2>&1 >/dev/null')) {
+		$self->doLog('dump_clamav_config.pl failed', 'daemon');
+	}
+
+	return 1;
 }
 
 sub preFork
