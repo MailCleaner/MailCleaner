@@ -330,7 +330,7 @@ $txt['FROMDATETODATE'] = "du __PARAM1__.__PARAM2__.__PARAM3__ au __PARAM4__.__PA
 /*
  * some errors messages
  */
-$txt['BADARGS'] = "Erreur interne de MailCleaner (_PARAM_MESSAGE_ERREUR__). Nous vous prions de contacter votre administrateur de messagerie pour lui faire part de ce probl&egrave;me.";
+$txt['BADARGS'] = "Erreur interne de MailCleaner(__PARAM__). Nous vous prions de contacter votre administrateur de messagerie pour lui faire part de ce probl&egrave;me.";
 $txt['INCORRECTMSGID'] = "L'action demand&eacute;e ne peut &ecirc;tre effectu&eacute;e car l'identifiant du message est incorrect.";
 $txt['NOSUCHADDR'] = "L'adresse indique&eacute;e n'est pas examin&eacute;e par MailCleaner.";
 $txt['ERRORSENDING'] = "Une erreur lors de l'envoi s'est produite. Merci d'effectuer une nouvelle tentative. Si l'erreur persiste, contactez votre administrateur de messagerie.";
@@ -494,7 +494,7 @@ $txt['REMOVEABLACKENTRYSHORTHELP'] = "Cochez dans la liste l'adresse ou les adre
 $txt['NLRELEASEDHEAD'] = "La Newsletter a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;.";
 $txt['NLRELEASEDBODY'] = "La lettre d'information a &eacute;t&eacute; autoris&eacute;e et lib&eacute;r&eacute;. Elle sera d&eacute;livr&eacute;e dans votre boite dans quelques minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "La lettre d'information n'a pas &eacute;t&eacute; d&eacute;livr&eacute;e";
-$txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message. Veuillez réessayer plus tard.";
+$txt['NLNOTRELEASEDBODY'] = "Il y a un probl&egrave;me pour lib&eacute;rer votre message.";
 //old
 $txt['EDITNEWSLIST'] = "Modifier la liste newsletters";
 //old
@@ -511,3 +511,55 @@ $txt['REMOVEANEWSENTRYSHORTHELP'] = "Sélectionnez la ou les adresses que vous s
 $txt['ADDTOGROUP'] = "Ajouter pour toutes les adresses dans le groupe";
 $txt['NEWSLONLY'] = "Montrer uniquement les infolettres";
 $txt['SPAMONLY'] = "Montrer uniquement les indésirables";
+$txt['CANNOTCONNECTDB'] = "Impossible de se connecter à la base de données.";
+$txt['ADDRULE'] = "Ajouter une règle WWList";
+//
+$txt['ADDITIONALACTION'] = "Actions supplémentaires :";
+$txt['NOTBLACKLISTBODY'] = "Un problème est survenu lors de l'ajout dans la liste noire.";
+$txt['NOTBLACKLISTHEAD'] = "La liste noire n'a pas pu être ajoutée.";
+$txt['BLACKLISTBODY'] = "La règle a été ajoutée à la liste noire. Les messages futurs de cet expéditeur seront retenus comme spam.";
+$txt['BLACKLISTHEAD'] = "La règle a été ajoutée à la liste noire.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Mettre en liste noire les messages futurs de cet expéditeur ?";
+$txt['NOTNEWSWHITEBODY'] = "Un problème est survenu lors de l'ajout des règles.";
+$txt['NOTNEWSWHITEHEAD'] = "Ni la liste blanche de spam ni celle de newsletter n'a été ajoutée.";
+$txt['WHITENOTNEWSBODY'] = "La liste blanche de spam a été ajoutée, malheureusement un problème est survenu lors de l'ajout en liste blanche de newsletter.";
+$txt['WHITENOTNEWSHEAD'] = "La liste blanche de spam a été ajoutée mais pas pour la liste blanche des newsletters.";
+$txt['NEWSNOTWHITEBODY'] = "La liste blanche de newsletter a été ajoutée, malheureusement un problème est survenu lors de l'ajout en liste blanche pour spam.";
+$txt['NEWSNOTWHITEHEAD'] = "La liste blanche de newsletter a été ajoutée mais pas celle pour le spam.";
+$txt['NEWSWHITELISTBODY'] = "La listes blanches de newsletter et de spam ont été ajoutées. Les messages futurs de cet expéditeur ne seront plus retenus comme newsletter ou spam.";
+$txt['NEWSWHITELISTHEAD'] = "La listes blanches de newsletter et de spam ont été ajoutées.";
+$txt['ADDWHITENEWSLIST'] = "Mettre en liste blanche de spam cet expéditeur ? Ajouter aussi cet expéditeur à la liste blanche de newsletters ?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Mettre en liste blanche de newsletter cet expéditeur ? Ajouter aussi cet expéditeur à la liste blanche de spam ?";
+$txt['NOTWHITELISTBODY'] = "Un problème est survenu lors de l'ajout à la liste blanche.";
+$txt['NOTWHITELISTHEAD'] = "La règle n'a pas été ajoutée à la liste blanche.";
+$txt['WHITELISTBODY'] = "Une règle a été ajoutée à la liste blanche. Les messages futurs de cet expéditeur ne seront pas retenus comme spam.";
+$txt['WHITELISTHEAD'] = "L'entrée a été ajoutée à la liste blanche.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Mettre en liste blanche de spam les envois futurs de cet expéditeur ?";
+$txt['NOTNEWSLISTBODY'] = "Un problème est survenu lors de l'ajout de la newsletter à la liste blanche.";
+$txt['NOTNEWSLISTHEAD'] = "La newsletter n'a pas été ajoutée à la liste blanche.";
+$txt['NEWSLISTBODY'] = "Cette newsletter a été mise en liste blanche. Les messages futurs de cet expéditeur ne seront pas retenus comme newsletter.";
+$txt['NEWSLISTHEAD'] = "L'entrée a été ajoutée à la liste des newsletters.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Accepter toutes les futures newsletters de cet expéditeur ?";
+$txt['UNKNOWNERROR'] = "Une erreur inconnue est survenue.";
+$txt['SENDERNOTVALID'] = "Adresse d'expéditeur invalide.";
+$txt['DESTNOTVALID'] = "Adresse de destination invalide.";
+$txt['DUPLICATEENTRY'] = "Une entrée identique existe déjà.";
+$txt['CONFIGREADFAIL'] = "Impossible de lire le fichier de configuration.";
+$txt['CANNOTINSERTDB'] = "Impossible d'insérer dans la base de données.";
+$txt['CANNOTSELECTDB'] = "Impossible de rechercher dans la base de données.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Impossible de charger le message (Ce message a du être effacé).";
