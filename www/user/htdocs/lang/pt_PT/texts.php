@@ -224,7 +224,7 @@ $txt['PUTINQUARANTINE'] = "quarentena";
 //old
 $txt['TAGSUBJECT'] = "etiqueta";
 //old
-$txt['QUARBOUNCES'] = "Colocar sistematicamente em quarentena mensagens de erro de entrega";
+$txt['QUARBOUNCES'] = "Pôr sistematicamente em quarentena mensagens de erro de entrega";
 //old
 $txt['DROP'] = "deixar cair";
 //old
@@ -324,7 +324,7 @@ $txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ para __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Erro interno do MailCleaner (_PARAM_MESSAGE_ERREUR__). Por favor contacte o seu administrador de sistema com os detalhes do problema.";
+$txt['BADARGS'] = "Erro interno do MailCleaner (__PARAM__). Por favor, contacte o seu administrador de sistema com os detalhes do problema.";
 $txt['INCORRECTMSGID'] = "Não foi possível completar a ação pedida porque o identificador da mensagem está incorreto.";
 $txt['NOSUCHADDR'] = "O endereço fornecido não está protegido pelo MailCleaner.";
 $txt['ERRORSENDING'] = "Ocorreu um erro ao enviar a mensagem. Por favor tente novamente. Se o problema persistir, contacte o seu administrador de sistema.";
@@ -486,7 +486,7 @@ $txt['BEENLOGGEDOUT'] = "Se desejar iniciar uma nova sessão, use este link: <a 
 $txt['NLRELEASEDHEAD'] = "A newsletter foi permitida e libertada.";
 $txt['NLRELEASEDBODY'] = "A newsletter foi permitida e libertada. Deve ser entregue na sua caixa de correio nos próximos minutos.";
 $txt['NLNOTRELEASEDHEAD'] = "A newsletter não foi libertada";
-$txt['NLNOTRELEASEDBODY'] = "Ocorreu um problema a libertar a sua mensagem. Por favor tente mais tarde.";
+$txt['NLNOTRELEASEDBODY'] = "Ocorreu um problema ao libertar a sua mensagem.";
 //old
 $txt['EDITNEWSLIST'] = "editar lista de news";
 //old
@@ -500,6 +500,26 @@ $txt['NEWSLISTFORADDRESS'] = "Lista de newsletter para o endereço";
 $txt['ADDANEWSENTRY'] = "Adicionar um endereço à lista";
 $txt['NEWSLISTENTRYTOADD'] = "Introduza o endereço que deseja adicionar à lista de newsletter. Pode também adicionar um comentário opcional.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecionar da lista o endereço ou endereços que deseja modificar e carregue no botão da ação desejada.";
-$txt['ADDTOGROUP'] = "Adicionar para todos os endereços no grupo";
+$txt['ADDTOGROUP'] = "Adicionar a todos os endereços no grupo";
 $txt['NEWSLONLY'] = "Mostrar apenas boletins";
 $txt['SPAMONLY'] = "Mostrar apenas spam";
+$txt['NOTNEWSLISTBODY'] = "Houve um problema ao adicionar a lista branca do boletim informativo.";
+$txt['NOTNEWSLISTHEAD'] = "A regra da lista de notícias não foi adicionada.";
+$txt['NEWSLISTBODY'] = "Uma regra de lista branca foi adicionada. As mensagens futuras deste remetente não serão sinalizadas, se foram detetadas como um boletim informativo.";
+$txt['NEWSLISTHEAD'] = "A regra da lista de notícias foi adicionada.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Aceitar todos os boletins futuros do mesmo remetente?";
+$txt['UNKNOWNERROR'] = "Ocorreu um erro desconhecido.";
+$txt['SENDERNOTVALID'] = "Endereço de remetente inválido.";
+$txt['DESTNOTVALID'] = "Endereço de destino inválido.";
+$txt['DUPLICATEENTRY'] = "Já existe uma entrada duplicada.";
+$txt['CONFIGREADFAIL'] = "Falha ao ler o ficheiro de configuração.";
+$txt['CANNOTINSERTDB'] = "Falha ao inserir no banco de dados.";
+$txt['CANNOTSELECTDB'] = "Falha ao pesquisar no banco de dados.";
+$txt['CANNOTCONNECTDB'] = "Falha ao conectar ao banco de dados.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Falha ao carregar a mensagem (pode não existir mais).";
