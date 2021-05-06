@@ -328,7 +328,7 @@ $txt['FROMDATETODATE'] = "Von __PARAM1__.__PARAM2__.__PARAM3__ bis __PARAM4__.__
 /*
  * some errors messages
  */
-$txt['BADARGS'] = "Interner Fehler des MailCleaners (_PARAM_MESSAGE_ERREUR__). Wenden Sie sich an Ihrer E-Mail-Administrator.";
+$txt['BADARGS'] = "Interner Fehler des MailCleaners (__PARAM__). Wenden Sie sich an Ihrer E-Mail-Administrator.";
 $txt['INCORRECTMSGID'] = "Die gew&uuml;nschte Aktion kann nicht ausgef&uuml;hrt werden, weil die Meldungserkennung falsch ist.";
 $txt['NOSUCHADDR'] = "Die angegebene Adresse ist von MailCleaner nicht gepr&uuml;ft.";
 $txt['ERRORSENDING'] = "Fehler beim Absenden aufgetreten. Bitte versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt, wenden Sie sich an Ihren E-Mail-Administrator.";
@@ -492,7 +492,7 @@ $txt['BEENLOGGEDOUT'] = "Sie k&ouml;nnen sich wieder einloggen an die folgende A
 $txt['NLRELEASEDHEAD'] = "Newsletter wurde abonniert und gesendet.";
 $txt['NLRELEASEDBODY'] = "Newsletter wurde abonniert und gesendet. Es sollte in wenigen Minuten in Ihrem E-Mail-Postfach liegen.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter wurde nicht versendet";
-$txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem beim Versenden Ihrer Nachricht. Bitte versuchen Sie es später noch einmal.";
+$txt['NLNOTRELEASEDBODY'] = "Es gab ein Problem bei der Freigabe Ihrer Nachricht.";
 //old
 $txt['EDITNEWSLIST'] = "Newslist editieren";
 //old
@@ -509,3 +509,19 @@ $txt['REMOVEANEWSENTRYSHORTHELP'] = "Wählen Sie die Adresse oder die Adressen, 
 $txt['ADDTOGROUP'] = "Für alle Adressen in der Gruppe hinzufügen";
 $txt['NEWSLONLY'] = "Nur Newsletter anzeigen";
 $txt['SPAMONLY'] = "Nur Spam anzeigen";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Alle zukünftigen Newsletter vom gleichen Absender akzeptieren?";
+$txt['UNKNOWNERROR'] = "Ein unbekannter Fehler ist aufgetreten.";
+$txt['SENDERNOTVALID'] = "Ungültige Absenderadresse.";
+$txt['DESTNOTVALID'] = "Ungültige Zieladresse.";
+$txt['DUPLICATEENTRY'] = "Ein doppelter Eintrag existiert schon.";
+$txt['CONFIGREADFAIL'] = "Konfigurationsdatei konnte nicht gelesen werden.";
+$txt['CANNOTINSERTDB'] = "Fehler beim Einfügen in die Datenbank.";
+$txt['CANNOTSELECTDB'] = "Fehler beim Durchsuchen der Datenbank.";
+$txt['CANNOTCONNECTDB'] = "Fehler beim Herstellen einer Verbindung mit der Datenbank.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Fehler beim Laden der Nachricht (sie existiert möglicherweise nicht mehr).";
