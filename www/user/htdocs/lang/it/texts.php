@@ -69,9 +69,9 @@ $txt['USERNAME'] = "Nome utente";
 $txt['PASSWORD'] = "Password";
 //old
 $txt['ASKLOGIN'] = "Si prega di inserire nome utente e password:";
-$txt['ORGANIZATIONUNIT'] = "Unit&agrave Organizzativa";
+$txt['ORGANIZATIONUNIT'] = "Unit&agrave organizzativa";
 $txt['FORGOTPASSWORD'] = "Password dimenticata?";
-$txt['PASSWORDRESET'] = "La password &egrave stata resettata. &egrave stata recapitata al tuo indirizzo mail.";
+$txt['PASSWORDRESET'] = "La password &egrave stata resettata. &egrave stata recapitata al tuo indirizzo e-mail.";
 /*
  * menu
  */
