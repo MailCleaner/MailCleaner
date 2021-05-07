@@ -93,7 +93,7 @@ $txt['NAVSUPPORT'] = "Suporte";
 $txt['SELECTEDADDRESS'] = "Endereço a mostar";
 $txt['QUARANTINESUMMARY'] = "<strong>Em quarentena:</strong> __PARAM__ messages";
 $txt['SEARCHSUMMARY'] = "<strong>Procurar:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "ordenado por  __PARAM__";
+$txt['ORDEREDBYPARAM'] = "ordenado por __PARAM__";
 $txt['RESETSEARCH'] = "Mostar a lista completa de quarentena";
 $txt['ODATE'] = "data";
 $txt['OTIME'] = "hora";
@@ -523,3 +523,35 @@ $txt['CANNOTCONNECTDB'] = "Falha ao conectar ao banco de dados.";
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Falha ao carregar a mensagem (pode não existir mais).";
+$txt['ADDRULE'] = "A adicionar regra de WWList";
+//
+$txt['ADDITIONALACTION'] = "Ações adicionais:";
+$txt['NOTBLACKLISTBODY'] = "Ocorreu um erro a adicionar a regra de lista negra.";
+$txt['NOTBLACKLISTHEAD'] = "Regra de lista negra não foi adicionada.";
+$txt['BLACKLISTBODY'] = "Foi adicionada uma regra de lista negra. As mensagens futuras deste remetente serão sempre marcadas como sendo SPAM.";
+$txt['BLACKLISTHEAD'] = "Regra de lista negra adicionada.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Adicionar na lista negra todas as mensagens futuras do mesmo remetente?";
+$txt['NOTNEWSWHITEBODY'] = "Ocorreu um erro a adicionar estas regras.";
+$txt['NOTNEWSWHITEHEAD'] = "Não foi possível adicionar nem a regra de lista branca nem a de lista de news.";
+$txt['WHITENOTNEWSBODY'] = "Uma regra de lista branca foi adicionada, no entanto, ocorreu um erro a adicionar a regra de lista de news.";
+$txt['WHITENOTNEWSHEAD'] = "Lista branca foi adicionada mas a lista de news não.";
+$txt['NEWSNOTWHITEBODY'] = "Uma regra de newsletter foi adicionada, no entanto, ocorreu um erro a adicionar a regra de lista branca.";
+$txt['NEWSNOTWHITEHEAD'] = "Lista de news foi adicionada mas a lista branca não.";
+$txt['NEWSWHITELISTBODY'] = "Uma regra nova de lista branca e de lista de news foi adicionada. Mensagens futuras deste remetente não serão marcadas se detectadas como newsletter ou como SPAM.";
+$txt['NEWSWHITELISTHEAD'] = "Regras de lista branca e de lista de news forma adicionadas.";
+$txt['ADDWHITENEWSLIST'] = "Colocar em lista branca todas as mensagens futuras de SPAM do mesmo remetente? Aceitar também todas as newsletters deste remetente?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Aceitar todas as futuras newsletters do mesmo remetente? Colocar também em lista branca todas as mensagens de SPAM deste remetente?";
+$txt['NOTWHITELISTBODY'] = "Ocorreu um erro a adicionar à lista branca.";
+$txt['NOTWHITELISTHEAD'] = "Regra de lista branca não foi adicionada.";
+$txt['WHITELISTBODY'] = "Foi adicionada uma regra de lista branca. Mensagens futuras deste remetente não serão marcadas como sendo SPAM.";
+$txt['WHITELISTHEAD'] = "Regra de lista branca adicionada.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Colocar na lista branca todas as mensagens de SPAM do mesmo remetente?";
