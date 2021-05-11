@@ -45,7 +45,7 @@ require DB;
 
 my $DEBUG = 1;
 my $db = DB::connect('slave', 'mc_config');
-my $conf = ReadConfig::getInstance();
+our $conf = ReadConfig::getInstance();
 my $include_debug = 0;
 
 my $trusted_configs = '/opt/exim4/etc/trusted_configs';
@@ -186,23 +186,48 @@ sub dump_exim_file
 {
   my ($stage, $include_file) = @_;
 
+  # 4.94 configuration changes
+  my $version = `/opt/exim4/bin/exim --version 2> /dev/null`;
+  foreach (split("\n", $version)) {
+    if ($_ =~ m/.*Exim version (4\.\d\d).*/) {
+      $version = $1;
+      last;
+    }
+  }
+  unless ($version =~ m/^4\.\d\d$/ && $version ge 4.94) {
+    $version = '';
+  }
+
   # If include =1 we are generating the files included in the exim configuration
   my $include = 0;
   if ( defined($include_file) ) {
     $include = 1;
   }
 
+  my $srcdir = $conf->getOption('SRCDIR');
   my $template;
   if ( ! $include ) {
-    $template = ConfigTemplate::create(
-                          "etc/exim/exim_stage$stage.conf_template",
-                          "etc/exim/exim_stage$stage.conf");
+    if (-e "$srcdir/etc/exim/exim_stage$stage.conf_template_$version") {
+      $template = ConfigTemplate::create(
+                          "$srcdir/etc/exim/exim_stage$stage.conf_template_$version",
+                          "$srcdir/etc/exim/exim_stage$stage.conf");
+    } else {
+      $template = ConfigTemplate::create(
+                          "$srcdir/etc/exim/exim_stage$stage.conf_template",
+                          "$srcdir/etc/exim/exim_stage$stage.conf");
+    }
   } else {
     my $dest_file = $include_file;
     $dest_file =~ s/_template$//;
-    $template = ConfigTemplate::create(
-                          "etc/exim/$include_file",
-                          "etc/exim/$dest_file");
+    if (-e "$srcdir/etc/exim/${include_file}_$version") {
+      $template = ConfigTemplate::create(
+                          "$srcdir/etc/exim/${include_file}_$version",
+                          "$srcdir/etc/exim/$dest_file");
+    } else {
+      $template = ConfigTemplate::create(
+                          "$srcdir/etc/exim/$include_file",
+                          "$srcdir/etc/exim/$dest_file");
+    }
   }
 
   my $if_syslog = "#no syslog_facility";
