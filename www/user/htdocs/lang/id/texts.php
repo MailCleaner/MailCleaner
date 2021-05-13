@@ -501,3 +501,6 @@ $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It shoul
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
 $txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
 $txt['ADDTOGROUP'] = "Tambahkan untuk semua alamat dalam grup";
+//
+$txt['ADDITIONALACTION'] = "Tindakan tambahan:";
+$txt['NEWSLONLY'] = "Tampilkan buletin saja";
