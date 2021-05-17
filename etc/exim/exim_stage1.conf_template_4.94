@@ -1084,13 +1084,13 @@ archiver_route:
   driver = manualroute
   condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}
   senders = ${if and{ \
-                 {exists{ARCHIVERDIR/${sender_address_domain}}} \
+                 {exists{ARCHIVERDIR/${domain_data}}} \
                  {!eq {$sender_address}{}} \
                  {or {\
                      {eq {$acl_c0}{relayed}} \
                      {eq {$acl_c1}{authenticated}} \
                  }}\
-                 } {nwildlsearch;ARCHIVERDIR/${sender_address_domain}} {} }
+                 } {nwildlsearch;ARCHIVERDIR/${domain_data}} {} }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
   self = send
