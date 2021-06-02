@@ -1211,8 +1211,8 @@ local_smtp:
                    {}\
                  }
   dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${lookup{domain:$return_path}nwildlsearch{VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list}}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${lookup{domain:$return_path}nwildlsearch{VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list}}.pkey} \
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
   hosts_avoid_tls = localhost
@@ -1243,8 +1243,8 @@ __FI__
                  }
   dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
   dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${lookup{domain:$return_path}nwildlsearch{VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list}}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${lookup{domain:$return_path}nwildlsearch{VARDIR/spool/tmp/mailcleaner/domains_to_dkim.list}}.pkey} \
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
 
