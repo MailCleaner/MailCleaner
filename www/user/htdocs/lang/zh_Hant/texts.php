@@ -6,25 +6,25 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "通訊";
-$txt['NEWSLETTERSTOPIC'] = "簡訊";
-$txt['NEWSLETTERSTOPICTITLE'] = "簡訊";
-$txt['NEWSLETTERSSHORTHELP'] = "在這裡你可以管理你的通訊。";
-$txt['NEWSLETTERSALLOW'] = "交付";
-$txt['NEWSLETTERACCEPT'] = "接受本通訊";
-$txt['SPAM_WHITELIST_DISABLED'] = "該域名未激活（請聯繫您的管理員）。";
+$txt['NEWSLETTERMODULE'] = "電子報";
+$txt['NEWSLETTERSTOPIC'] = "電子報";
+$txt['NEWSLETTERSTOPICTITLE'] = "電子報";
+$txt['NEWSLETTERSSHORTHELP'] = "您可以從這裡管理您的電子報。";
+$txt['NEWSLETTERSALLOW'] = "寄送";
+$txt['NEWSLETTERACCEPT'] = "接受此電子報";
+$txt['SPAM_WHITELIST_DISABLED'] = "本網域尚未啟用此清單（請與您的管理員連繫）。";
 /* 
  * generic buttons
  */
 $txt['SUBMIT'] = "提交";
 $txt['CANCEL'] = "取消";
-$txt['CLOSE'] = "關";
+$txt['CLOSE'] = "關閉";
 // old
-$txt['ADD'] = "加";
+$txt['ADD'] = "新增";
 $txt['CONFIRM'] = "確認";
-$txt['REFRESH'] = "刷新";
-$txt['SEARCH'] = "搜索";
-$txt['SEND'] = "發送";
+$txt['REFRESH'] = "更新";
+$txt['SEARCH'] = "搜尋";
+$txt['SEND'] = "傳送";
 // old
 $txt['CLEAR'] = "清除";
 /*
@@ -35,82 +35,82 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = '1月';
-$txt['MONTHAB2'] = '2月';
-$txt['MONTHAB3'] = '3月';
-$txt['MONTHAB4'] = '4月';
-$txt['MONTHAB5'] = '5月';
-$txt['MONTHAB6'] = '6月';
-$txt['MONTHAB7'] = '7月';
-$txt['MONTHAB8'] = '8月';
-$txt['MONTHAB9'] = '9月';
-$txt['MONTHAB10'] = '10月';
-$txt['MONTHAB11'] = '11月';
-$txt['MONTHAB12'] = '12月';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTHAB1'] = '一月';
+$txt['MONTHAB2'] = '二月';
+$txt['MONTHAB3'] = '三月';
+$txt['MONTHAB4'] = '四月';
+$txt['MONTHAB5'] = '五月';
+$txt['MONTHAB6'] = '六月';
+$txt['MONTHAB7'] = '七月';
+$txt['MONTHAB8'] = '八月';
+$txt['MONTHAB9'] = '九月';
+$txt['MONTHAB10'] = '十月';
+$txt['MONTHAB11'] = '十一月';
+$txt['MONTHAB12'] = '十二月';
+$txt['MONTH1'] = '一月';
+$txt['MONTH2'] = '二月';
+$txt['MONTH3'] = '三月';
+$txt['MONTH4'] = '四月';
+$txt['MONTH5'] = '五月';
+$txt['MONTH6'] = '六月';
+$txt['MONTH7'] = '七月';
+$txt['MONTH8'] = '八月';
+$txt['MONTH9'] = '九月';
+$txt['MONTH10'] = '十月';
+$txt['MONTH11'] = '十一月';
+$txt['MONTH12'] = '十二月';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "用戶名或密碼錯誤。";
+$txt['BADLOGIN'] = "使用者帳號或密碼錯誤。";
 $txt['SESSIONEXPIRED'] = "Session已過期。";
-$txt['LOGININFO'] = "提醒：您的用戶名和密碼與您的電子郵件帳戶相同";
-$txt['USERNAME'] = "用戶名";
+$txt['LOGININFO'] = "提醒：您的使用者名稱和密碼與您的電子郵件帳戶相同";
+$txt['USERNAME'] = "使用者帳號";
 $txt['PASSWORD'] = "密碼";
 //old
-$txt['ASKLOGIN'] = "請輸入您的用戶名和密碼：";
+$txt['ASKLOGIN'] = "請輸入您的使用者帳號和密碼：";
 $txt['ORGANIZATIONUNIT'] = "組織單位";
 $txt['FORGOTPASSWORD'] = "忘記密碼 ？";
-$txt['PASSWORDRESET'] = "密碼已被重置。它已被發送到您的郵箱地址。";
+$txt['PASSWORDRESET'] = "密碼已被重設並已發送到您的電子郵件地址。";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "隔離";
+$txt['CONFIGURATIONMENU'] = "設置";
+$txt['HELPMENU'] = "說明";
+$txt['QUARANTINEMENU'] = "隔離區";
 $txt['STATISTICSMENU'] = "統計";
 $txt['LOGOUT'] = "登出";
 //old
-$txt['LOGGEDAS'] = "您登錄為：";
+$txt['LOGGEDAS'] = "您登入為：";
 // old
-$txt['MAINADDRESS'] = "主要位址";
-$txt['PARAMETERS'] = "設置";
-$txt['QUARANTINE'] = "隔離";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "主要地址";
+$txt['PARAMETERS'] = "設定";
+$txt['QUARANTINE'] = "隔離區";
+$txt['NAVSUPPORT'] = "支援";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "顯示的位址";
-$txt['QUARANTINESUMMARY'] = "<strong> 在隔離區中: </strong> __PARAM__ 消息";
-$txt['SEARCHSUMMARY'] = "<strong> 搜索: </strong> __PARAM__ 消息";
+$txt['SELECTEDADDRESS'] = "顯示的地址";
+$txt['QUARANTINESUMMARY'] = "<strong> 在隔離區中: </strong> __PARAM__ 郵件";
+$txt['SEARCHSUMMARY'] = "<strong> 搜索: </strong> __PARAM__ 郵件";
 $txt['ORDEREDBYPARAM'] = "按 __PARAM__ 排序";
 $txt['RESETSEARCH'] = "顯示完整的隔離清單";
 $txt['ODATE'] = "日期";
 $txt['OTIME'] = "時間";
 $txt['ODESTINATION'] = "收件人";
-$txt['OSENDER'] = "發件人";
-$txt['OSCORE'] = "score";
+$txt['OSENDER'] = "寄件者";
+$txt['OSCORE'] = "評分";
 $txt['OSUBJECT'] = "主旨";
 //old
-$txt['CRITERIAS'] = "篩選規則";
-$txt['FORCEMESSAGE'] = "釋放郵件";
-$txt['MESSAGEFORCING'] = "消息發佈";
-$txt['ANALYSEREQUEST'] = "篩選器調整請求";
-$txt['ANALYSEREQUESTV'] = "要求篩選器調整";
-$txt['SCORETEXT'] = "分數: __PARAM__";
+$txt['CRITERIAS'] = "過濾規則";
+$txt['FORCEMESSAGE'] = "釋出郵件";
+$txt['MESSAGEFORCING'] = "郵件釋出";
+$txt['ANALYSEREQUEST'] = "過濾器調整請求";
+$txt['ANALYSEREQUESTV'] = "要求過濾器調整";
+$txt['SCORETEXT'] = "評分: __PARAM__";
 $txt['CLOSEWINDOW'] = "關閉視窗";
 $txt['CURRENTPAGE'] = "頁 _ PARAM1 __of _ PARAM2 _";
-$txt['PURGEINFOS'] = "<strong> 自動清除後: </strong> __PARAM__ 天";
+$txt['PURGEINFOS'] = "__PARAM__ 天後<strong> 自動清除: </strong>";
 $txt['DISPLAYEDINFOS'] = "<strong> 顯示的郵件數: </strong> _ PARAM1 __last 天 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
 $txt['DISPLAYEDINFOSS'] = "<strong> 顯示的消息: </strong> __PARAM__ 最後幾天。 ";
 //old
