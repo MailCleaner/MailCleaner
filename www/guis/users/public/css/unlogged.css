@@ -13,12 +13,13 @@ html,body {
 
 #unloggedmessagebox {
   width: 500px;
-  height: 201px;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top:40px;
   border: 1px solid #C6ADC6;
   background-color: #FFFFFF;
+  padding-bottom: 24px;
 }
 
 #popupheader {

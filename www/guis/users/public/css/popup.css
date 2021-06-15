@@ -39,7 +39,7 @@ html, body {
 }
 
 #text {
-  position: absolute;
+  position: relative;
   left: 68px;
   width: 350px;
   margin-top: 24px;
@@ -57,17 +57,14 @@ p {
 
 
 #buttons {
-  position: absolute;
-  top: 200px;
-  left: 100px;
-  white-space: nowrap;
+  position: relative;
   text-align: right;
 }
 
 #buttons input {
   top: 0px;
   display: inline;
-  margin-left: 10px;
+  margin: 10px 0px 0px 10px;
   white-space: nowrap;
   min-width: 90px;
 }

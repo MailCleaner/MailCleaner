@@ -356,13 +356,14 @@ public function getHTMLList($to) {
 
         $id = $spam->getCleanData('exim_id');
         $sender = $spam->getCleanData('sender');
+        $slave = $spam->getCleanData('store_slave');
         $recipient = $spam->getCleanData('to_user').'@'.$spam->getCleanData('to_domain');
         $query = "select type from wwlists where sender = '".$sender."' and recipient = '".$recipient."'";
         $result = $db->getHash($query);
 
         if (empty($result)) {
-	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . urlencode($recipient);
-            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" data-a="%s" href="%s" class="allow">%s</a></span>';
+	    $hrefNews = "/fm.php?id=" . $id . "&a=" . urlencode($recipient) . '&s=' . $slave . "&n=1&pop=up";
+            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" data-a="%s" href="#" onClick="MyWindow=window.open(\'%s\',\'MyWindow\',\'width=600,height=500\'); return false;" class="allow">%s</a></span>';
             $rule = 'allow';
             $label = $lang_->print_txt('NEWSLETTERACCEPT');
 

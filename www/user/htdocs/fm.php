@@ -14,6 +14,7 @@ require_once("utils.php");
 require_once("view/Template.php");
 require_once("system/Soaper.php");
 require_once("config/AntiSpam.php");
+require_once("user/Spam.php");
 
 // get global objects instances
 $sysconf_ = SystemConfig::getInstance();
@@ -66,22 +67,50 @@ $domain = new Domain();
 $domain->load($dom);
 $can_whitelist = ( $domain->getPref('enable_whitelists') || (($domain->getPref('enable_whitelists') == null) && $antispam_->getPref('enable_whitelists')) );
 
+// Get sender
+$spam_mail = new Spam();
+$spam_mail->loadDatas($_GET['id'],$_GET['a']);
+if (isset($_GET['n']) && $_GET['n'] == 1) {
+  $spam_mail->loadHeadersAndBody();
+  $from = $spam_mail->getHeadersArray()['From'];
+  preg_match('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($from), $original_sender);
+  $original_sender = $original_sender[1];
+} else {
+  $original_sender = $spam_mail->getData("sender");
+}
+$sender = extractSender($original_sender);
+$single_use = detectSingleUseAddress($original_sender);
+if ($sender || $single_use) {
+  if ($sender) {
+    $target = '<input type="radio" name="t" value="' . $original_sender . '"><label for="' . $original_sender . '">' . $original_sender . ' (' . $lang_->print_txt('ORIGINALSENDER') . ')</label><br>';
+    $target .= '<input type="radio" name="t" value="' . $sender . '" checked="checked"><label for="' . $sender . '">' . $sender . ' (' . $lang_->print_txt('SENDERVARIATIONS') . ')</label><br>';
+  } else {
+    $target = '<input type="radio" name="t" value="' . $original_sender . '" checked="checked"><label for="' . $original_sender . '">' . $original_sender . ' (' . $lang_->print_txt('ORIGINALSENDER') . ')</label><br>';
+  }
+  if ($single_use) {
+    $domain = preg_replace('/.*(@[^@)]*)$/', '$1', $original_sender);
+    $target .= '<input type="radio" name="t" value="' . $domain . '"><label for="' . $domain . '">' . $domain . ' (' . $lang_->print_txt('ENTIREDOMAIN') . ')</label><br>';
+  }
+} else {
+  $target .= '<input type="radio" name="t" value="' . $original_sender . '" checked="checked" style="display: none;">';
+}
+
 // Enumerate permitted action buttons
 if (isset($_GET['n']) && $_GET['n'] == 1) {
   $replace['__MESSAGE__'] .= '<hr style="font-size: 35px;" /><p><b>' . $lang_->print_txt('ADDITIONALACTION') . '</b></p>';
-  $news = '<input type="button" class="button" id="newslist" onclick="location = \'/newslist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . '"></input>';
+  $news = '<input type="button" class="button" id="newslist" onclick="location = \'/newslist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '&t=\' + encodeURI(document.querySelector(\'input[name=t]:checked\').value);" value="' . $lang_->print_txt("NEWSLISTTOPIC") . '"></input>';
   if ($can_whitelist) {
-    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSWHITELIST') . '</p>';
-    $news .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("NEWSLISTTOPIC") . ' + ' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSWHITELIST') . '</p>' . $target;
+    $news .= '<input type="button" class="button" id="newswhitelist" onclick="location = \'/newswhitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '&t=\' + encodeURI(document.querySelector(\'input[name=t]:checked\').value);" value="' . $lang_->print_txt("NEWSLISTTOPIC") . ' + ' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
   } else {
-    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSLIST') . '</p>';
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDNEWSLIST') . '</p>' . $target;
   }
   $replace['__ACTIONS__'] .= $news;
 } else {
   if ($can_whitelist) {
     $replace['__MESSAGE__'] .= '<hr style="font-size: 35px;" /><p><b>' . $lang_->print_txt('ADDITIONALACTION') . '</b></p>';
-    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDWHITELIST') . '</p>';
-    $replace['__ACTIONS__'] = '<input type="button" class="button" id="whitelist" onclick="location = \'/whitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '\';" value="' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
+    $replace['__MESSAGE__'] .= '<p>' . $lang_->print_txt('ADDWHITELIST') . '</p>' . $target;
+    $replace['__ACTIONS__'] = '<input type="button" class="button" id="whitelist" onclick="location = \'/whitelist.php?id=' . $_GET['id'] . '&a=' . urlencode($_GET['a']) . '&t=\' + encodeURI(document.querySelector(\'input[name=t]:checked\').value);" value="' . $lang_->print_txt("WHITELISTTOPIC") . '" />';
   }
 }
 

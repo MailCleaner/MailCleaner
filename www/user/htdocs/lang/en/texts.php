@@ -516,6 +516,12 @@ $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It shoul
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
 $txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message.";
 /*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Only original sender address";
+$txt['SENDERVARIATIONS'] = "All variations of sender address";
+$txt['ENTIREDOMAIN'] = "Entire domain";
+/*
  * Newsletter rule
  */
 $txt['ADDNEWSLIST'] = "Accept all future newsletters from the same sender?";
