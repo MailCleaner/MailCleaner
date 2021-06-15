@@ -109,8 +109,11 @@ if (!isset($bad_arg)) {
         $is_sender_added_to_wl = $lang_->print_txt('CANNOTLOADMESSAGE');
     } else {
 
-        // Get both sender and from addresses
-        $sender = get_sender_address($spam_mail);
+        if (isset($_GET['t']) && $_GET['t'] != '') {
+            $sender = $_GET['t'];
+        } else {
+            $sender = get_sender_address($spam_mail);
+        }
 
         $slave = get_soap_host($exim_id, $dest);
         $master = get_master_soap_host();

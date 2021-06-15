@@ -13,11 +13,12 @@ html,body {
 
 #unloggedmessagebox {
   width: 500px;
-  height: 250px;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top:40px;
   border: 1px solid #C6ADC6;
+  padding-bottom: 24px;
   background-color: #FFFFFF;
 }
 

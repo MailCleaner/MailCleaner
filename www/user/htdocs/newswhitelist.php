@@ -129,8 +129,13 @@ if (!isset($bad_arg)) {
     } else {
 
         // Get both sender and from addresses
-        $sender = get_sender_address($spam_mail);
-        $sender_body = get_sender_address_body($spam_mail);
+        $sender = extractSender(get_sender_address($spam_mail));
+        if (isset($_GET['t']) && $_GET['t'] != '') {
+            $sender_body = $_GET['t'];
+        } else {
+            // Get both sender and from addresses
+            $sender_body = get_sender_address_body($spam_mail);
+        }
 
         $slave = get_soap_host($exim_id, $dest);
         $master = get_master_soap_host();

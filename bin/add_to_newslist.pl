@@ -68,8 +68,11 @@ exit 0;
 sub isValidEmail
 {
     my $email_str = shift;
-    return 1 if $email_str =~ /^\S+\@\S+\.\S+$/;
-    return 0;
+    if ($email_str =~ /^\S*\@\S+\.\S+$/) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 ##########################################
