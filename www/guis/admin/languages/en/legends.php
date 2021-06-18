@@ -174,6 +174,7 @@ return array(
    'warnlist' => 'Warn list',
    'whitelist' => 'White list',
    'blacklist' => 'Black list',
+   'newslist' => 'Newsletter list',
    'actions' => 'Actions',
    
 ## domain configuration menu

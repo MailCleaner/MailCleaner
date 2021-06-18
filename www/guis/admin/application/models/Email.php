@@ -24,7 +24,7 @@ class Default_Model_Email
 	protected $_domainobject;
 	
 	protected $_configpanels = array(0 => 'addresssettings', 1 => 'warnlist', 
-                                     2 => 'whitelist', 3 => 'archiving', 4 => 'actions', 5 => 'blacklist');
+                                     2 => 'whitelist', 3 => 'archiving', 4 => 'actions', 5 => 'blacklist', 6 => 'newslist');
                                      
 	public function setParam($param, $value) {
 		if (array_key_exists($param, $this->_values)) {
