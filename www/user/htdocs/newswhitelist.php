@@ -15,6 +15,7 @@
 require_once('variables.php');
 require_once('view/Language.php');
 require_once('system/SystemConfig.php');
+require_once('utils.php');
 require_once('user/WWEntry.php');
 require_once('user/Spam.php');
 require_once('view/Template.php');
