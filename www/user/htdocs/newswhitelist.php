@@ -131,6 +131,9 @@ if (!isset($bad_arg)) {
 
         // Get both sender and from addresses
         $sender = extractSender(get_sender_address($spam_mail));
+        if (!isset($sender) || $sender == '') {
+            $sender = get_sender_address($spam_mail);
+        }
         if (isset($_GET['t']) && $_GET['t'] != '') {
             $sender_body = $_GET['t'];
         } else {
@@ -171,8 +174,8 @@ $replace = array();
 
 // Setting the page text
 if ($is_sender_added_to_wl == 'OK' && $is_sender_added_to_wl == 'OK') {
-    $replace['__HEAD__'] = $lang_->print_txt('NEWSWHITEHEAD');
-    $replace['__MESSAGE__'] = $lang_->print_txt('NEWSWHITEBODY');
+    $replace['__HEAD__'] = $lang_->print_txt('NEWSWHITELISTHEAD');
+    $replace['__MESSAGE__'] = $lang_->print_txt('NEWSWHITELISTBODY');
 } elseif ($is_sender_added_to_news == 'OK') {
     $replace['__HEAD__'] = $lang_->print_txt('NEWSNOTWHITEHEAD');
     $replace['__MESSAGE__'] = $lang_->print_txt('NEWSNOTWHITEBODY') . ' ' . $is_sender_added_to_wl;
