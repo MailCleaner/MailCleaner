@@ -77,7 +77,7 @@ function addToNewslist($dest, $sender) {
   if (!preg_match('/^\S+\@\S+$/', $dest)) {
       return "BADPARAMS";
   }
-  if (!preg_match('/^\S+\@\S+$/', $sender)) {
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
       return "BADPARAMS";
   }
   $sysconf_ = SystemConfig::getInstance();
@@ -100,7 +100,7 @@ function addToWhitelist($dest, $sender) {
   if (!preg_match('/^\S+\@\S+$/', $dest)) {
       return "BADPARAMS";
   }
-  if (!preg_match('/^\S+\@\S+$/', $sender)) {
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
       return "BADPARAMS";
   }
   $sysconf_ = SystemConfig::getInstance();
@@ -123,7 +123,7 @@ function addToBlacklist($dest, $sender) {
   if (!preg_match('/^\S+\@\S+$/', $dest)) {
       return "BADPARAMS";
   }
-  if (!preg_match('/^\S+\@\S+$/', $sender)) {
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
       return "BADPARAMS";
   }
   $sysconf_ = SystemConfig::getInstance();
