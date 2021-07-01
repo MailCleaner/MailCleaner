@@ -13,7 +13,7 @@ Wymienione wiadomości zostaną skasowane za ??SPAMNBDAYS dni.
 
 Jeśli chcesz dostosować ustawienia MailCleaner lub zobaczyć kwarantannę w czasie rzeczywistym, odwiedź interfejs użytkownika pod adresem:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

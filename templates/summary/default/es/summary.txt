@@ -13,7 +13,7 @@ Los mensajes de la lista ser=E1n destruidos en ??SPAMNBDAYS d=EDas.
 
 Si quiere personalizar sus parametros para MailCleaner, o ver en real-tiempo la cuarentena, por favor visita la interfaz de usuario:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

@@ -16,7 +16,7 @@ De berichten in deze lijst zullen vernietigd worden in ??SPAMNBDAYS dagen.
 Als je de instellingen voor MailCleaner wilt aanpassen, of de real-time quarantine
 wilt bekijken, bezoek dan de gebruikersinterface op:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

@@ -16,7 +16,7 @@ Meldingene som er oppført, blir ødelagt om ??SPAMNBDAYS dager.
 Hvis du ønsker å tilpasse innstillingene dine for MailCleaner, eller
 se sanntid karantenen, vennligst besøk brukergrensesnittet på:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

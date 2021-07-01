@@ -16,7 +16,7 @@ Si vous souhaitez r=E9gler les param=E8tres des rapports, visualiser l'=E9tat ac
 de la quarantaine ou faire une demande de support, veuillez visiter l'interface
 web de Mailcleaner =E0 l'adresse:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 
