@@ -186,8 +186,15 @@ sub process {
 	} else {
 		$whitelisted = $email->hasInWhiteWarnList( 'whitelist', $this->{env_sender} );
 	}
-        my $warnlisted =
-            $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
+        my $warnlisted;
+	if ( -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from') {
+		$warnlisted = (
+		  $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} ) ||
+		  $email->hasInWhiteWarnList( 'warnlist', $this->{msg_from} )
+		);
+	} else {
+		$warnlisted = $email->hasInWhiteWarnList( 'warnlist', $this->{env_sender} );
+	}
         my $blacklisted =
             $email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_from});
         my @res_wnews = ('NOTIN','System','Domain','User');
