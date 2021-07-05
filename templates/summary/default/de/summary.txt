@@ -18,7 +18,7 @@ Falls Sie die Einstellungen der Berichte =E4ndern, den aktuellen Stand der
 Quarantane einsehen oder den Support kontaktieren m=F6chten, begeben Sie sich
 auf die Homepage von Mailcleaner unter der Adresse: 
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 
