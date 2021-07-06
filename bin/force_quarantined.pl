@@ -111,6 +111,7 @@ sleep 2;
 my $cmd = "/opt/exim4/bin/exim -C ".$config{SRCDIR}."/etc/exim/exim_stage4.conf -M ".$id." 2>&1";
 my $res = `$cmd`;
 if ($res =~ /^$/) {
+	mark_forced($id);
 	print "FORCED\n";
 	exit;
 }
@@ -125,6 +126,21 @@ sub bad_usage
 {
 	print("Error:  bad usage.  force_quarantined.pl date/msgid\n");
 	exit 1;
+}
+
+##########################################
+sub mark_forced
+{
+	use DBI;
+	my $id = shift;
+	my $dbh = DBI->connect("DBI:mysql:database=mc_stats;host=localhost;mysql_socket=$config{VARDIR}/run/mysql_slave/mysqld.sock",
+		"mailcleaner", "$config{MYMAILCLEANERPWD}", {RaiseError => 0, PrintError => 0}) || return;
+
+	my $query = "UPDATE maillog SET content_forced='1' WHERE id='$id'";
+	my $sth = $dbh->prepare($query);
+	$sth->execute() or return;
+
+	$dbh->disconnect();
 }
 
 ##########################################

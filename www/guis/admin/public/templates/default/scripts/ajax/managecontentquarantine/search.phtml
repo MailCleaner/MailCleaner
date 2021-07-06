@@ -54,9 +54,9 @@
    </tr>
    
 <?php $i=1; foreach ($this->elements as $element) {?>
-<tr class="quarantine_content" onmouseover="highlightActionIcon('<?php echo $i?>', 0, '', '<?php echo $this->images_path?>'); return true;" onmouseout="highlightActionIcon('<?php echo $i?>', 0, '_off', '<?php echo $this->images_path?>'); return true;">
+<tr class="quarantine_content<?php if ($element->getParam('content_forced')) { echo ' msgforced';}?>" onmouseover="highlightActionIcon('<?php echo $i?>', <?php echo $element->getParam('content_forced')?>, '', '<?php echo $this->images_path?>'); return true;" onmouseout="highlightActionIcon('<?php echo $i?>', <?php echo $element->getParam('content_forced')?>, '_off', '<?php echo $this->images_path?>'); return true;">
   <td class="c_caction">
-     <a href="javascript:cforce('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/release_off.png" id="r<?php echo $i;?>" alt="release" /></a>
+     <a href="javascript:cforce('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/<?php if ($element->getParam('content_forced')) { echo "released_off.png"; } else { echo "release_off.png"; }?>" id="r<?php echo $i;?>" alt="release" /></a>
      <a href="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/info_off.png" id="v<?php echo $i;?>" class="middleactionincon" alt="info" /></a>
   </td>
   <td onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');;"><?php echo $element->getParam('date')?>&nbsp;&nbsp;&nbsp;<?php echo $element->getParam('time')?></td>

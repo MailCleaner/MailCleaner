@@ -32,7 +32,8 @@ class Content {
        'size' => 0,
        'spamreport' => '',
        'headers' => '',
-       'slave' => 0
+       'slave' => 0,
+       'content_forced' => 0
   );
  
 
@@ -126,7 +127,7 @@ public function load($id) {
     $clean_id = $db->sanitize($id);
     
     // build the query
-    $query = "SELECT timestamp, to_domain, id, from_address, to_address, subject, isspam, virusinfected, nameinfected, otherinfected, report, date, time, size, sascore, spamreport, headers FROM maillog WHERE";
+    $query = "SELECT timestamp, to_domain, id, from_address, to_address, subject, isspam, virusinfected, nameinfected, otherinfected, report, date, time, size, sascore, spamreport, headers, content_forced FROM maillog WHERE";
     $query .= " quarantined=1 AND ";
     $query .= " id='".$clean_id."'";
     
