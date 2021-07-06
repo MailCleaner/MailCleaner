@@ -10,7 +10,7 @@ class MCSoap_Content
 {
 
 	static public $_fieldstosend = array(
-	   'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time'
+	   'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time', 'content_forced'
 	);
   /**
    * This function will search for quarantined content

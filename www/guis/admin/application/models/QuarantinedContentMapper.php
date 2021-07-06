@@ -68,7 +68,7 @@ class Default_Model_QuarantinedContentMapper
         foreach ($sortarray as $se => $sa) {
         	$e = $entriesflat[$se];
         	$entry = new Default_Model_QuarantinedContent();
-        	foreach (array('store_id', 'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time') as $p) {
+		foreach (array('store_id', 'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time', 'content_forced') as $p) {
                 $entry->setParam($p, $e[$p]);
         	}
         	$entries[] = $entry;

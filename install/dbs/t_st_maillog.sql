@@ -38,6 +38,7 @@ CREATE TABLE maillog (
   time time default NULL,
   headers text,
   quarantined tinyint(1) default '0',
+  content_forced enum('1','0') NOT NULL DEFAULT '0',
   KEY maillog_datetime_idx (date,time),
   KEY maillog_id_idx (id(20)),
   KEY maillog_clientip_idx (clientip(20)),

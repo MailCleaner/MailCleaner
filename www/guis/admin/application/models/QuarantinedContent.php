@@ -23,7 +23,8 @@ class Default_Model_QuarantinedContent
 	  'otherinfected' => 0,
 	  'nameinfected' => 0,
 	  'report' => '',
-	  'size' => 0
+	  'size' => 0,
+          'content_forced' => 0
 	);
 
 	protected $_mapper;
