@@ -12,7 +12,7 @@ $txt['NEWSLETTERSTOPICTITLE'] = "Bültenler";
 $txt['NEWSLETTERSSHORTHELP'] = "Bültenlerinizi buradan yönetebilirsiniz.";
 $txt['NEWSLETTERSALLOW'] = "teslim et";
 $txt['NEWSLETTERACCEPT'] = "Bu bülteni kabul et";
-$txt['SPAM_WHITELIST_DISABLED'] = "Bu alan adı için liste etkinleştirilmedi (Yöneticinizle iletişim kurun).";
+$txt['SPAM_WHITELIST_DISABLED'] = "Bu etki alanı için liste etkinleştirilmedi (yöneticinizle iletişim kurun).";
 /* 
  * generic buttons
  */
@@ -278,8 +278,8 @@ $txt['REMADDRESSALT'] = "adresi kaldır";
 //old
 $txt['ADDADDRESSALT'] = "adres ekle";
 $txt['BADADDRESSFORMAT'] = "Girilen adres geçersiz. Lütfen tekrar deneyin.";
-$txt['NOTFILTEREDDOMAIN'] = "Bu alan adı MailCleaner tarafından filtrelenmemiş. Bu adres eklenemez.";
-$txt['ALIASALREADYREGISTERD'] = "Bu adres zaten bir MailCleaner hesabı tarafından kullanılıyor, eklenemez.";
+$txt['NOTFILTEREDDOMAIN'] = "Bu etki alanı MailCleaner tarafından filtrelenmiyor. Adres eklenemedi.";
+$txt['ALIASALREADYREGISTERD'] = "Bu adres zaten bir MailCleaner hesabı tarafından kullanılıyor. Eklenemedi.";
 $txt['ALIASALREADYPENDING'] = "Bu hesap için zaten bir doğrulama işlemi bekliyor.";
 $txt['ALIASPENDING'] = "Bu adrese bir doğrulama mesajı gönderildi. <br/> Güvenlik sebeplerinden dolayı, sadece 24 saat içinde onaylandığı takdirde adres eklenir.";
 $txt['ALIASREQUESTSUBJECT'] = "[MailCleaner] Adres ekleme talebi";
@@ -555,3 +555,9 @@ $txt['CANNOTCONNECTDB'] = "Veri tabanına bağlanılamadı.";
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Mesaj yüklenemedi (artık var olmayabilir).";
+$txt['ENTIREDOMAIN'] = "Tüm etki alanı";
+$txt['SENDERVARIATIONS'] = "Gönderen adresinin tüm çeşitleri";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Yalnızca orijinal gönderen adresi";
