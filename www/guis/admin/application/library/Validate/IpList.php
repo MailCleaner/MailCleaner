@@ -33,11 +33,24 @@ class Validate_IpList extends Zend_Validate_Abstract
         if ($value == '*') {
         	return true;
         }
+        $lines = preg_split('/\n+/', $value);
+        $value = '';
+	foreach ($lines as $line) {
+          if (preg_match('/^#/', $line)) {
+              continue;
+          } else {
+              $value .= $line . ',';
+          }
+        }
         $addresses = preg_split('/[,\s]+/', $value);
         foreach ($addresses as $address) {
-          $address = preg_replace('/\/\d+$/', '', $address);
+          if (preg_match('/^\s*$/', $address)) {
+              continue;
+          }
+          $address = preg_replace('/^\!?/', '', $address);
+          $address = preg_replace('/\/([0-9]?[0-9]|1([01][0-9]|2[0-8]))$/', '', $address);
           if (preg_match('/\/(a|A|aaaa|AAAA|mx|MX|spf|SPF)$/', $address)) {
-		next;
+              continue;
           } elseif (! $validator->isValid($address)) {
           	  $this->ip = $address;
           	  $this->_error(self::MSG_BADIP);
