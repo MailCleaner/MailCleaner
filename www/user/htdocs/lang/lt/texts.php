@@ -43,7 +43,7 @@ $txt['MONTHAB5'] = 'Geg.';
 $txt['MONTHAB6'] = 'Bir.';
 $txt['MONTHAB7'] = 'Lie.';
 $txt['MONTHAB8'] = 'Rug.';
-$txt['MONTHAB9'] = 'Rugsėjis';
+$txt['MONTHAB9'] = 'Rugs.';
 $txt['MONTHAB10'] = 'Spa.';
 $txt['MONTHAB11'] = 'Lap.';
 $txt['MONTHAB12'] = 'Gru.';
@@ -144,7 +144,7 @@ $txt['HIDEFORCED'] = "Slėpti vartotojo paleistas žinutes.";
 $txt['FORCESPAM'] = "Paleisti žinutę";
 //old
 $txt['ASKREASON'] = "rodyti filtravimo taisykles";
-$txt['CONFSENDANALYSE'] = "A filter adjustment request will be sent to the MailCleaner Analysis Center; it includes a copy of the message that was wrongly blocked.</br>Note: A filter adjustment is not the same as whitelisting or blacklisting";
+$txt['CONFSENDANALYSE'] = "Filtro koregavimo užklausa bus nusiųsta į MailCleaner analizės centrą; jame yra klaidingai užblokuoto pranešimo kopija.</br> Pastaba: filtro koregavimas nėra tas pats, kas įtraukimas į baltąjį sąrašą arba juodąjį sąrašą.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Are you sure you want this message to be analyzed and that filter adjustments may be applied?</span>";
 $txt['ASKANALYSE'] = "Filter adjustment request";
 $txt['PAGE'] = "Page";
@@ -328,7 +328,7 @@ $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
+$txt['BADARGS'] = "Vidinė MailCleaner klaida (__PARAM__). Susisiekite su sistemos administratoriumi ir pateikite išsamią informaciją apie problemą.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
 $txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
@@ -499,4 +499,65 @@ $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this
 $txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
 $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLNOTRELEASEDBODY'] = "Kilo problema išleidžiant jūsų pranešimą.";
+$txt['NOTWHITELISTBODY'] = "Kilo problema įtraukiant baltąjį sąrašą.";
+$txt['ADDRULE'] = "Pridedama WWList taisyklė";
+//
+$txt['ADDITIONALACTION'] = "Papildomi veiksmai:";
+$txt['NOTBLACKLISTBODY'] = "Kilo problema įtraukiant juodąjį sąrašą.";
+$txt['NOTBLACKLISTHEAD'] = "Juodojo sąrašo taisyklė nepridėta.";
+$txt['BLACKLISTBODY'] = "Pridėta juodojo sąrašo taisyklė. Būsimi šio siuntėjo pranešimai visada bus pažymėti kaip nepageidaujami.";
+$txt['BLACKLISTHEAD'] = "Pridėta juodojo sąrašo taisyklė.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Į juodąjį sąrašą įtraukti visus būsimus to paties siuntėjo laiškus?";
+$txt['NOTNEWSWHITEBODY'] = "Kilo problema pridedant šias taisykles.";
+$txt['NOTNEWSWHITEHEAD'] = "Nei naujienų sąrašo, nei baltojo sąrašo taisyklė nepridėta.";
+$txt['WHITENOTNEWSBODY'] = "Pridėta baltojo sąrašo taisyklė, tačiau kilo problemų pridedant naujienlaiškio baltojo sąrašo taisyklę.";
+$txt['WHITENOTNEWSHEAD'] = "Baltasis sąrašas buvo pridėtas, bet naujienų sąrašas ne.";
+$txt['NEWSNOTWHITEBODY'] = "Buvo pridėta naujienlaiškio taisyklė, tačiau iškilo problema pridedant baltojo sąrašo taisyklę.";
+$txt['NEWSNOTWHITEHEAD'] = "Naujienų sąrašas buvo pridėtas, bet baltasis sąrašas ne.";
+$txt['NEWSWHITELISTBODY'] = "Pridėta naujienų sąrašo ir baltojo sąrašo taisyklė. Būsimi šio siuntėjo pranešimai nebus žymimi, jei bus aptikti kaip naujienlaiškiai arba nepageidaujami laiškai.";
+$txt['NEWSWHITELISTHEAD'] = "Pridėtos naujienų sąrašo ir baltojo sąrašo taisyklės.";
+$txt['ADDWHITENEWSLIST'] = "Į baltąjį sąrašą įtraukti visas būsimas to paties siuntėjo siunčiamas reklamines žinutes? Taip pat priimti visus šio siuntėjo naujienlaiškius?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Priimti visus būsimus to paties siuntėjo naujienlaiškius? Taip pat įtraukti į baltąjį sąrašą visus šio siuntėjo nepageidaujamus pranešimus?";
+$txt['NOTWHITELISTHEAD'] = "Baltojo sąrašo taisyklė nebuvo pridėta.";
+$txt['WHITELISTBODY'] = "Pridėta baltojo sąrašo taisyklė. Būsimi šio siuntėjo pranešimai nebus žymimi, jei bus aptikti kaip nepageidaujami.";
+$txt['WHITELISTHEAD'] = "Baltojo sąrašo taisyklė pridėta.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Į baltąjį sąrašą įtraukti visas būsimas to paties siuntėjo siunčiamas reklamines žinutes?";
+$txt['NOTNEWSLISTBODY'] = "Kilo problema įtraukiant naujienlaiškį į baltąjį sąrašą.";
+$txt['NOTNEWSLISTHEAD'] = "Naujienų sąrašo taisyklė nepridėta.";
+$txt['NEWSLISTBODY'] = "Pridėta naujienlaiškių baltojo sąrašo taisyklė. Būsimi šio siuntėjo pranešimai nebus žymimi, jei bus aptikti kaip naujienlaiškiai.";
+$txt['NEWSLISTHEAD'] = "Naujienų sąrašo taisyklė pridėta.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Priimti visus būsimus to paties siuntėjo naujienlaiškius?";
+$txt['ENTIREDOMAIN'] = "Visas domenas";
+$txt['SENDERVARIATIONS'] = "Visi siuntėjo adreso variantai";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Tik pirminis siuntėjo adresas";
+$txt['UNKNOWNERROR'] = "Įvyko nežinoma klaida.";
+$txt['SENDERNOTVALID'] = "Netinkamas siuntėjo adresas.";
+$txt['DESTNOTVALID'] = "Netinkamas paskirties adresas.";
+$txt['DUPLICATEENTRY'] = "Dubliuojantis įrašas jau egzistuoja.";
+$txt['CONFIGREADFAIL'] = "Nepavyko nuskaityti konfigūracijos failo.";
+$txt['CANNOTINSERTDB'] = "Nepavyko įterpti į duomenų bazę.";
+$txt['CANNOTSELECTDB'] = "Nepavyko atlikti paieškos duomenų bazėje.";
+$txt['CANNOTCONNECTDB'] = "Nepavyko prisijungti prie duomenų bazės.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Nepavyko įkelti pranešimo (jis gali nebeegzistuoti).";
+$txt['ADDTOGROUP'] = "Pridėti visiems grupės adresams";
+$txt['NEWSLONLY'] = "Rodyti tik naujienlaiškius";
+$txt['SPAMONLY'] = "Rodyti tik šlamštą";
