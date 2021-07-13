@@ -481,3 +481,4 @@ $txt['RECORDALREADYEXISTS'] = "Questo indirizzo &egrave gi&agrave presente nella
 $txt['SESSIONTERMINATED'] = "La tua sessione &egrave scaduta.";
 $txt['BEENLOGGEDOUT'] = "Se vuoi iniziare una nuova sessione, seleziona il seguente link: <a href=\"__PARAM__\" >__PARAM__</a>";
 $txt['NEWSLISTTOPIC'] = "Lista delle notizie";
+$txt['SPAMONLY'] = "Mostra solo spam";
