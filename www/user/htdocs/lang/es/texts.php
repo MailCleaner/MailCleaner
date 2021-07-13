@@ -504,3 +504,26 @@ $txt['NEWSLISTFOR'] = "Lista de noticias para __PARAM__";
 $txt['EDITNEWSLIST'] = "editar lista de noticias";
 $txt['NEWSLONLY'] = "Mostrar solo boletines";
 $txt['SPAMONLY'] = "Solo mostrar spam";
+$txt['NEWSLISTHEAD'] = "Se ha añadido la regla de la lista de noticias.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "¿Aceptar todos los boletines futuros del mismo remitente?";
+$txt['ENTIREDOMAIN'] = "Dominio completo";
+$txt['SENDERVARIATIONS'] = "Todas las variaciones de la dirección del remitente";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Solo la dirección del remitente original";
+$txt['UNKNOWNERROR'] = "Un error desconocido a ocurrido.";
+$txt['SENDERNOTVALID'] = "Dirección de remitente no válida.";
+$txt['DESTNOTVALID'] = "Dirección de destino no válida.";
+$txt['DUPLICATEENTRY'] = "Ya existe una entrada duplicada.";
+$txt['CONFIGREADFAIL'] = "No se pudo leer el archivo de configuración.";
+$txt['CANNOTINSERTDB'] = "No se pudo insertar en la base de datos.";
+$txt['CANNOTSELECTDB'] = "No se pudo buscar en la base de datos.";
+$txt['CANNOTCONNECTDB'] = "No se pudo conectar a la base de datos.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Error al cargar el mensaje (es posible que ya no exista).";
