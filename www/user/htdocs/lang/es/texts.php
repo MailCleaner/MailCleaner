@@ -527,3 +527,24 @@ $txt['CANNOTCONNECTDB'] = "No se pudo conectar a la base de datos.";
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Error al cargar el mensaje (es posible que ya no exista).";
+$txt['WHITENOTNEWSHEAD'] = "Se ha agregado la lista blanca, pero no la lista de noticias.";
+$txt['NEWSNOTWHITEBODY'] = "Se agregó una regla de boletín, sin embargo, hubo un problema al agregar la regla de lista blanca.";
+$txt['NEWSNOTWHITEHEAD'] = "Se ha agregado la lista de noticias, pero no la lista blanca.";
+$txt['NEWSWHITELISTBODY'] = "Se han agregado una lista de noticias y una regla de lista blanca. Los mensajes futuros de este remitente no se marcarán si se detectan como un boletín informativo o un correo no deseado.";
+$txt['NEWSWHITELISTHEAD'] = "Se han agregado reglas de listas de noticias y listas blancas.";
+$txt['ADDWHITENEWSLIST'] = "Incluir en la lista blanca todos los spam futuros del mismo remitente?También acepta boletines de este remitente?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Aceptar todos los boletines futuros del mismo remitente? Incluir también en la lista blanca todos los mensajes de spam de este remitente?";
+$txt['NOTWHITELISTBODY'] = "Hubo un problema al agregar la lista blanca.";
+$txt['NOTWHITELISTHEAD'] = "No se ha agregado la regla de lista blanca.";
+$txt['WHITELISTBODY'] = "Se ha agregado una regla de lista blanca. Los mensajes futuros de este remitente no se marcarán si se detectan como spam.";
+$txt['WHITELISTHEAD'] = "Se ha agregado la regla de lista blanca.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Incluir en la lista blanca todos los spam futuros del mismo remitente?";
+$txt['NOTNEWSLISTBODY'] = "Hubo un problema al agregar la lista blanca del boletín.";
+$txt['NOTNEWSLISTHEAD'] = "No se ha agregado la regla de la lista de noticias.";
+$txt['NEWSLISTBODY'] = "Se ha agregado una regla de lista blanca de boletines. Los mensajes futuros de este remitente no se marcarán si se detectan como un boletín informativo.";
