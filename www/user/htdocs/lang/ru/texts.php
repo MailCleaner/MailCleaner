@@ -326,7 +326,7 @@ $txt['MASKEALREADYFORCED'] = "Скрыть разблокированные со
 $txt['QUARBOUNCES'] = "Помещать в карантин сообщения об ошибках доставки электронной почты";
 //old
 $txt['WARNLISTFOR'] = "Warnlist для __PARAM__";
-$txt['RECEIVEDVIRUS'] = "Содержащие вирусы и опасные сообщения";
+$txt['RECEIVEDVIRUS'] = "Вирусы и опасные сообщения";
 $txt['RECEIVEDCLEAN'] = "Чистые сообщения";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ полученных сообщений";
 $txt['GLOBALSTATSTITLE'] = "Сводная информация по всем адресам";
