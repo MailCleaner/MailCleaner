@@ -325,7 +325,7 @@ $txt['FROMDATETODATE'] = "desde __PARAM1__.__PARAM2__.__PARAM3__ hasta __PARAM4_
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Error interno de MailCleaner (_PARAM_MESSAGE_ERREUR__). Por favor, contacte a su administrador de sistemas con los detalles del problema.";
+$txt['BADARGS'] = "Error interno de MailCleaner (__PARAM_MESSAGE_ERREUR__). Por favor, contacte a su administrador de sistemas con los detalles del problema.";
 $txt['INCORRECTMSGID'] = "La acción solicitada no puede ser completada porque el identificador del mensaje es incorrecto.";
 $txt['NOSUCHADDR'] = "La dirección dada no esta protegida por MailCleaner.";
 $txt['ERRORSENDING'] = "Un error ocurrió durante en envío del mensaje. Por favor intente de nuevo. Si el problema persiste, por favor contacte a su administrador de sistemas.";
@@ -548,3 +548,17 @@ $txt['ADDWHITELIST'] = "Incluir en la lista blanca todos los spam futuros del mi
 $txt['NOTNEWSLISTBODY'] = "Hubo un problema al agregar la lista blanca del boletín.";
 $txt['NOTNEWSLISTHEAD'] = "No se ha agregado la regla de la lista de noticias.";
 $txt['NEWSLISTBODY'] = "Se ha agregado una regla de lista blanca de boletines. Los mensajes futuros de este remitente no se marcarán si se detectan como un boletín informativo.";
+$txt['ADDRULE'] = "Adición de la regla WWList";
+//
+$txt['ADDITIONALACTION'] = "Acciones adicionales:";
+$txt['NOTBLACKLISTBODY'] = "Hubo un problema al agregar la lista negra.";
+$txt['NOTBLACKLISTHEAD'] = "No se ha agregado la regla de lista negra.";
+$txt['BLACKLISTBODY'] = "Se ha agregado una regla de lista negra. Los mensajes futuros de este remitente siempre se marcarán como spam.";
+$txt['BLACKLISTHEAD'] = "Se ha agregado la regla de lista negra.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "¿Incluir en la lista negra todos los correos futuros del mismo remitente?";
+$txt['NOTNEWSWHITEBODY'] = "Hubo un problema al agregar estas reglas.";
+$txt['NOTNEWSWHITEHEAD'] = "No se han agregado ni la lista de noticias ni la regla de lista blanca.";
+$txt['WHITENOTNEWSBODY'] = "Se agregó una regla de lista blanca, sin embargo, hubo un problema al agregar la regla de lista blanca de boletines.";
