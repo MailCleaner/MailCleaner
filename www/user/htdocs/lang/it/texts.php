@@ -482,3 +482,8 @@ $txt['SESSIONTERMINATED'] = "La tua sessione &egrave scaduta.";
 $txt['BEENLOGGEDOUT'] = "Se vuoi iniziare una nuova sessione, seleziona il seguente link: <a href=\"__PARAM__\" >__PARAM__</a>";
 $txt['NEWSLISTTOPIC'] = "Lista delle notizie";
 $txt['SPAMONLY'] = "Mostra solo spam";
+//old
+$txt['NEWSLISTFOR'] = "Lista delle notizie per __PARAM__";
+//old
+$txt['EDITNEWSLIST'] = "modifica lista notizie";
+$txt['NEWSLONLY'] = "Mostra solo newsletter";
