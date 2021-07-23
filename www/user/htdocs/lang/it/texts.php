@@ -487,3 +487,77 @@ $txt['NEWSLISTFOR'] = "Lista delle notizie per __PARAM__";
 //old
 $txt['EDITNEWSLIST'] = "modifica lista notizie";
 $txt['NEWSLONLY'] = "Mostra solo newsletter";
+$txt['ADDRULE'] = "Aggiunta della regola WWList";
+//
+$txt['ADDITIONALACTION'] = "Azioni aggiuntive:";
+$txt['NOTBLACKLISTBODY'] = "Si è verificato un problema durante l'aggiunta della lista nera.";
+$txt['NOTBLACKLISTHEAD'] = "La regola della lista nera non è stata aggiunta.";
+$txt['BLACKLISTBODY'] = "È stata aggiunta una regola per la lista nera. I messaggi futuri di questo mittente verranno sempre contrassegnati come spam.";
+$txt['BLACKLISTHEAD'] = "È stata aggiunta la regola della lista nera.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Lista nera tutta la posta futura dallo stesso mittente?";
+$txt['NOTNEWSWHITEBODY'] = "Si è verificato un problema durante l'aggiunta di queste regole.";
+$txt['NOTNEWSWHITEHEAD'] = "Non sono state aggiunte né la newslist né la regola della whitelist.";
+$txt['WHITENOTNEWSBODY'] = "È stata aggiunta una regola della lista bianca, tuttavia si è verificato un problema durante l'aggiunta della regola della lista bianca della newsletter.";
+$txt['WHITENOTNEWSHEAD'] = "La whitelist è stata aggiunta ma la newslist no.";
+$txt['NEWSNOTWHITEBODY'] = "È stata aggiunta una regola per la newsletter, tuttavia si è verificato un problema durante l'aggiunta della regola della whitelist.";
+$txt['NEWSNOTWHITEHEAD'] = "La lista delle notizie è stata aggiunta ma la lista bianca no.";
+$txt['NEWSWHITELISTBODY'] = "Sono state aggiunte una lista di notizie e una regola di lista bianca. I messaggi futuri di questo mittente non verranno contrassegnati se rilevati come newsletter o spam.";
+$txt['NEWSWHITELISTHEAD'] = "Sono state aggiunte le regole di newslist e whitelist.";
+$txt['ADDWHITENEWSLIST'] = "Autorizzare tutti gli spam futuri dallo stesso mittente? Accetti anche newsletter da questo mittente?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Accettare tutte le future newsletter dallo stesso mittente? Inserire nella whitelist anche tutti i messaggi di spam da questo mittente?";
+$txt['NOTWHITELISTBODY'] = "La regola della whitelist non è stata aggiunta.";
+$txt['NOTWHITELISTHEAD'] = "La regola della whitelist non è stata aggiunta.";
+$txt['WHITELISTBODY'] = "È stata aggiunta una regola di whitelist. I messaggi futuri di questo mittente non verranno contrassegnati se rilevati come spam.";
+$txt['WHITELISTHEAD'] = "La regola della whitelist è stata aggiunta.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Autorizzare tutti gli spam futuri dallo stesso mittente?";
+$txt['NOTNEWSLISTBODY'] = "Si è verificato un problema durante l'aggiunta della whitelist della newsletter.";
+$txt['NOTNEWSLISTHEAD'] = "La regola della lista di notizie non è stata aggiunta.";
+$txt['NEWSLISTBODY'] = "È stata aggiunta una regola per la lista bianca della newsletter. I messaggi futuri di questo mittente non verranno contrassegnati se rilevati come newsletter.";
+$txt['NEWSLISTHEAD'] = "È stata aggiunta la regola della lista di notizie.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Accettare tutte le future newsletter dallo stesso mittente?";
+$txt['ENTIREDOMAIN'] = "Intero dominio";
+$txt['SENDERVARIATIONS'] = "Tutte le variazioni dell'indirizzo del mittente";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Solo l'indirizzo del mittente originale";
+$txt['NLNOTRELEASEDBODY'] = "Si è verificato un problema durante il rilascio del tuo messaggio.";
+$txt['NLNOTRELEASEDHEAD'] = "La newsletter non è stata pubblicata";
+$txt['NLRELEASEDBODY'] = "La newsletter è stata autorizzata e rilasciata. Dovrebbe essere consegnato nella tua casella di posta in pochi minuti.";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "La newsletter è stata autorizzata e rilasciata.";
+$txt['UNKNOWNERROR'] = "Si è verificato un errore sconosciuto.";
+$txt['SENDERNOTVALID'] = "Indirizzo del mittente non valido.";
+$txt['DESTNOTVALID'] = "Indirizzo di destinazione non valido.";
+$txt['DUPLICATEENTRY'] = "Esiste già una voce duplicata.";
+$txt['CONFIGREADFAIL'] = "Impossibile leggere il file di configurazione.";
+$txt['CANNOTINSERTDB'] = "Impossibile inserire nel database.";
+$txt['CANNOTSELECTDB'] = "Impossibile cercare nel database.";
+$txt['CANNOTCONNECTDB'] = "Impossibile connettersi al database.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Impossibile caricare il messaggio (potrebbe non esistere più).";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Selezionare l'indirizzo o gli indirizzi che si desidera modificare dall'elenco e fare clic sul pulsante di azione desiderato.";
+$txt['NEWSLISTENTRYTOADD'] = "Inserisci l'indirizzo che desideri aggiungere all'elenco delle newsletter. Puoi anche aggiungere un commento facoltativo.";
+$txt['ADDANEWSENTRY'] = "Aggiungi un indirizzo alla lista";
+$txt['NEWSLISTFORADDRESS'] = "Lista newsletter per l'indirizzo";
+$txt['NEWSLISTSHORTHELP'] = "L'elenco delle newsletter contiene gli indirizzi delle newsletter desiderate.<br />
+                                   Consulta il manuale (disponibile nella sezione <a href=\"help.php\">\"Aiuto\"</a>) per ulteriori informazioni sull'utilizzo dell'elenco delle newsletter.
+";
+$txt['ADDTOGROUP'] = "Aggiungi per tutti gli indirizzi nel gruppo";
+$txt['NEWSLISTTOPICTITLE'] = "lista di notizie";
