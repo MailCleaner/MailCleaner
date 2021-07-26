@@ -50,11 +50,11 @@ then
   git clone https://github.com/pyenv/pyenv.git .pyenv
   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> .bash_profile
   echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> .bash_profile
-  echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> .bash_profile
+  echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init --path)"\nfi' >> .bash_profile
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  LD_LIBRARY_PATH="${HOME}/lib/openssl/lib" LDFLAGS="-L${HOME}/lib/openssl/lib -Wl,-rpath,${HOME}/lib/openssl/lib" CFLAGS="-I$HOME/lib/openssl/include" SSH="$HOME/lib/openssl" pyenv install 3.7.7
+  eval "$(pyenv init --path)"
+  LD_LIBRARY_PATH="${HOME}/lib/openssl/lib" LDFLAGS="-L${HOME}/lib/openssl/lib -Wl,-rpath,${HOME}/lib/openssl/lib" CFLAGS="-I$HOME/lib/openssl/include" SSH="$HOME/lib/openssl" pyenv install 3.7.7 -s
   pyenv local 3.7.7
 
   pip install mailcleaner-library --trusted-host repository.mailcleaner.net --index https://repository.mailcleaner.net/python/ --extra-index https://pypi.org/simple/
