@@ -197,9 +197,10 @@ sub process {
 	}
         my $blacklisted =
             $email->hasInWhiteWarnList( 'blacklist', $this->{env_sender} ) || $email->hasInWhiteWarnList( 'blacklist', $this->{msg_from});
-        my @res_wnews = ('NOTIN','System','Domain','User');
-        my $nwhitelisted =
+        my @level = ('NOTIN','System','Domain','User');
+        $this->{nwhitelisted} =
             $email->loadedIsWWListed( 'wnews', $this->{msg_from} ) || $email->loadedIsWWListed( 'wnews', $this->{env_sender} );
+        $this->{news_allowed} = $email->getPref('allow_newsletters') || 0;
         $this->endTimer('Message fetch ww');
 
         # Action
@@ -209,16 +210,16 @@ sub process {
 
             ## Newsletter
             if ( $this->{sc_newsl} >= 5 ) {
-                if ($email->getPref('allow_newsletters')) {
-                    $status = "is desired (Newsletter) from whitelisted ($whitelisted)";
+                if ($this->{news_allowed}) {
+                    $status = "is desired (Newsletter) and whitelisted by " . $level[$whitelisted];
                     $this->{decisive_module}{module} = undef;
-                    $this->manageWhitelist(3);
-                } elsif ($nwhitelisted) {
-                    $status = "is whitelisted by " . $res_wnews[$nwhitelisted] . " ($whitelisted and Newsletter)";
+                    $this->manageWhitelist($whitelisted,3);
+                } elsif ($this->{nwhitelisted}) {
+                    $status = "is newslisted by " . $level[$this->{nwhitelisted}] . " and whitelisted by " . $level[$whitelisted];
                     $this->{decisive_module}{module} = undef;
-                    $this->manageWhitelist(3);
+                    $this->manageWhitelist($whitelisted,$this->{nwhitelisted});
                 } else {
-                    $status = "is whitelisted ($whitelisted) but newsletter";
+                    $status = "is whitelisted by " . $level[$whitelisted] . " but newsletter";
                     $this->{decisive_module}{module} = 'Newsl';
                     if ( $delivery_type == 1 ) {
                         $status .= ": want tag";
@@ -359,11 +360,11 @@ sub process {
             if ($email->getPref('allow_newsletters')) {
                 $status = "is desired (Newsletter)";
                 $this->{decisive_module}{module} = undef;
-                $this->manageWhitelist(3);
-            } elsif ($nwhitelisted) {
-                $status = "is whitelisted by " . $res_wnews[$nwhitelisted] . " (Newsletter)";
+                $this->manageWhitelist(undef,3);
+            } elsif ($this->{nwhitelisted}) {
+                $status = "is newslisted by " . $level[$this->{nwhitelisted}];
                 $this->{decisive_module}{module} = undef;
-                $this->manageWhitelist(3);
+                $this->manageWhitelist(undef,$this->{nwhitelisted});
             } else {
                 $status = "is newsletter";
                 $this->{decisive_module}{module} = 'Newsl';
@@ -700,9 +701,18 @@ sub manageUncheckeable {
 sub manageWhitelist {
     my $this       = shift;
     my $whitelevel = shift;
+    my $newslevel  = shift || undef;
 
     my %level = ( 1 => 'system', 2 => 'domain', 3 => 'user' );
-    my $str   = "whitelisted by " . $level{$whitelevel};
+    my $str;
+    if (defined($whitelevel)) {
+        $str = "whitelisted by " . $level{$whitelevel};
+        if (defined($newslevel)) {
+            $str .= " and newslisted by " . $level{$newslevel};
+        }
+    } elsif (defined($newslevel)) {
+        $str = "newslisted by " . $level{$newslevel};
+    }
 
     ## modify the X-MailCleaner-SpamCheck header
     $this->{fullheaders} =~
@@ -1009,7 +1019,7 @@ sub log {
         return 0;
     }
 
-    my $isNewsletter = ( $this->{sc_newsl} >= 5 ) || 0;
+    my $isNewsletter = ( $this->{sc_newsl} >= 5 && !$this->{nwhitelisted} && !$this->{news_allowed}) || 0;
     
     my $res = $p->execute(
         $this->{env_domain}, $this->{env_tolocal},
