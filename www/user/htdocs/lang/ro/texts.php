@@ -503,3 +503,61 @@ $txt['NLNOTRELEASEDBODY'] = "Există o problemă privind eliberarea mesajului. V
 $txt['ADDTOGROUP'] = "Adăugați pentru toate adresele din grup";
 $txt['NEWSLONLY'] = "Afișați doar newsletter-ele";
 $txt['SPAMONLY'] = "Afișați doar spam-urile";
+$txt['ADDRULE'] = "Adăugarea regulii WWList";
+//
+$txt['ADDITIONALACTION'] = "Acțiuni suplimentare:";
+$txt['NOTBLACKLISTBODY'] = "A apărut o problemă la adăugarea listei negre.";
+$txt['NOTBLACKLISTHEAD'] = "Regula listei negre nu a fost adăugată.";
+$txt['BLACKLISTBODY'] = "A fost adăugată o regulă pentru lista neagră. Mesajele viitoare ale acestui expeditor vor fi întotdeauna semnalate ca spam.";
+$txt['BLACKLISTHEAD'] = "A fost adăugată regula listei negre.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Lista neagră a tuturor mesajelor viitoare de la același expeditor?";
+$txt['NOTNEWSWHITEBODY'] = "A apărut o problemă la adăugarea acestor reguli.";
+$txt['NOTNEWSWHITEHEAD'] = "Nici lista de știri și nici regulile de pe lista albă nu au fost adăugate.";
+$txt['WHITENOTNEWSBODY'] = "A fost adăugată o regulă de listă albă, cu toate acestea, a apărut o problemă la adăugarea regulii de listă albă a buletinului informativ.";
+$txt['WHITENOTNEWSHEAD'] = "A fost adăugată lista albă, dar lista de știri nu.";
+$txt['NEWSNOTWHITEBODY'] = "A fost adăugată o regulă de buletin informativ, cu toate acestea, a apărut o problemă la adăugarea regulii de pe lista albă.";
+$txt['NEWSNOTWHITEHEAD'] = "Lista de știri a fost adăugată, dar lista albă nu.";
+$txt['NEWSWHITELISTBODY'] = "Au fost adăugate o listă de știri și o regulă de listă albă. Mesajele viitoare de la acest expeditor nu vor fi semnalate dacă sunt detectate ca buletin informativ sau ca spam.";
+$txt['NEWSWHITELISTHEAD'] = "Au fost adăugate reguli privind lista de știri și lista albă.";
+$txt['ADDWHITENEWSLIST'] = "Afișați pe lista albă toate spamurile viitoare de la același expeditor? Acceptați, de asemenea, buletine informative de la acest expeditor?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Acceptați toate buletinele informative viitoare de la același expeditor? De asemenea, lista albă a tuturor mesajelor spam de la acest expeditor?";
+$txt['NOTWHITELISTBODY'] = "A apărut o problemă la adăugarea listei albe.";
+$txt['NOTWHITELISTHEAD'] = "Regula listei albe nu a fost adăugată.";
+$txt['WHITELISTBODY'] = "A fost adăugată o regulă pe lista albă. Mesajele viitoare de la acest expeditor nu vor fi semnalate dacă sunt detectate ca spam.";
+$txt['WHITELISTHEAD'] = "A fost adăugată regula listei albe.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Afișați pe lista albă toate spamurile viitoare de la același expeditor?";
+$txt['NOTNEWSLISTBODY'] = "A apărut o problemă la adăugarea listei albe a buletinului informativ.";
+$txt['NOTNEWSLISTHEAD'] = "Regula listei de știri nu a fost adăugată.";
+$txt['NEWSLISTBODY'] = "A fost adăugată o regulă de listă albă a buletinului informativ. Mesajele viitoare de la acest expeditor nu vor fi semnalate dacă sunt detectate ca buletin informativ.";
+$txt['NEWSLISTHEAD'] = "A fost adăugată regula listei de știri.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Acceptați toate buletinele informative viitoare de la același expeditor?";
+$txt['ENTIREDOMAIN'] = "Întregul domeniu";
+$txt['SENDERVARIATIONS'] = "Toate variantele adresei expeditorului";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Numai adresa originală a expeditorului";
+$txt['UNKNOWNERROR'] = "A apărut o eroare necunoscută.";
+$txt['SENDERNOTVALID'] = "Adresa expeditorului este nevalidă.";
+$txt['DESTNOTVALID'] = "Adresă de destinație nevalidă.";
+$txt['DUPLICATEENTRY'] = "Există deja o intrare duplicat.";
+$txt['CONFIGREADFAIL'] = "Nu s-a citit fișierul de configurare.";
+$txt['CANNOTINSERTDB'] = "Nu s-a putut insera în baza de date.";
+$txt['CANNOTSELECTDB'] = "Căutarea în baza de date nu a reușit.";
+$txt['CANNOTCONNECTDB'] = "Conectarea la baza de date nu a reușit.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Nu s-a încărcat mesajul (este posibil să nu mai existe).";
