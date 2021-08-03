@@ -48,9 +48,6 @@ then
   cd openssl-1.1.1g   && ./config --prefix=$HOME/lib/openssl --openssldir=$HOME/lib/openssl no-ssl2   && make   && make install && cd ..  && rm -rf openssl-1.1.1g openssl-1.1.1g.tar.gz
 
   git clone https://github.com/pyenv/pyenv.git .pyenv
-  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> .bash_profile
-  echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> .bash_profile
-  echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init --path)"\nfi' >> .bash_profile
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
