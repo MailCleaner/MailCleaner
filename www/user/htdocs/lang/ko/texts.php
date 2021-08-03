@@ -324,7 +324,7 @@ $txt['FROMDATETODATE'] = "__PARAM1__.__PARAM2__.__PARAM3__ 부터 __PARAM4__.__P
 /*
  * some error messages
  */
-$txt['BADARGS'] = "MailCleaner 내부 에러(_PARAM_MESSAGE_ERREUR__). 자세한 내용은 시스템 관리자에게 문의 하십시오.";
+$txt['BADARGS'] = "MailCleaner 내부 에러(__PARAM__). 자세한 내용은 시스템 관리자에게 문의하여 주십시오.";
 $txt['INCORRECTMSGID'] = "메시지 식별자가 잘못되어 요청한 작업을 완료 할 수 없습니다.";
 $txt['NOSUCHADDR'] = "주어진 주소는 MailCleaner에 의해 보호되지 않습니다.";
 $txt['ERRORSENDING'] = "메시지를 보내는 중 오류가 발생했습니다. 다시 시도하십시오. 문제가 지속되면 시스템 관리자에게 문의하십시오.";
@@ -486,7 +486,7 @@ $txt['BEENLOGGEDOUT'] = "다시 시작하고 싶으면 다음 링크를 누르�
 $txt['NLRELEASEDHEAD'] = "뉴스레터가 허용 및 배달되었습니다.";
 $txt['NLRELEASEDBODY'] = "뉴스레터가 허용 및 배달되었습니다. 몇분 뒤 당신의 메일함에 배달됩니다.";
 $txt['NLNOTRELEASEDHEAD'] = "배달되지 않은 뉴스레터";
-$txt['NLNOTRELEASEDBODY'] = "메시지를 배달하는데 문제가 있습니다. 나중에 다시 시도 하십시오.";
+$txt['NLNOTRELEASEDBODY'] = "메시지를 배달하는데 문제가 있습니다.";
 //old
 $txt['EDITNEWSLIST'] = "뉴스리스트 편집";
 //old
@@ -501,3 +501,39 @@ $txt['ADDANEWSENTRY'] = "리스트에 주소 추가";
 $txt['NEWSLISTENTRYTOADD'] = "뉴스레터 목록에 추가하고 싶은 주소를 입력하세요. 설명을 추가할 수도 있습니다.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "수정하고 싶은 주소를 하나이상 선택하고 원하는 버튼을 누르세요.";
 $txt['ADDTOGROUP'] = "그룹의 모든 주소에 추가";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "동일한 발송메일의 스팸메일을 화이트리스트에 추가하시겠습니까?";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "같은 발신메일에서 도착하는 모든 뉴스레터를 수신하시겠습니까?";
+$txt['SENDERVARIATIONS'] = "보낸 주소의 모든 변형";
+$txt['NOTWHITELISTBODY'] = "화이트리스트 추가 중 문제가 발생했습니다.";
+$txt['NOTWHITELISTHEAD'] = "화이트리스트 규칙이 추가되지 않았습니다.";
+$txt['WHITELISTBODY'] = "화이트리스트 규칙이 추가되었습니다. 이 메일로부터 발송된 메일은 더 이상 스팸으로 표시되지 않습니다.";
+$txt['WHITELISTHEAD'] = "화이트리스트 규칙이 추가되었습니다.";
+$txt['NEWSLISTHEAD'] = "뉴스 규칙이 추가 되었습니다.";
+$txt['NOTNEWSLISTBODY'] = "뉴스 화이트리스트 추가 중 문제가 발생했습니다.";
+$txt['NOTNEWSLISTHEAD'] = "뉴스 목록 조건이 추가 되지 않았습니다.";
+$txt['NEWSLISTBODY'] = "뉴스레터 화이트리스트가 추가되었습니다. 이 발송메일로 오는 메일은 더 이상 뉴스로 표시되지 않습니다.";
+$txt['ENTIREDOMAIN'] = "전체 도메인";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "원본 주소만";
+$txt['UNKNOWNERROR'] = "알 수 없는 에러가 발생했습니다.";
+$txt['DESTNOTVALID'] = "받는 주소가 잘못되었습니다.";
+$txt['SENDERNOTVALID'] = "보내는 주소가 잘못 되었습니다.";
+$txt['DUPLICATEENTRY'] = "이미 중복되는 항목이 있습니다.";
+$txt['CONFIGREADFAIL'] = "설정 파일을 읽지 못하였습니다.";
+$txt['CANNOTINSERTDB'] = "DB에 입력하지 못하였습니다.";
+$txt['CANNOTSELECTDB'] = "DB 검색에 실패하였습니다.";
+$txt['CANNOTCONNECTDB'] = "DB연결에 실패하였습니다.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "메시지를 읽는데 실패하였습니다. (존재하지 않을 수 있음).";
+$txt['NEWSLONLY'] = "뉴스만 표시";
+$txt['SPAMONLY'] = "스팸 메일만 표시";
