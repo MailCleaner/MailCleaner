@@ -3,3 +3,4 @@ $txt['SFALSENEGSUBTITLE'] = "스팸으로 고려하고 싶은 메일을 받은 �
 $txt['SMCLOGLINE1'] = "받음: mailcleaner.net 으로 부터 (필터링 데몬)";
 $txt['SMCFILTERINGLOG'] = "필터링 결과: X-Mailcleaner-spamscore: oooo";
 $txt['SVERIFYPASS'] = "메시지가 메일클리너 필터의 메일 헤더를 확인하여 처리되었는지 확인.";
+$txt['SFALSENEGTITLE'] = "거짓 음성";
