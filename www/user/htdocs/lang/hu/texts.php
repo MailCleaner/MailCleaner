@@ -328,7 +328,7 @@ $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
+$txt['BADARGS'] = "Belső MailCleaner hiba (__PARAM__). Kérjük, lépjen kapcsolatba a rendszergazdával a probléma részleteivel.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
 $txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
@@ -499,4 +499,31 @@ $txt['BEENLOGGEDOUT'] = "If you would like to start a new session, click on this
 $txt['NLRELEASEDHEAD'] = "Newsletter has been allowed and released.";
 $txt['NLRELEASEDBODY'] = "The newsletter has been allowed and released. It should be delivered in your mailbox in a few minutes.";
 $txt['NLNOTRELEASEDHEAD'] = "Newsletter was not released";
-$txt['NLNOTRELEASEDBODY'] = "There was a problem releasing your message. Please try again later.";
+$txt['NLNOTRELEASEDBODY'] = "Hiba történt az üzenet közzétételekor.";
+$txt['NEWSLISTBODY'] = "A hírlevél engedélyezési listájának szabálya bekerült. Ettől a feladótól jövő üzenetek nem lesznek megjelölve, ha hírlevélként észlelik őket.";
+$txt['NEWSLISTHEAD'] = "A hírlista szabály hozzáadásra került.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Elfogadja az összes jövőbeli hírlevelet ugyanaztól a feladótól?";
+$txt['ENTIREDOMAIN'] = "A teljes domain";
+$txt['SENDERVARIATIONS'] = "A feladó címének minden változata";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Csak az eredeti feladó címe";
+$txt['UNKNOWNERROR'] = "Ismeretlen hiba történt.";
+$txt['SENDERNOTVALID'] = "Érvénytelen feladói cím.";
+$txt['DESTNOTVALID'] = "Érvénytelen célcím.";
+$txt['DUPLICATEENTRY'] = "Ismétlődő bejegyzés már létezik.";
+$txt['CONFIGREADFAIL'] = "Nem sikerült beolvasni a konfigurációs fájlt.";
+$txt['CANNOTINSERTDB'] = "Nem sikerült beilleszteni az adatbázisba.";
+$txt['CANNOTSELECTDB'] = "Nem sikerült keresni az adatbázisban.";
+$txt['CANNOTCONNECTDB'] = "Nem sikerült csatlakozni az adatbázishoz.";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Nem sikerült betölteni az üzenetet (lehet, hogy már nem létezik).";
+$txt['ADDTOGROUP'] = "Hozzáadás a csoport összes címéhez";
+$txt['NEWSLONLY'] = "Csak hírlevelek megjelenítése";
+$txt['SPAMONLY'] = "Csak spam megjelenítése";
