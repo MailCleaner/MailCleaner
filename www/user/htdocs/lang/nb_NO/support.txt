@@ -68,7 +68,7 @@ $txt['DOCUMENTATION'] = "
                                    du har noen filtreringsvalg som lar deg søke gjennom din karanteneliste. Antalle dager i karantene, antall meldinger per side, og emne/mål-felter. Fyll inn de du ønsker å bruke og klikk oppdater for å legge til filterne.
                                 </li>
                                 <li> <h3>handling: </h3>
-                                   herfra kan du fjerne (<img src=\"/templates/$template/images/trash.gif\" align=\"top\" alt=\"\">) hele karantenelisten hvis du ønsker det. Husk at karantenelisten blir slettet automatisk av systemet med gjevne mellomrom. Dette valget lar deg gjør det når du vil.
+                                   herfra kan du fjerne (<img src=\"/templates/$template/images/trash.gif\" align=\"top\" alt=\"\">) hele karantenelisten hvis du ønsker det. Husk at karantenelisten blir slettet automatisk av systemet med jevne mellomrom. Dette valget lar deg gjør det når du vil.
                                    Du kan også forespørre et sammendrag (<img src=\"/templates/$template/images/summary.gif\" align=\"top\" alt=\"\">) av karantenen. Dette er samme sammendrag som det som blir sendt periodisk. Dette valget lar deg hente den når du vil.
                                 </li>
                               </ul>
