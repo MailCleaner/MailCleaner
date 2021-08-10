@@ -124,7 +124,12 @@ filter_newsletter:
 
 filter_blacklist:
   driver = accept
-  condition = ${if >{${perl{isBlacklisted}{$local_part}{$domain}}}{0} }
+  condition = ${if and \
+                  { \
+                    { >{${perl{isBlacklisted}{$local_part}{$domain}}}{0} } \
+                    { !match{$header_X-MailCleaner-Forced:}{message forced} } \
+                  }{yes}{no} \
+                }
   #condition = ${if ! match {$header_X-MailCleaner-Status:}{\{${perl{getBlacklistedFlag}{$local_part}{$domain}}\}} {yes}{no} }
   transport = spam_store
   headers_add = X-MailCleaner-Status: Blacklisted (${perl{getBlacklistedFlag}{$local_part}{$domain}})
