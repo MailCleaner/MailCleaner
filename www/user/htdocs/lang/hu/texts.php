@@ -527,3 +527,18 @@ $txt['CANNOTLOADMESSAGE'] = "Nem sikerült betölteni az üzenetet (lehet, hogy 
 $txt['ADDTOGROUP'] = "Hozzáadás a csoport összes címéhez";
 $txt['NEWSLONLY'] = "Csak hírlevelek megjelenítése";
 $txt['SPAMONLY'] = "Csak spam megjelenítése";
+$txt['ADDWHITENEWSLIST'] = "Ugyanazon feladótól származó összes jövőbeli spam engedélyezési listájára kerül? Elfogadja a hírleveleket is ettől a feladótól?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Elfogadja az összes jövőbeli hírlevelet ugyanaztól a feladótól? Ettől a feladótól származó spamüzeneteket is engedélyezi?";
+$txt['NOTWHITELISTBODY'] = "Hiba történt az engedélyezőlista hozzáadása során.";
+$txt['NOTWHITELISTHEAD'] = "Az engedélyezőlistára vonatkozó szabály nincs hozzáadva.";
+$txt['WHITELISTBODY'] = "Egy fehér listára vonatkozó szabályt adtunk hozzá. Ettől a feladótól jövő üzenetek nem lesznek megjelölve, ha spamként észlelik őket.";
+$txt['WHITELISTHEAD'] = "Az engedélyezőlistára vonatkozó szabály hozzáadásra került.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Ugyanazon feladótól származó összes jövőbeli spam engedélyezési listájára kerül?";
+$txt['NOTNEWSLISTBODY'] = "Hiba történt a hírlevél fehér listájának hozzáadása során.";
+$txt['NOTNEWSLISTHEAD'] = "A hírlista szabály nincs hozzáadva.";
