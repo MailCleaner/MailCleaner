@@ -525,3 +525,13 @@ $txt['CANNOTCONNECTDB'] = "Fehler beim Herstellen einer Verbindung mit der Daten
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Fehler beim Laden der Nachricht (sie existiert möglicherweise nicht mehr).";
+$txt['NEWSWHITELISTBODY'] = "Eine Newslist- und Whitelist-Regel wurden hinzugefügt. Zukünftige Nachrichten dieses Absenders werden nicht markiert, wenn sie als Newsletter oder Spam erkannt werden.";
+$txt['NEWSWHITELISTHEAD'] = "Newslist- und Whitelist-Regeln wurden hinzugefügt.";
+$txt['ADDWHITENEWSLIST'] = "Alle zukünftigen Spams desselben Absenders auf die Whitelist setzen? Auch Newsletter von diesem Absender akzeptieren?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Alle zukünftigen Newsletter vom gleichen Absender akzeptieren? Auch alle Spam-Nachrichten dieses Absenders auf die Whitelist setzen?";
+$txt['NOTWHITELISTBODY'] = "Beim Hinzufügen der Whitelist ist ein Problem aufgetreten.";
+$txt['NOTWHITELISTHEAD'] = "Whitelist-Regel wurde nicht hinzugefügt.";
+$txt['WHITELISTBODY'] = "Eine Whitelist-Regel wurde hinzugefügt. Zukünftige Nachrichten von diesem Absender werden nicht markiert, wenn sie als Spam erkannt werden.";
