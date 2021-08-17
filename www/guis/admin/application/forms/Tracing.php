@@ -46,7 +46,8 @@ class Default_Form_Tracing extends ZendX_JQuery_Form
 	    $this->addElement($domainField);
 	    
 	    $sender = new  Zend_Form_Element_Text('sender', array(
-	        'label' => $t->_('Filter by external address')." : ",
+	        'label' => $t->_('Filter by log detail')." : ",
+                'title' => $t->_('Enter value for another attribute of the message such as the external address, hostname, Message Id or Queue Id. Search multiple criteria by separating with a space.'),
 	        'size' => 40,
 		    'required' => false));
 	    $sender->setValue($this->_params['sender']);
