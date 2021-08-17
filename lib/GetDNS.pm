@@ -8,7 +8,7 @@ use Net::CIDR qw( cidradd cidr2range range2cidr );
 use Math::Int128 qw( int128 );
 use Data::Validate::IP;
 
-our $debug = 1;
+our $debug = 0;
 
 sub new
 {
@@ -46,15 +46,16 @@ sub dumper {
 	$self->{recursion} = 0;
 
 	chomp($raw);
-	$raw =~ s/([\s\n\r;])+/ /g;
+	$raw =~ s/([\s\n\r;,])+/ /g;
 
 	my %cache;
 	my @list;
+	my @hostnames;
 	foreach my $line (split(" ", $raw)) {
 		# Some fields allow for a hostname which should not be resolved to IPs
 		# Push without looking up DNS info
 		if ($line =~ m/^([a-z0-9\-*]+\.)+[a-z]*$/) {
-			push(@list,$line);
+			push(@hostnames,$line);
 		# Ignore comment
 		} elsif ($line =~ m/^#/) {
 			next;
@@ -165,6 +166,7 @@ sub dumper {
 	}
 
 	@list = $self->simplify(\@list,\@exceptions);
+	push(@list,@hostnames);
 
 	$self->{recursion} = $recursion;
 	return @list;
