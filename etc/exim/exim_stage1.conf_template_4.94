@@ -124,10 +124,10 @@ __FI__
          id ${message_id} ${if def:received_for {\n\tfor <$received_for>}} ${if def:sender_address {\n\tfrom <$sender_address>}}"
 
 domainlist local_domains =
-domainlist relay_to_domains = wildlsearch;VARDIR/spool/tmp/mailcleaner/domains.list
+domainlist relay_to_domains = wildlsearch,ret=key;VARDIR/spool/tmp/mailcleaner/domains.list
 domainlist domains_to_callout = VARDIR/spool/tmp/mailcleaner/domains_to_callout.list
 domainlist domains_to_extcallout = VARDIR/spool/tmp/mailcleaner/domains_to_extcallout.list
-domainlist domains_to_altcallout = lsearch;VARDIR/spool/tmp/mailcleaner/domains_to_altcallout.list
+domainlist domains_to_altcallout = lsearch,ret=key;VARDIR/spool/tmp/mailcleaner/domains_to_altcallout.list
 domainlist domains_to_addlistcallout = VARDIR/spool/tmp/mailcleaner/domains_to_addlistcallout.list
 domainlist domains_to_adcheck = VARDIR/spool/tmp/mailcleaner/domains_to_adcheck.list
 domainlist domains_to_greylist = VARDIR/spool/tmp/mailcleaner/domains_to_greylist.list
