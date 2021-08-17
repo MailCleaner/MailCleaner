@@ -73,8 +73,8 @@ $spam_mail->loadDatas($_GET['id'],$_GET['a']);
 if (isset($_GET['n']) && $_GET['n'] == 1) {
   $spam_mail->loadHeadersAndBody();
   $from = $spam_mail->getHeadersArray()['From'];
-  preg_match('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($from), $original_sender);
-  $original_sender = $original_sender[1];
+  preg_match_all('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($from), $original_sender);
+  $original_sender = $original_sender[0][sizeof($original_sender[0])-1];
 } else {
   $original_sender = $spam_mail->getData("sender");
 }

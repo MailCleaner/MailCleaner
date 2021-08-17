@@ -167,6 +167,8 @@ function getHeaders($id, $dest) {
   $line = 0;
   $soap_ret = new SoapText();
   while( !preg_match('/^$/',$file[$line])) {
+    $file[$line] = preg_replace('/</','&lt;',$file[$line]);
+    $file[$line] = preg_replace('/>/','&gt;',$file[$line]);
     array_push($ret, utf8_encode($file[$line]));
     $line++;
   }
