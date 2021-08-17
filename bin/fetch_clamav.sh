@@ -89,32 +89,34 @@ fi
 # Getting to the ClamAV databases
 cd /var/mailcleaner/spool/clamav
 # Foreach file
-for file in $(ls | grep -v "dbs.md5"); do
+for file in $(ls); do
 
-        # Check if we should re run test on this file
-        PERFORM_VERIFICATION=1
-        if [ -e "$VARDIR/spool/tmp/clamav/$file" ]; then
-                CURRENT_MD5SUM=`md5sum $file |sed -e 's/ .*//'`
-                LAST_MD5SUM=`cat "$VARDIR/spool/tmp/clamav/$file"`
-                if [ "$CURRENT_MD5SUM" = "$LAST_MD5SUM" ]; then
-                        PERFORM_VERIFICATION=0
-                else
-                        rm "$VARDIR/spool/tmp/clamav/$file"
+        if grep -Eqv "^(dbs.md5|.*.tmp)$" <<< `echo $file`; then
+                # Check if we should re run test on this file
+                PERFORM_VERIFICATION=1
+                if [ -e "$VARDIR/spool/tmp/clamav/$file" ]; then
+                        CURRENT_MD5SUM=`md5sum $file |sed -e 's/ .*//'`
+                        LAST_MD5SUM=`cat "$VARDIR/spool/tmp/clamav/$file"`
+                        if [ "$CURRENT_MD5SUM" = "$LAST_MD5SUM" ]; then
+                                PERFORM_VERIFICATION=0
+                        else
+                                rm "$VARDIR/spool/tmp/clamav/$file"
+                        fi
                 fi
-        fi
 
-        # test if it is malformed
-        if [ "$PERFORM_VERIFICATION" -eq "1" ]; then
-	        MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
+                # test if it is malformed
+                if [ "$PERFORM_VERIFICATION" -eq "1" ]; then
+	                MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
 
-	        # If the file is malformed, remove it
-        	if [ ! -z "${MALFORMEDFILE}" ] ; then
-                	rm $file
-	                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $file removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
-        	        MALFORMEDFILE=''
-		else
-			echo $CURRENT_MD5SUM > "$VARDIR/spool/tmp/clamav/$file"
-		fi
+	                # If the file is malformed, remove it
+                        if [ ! -z "${MALFORMEDFILE}" ] ; then
+                                rm $file
+                                echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $file removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
+                                MALFORMEDFILE=''
+                        else
+			        echo $CURRENT_MD5SUM > "$VARDIR/spool/tmp/clamav/$file"
+		        fi
+                fi
         fi
 done
 cd -
