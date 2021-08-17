@@ -106,6 +106,12 @@ acl_check_rcpt:
 ######################################################################
 begin routers
 
+forced:
+  driver      = manualroute
+  transport   = remote_smtp
+  condition   = ${if match{$header_X-MailCleaner-Forced:}{message forced}}
+  route_data  = ${lookup{$domain}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains.list}}
+
 full_whitelist:
    driver     = manualroute
    transport  = remote_smtp
