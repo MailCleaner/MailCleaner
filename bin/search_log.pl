@@ -13,7 +13,7 @@ my $stop = shift;
 my $what = shift;
 my $batch = 0;
 my $includerefused = 1;
-my $filter = ' ';
+my @filter = ();
 my $fakeids = 1;
 my $batchwithlog = 0;
 my $batchid = 0;
@@ -26,13 +26,13 @@ if (! $start  || ! $stop || ! $what ) {
   print_usage();
 }
 while (my $opt = shift) {
-  if ($opt =~ /-\S*b/) {
+  if ($opt =~ /^-\S*b/) {
     $batch = 1;
   }
-  if ($opt =~ /-\S*R/) {
+  if ($opt =~ /^-\S*R/) {
     $includerefused = 0;
   }
-  if ($opt =~ /-\S*B/) {
+  if ($opt =~ /^-\S*B/) {
     $batchid = shift;
     $batch = 1;
     if (!$batchid) {
@@ -43,7 +43,7 @@ while (my $opt = shift) {
     }
   }
   if ($opt !~ /^-/) {
-    $filter = $opt;
+    push(@filter, $opt);
   }  
 }
 
@@ -103,13 +103,15 @@ loopThroughLogs('exim_stage1/mainlog', 'exim', $what, \%stage1_ids);
 foreach my $msg (@nf_messages) {
 	my %msg_o = %{$msg};
 	my $filtermatch = 0;
-	foreach my $line (split '\n', $stage1_ids{$msg_o{'id'}}) {
-	   if ($line =~ m/$filter/i) {
-	   	  $filtermatch = 1;
-	   	  last;
-	   }
+        foreach my $f (@filter) {
+	    foreach my $line (split '\n', $stage1_ids{$msg_o{'id'}}) {
+	        if ($line =~ m/$f/i) {
+	   	    $filtermatch++;
+	   	    last;
+	        }
+            }
 	}
-	if ($filtermatch) {
+	if ($filtermatch == scalar(@filter)) {
 		my $refused = 0;
 		if ( ! $includerefused ) {
 			# List of regexp matching the refused messages

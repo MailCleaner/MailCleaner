@@ -34,7 +34,10 @@ class MCSoap_Logs
 		}
 		$cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." ".$params['regexp'];
         if (isset($params['filter']) && $params['filter'] != '' && $params['filter'] != "''") {
-            $cmd .= " ".$params['filter'];
+            $params['filter'] = preg_replace("/^'(.*)'$/", "$1", $params['filter']);
+            $params['filter'] = preg_replace("/'/", "\\'", $params['filter']);
+            $params['filter'] = preg_replace("/\s+/", "' '", $params['filter']);
+            $cmd .= " '" . $params['filter'] . "'";
         }
 
                 if (isset($params['hiderejected']) && $params['hiderejected']) {
