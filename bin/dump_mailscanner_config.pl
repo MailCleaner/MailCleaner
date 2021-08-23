@@ -121,7 +121,7 @@ sub get_ms_config
   $config{'__NOTICETO__'} = $row{'notices_to'};
 
   $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
+  if ($row{'trusted_ips'} && $row{'trusted_ips'} ne 'no') {
     $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
   $config{'__SPAMHITS__'} = $row{'spamhits'};
