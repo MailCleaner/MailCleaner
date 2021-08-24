@@ -1158,6 +1158,12 @@ bypass_full_whitelist:
   hosts = localhost
   interface = 127.0.0.1
   port = 2525
+  dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
+                      }
 
 bypass_smtp:
   driver = smtp
