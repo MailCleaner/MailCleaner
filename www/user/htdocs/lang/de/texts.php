@@ -535,3 +535,5 @@ $txt['ADDNEWSWHITELIST'] = "Alle zukünftigen Newsletter vom gleichen Absender a
 $txt['NOTWHITELISTBODY'] = "Beim Hinzufügen der Whitelist ist ein Problem aufgetreten.";
 $txt['NOTWHITELISTHEAD'] = "Whitelist-Regel wurde nicht hinzugefügt.";
 $txt['WHITELISTBODY'] = "Eine Whitelist-Regel wurde hinzugefügt. Zukünftige Nachrichten von diesem Absender werden nicht markiert, wenn sie als Spam erkannt werden.";
+$txt['NEWSNOTWHITEBODY'] = "Eine Newsletter-Regel wurde hinzugefügt, beim Hinzufügen der Whitelist-Regel ist jedoch ein Problem aufgetreten.";
+$txt['NEWSNOTWHITEHEAD'] = "Newslist wurde hinzugefügt, Whitelist jedoch nicht.";
