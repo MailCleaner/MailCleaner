@@ -97,7 +97,7 @@ class Default_Model_AdministratorMapper
     	
     	if (isset($params['username'])) {
     		$str = preg_replace('/\*/', '%', $params['username']);
-    		$str = preg_replace('/[^0-9a-zA-Z._\-]/', '', $str);
+    		$str = preg_replace('/[^0-9a-zA-Z._\-@]/', '', $str);
     		$query->where('username LIKE ?', $str."%");
     	}
         $resultSet = $this->getDbTable()->fetchAll($query);
