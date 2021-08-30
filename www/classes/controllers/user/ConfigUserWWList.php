@@ -86,6 +86,20 @@ class ConfigUserWWList {
                     if (isset($addposted['togroup'])) {
                         $this->message_ = 'Adding ' . $sender . ' to:';
                         foreach ($user_->getAddresses() as $address => $ismain) {
+                            $dup = 0;
+                            foreach ($this->wwlist_->getElements() as $entry) {
+                                if ( $entry->getPref('sender') == $sender &&
+                                    $entry->getPref('recipient') == $address &&
+                                    $entry->getPref('type') == $this->type_ )
+                                {
+                                    $dup = 1;
+                                    break;
+                                }
+                            }
+                            if ($dup) {
+                                $this->message_ .= ' ' . $address . ' (duplicate),';
+                                continue;
+                            };
                             $new->load(0);
                             $new->setPref('sender', $sender);
                             $new->setPref('comments', $addposted['comment']);
@@ -93,23 +107,37 @@ class ConfigUserWWList {
                             $new->setPref('status', '1');
                             $new->setPref('recipient', $address);
                             if ($new->save()) {
-                                $this->message_ .= ' ' . $address . '(success),';
+                                $this->message_ .= ' ' . $address . ' (success),';
                             } else {
-                                $this->message_ .= ' ' . $address . '(failed),';
+                                $this->message_ .= ' ' . $address . ' (failed),';
                             }
                             $this->message_ = preg_replace('/,$/', '', $this->message_);
                         }
                     } else {
-                        $new->load(0);
-                        $new->setPref('sender', $sender);
-                        $new->setPref('comments', $addposted['comment']);
-                        $new->setPref('type', $this->type_);
-                        $new->setPref('status', '1');
-                        $new->setPref('recipient', $this->add_);
-                        if ($new->save()) {
-                            $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(success)';
+                        $dup = 0;
+                        foreach ($this->wwlist_->getElements() as $entry) {
+                             if ( $entry->getPref('sender') == $sender &&
+                                $entry->getPref('recipient') == $this->add_ &&
+                                $entry->getPref('type') == $this->type_ )
+                            {
+                                $dup = 1;
+                                break;
+                            }
                         }
-                        $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . '(failed)';
+                        if ($dup) {
+                            $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . ' (duplicate)';
+                        } else {
+                            $new->load(0);
+                            $new->setPref('sender', $sender);
+                            $new->setPref('comments', $addposted['comment']);
+                            $new->setPref('type', $this->type_);
+                            $new->setPref('status', '1');
+                            $new->setPref('recipient', $this->add_);
+                            if ($new->save()) {
+                                $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . ' (success)';
+                            }
+                            $this->message_ = 'Adding ' . $sender . ' to: ' . $this->add_ . ' (failed)';
+                        }
                     }
                 }
             }
@@ -120,19 +148,21 @@ class ConfigUserWWList {
             foreach ($remposted as $key => $val) {
                 $matches = array();
                 if ($val == 1 && preg_match("/^ent_(\S+)/", $key, $matches)) {
-                    if (preg_match('/_cb$/', $key)) { continue; }
-			        $add = $this->wwlist_->decodeVarName($matches[1]);
-                    if ($remposted['wantdisable'] && $remposted['wantdisable'] > 0) {
-                        $ent = $this->wwlist_->getEntryByPref('sender', $add);
-                        if ($ent->getPref('status') < 1) {
-                            $ent->enable();
+                    if (preg_match('/_cb$/', $key)) {
+                        $matches[1] = preg_replace('/_cb$/','',$matches[1]);
+			$add = $this->wwlist_->decodeVarName($matches[1]);
+                        if ($remposted['wantdisable'] && $remposted['wantdisable'] > 0) {
+                            $ent = $this->wwlist_->getEntryByPref('sender', $add);
+                            if ($ent->getPref('status') < 1) {
+                                $ent->enable();
+                            } else {
+                                $ent->disable();
+                            }
                         } else {
-                            $ent->disable();
+                            $ent = $this->wwlist_->getEntryByPref('sender', $add);
+                            $ent->delete();
+                            $this->wwlist_->reload();
                         }
-                    } else {
-                        $ent = $this->wwlist_->getEntryByPref('sender', $add);
-                        $ent->delete();
-                        $this->wwlist_->reload();
                     }
                 }
             }
