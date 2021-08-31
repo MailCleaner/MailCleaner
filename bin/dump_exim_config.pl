@@ -914,6 +914,19 @@ sub get_exim_config{
     $config{'forbid_clear_auth'} = $row{'forbid_clear_auth'};
     $config{'dkim_default_pkey'} = $row{'dkim_default_pkey'};
     $config{'allow_relay_for_unknown_domains'} = $row{'allow_relay_for_unknown_domains'};
+    my $vardir = $conf->getOption('VARDIR');
+    my $fh;
+    $config{'__FULL_WHITELIST_HOSTS__'} = '';
+    if (-e $vardir.'/spool/mailcleaner/full_whitelisted_hosts.list') {
+        open($fh, '<', $vardir.'/spool/mailcleaner/full_whitelisted_hosts.list');
+        while (<$fh>) {
+	    $config{'__FULL_WHITELIST_HOSTS__'} .= $_ . ' ';
+        }
+        chomp($config{'__FULL_WHITELIST_HOSTS__'});
+    }
+    if ($config{'__FULL_WHITELIST_HOSTS__'} != '') {
+          $config{'__FULL_WHITELIST_HOSTS__'} = join(' ; ',expand_host_string($config{'__FULL_WHITELIST_HOSTS__'},('dumper'=>'exim/full_whitelist_hosts')));
+    }
     return %config;
 }
 
