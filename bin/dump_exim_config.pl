@@ -924,7 +924,7 @@ sub get_exim_config{
         }
         chomp($config{'__FULL_WHITELIST_HOSTS__'});
     }
-    if ($config{'__FULL_WHITELIST_HOSTS__'} != '') {
+    if ($config{'__FULL_WHITELIST_HOSTS__'} ne '') {
           $config{'__FULL_WHITELIST_HOSTS__'} = join(' ; ',expand_host_string($config{'__FULL_WHITELIST_HOSTS__'},('dumper'=>'exim/full_whitelist_hosts')));
     }
     return %config;
