@@ -354,7 +354,7 @@ class MCSoap_Config
 			$txt=strtoupper($k)."=".$v."\n";
 			fwrite($rdata, $txt);
 		}
-		fclose($myfile);
+		fclose($rdata);
 		
 		// Call the register_ce.sh script
                 $cmd = $sysconf->getOption('SRCDIR')."/bin/register_ce.sh -b";
