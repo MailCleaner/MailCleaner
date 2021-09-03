@@ -520,3 +520,41 @@ $txt['CANNOTCONNECTDB'] = "Falha ao conectar ao banco de dados.";
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Falha ao carregar a mensagem (pode não existir mais).";
+$txt['ADDRULE'] = "Adicionando regra WWList";
+//
+$txt['ADDITIONALACTION'] = "Ações adicionais:";
+$txt['NOTBLACKLISTBODY'] = "Ocorreu um problema ao adicionar a lista negra.";
+$txt['NOTBLACKLISTHEAD'] = "A regra da lista negra não foi adicionada.";
+$txt['BLACKLISTBODY'] = "Uma regra de lista negra foi adicionada. As mensagens futuras deste remetente serão sempre sinalizadas como spam.";
+$txt['BLACKLISTHEAD'] = "A regra da lista negra foi adicionada.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Colocar na lista negra todos os e-mails futuros do mesmo remetente?";
+$txt['NOTNEWSWHITEBODY'] = "Ocorreu um problema ao adicionar essas regras.";
+$txt['NOTNEWSWHITEHEAD'] = "Nem a lista de notícias nem a regra da lista de permissões não foram adicionadas.";
+$txt['WHITENOTNEWSBODY'] = "Uma regra de lista de permissões foi adicionada, no entanto, houve um problema ao adicionar a regra de lista de permissões de boletim informativo.";
+$txt['WHITENOTNEWSHEAD'] = "Whitelist foi adicionado, mas a lista de notícias não.";
+$txt['NEWSNOTWHITEBODY'] = "Uma regra de boletim informativo foi adicionada, no entanto, houve um problema ao adicionar a regra de lista de permissões.";
+$txt['NEWSNOTWHITEHEAD'] = "A lista de notícias foi adicionada, mas a lista de permissões não.";
+$txt['NEWSWHITELISTBODY'] = "Uma lista de notícias e regra de lista de permissões foram adicionadas. As mensagens futuras deste remetente não serão sinalizadas se forem detectadas como um boletim informativo ou spam.";
+$txt['NEWSWHITELISTHEAD'] = "Regras de lista de notícias e lista de permissão foram adicionadas.";
+$txt['ADDWHITENEWSLIST'] = "Colocar na lista de permissões todos os spams futuros do mesmo remetente? Aceita também newsletters deste remetente?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Aceitar todas as futuras newsletters do mesmo remetente? Também colocar na lista de permissões todas as mensagens de spam desse remetente?";
+$txt['NOTWHITELISTBODY'] = "Ocorreu um problema ao adicionar a lista de permissões.";
+$txt['NOTWHITELISTHEAD'] = "A regra da lista de permissões não foi adicionada.";
+$txt['WHITELISTBODY'] = "Uma regra de lista de permissões foi adicionada. As mensagens futuras deste remetente não serão sinalizadas se forem detectadas como spam.";
+$txt['WHITELISTHEAD'] = "A regra da lista de permissões foi adicionada.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Colocar na lista de permissões todos os spams futuros do mesmo remetente?";
+$txt['ENTIREDOMAIN'] = "Domínio inteiro";
+$txt['SENDERVARIATIONS'] = "Todas as variações de endereço do remetente";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Somente endereço do remetente original";
