@@ -537,3 +537,18 @@ $txt['NOTWHITELISTHEAD'] = "Whitelist-Regel wurde nicht hinzugefügt.";
 $txt['WHITELISTBODY'] = "Eine Whitelist-Regel wurde hinzugefügt. Zukünftige Nachrichten von diesem Absender werden nicht markiert, wenn sie als Spam erkannt werden.";
 $txt['NEWSNOTWHITEBODY'] = "Eine Newsletter-Regel wurde hinzugefügt, beim Hinzufügen der Whitelist-Regel ist jedoch ein Problem aufgetreten.";
 $txt['NEWSNOTWHITEHEAD'] = "Newslist wurde hinzugefügt, Whitelist jedoch nicht.";
+$txt['ADDRULE'] = "WWList-Regel hinzufügen";
+//
+$txt['ADDITIONALACTION'] = "Zusätzliche Aktionen:";
+$txt['NOTBLACKLISTBODY'] = "Beim Hinzufügen der schwarzen Liste ist ein Problem aufgetreten.";
+$txt['NOTBLACKLISTHEAD'] = "Blacklist-Regel wurde nicht hinzugefügt.";
+$txt['BLACKLISTBODY'] = "Eine Blacklist-Regel wurde hinzugefügt. Zukünftige Nachrichten von diesem Absender werden immer als Spam gekennzeichnet.";
+$txt['BLACKLISTHEAD'] = "Blacklist-Regel wurde hinzugefügt.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Alle zukünftigen E-Mails desselben Absenders auf die schwarze Liste setzen?";
+$txt['NOTNEWSWHITEBODY'] = "Beim Hinzufügen dieser Regeln ist ein Problem aufgetreten.";
+$txt['NOTNEWSWHITEHEAD'] = "Weder Newslist- noch Whitelist-Regeln wurden nicht hinzugefügt.";
+$txt['WHITENOTNEWSBODY'] = "Eine Whitelist-Regel wurde hinzugefügt, beim Hinzufügen der Newsletter-Whitelist-Regel ist jedoch ein Problem aufgetreten.";
+$txt['WHITENOTNEWSHEAD'] = "Whitelist wurde hinzugefügt, Newslist jedoch nicht.";
