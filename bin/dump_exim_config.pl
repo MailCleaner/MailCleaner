@@ -732,7 +732,7 @@ sub get_exim_config{
     return unless %row;
 
 	$config{'__SMTP_ACCEPT_MAX_PER_HOST__'} = $row{'smtp_accept_max_per_host'};
-	$config{'__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__'} = 0;
+	$config{'__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__'} = $row{'smtp_accept_max_per_trusted_host'} || 0;
         $config{'__CIPHERS__'} = $row{'ciphers'};
 	if ($config{'__CIPHERS__'} eq '') {
                 $config{'__CIPHERS__'} = 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2';
@@ -749,10 +749,10 @@ sub get_exim_config{
         if ($config{'__RELAY_FROM_HOSTS__'}) {
           $config{'__RELAY_FROM_HOSTS__'} = join(' ; ',expand_host_string($config{'__RELAY_FROM_HOSTS__'},('dumper'=>'exim/relay_from_hosts')));
         }
+    my $dns = GetDNS->new();
+    $config{'__NO_RATELIMIT_HOSTS__'} = $dns->getA($m_infos{'host'});
     if (defined( $row{'no_ratelimit_hosts'}) && $row{'no_ratelimit_hosts'} ne '' ) {
-          $config{'__NO_RATELIMIT_HOSTS__'} = join(' ; ',($m_infos{'host'}),expand_host_string($row{'no_ratelimit_hosts'},('dumper'=>'exim/no_ratelimit_hosts')));
-    } else {
-         $config{'__NO_RATELIMIT_HOSTS__'} = $m_infos{'host'};
+          $config{'__NO_RATELIMIT_HOSTS__'} = join(' ; ',expand_host_string($config{'__NO_RATELIMIT_HOSTS__'} . ' ' . $row{'no_ratelimit_hosts'},('dumper'=>'exim/no_ratelimit_hosts')));
     }
     if (!defined($config{'__RELAY_FROM_HOSTS__'})) {
         $config{'__RELAY_FROM_HOSTS__'} = '';

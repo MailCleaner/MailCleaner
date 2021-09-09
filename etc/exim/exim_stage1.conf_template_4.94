@@ -68,7 +68,15 @@ __IF_USE_SYSLOG__
 __INCLUDE__ stage1/force_disable_ipv6
 
 smtp_enforce_sync = __SMTP_ENFORCE_SYNC__
-smtp_accept_max_per_host = ${if match_ip{$sender_host_address}{+trusted_hosts}{__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__}{__SMTP_ACCEPT_MAX_PER_HOST__}}
+smtp_accept_max_per_host = ${if match_ip{$sender_host_address}{+no_ratelimit_hosts}\
+                               {0}\
+                               {\
+                                   ${if match_ip{$sender_host_address}{+trusted_hosts}\
+                                       {__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__}\
+                                       {__SMTP_ACCEPT_MAX_PER_HOST__}\
+                                   }\
+                               }\
+                           }
 smtp_receive_timeout = __SMTP_RECEIVE_TIMEOUT__
 smtp_accept_max = __SMTP_ACCEPT_MAX__
 smtp_load_reserve = __SMTP_LOAD_RESERVE__
