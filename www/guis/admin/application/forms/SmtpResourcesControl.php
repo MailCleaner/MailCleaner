@@ -265,6 +265,7 @@ class Default_Form_SmtpResourcesControl extends ZendX_JQuery_Form
 		$mta->setparam('max_rcpt', $request->getParam('max_rcpt'));
 		$mta->setparam('smtp_accept_max', $request->getParam('smtp_accept_max'));
 		$mta->setparam('smtp_accept_max_per_host', $request->getParam('smtp_accept_max_per_host'));
+		$mta->setparam('smtp_accept_max_per_trusted_host', $request->getParam('smtp_accept_max_per_trusted_host'));
                 $mta->setparam('smtp_accept_max_per_connection', $request->getParam('smtp_accept_max_per_connection'));
         $mta->setparam('smtp_reserve', $request->getParam('smtp_reserve'));
         $mta->setparam('smtp_load_reserve', $request->getParam('smtp_load_reserve'));
