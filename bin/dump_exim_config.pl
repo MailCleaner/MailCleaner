@@ -763,7 +763,7 @@ sub get_exim_config{
     	 $config{'__HOSTS_REQUIRE_TLS__'} = '';
     }
     if ($config{'__HOSTS_REQUIRE_TLS__'}) {
-          $config{'__HOSTS_REQUIRE_TLS__'} = join(' ; ',expand_host_string($config{'__SMTP_CONN_ACCESS__'},('dumper'=>'exim/hosts_require_tls')));
+          $config{'__HOSTS_REQUIRE_TLS__'} = join(' ; ',expand_host_string($config{'__HOSTS_REQUIRE_TLS__'},('dumper'=>'exim/hosts_require_tls')));
     }
 
     if (defined( $row{'hosts_require_incoming_tls'}) ) {
