@@ -178,11 +178,13 @@ sub getA
 	my $target = shift;
 	
 	my $res = $self->{'resolver'}->query($target, 'A');
-	if ($res) {
+	if (defined($res->{'answer'}->[0]->{'address'})) {
 		return ($res->answer)[0]->address;
+	} elsif (defined($res->{'answer'}->[0]->{'cname'})) {
+		return $self->getA(join('.',@{$res->{'answer'}->[0]->{'cname'}->{'label'}}));
+	} else {
+		return ();
 	}
-
-	return ();
 }
 
 sub getAAAA

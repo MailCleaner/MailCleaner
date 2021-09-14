@@ -750,7 +750,7 @@ sub get_exim_config{
           $config{'__RELAY_FROM_HOSTS__'} = join(' ; ',expand_host_string($config{'__RELAY_FROM_HOSTS__'},('dumper'=>'exim/relay_from_hosts')));
         }
     my $dns = GetDNS->new();
-    $config{'__NO_RATELIMIT_HOSTS__'} = $dns->getA($m_infos{'host'});
+    $config{'__NO_RATELIMIT_HOSTS__'} = $dns->getA($m_infos{'host'}) || '';
     if (defined( $row{'no_ratelimit_hosts'}) && $row{'no_ratelimit_hosts'} ne '' ) {
           $config{'__NO_RATELIMIT_HOSTS__'} = join(' ; ',expand_host_string($config{'__NO_RATELIMIT_HOSTS__'} . ' ' . $row{'no_ratelimit_hosts'},('dumper'=>'exim/no_ratelimit_hosts')));
     }
