@@ -321,7 +321,7 @@ $txt['FROMDATETODATE'] = "從 __PARAM1__ __PARAM2__ __PARAM3__ 到 __PARAM4__ __
 /*
  * some error messages
  */
-$txt['BADARGS'] = "內部 MailCleaner 錯誤 (_PARAM_MESSAGE_ERREUR__)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
+$txt['BADARGS'] = "MailCleaner 內部錯誤 (_PARAM_MESSAGE_ERREUR__)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
 $txt['INCORRECTMSGID'] = "由於消息識別碼不正確, 無法完成請求的操作。";
 $txt['NOSUCHADDR'] = "給定的address不受 MailCleaner 的保護。";
 $txt['ERRORSENDING'] = "發送郵件時出錯。請重試。如果問題仍然存在, 請與系統管理員聯繫。";
@@ -481,7 +481,7 @@ $txt['BEENLOGGEDOUT'] = "如果要啟動新的session, 請按一下此連結: <a
 $txt['NLRELEASEDHEAD'] = "通訊已被允許並發布。";
 $txt['NLRELEASEDBODY'] = "該通訊已被允許並發布。 它應該在幾分鐘內發送到您的郵箱。";
 $txt['NLNOTRELEASEDHEAD'] = "通訊沒有發布";
-$txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。 請稍後再試。";
+$txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。";
 //old
 $txt['EDITNEWSLIST'] = "編輯新聞列表";
 //old
@@ -494,3 +494,67 @@ $txt['NEWSLISTFORADDRESS'] = "地址通讯列表";
 $txt['ADDANEWSENTRY'] = "向清單中添加位址";
 $txt['NEWSLISTENTRYTOADD'] = "輸入要添加到電子報清單中的位址。您還可以添加可選注釋。";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "选择您想要导出的字段，然后点击“添加字段”按钮。";
+$txt['ADDRULE'] = "新增白名單規則";
+//
+$txt['ADDITIONALACTION'] = "額外的動作：";
+$txt['SPAMONLY'] = "僅顯示垃圾郵件";
+$txt['NOTBLACKLISTBODY'] = "加入黑名單時發生問題。";
+$txt['NOTBLACKLISTHEAD'] = "尚未將規則加入至黑名單中。";
+$txt['BLACKLISTBODY'] = "已將規則加入至黑名單。將來從此寄件者的信件都會被標記為垃圾郵件。";
+$txt['BLACKLISTHEAD'] = "已加入到黑名單中。";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "將來自此寄件者的郵件都列入黑名單嗎?";
+$txt['NOTNEWSWHITEBODY'] = "加入這些規則發生問題。";
+$txt['NOTNEWSWHITEHEAD'] = "不管電子報列表或是白名單都尚未加入。";
+$txt['WHITENOTNEWSBODY'] = "已將規則加入白名單，不過加入電子報白名單發生問題。";
+$txt['WHITENOTNEWSHEAD'] = "已加入白名單但是尚未加入電子報列表。";
+$txt['NEWSNOTWHITEBODY'] = "電子報規則已加入，但是加入白名單發生問題。";
+$txt['NEWSNOTWHITEHEAD'] = "已將規則加入電子報列表，但是尚未加入白名單。";
+$txt['NEWSWHITELISTBODY'] = "已將規則加入至電子報列表及白名單。將來從此寄件者的信件不會被標記為電子報或是垃圾郵件。";
+$txt['NEWSWHITELISTHEAD'] = "已將規則加入至電子報列表及白名單。";
+$txt['ADDWHITENEWSLIST'] = "未來將所有從相同寄件者垃圾郵件列入白名單? 並且將接受此寄件者的電子報?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "未來將接受所有從相同寄件者的電子報? 並且將此寄件者的垃圾郵件列入到白名單?";
+$txt['NOTWHITELISTBODY'] = "新增至白名單發生問題。";
+$txt['NOTWHITELISTHEAD'] = "尚未將規則加入至白名單。";
+$txt['WHITELISTBODY'] = "已將規則加入至白名單。將來從此寄件者的信件不會被標記為垃圾郵件。";
+$txt['WHITELISTHEAD'] = "已將此規則加入至白名單。";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "將所有來自同個寄件者的垃圾郵件列入白名單?";
+$txt['NOTNEWSLISTBODY'] = "新增電子報白名單發生問題";
+$txt['NOTNEWSLISTHEAD'] = "尚未加入到電子報規則列表";
+$txt['NEWSLISTBODY'] = "已加入到電子報白名單。將來如果來此此寄件者的郵件不會被標記";
+$txt['NEWSLISTHEAD'] = "已加入到電子報規則列表";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "之後將接受從相同寄件者寄出的所有電子報";
+$txt['ENTIREDOMAIN'] = "整個網域";
+$txt['SENDERVARIATIONS'] = "所有寄件者郵件的變數";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "僅原始寄件者郵件地址";
+$txt['UNKNOWNERROR'] = "發生未知的錯誤";
+$txt['SENDERNOTVALID'] = "無效的寄件者地址";
+$txt['DESTNOTVALID'] = "無效的收件地址";
+$txt['DUPLICATEENTRY'] = "輸入項目重複已存在";
+$txt['CONFIGREADFAIL'] = "讀取設定檔案失敗";
+$txt['CANNOTINSERTDB'] = "新增資料到資料庫失敗";
+$txt['CANNOTSELECTDB'] = "找不到資料庫";
+$txt['CANNOTCONNECTDB'] = "資料庫無法連線";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "載入訊息失敗(訊息不存在)";
+$txt['ADDTOGROUP'] = "將全部地址加入群組";
+$txt['NEWSLONLY'] = "英語
+Show newsletters only
+漢語（正體字）
+僅顯示電子報";
