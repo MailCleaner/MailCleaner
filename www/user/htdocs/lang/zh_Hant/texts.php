@@ -189,7 +189,7 @@ $txt['ID'] = "識別碼";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  進程已結束. </p><p> 如果希望啟動新的 進程, 請按一下以下連結: </p>";
+$txt['LOGOUTTEXT'] = "<p>您的 MailCleaner  進程已結束. </p><p> 如果希望啟動新的 進程, 請按一下以下連結:</p>";
 /*
  * parameters page
  */
@@ -527,34 +527,31 @@ $txt['WHITELISTHEAD'] = "已將此規則加入至白名單。";
  * Whitelist rule
  */
 $txt['ADDWHITELIST'] = "將所有來自同個寄件者的垃圾郵件列入白名單?";
-$txt['NOTNEWSLISTBODY'] = "新增電子報白名單發生問題";
-$txt['NOTNEWSLISTHEAD'] = "尚未加入到電子報規則列表";
-$txt['NEWSLISTBODY'] = "已加入到電子報白名單。將來如果來此此寄件者的郵件不會被標記";
-$txt['NEWSLISTHEAD'] = "已加入到電子報規則列表";
+$txt['NOTNEWSLISTBODY'] = "新增電子報白名單發生問題。";
+$txt['NOTNEWSLISTHEAD'] = "尚未加入到電子報規則列表。";
+$txt['NEWSLISTBODY'] = "已加入到電子報白名單。將來如果來此此寄件者的郵件不會被標記。";
+$txt['NEWSLISTHEAD'] = "已加入到電子報規則列表。";
 /*
  * Newsletter rule
  */
-$txt['ADDNEWSLIST'] = "之後將接受從相同寄件者寄出的所有電子報";
+$txt['ADDNEWSLIST'] = "之後將接受從相同寄件者寄出的所有電子報?";
 $txt['ENTIREDOMAIN'] = "整個網域";
 $txt['SENDERVARIATIONS'] = "所有寄件者郵件的變數";
 /*
  * Type of WWList
  */
 $txt['ORIGINALSENDER'] = "僅原始寄件者郵件地址";
-$txt['UNKNOWNERROR'] = "發生未知的錯誤";
-$txt['SENDERNOTVALID'] = "無效的寄件者地址";
-$txt['DESTNOTVALID'] = "無效的收件地址";
-$txt['DUPLICATEENTRY'] = "輸入項目重複已存在";
-$txt['CONFIGREADFAIL'] = "讀取設定檔案失敗";
-$txt['CANNOTINSERTDB'] = "新增資料到資料庫失敗";
-$txt['CANNOTSELECTDB'] = "找不到資料庫";
-$txt['CANNOTCONNECTDB'] = "資料庫無法連線";
+$txt['UNKNOWNERROR'] = "發生未知的錯誤。";
+$txt['SENDERNOTVALID'] = "無效的寄件者地址。";
+$txt['DESTNOTVALID'] = "無效的收件地址。";
+$txt['DUPLICATEENTRY'] = "輸入的項目重複已存在。";
+$txt['CONFIGREADFAIL'] = "讀取設定檔案失敗。";
+$txt['CANNOTINSERTDB'] = "新增資料到資料庫失敗。";
+$txt['CANNOTSELECTDB'] = "找不到資料庫。";
+$txt['CANNOTCONNECTDB'] = "資料庫無法連線。";
 /*
  * SOAP errors
  */
-$txt['CANNOTLOADMESSAGE'] = "載入訊息失敗(訊息不存在)";
+$txt['CANNOTLOADMESSAGE'] = "載入訊息失敗(訊息不存在)。";
 $txt['ADDTOGROUP'] = "將全部地址加入群組";
-$txt['NEWSLONLY'] = "英語
-Show newsletters only
-漢語（正體字）
-僅顯示電子報";
+$txt['NEWSLONLY'] = "僅顯示電子報";
