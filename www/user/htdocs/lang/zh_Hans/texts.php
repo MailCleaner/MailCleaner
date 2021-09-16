@@ -445,8 +445,9 @@ $txt['TODAY'] = "今天";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "警告列表包含受信任的发件人地址, 当消息碰巧被检测为垃圾邮件时, 您希望通过邮件通知它。然后, 您可以在出现筛选错误时立即释放该消息. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
-\t\t\t\t\t\t\t\t   有关警告列表使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。 ";
+$txt['WARNLISTSHORTHELP'] = "警告列表包含可信发件人地址，当来自这些地址的邮件被检测为垃圾邮件时会通过电子邮件通知你。然后，您可以在出现过滤错误时立即释放消息。<br />
+\t\t\t\t\t\t\t\t   警告:此功能应作为临时解决方案使用，因为它降低了整体保护。 
+\t\t\t\t\t\t\t\t   检查手册（位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解有关警告列表用法的更多信息 ";
 $txt['WARNLISTFORADDRESS'] = "地址警告列表";
 $txt['ADDAWARNENTRY'] = "向列表中添加地址";
 $txt['WARNLISTENTRYTOADD'] = "输入要添加到警告列表中的地址。您还可以添加可选注释。";
@@ -455,8 +456,9 @@ $txt['REMOVEANENTRY'] = "禁用、启用或删除列表中的地址";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
 $txt['REMTHEENTRY'] = "删除选定内容";
 $txt['DISABLETHEENTRY'] = "禁用/启用选择";
-$txt['WHITELISTSHORTHELP'] = "白名单中包含的受信任发件人地址不会发生任何隔离保留. <br/> 警告: 此功能应作为临时解决方案使用, 因为它减少了总体保护。
-                                  有关白名单使用情况的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 一节中提供)。 
+$txt['WHITELISTSHORTHELP'] = "此白名单包含隔离保留永不适用的受信任发件人地址。<br />
+                                   警告:此功能应作为临时解决方案使用，因为它降低了整体保护。
+                                  检查手册 (位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解更多白名单的用法。 
 ";
 $txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。 
 有关黑列表用法的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。
@@ -488,7 +490,8 @@ $txt['EDITNEWSLIST'] = "编辑新闻列表";
 $txt['NEWSLISTFOR'] = "__PARAM__新闻列表";
 $txt['NEWSLISTTOPIC'] = "新闻列表";
 $txt['NEWSLISTTOPICTITLE'] = "新闻列表";
-$txt['NEWSLISTSHORTHELP'] = "新闻稿列表包含所需新闻稿的地址..................................... <br/> 检查手册 (可在节中提供 <a href=\"help.php\"> \"帮助\" </a>), 了解有关新闻稿列表使用情况的详细信息.
+$txt['NEWSLISTSHORTHELP'] = "通讯列表包含所需通讯的地址。<br />
+                                  检查手册 (位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解更多通讯列表的用法。
 ";
 $txt['NEWSLISTFORADDRESS'] = "新闻稿列表的地址";
 $txt['ADDANEWSENTRY'] = "添加一个地址到列表";
