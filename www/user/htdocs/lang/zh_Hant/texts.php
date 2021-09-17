@@ -129,11 +129,11 @@ $txt['FROM'] = "從";
 $txt['TO'] = "给";
 $txt['SUBJECT'] = "主旨";
 $txt['FORCED'] = "釋放";
-$txt['ACTION'] = "Action";
+$txt['ACTION'] = "動作";
 //old
 $txt['TOTALSPAMS'] = "總計: __PARAM__ 的垃圾郵件";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ 最后几天";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ 最後幾天";
 $txt['PURGESELECTEDSPAMS'] = "手動清除隔離";
 //old
 $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
@@ -321,7 +321,7 @@ $txt['FROMDATETODATE'] = "從 __PARAM1__ __PARAM2__ __PARAM3__ 到 __PARAM4__ __
 /*
  * some error messages
  */
-$txt['BADARGS'] = "MailCleaner 內部錯誤 (_PARAM_MESSAGE_ERREUR__)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
+$txt['BADARGS'] = "MailCleaner 內部錯誤 (_PARAM_)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
 $txt['INCORRECTMSGID'] = "由於消息識別碼不正確, 無法完成請求的操作。";
 $txt['NOSUCHADDR'] = "給定的address不受 MailCleaner 的保護。";
 $txt['ERRORSENDING'] = "發送郵件時出錯。請重試。如果問題仍然存在, 請與系統管理員聯繫。";
