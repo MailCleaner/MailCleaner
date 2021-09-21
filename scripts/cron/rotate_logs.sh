@@ -44,7 +44,7 @@ if [ -x /usr/bin/savelog ]; then
 	for stage in 1 2 4; do
 		for i in mainlog rejectlog paniclog; do
     			if [ -s $VARDIR/log/exim_stage$stage/$i ]; then
-				savelog -p -c $DAYSTOKEEP $VARDIR/log/exim_stage$stage/$i >/dev/null
+				savelog -p -c $DAYSTOKEEP -C $VARDIR/log/exim_stage$stage/$i >/dev/null
     			fi;
   		done
 	done	
@@ -60,7 +60,7 @@ if [ -x /usr/bin/savelog ]; then
 	$SRCDIR/etc/init.d/preftdaemon stop
 	for i in PrefTDaemon.log ; do
     	if [ -s $VARDIR/log/mailcleaner/$i ]; then
-           savelog -p -c $DAYSTOKEEP $VARDIR/log/mailcleaner/$i >/dev/null
+           savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/$i >/dev/null
         fi;
 	done
 	$SRCDIR/etc/init.d/preftdaemon start
@@ -73,7 +73,7 @@ fi
 if [ -x /usr/bin/savelog ]; then
   for i in mainlog errorlog infolog warnlog spamd.log newsld.log; do
     if [ -s $VARDIR/log/mailscanner/$i ]; then
-      savelog -p -c $DAYSTOKEEP $VARDIR/log/mailscanner/$i >/dev/null
+      savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailscanner/$i >/dev/null
     fi
   done
 fi
@@ -96,7 +96,7 @@ if [ -f /etc/init.d/rsyslog ]; then
 fi
 $SRCDIR/etc/init.d/exim_stage1 stop
 $SRCDIR/etc/init.d/statsdaemon stop
-savelog -p -c $DAYSTOKEEP $VARDIR/log/mailcleaner/StatsDaemon.log > /dev/null
+savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/StatsDaemon.log > /dev/null
 $SRCDIR/etc/init.d/statsdaemon start
 $SRCDIR/etc/init.d/exim_stage1 start
 $SRCDIR/etc/init.d/mailscanner start
@@ -109,7 +109,7 @@ chown -R mailcleaner:mailcleaner $VARDIR/log/mailscanner/
 if [ -x /usr/bin/savelog ]; then
   for i in mysql.log; do
     if [ -s $VARDIR/log/mysql_slave/$i ]; then
-      savelog -p -c $DAYSTOKEEP $VARDIR/log/mysql_slave/$i >/dev/null
+      savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mysql_slave/$i >/dev/null
     fi
   done
 fi
@@ -126,7 +126,7 @@ $SRCDIR/etc/init.d/exim_stage4 start
 if [ -x /usr/bin/savelog ]; then
   for i in mysql.log; do
     if [ -s $VARDIR/log/mysql_master/$i ]; then
-      savelog -p -c $DAYSTOKEEP $VARDIR/log/mysql_master/$i >/dev/null
+      savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mysql_master/$i >/dev/null
     fi
   done
 fi
@@ -142,7 +142,7 @@ $SRCDIR/etc/init.d/mysql_master restart
 if [ -x /usr/bin/savelog ]; then
   for i in razor-agent.log; do
 	if [ -s $VARDIR/.razor/$i ]; then
-		savelog -p -c $DAYSTOKEEP $VARDIR/.razor/$i >/dev/null
+		savelog -p -c $DAYSTOKEEP -C $VARDIR/.razor/$i >/dev/null
     fi
   done
 fi
@@ -163,7 +163,7 @@ $SRCDIR/etc/init.d/apache stop
 if [ -x /usr/bin/savelog ]; then
   for i in access.log error.log ssl.log mc_auth.log access_soap.log error_soap.log; do
 	if [ -e $VARDIR/log/apache/$i ]; then
-		savelog -p -c $DAYSTOKEEP $VARDIR/log/apache/$i >/dev/null
+		savelog -p -c $DAYSTOKEEP -C $VARDIR/log/apache/$i >/dev/null
     fi
   done
 fi
@@ -195,7 +195,7 @@ rm $VARDIR/www/stats/* >/dev/null 2>&1
 if [ -x /usr/bin/savelog ]; then
   for i in update.log update2.log autolearn.log rules.log spam_sync.log mc_counts-cleaner.log downloadDatas.log summaries.log updater4mc.log; do
 	if [ -e $VARDIR/log/mailcleaner/$i ]; then
-		savelog -p -c $DAYSTOKEEP $VARDIR/log/mailcleaner/$i >/dev/null
+		savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/$i >/dev/null
 	fi
   done
 fi
@@ -206,7 +206,7 @@ fi
 if [ -x /usr/bin/savelog ]; then
   for i in kaspersky_updater.log kaspersky_stats.log; do
         if [ -e $VARDIR/log/kaspersky/$i ]; then
-                savelog -p -c $DAYSTOKEEP $VARDIR/log/kaspersky/$i >/dev/null
+                savelog -p -c $DAYSTOKEEP -C $VARDIR/log/kaspersky/$i >/dev/null
         fi
   done
 fi
@@ -218,7 +218,7 @@ fi
 if [ -x /usr/bin/savelog ]; then
   for i in clamav.log freshclam.log clamd.log clamspamd.log; do
 	if [ -e $VARDIR/log/clamav/$i ]; then
-		savelog -u clamav -g clamav -c $DAYSTOKEEP $VARDIR/log/clamav/$i >/dev/null
+		savelog -u clamav -g clamav -c $DAYSTOKEEP -C $VARDIR/log/clamav/$i >/dev/null
         fi
   done
 fi
@@ -228,7 +228,7 @@ $SRCDIR/etc/init.d/clamspamd restart
 $SRCDIR/etc/init.d/spamhandler stop
 for i in SpamHandler.log ; do
    if [ -s $VARDIR/log/mailcleaner/$i ]; then
-      savelog -p -c $DAYSTOKEEP $VARDIR/log/mailcleaner/$i >/dev/null
+      savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/$i >/dev/null
    fi;
 done
 $SRCDIR/etc/init.d/spamhandler start
@@ -251,5 +251,5 @@ fi
 ## Resync checks ##
 ###################
 if [ -s $VARDIR/log/mailcleaner/resync/resync.log ]; then
-    savelog -p -c $DAYSTOKEEP $VARDIR/log/mailcleaner/resync/resync.log >/dev/null;
+    savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/resync/resync.log >/dev/null;
 fi
