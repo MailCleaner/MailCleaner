@@ -555,3 +555,9 @@ $txt['WHITELISTHEAD'] = "Regra de lista branca adicionada.";
  * Whitelist rule
  */
 $txt['ADDWHITELIST'] = "Colocar na lista branca todas as mensagens de SPAM do mesmo remetente?";
+$txt['ENTIREDOMAIN'] = "O domínio inteiro";
+$txt['SENDERVARIATIONS'] = "Todas as variações do endereço do remetente";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Só o endereço do remetente original";
