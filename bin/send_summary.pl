@@ -189,7 +189,10 @@ foreach my $a (@addresses) {
   if (!defined($spamnbdays) || $spamnbdays eq '') {
      $spamnbdays = 1;
   }
-  my $query = "INSERT INTO digest_access VALUES('$hash', DATE(NOW()), DATE_SUB(NOW(), INTERVAL $days DAY), DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)), '$a');";
+  my $clean_a = $a;
+  $clean_a =~ s/'/''/g;
+  my $query = "INSERT INTO digest_access VALUES('$hash', DATE(NOW()), DATE_SUB(NOW(), INTERVAL $days DAY), DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)), '$clean_a');";
+
   if ($conf_db->execute($query)) {
     $replace{'__DIGEST_ID__'} = $hash;
   } else {
@@ -203,7 +206,7 @@ foreach my $a (@addresses) {
         print 'COULDNOTUPDATEEXPIRY '.$query."\n";
       }
     } else {
-      print 'COULDNOTUPDATEEXPIRY for different address '.$a.' '.$query."\n";
+      print 'COULDNOTUPDATEEXPIRY for different address '.$clean_a.' '.$query."\n";
     }
   }
   $template->setReplacements(\%replace);
@@ -438,6 +441,7 @@ sub getQuarantineTemplate {
     $tmp =~ s/\_\_SINGLEDATE\_\_/$item->{'M_d'}-$item->{'M_m'}-$item->{'M_y'}/g;
     $tmp =~ s/\_\_SINGLETIME\_\_/$item->{'time_in'}/g;
     $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
+    $item->{'to_user'} =~ s/&#39;/'/;
     my $tmprcpt = uri_escape($item->{'to_user'}.'@'.$item->{'to_domain'});
     if ($item->{'is_newsletter'} > 0) {
       $tmprcpt .= '&n=1';
