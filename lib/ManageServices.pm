@@ -81,7 +81,7 @@ our %defaultActions = (
 			if (scalar(@pids)) {
 				return 'running with pid(s) ' . join(', ', @pids);
 			} else {
-				return $self->clearFlags(0);
+				return 0;
 			}
 		},
 	},
@@ -180,11 +180,11 @@ sub getServices
 			'module'	=> 'ClamSpamD',
 			'critical'	=> 1,
 		},
-		'cron'		=> {
-			'name'		=> 'Scheduler',
-			'module'	=> 'Cron',
-			'critical'	=> 1,
-		},
+		#'cron'		=> {
+			#'name'		=> 'Scheduler',
+			#'module'	=> 'Cron',
+			#'critical'	=> 1,
+		#},
 		#'dccifd' 	=> {
 			#'name'		=> 'DCC client daemon',
 			#'module'	=> 'Apache',
@@ -205,11 +205,11 @@ sub getServices
 			#'module'	=> 'Exim',
 			#'critical'	=> 1,
 		#},
-		'fail2ban'	=> {
-			'name'		=> 'Fail2Ban',
-			'module'	=> 'Fail2Ban',
-			'critical'	=> 0,
-		},
+		#'fail2ban'	=> {
+			#'name'		=> 'Fail2Ban',
+			#'module'	=> 'Fail2Ban',
+			#'critical'	=> 1,
+		#},
 		#'greylistd'	=> {
 			#'name'		=> 'Greylist daemon',
 			#'module'	=> 'GreylistD',
@@ -390,7 +390,7 @@ sub findProcess
 			return $p->{'pid'};
 		}
 	}
-	return $self->clearFlags(0);
+	return 0;
 }
 
 sub pids
@@ -555,7 +555,8 @@ sub start
 
 	if ($self->findProcess()) {
 		$self->doLog( $self->{'service'} . ' already running.', 'daemon' );
-		return $self->clearFlags(1);
+		$self->clearFlags(1);
+		return 1;
 	} 
 
 	$self->setup();
@@ -594,7 +595,7 @@ sub start
 				return $self->clearFlags(1);
 			} else {
 				$self->doLog( 'Deamon doesn\'t exist after start. Failed', 'daemon' );
-				return $self->clearFlags(0);
+				return 0;
 			}
         	} elsif ($pid == -1) {
 			$self->doLog( 'Failed to fork', 'daemon' );
@@ -608,7 +609,7 @@ sub start
 					print STDERR "Can't set GID " . 
 						$self->{'module'}->{'gid'} . 
 						" (" . $( . " " . $) . ")\n";
-					return $self->clearFlags(0);
+					return 0;
 				}
 			}
 			$self->doLog('Set GID to ' . $self->{'module'}->{'group'} . 
@@ -620,7 +621,7 @@ sub start
 					print STDERR "Can't set UID " .
 						$self->{'module'}->{'uid'} . 
 						" (" . $< . " " . $> . ")\n";
-					return $self->clearFlags(0);
+					return 0;
 				}
 			}
 			$self->doLog('Set UID to ' . $self->{'module'}->{'user'} .
@@ -910,7 +911,7 @@ sub newChild
 
 	my $thread_count = scalar(threads->list);
 	if ($thread_count >= $self->{'module'}->{'children'}) {
-		return $self->clearFlags(0);
+		return 0;
 	}
 	$self->doLog(
 		"Launching new thread (" . ($thread_count+=1) . "/" .
@@ -952,7 +953,7 @@ sub writePidFile
 		return 1;
 	} else {
 		print STDERR "Warning: $self->{'module'}->{'pidfile'} is not writable\n";
-		return $self->clearFlags(0);
+		return 0;
 	}
 }
 
