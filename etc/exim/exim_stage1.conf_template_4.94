@@ -157,7 +157,7 @@ domainlist relayrefuseddomains = VARDIR/spool/tmp/exim/blacklists/relaytodomains
 RELAYDEST = VARDIR/spool/tmp/mailcleaner/relay_accepteddest.list
 
 #FULLWHITELIST
-addresslist full_whitelisted_senders = lsearch;VARDIR/spool/mailcleaner/full_whitelisted_senders.list
+addresslist full_whitelisted_senders = VARDIR/spool/mailcleaner/full_whitelisted_senders.list
 
 smtp_accept_reserve = __SMTP_RESERVE__
 smtp_reserve_hosts = ${if eq{$interface_port}{587}{*}{+relay_from_hosts}}
