@@ -249,38 +249,62 @@ sub getSPF
 	foreach (@blocks) {
 		if ($_ =~ m/^[\?\-\~]/) {
 			next;
-		} elsif ($_ =~ /\+?(v=spf.|all|ptr|exists)$/i) {
+		} elsif ($_ =~ m/\+?(v=spf.|all|ptr)$/i) {
 			next;
-		} elsif ($_ =~ /^([+\-\?])?a$/i) {
+		} elsif ($_ =~ m/^exists:(.*)/i) {
+			print STDERR "Cannot dump 'exists' argument '$_'.\n";
+		} elsif ($_ =~ m/%\{/) {
+			print STDERR "Cannot dump macro argument '$_'.\n";
+		} elsif ($_ =~ m/^\+?a$/i) {
 			if ($self->{'recursion'}) {
 				push(@ips,$self->getA($target));
 			} else {
 				push(@ips,$target.'/a');
 			}
-		} elsif ($_ =~ /^([+\-\?])?aaaa?$/i) {
+		} elsif ($_ =~ m/^\+?a:(.*)/i) {
+			my $a = $1;
+			if ($self->{'recursion'}) {
+				push(@ips,$self->getA($a));
+			} else {
+				push(@ips,$a.'/a');
+			}
+		} elsif ($_ =~ m/^\+?aaaa$/i) {
 			if ($self->{'recursion'}) {
 				push(@ips,$self->getAAAA($target));
 			} else {
 				push(@ips,$target.'/aaaa');
 			}
-		} elsif ($_ =~ /^([+\-\?])?mx$/i) {
+		} elsif ($_ =~ m/^\+?aaaa:(.*)/i) {
+			my $aaaa = $1;
+			if ($self->{'recursion'}) {
+				push(@ips,$self->getAAAA($aaaa));
+			} else {
+				push(@ips,$aaaa.'/aaaa');
+			}
+		} elsif ($_ =~ m/^\+?mx$/i) {
 			if ($self->{'recursion'}) {
 				push(@ips,$self->getMX($target));
 			} else {
 				push(@ips,$target.'/mx');
 			}
-		} elsif ($_ =~ /([+\-\?])?ip[46]:/i) {
-			my ($type, @ip) = split(':',$_);
-			push(@ips,join(':',@ip));
-		} elsif ($_ =~ /([+\-\?])?include:/i) {
-			my ($tmp, $include) = split(':',$_);
+		} elsif ($_ =~ m/^\+?mx:(.*)/i) {
+			my $mx = $1;
+			if ($self->{'recursion'}) {
+				push(@ips,$self->getMX($mx));
+			} else {
+				push(@ips,$mx.'/mx');
+			}
+		} elsif ($_ =~ m/^\+?ipv?[46]:(.*)/i) {
+			push(@ips,$1);
+		} elsif ($_ =~ m/\+?include:(.*)/i) {
+			my $include = $1;
 			if ($self->{'recursion'}) {
 				push(@ips,$self->getSPF($include));
 			} else {
 				push(@ips,$include.'/spf');
 			}
-		} elsif ($_ =~ /([+\-\?])?redirect=/i) {
-			my ($tmp, $redirect) = split('=',$_);
+		} elsif ($_ =~ m/\+?redirect=(.*)/i) {
+			my $redirect = $1;
 			if ($self->{'recursion'}) {
 				push(@ips,$self->getSPF($redirect));
 			} else {
