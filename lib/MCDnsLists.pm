@@ -561,8 +561,14 @@ sub check_dns {
 			$Checked   = $_;
 			$HitOrMiss = <$pipe>;
 			chomp $HitOrMiss;
-			push @HitList, $Checked
-			  if $HitOrMiss =~ m/Hit (127\.\d+\.\d+\.\d+)/;
+			if ($HitOrMiss =~ m/Hit (127\.\d+\.\d+\.\d+)/) {
+				push @HitList, $Checked;
+				alarm 0;
+				last;
+			} elsif ($HitOrMiss =~ m/Miss/) {
+				alarm 0;
+				last;
+			}
 		}
 		$pipe->close();
 		waitpid $pid, 0;
