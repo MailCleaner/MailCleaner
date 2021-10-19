@@ -563,3 +563,9 @@ $txt['CANNOTSELECTDB'] = "Impossible de rechercher dans la base de données.";
  * SOAP errors
  */
 $txt['CANNOTLOADMESSAGE'] = "Impossible de charger le message (Ce message a du être effacé).";
+$txt['ENTIREDOMAIN'] = "Le domaine entier";
+$txt['SENDERVARIATIONS'] = "Toutes les variantes d'adresses de l'expéditeur";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Seulement l'adresse d'origine de l'ecpéditeur";
