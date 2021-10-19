@@ -102,12 +102,14 @@ dump_spam_route();
 
 my %exim_conf;
 
-## dump the blacklists files
-dump_blacklists();
 $exim_conf{'__LISTS_PER_DOMAIN__'} = dump_lists_ip_domain();
 
 my $syslog_restart = 0;
 foreach my $stage (@eximids) {
+	if ($stage == 1) {
+		## dump the blacklists files
+		dump_blacklists();
+	}
 	%exim_conf = get_exim_config($stage) or fatal_error("NOEXIMCONFIGURATIONFOUND", "no exim configuration found for stage $stage");
 
 	# Generate the included files and the associated customized files 
