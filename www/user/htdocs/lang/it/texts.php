@@ -136,7 +136,7 @@ $txt['ACTION'] = "Azione";
 //old
 $txt['TOTALSPAMS'] = "Totale: __PARAM__ spam(s)";
 //old
-$txt['FORTHEXLASTDAYS'] = "ultimi __PARAM__  giorni";
+$txt['FORTHEXLASTDAYS'] = "ultimi __PARAM__ giorni";
 $txt['PURGESELECTEDSPAMS'] = "Svuota manualmente la quarantena";
 //old
 $txt['HIDEFORCED'] = "Nascondi i messaggi utente rilasciati";
