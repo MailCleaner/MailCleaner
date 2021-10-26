@@ -199,33 +199,6 @@ sub Checks {
       $full_received{$h_id} .= $hl;
       next;
     }
-
-    if ($hl =~ m/^X-MailCleaner-TrustedIPs: Ok/i) {
-      my $string = 'sending IP is in Trusted Sources';
-      if ($TrustedSources::conf{debug}) {
-          MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-      }
-      if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string) ".$TrustedSources::conf{neg_text});
-      }
-      $message->{prefilterreport} .= ", $MODULE ($string, " .$TrustedSources::conf{neg_text}. ")";
-
-      return 0;
-    }
-
-    if ($hl =~ m/^X-MailCleaner-White-IP-DOM: WhIPDom/i) {
-      my $string = 'sending IP is whitelisted for this domain';
-      if ($TrustedSources::conf{debug}) {
-          MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-      }
-      if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string) ".$TrustedSources::conf{neg_text});
-      }
-      $message->{prefilterreport} .= ", $MODULE ($string, ".$TrustedSources::conf{neg_text}. ")";
-
-      return 0;
-    }
-
   }
 
   my $usealltrusted = $TrustedSources::conf{'useAllTrusted'};
