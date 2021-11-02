@@ -506,7 +506,7 @@ sub dump_filename_config
   foreach my $element (@list) {
   	my %el = %{$element};
   	my $sub = $subtmpl;
-        if ($el{'name'} eq '') {
+        if ( ( ! defined( $el{'name'} ) ) || $el{'name'} eq '') {
            $el{'name'} = '+';
         }
         if ($el{'description'} eq '') {
