@@ -132,7 +132,7 @@ sub get_external_rules {
      foreach my $ip (expand_host_string($ref->{'allowed_ip'},('dumper'=>'snmp/allowedip'))) {
        # IPs already validated and converted to CIDR in expand_host_string, just remove non-CIDR entries
        if ($ip =~ m#/\d+$#) {
-           $rules{"host ".$ip.", service ".$ref->{'service'}} = [ $ref->{'port'}, $ref->{'protocol'}, $ip];
+           $rules{"host ".$ip.", service ".$ref->{'service'}.", protocol ".$ref->{'protocol'}} = [ $ref->{'port'}, $ref->{'protocol'}, $ip];
        }
      }
   }
