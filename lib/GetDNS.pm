@@ -72,6 +72,9 @@ sub dumper {
 			if ($item eq '*') {
 				$self->{recursion} = $recursion;
 				return ( '::0/0', '0.0.0.0/0' );
+			} elsif ($item =~ m/\*/) {
+				push(@invalid,$item);
+				delete($cache{$item});
 			} elsif ($item =~ m#^\!(.*)$#) {
 				push(@exceptions, $1);
 				delete($cache{$item});
