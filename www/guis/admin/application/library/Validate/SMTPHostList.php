@@ -38,6 +38,9 @@ class Validate_SMTPHostList extends Zend_Validate_Abstract
           if ($host == '+') {
           	 continue;
           }
+          if (preg_match('/^\s*\*\s*$/', $host)) {
+              continue;
+          }
           if (preg_match('/^#/', $host)) {
               continue;
           }
@@ -49,7 +52,6 @@ class Validate_SMTPHostList extends Zend_Validate_Abstract
           $host = preg_replace('/\/([0-9]?[0-9]|1([01][0-9]|2[0-8]))$/', '', $host);
           $host = preg_replace('/\/(a|A|aaaa|AAAA|mx|MX)$/', '', $host);
           $host = preg_replace('/(_)*(.*)\/(spf|SPF)$/', '\2', $host);
-          $host = preg_replace('/\*/', '', $host);
           $host = preg_replace('/^\./', '', $host);
           if (! $validator->isValid($host)) {
           	  $this->host = $host;
