@@ -1,0 +1,8 @@
+header=X-TrustedIPs
+putHamHeader=0
+timeOut=0
+maxSize=0
+debug=0
+decisive_field=neg_decisive
+neg_decisive=1
+position=0
