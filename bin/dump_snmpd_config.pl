@@ -129,7 +129,7 @@ sub get_snmpd_config{
         }
         my $ref = $sth->fetchrow_hashref() or return;
 
-	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'mailscanner/allowedip')));
+	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'snmp/allowedip')));
 	$config{'__COMMUNITY__'} = $ref->{'community'};
 	$config{'__DISKS__'} = $ref->{'disks'};
 
