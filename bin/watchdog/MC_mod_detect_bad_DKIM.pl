@@ -35,7 +35,7 @@ opendir (my $dir, '/var/mailcleaner/spool/tmp/mailcleaner/dkim/');
 my @short;
 my @invalid;
 while (my $key = readdir($dir)) {
-    if ($key eq 'default.pkey' && -s '/var/mailcleaner/spool/tmp/mailcleaner/dkim/'.$key == 0) {
+    if ($key eq 'default.pkey' && -s '/var/mailcleaner/spool/tmp/mailcleaner/dkim/'.$key <= 1) {
         next;
     }
     if ($key =~ m/^\.+$/) {
