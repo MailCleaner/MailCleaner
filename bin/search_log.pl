@@ -217,9 +217,9 @@ if (@messages > 0) {
       }
       print FULLOG "\n";
     }
-    #print FULLOG "***********\n";
   }
-  close LOGFILE;
+  close FULLOG;
+  unlink($fullogfile);
 }
 print "STOPTIME ".time()."\n" if $batch;
 print "done.\n";
