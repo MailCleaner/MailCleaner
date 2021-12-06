@@ -219,7 +219,6 @@ if (@messages > 0) {
     }
   }
   close FULLOG;
-  unlink($fullogfile);
 }
 print "STOPTIME ".time()."\n" if $batch;
 print "done.\n";
