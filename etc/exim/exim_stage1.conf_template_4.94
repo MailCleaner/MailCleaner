@@ -779,9 +779,19 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - accepted relay, by host - smtp:relayd,smtp:relayed:host
  __FI__
+
+__IF__ BLOCK25AUTH
+  deny    authenticated = *
+          condition     = ${if eq {$received_port}{25} {1}{0}}
+          logwrite      = Authenticated session from $sender_host_address, sender $sender_address blocked on port $received_port
+__FI__
+
   accept  authenticated = *
 __IF__ PREVENTRELAYFROMUNKNOWNDOMAIN
           sender_domains= : +relay_to_domains
+__FI__
+__IF__ BLOCK25AUTH
+          !condition    = ${if eq {$received_port}{25} {1}{0}}
 __FI__
           set   acl_c0  = relayed
           set acl_c8    = smtp:relayed:authenticated
