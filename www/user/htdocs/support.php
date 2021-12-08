@@ -8,6 +8,10 @@
  * This is the controller for the support and help page
  */ 
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once("objects.php");
 require_once("view/SupportForm.php");
 require_once("view/Template.php");
