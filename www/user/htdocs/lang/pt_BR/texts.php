@@ -324,7 +324,7 @@ $txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ para __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Erro interno d0 MailCleaner (_PARAM_MESSAGE_ERREUR__). Por favor contate o administrador do sistema com detalhes do problema.";
+$txt['BADARGS'] = "Erro interno do MailCleaner (__PARAM__). Por favor contate o administrador do sistema com detalhes do problema.";
 $txt['INCORRECTMSGID'] = "A requisição solicitada não pode ser concluída porque o identificador de mensagem está incorreto.";
 $txt['NOSUCHADDR'] = "O endereço fornecido não é protegido pelo MailCleaner.";
 $txt['ERRORSENDING'] = "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.";
@@ -486,17 +486,76 @@ $txt['BEENLOGGEDOUT'] = "Se você gostaria de iniciar uma nova sessão, clique n
 $txt['NLRELEASEDHEAD'] = "O boletim informativo foi permitido e liberado.";
 $txt['NLRELEASEDBODY'] = "O boletim informativo foi permitido e liberado. Ele deve ser entregue em sua caixa de correio em minutos.";
 $txt['NLNOTRELEASEDHEAD'] = "O boletim informativo não foi liberado";
-$txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem. Por favor, tente novamente mais tarde.";
+$txt['NLNOTRELEASEDBODY'] = "Houve um problema ao liberar sua mensagem.";
 $txt['ADDANEWSENTRY'] = "Adicione um endereço a lista";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecione o endereço ou endereços que deseja modificar na lista e clique no botão de ação desejado.";
 //old
 $txt['EDITNEWSLIST'] = "editar lista de notícias";
 //old
-$txt['NEWSLISTFOR'] = "Lista de notícias para  __PARAM__";
+$txt['NEWSLISTFOR'] = "Lista de notícias para __PARAM__";
 $txt['NEWSLISTTOPIC'] = "Lista de notícias";
 $txt['NEWSLISTTOPICTITLE'] = "lista de notícias";
-$txt['NEWSLISTSHORTHELP'] = "A lista de boletins informativos contém endereços de boletins desejados.<br />Consulte o manual (disponível na seção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso da listas de boletins informativos.
+$txt['NEWSLISTSHORTHELP'] = "A lista de boletins informativos contém endereços de boletins desejados.<br />
+                                  Consulte o manual (disponível na seção <a href=\"help.php\">\"Ajuda\"</a>) para mais informações sobre o uso da listas de boletins informativos.
 ";
 $txt['NEWSLISTFORADDRESS'] = "Lista de boletins informativos para o endereço";
 $txt['NEWSLISTENTRYTOADD'] = "Insira o endereço que deseja adicionar à lista de boletins informativos. Você também pode adicionar um comentário opcional.";
 $txt['ADDTOGROUP'] = "Adicionar para todos os endereços no grupo";
+$txt['NEWSLONLY'] = "Mostrar apenas boletins";
+$txt['SPAMONLY'] = "Mostrar apenas spam";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Falha ao carregar a mensagem (pode não mais existir).";
+$txt['CANNOTCONNECTDB'] = "Falha ao conectar ao banco de dados.";
+$txt['CANNOTSELECTDB'] = "Falha ao pesquisar banco de dados.";
+$txt['CANNOTINSERTDB'] = "Falha ao inserir no banco de dados.";
+$txt['CONFIGREADFAIL'] = "Falha ao ler o arquivo de configuração.";
+$txt['DUPLICATEENTRY'] = "Já existe uma entrada duplicada.";
+$txt['DESTNOTVALID'] = "Endereço de destino inválido.";
+$txt['SENDERNOTVALID'] = "Endereço de remetente inválido.";
+$txt['UNKNOWNERROR'] = "Ocorreu um erro desconhecido.";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Aceitar todos os futuros boletins informativos deste remetente?";
+$txt['NOTNEWSLISTBODY'] = "Ocorreu um problema ao adicionar o boletim informativo à lista de permissões.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Colocar na lista de permissões todos os spams futuros do mesmo remetente?";
+$txt['WHITELISTHEAD'] = "A regra da lista de permissões foi adicionada.";
+$txt['NEWSLISTBODY'] = "Este boletim informativo foi adicionado à lista de permissões. As mensagens futuras deste remetente não serão sinalizadas se detectadas como um boletim informativo.";
+$txt['NEWSLISTHEAD'] = "Adicionada regra de boletim informativo.";
+$txt['NOTNEWSLISTHEAD'] = "Regra do boletim informativo não adicionada.";
+$txt['NOTWHITELISTHEAD'] = "A regra da lista de permissões não foi adicionada.";
+$txt['NOTWHITELISTBODY'] = "Ocorreu um problema ao adicionar a lista de permissões.";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "Aceitar todos os futuros boletins informativos do mesmo remetente? Também colocar na lista de permissões todas as mensagens de spam desse remetente?";
+$txt['ADDWHITENEWSLIST'] = "Colocar na lista de permissões todos os spams futuros do mesmo remetente? Aceita também boletins informativos desse remetente?";
+$txt['NEWSWHITELISTHEAD'] = "Adicionadas regras para boletins informativos e listas de permissões.";
+$txt['WHITENOTNEWSBODY'] = "A lista de permissões de spam foi adicionada. Infelizmente, ocorreu um problema ao colocar o boletim informativo na lista de permissões.";
+$txt['NOTNEWSWHITEBODY'] = "Ocorreu um problema ao adicionar essas regras.";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "Adicionar à lista negra todos os e-mails futuros do mesmo remetente?";
+$txt['BLACKLISTHEAD'] = "A regra foi adicionada à lista negra.";
+$txt['NOTNEWSWHITEHEAD'] = "Nem a lista de notícias nem as regras da lista branca foram adicionadas.";
+$txt['BLACKLISTBODY'] = "A regra foi adicionada à lista negra. Futuras mensagens deste remetente serão retidas como spam.";
+$txt['NOTBLACKLISTHEAD'] = "A regra da lista negra não foi adicionada.";
+//
+$txt['ADDITIONALACTION'] = "Ações adicionais:";
+$txt['NOTBLACKLISTBODY'] = "Ocorreu um problema ao adicionar a lista negra.";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Somente endereço do remetente original";
+$txt['SENDERVARIATIONS'] = "Todas as variações de endereço do remetente";
+$txt['ENTIREDOMAIN'] = "Domínio inteiro";
+$txt['WHITELISTBODY'] = "Uma regra foi adicionada à lista de permissões. As futuras mensagens deste remetente não serão sinalizadas se forem detectadas como spam.";
+$txt['ADDRULE'] = "Adicionar uma regra WWList";
+$txt['NEWSNOTWHITEBODY'] = "Uma regra de boletim informativo foi adicionada, mas houve um problema ao adicionar a regra da lista de permissões.";
+$txt['NEWSWHITELISTBODY'] = "Boletim informativo e listas de permissão de spam foram adicionados. As futuras mensagens deste remetente não serão mais mantidas como boletins informativos ou spam.";
