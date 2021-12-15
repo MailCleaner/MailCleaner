@@ -8,6 +8,9 @@
  * This is the controler for the newsletter release page
  */
 
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
 
 /**
  * requires a session

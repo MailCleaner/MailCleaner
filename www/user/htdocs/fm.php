@@ -5,8 +5,13 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for the reset password page
+ * This is the controller for the force message page
  */
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once('variables.php');
 require_once("view/Language.php");
 require_once("system/SystemConfig.php");
@@ -39,11 +44,11 @@ if (!is_exim_id($_GET['id']) || !is_email($_GET['a']) || !is_numeric($_GET['s'])
 $soaper = new Soaper();
 $ret = @$soaper->load($sysconf_->getSlaveName($_GET['s']));
 if ($ret != "OK") {
-	$res = $ret;
+  $res = $ret;
 } else {
-    // actually force the message
-    $res = $soaper->queryParam('forceSpam', array($_GET['id'], $_GET['a']));
-    $res = preg_replace('/^(\S*)\s.*/', '$1', $res);
+  // actually force the message
+  $res = $soaper->queryParam('forceSpam', array($_GET['id'], $_GET['a']));
+  $res = preg_replace('/^(\S*)\s.*/', '$1', $res);
 } 
 
 // get the view objects
