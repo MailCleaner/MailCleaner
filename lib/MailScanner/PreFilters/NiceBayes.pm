@@ -66,7 +66,6 @@ sub initialise {
     $NiceBayes::conf{'pos_text'} = 'position : '.$NiceBayes::conf{'position'}.', spam decisive';
   } else {
     $NiceBayes::conf{'pos_text'} = 'position : '.$NiceBayes::conf{'position'}.', not decisive';
-    $NiceBayes::conf{'pos_text'} = '~'.$NiceBayes::conf{'position'}.'~ ';
   }
   if ($NiceBayes::conf{'neg_decisive'} && ($NiceBayes::conf{'decisive_field'} eq 'neg_decisive' || $NiceBayes::conf{'decisive_field'} eq 'both')) {
     $NiceBayes::conf{'neg_text'} = 'position : '.$NiceBayes::conf{'position'}.', ham decisive';
