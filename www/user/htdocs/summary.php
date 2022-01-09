@@ -7,6 +7,11 @@
  * 
  * This is the controller for the page sending the summary
  */ 
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once("objects.php");
 require_once("user/SpamQuarantine.php");
 require_once("view/Form.php");

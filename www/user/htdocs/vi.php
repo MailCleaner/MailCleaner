@@ -7,6 +7,11 @@
  * 
  * This is the controller for the reasons list display page
  */  
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once('variables.php');
 require_once("view/Language.php");
 require_once("user/Spam.php");

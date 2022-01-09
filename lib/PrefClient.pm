@@ -100,8 +100,9 @@ sub extractSRSAddress {
   my $this = shift;
   my $sender = shift;
   my $sep = '[=+-]';
+  my @segments;
   if ($sender =~ m/^srs0.*/i) {
-    my @segments = split(/$sep/, $sender);
+    @segments = split(/$sep/, $sender);
     my $tag = shift(@segments);
     my $hash = shift(@segments);
     my $time = shift(@segments);
@@ -112,9 +113,9 @@ sub extractSRSAddress {
     $sender .= '@' . $domain;
   } elsif ($sender =~ m/^srs1.*/i) {
     my @blocks = split(/=$sep/, $sender);
-    my @segments = split(/$sep/, $blocks[0]);
+    @segments = split(/$sep/, $blocks[0]);
     my $domain = $segments[scalar(@segments)-1];
-    my @segments = split(/$sep/, $blocks[scalar(@blocks)-1]);
+    @segments = split(/$sep/, $blocks[scalar(@blocks)-1]);
     my $hash = shift(@segments);
     my $time = shift(@segments);
     my $relay = shift(@segments);

@@ -7,6 +7,11 @@
  * 
  * This is the controller for the quarantine purge page
  */
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once("objects.php");
 require_once("user/SpamQuarantine.php");
 require_once("view/Form.php");

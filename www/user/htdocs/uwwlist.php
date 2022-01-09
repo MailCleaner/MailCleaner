@@ -8,6 +8,10 @@
  * This is the controller for the file type protection configuration page
  */
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
  /**
   * require user session, view and file type settings objects
   */
