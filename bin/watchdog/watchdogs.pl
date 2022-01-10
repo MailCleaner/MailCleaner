@@ -151,6 +151,10 @@ foreach my $file (@files) {
 	$current_process{file}                  = $file;
 	$current_process{file_no_extension}     = $file;
 	$current_process{file_no_extension}     =~ s/\.[^\.]*$//;
+	if (-e WATCHDOG_CFG.$current_process{file_no_extension}.'.disabled') {
+		print STDERR "Ignoring $current_process{file_no_extension} because it is disabled.\n";
+		next;
+	}
 	$current_process{pid_file}	        	=  WATCHDOG_PID_FOLDER.$current_process{file_no_extension}.'.pid';
 	$current_process{configuration_file}	=  WATCHDOG_CFG.$current_process{file_no_extension}.'.conf';
 	$current_process{TIMEOUT}		        =  5;
