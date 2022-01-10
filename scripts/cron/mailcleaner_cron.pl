@@ -540,6 +540,10 @@ if ($itsmidnight) {
         system($config{'SRCDIR'}."/bin/send_anon.sh &>> /dev/null");
   }
 
+}
+
+if ($itstime) {
+
   ##################################
   ## send watchdog alert
   ##################################
@@ -555,9 +559,6 @@ if ($itsmidnight) {
     exit;
   }
 
-}
-
-if ($itstime) {
   ######################
   ## send daily sumaries
   ######################
