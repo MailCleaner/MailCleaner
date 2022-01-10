@@ -51,7 +51,6 @@ my $lang = $sysconf->getPref('default_language') || 'en';
 
 ## report templates (ie. SRCDIR/templates/reports/*) are not yet exposed
 my $temp_id = 'default';
-#my $template = 'watchdog.report.html';
 
 my $recipient = $sysconf->getPref('sysadmin');
 unless ($recipient =~ m/[-_a-zA-Z0-9.+!%]*@[-_a-zA-Z0-9.]*\.[a-z]{2,}/) {
@@ -60,7 +59,6 @@ unless ($recipient =~ m/[-_a-zA-Z0-9.+!%]*@[-_a-zA-Z0-9.]*\.[a-z]{2,}/) {
 my $email = Email::create($recipient);
 
 my $template = MailTemplate::create('reports', 'watchdog', $temp_id, \$email, $lang, 'html');
-    #$template = MailTemplate::create('summary', 'digest', $temp_id, \$email, $lang, 'html');
 
 ## get slaves
 my %slaves;
