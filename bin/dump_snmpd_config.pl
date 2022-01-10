@@ -75,6 +75,17 @@ sub dump_snmpd_file
 	my $template_file = "$config{'SRCDIR'}/etc/snmp/snmpd.conf_template";
 	my $target_file = "$config{'SRCDIR'}/etc/snmp/snmpd.conf";
 
+	my $ipv6 = 0;
+	if (open(my $interfaces, '<', '/etc/network/interfaces')) {
+		while (<$interfaces>) {
+			if ($_ =~ m/iface \S+ inet6/) {
+				$ipv6 = 1;
+				last;
+			}
+		}
+		close($interfaces);
+	}
+
 	if ( !open(TEMPLATE, $template_file) ) {
 		$lasterror = "Cannot open template file: $template_file";
 		return 0;
@@ -89,11 +100,15 @@ sub dump_snmpd_file
 	my $ip;
 	foreach $ip ( keys %master_hosts) {
 		print TARGET "com2sec local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
-		print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		if ($ipv6) {
+			print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		}
 	}
 	foreach $ip (@ips) {
 		print TARGET "com2sec local     $ip	$snmpd_conf{'__COMMUNITY__'}\n";
-		print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		if ($ipv6) {
+			print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		}
 	}
 
 	while(<TEMPLATE>) {
@@ -129,7 +144,7 @@ sub get_snmpd_config{
         }
         my $ref = $sth->fetchrow_hashref() or return;
 
-	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'mailscanner/allowedip')));
+	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'snmp/allowedip')));
 	$config{'__COMMUNITY__'} = $ref->{'community'};
 	$config{'__DISKS__'} = $ref->{'disks'};
 

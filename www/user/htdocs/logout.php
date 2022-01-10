@@ -7,6 +7,10 @@
  * 
  * This is the controler for the logout page
  */
+ 
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
 
 /**
  * require session

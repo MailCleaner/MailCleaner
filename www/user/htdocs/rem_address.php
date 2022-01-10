@@ -8,6 +8,10 @@
  * This is the controler for the remove addres page
  */
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 /**
  * require valid session
  */ 
