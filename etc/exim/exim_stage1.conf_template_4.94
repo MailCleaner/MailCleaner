@@ -42,6 +42,10 @@ __ELSE__ USETLS
 tls_advertise_hosts =
 __FI__
 
+__IF__ BLOCK25AUTH
+auth_advertise_hosts = ${if eq{$interface_port}{587}{*}{}}
+__FI__
+
 chunking_advertise_hosts =
 keep_environment =
 
@@ -779,9 +783,13 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - accepted relay, by host - smtp:relayd,smtp:relayed:host
  __FI__
+
   accept  authenticated = *
 __IF__ PREVENTRELAYFROMUNKNOWNDOMAIN
           sender_domains= : +relay_to_domains
+__FI__
+__IF__ BLOCK25AUTH
+          !condition    = ${if eq {$received_port}{25} {1}{0}}
 __FI__
           set   acl_c0  = relayed
           set acl_c8    = smtp:relayed:authenticated

@@ -57,7 +57,7 @@ $baseconf = DataManager::getFileConfig(SystemConfig::$CONFIGFILE_); ?>
           <tr>
             <td colspan="2"><hr /></td>
           </tr>
-          <?php foreach (array('outgoing_virus_scan', 'mask_relayed_ip', 'masquerade_outgoing_helo', 'dmarc_enable_reports', 'log_subject', 'log_attachments') as $f) {?>
+          <?php foreach (array('outgoing_virus_scan', 'mask_relayed_ip', 'block_25_auth', 'masquerade_outgoing_helo', 'dmarc_enable_reports', 'log_subject', 'log_attachments') as $f) {?>
            <?php echo $this->InputRow($this->form->getElement($f));?>
           <?php }?>
           
