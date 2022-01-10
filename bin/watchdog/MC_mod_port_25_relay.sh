@@ -34,8 +34,8 @@ BLOCK25AUTH=`echo SELECT "block_25_auth FROM mta_config WHERE stage = 1" | mc_my
 if [[ $BLOCK25AUTH -eq 0 ]]; then
     LOG_FILE="/var/mailcleaner/log/exim_stage1/mainlog"
     NB_AUTH=`grep -e "Accepting authenticated session from .* on port 25" $LOG_FILE | wc -l`
-    if [[ $NB_INVALID -ne 0 ]]; then
-        echo "Port 25 authentication is in use ($NB_INVALID occurences)" > $OUT_FILE
+    if [[ $NB_AUTH -ne 0 ]]; then
+        echo "Port 25 authentication is in use ($NB_AUTH occurences)" > $OUT_FILE
         my_own_exit "1"
     else
         echo "Port 25 authentication is open (not used today)" > $OUT_FILE
