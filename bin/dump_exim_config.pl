@@ -326,6 +326,10 @@ sub dump_exim_file
   if ($exim_conf{'mask_relayed_ip'}) {
     $template->setCondition('MASKRELAY', 1);
   }
+  $template->setCondition('BLOCK25AUTH', 0);
+  if ($exim_conf{'block_25_auth'}) {
+    $template->setCondition('BLOCK25AUTH', 1);
+  }
   $template->setCondition('MASQUERADE_OUTGOING_HELO', 0);
   if ($exim_conf{'masquerade_outgoing_helo'}) {
     $template->setCondition('MASQUERADE_OUTGOING_HELO', 1);
@@ -905,6 +909,7 @@ sub get_exim_config{
         $config{'tls_use_ssmtp_port'} = $row{'tls_use_ssmtp_port'};
         $config{'outgoing_virus_scan'} = $row{'outgoing_virus_scan'};
         $config{'mask_relayed_ip'} = $row{'mask_relayed_ip'};
+        $config{'block_25_auth'} = $row{'block_25_auth'};
         $config{'masquerade_outgoing_helo'} = $row{'masquerade_outgoing_helo'};
         $config{'log_subject'} = $row{'log_subject'};
         $config{'log_attachments'} = $row{'log_attachments'};

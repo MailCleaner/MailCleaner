@@ -62,6 +62,7 @@ CREATE TABLE mta_config (
   trusted_ratelimit_delay   int(10) DEFAULT 10,
   outgoing_virus_scan   bool NOT NULL DEFAULT '0',
   mask_relayed_ip       bool NOT NULL DEFAULT '0',
+  block_25_auth         bool NOT NULL DEFAULT '0',
   masquerade_outgoing_helo bool NOT NULL DEFAULT '0',
   forbid_clear_auth     bool NOT NULL DEFAULT '0',
   relay_refused_to_domains    blob,

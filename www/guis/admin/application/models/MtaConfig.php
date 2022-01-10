@@ -56,6 +56,7 @@ class Default_Model_MtaConfig
        'domains_require_tls_to' => '',
        'outgoing_virus_scan' => 0,
        'mask_relayed_ip' => 0,
+       'block_25_auth' => 0,
        'masquerade_outgoing_helo' => 0,
        'log_subject' => 0,
        'log_attachments' => 0,

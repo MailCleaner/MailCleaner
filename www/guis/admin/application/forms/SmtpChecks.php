@@ -189,6 +189,16 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         }
         $this->addElement($maskrelayedip);
         
+        $block25auth = new Zend_Form_Element_Checkbox('block_25_auth', array(
+            'label'   => $t->_('Block authenticated relaying on port 25'). " :",
+            'uncheckedValue' => "0",
+            'checkedValue' => "1"
+                  ));
+        if ($this->_mta->getParam('block_25_auth')) {
+            $block25auth->setChecked(true);
+        }
+        $this->addElement($block25auth);
+        
         $masquerade_outgoing_helo = new Zend_Form_Element_Checkbox('masquerade_outgoing_helo', array(
                     'label'   => $t->_('Masquerade relayed HELO with sender domain'). " :",
                     'uncheckedValue' => "0",
@@ -230,6 +240,7 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$mta->setparam('verify_sender', $request->getParam('verify_sender'));
         $mta->setparam('outgoing_virus_scan', $request->getParam('outgoing_virus_scan'));
         $mta->setparam('mask_relayed_ip', $request->getParam('mask_relayed_ip'));
+        $mta->setparam('block_25_auth', $request->getParam('block_25_auth'));
         $mta->setparam('masquerade_outgoing_helo', $request->getParam('masquerade_outgoing_helo'));
         $mta->setparam('log_subject', $request->getParam('log_subject'));
         $mta->setparam('log_attachments', $request->getParam('log_attachments'));
