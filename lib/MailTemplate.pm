@@ -58,7 +58,9 @@ sub create {
   # If user pref langage is not currently translated for the template type,
   # use english by default
   my $conf = ReadConfig::getInstance();
-  if (! -d $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang") {
+  if (! -d $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/${filename}_parts" &&
+	! -f $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/${filename}.txt")
+  {
         $lang = 'en';
   }
 

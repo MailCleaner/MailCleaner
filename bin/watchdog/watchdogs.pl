@@ -13,7 +13,8 @@ use constant WATCHDOG_CFG           => '/usr/mailcleaner/etc/watchdog/';
 use constant WATCHDOG_TMP           => '/var/mailcleaner/spool/watchdog/';
 use constant WATCHDOG_PID_FOLDER	=> '/var/mailcleaner/run/watchdog/';
 
-my $WATCHDOG_OUTFILE		        = WATCHDOG_TMP . $script_name. '___' .$mode. '_' .time(). '.out';
+my $time = time();
+my $WATCHDOG_OUTFILE		        = WATCHDOG_TMP . $script_name. '___' .$mode. '_' .$time. '.out';
 
 # Liste erreur
 # 1	=> ne peut pas cd dans le dossier WATCHDOG_BIN
@@ -151,6 +152,20 @@ foreach my $file (@files) {
 	$current_process{file}                  = $file;
 	$current_process{file_no_extension}     = $file;
 	$current_process{file_no_extension}     =~ s/\.[^\.]*$//;
+	# Supprimer le fichier ancien
+	my @remaining = ();
+	foreach (@old) {
+		if ($_ =~ m/$current_process{file_no_extension}/) {
+			unlink($_);
+		} else {
+			push(@remaining,$_);
+		}
+	}
+	@old = @remaining;
+	if (-e WATCHDOG_CFG.$current_process{file_no_extension}.'.disabled') {
+		print STDERR "Ignoring $current_process{file_no_extension} because it is disabled by '" . WATCHDOG_CFG.$current_process{file_no_extension}.'.disabled' . "\n";
+		next;
+	}
 	$current_process{pid_file}	        	=  WATCHDOG_PID_FOLDER.$current_process{file_no_extension}.'.pid';
 	$current_process{configuration_file}	=  WATCHDOG_CFG.$current_process{file_no_extension}.'.conf';
 	$current_process{TIMEOUT}		        =  5;
@@ -162,22 +177,14 @@ foreach my $file (@files) {
 
 	if ($current_process{EXEC_MODE} eq 'Parralel')	{ push(@processes_par, \%current_process); }
 	else                    						{ push(@processes_seq, \%current_process); }
-	# Supprimer le fichier ancien
-	my @remaining = ();
-	foreach (@old) {
-		if ($_ =~ m/$current_process{file_no_extension}/) {
-			unlink($_);
-		} else {
-			push(@remaining,$_);
-		}
-	}
-	@old = @remaining;
 }
 
 if (scalar(@old)) {
 	foreach (@old) {
 		if ((-M "$_") > 1) {
 			unlink($_);
+		} elsif ($_ =~ m/watchdogs___(All|oneday|dix)_(\d+).out/) {
+			unlink($_) unless ($2 eq $time);
 		}
 	}
 }

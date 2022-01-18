@@ -543,6 +543,22 @@ if ($itsmidnight) {
 }
 
 if ($itstime) {
+
+  ##################################
+  ## send watchdog alert
+  ##################################
+  if (my $pid_swatch = fork) {
+    push(@wait,$pid_swatch);
+  } elsif (defined $pid_swatch) {
+    print "sending watchdog report to support address, if applicable...\n";
+    my $date = `date '+%Y%m%d'`;
+    chomp($date);
+    system("echo 'Sending watchdog alerts:' >> ".$config{'VARDIR'}."/log/mailcleaner/watchdogs.log");
+    system($config{'SRCDIR'}."/bin/send_watchdogs.pl >> ".$config{'VARDIR'}."/log/mailcleaner/watchdogs.log");
+    print "done watchdog report.\n";
+    exit;
+  }
+
   ######################
   ## send daily sumaries
   ######################
