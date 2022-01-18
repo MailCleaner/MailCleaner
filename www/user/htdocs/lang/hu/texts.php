@@ -10,7 +10,7 @@ $txt['NEWSLETTERMODULE'] = "Hírlevél";
 $txt['NEWSLETTERSTOPIC'] = "Hírlevelek";
 $txt['NEWSLETTERSTOPICTITLE'] = "Hírlevelek";
 $txt['NEWSLETTERSSHORTHELP'] = "Itt kezelheti a hírleveleket.";
-$txt['NEWSLETTERSALLOW'] = "deliver";
+$txt['NEWSLETTERSALLOW'] = "Postáz";
 $txt['NEWSLETTERACCEPT'] = "Elfogadja ezt a hírlevelet";
 $txt['SPAM_WHITELIST_DISABLED'] = "Ez a lista nem aktívált ehhez a tartományhoz (Forduljon a Rendszergazdához).";
 /*
@@ -20,7 +20,7 @@ $txt['SUBMIT'] = "Elküld";
 $txt['CANCEL'] = "Mégse";
 $txt['CLOSE'] = "Bezárás";
 // old
-$txt['ADD'] = "add";
+$txt['ADD'] = "Hozzáad";
 $txt['CONFIRM'] = "Jóváhagyás";
 $txt['REFRESH'] = "Frissítés";
 $txt['SEARCH'] = "Keresés";
@@ -83,31 +83,31 @@ $txt['LOGOUT'] = "Log out";
 //old
 $txt['LOGGEDAS'] = "you are logged in as:";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "Settings";
-$txt['QUARANTINE'] = "Quarantine";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "Elsődleges cím";
+$txt['PARAMETERS'] = "Beállitások";
+$txt['QUARANTINE'] = "Karantén";
+$txt['NAVSUPPORT'] = "Támogatás";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "Address displayed";
-$txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
-$txt['SEARCHSUMMARY'] = "<strong>Search:</strong> __PARAM__ messages";
-$txt['ORDEREDBYPARAM'] = "sorted by __PARAM__";
-$txt['RESETSEARCH'] = "Display the full quarantine list";
-$txt['ODATE'] = "date";
-$txt['OTIME'] = "time";
+$txt['SELECTEDADDRESS'] = "Megjelenítési cím";
+$txt['QUARANTINESUMMARY'] = "<strong>Karanténban:</strong> __PARAM__ messages";
+$txt['SEARCHSUMMARY'] = "<strong>Keres:</strong> __PARAM__ messages";
+$txt['ORDEREDBYPARAM'] = "Szerint rendezve __PARAM__";
+$txt['RESETSEARCH'] = "Mutasd a teljes karantén listát";
+$txt['ODATE'] = "Dátum";
+$txt['OTIME'] = "Idő";
 $txt['OSCORE'] = "score";
-$txt['ODESTINATION'] = "recipient";
-$txt['OSENDER'] = "sender";
-$txt['OSCORE'] = "score";
-$txt['OSUBJECT'] = "subject";
+$txt['ODESTINATION'] = "címzett";
+$txt['OSENDER'] = "küldő";
+$txt['OSCORE'] = "eredmény";
+$txt['OSUBJECT'] = "Tárgy";
 //old
-$txt['CRITERIAS'] = "Filter rules";
-$txt['FORCEMESSAGE'] = "Release the message";
-$txt['MESSAGEFORCING'] = "Message release";
+$txt['CRITERIAS'] = "Szűrő Szabályok";
+$txt['FORCEMESSAGE'] = "Levél kieresztése";
+$txt['MESSAGEFORCING'] = "Levél kieresztés";
 $txt['MESSAGEPREVIEW'] = "Display the contents of the message";
-$txt['ANALYSEREQUEST'] = "Filter adjustment request";
+$txt['ANALYSEREQUEST'] = "Szűrő beállítás kérelem";
 $txt['ANALYSEREQUESTV'] = "Request a filter adjustment";
 $txt['SCORETEXT'] = "Score: __PARAM__";
 $txt['CLOSEWINDOW'] = "Close the window";
