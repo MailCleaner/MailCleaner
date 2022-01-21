@@ -321,7 +321,7 @@ $txt['FROMDATETODATE'] = "从 __PARAM1__.__PARAM2__.__PARAM3__ 到 __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "内部 MailCleaner 错误 (_PARAM_MESSAGE_ERREUR__)。请与系统管理员联系, 了解问题的详细信息。";
+$txt['BADARGS'] = "内部 MailCleaner 错误 (__PARAM__)。请与系统管理员联系, 了解问题的详细信息。";
 $txt['INCORRECTMSGID'] = "由于消息标识符不正确, 请求的操作无法完成。";
 $txt['NOSUCHADDR'] = "给定地址不受 MailCleaner 保护。";
 $txt['ERRORSENDING'] = "发送邮件时出错。请重试。如果问题仍然存在, 请与系统管理员联系。";
@@ -483,7 +483,7 @@ $txt['BEENLOGGEDOUT'] = "如果希望启动新会话, 请单击此链接: <a hre
 $txt['NLRELEASEDHEAD'] = "已允许并发布新闻稿。";
 $txt['NLRELEASEDBODY'] = "新闻稿已被允许并发布。它应该在几分钟内送达您的邮箱。";
 $txt['NLNOTRELEASEDHEAD'] = "新闻稿未发布";
-$txt['NLNOTRELEASEDBODY'] = "发布邮件时出现问题。请稍后再试。";
+$txt['NLNOTRELEASEDBODY'] = "发布邮件时出现问题。";
 //old
 $txt['EDITNEWSLIST'] = "编辑新闻列表";
 //old
@@ -497,3 +497,25 @@ $txt['NEWSLISTFORADDRESS'] = "新闻稿列表的地址";
 $txt['ADDANEWSENTRY'] = "添加一个地址到列表";
 $txt['NEWSLISTENTRYTOADD'] = "输入要添加到新闻稿列表中的地址。您还可以添加可选注释。";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "从列表中选择要修改的地址, 然后单击所需的操作按钮。";
+$txt['SPAMONLY'] = "仅显示垃圾邮件";
+$txt['CANNOTCONNECTDB'] = "无法连接。";
+$txt['CANNOTSELECTDB'] = "无法搜索。";
+$txt['DESTNOTVALID'] = "地址无效。";
+$txt['SENDERNOTVALID'] = "无效的发件人地址。";
+$txt['UNKNOWNERROR'] = "未知错误。";
+$txt['NEWSLISTBODY'] = "添加了新闻白名单。如检测到此发件人的邮件为新闻，则被标记。";
+$txt['ADDTOGROUP'] = "为组中的所有地址添加";
+$txt['CONFIGREADFAIL'] = "无法读取配置文件。";
+$txt['DUPLICATEENTRY'] = "条目重复";
+$txt['NEWSLONLY'] = "仅显示新闻";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "无法加载消息（可能不存在）。";
+$txt['CANNOTINSERTDB'] = "无法插入。";
+$txt['ENTIREDOMAIN'] = "整个域名";
+$txt['NEWSLISTHEAD'] = "添加了新闻列表规则。";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "接受来自同一发件人的所有未来新闻？";
