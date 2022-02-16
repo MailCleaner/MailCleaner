@@ -44,7 +44,7 @@ sub config
 		'cmndline'	=> 'clamav/clamd.conf',
 		'cmd'		=> '/opt/clamav/sbin/clamd',
 		'conffile'	=> $class->{'conf'}->getOption('SRCDIR').'/etc/clamav/clamd.conf',
-		'pidfile'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamd.pid',
+		'pidfile'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamav/clamd.pid',
 		'logfile'	=> $class->{'conf'}->getOption('VARDIR').'/log/clamav/clamd.log',
 		'localsocket'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamav/clamd.sock',
 		'children'	=> 1,
