@@ -559,3 +559,5 @@ $txt['WHITELISTBODY'] = "Uma regra foi adicionada à lista de permissões. As fu
 $txt['ADDRULE'] = "Adicionar uma regra WWList";
 $txt['NEWSNOTWHITEBODY'] = "Uma regra de boletim informativo foi adicionada, mas houve um problema ao adicionar a regra da lista de permissões.";
 $txt['NEWSWHITELISTBODY'] = "Boletim informativo e listas de permissão de spam foram adicionados. As futuras mensagens deste remetente não serão mais mantidas como boletins informativos ou spam.";
+$txt['NEWSNOTWHITEHEAD'] = "A lista de notícias foi adicionada, mas a lista de permitidos não.";
+$txt['WHITENOTNEWSHEAD'] = "Lista de permitidos foi adicionada, mas a lista de notícias não.";
