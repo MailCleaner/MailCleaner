@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2022 John Mertz <mail@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -26,6 +27,7 @@ use IO::Pipe;
 use POSIX qw(:signal_h);    # For Solaris 9 SIG bug workaround
 use Net::HTTP;
 use Net::IP;
+use URLRedirects;
 
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(readFile);
@@ -53,6 +55,7 @@ sub new {
 	$this->{retrydeadinterval}         = 120;
 	$this->{shortner_resolver_maxdeep} = 10;
 	$this->{shortner_resolver_timeout} = 5;
+	$this->{URLRedirects}		   = URLRedirects->new();
 
 	%rblsfailure = ();
 
@@ -261,7 +264,7 @@ sub findUriShortener {
 	my $final_domain = $this->findUri( $final_location, $prelog );
 	if ( $deep > 1 ) {
 		&{ $this->{logfunction} }(
-"$prelog found urlshortener for: $first_link resolving to $final_location"
+"$prelog found urlshortener/redirect for: $first_link resolving to $final_location"
 		);
 	}
 	if ( $deep >= $this->{shortner_resolver_maxdeep} ) {
@@ -276,6 +279,12 @@ sub findUriShortener {
 sub getNextLocation {
 	my $this = shift;
 	my $uri  = shift;
+
+	my $redirect = $this->{URLRedirects}->decode($uri);
+	if ($redirect) {
+		$shorteners{$uri} = $redirect;
+		return ( $uri, $redirect );
+	}
 
 	if ( my ( $domain, $get ) =
 		$uri =~
