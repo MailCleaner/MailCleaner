@@ -280,17 +280,17 @@ sub getNextLocation {
 	my $this = shift;
 	my $uri  = shift;
 
-	my $redirect = $this->{URLRedirects}->decode($uri);
-	if ($redirect) {
-		$shorteners{$uri} = $redirect;
-		return ( $uri, $redirect );
-	}
-
 	if ( my ( $domain, $get ) =
 		$uri =~
 m|\W(?:http://)?(?:www\.)?([a-zA-Z]{2,5}\.[a-zA-Z]{2,3})/([a-zA-Z0-9]{3,10})[\s\/\W]?|
 	  )
 	{
+		my $redirect = $this->{URLRedirects}->decode($domain.'/'.$get);
+		if ($redirect) {
+			$shorteners{$domain.'/'.$get} = $redirect;
+			return ( $domain.'/'.$get , $redirect );
+		}
+
 		$domain = lc($domain);
 		$domain =~ s/[*,=]//g;
 		$domain =~ s/=2E/./g;
