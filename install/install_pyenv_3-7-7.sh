@@ -48,7 +48,7 @@ then
   cd openssl-1.1.1g   && ./config --prefix=$HOME/lib/openssl --openssldir=$HOME/lib/openssl no-ssl2   && make   && make install && cd ..  && rm -rf openssl-1.1.1g openssl-1.1.1g.tar.gz
 
   git clone https://github.com/pyenv/pyenv.git .pyenv
-  export PYENV_ROOT="$HOME/.pyenv"
+  export PYENV_ROOT="$VARDIR/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
   LD_LIBRARY_PATH="${HOME}/lib/openssl/lib" LDFLAGS="-L${HOME}/lib/openssl/lib -Wl,-rpath,${HOME}/lib/openssl/lib" CFLAGS="-I$HOME/lib/openssl/include" SSH="$HOME/lib/openssl" pyenv install 3.7.7 -s
@@ -57,7 +57,7 @@ then
   pip install mailcleaner-library --trusted-host repository.mailcleaner.net --index https://repository.mailcleaner.net/python/ --extra-index https://pypi.org/simple/
 
   SSL_VERSION=$(python -c "import ssl; print(ssl.OPENSSL_VERSION)")
-  if [ SSL_VERSION -ne "OpenSSL 1.1.1g 21 Apr 2020" ]
+  if [ "$SSL_VERSION" -ne "OpenSSL 1.1.1g 21 Apr 2020" ]
   then
     echo "[Errno 3]: Can't import SSL" >> $VARDIR/log/mailcleaner/install_pyenv.log
     echo SSL_VERSION >> $VARDIR/log/mailcleaner/install_pyenv.log
