@@ -26,20 +26,6 @@ use strict;
 use warnings;
 use URI::Escape;
 
-# If you find a rewriter domain but are unable to determine a reliable way to
-# decoder the original URL, you should whitelist it to prevent UriRBL listing
-# for the legitimate service. This could be the case if the URL references a
-# database which we can't query.
-
-our @whitelist = (
-    "mailcleaner.net",
-    "mailcleaner.org"
-);
-foreach (@whitelist) {
-    $_ =~ s/\./\\./;
-}
-our $whitelists = 'https?://(www\.)?(' . ( join '|', @whitelist) . ')/';
-
 sub new
 {
 	my ($class, $args) = @_;
@@ -54,16 +40,16 @@ sub getServices
 	# pattern and a 'decoder' function which returns the decoded URL.
 	my %services = (
 		"Google Redirect" => {
-			"regex"	    => qr#https?://www\.google\.com/url\?q=#,
+			"regex"	    => qr#www\.google\.com/url\?q=#,
 			"decoder"   => sub {
 	   			my $url = shift;
-           			$url =~ s#https?://www\.google\.com/url\?q=(.*)#$1#;
+           			$url =~ s#www\.google\.com/url\?q=(.*)#$1#;
 	   			$url = uri_unescape($url);
 	   			return $url;
 			}
 		},
 		"Proofpoint-v2" => {
-       			"regex"     => qr#https?://urldefense\.proofpoint\.com/v2#,
+       			"regex"     => qr#urldefense\.proofpoint\.com/v2#,
        			"decoder"   => sub {
            			my $url = shift;
            			$url =~ s|\-|\%|g;
@@ -74,7 +60,7 @@ sub getServices
        			}
 		},
 		"Proofpoint-v3" => {
-       			"regex"     => qr#https?://urldefense\.com/v3#,
+       			"regex"     => qr#urldefense\.com/v3#,
        			"decoder"   => sub {
            			my $url = shift;
            			#$url =~ s|[^_]*__(.*)\$$|$1|;
@@ -85,11 +71,11 @@ sub getServices
        			}
 		},
 		"Roaring Penguin" => {
-       			"regex"     => qr#https?://[^/]*/canit/urlproxy.php\?_q=[a-zA-Z0-9]+#,
+       			"regex"     => qr#[^/]*/canit/urlproxy.php\?_q=[a-zA-Z0-9]+#,
        			"decoder"   => sub {
            			use MIME::Base64;
            			my $url = shift;
-           			$url =~ s|https?://[^/]*/canit/urlproxy\.php\?_q\=([^&]*).*|$1|;
+           			$url =~ s|[^/]*/canit/urlproxy\.php\?_q\=([^&]*).*|$1|;
            			$url = uri_unescape($url) ;
            			$url = decode_base64($url);
            			return $url;
@@ -99,31 +85,12 @@ sub getServices
 	return \%services;
 }
 
-sub get301 
-{
-	my $url = shift;
-	require LWP::UserAgent;
-	my $ua = new LWP::UserAgent;
-
-	my $request = new HTTP::Request('HEAD', $url);
-	my $response = $ua->request($request);
-	unless ($response->{'_msg'} eq 'OK') {
-   		return undef;
-	}
-	if ($response->{'_previous'}->{'_headers'}->{'location'}) {
- 		return $response->{'_previous'}->{'_headers'}->{'location'};
-	} else {
-        	return undef;
-	}
-}
-
 # The actual simple search and decode function
 sub decode
 {
 	my $self = shift;
 	my $url = shift;
 
-	my $service;
 	foreach my $service (keys(%{$self->{'services'}})) {
 		if ($url =~ $self->{'services'}->{$service}->{'regex'}) {
 			my $decoded = $self->{'services'}->{$service}->{'decoder'}($url);
