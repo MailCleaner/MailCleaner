@@ -60,7 +60,7 @@ class Default_Form_AntiSpam_UriRBLs extends Default_Form_AntiSpam_Default
 		}
 		
 		$resolve_shorteners = new Zend_Form_Element_Checkbox('resolve_shorteners', array(
-            'label'   => $t->_('Resolve URL shorteners/redirects'). " :",
+            'label'   => $t->_('Resolve URL shorteners'). " :",
             'title'    => $t->_("If a URL shortener was used, expand the URL to analyze it"),
             'uncheckedValue' => "0",
             'checkedValue' => "1"
