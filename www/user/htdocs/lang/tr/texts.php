@@ -187,7 +187,7 @@ $txt['PARTS'] = "Kısımlar";
 $txt['STORESLAVE'] = "Depolama";
 $txt['SPAMCSCORE'] = "kural skoru";
 $txt['DESCRIPTION'] = "Açıklama";
-$txt['MESSAGEPREVIEW'] = "İleti önizleme";
+$txt['MESSAGEPREVIEW'] = "Mesaj içeriğini göster";
 $txt['ID'] = "Tanımlayıcı";
 /*
  * logout page
