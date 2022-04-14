@@ -73,7 +73,7 @@ class ConfigUserWWList {
             if ($addposted['entry'] && $addposted['entry'] != "") {
                 require_once('user/WWEntry.php');
                 $new = new WWEntry();
-                $regex_cleaned = preg_replace('/\^\$/', '', $addposted['entry']);
+                $regex_cleaned = preg_replace('/[\^\$]/', '', $addposted['entry']);
                 if (!filter_var($regex_cleaned, FILTER_VALIDATE_EMAIL) // Valid email
                     && !preg_match('/^@?([a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/', $regex_cleaned) // Valid domain; FILTER_VALIDATE_DOMAIN requires PHP >= 7
                     && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $regex_cleaned) // Valid TLD
