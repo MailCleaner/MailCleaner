@@ -100,9 +100,7 @@ sub dump_snmpd_file
 	my $ip;
 	foreach $ip ( keys %master_hosts) {
 		print TARGET "com2sec local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
-		if ($ipv6) {
-			print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
-		}
+		print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
 	}
 	foreach $ip (@ips) {
 		print TARGET "com2sec local     $ip	$snmpd_conf{'__COMMUNITY__'}\n";
