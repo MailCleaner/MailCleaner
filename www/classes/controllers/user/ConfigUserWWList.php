@@ -73,11 +73,13 @@ class ConfigUserWWList {
             if ($addposted['entry'] && $addposted['entry'] != "") {
                 require_once('user/WWEntry.php');
                 $new = new WWEntry();
-                if (!filter_var($addposted['entry'], FILTER_VALIDATE_EMAIL) // Valid email
-                    && !preg_match('/^@?([a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/', $addposted['entry']) // Valid domain; FILTER_VALIDATE_DOMAIN requires PHP >= 7
-                    && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $addposted['entry']) // Valid TLD
-                    && !filter_var($addposted['entry'].'domain.com', FILTER_VALIDATE_EMAIL) // Valid username@
-                    && !preg_match('/(.\*|\*.)/', $addposted['entry']) // Wildcard with any one other character; prevents just '*'
+                $regex_cleaned = preg_replace('/\^\$/', '', $addposted['entry']);
+                if (!filter_var($regex_cleaned, FILTER_VALIDATE_EMAIL) // Valid email
+                    && !preg_match('/^@?([a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/', $regex_cleaned) // Valid domain; FILTER_VALIDATE_DOMAIN requires PHP >= 7
+                    && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $regex_cleaned) // Valid TLD
+                    && !filter_var($regex_cleaned.'domain.com', FILTER_VALIDATE_EMAIL) // Valid username@
+
+                    && !preg_match('/(.\*|\*.)/', $regex_cleaned) // Wildcard with any one other character; prevents just '*'
                 ) {
                     $this->message_ = 'Add ' . $addposted['entry'] . ' failed (invalid sender)'; 
                 } else {

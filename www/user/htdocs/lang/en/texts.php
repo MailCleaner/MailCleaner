@@ -12,6 +12,7 @@ $txt['NEWSLETTERSTOPICTITLE'] = "Newsletters";
 $txt['NEWSLETTERSSHORTHELP'] = "Here you can manage your newsletters.";
 $txt['NEWSLETTERSALLOW'] = "deliver";
 $txt['NEWSLETTERACCEPT'] = "Accept this newsletter";
+$txt['NEWSLETTERUNSUB'] = "Unsubscribe";
 $txt['SPAM_WHITELIST_DISABLED'] = "The list is not activated for this domain (contact your administrator).";
 /*
  * generic buttons

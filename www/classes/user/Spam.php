@@ -263,6 +263,9 @@ public function loadHeadersAndBody() {
         }
         $last_header=$matches[1];
         $lh = $matches[2];
+        if ($matches[1] == 'List-Unsubscribe') {
+          $this->unsub = preg_replace('/&[lg]t;/', '', $matches[2]);
+        }
     } else {
         $line = preg_replace('/\n/', '', $line);
         $lh .= "\n[tab]".$line;
@@ -473,7 +476,7 @@ public function setReplacements($template, $replace) {
 
           if (empty($result)) {
 	      $hrefNews = "/fm.php?id=" . $id . "&a=" . urlencode($recipient) . '&s=' . $this->getData('store_slave') . "&n=1";
-              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="%s" class="allow">%s</a>', $this->getData('exim_id'), $hrefNews, $lang_->print_txt('NEWSLETTERACCEPT'));
+              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="%s" class="allow">%s</a> <a data-id="%s" href="%s" class="newsletter unsub">%s</a>', $this->getData('exim_id'), $hrefNews, $lang_->print_txt('NEWSLETTERACCEPT'), $this->getData('exim_id'), $this->unsub, $lang_->print_txt('NEWSLETTERUNSUB'));
           }
     }
   }
