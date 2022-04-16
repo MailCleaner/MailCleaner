@@ -501,3 +501,35 @@ $txt['ADDANEWSENTRY'] = "Lägg till en adress till listan";
 $txt['NEWSLISTENTRYTOADD'] = "Ange den adress du vill lägga till i nyhetsbrev listan. Du kan också lägga till en valfri kommentar.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Välj den adress eller de adresser du vill ändra från listan och klicka på önskad åtgärdsknapp.";
 $txt['ADDTOGROUP'] = "Lägg till för alla adresser i grupp";
+$txt['SPAMONLY'] = "Visa bara skräppost";
+$txt['NEWSLONLY'] = "Visa bara nyhetsbrev";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "Acceptera all framtida nyhetsbrev från samma avsändare?";
+$txt['NEWSLISTHEAD'] = "Regel för Nyhetslista har lagts till.";
+$txt['NEWSLISTBODY'] = "En regel för vitlista för nyhetsbrev har lagts till. Framtida meddelande från denna avsändare kommer inte att flaggas om det identifieras som nyhetsbrev.";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "Vitlista all framtida skräppost från samma avsändare?";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "Meddelandet misslyckades att ladda (Det finns troligen inte längre).";
+$txt['CANNOTSELECTDB'] = "Misslyckades att söka i databasen.";
+$txt['CANNOTCONNECTDB'] = "Misslyckad att ansluta till databasen.";
+$txt['CANNOTINSERTDB'] = "Misslyckades att skriva data till databasen.";
+$txt['CONFIGREADFAIL'] = "Misslyckades att läsa konfigurationsfilen.";
+$txt['DUPLICATEENTRY'] = "En Dubblett finns redan.";
+$txt['DESTNOTVALID'] = "Ogiltig destinationsadress.";
+$txt['SENDERNOTVALID'] = "Ogiltig avsändaradress.";
+$txt['UNKNOWNERROR'] = "Ett okänt fel har inträffat.";
+$txt['NOTNEWSLISTHEAD'] = "Regel för Nyhetslista har inte lagts till.";
+$txt['NOTNEWSLISTBODY'] = "Ett problem uppstod med att lägga till vitlista för nyhetsbrev.";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Endast original avsändaradress";
+$txt['ENTIREDOMAIN'] = "Hela domänen";
+$txt['WHITELISTHEAD'] = "Regel för vitlista har lagts till.";
