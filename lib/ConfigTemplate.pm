@@ -156,8 +156,10 @@ sub dump {
   	if ($line =~ /__IF__\s+(\S+)/) {
   	  if (!$this->getCondition($1)) {
   	  	$if_hidden = 1;
-  	  } else {
-  	  	$if_hidden = 0;
+  	  } elsif ( scalar @if_hist != 0 ) {
+  	  	$if_hidden = $if_hist[scalar(@if_hist)-1];
+	  } else {
+		$if_hidden = 0;
 	  }
 	  push @if_hist, $if_hidden;
   	  next;
