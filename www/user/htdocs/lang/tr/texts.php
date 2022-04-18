@@ -561,3 +561,4 @@ $txt['SENDERVARIATIONS'] = "Gönderen adresinin tüm çeşitleri";
  * Type of WWList
  */
 $txt['ORIGINALSENDER'] = "Yalnızca orijinal gönderen adresi";
+$txt['NEWSLETTERUNSUB'] = "Abonelikten çık";
