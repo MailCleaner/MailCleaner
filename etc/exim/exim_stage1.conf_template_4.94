@@ -991,6 +991,9 @@ __FI__
 __IF__ REJECTDMARC
   deny    dmarc_status   = reject
           !authenticated = *
+__IF__ __LISTS_PER_DOMAIN__
+          !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           message       = Message from $dmarc_used_domain failed sender's DMARC policy, rejecting.
           set acl_c8    = smtp:refused:dmarc
           set acl_c9    = STATSADD
