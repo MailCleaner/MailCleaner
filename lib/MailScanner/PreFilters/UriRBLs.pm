@@ -138,7 +138,7 @@ sub Checks {
         }
 
         ## check if in avoided hosts
-        foreach my $avoidhost ( split(/,/, $UriRBLs::conf{avoidhosts})) {
+        foreach my $avoidhost ( split(/[\ ,\n]/, $UriRBLs::conf{avoidhosts})) {
             if ($avoidhost =~ m/^[\d\.\:\/]+$/) {
                 if ($UriRBLs::conf{debug}) {
                       MailScanner::Log::InfoLog("$MODULE should avoid control on IP ".$avoidhost." for message ".$message->{id});
