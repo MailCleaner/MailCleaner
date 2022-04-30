@@ -238,7 +238,7 @@ sub get_sa_config
   $config{'__PYZOR_TIMEOUT__'} = $row{'pyzor_timeout'};
 
   $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
+  if ($row{'trusted_ips'} && $row{'trusted_ips'} ne 'no') {
     $config{'__TRUSTEDIPS__'} = join(" ", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
   $config{'__SA_RBLS__'} = $row{'sa_rbls'};
