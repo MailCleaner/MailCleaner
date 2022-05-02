@@ -159,13 +159,6 @@ private function setSummaryParam($object, $posted) {
            $selected_summary_to = 'other';
        }
    }
-   if ($user_->getPref('gui_group_quarantines')) {
-       if ($user_->getPref('summary_to') != '' && !$user_->hasAddress($user_->getPref('summary_to'))) {
-           $selected_summary_to = 'other';
-       } else {
-           $selected_summary_to = $user_->getPref('summary_to');
-       }
-   }
    
    $replace['__ADDRESSSELECT__'] = $this->form_->select('address', $user_->getAddressesForSelect(), $this->add_->getPref('address'), '');
    $replace['__INPUT_RADIOQUARANTINE__'] = $this->form_->radiojs('delivery_type', '2', $this->add_->getPref('delivery_type'), 'javascript=enableSpamTag(2);');

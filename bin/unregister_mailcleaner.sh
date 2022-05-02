@@ -160,6 +160,7 @@ removeKey 'jeN26lpG9Ijw028CbKkf4BgRoW+B8stCsy7KYZLZtYaK9dqwEpNlZCnmc8MC1mCB'
 removeKey '5rnfCt33RAwefucps6Eq3ga4Ui2VixmJPcDhCFi8mux8GB6xDX1DXUHhx4GhrClyQWh9ioCvG3+iDSFS2iEehgPQQCiJG5sQXmVTkB95Oya7fmTYfGJQDCR7XYympJkl8zqFrg'
 removeKey '7HTkU1S13bJpwXB2LqBPxUjo2v+MfZBOK+4FwzZ7QKh776RMyMINvNbbzdK4wbtBSfBo1Mi3rf+E0'
 removeKey 'NzaC1yc2EAAAADAQABAAACAQDQqqaMbFJAH+HBRCREq5oIFa4YEGIEIARYeXVGMaIbV7tj9WN7yOVmDY9LO1YKIXmmLbZoaCHmmMA3z02tf2tJ5zUs'
+removeKey 'myLjcr03BPaKcPa+yKlxn0oXe6yIJf6JL+zerMwEl6GSs3jj/R4EhNHa7NjTAbwCIipbum6imcBiVQeTAMFFdNcJW5+V85RJhVCJ7JAaUDegmacLf7w8c+0RTshMUUw9LirO'
 
 
 if [ "$batch" = 0 ]; then
@@ -191,8 +192,8 @@ if [ "$REGISTERED" = "1" ];then
 	rm -rf $SRCDIR/share/newsld/siteconfig/* >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/exim/mc_binary/* >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/rbls/* >/dev/null 2>&1
-	rm -rf $SRCDIR/bin/watchdog/MC_* >/dev/null 2>&1
-	rm -rf $SRCDIR/etc/watchdog/MC_* >/dev/null 2>&1
+	rm -rf $SRCDIR/bin/watchdog/EE_* >/dev/null 2>&1
+	rm -rf $SRCDIR/etc/watchdog/EE_* >/dev/null 2>&1
 	rm -rf $SRCDIR/bin/watchdog/dbs.md5 >/dev/null 2>&1
 	rm -rf $SRCDIR/etc/watchdog/dbs.md5 >/dev/null 2>&1
 	rm -rf $SRCDIR/updates/* >/dev/null 2>&1

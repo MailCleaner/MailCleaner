@@ -60,10 +60,21 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
-downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" ""
+ret=$(downloadDatas "$SRCDIR/updates/" "patches" $randomize "null" "" "noexit")
 
-log "Patches update"
+if [[ "$ret" -eq "1" ]]; then
+	log "Patches update"
+fi
 
+removeLockFile "$FILE_NAME"
 exit 0

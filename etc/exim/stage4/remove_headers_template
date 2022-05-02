@@ -1,0 +1,1 @@
+headers_remove = X-MailCleaner-recipients : X-MailCleaner-sender_address : X-MailCleaner-return_path

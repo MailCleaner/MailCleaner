@@ -96,6 +96,69 @@ sub getRecursivePref {
   return $result;
 }
 
+sub extractSRSAddress {
+  my $this = shift;
+  my $sender = shift;
+  my $sep = '[=+-]';
+  my @segments;
+  if ($sender =~ m/^srs0.*/i) {
+    @segments = split(/$sep/, $sender);
+    my $tag = shift(@segments);
+    my $hash = shift(@segments);
+    my $time = shift(@segments);
+    my $domain = shift(@segments);
+    my $remove = "$tag$sep$hash$sep$time$sep$domain$sep";
+    $remove =~ s/\//\\\//;
+    $sender =~ s/^$remove(.*)\@[^\@]*$/$1/;
+    $sender .= '@' . $domain;
+  } elsif ($sender =~ m/^srs1.*/i) {
+    my @blocks = split(/=$sep/, $sender);
+    @segments = split(/$sep/, $blocks[0]);
+    my $domain = $segments[scalar(@segments)-1];
+    @segments = split(/$sep/, $blocks[scalar(@blocks)-1]);
+    my $hash = shift(@segments);
+    my $time = shift(@segments);
+    my $relay = shift(@segments);
+    my $remove = "$hash$sep$time$sep$relay$sep";
+    $remove =~ s/\//\\\//;
+    $sender = $blocks[scalar(@blocks)-1];
+    $sender =~ s/^$remove(.*)\@[^\@]*$/$1/;
+    $sender .= '@' . $domain;
+  }
+  return $sender;
+}
+
+sub extractVERP {
+   my $this = shift;
+   my $sender = shift;
+   if ($sender =~ /^[^\+]+\+.+=[a-z0-9\-\.]+\.[a-z]+/i) {
+    $sender =~ s/([^\+]+)\+.+=[a-z0-9\-]{2,}\.[a-z]{2,}\@([a-z0-9\-]{2,}\.[a-z]{2,})/$1\@$2/i;
+   }
+   return $sender;
+}
+
+sub extractSubAddress {
+   my $this = shift;
+   my $sender = shift;
+   if ($sender =~ /^[^\+]+\+.+=[a-z0-9\-\.]+\.[a-z]+/i) {
+    $sender =~ s/([^\+]+)\+.+\@([a-z0-9\-]{2,}\.[a-z]{2,})/$1\@$2/i;
+   }
+   return $sender;
+}
+
+sub extractSender {
+   my $this = shift;
+   my $sender = shift;
+   my $orig = $sender;
+   $sender = $this->extractSRSAddress($sender);
+   $sender = $this->extractVERP($sender);
+   $sender = $this->extractSubAddress($sender);
+   if ($orig eq $sender) {
+    return 0;
+   }
+   return $sender;
+}
+
 sub isWhitelisted {
    my $this = shift;
    my $object = shift;
@@ -106,8 +169,18 @@ sub isWhitelisted {
    }
   
    my $query = "WHITE $object $sender";
-   my $result = $this->query($query);
-   return $result;
+   my $result;
+   if (my $result = $this->query("WHITE $object $sender")) {
+    return $result;
+   }
+   $sender = $this->extractSender($sender);
+   if ($sender) {
+    if ($result = $this->query("WHITE $object $sender")) {
+      return $result;
+    }
+   } else {
+    return 0;
+   }
 }
 
 sub isWarnlisted {
@@ -119,9 +192,18 @@ sub isWarnlisted {
     return '_BADOBJECT';
    }
   
-   my $query = "WARN $object $sender";
-   my $result = $this->query($query);
-   return $result;
+   my $result;
+   if (my $result = $this->query("WARN $object $sender")) {
+    return $result;
+   }
+   $sender = $this->extractSender($sender);
+   if ($sender) {
+    if ($result = $this->query("WARN $object $sender")) {
+      return $result;
+    }
+   } else {
+    return 0;
+   }
 }
 
 sub isBlacklisted {
@@ -134,8 +216,18 @@ sub isBlacklisted {
    }
 
    my $query = "BLACK $object $sender";
-   my $result = $this->query($query);
-   return $result;
+   my $result;
+   if (my $result = $this->query("BLACK $object $sender")) {
+    return $result;
+   }
+   $sender = $this->extractSender($sender);
+   if ($sender) {
+    if ($result = $this->query("BLACK $object $sender")) {
+      return $result;
+    }
+   } else {
+    return 0;
+   }
 }
 
 sub logStats {

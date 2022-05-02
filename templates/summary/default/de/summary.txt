@@ -1,7 +1,7 @@
 Subject: Bericht von Mailcleaner
 Sehr geehrte Kundin, sehr geehrter Kunde
 
-Hiermit erhalten Sie den Bericht von Mailcleander.net f=FCr die ??NBDAYS letzten 
+Hiermit erhalten Sie den Bericht von Mailcleaner.net f=FCr die ??NBDAYS letzten 
 Tage.
 
 Diese Nachricht informiert Sie =FCber die E-Mails, die von Mailcleaner.net 
@@ -18,7 +18,7 @@ Falls Sie die Einstellungen der Berichte =E4ndern, den aktuellen Stand der
 Quarantane einsehen oder den Support kontaktieren m=F6chten, begeben Sie sich
 auf die Homepage von Mailcleaner unter der Adresse: 
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

@@ -160,7 +160,7 @@ sub ixhashtest {
 		if ($digest){
 			dbg ("IXHASH: Now checking $digest.$dnszone");
 			# Now check via DNS query
-			$answer = $resolver->search($digest.'.'.$dnszone, "A", "IN");
+			$answer = $resolver->query($digest.'.'.$dnszone, "A", "IN");
 			if ($answer) {
 				foreach $rr ($answer->answer) {
 					next unless $rr->type eq "A";
@@ -175,7 +175,7 @@ sub ixhashtest {
 			if ($digest){
 				dbg ("IXHASH: Now checking $digest.$dnszone");
 				# Now check via DNS query
-				$answer = $resolver->search($digest.'.'.$dnszone, "A", "IN");
+				$answer = $resolver->query($digest.'.'.$dnszone, "A", "IN");
 				if ($answer) {
 					foreach $rr ($answer->answer) {
 						next unless $rr->type eq "A";
@@ -191,7 +191,7 @@ sub ixhashtest {
 			if (length($digest) == 32){
 				dbg ("IXHASH: Now checking $digest.$dnszone");
 				# Now check via DNS query
-				$answer = $resolver->search($digest.'.'.$dnszone, "A", "IN");
+				$answer = $resolver->query($digest.'.'.$dnszone, "A", "IN");
 				if ($answer) {
 					foreach $rr ($answer->answer) {
 						next unless $rr->type eq "A";

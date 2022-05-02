@@ -141,7 +141,7 @@ $txt['HIDEFORCED'] = "Skjul brukerfrigitte meldinger";
 $txt['FORCESPAM'] = "frislipp meldingen";
 //old
 $txt['ASKREASON'] = "vis filtreringsregler";
-$txt['CONFSENDANALYSE'] = "En filterjusteringsforespørsel vil bli sendt til MailCleaners analysesenter; den inneholder en kopi av meldingen som ble feilaktig blokkert.";
+$txt['CONFSENDANALYSE'] = "En filterjusteringsforespørsel vil bli sendt til MailCleaners analysesenter; den inneholder en kopi av meldingen som ble feilaktig blokkert.</br>Merk: Filterjustering er ikke det samme som hvit- eller svartelisting.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Er du sikker på at du ønsker at denne meldingen skal analyseres og at filterjusteringene skal legges til?</span>";
 $txt['ASKANALYSE'] = "Filterjusteringsforespørsel";
 $txt['PAGE'] = "Side";
@@ -184,7 +184,7 @@ $txt['PARTS'] = "Deler";
 $txt['STORESLAVE'] = "Lagring";
 $txt['SPAMCSCORE'] = "Regelpoengsummer";
 $txt['DESCRIPTION'] = "Beskrivelse";
-$txt['MESSAGEPREVIEW'] = "Meldingsforhåndsvisning";
+$txt['MESSAGEPREVIEW'] = "Vis meldingens innhold";
 $txt['ID'] = "Identifikator";
 /*
  * logout page
@@ -472,7 +472,7 @@ $txt['WARNLISTSHORTHELP'] = "Advarselslisten inneholder betrodde avsenderadresse
 \t\t\t\t\t\t\t\t   Sjekk menualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om advarselslistebruk. ";
 $txt['WHITELISTSHORTHELP'] = "Hvitlisten inneholder betrodde avsenderadresser som ikke er innebefattet av karanteneprogrammet.<br /> 
                                    Advarsel: Denne funksjonen bør kun brukes som midlertidig løsning, siden den senker den helhetlige beskyttelsen.
-                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om hvitlistebruk. 
+                                  Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer info om hvitlistebruk. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "Svartelisten inneholder svartelistede avsenderadresser.
                                   Sjekk manualen (tilgjengelig i delen som heter <a href=\"help.php\">\"Hjelp\"</a>) for mer informasjon om svartelistebruk.
@@ -484,3 +484,19 @@ $txt['NLRELEASEDHEAD'] = "Nyhetsbrev har blitt tillatt og frisluppet.";
 $txt['NLRELEASEDBODY'] = "Nyhetsbrevet har ikke blitt tillatt og frisluppet. Det bør ankomme din e-postboks om et par minutter.";
 $txt['NLNOTRELEASEDHEAD'] = "Nyhetsbrevet ble ikke frisluppet";
 $txt['NLNOTRELEASEDBODY'] = "Det oppstod et problem under frigjøring av meldingen din. Prøv igjen senere.";
+//old
+$txt['EDITNEWSLIST'] = "rediger nyhetsliste";
+//old
+$txt['NEWSLISTFOR'] = "Nyhetsliste for __PARAM__";
+$txt['NEWSLISTTOPIC'] = "Nyhetsliste";
+$txt['NEWSLISTTOPICTITLE'] = "nyhetsliste";
+$txt['NEWSLISTSHORTHELP'] = "Nyhetsbrevlisten inneholder adressene til ønskede nyhetsbrev.<br />
+                                  Sjekk manualen (tilgjengelig i delen <a href=\"help.php\">\"Hjelp\"</a>) for mer info om bruk av nyhetsbrevlisten.
+";
+$txt['NEWSLISTFORADDRESS'] = "Nyhetsbrevliste for adressen";
+$txt['ADDANEWSENTRY'] = "Legg til en adresse i listen";
+$txt['NEWSLISTENTRYTOADD'] = "Skriv inn adressen du ønsker å legge til i nyhetsbrevlisten. Du kan også legge til en valgfri kommentar.";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "Velg en adresse eller adresser du ønsker å endre fra listen og klikk på ønsket handlingsknapp.";
+$txt['ADDTOGROUP'] = "Legg til for alle adresser i gruppe";
+$txt['NEWSLONLY'] = "Kun vis nyhetsbrev";
+$txt['SPAMONLY'] = "Kun vis søppelpost";

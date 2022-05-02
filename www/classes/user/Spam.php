@@ -263,6 +263,9 @@ public function loadHeadersAndBody() {
         }
         $last_header=$matches[1];
         $lh = $matches[2];
+        if ($matches[1] == 'List-Unsubscribe') {
+          $this->unsub = preg_replace('/&[lg]t;/', '', $matches[2]);
+        }
     } else {
         $line = preg_replace('/\n/', '', $line);
         $lh .= "\n[tab]".$line;
@@ -452,7 +455,7 @@ public function setReplacements($template, $replace) {
      'SUBJECT' => $this->getCleanData('M_subject'),
      'PREFILTERHITS' => $this->displayGlobalValue($this->getData('M_prefilter')),
      'BLACKLISTS' => $this->displayGlobalValue($this->getData('M_rbls')),
-     'FITLERSCORE' => $this->displayGlobalValue($this->getData('M_rbls')),
+     'FITLERSCORE' => $this->displayGlobalValue($this->getData('M_score')),
      'PARTS' => $this->getMIMEPartsType(),
      'STORESLAVE' => $this->getData('store_slave')
   );
@@ -472,8 +475,8 @@ public function setReplacements($template, $replace) {
           $result = $db->getHash($query);
 
           if (empty($result)) {
-	      $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
-              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="%s" class="allow">%s</a>', $this->getData('exim_id'), $hrefNews, $lang_->print_txt('NEWSLETTERACCEPT'));
+	      $hrefNews = "/fm.php?id=" . $id . "&a=" . urlencode($recipient) . '&s=' . $this->getData('store_slave') . "&n=1";
+              $generalinfos['NEWSLETTERMODULE'] = sprintf('<a data-id="%s" href="%s" class="allow">%s</a> <a data-id="%s" href="%s" class="newsletter unsub">%s</a>', $this->getData('exim_id'), $hrefNews, $lang_->print_txt('NEWSLETTERACCEPT'), $this->getData('exim_id'), $this->unsub, $lang_->print_txt('NEWSLETTERUNSUB'));
           }
     }
   }
@@ -510,7 +513,8 @@ public function getFormatedBody() {
     if (!$csdefined && preg_match('/^(\=\?[^?]{3,15}\?Q\?)/', $line, $matches)) {
       $csdefined = 1;
       $charset = $matches[1];
-      $line = $matches[2];
+      if(array_key_exists(2, $matches))
+        $line = $matches[2];
     }
     if (preg_match('/(.*)\?\=$/', $line, $matches)) {
       $line = $matches[1];

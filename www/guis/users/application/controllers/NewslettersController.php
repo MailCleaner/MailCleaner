@@ -22,6 +22,8 @@ class NewslettersController extends Zend_Controller_Action
         $status = 0;
         
         $eximId = $this->getRequest()->getParam('id');
+	
+	if (strlen($eximId) == 0) { die(); }
 
         $spam = new Default_Model_DbTable_Spam();
 
@@ -86,10 +88,10 @@ class NewslettersController extends Zend_Controller_Action
         return false;
     }
     
-    private function release($eximId, $recipient, $storage)
+    private function release($eximId, $recipient, $storage, $news)
     {
         $url  = $this->getRequest()->getScheme() . '://' . $this->getRequest()->getHttpHost();
-        $url .= '/fm.php?id='.$eximId.'&a='.$recipient.'&s='.$storage;
+        $url .= '/fm.php?id='.$eximId.'&a='.$recipient.'&s='.$storage.'&n='.$news;
         
         $ch = curl_init();  
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);

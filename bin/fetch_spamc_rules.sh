@@ -62,14 +62,26 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 ##
 ## SpamAssassin rules update
 ##
-downloadDatas "$SRCDIR/share/spamassassin/" "spamc_rules" $randomize "null" "\|mailscanner.cf" 
-$SRCDIR/etc/init.d/spamd stop >/dev/null 2>&1
-sleep 3
-$SRCDIR/etc/init.d/spamd start >/dev/null 2>&1
+ret=$(downloadDatas "$SRCDIR/share/spamassassin/" "spamc_rules" $randomize "null" "\|mailscanner.cf" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	$SRCDIR/etc/init.d/spamd stop >/dev/null 2>&1
+	sleep 3
+	$SRCDIR/etc/init.d/spamd start >/dev/null 2>&1
+fi
+
+removeLockFile "$FILE_NAME"
 
 exit 0

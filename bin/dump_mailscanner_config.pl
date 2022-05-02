@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -33,6 +34,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 require ConfigTemplate;
 require DB;
 require MCDnsLists;
+require GetDNS;
 
 my $db = DB::connect('slave', 'mc_config');
 my $conf = ReadConfig::getInstance();
@@ -119,11 +121,9 @@ sub get_ms_config
   $config{'__NOTICETO__'} = $row{'notices_to'};
 
   $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
+  if ($row{'trusted_ips'} && $row{'trusted_ips'} ne 'no') {
+    $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
-  $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
-  $config{'__TRUSTEDIPS__'} =~ s/\s+/ /g;
   $config{'__SPAMHITS__'} = $row{'spamhits'};
   $config{'__HIGHSPAMHITS__'} = $row{'highspamhits'};
   $config{'__SPAMLISTS__'} = $row{'lists'};
@@ -136,18 +136,38 @@ sub get_ms_config
 
   %row = $db->getHashRow("SELECT block_encrypt, block_unencrypt, allow_passwd_archives, allow_partial, allow_external_bodies,
 				allow_iframe, silent_iframe, allow_form, silent_form, allow_script, silent_script,
-				allow_webbugs, silent_webbugs, allow_codebase, silent_codebase, notify_sender
+				allow_webbugs, silent_webbugs, allow_codebase, silent_codebase, notify_sender, wh_passwd_archives
 				FROM dangerouscontent WHERE set_id=1");
   return unless %row;
   
   foreach my $key (keys %row) {
-  	if ($row{$key} eq "") {
-  	  $row{$key} = "no";
-  	}
+	if (defined($row{$key})) {
+  		if ($row{$key} eq "") {
+	  	  $row{$key} = "no";
+  		}
+	}
   }
   $config{'__BLOCKENCRYPT__'} = $row{'block_encrypt'};
   $config{'__BLOCKUNENCRYPT__'} = $row{'block_unencrypt'};
-  $config{'__ALLOWPWDARCHIVES__'} = $row{'allow_passwd_archives'};
+  if ($row{'allow_passwd_archives'} eq 'yes')   {
+        $config{'__ALLOWPWDARCHIVES__'} = 'yes';
+        open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        print FH "FromOrTo:\tdefault\tyes";
+        close FH
+  } else {
+        $config{'__ALLOWPWDARCHIVES__'} = '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        open FH, '>', '/var/mailcleaner/spool/tmp/mailscanner/whitelist_password_archives';
+        if (defined($row{wh_passwd_archives})) {
+                my @wh_dom = split('\n', $row{wh_passwd_archives});
+                foreach my $wh_dom (@wh_dom) {
+			next if ( ! ($wh_dom =~ /\./) );
+                        print FH "FromOrTo:\t$wh_dom\tyes\n";
+                }
+        }
+        print FH "FromOrTo:\tdefault\tno";
+        close FH;
+  }
+
   $config{'__ALLOWPARTIAL__'} = $row{'allow_partial'};
   $config{'__ALLOWEXTERNAL__'} = $row{'allow_external_bodies'};
   $config{'__ALLOWIFRAME__'} = $row{'allow_iframe'};
@@ -218,11 +238,9 @@ sub get_sa_config
   $config{'__PYZOR_TIMEOUT__'} = $row{'pyzor_timeout'};
 
   $config{'__TRUSTEDIPS__'} = ""; 
-  if ($row{'trusted_ips'}) { 
-    $config{'__TRUSTEDIPS__'} = $row{'trusted_ips'};
+  if ($row{'trusted_ips'} && $row{'trusted_ips'} ne 'no') {
+    $config{'__TRUSTEDIPS__'} = join(" ", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
-  $config{'__TRUSTEDIPS__'} =~ s/\n/ /g;
-  $config{'__TRUSTEDIPS__'} =~ s/\s+/ /g;
   $config{'__SA_RBLS__'} = $row{'sa_rbls'};
   
   $config{'__USE_SPF__'} = $row{'use_spf'};
@@ -323,6 +341,19 @@ sub dump_sa_file
   	  $template->setCondition($lname, 1);
   	}
   }
+  return 0 unless $template->dump();
+
+
+  $template = ConfigTemplate::create(
+                          'share/spamassassin/70_mc_spf_scores.cf_template',
+                          'share/spamassassin/70_mc_spf_scores.cf');
+  $template->setCondition('__USE_SPF__', $sa_conf{'__USE_SPF__'});
+  return 0 unless $template->dump();
+
+  $template = ConfigTemplate::create(
+                          'share/spamassassin/70_mc_dkim_scores.cf_template',
+                          'share/spamassassin/70_mc_dkim_scores.cf');
+  $template->setCondition('__USE_DKIM__', $sa_conf{'__USE_DKIM__'});
 
   return $template->dump();
 }
@@ -355,18 +386,25 @@ sub dump_prefilter_files {
         $replace{'__MAXSIZE__'} = $prefilter->{'maxSize'} || '0';
         $replace{'__PUTSPAMHEADER__'} = $prefilter->{'putSpamHeader'} || '0';
         $replace{'__PUTHAMHEADER__'} = $prefilter->{'putHamHeader'} || '0';
+        $replace{'__POSITION__'} = $prefilter->{'position'} || '0';
+        $replace{'__DECISIVE_FIELD__'} = $prefilter->{'decisive_field'} || 'none';
+        $replace{'__POS_DECISIVE__'} = $prefilter->{'pos_decisive'} || '0';
+        $replace{'__NEG_DECISIVE__'} = $prefilter->{'neg_decisive'} || '0';
         $template->setReplacements(\%replace);
 
 	my %spec_replace = ();
 	if (getPrefilterSpecConfig($prefilter->{'name'}, \%spec_replace)) {
 	  $template->setReplacements(\%spec_replace);
 	}
-        
+
         my $specmodule = "dumpers::$pfname";
         my $specmodfile = "dumpers/$pfname.pm";
         if ( -f $conf->getOption('SRCDIR')."/lib/$specmodfile") {
           require $specmodfile;
           my %specreplaces = $specmodule->get_specific_config();
+          if (defined($specreplaces{'__AVOIDHOSTS__'})) {
+            $specreplaces{'__AVOIDHOSTS__'} = join(" ",expand_host_string($specreplaces{'__AVOIDHOSTS__'},('dumper'=>'mailscanner/avoidhosts')));
+          }
           $template->setReplacements(\%specreplaces);
         }
         $template->dump();
@@ -464,11 +502,11 @@ sub dump_filename_config
   
   my $subtmpl = $template->getSubTemplate('FILENAME');
   my $res = "";
-  my @list = $db->getListOfHash('SELECT status, rule, name, description FROM filename');
+  my @list = $db->getListOfHash('SELECT status, rule, name, description FROM filename where status="deny"');
   foreach my $element (@list) {
   	my %el = %{$element};
   	my $sub = $subtmpl;
-        if ($el{'name'} eq '') {
+        if ( ( ! defined( $el{'name'} ) ) || $el{'name'} eq '') {
            $el{'name'} = '+';
         }
         if ($el{'description'} eq '') {
@@ -569,3 +607,10 @@ sub log_dns
   #print $str."\n";
 }
 
+sub expand_host_string
+{
+    my $string = shift;
+    my %args = @_;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string,%args);
+}

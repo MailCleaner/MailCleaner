@@ -1,15 +1,82 @@
-__DEFAULT__ SCORE0 <img src="cid:s0.gif" width="34px" height="7px" />
-__DEFAULT__ SCORE1 <img src="cid:s1.gif" width="34px" height="7px" />
-__DEFAULT__ SCORE2 <img src="cid:s2.gif" width="34px" height="7px" />
-__DEFAULT__ SCORE3 <img src="cid:s3.gif" width="34px" height="7px" />
-__DEFAULT__ SCORE4 <img src="cid:s4.gif" width="34px" height="7px" />
+__DEFAULT__ SCORE0 <img class="score" src="cid:s0.gif" alt=""/>
+__DEFAULT__ SCORE1 <img class="score" src="cid:s1.gif" alt=""/>
+__DEFAULT__ SCORE2 <img class="score" src="cid:s2.gif" alt=""/>
+__DEFAULT__ SCORE3 <img class="score" src="cid:s3.gif" alt=""/>
+__DEFAULT__ SCORE4 <img class="score" src="cid:s4.gif" alt=""/>
 
-<html><head>
- <title>MailCleaner</title> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <title>Informe de cuarentena MailCleaner</title> 
  
- <style type="text/css">
-table {
-  line-height: 14px; font-size: 11px; font-family: Arial;
+  <style>
+body, #body {
+  width: 818px;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  border: 0px;
+  line-height: 16px;
+  font-size: 11px;
+  font-family: Arial;
+}
+
+img.icon {
+  width: 16px;
+  height: 23px;
+}
+
+img.score {
+  width: 34px;
+  height: 7px;
+}
+
+#summary {
+  padding: 14px;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+#summary a {
+  color: #8bf;
+}
+
+#legend {
+  color: #666666;
+  width: 100%;
+  padding: 12px 16px 0px 16px;
+}
+
+#legend b {
+  color: #666666;
+  padding: 0px;
+}
+
+#anchors, .actions {
+  margin: 0px;
+  padding: 0px;
+}
+
+#legend img {
+  width: 16px;
+  height: 16px;
+}
+
+#legend p {
+  display: inline;
+  color: #666666;
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+#footer {
+  margin-bottom:25px;
+  margin-top: 7px;
+  color: #666666;
+  padding-left:16px;
+  padding-right:16px;
 }
 
 img {
@@ -19,125 +86,107 @@ img {
   margin-left: 0px;
 }
 
-#quar-table td {
+#quar-table {
+  border-spacing: 0px;
+  padding: 16px;
+}
+
+#quar-table td, #quar-table th {
   border-right: solid 1px #CCC1C9;
   border-bottom: solid 1px #CCC1C9;
-  line-height: 23px;
   padding: 0px;
   color: #666666;
   white-space: nowrap;
   overflow: hidden;
   height: 23px;
+  text-align: left;
 }
 
-.qt {
-  margin-left: 10px;
-  margin-right: 10px;
+th {
+  background-color: #F7F7F7;
+  color: #552056;
+}
+
+.qt, .qts {
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: 12px;
   overflow: hidden;
+}
+ 
+.qt {
   line-height: 16px;
 }
 
 .qts {
-  margin-left: 10px;
-  margin-right: 10px;
-  overflow: hidden;
   line-height: 11px;
   text-align: center;
 }
 
-.qth {
-  color: #552056;
-}
-
-</style>
+  </style>
 </head>
-<body style="max-width: 818px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; 
-            padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; 
-            background-color: #FFFFFF; line-height: 16px; font-size: 11px; font-family: Arial; text-align: left;">
+<body>
+  <div id="body">
 
-<!-- BANNER -->
-<table width="818px" cellpadding="0" cellspacing="0" style="padding:0; margin:0; text-align:left; border:0px;">
-<tr>
- <td style="margin:0px;padding:0px"><img width="818px" height="75" alt="" style="display:block;" src="cid:banner.jpg"></td>
-</tr>
+    <!-- BANNER -->
+    <div id="banner" style="margin:0px;padding:0px"><img width="818" height="75" alt="" style="display:block;" src="cid:banner.jpg"></div>
 
-<!-- SUMMARY -->
-<tr>
-  <td style="padding:14px; background-color: #000000; color: #FFFFFF;">
-      <div><b>El informe de MailCleaner para los __NBDAYS__ &uacute;ltimos d&iacute;as para la direcci&oacute;n __ADDRESS__ &mdash; desde __START_DATE__ hasta __END_DATE__</b></div>
-      <div>Estado global de la cuarentena, parametros, estad&iacute;sticas o ayuda: <a href="__BASEURL__/?d=__DIGEST_ID__&amp;p=u">__BASEURL__</a></div>
-  </td>
-</tr>
+    <!-- SUMMARY -->
+    <div id="summary"><b>El informe de MailCleaner para los __NBDAYS__ &uacute;ltimos d&iacute;as para la direcci&oacute;n __ADDRESS__ &mdash; Desde __START_DATE__ hasta __END_DATE__</b>
+    <div>Estado global de la cuarentena, parametros, estad&iacute;sticas o ayuda: <b><a href="__BASEURL__/?d=__DIGEST_ID__&amp;p=u">__BASEURL__</a></b></div>
+    </div>
 
-<!-- LEGEND -->
-<tr>
- <td style="padding-left:16px; padding-right:16px; padding-top: 12px; padding-bottom:0px"><div style="color: #666666; padding-bottom:4px;"><b>Recuerdo de las acciones disponibles</b></div></td>
-</tr>
-<tr>
- <td style="padding-left:16px; padding-right:16px; padding-top: 0px; padding-bottom:10px">
-  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-left: 0px; margin-right: 0px;">
-     <tr style="line-height: 23px;">
-        <td width="16" align="right"><img width="16" height="16" alt="" style="display:block;" src="cid:roff.gif"></td>
-        <td align="left" style="padding-left:10px"><div style="color: #666666">Liberar el mensaje</div></td>
-        <td width="32" align="right"><img width="16" height="16" alt="" style="display:block;" src="cid:ioff.gif"></td>
-        <td align="left" style="padding-left:10px"><div style="color: #666666">Mensaje visible</div></td>
-        <td width="32" align="right"><img width="16" height="16" alt="" style="display:block;" src="cid:aoff.gif"></td>
-        <td align="left" style="padding-left:10px"><div style="color: #666666">Solicitar un ajuste del filtro</div></td>
-        <td width="32" align="right"><img width="16" height="16" alt="" style="display:block;" src="cid:noff.gif"></td>
-        <td align="left" style="padding-left:10px"><div style="color: #666666">Acepte el newsletter</div></td>
-     </tr>
-  </table>
- </td>
-</tr>
+    <!-- LEGEND -->
+    <div id="legend">
+      <b>Recuerdo de las acciones disponibles</b>
+      <table>
+        <tr>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:roff.gif"></td><td style="width: 33%;"><p>Liberar el mensaje</p></td>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:ioff.gif"></td><td style="width: 33%;"><p>Mensaje visible</p></td>
+          <td style="width: 16px;"><img class="icon" alt="" src="cid:aoff.gif"></td><td style="width: 33%;"><p>Solicitar un ajuste del filtro</p></td>
+        </tr>
+      </table>
+      <br/>
+      <b id="anchors">Ir a <a href="#news">Boletines Informativos</a> o <a href="#spam">Spam</a></b>
+    </div>
 
-<!-- QUARANTINE -->
-<tr>
- <td style="padding-left:16px; padding-right:16px;">
-   <table width="100%" cellspacing="0" cellpadding="0" border="0" id="quar-table"
-       style="margin:0px; padding:0px;
-              border-top: solid 1px #CCC1C9; border-left: solid 1px #CCC1C9;">
-              
-     <tr>
-       <td colspan="5" style="background-color: #F7F7F7;color: #552056;"><div class="qt qth"><b>En cuarentena:</b> __NBSPAMS__ mensajes</div></td>
-     </tr>
-   <!-- HEAD -->
-     <tr>
-      <td width="88px" style="width:88px; background-color: #F7F7F7;color: #552056;"><div class="qt qth">Acci&oacute;n</div></td>
-      <td width="116px" style="width:140px; background-color: #F7F7F7;color: #552056;"><div class="qt qth">Fecha</div></td>
-      <td width="204px" style="width:204px; background-color: #F7F7F7;color: #552056;"><div class="qt qth">Remitente</div></td>
-      <td style="background-color: #F7F7F7;color: #552056;"><div class="qt qth">Asunto</div></td>
-      <td align="center" width="55px" style="width:55px;background-color: #F7F7F7;color: #552056;"><div class="qt qth">Resultado</div></td>
-     </tr>
+    <!-- QUARANTINE -->
+    <table style="width: 100%;" id="quar-table">
+      <tr>
+        <th colspan="5" style="border-left: solid 1px #CCC1C9; border-top: solid 1px #CCC1C9;"><div class="qt"><b>En cuarentena:</b> __NBSPAMS__ mensajes</div></th>
+      </tr>
+      <!-- HEAD -->
+      <tr>
+        <th style="width: 48px; border-left: solid 1px #CCC1C9;"><div class="qt">Acci&oacute;n</div></th>
+        <th style="width: 140px;"><div class="qt">Fecha</div></th>
+        <th style="width: 204px;"><div class="qt">Remitente</div></th>
+        <th style="width: 345px;"><div class="qt">Asunto</div></th>
+        <th style="width: 55px;"><div class="qt">Resultado</div></th>
+      </tr>
  
-   <!-- DATA -->
+      <!-- DATA -->
 __TMPL_HTMLQUARANTINE_START__
-<tr>
-<td>
-<table cellspacing="0" cellpadding="0"><tr>
-<td width="26" align="right" style="width:26;border:0;"><a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__"><span><img src="cid:r.gif" width="16px" height="23px" alt=""></span></a></td>
-<td width="36" align="center" style="width:36;border:0;"><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__"><span><img src="cid:i.gif" width="16px" height="23px" alt=""></span></a></td>
-<td width="26" align="left" style="width:26;border:0;"><a href="__FORCEURL__/send_to_analyse.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__"><span><img src="cid:a.gif" width="16px" height="23px" alt=""></span></a></td>
-__NEWSLETTER__
-    </tr></table>
-</td>
-<td><div class="qt">__SINGLEDATETIME__</div></td>
-<td><div class="qt"><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__">__FROM__</a></div></td>
-<td><div class="qt">__SUBJECT__</div></td>
-<td><div class="qts">__SCOREPICTO__</div></td>
-</tr>  
+      <tr>
+        <td style="border-left: solid 1px #CCC1C9;">
+          <div class="actions">
+            <a href="__FORCEURL__/fm.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Release the message"><img class="icon" src="cid:r.gif" alt=""></a>
+            <a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Message preview"><img class="icon" src="cid:i.gif" alt=""></a>
+            <a href="__FORCEURL__/send_to_analyse.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__" title="Request a filter adjustment"><img class="icon" src="cid:a.gif" alt=""></a>
+          </div>
+        </td>
+        <td><div class="qt" style="text-align: right;">__SINGLEDATETIME__</div></td>
+        <td><div class="qt"><a href="__FORCEURL__/vi.php?id=__ID__&amp;a=__RECIPIENT__&amp;s=__STOREID__&amp;l=__LANGUAGE__">__FROM__</a></div></td>
+        <td><div class="qt" style="white-space: nowrap; overflow: hidden;">__SUBJECT__</div></td>
+        <td><div class="qts">__SCOREPICTO__</div></td>
+      </tr>  
 __TMPL_HTMLQUARANTINE_STOP__
 __HTMLQUARANTINE__
 
-   </table>
- </td>
-</tr>
+    </table>
 
-<!-- FOOTER -->
-<tr>
- <td style="padding-left:16px; padding-right:16px;">
-   <div style="margin-bottom:25px; margin-top: 7px; color: #666666">Sin acci&oacute;n espec&iacute;fica, los mensajes en cuarentena son suprimidos automaticamente __SPAMNBDAYS__ d&iacute;as despues de su llegada.</div>
- </td>
-</tr>
-</table>
+    <!-- FOOTER -->
+    <div id="footer">Sin acci&oacute;n espec&iacute;fica, los mensajes en cuarentena son suprimidos automaticamente __SPAMNBDAYS__ d&iacute;as despues de su llegada.</div>
+
+  </div>
 </body>
 </html>

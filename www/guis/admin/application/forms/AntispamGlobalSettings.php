@@ -15,6 +15,7 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 	public $_warnlist;
 	//blacklistmr
 	public $_blacklist;
+    public $_newslist;
 	
 	public $_whitelistenabled = 0;
 	public $_warnlistenabled = 0;
@@ -23,12 +24,14 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 	protected $_whitelistform;
 	protected $_warnlistfrom;
 	protected $_blacklistrom;
+    protected $_newslistform;
 	
-	public function __construct($as, $whitelist, $warnlist, $blacklist) {
+	public function __construct($as, $whitelist, $warnlist, $blacklist, $newslist) {
 		$this->_antispam = $as;
 		$this->_whitelist = $whitelist;
 		$this->_warnlist = $warnlist;
 		$this->_blacklist = $blacklist;
+        $this->_newslist = $newslist;
 		parent::__construct();
 	}
 	
@@ -102,6 +105,24 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
             $tagmodbypasswhitelist->setChecked(true);
         }
         $this->addElement($tagmodbypasswhitelist);
+
+
+
+
+            $whitelistbothfrom = new Zend_Form_Element_Checkbox('whitelist_both_from', array(
+            'label'   => $t->_('Apply whitelist on Body-From too'). " :",
+            'title' => $t->_("By default whitelists are checked versus SMTP-From. Activating this feature will use whitelist versus Body-From as well. If unsure please leave this option unchecked."),
+            'uncheckedValue' => "0",
+            'checkedValue' => "1"
+                  ));
+
+        if ($this->_antispam->getParam('whitelist_both_from')) {
+            $whitelistbothfrom->setChecked(true);
+        }
+        $this->addElement($whitelistbothfrom);
+
+
+
 	    
 	     
 		$submit = new Zend_Form_Element_Submit('submit', array(
@@ -123,6 +144,10 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
                 $this->_blacklistform->setAddedValues(array('recipient' => '', 'type' => 'black'));
                 $this->_blacklistform->addFields($this);
 		
+		$this->_newslistform = new Default_Form_ElementList($this->_newslist, 'Default_Model_WWElement', 'newslist_');
+		$this->_newslistform->init();
+		$this->_newslistform->setAddedValues(array('recipient' => '', 'type' => 'wnews'));
+		$this->_newslistform->addFields($this);
 	}
 	
 	public function getWhitelistForm() {
@@ -144,13 +169,16 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 		$this->_warnlistform->addFields($this);
 		$this->_blacklistform->manageRequest($request);
                 $this->_blacklistform->addFields($this);
+		$this->_newslistform->manageRequest($request);
+		$this->_newslistform->addFields($this);
 
 
 		$as->setparam('trusted_ips', $request->getParam('trusted_ips'));
 		$as->setparam('enable_whitelists', $request->getParam('enable_whitelists'));
 		$as->setparam('enable_warnlists', $request->getParam('enable_warnlists'));
 		$as->setparam('enable_blacklists', $request->getParam('enable_blacklists'));
-        $as->setparam('tag_mode_bypass_whitelist', $request->getParam('tag_mode_bypass_whitelist'));
+	        $as->setparam('tag_mode_bypass_whitelist', $request->getParam('tag_mode_bypass_whitelist'));
+	        $as->setparam('whitelist_both_from', $request->getParam('whitelist_both_from'));
 		
 		$this->_whitelistenabled = $as->getParam('enable_whitelists');
 		$this->_warnlistenabled = $as->getParam('enable_warnlists');

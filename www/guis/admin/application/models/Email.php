@@ -24,7 +24,7 @@ class Default_Model_Email
 	protected $_domainobject;
 	
 	protected $_configpanels = array(0 => 'addresssettings', 1 => 'warnlist', 
-                                     2 => 'whitelist', 3 => 'archiving', 4 => 'actions', 5 => 'blacklist');
+                                     2 => 'whitelist', 3 => 'archiving', 4 => 'actions', 5 => 'blacklist', 6 => 'newslist');
                                      
 	public function setParam($param, $value) {
 		if (array_key_exists($param, $this->_values)) {
@@ -218,6 +218,14 @@ class Default_Model_Email
     
     public function delete()
     {
+        $wwlists = new Default_Model_WWElement();
+        $types = ["white", "black", "warn", "wnews"];
+        foreach ($types as $type) {
+            $elements = $wwlists->fetchAll($this->getParam('address'), $type);
+            foreach ($elements as $element) {
+                $element->delete();
+            }
+        }
         $this->_prefs->delete();
     	$ret = $this->getMapper()->delete($this);
         if ($this->getDomainObject()->getCalloutConnector() == 'local') {

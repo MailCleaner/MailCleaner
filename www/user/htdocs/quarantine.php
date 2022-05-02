@@ -53,6 +53,8 @@ if (is_numeric($user_->getTmpPref('gui_displayed_days'))) {
 }
 $quarantine->setFilter('mask_forced', $user_->getPref('gui_mask_forced'));
 $quarantine->setFilter('group_quarantines', $user_->getPref('gui_group_quarantines'));
+$quarantine->setFilter('spam_only', 0);
+$quarantine->setFilter('newsl_only', 0);
 $quarantine->setFilter('addresses', $user_->getAddresses());
 $quarantine->setSettings($posted);
   $template_->setCondition('filtered', 0);
@@ -81,7 +83,7 @@ $pie_stats->generate();
 // prepare replacements   
 $nb_msgs_choice = array('2' => 2, '5' => 5, '10' => 10, '20' => 20, '50' => 50, '100' => 100);
 $user_addresses_ = $user_->getAddressesForSelect();
-$get_query = http_build_query(array('a' => $quarantine->getSearchAddress(), 'days' => $quarantine->getFilter('days'), 'mask_forced' => $quarantine->getFilter('mask_forced')));
+$get_query = http_build_query(array('a' => $quarantine->getSearchAddress(), 'days' => $quarantine->getFilter('days'), 'mask_forced' => $quarantine->getFilter('mask_forced'), 'is_newsletter' => 1 ));
 
 $displayed_infos = $lang_->print_txt_mparam('DISPLAYEDINFOS', array($quarantine->getFilter('days'), 'configuration.php?t=quar'));
 if (!isset($address)) {
@@ -100,10 +102,12 @@ $filename='mc-info-box-user-'.$user_pref_lang.'.php';
 
 if ($is_enterprise) {
         // MailCleaner Staff CONTENT
-        $mcmanager='http://mcmanager.mailcleaner.net/';
+        $mcmanager='https://www.mailcleaner.net/infobox/';
         $url_to_get=$mcmanager.$filename;
 
         $curl = curl_init();
+	curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+	curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
         curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $url_to_get,
@@ -116,6 +120,8 @@ if ($is_enterprise) {
                 // We try to get the default file (in en)
                 $url_to_get=$mcmanager.$default_filename;
                 $curl = curl_init();
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
                 curl_setopt_array($curl, array(
                         CURLOPT_RETURNTRANSFER => 1,
                         CURLOPT_URL => $url_to_get,
@@ -149,7 +155,7 @@ if (file_exists($file_to_get)) {
 	if (isset($tmp))
 		$content = $content.$tmp;
 } else if (file_exists($default_file_to_get)) {
-	$tmp=file_get_contents(default_file_to_get);
+	$tmp=file_get_contents($default_file_to_get);
 	if (isset($tmp))
 		$content = $content.$tmp;
 } else {
@@ -215,6 +221,8 @@ $replace = array(
     "__SEARCH_SUMMARY__" => $lang_->print_txt_param('SEARCHSUMMARY', $quarantine->getNBSpams())." (".$lang_->print_txt_param('ORDEREDBYPARAM', $lang_->print_txt($quarantine->getOrderTag())).")",
     "__CRITERIA_SUMMARY__" => $quarantine->getHTMLCriterias($crit_template, $crit_sep),
     "__GROUPQUARANTINES__" => $form->checkbox('group_quarantines', '1', $quarantine->getFilter('group_quarantines'), 'javascript=groupAddresses();', 1),
+    "__SPAMONLY__" => $form->checkbox('spam_only', '1', (!$quarantine->getFilter('newsl_only') && $quarantine->getFilter('spam_only')), 'javascript=showSpamOnly();', 1),
+    "__NEWSLONLY__" => $form->checkbox('newsl_only', '1', (!$quarantine->getFilter('spam_only') && $quarantine->getFilter('newsl_only')), 'javascript=showNewslOnly();', 1),
 );
 
 // display page

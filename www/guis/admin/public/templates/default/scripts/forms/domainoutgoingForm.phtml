@@ -44,7 +44,21 @@
           <tr class="dkim_help_field">
             <td colspan="2" class="centered"><?php echo $this->t->_('Domain, selector and/or private key are currently not set or not saved.');?></td>
           </tr>
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
           <?php }?>
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+
+          <?php
+		echo $this->InputRow($this->form->getElement('relay_smarthost'));
+		if ($this->form->getElement('relay_smarthost')->isChecked() ) {
+			echo $this->InputRow($this->form->getElement('servers_smarthost'),array('label_addclass'=>'flabeltextarea'));
+
+			foreach (array('port_smarthost', 'multiple_smarthost') as $f) {
+				echo $this->InputRow($this->form->getElement($f));
+			}
+		}
+		echo $this->SubmitRow($this->form->getElement('submit'));
+          ?>
        </table>
 </fieldset>

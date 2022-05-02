@@ -1,0 +1,40 @@
+<?php
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ */
+?>
+<p></p>
+<p></p>
+ <fieldset id="commercialoptions">
+       <table class="ftable">
+<?php if (!$this->is_registered) { ?>
+          <tr><td colspan="2"><p style="font-size:14px"><strong>Get commercial Add-ons:</strong></p></td></tr>
+          <tr><td colspan="2">You can add professional lists and features to your MailCleaner Community Edition.</td></tr>
+          <tr><td colspan="2">Request an offer for</td></tr>
+<?php } else { ?>
+          <tr><td colspan="2"><p style="font-size:14px"><strong>Free trial for MailCleaner options</strong></p></td></tr>
+          <tr><td colspan="2">Request now a free 30-day trial for</td></tr>
+<?php } ?>
+          <tr><td colspan="2">
+                <ul style="margin-left: 4%; list-style-type: disc;">
+                    <li>Kaspersky</li>
+                    <li>Spamhaus SBL</li>
+                    <li>Spamhaus DBL, HBL and ZRD</li>
+                    <li>
+<?php if (!$this->is_registered) { ?>
+                         <font color="#BDBDBD">Message Sniffer (only for Enterprise Edition)</font>
+<?php } else { ?>
+                         Message Sniffer
+<?php } ?>
+                    </li>
+
+                </ul>
+         </td></tr>
+<?php if (!$this->is_registered) { ?>
+          <tr><td colspan="2" align="center"><a class="notunderlined" href="https://www.mailcleaner.net/community-edition-add-ons.html" target="_blank"><input type="button" class="linkrebuttonnobold" value="Commercial Add-ons" /></a></td></tr>
+<?php } else { ?>
+          <tr><td colspan="2" align="center"><a class="notunderlined" href="https://www.mailcleaner.net/free-trial-options.html" target="_blank"><input type="button" class="linkrebuttonnobold" value="Commercial options" /></a></td></tr>
+<?php } ?>
+       </table>
+</fieldset>

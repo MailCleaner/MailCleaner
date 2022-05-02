@@ -15,7 +15,8 @@ class Default_Model_Antispam_UriRBLs
         'listedemailtobespam' => 1,
         'listeduristobespam' => 1,
         'rbls' => '',
-        'resolve_shorteners' => 1
+	'resolve_shorteners' => 1,
+        'avoidhosts' => ''
       );
 	
 	protected $_mapper;

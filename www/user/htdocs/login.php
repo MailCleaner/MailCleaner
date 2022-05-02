@@ -8,6 +8,10 @@
  * This is the controller for the login page
  */
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 /**
  * require the login objects
  */
@@ -64,13 +68,14 @@ $template_->setCondition('DOMAINCHOOSER', $login_->hasDomainChooser());
 $replace = array(
         "__PRINT_STATUS__" => $lang_->print_txt($login_status),
         "__PRINT_LOGININFO__" => $lang_->print_txt($login_reminder),
-	    "__BEGIN_LOGIN_FORM__" => "<form method=\"post\" id=\"login\" action=\"".$_SERVER['PHP_SELF']."\"><div><input type=\"hidden\" name=\"lang\" value=\"".$lang_->getLanguage()."\" /></div>\n",
+	    "__BEGIN_LOGIN_FORM__" => "<form method=\"post\" id=\"login\" action=\"".htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES, 'utf-8')."\"><div><input type=\"hidden\" name=\"lang\" value=\"".$lang_->getLanguage()."\" /></div>\n",
 	    "__END_LOGIN_FORM__" => "</form>\n",
 	    "__LOGIN_FIELD__" => "<input class=\"fieldinput\" type=\"text\" name=\"username\" id=\"usernamefield\" size=\"20\" value=\"".$username."\" />",
 	    "__OU_FIELD__" => "<input class=\"fieldinput\" type=\"text\" name=\"ou\" size=\"20\" />",
-	    "__PASSWORD_FIELD__" => "<input class=\"fieldinput\" type=\"password\" name=\"password\" id=\"passwordfield\" size=\"20\" />",
-	    "__DOMAIN_CHOOSER__" => $login_->printDomainChooser(),
-	    "__SUBMIT_BUTTON__" => "<input type=\"submit\" name=\"".$lang_->print_txt('SUBMIT')."\" id=\"submitbutton\" value=\"".$lang_->print_txt('SUBMIT')."\" />",
+      "__PASSWORD_FIELD__" => "<input class=\"fieldinput\" type=\"password\" name=\"password\" id=\"passwordfield\" size=\"20\" />",
+      "__DOMAIN_CHOOSER__" => $login_->printDomainChooser(),
+      "__LANGUAGE_CHOOSER__" => $login_->printLanguageChooser($lang_->getLanguage()),
+      "__SUBMIT_BUTTON__" => "<input type=\"submit\" name=\"".$lang_->print_txt('SUBMIT')."\" id=\"submitbutton\" value=\"".$lang_->print_txt('SUBMIT')."\" />",
 	    "__MCLINK__" => $mclink,
 	    "__MCLINKLABEL__" => $mclinklabel,
 	    "__USERNAME__" => $username

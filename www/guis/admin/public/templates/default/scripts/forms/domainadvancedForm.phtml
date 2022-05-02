@@ -1,0 +1,45 @@
+<?php 
+/**
+* @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+* @package mailcleaner
+*/
+?>
+<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+<fieldset>
+	<?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
+	<?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
+	<table class="ftable">
+		<tr>
+			<td colspan=2 text-align="center" align="center">
+
+				<a href="https://support.mailcleaner.net/boards/3/topics/85-white-black-lists-per-domain-restrictions">Only the server Administrator is allowed to add entries</a><br />
+				<a href="https://support.mailcleaner.net/boards/3/topics/85-white-black-lists-per-domain-restrictions">Click HERE for more informations about associated limitations</a>
+			</td>
+		</tr>
+		<tr><td colspan="2"><hr /></td></tr>
+		<tr>
+			<td colspan=2 text-align="center" align="center">
+				SMTP Stage
+			</td>
+			<?php echo $this->InputRow($this->form->getElement('black_ip_dom'),array('label_addclass'=>'flabeltextarea'));?>
+			<?php echo $this->InputRow($this->form->getElement('white_ip_dom'),array('label_addclass'=>'flabeltextarea'));?>
+		</tr>
+		<tr><td colspan="2"><hr /></td></tr>
+		<tr>
+			<td colspan=2 text-align="center" align="center">
+				SpamC Stage
+			</td>
+			<?php echo $this->InputRow($this->form->getElement('spam_ip_dom'),array('label_addclass'=>'flabeltextarea'));?>
+			<?php echo $this->InputRow($this->form->getElement('wh_spamc_ip_dom'),array('label_addclass'=>'flabeltextarea'));?>
+		</tr>
+		<tr><td colspan="2"><hr /></td></tr>
+		<tr>
+			<td colspan=2 text-align="center" align="center">
+				Please restart the "Incoming MTA" if you made any changes
+			</td>
+			<td colspan="2">
+			<?php echo $this->SubmitRow($this->form->getElement('submit'));?>
+			</td>
+		</tr>
+	</table>
+</fieldset>

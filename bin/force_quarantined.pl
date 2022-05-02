@@ -1,4 +1,4 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
@@ -59,18 +59,40 @@ if (!open DHFILE, '>'.$config{VARDIR}."/spool/exim_stage4/input/".$id."-H") {
   die("CANNOTOPENDESTHEADERFILE");
 }
 my $id_header = '';
+my $hsize;
+my $hname;
+my $hlpart;
+my $hrpart;
+my $header;
+my $is_multiline_id = 0;
 while (<HFILE>) {
-   if (/^(\d+)I ([^:]+): <([^@]+)@([^>]+)>/) {
-     my $hsize = $1;
-     my $hname = $2;
-     my $hlpart = $3;
-     my $hrpart = $4;
+   if (/^(\d+)I (\S+):\s*<([^@]+)@([^>]+)>/m) {
+     # Do this if the Message ID is on a single line
+     $hsize = $1;
+     $hname = $2;
+     $hlpart = $3;
+     $hrpart = $4;
 
-     my $header = $hname.": <".$hlpart.$forced_postfix."@".$hrpart.">";
+     $header = $hname.": <".$hlpart.$forced_postfix."@".$hrpart.">";
      $id_header = sprintf('%.3d', length($header)+1)."I ".$header;
      print DHFILE $id_header."\n";
+   } elsif (/^(\d+)I (\S+):\s*$/) {
+     # Do this if the Message ID is on two lines
+     $is_multiline_id = 1;
+     $hsize = $1;
+     $hname = $2;
    } else {
-     print DHFILE $_;
+     if ($is_multiline_id && /^\s+<([^@]+)@([^>]+)>/){
+        # Do this if the Message ID is on two lines
+        $is_multiline_id = 0;
+        $hlpart = $1;
+        $hrpart = $2;
+        $header = $hname.": <".$hlpart.$forced_postfix."@".$hrpart.">";
+        my $id_header = sprintf('%.3d', length($header)+1)."I ".$header;
+        print DHFILE $id_header."\n";
+     } else {
+        print DHFILE $_;
+     }
    }
 }
 close HFILE;
@@ -86,9 +108,10 @@ foreach my $ext ( @exts ) {
   }
 }
 sleep 2;
-my $cmd = "/opt/exim4/bin/exim -C ".$config{SRCDIR}."/etc/exim/exim_stage4.conf -M ".$id." 2>&1"; 
+my $cmd = "/opt/exim4/bin/exim -C ".$config{SRCDIR}."/etc/exim/exim_stage4.conf -M ".$id." 2>&1";
 my $res = `$cmd`;
 if ($res =~ /^$/) {
+	mark_forced($id);
 	print "FORCED\n";
 	exit;
 }
@@ -103,6 +126,21 @@ sub bad_usage
 {
 	print("Error:  bad usage.  force_quarantined.pl date/msgid\n");
 	exit 1;
+}
+
+##########################################
+sub mark_forced
+{
+	use DBI;
+	my $id = shift;
+	my $dbh = DBI->connect("DBI:mysql:database=mc_stats;host=localhost;mysql_socket=$config{VARDIR}/run/mysql_slave/mysqld.sock",
+		"mailcleaner", "$config{MYMAILCLEANERPWD}", {RaiseError => 0, PrintError => 0}) || return;
+
+	my $query = "UPDATE maillog SET content_forced='1' WHERE id='$id'";
+	my $sth = $dbh->prepare($query);
+	$sth->execute() or return;
+
+	$dbh->disconnect();
 }
 
 ##########################################

@@ -169,7 +169,7 @@ public function load() {
    }
    
    // get the content themselves
-   $query = "SELECT timestamp, id, from_address, to_address, subject, isspam, virusinfected, nameinfected, otherinfected, report, date, time FROM maillog WHERE ";
+   $query = "SELECT timestamp, id, from_address, to_address, subject, isspam, virusinfected, nameinfected, otherinfected, report, date, time, content_forced FROM maillog WHERE ";
    $query .= $where;
    
    // set the sorting order wanted

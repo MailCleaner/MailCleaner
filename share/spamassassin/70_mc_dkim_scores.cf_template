@@ -1,0 +1,8 @@
+meta       ARC_SIGNED  ( __ARC_AAR && __ARC_AS && __ARC_AMS && T_DKIM_INVALID )
+__IF__ __USE_DKIM__
+score          T_DKIM_INVALID 1.4
+score          ARC_SIGNED     -2.0
+__ELSE__ __USE_DKIM__
+score          T_DKIM_INVALID 0.001
+score          ARC_SIGNED     -0.001
+__FI__ __USE_DKIM__

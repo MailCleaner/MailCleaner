@@ -61,14 +61,25 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 ##
 ## Watchdog modules updates
 ##
-COMMUNITY_RBLS_LIST="\|two-level-tlds.txt\|SORBS.cf\|URIBL.cf\|SPAMCOP.cf\|UCEPROTECTC.cf\|BBARRACUDACENTRALORG.cf\|UCEPROTECTB.cf\|IPSBACKSCATTERERORG.cf\|SURBL.cf\|whitelisted_domains.txt\|SPAMHAUS.cf\|IXDNSBLMANITUNET.cf\|UCEPROTECTA.cf\|domains_hostnames_map.txt\|tlds.txt\|SPAMHAUSDBL.cf\|effective_tlds.txt\|DNSWL.cf\|url_shorteners.txt"
-downloadDatas "$SRCDIR/etc/rbls/" "rbls" $randomize "null" "$COMMUNITY_RBLS_LIST"
+COMMUNITY_RBLS_LIST="\|two-level-tlds.txt\|SORBS.cf\|URIBL.cf\|SPAMCOP.cf\|UCEPROTECTC.cf\|BBARRACUDACENTRALORG.cf\|UCEPROTECTB.cf\|IPSBACKSCATTERERORG.cf\|SURBL.cf\|whitelisted_domains.txt\|IXDNSBLMANITUNET.cf\|UCEPROTECTA.cf\|domains_hostnames_map.txt\|tlds.txt\|effective_tlds.txt\|DNSWL.cf\|url_shorteners.txt"
+ret=$(downloadDatas "$SRCDIR/etc/rbls/" "rbls" $randomize "null" "$COMMUNITY_RBLS_LIST" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "RBLs checked"
+fi
 
-log "RBLs checked"
+removeLockFile "$FILE_NAME"
 
 exit 0

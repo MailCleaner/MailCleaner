@@ -18,24 +18,24 @@ body		GENERIC_IXHASH eval:ixhashtest('generic.ixhash.net')
 describe 	GENERIC_IXHASH iXhash found @ generic.ixhash.net 
 tflags		GENERIC_IXHASH net
 # adjust as you seem fit
-score		GENERIC_IXHASH 2.1
+score		GENERIC_IXHASH 1.1
 
 body		NIXSPAM_IXHASH eval:ixhashtest('ix.dnsbl.manitu.net')
 describe 	NIXSPAM_IXHASH iXhash found @ ix.dnsbl.manitu.net
 tflags		NIXSPAM_IXHASH net
 # adjust as you seem fit
-score		NIXSPAM_IXHASH 2.1
+score		NIXSPAM_IXHASH 1.1
 
 #body		CTYME_IXHASH eval:ixhashtest('ctyme.ixhash.net')
 #describe 	CTYME_IXHASH BiXhash found @ ctyme.ixhash.ne
 #tflags		CTYME_IXHASH net
 ## adjust as you seem fit
-#score		CTYME_IXHASH 2.1
+#score		CTYME_IXHASH 1.1
 
 body		HOSTEUROPE_IXHASH eval:ixhashtest('hosteurope.ixhash.net')
 describe 	HOSTEUROPE_IXHASH iXhash found @ hosteurope.ixhash.ne
 tflags		HOSTEUROPE_IXHASH net
 # adjust as you seem fit
-score		HOSTEUROPE_IXHASH 2.1
+score		HOSTEUROPE_IXHASH 1.1
 
 endif

@@ -48,6 +48,8 @@ class MailCleaner_Config
 	}
 	 
 	public function getUserGUIAvailableLanguages() {
-		return array('en' => 'English', 'fr' => 'French', 'de' => 'German', 'es' => 'Spanish', 'it' => 'Italian', 'nl' => 'Dutch');
+		require_once($this->_options["SRCDIR"]."/www/classes/view/Language.php");
+		$lang = Language::getInstance('user');
+		return $lang->getLanguages(); 
 	}
 }

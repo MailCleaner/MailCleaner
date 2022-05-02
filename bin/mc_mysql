@@ -62,6 +62,9 @@ esac
 if [ "$2" = "" ]; then
   $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD
 else
-  $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2
+  if [ "$3" = "-t" ]; then
+    $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2 $3
+  else
+    $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2
+  fi
 fi
-

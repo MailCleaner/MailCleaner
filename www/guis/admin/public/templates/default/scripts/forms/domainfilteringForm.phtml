@@ -12,7 +12,7 @@
        <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
        <table class="ftable" id="domainfilteringtable">
        
-          <?php foreach (array('spamwall', 'contentwall', 'greylist', 'prevent_spoof', 'require_incoming_tls', 'allow_newsletters') as $f) {?>
+          <?php foreach (array('spamwall', 'contentwall', 'greylist', 'prevent_spoof', 'reject_capital_domain', 'require_incoming_tls', 'allow_newsletters') as $f) {?>
           <?php echo $this->InputRow($this->form->getElement($f));?>
           <?php }?>
           
@@ -73,13 +73,63 @@
                 </td>
           </tr>
           <?php }?>
-          
+
           <?php foreach (array('notice_wwlists_hit') as $f) {?>
           <?php echo $this->InputRow($this->form->getElement($f));?>
           <?php }?>
-          
+
           <?php }?>
-           
+          
+            <?php
+            $list = '_newslist';
+            ?>
+          <tr>
+            <td colspan="2"><hr /></td>
+          </tr>
+          <tr id="newslist_list" class="listinform">
+                <td colspan="2">
+                <ul class="configlist shortconfiglist addselectbox">
+                <?php foreach ($this->form->$list as $element) { ?>
+                        <li class="listelement<?php if ($element->getStatus() < 1) {?> listelementdisabled<?php }?>">
+                            <?php echo $this->InputRow($this->form->getElement('newslist_list_select_'.$element->getId()),array('nobox'=>true,'field_only'=>true));?>
+                            <?php echo $element->getParam('sender')?> <?php if ($element->getStatus() < 1) { echo "(".$this->t->_('disabled').")"; } ?>
+                            <?php if ($element->getComment()) {?>
+                        <p class="entrycomment"><?php if ($element->getStatus() <  1) {?><img
+                                src="<?php echo $this->images_path?>/attention_off.png" alt="" /> <?php } else { ?><img
+                                class="listhoverable"
+                                src="<?php echo $this->images_path?>/attention.png" alt="" /> <?php }?>
+                                <?php echo $element->getComment(); ?></p>
+                        <p class="hidden"><?php echo $element->getComment()?></p>
+                        <?php }?></li>
+                        <?php }?>
+                </ul>
+                <div class="sublistelement addlistelement">
+                <h1><?php echo $this->t->_('Add an address to the newsletters list')?></h1>
+
+                <table>
+                        <tr>
+                                <td><?php echo $this->t->_('Address')?> :</td>
+                                <td class="fieldpanel"><?php echo $this->InputRow($this->form->getElement("newslist_addelement"),array('field_only'=>true,'nobox'=>true));?></td>
+                        </tr>
+                        <tr>
+                                <td><?php echo $this->t->_('Comment')?> :</td>
+                                <td class="fieldpanel"><img
+                                        src="<?php echo $this->images_path?>/attention.png" class="vertimg"
+                                        alt="" /><?php echo $this->InputRow($this->form->getElement("newslist_addcomment"),array('field_only'=>true,'nobox'=>true));?></td>
+                        </tr>
+                </table>
+                <p><?php echo $this->SubmitRow($this->form->getElement("newslist_add"),array('field_only'=>true,'nobox'=>true));?></p>
+                </div>
+                <div class="sublistelement editremelement">
+                <h1><?php echo $this->t->_('Disable, enable or removed address from the list')?></h1>
+                <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement("newslist_disable"),array('field_only'=>true,'nobox'=>true));?></p>
+                <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement("newslist_remove"),array('field_only'=>true,'nobox'=>true));?></p>
+                </div>
+
+                </td>
+          </tr>
+
+
           <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
        </table>
 </fieldset>

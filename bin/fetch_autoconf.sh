@@ -60,6 +60,14 @@ if [ "$VARDIR" = "" ]; then
   VARDIR="/var/mailcleaner"
 fi
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 . $SRCDIR/lib/updates/download_files.sh
 
 ##
@@ -72,7 +80,10 @@ if [ ! -d "$MC_AUTOCONF_DIR" ]; then
 	mkdir $MC_AUTOCONF_DIR
 fi
 
-downloadDatas "$MC_AUTOCONF_DIR" "mc_autoconfig" $randomize "null" ""
-log "Autoconf downloaded"
+ret=$(downloadDatas "$MC_AUTOCONF_DIR" "mc_autoconfig" $randomize "null" "" "noexit")
+if [[ "$ret" -eq "1" ]]; then
+	log "Autoconf downloaded"
+fi
 
+removeLockFile "$FILE_NAME"
 exit 0

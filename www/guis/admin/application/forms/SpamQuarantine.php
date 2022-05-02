@@ -147,6 +147,12 @@ class Default_Form_SpamQuarantine extends ZendX_JQuery_Form
 	    }
 	    $this->addElement($mpp);
 	    
+	    $showSpamOnly = new Zend_Form_Element_Checkbox('showSpamOnly', array(
+	        'label'   => $t->_('Show spam only'),
+	        'uncheckedValue' => "0",
+	        'checkedValue' => "1"
+	    ));
+            
             ### newsl
 	    $showNewslettersOnly = new Zend_Form_Element_Checkbox('showNewslettersOnly', array(
 	        'label'   => $t->_('Show newsletters only'),
@@ -154,10 +160,14 @@ class Default_Form_SpamQuarantine extends ZendX_JQuery_Form
 	        'checkedValue' => "1"
 	    ));
             
-	    if (!empty($this->_params['showNewslettersOnly'])) {
+	    if (!empty($this->_params['showSpamOnly'])) {
+	        $showSpamOnly->setChecked(true);
+	        $showNewslettersOnly->setChecked(false);
+	    } elseif (!empty($this->_params['showNewslettersOnly'])) {
 	        $showNewslettersOnly->setChecked(true);
 	    }
             
+	    $this->addElement($showSpamOnly);	    
 	    $this->addElement($showNewslettersOnly);	    
 	    
 	    $submit = new Zend_Form_Element_Submit('submit', array(

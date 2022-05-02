@@ -149,9 +149,10 @@ class DomainController extends Zend_Controller_Action
         $warnlistform = $warnlistelement->fetchAll('@'.$view->domain->getParam('name'),'warn');
 	$blacklistelement = new Default_Model_WWElement();
         $blacklistform = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
+        $newslistelement = new Default_Model_WWElement();
+        $newslistform = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
 
-
-    	$panelform = new $panelformclass($view->domain, $whitelistform, $warnlistform, $blacklistform, $this->getRequest());
+    	$panelform = new $panelformclass($view->domain, $whitelistform, $warnlistform, $blacklistform, $newslistform, $this->getRequest());
     	$panelform->setAction($view->searchurl."/name/".$view->name);
     	$view->panel = $panel;
     	$view->form = $panelform;
@@ -159,20 +160,31 @@ class DomainController extends Zend_Controller_Action
        #$view->searchdomainurl = Zend_Controller_Action_HelperBroker::getStaticHelper('url')->url(array('controller' => 'domain', 'action' => 'search', 'sname' => $view->sname));
 
     	$message = '';
+        $user = Zend_Registry::get('user');
         if ($this->getRequest()->isPost()) {
             if ($panelform->isValid($request->getPost())) {
                 try {
+                  $is_domain_active = $view->domain->getParam('active');
+                  if ($request->get('enabledomain') && $user->getUserType() == 'administrator') {
+		      $view->domain->setParam('active', $request->get('enabledomain') == 1 ? "true" : "false");
+                  } else {
+                      $view->domain->setParam('active', $is_domain_active);
+                  }
                   $panelform->setParams($request, $view->domain);
+
                   if ($panel == 'filtering') {
                       $panelform->_whitelist = $whitelistelement->fetchAll('@'.$view->domain->getParam('name'),'white');
                       $panelform->_warnlist = $warnlistelement->fetchAll('@'.$view->domain->getParam('name'),'warn');
                       $panelform->_blacklist = $blacklistelement->fetchAll('@'.$view->domain->getParam('name'),'black');
+                      $panelform->_newslist = $newslistelement->fetchAll('@'.$view->domain->getParam('name'),'wnews');
                   }
-
-            	  $view->domain->save();
-            	  $view->domain->saveAliases();
-            	  $message = 'OK data saved';
-            	  
+                  if ($panel == 'general' && $user->getUserType() != 'administrator') {
+                      throw new Exception('only configurable by admin role');
+                  } else {
+                      $view->domain->save();
+                      $view->domain->saveAliases();
+                      $message = 'OK data saved';
+                  }
             	} catch (Exception $e) {
             	  $message = 'NOK error saving data ('.$e->getMessage().')';
             	}
@@ -188,6 +200,8 @@ class DomainController extends Zend_Controller_Action
          $view->whitelistform = $whitelistform;
          $view->warnlistform = $warnlistform;
          $view->blacklistform = $blacklistform;
+         $view->newslistform = $newslistform;
+
     }
     
     public function globalAction() {
@@ -253,8 +267,14 @@ class DomainController extends Zend_Controller_Action
                     	throw new Exception('NOT Domain not valid');
                     }
                     $domain = new Default_Model_Domain();
+		    $domain->setParam('name', $d);
+                    $is_domain_active = $view->domain->getParam('active');
+                    if ($request->get('enabledomain')) {
+                        $domain->setParam('active', $request->get('enabledomain'));
+                    } else {
+                        $domain->setParam('active', $is_domain_active);
+                    }
                     $panelform->setParams($request, $domain);
-                    $domain->setParam('name', $d);
                     $domain->copyPrefs($defdom);
                     $domain->save();
             	    $domain->saveAliases();

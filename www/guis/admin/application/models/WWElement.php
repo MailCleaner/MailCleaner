@@ -83,6 +83,19 @@ class Default_Model_WWElement
     	return $this->getMapper()->fetchAll($destination, $type);
     }
     
+    public function fetchAllField($destination, $type, $field) {
+    	return $this->getMapper()->fetchAllField($destination, $type, $field);
+    }
+
+
+    public function setBulkSender($domain, $senders, $type) {
+    	return $this->getMapper()->setBulkSender($domain, $senders, $type);
+    }
+    
+    public function setSpamcOvercharge($domain, $comment, $type) {
+    	return $this->getMapper()->setSpamcOvercharge($domain, $comment, $type);
+    }
+    
     public function save()
     {
         return $this->getMapper()->save($this);

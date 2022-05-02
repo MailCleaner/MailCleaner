@@ -141,3 +141,9 @@ td {
 #scorefoot .fieldname {
 	border-top: 1px solid #C6ADC6;
 }
+
+.newsletter{
+    border: solid 1px #E93A00;
+    color: #E93A00;
+    padding: 0px 20px 0px 20px;
+}

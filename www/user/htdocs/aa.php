@@ -11,6 +11,11 @@
 /**
  * require base objects, but no session
  */
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once('variables.php');
 require_once("view/Language.php");
 require_once("system/SystemConfig.php");

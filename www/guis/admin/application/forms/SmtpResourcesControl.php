@@ -40,7 +40,23 @@ class Default_Form_SmtpResourcesControl extends ZendX_JQuery_Form
 		$value = preg_replace('/[^0-9]/', '', $value);
 	    $conntimeout->setValue($value);
         $conntimeout->addValidator(new Zend_Validate_Int());
-	    $this->addElement($conntimeout);
+		$this->addElement($conntimeout);
+
+
+                $max_rcpt = new  Zend_Form_Element_Text('max_rcpt', array(
+                        'label'    => $t->_('Maximum number of recipients')." :",
+                        'title' => $t->_("Maximum number of a recipients for a message"),
+                        'required' => false,
+                        'size' => 3,
+                        'class' => 'fieldrighted',
+                        'filters'    => array('Alnum', 'StringTrim')));
+
+                $value = $this->_mta->getParam('max_rcpt');
+                $value = preg_replace('/[^0-9]/', '', $value);
+                $max_rcpt->setValue($value);
+                $max_rcpt->addValidator(new Zend_Validate_Int());
+                $this->addElement($max_rcpt);
+
 	    
 	    $maxsimconn = new  Zend_Form_Element_Text('smtp_accept_max', array(
 	        'label'    => $t->_('overall')." :",
@@ -246,8 +262,10 @@ class Default_Form_SmtpResourcesControl extends ZendX_JQuery_Form
 	
 	public function setParams($request, $mta) {
 		$mta->setparam('smtp_receive_timeout', $request->getParam('smtp_receive_timeout').'s');
+		$mta->setparam('max_rcpt', $request->getParam('max_rcpt'));
 		$mta->setparam('smtp_accept_max', $request->getParam('smtp_accept_max'));
 		$mta->setparam('smtp_accept_max_per_host', $request->getParam('smtp_accept_max_per_host'));
+		$mta->setparam('smtp_accept_max_per_trusted_host', $request->getParam('smtp_accept_max_per_trusted_host'));
                 $mta->setparam('smtp_accept_max_per_connection', $request->getParam('smtp_accept_max_per_connection'));
         $mta->setparam('smtp_reserve', $request->getParam('smtp_reserve'));
         $mta->setparam('smtp_load_reserve', $request->getParam('smtp_load_reserve'));

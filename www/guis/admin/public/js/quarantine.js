@@ -73,9 +73,22 @@ function launchSearch() {
        url += '/hiderejected/'+$("#hiderejected").val();
     }
 
-    if ($('#showNewslettersOnly').is(':checked')) {
+    if ($('#showSpamOnly').is(':checked')) {
+        url += '/showSpamOnly/' + $('#showSpamOnly').val();
+        url += '/showNewslettersOnly/0';
+    } else if ($('#showNewslettersOnly').is(':checked')) {
         url += '/showNewslettersOnly/' + $('#showNewslettersOnly').val();
     }
+    $('#showSpamOnly').change(function () {
+        if ($(this).attr("checked")) {
+            $('#showNewslettersOnly').attr('checked', false);
+        }
+    });
+    $('#showNewslettersOnly').change(function () {
+        if ($(this).attr("checked")) {
+            $('#showSpamOnly').attr('checked', false);
+        }
+    });
     
     if ($("#reference").val()) {
     	var ref = $("#reference").val();
@@ -266,9 +279,10 @@ var cpopup_height = 200;
 var info_width = 500;
 var info_height = 500;
 
-function force(address, msgid, storeid) {
+function force(address, msgid, storeid, news) {
 	window.open('/fm.php?a=' + address + '&id=' + msgid + '&s=' + storeid
-			+ '&lang=en&pop=up', '', 'width=' + popup_width
+			+ '&lang=en&pop=up&n=' + news,
+			'', 'width=' + popup_width
 			+ ',height=' + popup_height
 			+ ',toolbar=0,resizable=1,scrollbars=0,status=0');
 }

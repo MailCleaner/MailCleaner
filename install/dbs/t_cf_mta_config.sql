@@ -62,6 +62,7 @@ CREATE TABLE mta_config (
   trusted_ratelimit_delay   int(10) DEFAULT 10,
   outgoing_virus_scan   bool NOT NULL DEFAULT '0',
   mask_relayed_ip       bool NOT NULL DEFAULT '0',
+  block_25_auth         bool NOT NULL DEFAULT '0',
   masquerade_outgoing_helo bool NOT NULL DEFAULT '0',
   forbid_clear_auth     bool NOT NULL DEFAULT '0',
   relay_refused_to_domains    blob,
@@ -72,6 +73,10 @@ CREATE TABLE mta_config (
   reject_bad_rdns       bool NOT NULL DEFAULT '0',
   dmarc_follow_reject_policy   bool NOT NULL DEFAULT '0',
   dmarc_enable_reports  bool NOT NULL DEFAULT '0',
+  spf_dmarc_ignore_hosts blob DEFAULT '',
+  log_subject bool NOT NULL DEFAULT '0',
+  log_attachments bool NOT NULL DEFAULT '0',
+  ciphers              varchar(255) NOT NULL DEFAULT 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM:!SSLv2',
   PRIMARY KEY (set_id, stage)
 );
 

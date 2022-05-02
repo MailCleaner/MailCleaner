@@ -1,0 +1,16 @@
+Temat: MailCleaner: żądanie dodania grupy adresów
+
+Prośba o dodanie adresu do konta MailCleaner
+
+Użytkownik __USER__ zażądał dodania tego adresu (__ALIAS__) do swojego konta MailCleaner.
+Potwierdzenie jest wymagane do dalszego przetwarzania wniosku:
+
+- Jeśli akceptujesz prośbę, kliknij tutaj: __WEBBASEURL____VALIDATEQUERY__
+
+- Jeśli odrzucisz prośbę, kliknij tutaj: __WEBBASEURL____PYTANIE ODMOWY__
+
+Bez żadnych działań ta prośba zostanie automatycznie usunięta w ciągu 24 godzin.
+
+-------------------------------------------------- ------------------------------------
+To jest automatyczna wiadomość wygenerowana przez MailCleaner. Proszę nie odpowiadać.
+Więcej informacji: __BASEURL__

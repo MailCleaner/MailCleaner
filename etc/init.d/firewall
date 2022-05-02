@@ -1,6 +1,6 @@
 #! /bin/sh
 # /etc/init.d/firewall: start firewalling.
-
+export PYENV_VERSION=3.7.7
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
   SRCDIR=/opt/mailcleaner
@@ -29,6 +29,12 @@ case "$1" in
     fi
     rm $VARDIR/run/firewall.stopped >/dev/null 2>&1
     rm $VARDIR/run/firewall.*.rs >/dev/null 2>&1
+    export PYENV_ROOT="/var/mailcleaner/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init --path)"
+    fi
+    fail2ban.py internal reload-fw firewall
     ;;
   stop)
     touch $VARDIR/run/firewall.stop.rs

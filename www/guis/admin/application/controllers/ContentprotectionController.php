@@ -125,7 +125,10 @@ class ContentprotectionController extends Zend_Controller_Action
     	$dc = new Default_Model_DangerousContent();
     	$dc->find(1);
     	
-    	$form    = new Default_Form_ContentHTMLControls($dc);
+    	$as = new Default_Model_AntispamConfig();
+	$as->find(1);
+
+    	$form    = new Default_Form_ContentHTMLControls($dc,$as);
         $form->setAction(Zend_Controller_Action_HelperBroker::getStaticHelper('url')->simple('htmlcontrols', 'contentprotection'));
         $message = '';
         
@@ -133,7 +136,7 @@ class ContentprotectionController extends Zend_Controller_Action
             if ($form->isValid($request->getPost())) {
             	
             	try {
-                  $form->setParams($this->getRequest(), $dc);
+                  $form->setParams($this->getRequest(), $dc, $as);
             	  $message = 'OK data saved';
             	} catch (Exception $e) {
             	  $message = 'NOK error saving data ('.$e->getMessage().')';

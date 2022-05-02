@@ -13,6 +13,7 @@ class Default_Model_Domain
 	protected $_id;
 	protected $_values = array(
       'name' => '',
+      'active' => true,
       'destination'    => '',
       'prefs' => 0,
       'callout' => 'true',
@@ -21,21 +22,29 @@ class Default_Model_Domain
       'addlistcallout' => 'false',
       'greylist' => 'false',
       'forward_by_mx' => 'false',
+      'relay_smarthost' => 0,
+      'destination_smarthost'    => '',
 	);
 	protected $_aliases = array();
 
 	protected $_configpanels = array('general', 'delivery',
-                                     'addressverification', 'preferences', 
-                                     'authentication', 'filtering', 'outgoing', 'archiving', 'templates');
+		'addressverification', 'preferences',
+		'authentication', 'filtering', 'advanced', 'spamcovercharge', 
+		'outgoing', 'archiving', 'templates'
+	);
 
 	protected $_prefs;
 	protected $_default_prefs;
 	protected $_destinations = array();
+	protected $_destinations_smarthost = array();
 	protected $_destination_options = array();
+	protected $_destination_options_smarthost = array();
 	protected $_destination_port = 25;
+	protected $_destination_port_smarthost = 25;
 	protected $_destination_usemx = false;
 	protected $_destinationtest_finished = false;
 	protected $_destination_action_options = array('loadbalancing' => 'randomize', 'failover' => 'no_randomize');
+	protected $_destination_action_options_smarthost = array('loadbalancing' => 'randomize', 'failover' => 'no_randomize');
 
 	protected $_calloutconnector = 'smtp';
 	protected $_callouttest_finished  = false;
@@ -110,6 +119,7 @@ class Default_Model_Domain
 			}
 		}
 		$this->loadDestinationRule($domain->getDestinationRule());
+		$this->loadDestinationRule_smarthost($domain->getDestinationRule_smarthost());
 		if (!$this->_prefs) {
 			$this->_prefs = new Default_Model_DomainPref();
 		}
@@ -150,6 +160,7 @@ class Default_Model_Domain
 		$this->setPrefs($pref);
 		$this->loadAliases();
 		$this->loadDestinationRule($this->getParam('destination'));
+		$this->loadDestinationRule_smarthost($this->getParam('destination_smarthost'));
 		$this->loadCalloutConnector();
 		return $this;
 	}
@@ -165,6 +176,7 @@ class Default_Model_Domain
 		$this->setPrefs($pref);
 		$this->loadAliases();
 		$this->loadDestinationRule($this->getParam('destination'));
+		$this->loadDestinationRule_smarthost($this->getParam('destination_smarthost'));
 		$this->loadCalloutConnector();
 		return $this;
 	}
@@ -193,6 +205,7 @@ class Default_Model_Domain
                 }
 		$this->setParam('prefs', $this->_prefs->getId());
 		$this->setParam('destination', $this->getDestinationRule());
+		$this->setParam('destination_smarthost', $this->getDestinationRule_smarthost());
 		
                 if ($this->getParam('name') == '') {
                   return;
@@ -219,6 +232,13 @@ class Default_Model_Domain
 		}
 		$ret = $this->getMapper()->delete($this);
 		
+		// Check if this domains has stats (counts) and delete them
+                $counts_path = "/var/mailcleaner/spool/mailcleaner/counts/";
+                $domain_counts = $counts_path . trim($this->getParam('name'));
+                if (file_exists($domain_counts) && is_dir($domain_counts)) {
+                        exec('rm -rf '.escapeshellarg($domain_counts));
+                }
+
 		$params = array('what' => 'domains');
         $slave = new Default_Model_Slave();
         $res = $slave->sendSoapToAll('Service_silentDump', $params);
@@ -321,7 +341,7 @@ class Default_Model_Domain
 	}
 
 	public function setAsAliasOf($domain) {
-		foreach(array('destination', 'callout', 'altcallout', 'adcheck', 'forward_by_mx', 'greylist', 'prefs') as $param) {
+		foreach(array('destination', 'callout', 'altcallout', 'adcheck', 'forward_by_mx', 'greylist', 'prefs', 'active', 'destination_smarthost') as $param) {
 			$this->setParam($param, $domain->getParam($param));
 		}
 		return $this->getMapper()->save($this);
@@ -387,6 +407,67 @@ class Default_Model_Domain
 		}
 	}
 
+	/**
+	 * Destination managment
+	 */
+	public function loadDestinationRule_smarthost($rule) {
+		$servers = $rule;
+		$options = '';
+		$this->_destinations_smarthost = array();
+		if (preg_match('/^"?(\S+)"?\s+(.*)/', $rule, $matches)) {
+			$servers = $matches[1];
+			$options = $matches[2];
+		}
+		 
+		$ports_smarthost = array('25' => 0);
+		$servers = preg_replace('/::+/', '%', $servers);
+		#if (preg_match('/\/(mx|MX)/', $servers)) {
+		#	$this->setDestinationUseMX(true);
+		#	$servers = preg_replace('/\/(mx|MX)/', '', $servers);
+		#}
+
+		$servers = preg_replace('/\//', '%', $servers);
+		foreach (preg_split('/:/', $servers) as $server) {
+			$server = preg_replace('/\s/', '', $server);
+			$server = preg_replace('/\%+/', '::', $server);
+                        if (preg_match('/^:/', $server)) {
+                            continue;
+                        }
+			$s = array('host' => $server, 'port' => '');
+			if (preg_match('/^(\S+)::(\d+)$/', $server, $matches) && $matches[1] != '') {
+				$s['host'] = $matches[1];
+				$s['port'] = $matches[2];
+				if (!isset($ports["$matches[2]"])) {
+					$ports["$matches[2]"] = 0;
+				}
+				$ports["$matches[2]"]++;
+			} else {
+				if ($server != "+") {
+					$ports['25']++;
+				};
+			}
+                        if ($s['host'] != '') {
+			  $this->_destinations_smarthost[] = $s;
+                        }
+		}
+		## find default port:
+		arsort($ports);
+		$this->_destination_port_smarthost = key($ports);
+		 
+		$i = 0;
+		foreach ($this->_destinations_smarthost as $dest) {
+			if ($dest['port'] == $this->_destination_port_smarthost) {
+				$this->_destinations_smarthost[$i]['port'] = '';
+			}
+			$i++;
+		}
+	
+		foreach (preg_split("/\s+/", $options) as $option) {
+			$this->setDestinationOption($option);
+		}
+	}
+
+
 	public function setDestinationOption($option) {
                 foreach ($this->_destination_action_options as $key => $value) {
                    if ($value == $option || $key == $option) {
@@ -397,16 +478,42 @@ class Default_Model_Domain
                    }
 		}
 	}
+	public function setDestinationOption_smarthost($option) {
+                foreach ($this->_destination_action_options_smarthost as $key => $value) {
+                   if ($value == $option || $key == $option) {
+                        if (!in_array($value, $this->_destination_options_smarthost)) {
+                            $this->_destination_options_smarthost = array();
+			    $this->_destination_options_smarthost[$value] = $value;
+                        }
+                   }
+		}
+	}
+
 	public function getDestinationActionOptions() {
 		return $this->_destination_action_options;
 	}
+	public function getDestinationActionOptions_smarthost() {
+		return $this->_destination_action_options_smarthost;
+	}
+
 	public function getActiveDestinationOptions() {
 		return $this->_destination_options;
+	}
+	public function getActiveDestinationOptions_smarthost() {
+		return $this->_destination_options_smarthost;
 	}
 	public function getDestinationMultiMode() {
 		$str = '';
 		foreach ($this->getActiveDestinationOptions() as $act_value) {
 			$str .= ",".implode(',', array_keys($this->_destination_action_options, $act_value));
+		}
+		return preg_replace('/,/', '', $str);
+	}
+
+	public function getDestinationMultiMode_smarthost() {
+		$str = '';
+		foreach ($this->getActiveDestinationOptions_smarthost() as $act_value) {
+			$str .= ",".implode(',', array_keys($this->_destination_action_options_smarthost, $act_value));
 		}
 		return preg_replace('/,/', '', $str);
 	}
@@ -434,6 +541,31 @@ class Default_Model_Domain
 		 
 		return $str;
 	}
+
+	public function getDestinationFieldString_smarthost() {
+		$str = '';
+		foreach ($this->_destinations_smarthost as $destination_smarthost) {
+			if ($destination_smarthost['port'] == '') {
+				$destination_smarthost['port'] = $this->_destination_port_smarthost;
+			}
+			if (preg_match('/^([^:]+):+(\d+)/', $destination_smarthost['host'], $matches)) {
+				$destination_smarthost['port'] = $matches[2];
+				$destination_smarthost['host'] = $matches[1]; 
+			}
+			$hoststr = $destination_smarthost['host'].':'.$destination_smarthost['port'];
+			if ($destination_smarthost['host'] == '+') {
+				$hoststr = $destination_smarthost['host'];
+			}
+			if ($destination_smarthost['port'] == $this->_destination_port_smarthost) {
+				$hoststr = $destination_smarthost['host'];
+			}
+			$str .= $hoststr."\n";
+		}
+		$str = preg_replace("/\n$/", '', $str);
+		 
+		return $str;
+	}
+
 
         public function getDestinationFieldStringForAPI() {
                 $str = '';
@@ -471,12 +603,37 @@ class Default_Model_Domain
 		}
 		 
 	}
+
+        public function setDestinationServersFieldString_smarthost($string) {
+		$this->_destinations_smarthost = array();
+		foreach (preg_split('/[^a-zA-Z0-9.\-_:]/', $string) as $line) {
+			if (preg_match('/^\s*$/', $line)) {
+				continue;
+			}
+			$line = preg_replace('/\s+/', '', $line);
+			$s = array('host' => $line, 'port' => '');
+			if (preg_match('/^(\S+):+(\d+)$/', $line, $matches)) {
+				$s['host'] = $matches[1];
+				$s['port'] = $matches[2];
+			} else {
+				$s['host'] = $line;
+			}
+			$this->_destinations_smarthost[] = $s;
+		}
+		 
+	}
 	 
 	public function getDestinationPort() {
 		return $this->_destination_port;
 	}
 	public function setDestinationPort($port) {
 		$this->_destination_port = $port;
+	}
+	public function getDestinationPort_smarthost() {
+		return $this->_destination_port_smarthost;
+	}
+	public function setDestinationPort_smarthost($port) {
+		$this->_destination_port_smarthost = $port;
 	}
 
 	public function getDestinationRule() {
@@ -509,6 +666,37 @@ class Default_Model_Domain
 		return $str;
 	}
 
+	public function getDestinationRule_smarthost() {
+		$str = '';
+		foreach ($this->_destinations_smarthost as $destination_smarthost) {
+			if ($destination_smarthost['port'] == '') {
+				$destination_smarthost['port'] = $this->_destination_port_smarthost;
+			}
+			#if ($this->getDestinationUseMX() && $destination['host'] != '+') {
+			#	$destination['host'] = $destination['host'].'/mx';
+			#}
+		    if (preg_match('/^([^:]+):+(\d+)/', $destination_smarthost['host'], $matches)) {
+                $destination_smarthost['port'] = $matches[2];
+                $destination_smarthost['host'] = $matches[1]; 
+            }
+			$hoststr = $destination_smarthost['host'].'::'.$destination_smarthost['port'];
+			if ($destination_smarthost['host'] == '+') {
+				$hoststr = $destination_smarthost['host'];
+			}
+			$str .= $hoststr.":";
+		}
+		$str = preg_replace("/\s*:\s*$/", '', $str);
+		$str .= " byname ";
+		foreach ($this->_destination_options_smarthost as $option) {
+			$str.= $option." ";
+		}
+		$str = preg_replace('/\s$/', '', $str);
+		$str = preg_replace('/^\:.*/', '', $str);
+		 
+		return $str;
+	}
+
+
 	public function getDestinationUseMX() {
                 return $this->getParam('forward_by_mx');
                 #if ($this->_destination_usemx) {
@@ -537,6 +725,10 @@ class Default_Model_Domain
 	 
 	public function getDestinationServers() {
 		return $this->_destinations;
+	}
+
+	public function getDestinationServers_smarthost() {
+		return $this->_destinations_smarthost;
 	}
 	 
 	public function destinationTestFinished() {
@@ -813,7 +1005,7 @@ class Default_Model_Domain
 	 
 	public function loadOldDomain() {
 		if ($this->domain_) {
-			return;
+            return $this->domain_;
 		}
 		## use old stuff !
 		unset($_SESSION['_authsession']);

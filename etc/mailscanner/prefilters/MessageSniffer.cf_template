@@ -4,3 +4,7 @@ putSpamHeader=__PUTSPAMHEADER__
 timeOut=__TIMEOUT__
 maxSize=__MAXSIZE__
 tmpDir=__VARDIR__/spool/tmp/MessageSniffer
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

@@ -16,7 +16,7 @@ The messages listed will be destroyed in ??SPAMNBDAYS days.
 If you wish to customize your settings for MailCleaner, or
 see the real-time quarantine, please visit the user interface at:
 
-??WEBBASEURL
+??WEBBASEURL?d=??DIGEST_ID&amp;p=u
 
 ----
 

@@ -55,6 +55,20 @@ class Default_Form_DomainGeneral extends Zend_Form
 	    require_once('Validate/DomainName.php');
         $domainname->addValidator(new Validate_DomainName());
 	    $this->addElement($domainname);	
+
+
+            $enabledomain = new Zend_Form_Element_Checkbox('enabledomain', array(
+                'label'   =>  'Domain is active :',
+                'title' => $t->_("By default, domains are activated"),
+                'uncheckedValue' => "0",
+                'checkedValue' => "1"));
+
+            if ($this->_domain->getParam('active')) {
+                $enabledomain->setChecked(true);
+            }
+            $this->addElement($enabledomain);
+
+
 		
 		$alias = new Zend_Form_Element_Textarea('aliases', array(
 		      'label'    =>  $t->_('Aliases')." :",
@@ -66,14 +80,13 @@ class Default_Form_DomainGeneral extends Zend_Form
 		require_once('Validate/DomainList.php');
         $alias->addValidator(new Validate_DomainList());
 		$alias->setValue(implode("\n",$this->_domain->getAliases()));
-		$this->addElement($alias);
-		
-		
+	    $this->addElement($alias);
+
 		$sender = new  Zend_Form_Element_Text('systemsender', array(
             'label'   => $t->_('System sender')." :",
 		    'title' => $t->_("Mail address for summaries"),
 		    'required' => false,
-		    'filters'    => array('StringToLower', 'StringTrim')));
+		    'filters'    => array('StringTrim')));
 	    $sender->setValue($this->_domain->getPref('systemsender'));
         require_once('Validate/EmailAddressField.php');
         $sender->addValidator(new Validate_EmailAddressField());
@@ -123,7 +136,12 @@ class Default_Form_DomainGeneral extends Zend_Form
 		foreach (array('systemsender', 'falseneg_to', 'falsepos_to', 'supportname', 'supportemail') as $pref) {
 		    $domain->setPref($pref, $request->getParam($pref));
 		}
-		return $domain->setAliases(preg_split('/\n/', $request->getParam('aliases')));
+		$alias = preg_split('/\n/', $request->getParam('aliases'));
+		sort($alias);
+
+		$domain->setParam('active', $request->getParam('enabledomain'));
+
+		return $domain->setAliases($alias);
 	}
 
 }

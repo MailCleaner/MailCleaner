@@ -47,7 +47,7 @@ score		MC_NEWS_HFRMNOREPLY	2.0
 header		MC_NEWS_HLISTUNSUB1	List-Unsubscribe =~ /mailto:/i
 score		MC_NEWS_HLISTUNSUB1	1.0
 
-header		MC_NEWS_HLISTUNSUB2	List-Unsubscribe =~ /http:/i
+header		MC_NEWS_HLISTUNSUB2	List-Unsubscribe =~ /https?:/i
 score		MC_NEWS_HLISTUNSUB2	1.0
 
 header		MC_NEWS_HREPLYTO	Reply-To =~ /no?reply@/i

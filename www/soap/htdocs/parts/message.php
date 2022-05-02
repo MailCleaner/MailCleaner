@@ -69,22 +69,67 @@ function forceSpam($id, $dest) {
 
 /**
  * Add a spam to the white list as newsletter
- * @param $id string message id
  * @param $dest string original destination email address
  * @param $sender string original sender
  * @return  string 'OK' or 'NOTOK'
  */
-function addNewsletterToWhitelist($dest, $sender) {
+function addToNewslist($dest, $sender) {
   if (!preg_match('/^\S+\@\S+$/', $dest)) {
       return "BADPARAMS";
   }
-  if (!preg_match('/^\S+\@\S+$/', $sender)) {
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
       return "BADPARAMS";
   }
   $sysconf_ = SystemConfig::getInstance();
   $dest = escapeshellarg($dest);
   $sender = escapeshellarg($sender);
-  $cmd = $sysconf_->SRCDIR_."/bin/add_newsletter_to_whitelist.pl $dest $sender";
+  $cmd = $sysconf_->SRCDIR_."/bin/add_to_newslist.pl $dest $sender";
+  $res_a = array();
+  exec($cmd, $res_a);
+
+  return $res_a[0];
+}
+
+/**
+ * Add a spam to the white list
+ * @param $dest string original destination email address
+ * @param $sender string original sender
+ * @return  string 'OK' or 'NOTOK'
+ */
+function addToWhitelist($dest, $sender) {
+  if (!preg_match('/^\S+\@\S+$/', $dest)) {
+      return "BADPARAMS";
+  }
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
+      return "BADPARAMS";
+  }
+  $sysconf_ = SystemConfig::getInstance();
+  $dest = escapeshellarg($dest);
+  $sender = escapeshellarg($sender);
+  $cmd = $sysconf_->SRCDIR_."/bin/add_to_whitelist.pl $dest $sender";
+  $res_a = array();
+  exec($cmd, $res_a);
+
+  return $res_a[0];
+}
+
+/**
+ * Add a spam to the black list
+ * @param $dest string original destination email address
+ * @param $sender string original sender
+ * @return  string 'OK' or 'NOTOK'
+ */
+function addToBlacklist($dest, $sender) {
+  if (!preg_match('/^\S+\@\S+$/', $dest)) {
+      return "BADPARAMS";
+  }
+  if (!preg_match('/^\S*\@\S+$/', $sender)) {
+      return "BADPARAMS";
+  }
+  $sysconf_ = SystemConfig::getInstance();
+  $dest = escapeshellarg($dest);
+  $sender = escapeshellarg($sender);
+  $cmd = $sysconf_->SRCDIR_."/bin/add_to_blacklist.pl $dest $sender";
   $res_a = array();
   exec($cmd, $res_a);
 
@@ -122,6 +167,8 @@ function getHeaders($id, $dest) {
   $line = 0;
   $soap_ret = new SoapText();
   while( !preg_match('/^$/',$file[$line])) {
+    $file[$line] = preg_replace('/</','&lt;',$file[$line]);
+    $file[$line] = preg_replace('/>/','&gt;',$file[$line]);
     array_push($ret, utf8_encode($file[$line]));
     $line++;
   }

@@ -46,7 +46,13 @@ sub initialise {
      putDetailedHeader => 1,
      scoreHeader => "X-$MODULE-Score",
      maxSize => 0,
-     timeOut => 100
+     timeOut => 100,
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -63,7 +69,21 @@ sub initialise {
   $Newsl::conf{'command'} =~ s/__CONFIGFILE__/$Newsl::conf{'configFile'}/g;
   $Newsl::conf{'command'} =~ s/__NEWSLD_SOCKET__/$Newsl::conf{'spamdSocket'}/g;
   $Newsl::conf{'command'} =~ s/__MAX_SIZE__/$Newsl::conf{'maxSize'}/g;
+
+  # Unless something significant changes, the Newsletter module should NEVER be decisive. It is hard-coded with position 0, so it would override all other modules. There is a separate step to check for newsletters.
+  if ($Newsl::conf{'pos_decisive'} && ($Newsl::conf{'decisive_field'} eq 'pos_decisive' || $Newsl::conf{'decisive_field'} eq 'both')) {
+    $Newsl::conf{'pos_text'} = 'position : '.$Newsl::conf{'position'}.', newsl decisive';
+  } else {
+    $Newsl::conf{'pos_text'} = 'position : '.$Newsl::conf{'position'}.', not decisive';
+  }
+  if ($Newsl::conf{'neg_decisive'} && ($Newsl::conf{'decisive_field'} eq 'neg_decisive' || $Newsl::conf{'decisive_field'} eq 'both')) {
+    $Newsl::conf{'neg_text'} = 'position : '.$Newsl::conf{'position'}.', ham decisive';
+  } else {
+    $Newsl::conf{'neg_text'} = 'position : '.$Newsl::conf{'position'}.', not decisive';
+  }
 }
+
+  
 
 sub Checks {
   my $this = shift;
@@ -120,7 +140,7 @@ sub Checks {
   my $score = 0;
   my $limit = 100;
   my %rules;
-  my $rulesum = "";
+  my $rulesum = "NONE";
 
 ## analyze result
  
@@ -141,22 +161,23 @@ sub Checks {
   }
 
   if ($ret == 2) {
-    MailScanner::Log::InfoLog("$MODULE result is newsletter ($score/$limit) for ".$message->{id});
+    MailScanner::Log::InfoLog( "$MODULE result is newsletter ($score/$limit) for " .$message->{id} );
     if ($Newsl::conf{'putHamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $Newsl::conf{'header'}, "is newsletter ($score/$limit)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $Newsl::conf{'header'}, "is newsletter ($score/$limit) " .$Newsl::conf{'pos_text'});
     }
-    $message->{prefilterreport} .= ", Newsl (score=$score, required=$limit, $rulesum)";
+    $message->{prefilterreport} .= ", Newsl (score=$score, required=$limit, $rulesum, " .$Newsl::conf{pos_text}. ")";
+
     return -1; # Set to 1 to put in spam quarantine, -1 to newsletter
   }
   if ($ret < 0) {
       MailScanner::Log::InfoLog("$MODULE result is weird ($lines[0]) for ".$message->{id});
       return 0;
   }
-  MailScanner::Log::InfoLog("$MODULE result is not newsletter ($score/$limit) for ".$message->{id});
+  MailScanner::Log::InfoLog( "$MODULE result is not newsletter ($score/$limit) for " .$message->{id} );
   if ($Newsl::conf{'putSpamHeader'}) {
-    $global::MS->{mta}->AddHeaderToOriginal($message, $Newsl::conf{'header'}, "is not newsletter ($score/$limit)");
+    $global::MS->{mta}->AddHeaderToOriginal($message, $Newsl::conf{'header'}, "is not newsletter ($score/$limit) " .$Newsl::conf{'neg_text'});
   }
-  $message->{prefilterreport} .= ", Newsl (score=$score, required=$limit, $rulesum)";
+  $message->{prefilterreport} .= ", Newsl (score=$score, required=$limit, $rulesum, " .$Newsl::conf{neg_text}. ")";
   return 0;
 }
 

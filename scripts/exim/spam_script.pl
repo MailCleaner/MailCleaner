@@ -405,7 +405,7 @@ sub log_in_master {
 		$table = 'misc';
 	}
 	my $query =
-"INSERT INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_subject, forced, in_master, store_slave)
+"INSERT IGNORE INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_subject, forced, in_master, store_slave)
 			VALUES (NOW(), NOW(), '$to_domain', '$to_local', '$sender', '$exim_id', '$score', '$subject', '0', '1', $store_id)";
 	my $master_sth = $master_dbh->prepare($query) or return 0;
 	$master_sth->execute() or return 0;
@@ -440,7 +440,7 @@ sub log_in_slave {
 		$table = 'misc';
 	}
 	my $query =
-"INSERT INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_subject, forced, in_master, store_slave)
+"INSERT IGNORE INTO spam_$table (date_in, time_in, to_domain, to_user, sender, exim_id, M_score, M_subject, forced, in_master, store_slave)
 	                        VALUES (NOW(), NOW(), '$to_domain', '$to_local', '$sender', '$exim_id', '$score', '$subject', '0', '$in_master', $store_id)";
 
 	my $slave_sth = $slave_dbh->prepare($query) or return 0;

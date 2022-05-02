@@ -13,6 +13,14 @@ MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3
 HTTPPROXY=`grep -e '^HTTPPROXY' /etc/mailcleaner.conf | cut -d ' ' -f3`
 export http_proxy=$HTTPPROXY
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 if [ ! -f $VARDIR/log/clamav/freshclam.log ]; then
   /bin/touch $VARDIR/log/clamav/freshclam.log
 fi
@@ -58,3 +66,5 @@ else
    fi
 fi
 echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Done." >> $VARDIR/log/clamav/freshclam.log
+
+removeLockFile "$FILE_NAME"

@@ -199,7 +199,7 @@ sub set_as_slave {
         print "Syncing to master host (this may take a few minutes)... ";
         my $logfile = '/tmp/syncerror.log';
         unlink($logfile);
-        my $resync = `$config{'SRCDIR'}/bin/resync_db.sh $master $password 1>/dev/null 2>/tmp/syncerror.log`;
+        my $resync = `$config{'SRCDIR'}/bin/resync_db.sh -F $master $password 1>/dev/null 2>/tmp/syncerror.log`;
         if ( -s $logfile) {
           print "\n  ** ERROR ** ";
           if (open ERRORLOG, $logfile) {

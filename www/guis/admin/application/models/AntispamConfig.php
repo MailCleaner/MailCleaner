@@ -13,10 +13,12 @@ class Default_Model_AntispamConfig
     protected $_id;
     protected $_values = array(
        'trusted_ips' => '',
+       'html_wl_ips' => '',
        'enable_whitelists' => '0',
        'enable_warnlists' => '0',
        'enable_blacklists' => '0',
        'tag_mode_bypass_whitelist' => '1',
+       'whitelist_both_from' => '0',
        'use_bayes' => 1,
        'bayes_autolearn' => 0,
        'use_rbls' => 1,

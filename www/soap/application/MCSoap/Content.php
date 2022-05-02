@@ -10,7 +10,7 @@ class MCSoap_Content
 {
 
 	static public $_fieldstosend = array(
-	   'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time'
+	   'id', 'size', 'from_address', 'to_address', 'to_domain', 'subject', 'virusinfected', 'nameinfected', 'otherinfected', 'report', 'date', 'time', 'content_forced'
 	);
   /**
    * This function will search for quarantined content
@@ -94,7 +94,8 @@ class MCSoap_Content
         }
         foreach ($result as $c) {
         	foreach (MCSoap_Content::$_fieldstosend as $f) {
-        	   $elements[$c['id']][$f] = utf8_encode($c[$f]);
+        		$elements[$c['id']][$f] = utf8_encode($c[$f]);
+			$elements[$c['id']][$f] = preg_replace('/[\x00-\x1F\x7F]/u', '', $elements[$c['id']][$f]);
         	}
         	#foreach (split('/\n/', $c['headers']) as $hl) {
         		#if (preg_match('/subject\s*:\s*(.*)/i', $hl, $matches)) {

@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="templates/default/newsletters/css/newsletters.css">
     <script src="templates/default/newsletters/js/external/jquery/jquery.js"></script>
     <script src="templates/default/newsletters/js/jquery-ui.min.js"></script>
-    <script src="templates/default/newsletters/js/newsletters_quarantine.js"></script>       
 
   <script type="text/javascript" charset="utf-8">
    var template_path = '__TEMPLATE_PATH__';
@@ -37,6 +36,8 @@
    var lang = '__LANG__';
    var nb_days = '__NB_DAYS__';
    var mask_forced = '__MASK_FORCED__';
+   var spam_only= 0;
+   var newsl_only= 0;
    
   __INCLUDE_JS_SCRIPTS__
   </script>
@@ -115,7 +116,9 @@ __FI__ MSGTODISPLAY
 __BEGIN_FILTER_FORM__
 <div id="addressselectpanel">
 	<p>__LANG_SELECTEDADDRESS__: </p>
-	__ADDRESS_SELECTOR__ __GROUPQUARANTINES__ __LANG_GROUPQUARANTINES__
+	__ADDRESS_SELECTOR__ __GROUPQUARANTINES__ __LANG_GROUPQUARANTINES__<br/>
+	__SPAMONLY__ __LANG_SPAMONLY__<br/>
+	__NEWSLONLY__ __LANG_NEWSLONLY__
 </div>
 
  <div id="searchpanel">
@@ -135,7 +138,7 @@ __DEFAULT__ DESC_IMG = <img src="images/orderby_desc.png" alt="" />
    
 __IF__ filtered
    <tr id="quarantinebanner">
-     <td colspan="5"><img src="images/searchheader.png" alt="MailCleaner" /><p>__SEARCH_SUMMARY__ &mdash; <strong>__LANG_CRITERIAS__</strong> :
+     <td colspan="6"><img src="images/searchheader.png" alt="MailCleaner" /><p>__SEARCH_SUMMARY__ &mdash; <strong>__LANG_CRITERIAS__</strong> :
        __CRITERIA_SUMMARY__</p><a class="resetsearch" href="__LINK_THISPAGE__">__LANG_RESETSEARCH__</a></td>
    </tr>
 __ELSE__ filtered
@@ -172,7 +175,7 @@ __DEFAULT__ FORCED_IMG = images/released_off.png
 
  __TMPL_QUARANTINE_START__
 <tr class="quarantine_content __FORCEDCLASS__" onmouseover="highlightActionIcon('__ROW_ID__', __FORCED__, ''); return true;" onmouseout="highlightActionIcon('__ROW_ID__', __FORCED__, '_off'); return true;">
-  <td class="c_action"><a href="javascript:force('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="__FORCE_ICON__" id="r__ROW_ID__" alt="release" /></a>
+  <td class="c_action"><a href="javascript:force('__MSG_ID__','__STORE_ID__', '__TO__', '__NEWS__');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="__FORCE_ICON__" id="r__ROW_ID__" alt="release" /></a>
 <a href="javascript:infos('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="images/info_off.png" id="v__ROW_ID__" class="middleactionincon" alt="info" /></a>
 <a href="javascript:analyse('__MSG_ID__','__STORE_ID__', '__TO__');" onmouseover="showHideToolTip(event, true, 'sa', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="images/analyse_off.png" id="a__ROW_ID__" alt="analyse" /></a></td>
   <td onclick="javascript:infos('__MSG_ID__','__STORE_ID__', '__TO__');">__DATE__&nbsp;&nbsp;&nbsp;__TIME__</td>

@@ -1,62 +1,219 @@
 <p class="welcome"><?php echo $this->t->_('Welcome to MailCleaner administration panel')?></p>
 
 <?php 
-     $user = Zend_Registry::get('user'); 
-     $sysconf = MailCleaner_Config::getInstance();
+$user = Zend_Registry::get('user'); 
+$mcconfig = MailCleaner_Config::getInstance();
+
+if ($user && $user->getUserType() == 'administrator') {
+    if (!$this->is_registered) {
 ?>
 
-<?php if ($user && $user->getUserType() == 'administrator') {?>
+<div id="RegisterBloc" class="registerbloc">
+    <h1>Register - Get add-ons</h1>
+    <div class="registerblocdiv">
+        <table style="width:100%">
+            <tr>
+                <th class="registerbloccolumn">Free Entreprise Edition trial</th>
+                <th class="registerbloccolumn">Get commercial Add-ons</th>
+                <th class="registerbloccolumn">Community Edition Registration</th>
+            </tr>
+	        <tr>
+                <td>Test the Enterprise Edition
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">Commercial RBLs
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">Additionnal filtering rules
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">Support
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td>You can add
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">Kaspersky
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">Spamhaus RBL
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                    </div>
+                </td>
+                <td>Register your free Community Edition to
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">be added to our newsletter
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">get updates notices
+                                       </td>
+                                </tr>
+                                <tr>
+                                    <td class="globalstatuskey">
+                                        <img style="width: 50%" src="/admin/templates/default/images/status_ok.png" alt="ok">
+                                    </td>
+                                    <td class=globalstatusvalue">free updates for the bayesian filters
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="notunderlined" href="https://www.mailcleaner.net/trial-request.html?key=Tx3kshaf7324fdD0!" target="_blank">
+                        <input type="button" class="linkrebutton" value="Enterprise Edition Trial" />
+                    </a>
+                </td>
+                <td>
+                    <a class="notunderlined" href="https://www.mailcleaner.net/community-edition-add-ons.html" target="_blank">
+                        <input type="button" class="linkrebutton" value="Purchase Add-ons" />
+                    </a>
+                </td>
+                <td>
+                    <a class="notunderlined" href="/admin/baseconfiguration/registration">
+                        <input type="button" class="linkrebutton" value="Register your Community Edition" />
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php
+    }
+?>
 <div class="globalbloc" style="min-height: 0px; padding-bottom: 12px;">
      <h1>InfoBox by MailCleaner Team</h1>
      <div class="maclasseamoi" style="min-height: 20px; max-height: 240px; padding: 6px 12px; overflow-y: scroll; text-align: justify">
-<?php } ?>
-
 <?php
-$urltoget='http://mcmanager.mailcleaner.net/';
+} 
+
+$urltoget='https://www.mailcleaner.net/infobox/';
 
 if ($user && $user->getUserType() == 'administrator') {
-        if ($sysconf->getOption('REGISTERED') == "1")
-                $urltoget = $urltoget.'mc-info-box.php';
-        else
-                $urltoget = $urltoget.'mc-ce-info-box.php';
-        $curl = curl_init();
+    if ($mcconfig->getOption('REGISTERED') == "1") {
+        $urltoget = $urltoget.'mc-info-box.php';
+    } else {
+        $urltoget = $urltoget.'mc-ce-info-box.php';
+    }
+	
+    $curl = curl_init();
+	curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3); 
+	curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_URL => $urltoget,
+        CURLOPT_FAILONERROR => true
+    ));
 
-        curl_setopt_array($curl, array(
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => $urltoget,
-                CURLOPT_FAILONERROR => true
-        ));
-        $result = curl_exec($curl);
-        if ($result === false)
-          echo "No text or no access to remote server.";
-        else
-          echo $result;
+    $result = curl_exec($curl);
+    if ($result === false) {
+        echo "No text or no access to remote server.";
+    } else {
+        echo $result;
+    }
 
-        echo "</div></div>";
+    echo "</div></div></div>";
 }
+
+if (!$this->is_slave) { 
 ?>
-
-<?php if (!$this->is_slave) { ?>
 <div id="globalstatsbloc" class="globalbloc globalstatbloc">
-  <div id="countsbloc1" class="countsbloc">
-  <h1><?php echo $this->t->_('Today\'s counts');?></h1>
-  <div id="globalstatsloaading" class="globaldataloading">
-    <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
-  </div>
-  </div>
-  <div id="countsbloc2" class="countsbloc hidden"></div>
+    <div id="countsbloc1" class="countsbloc">
+        <h1><?php echo $this->t->_('Today\'s counts');?></h1>
+        <div id="globalstatsloaading" class="globaldataloading">
+            <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
+        </div>
+    </div>
+    <div id="countsbloc2" class="countsbloc hidden"></div>
 </div>
-
-  <?php $user = Zend_Registry::get('user'); ?>
-  <?php if ($user && $user->getUserType() == 'administrator') {?>
-
+<?php 
+    $user = Zend_Registry::get('user');
+    if ($user && $user->getUserType() == 'administrator') {
+?>
 <div id="globalstatusbloc" class="globalbloc globalstatusbloc">
    <h1><?php echo $this->t->_('Overall system\'s status')?></h1>
    <div id="globalstatusloaading" class="globaldataloading">
-     <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
+        <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
    </div>
 </div>
+<?php
 
-  <?php } ?>
-
-<?php }?>
+        $watchdogs = '';
+        $slave = new Default_Model_Slave();
+        if ($user && $user->getUserType() == 'administrator') {
+            $urltoget = '/admin/downloads/watchdogs.html';
+            $curl = curl_init();
+	    
+            $id = 1;
+            foreach ($slave->fetchAll() as $s) {
+	            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3); 
+	            curl_setopt($curl, CURLOPT_TIMEOUT, 3); //timeout in seconds
+                curl_setopt_array($curl, array(
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_URL => "https://". $s->getHostname() . $urltoget,
+                    CURLOPT_FAILONERROR => true
+                ));
+                $result = curl_exec($curl);
+                if ($result !== false && !preg_match('/^<!DOCTYPE/',$result) && !preg_match('/^\s*<br\/>\s*$/',$result)) {
+                    $watchdogs .= "<h3>Host " . $s->getId() . " - " . $s->getHostname() . "</h3>$result<hr/>";
+                }
+            }
+        }
+        if ($watchdogs != '') {
+?>
+<div class="globalbloc" style="min-height: 0px; padding-bottom: 12px;">
+    <h1>System Warnings (<a href="https://support.mailcleaner.net/boards/3/topics/82-watchdogs">Resolution advice here</a>)</h1>
+    <div class="maclasseamoi" style="min-height: 20px; max-height: 240px; padding: 6px 12px; overflow-y: scroll; text-align: justify">
+    <?php print $watchdogs ?>
+    </div>
+</div>
+<?php 
+        }
+    }
+}
+?>

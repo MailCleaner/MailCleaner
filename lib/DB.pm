@@ -232,6 +232,21 @@ sub getList{
   return @results;
 }
 
+sub getCount {
+  my $this = shift;
+  my $query = shift;
+
+  my $dbh = $this->{dbh};
+  my $sth = $dbh->prepare($query);
+  my $res = $sth->execute();
+
+  my ($count) = $sth->fetchrow_array;
+
+  return($count);
+
+}
+
+
 sub getHashRow {
   my $this = shift;
   my $query = shift;

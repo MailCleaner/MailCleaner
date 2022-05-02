@@ -25,11 +25,24 @@ $(document).ready(function(){
 		loadIsExhaustive(url);
 		loadsearch(1);
 	});
-	
-	$("#search").keyup(function(event) {
+
+
+	function delay(callback, ms) {
+		var timer = 0;
+		return function() {
+			var context = this, args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function () {
+				callback.apply(context, args);
+			}, ms || 0);
+		};
+	}
+
+
+	$('#search').keypress(delay(function (e) {
 		showhideadd();
 		loadsearch(1);
-	});
+	}, 500));
 	
 	$("#searchform").submit(function(event) {
 		return false;

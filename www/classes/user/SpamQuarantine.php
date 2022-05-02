@@ -39,6 +39,8 @@ class SpamQuarantine extends Quarantine {
                       'days'          => DEFAULT_DAYS,
                       'mask_forced'   => 0,
                       'mask_bounces'  => 0,
+                      'spam_only'     => 0,
+                      'newsl_only'    => 0,
                       'group_quarantines' => 0,
                       'msg_per_page'  => DEFAULT_MSGS,
                       'order'         => array('date', 'desc'),
@@ -168,7 +170,7 @@ public function load() {
      $where = "( ";
      foreach ($addresses as $address) {
        if (preg_match('/(\S+)\@(\S+)/', $address, $matches)) {
-         $where .= "(to_domain='".$matches[2]."' AND to_user='".$matches[1]."') OR ";
+         $where .= "(to_domain='".$matches[2]."' AND (to_user='".$matches[1]."' OR to_user LIKE '".$matches[1]."+%')) OR ";
        }
      }
      $where = preg_replace('/OR $/', '', $where);
@@ -194,6 +196,11 @@ public function load() {
    if ($this->getFilter('mask_bounces')) {
       //@todo correct this filter
       //$where .= " AND NOT sender LIKE '\*%'";
+   }
+   if ($this->getFilter('showSpamOnly') || (isset($clean_filters['spam_only']) && $clean_filters['spam_only'] == 1)) {
+      $where .= " AND is_newsletter != 1";
+   } elseif ($this->getFilter('showNewslettersOnly') || (isset($clean_filters['newsl_only']) && $clean_filters['newsl_only'] == 1)) {
+      $where .= " AND is_newsletter = 1";
    }
 
    // select the correct spam table
@@ -316,16 +323,17 @@ public function getHTMLList($to) {
     $template = str_replace('__SCORE__', $spam->getGlobalScore($to), $template);
     $template = str_replace('__SCOREVALUE__', $spam->getCleanData('M_globalscore'), $template);
     $template = str_replace('__SCORETEXT__', $lang_->print_txt_param("SCORETEXT", $spam->getCleanData('M_globalscore')), $template);
-    $template = str_replace('__TO_ADD__', $spam->getCleanData('to'), $template);
+    $template = str_replace('__TO_ADD__', urlencode($spam->getCleanData('to')), $template);
     if ($spam->getData('forced')) $template = preg_replace("/__FORCE__(.*)__FORCE__/", "$1", $template);
     else $template = preg_replace("/__FORCE__(.*)__FORCE__/", "", $template);
 
-    $template = str_replace('__FORCETARGET__', urlencode("/fm.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
-    $template = str_replace('__REASONSTARGET__', urlencode("/vi.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
-    $template = str_replace('__ANALYSETARGET__', urlencode("/send_to_analyse.php?a=".$spam->getCleanData('to')."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
+    $template = str_replace('__FORCETARGET__', urlencode("/fm.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()."&n=".$spam->getCleanData('is_newsletter')), $template);
+    $template = str_replace('__REASONSTARGET__', urlencode("/vi.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
+    $template = str_replace('__ANALYSETARGET__', urlencode("/send_to_analyse.php?a=".urlencode($spam->getCleanData('to'))."&id=".$spam->getCleanData('exim_id')."&s=".$spam->getCleanData('store_slave')."&lang=".$lang_->getLanguage()), $template);
   
     $template = str_replace('__MSG_ID__', urlencode($spam->getCleanData('exim_id')), $template);
     $template = str_replace('__STORE_ID__', urlencode($spam->getCleanData('store_slave')), $template);
+    $template = str_replace('__NEWS__', $spam->getCleanData('is_newsletter'), $template);
     $template = str_replace('__ROW_ID__', $i, $template);
     $template = str_replace('__FORCED__', $spam->getCleanData('forced'), $template);
     if ($spam->getCleanData('forced')) {
@@ -348,17 +356,18 @@ public function getHTMLList($to) {
 
         $id = $spam->getCleanData('exim_id');
         $sender = $spam->getCleanData('sender');
+        $slave = $spam->getCleanData('store_slave');
         $recipient = $spam->getCleanData('to_user').'@'.$spam->getCleanData('to_domain');
         $query = "select type from wwlists where sender = '".$sender."' and recipient = '".$recipient."'";
         $result = $db->getHash($query);
 
         if (empty($result)) {
-	    $hrefNews = "/newsletters.php?id=" . $id . "&a=" . $recipient;
-            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" href="%s" class="allow" target="_blank">%s</a></span>';
+	    $hrefNews = "/fm.php?id=" . $id . "&a=" . urlencode($recipient) . '&s=' . $slave . "&n=1&pop=up";
+            $link =  '<span style="float: right;"><a style="border: thin solid grey; padding: 2px; background-color: lightgrey; box-shadow: 2px 1px 0px lightgrey; text-decoration: none;" data-id="%s" data-a="%s" href="#" onClick="MyWindow=window.open(\'%s\',\'MyWindow\',\'width=600,height=500\'); return false;" class="allow">%s</a></span>';
             $rule = 'allow';
             $label = $lang_->print_txt('NEWSLETTERACCEPT');
 
-            $output = sprintf($link, $id, $hrefNews, $label);
+            $output = sprintf($link, $id, $recipient, $hrefNews, $label);
 
             $template = str_replace('__IS_NEWSLETTER__', $output, $template);
         } else {

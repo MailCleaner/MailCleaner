@@ -1,0 +1,28 @@
+header   __MC_SPF_WL       X-MailCleaner-SPF =~ /whitelisted/i
+
+header   __MC_SPF_FAIL       X-MailCleaner-SPF =~ /\bfail\b/i
+header   __MC_SPF_SOFTFAIL   X-MailCleaner-SPF =~ /\bsoftfail\b/i
+header   __MC_SPF_NEUTRAL    X-MailCleaner-SPF =~ /\bneutral\b/i
+header   __MC_SPF_NONE       X-MailCleaner-SPF =~ /\bnone\b/i
+header   __MC_SPF_PASS       X-MailCleaner-SPF =~ /\bpass\b/i
+
+meta   MC_SPF_FAIL       ( __MC_SPF_FAIL  && ! __MC_SPF_WL )
+meta   MC_SPF_SOFTFAIL   ( __MC_SPF_SOFTFAIL && ! __MC_SPF_WL )
+meta   MC_SPF_NEUTRAL    ( __MC_SPF_NEUTRAL && ! __MC_SPF_WL )
+meta   MC_SPF_NONE       ( __MC_SPF_NONE && ! __MC_SPF_WL )
+meta   MC_SPF_PASS       ( __MC_SPF_PASS && ! __MC_SPF_WL )
+
+
+__IF__ __USE_SPF__
+score MC_SPF_FAIL 10.0
+score MC_SPF_SOFTFAIL 2.0
+score MC_SPF_NEUTRAL -0.001
+score MC_SPF_NONE -0.001
+score MC_SPF_PASS -0.001
+__ELSE__ __USE_SPF__
+score MC_SPF_FAIL -0.001
+score MC_SPF_SOFTFAIL -0.001
+score MC_SPF_NEUTRAL -0.001
+score MC_SPF_NONE -0.001
+score MC_SPF_PASS -0.001
+__FI__ __USE_SPF__

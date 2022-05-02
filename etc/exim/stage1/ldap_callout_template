@@ -1,0 +1,31 @@
+LDAP_AD_MAIL_RCPT = \
+  user=${quote:${lookup{user}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}} \
+  pass=${quote:${lookup{pass}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}} \
+  nettime=10 \
+  ${if >{${strlen:${lookup{usessl}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}{ldaps://} {ldap://}}\
+  ${lookup{server}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}/${lookup{basedn}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}} \
+  ?mail?sub?\
+${if >{${strlen:${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}\
+ {(&\
+  (memberOf=${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}})\
+ }\
+}\
+  (|\
+    (&\
+      (|\
+        (objectClass=user)\
+        (objectClass=publicFolder)\
+        (objectClass=group)\
+      )\
+      (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
+    )\
+    (mail=${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
+    (otherMailbox=smtp:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
+    (proxyAddresses=SMTP:${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
+    (uid=${quote_ldap:${local_part}})\
+    (cn=${quote_ldap:${local_part}}@${quote_ldap:${domain}})\
+  )\
+${if >{${strlen:${lookup{group}lsearch{VARDIR/spool/tmp/mailcleaner/ldap_callouts/${domain}}}}}{0}\
+ {)}\
+}
+

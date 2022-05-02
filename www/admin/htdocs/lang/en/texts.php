@@ -177,7 +177,7 @@ $txt['MASKBOUNCES']                 = "Mask bounces";
 $txt['FORCESPAM']                   = "force the message";
 $txt['ASKREASON']                   = "see the message scoring";
 $txt['SENDSUM']                     = "send an immediate summary";
-$txt['ASKANALYSE']                  = "send this message for analyse";
+$txt['ASKANALYSE']                  = "send this message to analysis";
 $txt['PAGE']                        = "Page";
 $txt['NEXTPAGE']                    = "next";
 $txt['PREVIOUSPAGE']                = "previous";
@@ -440,7 +440,7 @@ $txt['CONFIRMFILENAMEDELETE']		= "Are you sure you want to delete permanently th
 
 $txt['EXTERNALACCESSCONFIGURATION'] = "External access configuration (firewall)";
 $txt['WEBGUIACCESS']                = "Web interface access";
-$txt['ALLOWEDIPS']                  = "Allowed ip(s) or range(s)";
+$txt['ALLOWEDIPS']                  = "Allowed IP(s) or range(s)";
 $txt['PORT']                        = "port(s)";
 $txt['DBACCESS']                    = "Database access";
 $txt['SNMPACCESS']                  = "SNMP access";

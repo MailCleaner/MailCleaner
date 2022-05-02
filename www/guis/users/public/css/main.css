@@ -1,6 +1,6 @@
 html, body {
-   margin: 0; 
-   padding: 0; 
+   margin: 0;
+   padding: 0;
    border: 0;
    font-family:  Arial;
    font-weight: normal;
@@ -35,21 +35,20 @@ input {
 
 /** main divs **/
 
-
-#container { 
+#container {
    position:relative;
    margin:0 auto;
    height:auto !important;
-   height: 100%; 
-   min-height: 100%; 
-   width: 100%; 
+   height: 100%;
+   min-height: 100%;
+   width: 100%;
    min-width: 955px;
 }
 
 #pagehead {
-	overflow: auto;
+    overflow: auto;
 }
-	
+
 #pagecontent {
   padding-bottom: 30px;
   overflow: auto;
@@ -161,16 +160,15 @@ input {
   font-size: 12px;
 }
 
-#generalconfigmenu li {  
-  height: 23px;
+#generalconfigmenu li {
   margin: 0px;
   padding: 0px;
-  border-bottom:1px solid #C6ADC6;  
+  border-bottom:1px solid #C6ADC6;
   line-height: 24px;
   padding-left: 13px;
 }
 
-#generalconfigmenu li a {   
+#generalconfigmenu li a {
   color: #666666;
   text-decoration: none;
 }
@@ -194,7 +192,7 @@ input {
   max-width: 628px;
   border-left: 1px solid #C6ADC6;;
 }
-  
+
 #generalconfigcontent h1,h2 {
   color: #000000;
   text-decoration: underline;
@@ -202,7 +200,7 @@ input {
   margin: 0px;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding: 0px;	
+  padding: 0px;
 }
 
 #generalconfigcontent h2 {
@@ -219,11 +217,11 @@ input {
   margin-top: 2px;
   text-align: left;
   padding: 0px;
-  line-height: 16px;	
+  line-height: 16px;
 }
 
 #generalconfigcontent li {
-  margin-top: 10px;	
+  margin-top: 10px;
 }
 
 #generalconfigcontent img {
@@ -236,10 +234,10 @@ input {
 .actionslist {
   margin-top: 0px !important;
 }
-	
+
 .actions {
   line-height: 16px;
-  margin-top: 5px !important;	
+  margin-top: 5px !important;
 }
 
 /* tooltip */
@@ -251,6 +249,6 @@ input {
   padding-top: 3px;
   padding-bottom: 3px;
   background-color: #F3E675;
-  border:1px solid #CDC04B; 
+  border:1px solid #CDC04B;
   z-index: 10;
 }

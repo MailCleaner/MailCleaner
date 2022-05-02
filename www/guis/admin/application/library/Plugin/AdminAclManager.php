@@ -88,12 +88,12 @@
           $this->acl->allow('hotline', 'managecontentquarantine');
           $this->acl->allow('hotline', 'managetracing');
 
-          $this->acl->allow('manager', 'monitorreporting');
+          $this->acl->allow('hotline', 'monitorreporting');
           #$this->acl->allow('hotline', 'monitorlogs');
           #$this->acl->allow('hotline', 'monitormaintenance');
           #$this->acl->allow('hotline', 'monitorstatus');
        
-          $this->acl->allow('manager', 'Menu_Monitoring'); 
+          $this->acl->allow('hotline', 'Menu_Monitoring'); 
           $this->acl->allow('hotline', 'Menu_Management');
         }
         

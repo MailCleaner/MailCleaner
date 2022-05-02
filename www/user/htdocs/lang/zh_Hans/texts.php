@@ -35,18 +35,18 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "字节";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = '1月';
-$txt['MONTHAB2'] = '2月';
+$txt['MONTHAB1'] = '一月';
+$txt['MONTHAB2'] = '二月';
 $txt['MONTHAB3'] = '三月';
-$txt['MONTHAB4'] = '四月。';
+$txt['MONTHAB4'] = '四月';
 $txt['MONTHAB5'] = '五月';
 $txt['MONTHAB6'] = '六月';
 $txt['MONTHAB7'] = '七月';
-$txt['MONTHAB8'] = '八月。';
-$txt['MONTHAB9'] = '9 月。';
+$txt['MONTHAB8'] = '八月';
+$txt['MONTHAB9'] = '9月';
 $txt['MONTHAB10'] = '十月';
 $txt['MONTHAB11'] = '十一月';
-$txt['MONTHAB12'] = '12 月。';
+$txt['MONTHAB12'] = '十二月';
 $txt['MONTH1'] = '一月';
 $txt['MONTH2'] = '二月';
 $txt['MONTH3'] = '三月';
@@ -70,7 +70,7 @@ $txt['PASSWORD'] = "密码";
 //old
 $txt['ASKLOGIN'] = "请输入您的用户名和密码:";
 $txt['ORGANIZATIONUNIT'] = "组织机构单位";
-$txt['FORGOTPASSWORD'] = "忘记了密码？";
+$txt['FORGOTPASSWORD'] = "密码忘记了？";
 $txt['PASSWORDRESET'] = "密码已经重新设置。已经发送到您的邮箱中。";
 /*
  * menu
@@ -109,9 +109,9 @@ $txt['ANALYSEREQUEST'] = "筛选器调整请求";
 $txt['ANALYSEREQUESTV'] = "请求筛选器调整";
 $txt['SCORETEXT'] = "分数: __PARAM__";
 $txt['CLOSEWINDOW'] = "关闭窗口";
-$txt['CURRENTPAGE'] = "页 PARAM1 __of PARAM2";
+$txt['CURRENTPAGE'] = "页 __PARAM1__ of __PARAM2__";
 $txt['PURGEINFOS'] = "<strong> 后自动清除: </strong> __PARAM__ 天";
-$txt['DISPLAYEDINFOS'] = "<strong> 显示的消息: </strong> PARAM1 __最后天数 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
+$txt['DISPLAYEDINFOS'] = "<strong> 显示的消息: </strong> __PARAM1__ 最后天数 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
 $txt['DISPLAYEDINFOSS'] = "<strong> 显示的消息: </strong> __PARAM__ 最后几天。 ";
 //old
 $txt['QUARANTINETITLE'] = "__PARAM__ 的隔离列表";
@@ -167,7 +167,7 @@ $txt['SUMMARYSENDING'] = "隔离报告播送";
 $txt['PURGETITLE'] = "手动清除隔离";
 $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔离";
 $txt['COULDNOTPURGE'] = "由于内部错误, 无法清除 <strong> __PARAM__ </strong> 的隔离。请稍后再试。";
-$txt['ASKPURGECONFIRM'] = "是否确实要清除 <strong> PARAM2 __@xmltag@ 的隔离的最后一个 PARAM1 __days？";
+$txt['ASKPURGECONFIRM'] = "是否确实要清除 <strong>__PARAM2__</strong> 的隔离的最后一个 __PARAM1__ 天吗？";
 $txt['QUARANTINEPURGE'] = "手动清除隔离";
 $txt['GROUPQUARANTINES'] = "所有地址";
 /*
@@ -235,7 +235,7 @@ $txt['NOSUMMARY'] = "无报告";
 //old
 $txt['SUMMARYTYPE'] = "报告格式";
 $txt['USEDEFAULT'] = "使用默认值";
-$txt['SUMMHTML'] = "Html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "纯文本";
 //old
 $txt['EDITWHITELIST'] = "编辑白名单";
@@ -303,7 +303,7 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危险";
 //old
 $txt['USERCLEANSTAT'] = "__PARAM__ 清空";
-$txt['ALL'] = "所有...";
+$txt['ALL'] = "所有…";
 $txt['SEARCHPERIOD'] = "分析期间";
 $txt['LASTDAYS'] = "最后几天";
 $txt['LASTMONTHS'] = "最后几个月";
@@ -317,11 +317,11 @@ $txt['RECEIVEDSPAM'] = "垃圾邮件";
 $txt['RECEIVEDCLEAN'] = "清除邮件";
 $txt['NBPROCESSEDMSGS'] = "__PARAM__ 收到的消息";
 $txt['GLOBALSTATSTITLE'] = "所有地址的摘要";
-$txt['FROMDATETODATE'] = "从 __PARAM1__ __PARAM2__ __PARAM3__ 到 __PARAM4__ __PARAM5__. __PARAM6__";
+$txt['FROMDATETODATE'] = "从 __PARAM1__.__PARAM2__.__PARAM3__ 到 __PARAM4__.__PARAM5__.__PARAM6__";
 /*
  * some error messages
  */
-$txt['BADARGS'] = "内部 MailCleaner 错误 (_PARAM_MESSAGE_ERREUR__)。请与系统管理员联系, 了解问题的详细信息。";
+$txt['BADARGS'] = "内部 MailCleaner 错误 (__PARAM__)。请与系统管理员联系, 了解问题的详细信息。";
 $txt['INCORRECTMSGID'] = "由于消息标识符不正确, 请求的操作无法完成。";
 $txt['NOSUCHADDR'] = "给定地址不受 MailCleaner 保护。";
 $txt['ERRORSENDING'] = "发送邮件时出错。请重试。如果问题仍然存在, 请与系统管理员联系。";
@@ -403,3 +403,119 @@ $txt['CHOOSELANGUAGE'] = "语言选择";
 $txt['ADDANADDRESS'] = "增加一个地址到组中";
 $txt['ADDTHEADDRESS'] = "&lt; 将地址添加到组中";
 $txt['ADDANADDRESSSHORTHELP'] = "输入你想要添加到组中的地址。";
+/*
+ * aliases (new)
+ */
+$txt['ADDLISTSHORTHELP'] = "此组包含您要从该帐户管理的所有地址和别名。然后, 您可以使用当前凭据以集中方式访问其隔离、统计和设置。";
+$txt['REMANADDRESS'] = "从组中删除一个或多个地址 (es)";
+$txt['REMTHEADDRESS'] = "删除选定内容";
+$txt['REMANADDRESSSHORTHELP'] = "选中要删除的每个地址旁边的复选框, 然后单击 \"删除选择\" 按钮。";
+$txt['WAITINGCONFIRMATION'] = "等待确认";
+/*
+ * addresses settings (new)
+ */
+$txt['ADDPARAMSHORTHELP'] = "可以为每个地址自定义垃圾邮件处理模式。有关可用的不同处理模式的详细信息, 请检查用户手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。";
+$txt['FOREACHSPAMDO'] = "对于被检测为垃圾邮件的每条消息:";
+$txt['FOREACHNEWSLETTERDO'] = "对于被检测为新闻稿的每条消息:";
+$txt['KEEPMESSAGEINQUARANTINE'] = "保留在隔离中";
+$txt['TAGMESSAGEWITHTAG'] = "使用主题关键字传递";
+$txt['DROPMESSAGE'] = "立即删除";
+$txt['SUMMARYSENTFREQ'] = "隔离报告频率";
+$txt['SUMMARYFORMAT'] = "隔离报告的格式";
+$txt['SUMMARYTO'] = "将报告发送到此地址";
+$txt['OTHER'] = "其他。。。";
+$txt['APPLYTOALLADDRESSES'] = "将设置应用于所有地址";
+$txt['PLAINTEXT'] = "纯文本";
+$txt['HTML'] = "超文本标记语言";
+$txt['DIGEST'] = "摘要";
+$txt['KEEPBOUNCESINQUARANTINE'] = "保留错误消息";
+$txt['PARAMETERSSAVED'] = "您的设置已保存。";
+$txt['NOTSAVED'] = "无法保存您的设置。";
+$txt['INVALIDSUMMARYTO'] = "为报告提供的电子邮件地址无效";
+/*
+ * quarantine  (new)
+ */
+$txt['CONFIGQUARSHORTHELP'] = "隔离显示可以自定义 (天数和行数) 以满足您的需要和习惯。";
+$txt['QUARNBLINESDISPLAYED'] = "显示的行数";
+$txt['QUARNBDAYSDISAPLYED'] = "显示的天数";
+$txt['MASKEALREADYFORCED'] = "隐藏用户发布的消息";
+$txt['DEFAULTADDRESDISPPLAYED'] = "默认情况下显示的地址";
+$txt['YESTERDAY'] = "昨天";
+$txt['TODAY'] = "今天";
+/*
+ * wwlists (new)
+ */
+$txt['WARNLISTSHORTHELP'] = "警告列表包含可信发件人地址，当来自这些地址的邮件被检测为垃圾邮件时会通过电子邮件通知你。然后，您可以在出现过滤错误时立即释放消息。<br />
+\t\t\t\t\t\t\t\t   警告:此功能应作为临时解决方案使用，因为它降低了整体保护。 
+\t\t\t\t\t\t\t\t   检查手册（位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解有关警告列表用法的更多信息 ";
+$txt['WARNLISTFORADDRESS'] = "地址警告列表";
+$txt['ADDAWARNENTRY'] = "向列表中添加地址";
+$txt['WARNLISTENTRYTOADD'] = "输入要添加到警告列表中的地址。您还可以添加可选注释。";
+$txt['ADDTHEENTRY'] = "&lt; 添加地址";
+$txt['REMOVEANENTRY'] = "禁用、启用或删除列表中的地址";
+$txt['REMOVEAWARNENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['REMTHEENTRY'] = "删除选定内容";
+$txt['DISABLETHEENTRY'] = "禁用/启用选择";
+$txt['WHITELISTSHORTHELP'] = "此白名单包含隔离保留永不适用的受信任发件人地址。<br />
+                                   警告:此功能应作为临时解决方案使用，因为它降低了整体保护。
+                                  检查手册 (位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解更多白名单的用法。 
+";
+$txt['BLACKLISTSHORTHELP'] = "黑色列表中包含未列入黑名单的发件人地址。 
+有关黑列表用法的详细信息, 请检查手册 (在 <a href=\"help.php\"> \"帮助\" </a> 部分中提供)。
+";
+$txt['WHITELISTFORADDRESS'] = "地址白名单";
+$txt['ADDAWHITEENTRY'] = "向列表中添加地址";
+$txt['WHITELISTENTRYTOADD'] = "输入要添加到白名单中的地址。您还可以添加可选注释。";
+$txt['REMOVEAWHITEENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['BLACKLISTFORADDRESS'] = "地址黑名单";
+$txt['ADDABLACKENTRY'] = "向列表中添加地址";
+$txt['BLACKLISTENTRYTOADD'] = "输入要添加到黑名单中的地址。您还可以添加可选注释。";
+$txt['REMOVEABLACKENTRYSHORTHELP'] = "从列表中选择要修改的地址或地址, 然后单击所需的操作按钮。";
+$txt['RECORDALREADYEXISTS'] = "此地址已存在于列表中。";
+/*
+ * logout (new)
+ */
+$txt['SESSIONTERMINATED'] = "您的会话已结束。";
+$txt['BEENLOGGEDOUT'] = "如果希望启动新会话, 请单击此链接: <a href=\"__PARAM__\" > __PARAM__ </a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "已允许并发布新闻稿。";
+$txt['NLRELEASEDBODY'] = "新闻稿已被允许并发布。它应该在几分钟内送达您的邮箱。";
+$txt['NLNOTRELEASEDHEAD'] = "新闻稿未发布";
+$txt['NLNOTRELEASEDBODY'] = "发布邮件时出现问题。";
+//old
+$txt['EDITNEWSLIST'] = "编辑新闻列表";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__新闻列表";
+$txt['NEWSLISTTOPIC'] = "新闻列表";
+$txt['NEWSLISTTOPICTITLE'] = "新闻列表";
+$txt['NEWSLISTSHORTHELP'] = "通讯列表包含所需通讯的地址。<br />
+                                  检查手册 (位于 <a href=\"help.php\">\"帮助\"</a>部分) 了解更多通讯列表的用法。
+";
+$txt['NEWSLISTFORADDRESS'] = "新闻稿列表的地址";
+$txt['ADDANEWSENTRY'] = "添加一个地址到列表";
+$txt['NEWSLISTENTRYTOADD'] = "输入要添加到新闻稿列表中的地址。您还可以添加可选注释。";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "从列表中选择要修改的地址, 然后单击所需的操作按钮。";
+$txt['SPAMONLY'] = "仅显示垃圾邮件";
+$txt['CANNOTCONNECTDB'] = "无法连接。";
+$txt['CANNOTSELECTDB'] = "无法搜索。";
+$txt['DESTNOTVALID'] = "地址无效。";
+$txt['SENDERNOTVALID'] = "无效的发件人地址。";
+$txt['UNKNOWNERROR'] = "未知错误。";
+$txt['NEWSLISTBODY'] = "添加了新闻白名单。如检测到此发件人的邮件为新闻，则被标记。";
+$txt['ADDTOGROUP'] = "为组中的所有地址添加";
+$txt['CONFIGREADFAIL'] = "无法读取配置文件。";
+$txt['DUPLICATEENTRY'] = "条目重复";
+$txt['NEWSLONLY'] = "仅显示新闻";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "无法加载消息（可能不存在）。";
+$txt['CANNOTINSERTDB'] = "无法插入。";
+$txt['ENTIREDOMAIN'] = "整个域名";
+$txt['NEWSLISTHEAD'] = "添加了新闻列表规则。";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "接受来自同一发件人的所有未来新闻？";

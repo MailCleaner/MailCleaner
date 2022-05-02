@@ -6,25 +6,25 @@
  * @copyright 2006, Olivier Diserens
  */
 ### newsl
-$txt['NEWSLETTERMODULE'] = "通訊";
-$txt['NEWSLETTERSTOPIC'] = "簡訊";
-$txt['NEWSLETTERSTOPICTITLE'] = "簡訊";
-$txt['NEWSLETTERSSHORTHELP'] = "在這裡你可以管理你的通訊。";
-$txt['NEWSLETTERSALLOW'] = "交付";
-$txt['NEWSLETTERACCEPT'] = "接受本通訊";
-$txt['SPAM_WHITELIST_DISABLED'] = "該域名未激活（請聯繫您的管理員）。";
+$txt['NEWSLETTERMODULE'] = "電子報";
+$txt['NEWSLETTERSTOPIC'] = "電子報";
+$txt['NEWSLETTERSTOPICTITLE'] = "電子報";
+$txt['NEWSLETTERSSHORTHELP'] = "您可以從這裡管理您的電子報。";
+$txt['NEWSLETTERSALLOW'] = "寄送";
+$txt['NEWSLETTERACCEPT'] = "接受此電子報";
+$txt['SPAM_WHITELIST_DISABLED'] = "本網域尚未啟用此清單（請與您的管理員連繫）。";
 /* 
  * generic buttons
  */
 $txt['SUBMIT'] = "提交";
 $txt['CANCEL'] = "取消";
-$txt['CLOSE'] = "關";
+$txt['CLOSE'] = "關閉";
 // old
-$txt['ADD'] = "加";
+$txt['ADD'] = "新增";
 $txt['CONFIRM'] = "確認";
-$txt['REFRESH'] = "刷新";
-$txt['SEARCH'] = "搜索";
-$txt['SEND'] = "發送";
+$txt['REFRESH'] = "更新";
+$txt['SEARCH'] = "搜尋";
+$txt['SEND'] = "傳送";
 // old
 $txt['CLEAR'] = "清除";
 /*
@@ -35,82 +35,82 @@ $txt['MB'] = "MB";
 $txt['KB'] = "KB";
 $txt['BYTES'] = "bytes";
 $txt['DATEFORMAT'] = "_D__M__Y_";
-$txt['MONTHAB1'] = '1月';
-$txt['MONTHAB2'] = '2月';
-$txt['MONTHAB3'] = '3月';
-$txt['MONTHAB4'] = '4月';
-$txt['MONTHAB5'] = '5月';
-$txt['MONTHAB6'] = '6月';
-$txt['MONTHAB7'] = '7月';
-$txt['MONTHAB8'] = '8月';
-$txt['MONTHAB9'] = '9月';
-$txt['MONTHAB10'] = '10月';
-$txt['MONTHAB11'] = '11月';
-$txt['MONTHAB12'] = '12月';
-$txt['MONTH1'] = 'January';
-$txt['MONTH2'] = 'February';
-$txt['MONTH3'] = 'March';
-$txt['MONTH4'] = 'April';
-$txt['MONTH5'] = 'May';
-$txt['MONTH6'] = 'June';
-$txt['MONTH7'] = 'July';
-$txt['MONTH8'] = 'August';
-$txt['MONTH9'] = 'September';
-$txt['MONTH10'] = 'October';
-$txt['MONTH11'] = 'November';
-$txt['MONTH12'] = 'December';
+$txt['MONTHAB1'] = '一月';
+$txt['MONTHAB2'] = '二月';
+$txt['MONTHAB3'] = '三月';
+$txt['MONTHAB4'] = '四月';
+$txt['MONTHAB5'] = '五月';
+$txt['MONTHAB6'] = '六月';
+$txt['MONTHAB7'] = '七月';
+$txt['MONTHAB8'] = '八月';
+$txt['MONTHAB9'] = '九月';
+$txt['MONTHAB10'] = '十月';
+$txt['MONTHAB11'] = '十一月';
+$txt['MONTHAB12'] = '十二月';
+$txt['MONTH1'] = '一月';
+$txt['MONTH2'] = '二月';
+$txt['MONTH3'] = '三月';
+$txt['MONTH4'] = '四月';
+$txt['MONTH5'] = '五月';
+$txt['MONTH6'] = '六月';
+$txt['MONTH7'] = '七月';
+$txt['MONTH8'] = '八月';
+$txt['MONTH9'] = '九月';
+$txt['MONTH10'] = '十月';
+$txt['MONTH11'] = '十一月';
+$txt['MONTH12'] = '十二月';
 /*
  * login page
  */
-$txt['BADLOGIN'] = "用戶名或密碼錯誤。";
+$txt['BADLOGIN'] = "使用者帳號或密碼錯誤。";
 $txt['SESSIONEXPIRED'] = "Session已過期。";
-$txt['LOGININFO'] = "提醒：您的用戶名和密碼與您的電子郵件帳戶相同";
-$txt['USERNAME'] = "用戶名";
+$txt['LOGININFO'] = "提醒：您的使用者名稱和密碼與您的電子郵件帳戶相同";
+$txt['USERNAME'] = "使用者帳號";
 $txt['PASSWORD'] = "密碼";
 //old
-$txt['ASKLOGIN'] = "請輸入您的用戶名和密碼：";
+$txt['ASKLOGIN'] = "請輸入您的使用者帳號和密碼：";
 $txt['ORGANIZATIONUNIT'] = "組織單位";
 $txt['FORGOTPASSWORD'] = "忘記密碼 ？";
-$txt['PASSWORDRESET'] = "密碼已被重置。它已被發送到您的郵箱地址。";
+$txt['PASSWORDRESET'] = "密碼已被重設並已發送到您的電子郵件地址。";
 /*
  * menu
  */
-$txt['CONFIGURATIONMENU'] = "Configuration";
-$txt['HELPMENU'] = "Help";
-$txt['QUARANTINEMENU'] = "隔離";
+$txt['CONFIGURATIONMENU'] = "設置";
+$txt['HELPMENU'] = "說明";
+$txt['QUARANTINEMENU'] = "隔離區";
 $txt['STATISTICSMENU'] = "統計";
 $txt['LOGOUT'] = "登出";
 //old
-$txt['LOGGEDAS'] = "您登錄為：";
+$txt['LOGGEDAS'] = "您登入為：";
 // old
-$txt['MAINADDRESS'] = "main address";
-$txt['PARAMETERS'] = "設置";
-$txt['QUARANTINE'] = "隔離";
-$txt['NAVSUPPORT'] = "Support";
+$txt['MAINADDRESS'] = "主要地址";
+$txt['PARAMETERS'] = "設定";
+$txt['QUARANTINE'] = "隔離區";
+$txt['NAVSUPPORT'] = "支援";
 /*
  * quarantaine
  */
-$txt['SELECTEDADDRESS'] = "顯示的位址";
-$txt['QUARANTINESUMMARY'] = "<strong> 在隔離區中: </strong> __PARAM__ 消息";
-$txt['SEARCHSUMMARY'] = "<strong> 搜索: </strong> __PARAM__ 消息";
+$txt['SELECTEDADDRESS'] = "顯示的地址";
+$txt['QUARANTINESUMMARY'] = "<strong> 在隔離區中: </strong> __PARAM__ 郵件";
+$txt['SEARCHSUMMARY'] = "<strong> 搜索: </strong> __PARAM__ 郵件";
 $txt['ORDEREDBYPARAM'] = "按 __PARAM__ 排序";
 $txt['RESETSEARCH'] = "顯示完整的隔離清單";
 $txt['ODATE'] = "日期";
 $txt['OTIME'] = "時間";
 $txt['ODESTINATION'] = "收件人";
-$txt['OSENDER'] = "發件人";
-$txt['OSCORE'] = "score";
+$txt['OSENDER'] = "寄件者";
+$txt['OSCORE'] = "評分";
 $txt['OSUBJECT'] = "主旨";
 //old
-$txt['CRITERIAS'] = "篩選規則";
-$txt['FORCEMESSAGE'] = "釋放郵件";
-$txt['MESSAGEFORCING'] = "消息發佈";
-$txt['ANALYSEREQUEST'] = "篩選器調整請求";
-$txt['ANALYSEREQUESTV'] = "要求篩選器調整";
-$txt['SCORETEXT'] = "Score: __PARAM__";
+$txt['CRITERIAS'] = "過濾規則";
+$txt['FORCEMESSAGE'] = "釋出郵件";
+$txt['MESSAGEFORCING'] = "郵件釋出";
+$txt['ANALYSEREQUEST'] = "過濾器調整請求";
+$txt['ANALYSEREQUESTV'] = "要求過濾器調整";
+$txt['SCORETEXT'] = "評分: __PARAM__";
 $txt['CLOSEWINDOW'] = "關閉視窗";
 $txt['CURRENTPAGE'] = "頁 _ PARAM1 __of _ PARAM2 _";
-$txt['PURGEINFOS'] = "<strong> 自動清除後: </strong> __PARAM__ 天";
+$txt['PURGEINFOS'] = "__PARAM__ 天後<strong> 自動清除: </strong>";
 $txt['DISPLAYEDINFOS'] = "<strong> 顯示的郵件數: </strong> _ PARAM1 __last 天 (<a href=\"__PARAM2__\"> 修改... </a>)。 ";
 $txt['DISPLAYEDINFOSS'] = "<strong> 顯示的消息: </strong> __PARAM__ 最後幾天。 ";
 //old
@@ -128,12 +128,12 @@ $txt['HOUR'] = "時間";
 $txt['FROM'] = "從";
 $txt['TO'] = "给";
 $txt['SUBJECT'] = "主旨";
-$txt['FORCED'] = "Released";
-$txt['ACTION'] = "Action";
+$txt['FORCED'] = "釋放";
+$txt['ACTION'] = "動作";
 //old
 $txt['TOTALSPAMS'] = "總計: __PARAM__ 的垃圾郵件";
 //old
-$txt['FORTHEXLASTDAYS'] = "__PARAM__ last days";
+$txt['FORTHEXLASTDAYS'] = "__PARAM__ 最後幾天";
 $txt['PURGESELECTEDSPAMS'] = "手動清除隔離";
 //old
 $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
@@ -141,12 +141,12 @@ $txt['HIDEFORCED'] = "隱藏使用者發佈的消息";
 $txt['FORCESPAM'] = "釋放郵件";
 //old
 $txt['ASKREASON'] = "顯示篩選規則";
-$txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析中心;它包含錯誤阻止的郵件的副本。";
+$txt['CONFSENDANALYSE'] = "篩選器調整請求將發送到 MailCleaner 分析中心;它包含錯誤阻止的郵件的副本。</br> 注意：篩選器調整與白名單或黑名單不同";
 $txt['AREYOUSURE'] = "<span class=\"question\"> 是否確實要分析此消息, 以及是否可以應用篩選器調整？ </span>";
 $txt['ASKANALYSE'] = "篩選器調整請求";
 $txt['PAGE'] = "頁";
-$txt['NEXTPAGE'] = "Next";
-$txt['PREVIOUSPAGE'] = "Previous";
+$txt['NEXTPAGE'] = "下一頁";
+$txt['PREVIOUSPAGE'] = "上一頁";
 //old
 $txt['GETREASONSTITLE'] = "篩選原因";
 $txt['HITRULE'] = "規則";
@@ -167,51 +167,51 @@ $txt['SUMMARYSENDING'] = "隔離報告傳輸";
 $txt['PURGETITLE'] = "手動清除隔離";
 $txt['PURGEDONE'] = "已清除 <strong> __PARAM__ </strong> 的隔離";
 $txt['COULDNOTPURGE'] = "由於內部錯誤, 無法清除 <strong> __PARAM__ </strong> 的隔離。請稍後再試。";
-$txt['ASKPURGECONFIRM'] = "確實要清除 <strong> __ PARAM2 __</strong>@xmltag@ 的隔離的最後一個 PARAM1 __days 嗎？";
+$txt['ASKPURGECONFIRM'] = "您確定要清除 <strong> __ PARAM2 __</strong>隔離的最後 __PARAM1__ 天嗎？";
 $txt['QUARANTINEPURGE'] = "手動清除隔離";
-$txt['GROUPQUARANTINES'] = "All addresses";
+$txt['GROUPQUARANTINES'] = "所有位址";
 /*
  * preview panel
  */
-$txt['INFORMATIONSABOUTMSG'] = "Contents of the message";
+$txt['INFORMATIONSABOUTMSG'] = "訊息內容";
 $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "黑名單";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "none";
 $txt['HEADERS'] = "標頭";
 $txt['BODY'] = "正文";
-$txt['PARTS'] = "Parts";
-$txt['STORESLAVE'] = "Storage";
-$txt['SPAMCSCORE'] = "Rules score";
+$txt['PARTS'] = "部分";
+$txt['STORESLAVE'] = "存儲";
+$txt['SPAMCSCORE'] = "規則評分";
 $txt['DESCRIPTION'] = "描述";
 $txt['MESSAGEPREVIEW'] = "郵件預覽";
-$txt['ID'] = "Identifier";
+$txt['ID'] = "識別碼";
 /*
  * logout page
  */
-$txt['LOGOUTTEXT'] = "<p> 您的 MailCleaner  session已結束. </p><p> 如果希望啟動新的 session, 請按一下以下連結: </p>";
+$txt['LOGOUTTEXT'] = "<p>您的 MailCleaner  進程已結束. </p><p> 如果希望啟動新的 進程, 請按一下以下連結:</p>";
 /*
  * parameters page
  */
 //old
-$txt['PARAMTITLE'] = "個人 MailCleaner 設置";
+$txt['PARAMTITLE'] = "MailCleaner個人設置";
 //old
 $txt['USERPARAM'] = "使用者設置";
 //old
-$txt['ADDRESSPARAM'] = "Address settings";
+$txt['ADDRESSPARAM'] = "地址設置";
 //old
 $txt['LANGUAGE'] = "語言";
 $txt['ADDRESS'] = "Address";
 //old
-$txt['ADDRALIASTITLE'] = "Address group";
+$txt['ADDRALIASTITLE'] = "地址簿";
 //old
 $txt['FILTERACTIONTITLE'] = "垃圾郵件處理模式";
 //old
 $txt['SUMMARYPARAMSTITLE'] = "隔離報告設置";
 //old
-$txt['ADDRESSESLISTTITLE'] = "Personal address group: (__PARAM__ address(es))";
+$txt['ADDRESSESLISTTITLE'] = "個人地址簿: (__PARAM__ address(es))";
 //old
-$txt['APPLYALLADDRESSES'] = "Apply changes to all addresses";
+$txt['APPLYALLADDRESSES'] = "將更改應用於所有地址";
 //old
 $txt['MAIN'] = "主要的";
 //old
@@ -235,7 +235,7 @@ $txt['NOSUMMARY'] = "無報告";
 //old
 $txt['SUMMARYTYPE'] = "報告格式";
 $txt['USEDEFAULT'] = "使用預設";
-$txt['SUMMHTML'] = "html";
+$txt['SUMMHTML'] = "HTML";
 $txt['SUMMTEXT'] = "純文字";
 //old
 $txt['EDITWHITELIST'] = "編輯白名單";
@@ -252,9 +252,9 @@ $txt['ACTIONS'] = "行動";
 //old
 $txt['ACTIVE'] = "active";
 //old
-$txt['INNACTIVE'] = "inactive";
+$txt['INNACTIVE'] = "停用";
 //old
-$txt['WWENTRY'] = "Entry";
+$txt['WWENTRY'] = "進入";
 //old
 $txt['CONFIRMWWENTRYDELETE'] = "是否確實要永久刪除此項？";
 //old
@@ -267,29 +267,29 @@ $txt['STATUS'] = "狀態";
  * alias stuff
  */
 //old
-$txt['ADDALIASTITLE'] = "添加address";
+$txt['ADDALIASTITLE'] = "添加地址";
 //old
-$txt['ADDALIASFORM'] = "Address";
+$txt['ADDALIASFORM'] = "地址";
 //old
-$txt['REMADDRESSALT'] = "刪除address";
+$txt['REMADDRESSALT'] = "刪除地址";
 //old
-$txt['ADDADDRESSALT'] = "添加address";
-$txt['BADADDRESSFORMAT'] = "給定address無效。請重試。";
-$txt['NOTFILTEREDDOMAIN'] = "MailCleaner 不篩選此domain。無法添加address。";
-$txt['ALIASALREADYREGISTERD'] = "此address已由 MailCleaner 帳戶使用。無法添加。";
-$txt['ALIASALREADYPENDING'] = "此address的確認已掛起。";
-$txt['ALIASPENDING'] = "已將確認發送到此address. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加address。";
-$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]address添加請求";
+$txt['ADDADDRESSALT'] = "添加地址";
+$txt['BADADDRESSFORMAT'] = "給定地址無效。請重試。";
+$txt['NOTFILTEREDDOMAIN'] = "MailCleaner不篩選此郵件域。無法添加地址。";
+$txt['ALIASALREADYREGISTERD'] = "此地址已由 MailCleaner 帳戶使用。無法添加。";
+$txt['ALIASALREADYPENDING'] = "此地址的確認已掛起。";
+$txt['ALIASPENDING'] = "已將確認發送到此地址. <br/>出於安全原因, 只有在24小時內確認請求時, 才會添加地址。";
+$txt['ALIASREQUESTSUBJECT'] = "[MailCleaner]地址添加請求";
 $txt['ALIASERRORSENDIG'] = "由於內部錯誤, 無法發送請求。請稍後再試。";
-$txt['ALIASNOTPENDING'] = "此位址當前未掛起任何請求。";
-$txt['ALIASADDED'] = "已成功添加address。";
+$txt['ALIASNOTPENDING'] = "此地址當前未掛起任何請求。";
+$txt['ALIASADDED'] = "已成功添加地址。";
 $txt['ALIASREQUESTREMOVED'] = "請求已被取消。";
 //old
 $txt['REMALIASTITLE'] = "address刪除";
 //old
-$txt['REMALIASCONFIRM'] = "是否確實要刪除該address: __PARAM__？";
-$txt['ALIASREMOVED'] = "address __PARAM__ 已被刪除。";
-$txt['CANNOTREMOVEMAINADD'] = "address__PARAM__ 是主要的address。無法刪除。";
+$txt['REMALIASCONFIRM'] = "是否確實要刪除該地址: __PARAM__？";
+$txt['ALIASREMOVED'] = "地址__PARAM__ 已被刪除。";
+$txt['CANNOTREMOVEMAINADD'] = "地址__PARAM__ 是主要的郵件地址。無法刪除。";
 /*
  * statistics page
  */
@@ -302,8 +302,8 @@ $txt['USERSPAMSSTAT'] = "__PARAM__ 垃圾";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ 危險";
 //old
-$txt['USERCLEANSTAT'] = "__PARAM__ clean";
-$txt['ALL'] = "全部...";
+$txt['USERCLEANSTAT'] = "__PARAM__ 清潔";
+$txt['ALL'] = "全部…";
 $txt['SEARCHPERIOD'] = "分析期間";
 $txt['LASTDAYS'] = "最後幾天";
 $txt['LASTMONTHS'] = "最後幾個月";
@@ -321,7 +321,7 @@ $txt['FROMDATETODATE'] = "從 __PARAM1__ __PARAM2__ __PARAM3__ 到 __PARAM4__ __
 /*
  * some error messages
  */
-$txt['BADARGS'] = "內部 MailCleaner 錯誤 (_PARAM_MESSAGE_ERREUR__)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
+$txt['BADARGS'] = "MailCleaner 內部錯誤 (_PARAM_)。請與系統管理員聯繫, 瞭解問題的詳細資訊。";
 $txt['INCORRECTMSGID'] = "由於消息識別碼不正確, 無法完成請求的操作。";
 $txt['NOSUCHADDR'] = "給定的address不受 MailCleaner 的保護。";
 $txt['ERRORSENDING'] = "發送郵件時出錯。請重試。如果問題仍然存在, 請與系統管理員聯繫。";
@@ -381,14 +381,14 @@ $txt['ANALYSETOPICTITLE'] = "篩選器調整請求";
  * configuration menu (new)
  */
 $txt['CONFIGURATION'] = "配置";
-$txt['ADDRESSLISTTOPIC'] = "Address group";
+$txt['ADDRESSLISTTOPIC'] = "地址簿";
 $txt['ADDRESSPARAMTOPIC'] = "Address設置";
 $txt['QUARPARAMTOPIC'] = "隔離顯示";
 $txt['WARNLISTTOPIC'] = "警告清單";
 $txt['WHITELISTTOPIC'] = "白名單";
 $txt['BLACKLISTTOPIC'] = "黑名單";
 $txt['INTERFACETOPICTITLE'] = "介面設置";
-$txt['ADDRESSLISTTOPICTITLE'] = "address group";
+$txt['ADDRESSLISTTOPICTITLE'] = "地址簿";
 $txt['ADDRESSPARAMTOPICTITLE'] = "address 設置";
 $txt['QUARPARAMTOPICTITLE'] = "隔離顯示";
 $txt['WARNLISTTOPICTITLE'] = "警告清單";
@@ -423,7 +423,7 @@ $txt['DROPMESSAGE'] = "立即刪除";
 $txt['SUMMARYSENTFREQ'] = "檢疫報告的頻率";
 $txt['SUMMARYFORMAT'] = "隔離報告的格式";
 $txt['SUMMARYTO'] = "將報告發送到此位址";
-$txt['OTHER'] = "其他.";
+$txt['OTHER'] = "其他…";
 $txt['APPLYTOALLADDRESSES'] = "將設置應用於所有address";
 $txt['PLAINTEXT'] = "純文字";
 $txt['HTML'] = "超文本標記語言";
@@ -475,3 +475,83 @@ $txt['RECORDALREADYEXISTS'] = "此位址已存在於清單中。";
  */
 $txt['SESSIONTERMINATED'] = "您的session已結束。";
 $txt['BEENLOGGEDOUT'] = "如果要啟動新的session, 請按一下此連結: <a href=\"__PARAM__\" > __PARAM__ </a>";
+/*
+ * Newsletters release
+ */
+$txt['NLRELEASEDHEAD'] = "通訊已被允許並發布。";
+$txt['NLRELEASEDBODY'] = "該通訊已被允許並發布。 它應該在幾分鐘內發送到您的郵箱。";
+$txt['NLNOTRELEASEDHEAD'] = "通訊沒有發布";
+$txt['NLNOTRELEASEDBODY'] = "發布消息時出現問題。";
+//old
+$txt['EDITNEWSLIST'] = "編輯新聞列表";
+//old
+$txt['NEWSLISTFOR'] = "__PARAM__新聞列表";
+$txt['NEWSLISTTOPIC'] = "新闻列表";
+$txt['NEWSLISTTOPICTITLE'] = "新聞清單";
+$txt['NEWSLISTSHORTHELP'] = "電子報清單包含所需電子報的位址. <br/> 檢查手冊 (可在節中提供 <a href=\"help.php\"> \"説明\" </a>), 瞭解有關電子報清單使用方式的詳細資訊。
+";
+$txt['NEWSLISTFORADDRESS'] = "地址通讯列表";
+$txt['ADDANEWSENTRY'] = "向清單中添加位址";
+$txt['NEWSLISTENTRYTOADD'] = "輸入要添加到電子報清單中的位址。您還可以添加可選注釋。";
+$txt['REMOVEANEWSENTRYSHORTHELP'] = "选择您想要导出的字段，然后点击“添加字段”按钮。";
+$txt['ADDRULE'] = "新增白名單規則";
+//
+$txt['ADDITIONALACTION'] = "額外的動作：";
+$txt['SPAMONLY'] = "僅顯示垃圾郵件";
+$txt['NOTBLACKLISTBODY'] = "加入黑名單時發生問題。";
+$txt['NOTBLACKLISTHEAD'] = "尚未將規則加入至黑名單中。";
+$txt['BLACKLISTBODY'] = "已將規則加入至黑名單。將來從此寄件者的信件都會被標記為垃圾郵件。";
+$txt['BLACKLISTHEAD'] = "已加入到黑名單中。";
+/*
+ * Blacklist rule (not currently implemented)
+ */
+$txt['ADDBLACKLIST'] = "將來自此寄件者的郵件都列入黑名單嗎?";
+$txt['NOTNEWSWHITEBODY'] = "加入這些規則發生問題。";
+$txt['NOTNEWSWHITEHEAD'] = "不管電子報列表或是白名單都尚未加入。";
+$txt['WHITENOTNEWSBODY'] = "已將規則加入白名單，不過加入電子報白名單發生問題。";
+$txt['WHITENOTNEWSHEAD'] = "已加入白名單但是尚未加入電子報列表。";
+$txt['NEWSNOTWHITEBODY'] = "電子報規則已加入，但是加入白名單發生問題。";
+$txt['NEWSNOTWHITEHEAD'] = "已將規則加入電子報列表，但是尚未加入白名單。";
+$txt['NEWSWHITELISTBODY'] = "已將規則加入至電子報列表及白名單。將來從此寄件者的信件不會被標記為電子報或是垃圾郵件。";
+$txt['NEWSWHITELISTHEAD'] = "已將規則加入至電子報列表及白名單。";
+$txt['ADDWHITENEWSLIST'] = "未來將所有從相同寄件者垃圾郵件列入白名單? 並且將接受此寄件者的電子報?";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "未來將接受所有從相同寄件者的電子報? 並且將此寄件者的垃圾郵件列入到白名單?";
+$txt['NOTWHITELISTBODY'] = "新增至白名單發生問題。";
+$txt['NOTWHITELISTHEAD'] = "尚未將規則加入至白名單。";
+$txt['WHITELISTBODY'] = "已將規則加入至白名單。將來從此寄件者的信件不會被標記為垃圾郵件。";
+$txt['WHITELISTHEAD'] = "已將此規則加入至白名單。";
+/*
+ * Whitelist rule
+ */
+$txt['ADDWHITELIST'] = "將所有來自同個寄件者的垃圾郵件列入白名單?";
+$txt['NOTNEWSLISTBODY'] = "新增電子報白名單發生問題。";
+$txt['NOTNEWSLISTHEAD'] = "尚未加入到電子報規則列表。";
+$txt['NEWSLISTBODY'] = "已加入到電子報白名單。將來如果來此此寄件者的郵件不會被標記。";
+$txt['NEWSLISTHEAD'] = "已加入到電子報規則列表。";
+/*
+ * Newsletter rule
+ */
+$txt['ADDNEWSLIST'] = "之後將接受從相同寄件者寄出的所有電子報?";
+$txt['ENTIREDOMAIN'] = "整個網域";
+$txt['SENDERVARIATIONS'] = "所有寄件者郵件的變數";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "僅原始寄件者郵件地址";
+$txt['UNKNOWNERROR'] = "發生未知的錯誤。";
+$txt['SENDERNOTVALID'] = "無效的寄件者地址。";
+$txt['DESTNOTVALID'] = "無效的收件地址。";
+$txt['DUPLICATEENTRY'] = "輸入的項目重複已存在。";
+$txt['CONFIGREADFAIL'] = "讀取設定檔案失敗。";
+$txt['CANNOTINSERTDB'] = "新增資料到資料庫失敗。";
+$txt['CANNOTSELECTDB'] = "找不到資料庫。";
+$txt['CANNOTCONNECTDB'] = "資料庫無法連線。";
+/*
+ * SOAP errors
+ */
+$txt['CANNOTLOADMESSAGE'] = "載入訊息失敗(訊息不存在)。";
+$txt['ADDTOGROUP'] = "將全部地址加入群組";
+$txt['NEWSLONLY'] = "僅顯示電子報";

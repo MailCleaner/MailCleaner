@@ -47,6 +47,7 @@ class User extends PrefHandler {
                        'gui_graph_type' => 'bar',
                        'gui_group_quarantines' => '0',
                        'summary_to' => '',
+                       'summary_type' => 'NOTSET',
                        'allow_newsletters' => '',
         	          );	
                       
@@ -164,10 +165,12 @@ class User extends PrefHandler {
     global $sysconf_;
     global $admin_;
 
-    // TODO: sanitize $u
     if ($u == "") {
         return false;
     }
+    $db_slaveconf = DM_SlaveConfig :: getInstance();
+    $u = $db_slaveconf->sanitize($u);
+
     $this->setPref('username', $u);
     unset($this->addresses_);
     

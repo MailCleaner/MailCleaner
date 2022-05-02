@@ -67,8 +67,8 @@ function highlightActionIcon(img_row, forced, img_ext) {
   elem.src = img_src3;
 }
 
-function force(msgid, storeid, to) {
-  window.open('fm.php?a='+ encodeURIComponent(to) +'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up', '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
+function force(msgid, storeid, to, news, spam) {
+  window.open('fm.php?a='+ encodeURIComponent(to) +'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up&n='+news, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
 }
 
 function summary() {
@@ -93,6 +93,24 @@ function groupAddresses() {
         document.getElementById('filter_a').disabled=true;
     } else {
         document.getElementById('filter_a').disabled=false;
+    }
+    document.getElementById('filter').submit();
+}
+
+function showSpamOnly() {
+    spam = document.getElementById('filter_spam_only_cb');
+    if (spam.checked) {
+        document.getElementById('filter_newsl_only_cb').checked=false;
+        document.getElementById('filter_newsl_only_checkbox').value=0;
+    }
+    document.getElementById('filter').submit();
+}
+
+function showNewslOnly() {
+    newsl = document.getElementById('filter_newsl_only_cb');
+    if (newsl.checked) {
+        document.getElementById('filter_spam_only_cb').checked=false;
+        document.getElementById('filter_spam_only_checkbox').value=0;
     }
     document.getElementById('filter').submit();
 }

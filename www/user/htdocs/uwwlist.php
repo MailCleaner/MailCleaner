@@ -8,6 +8,10 @@
  * This is the controller for the file type protection configuration page
  */
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
  /**
   * require user session, view and file type settings objects
   */
@@ -193,6 +197,12 @@ function getWWListHeader() {
                 return  $lang_->print_txt('BLACKLISTFORGLOBAL');
         }
         return $lang_->print_txt_param('BLACKLISTFOR', $address);
+  }
+  else if ($type_get == 4 | $type_get == 'wnews') {
+	if ($address == '0') {
+                return  $lang_->print_txt('NEWSLISTFORGLOBAL');
+        }
+        return $lang_->print_txt_param('NEWSLISTFOR', $address);
   }
 }
 ?>

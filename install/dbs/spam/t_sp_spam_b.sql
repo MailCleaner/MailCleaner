@@ -20,6 +20,7 @@ CREATE TABLE spam_b (
         is_newsletter           enum('1','0') NOT NULL DEFAULT '0',
 	KEY exim_id_idx (exim_id),
 	KEY to_user_idx (to_user, to_domain),
-	KEY date_in_idx (date_in)
+	KEY date_in_idx (date_in),
+	UNIQUE KEY to_eximid (to_domain, to_user, exim_id)
 ) ENGINE=MyISAM;
 

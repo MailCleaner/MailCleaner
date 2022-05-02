@@ -165,6 +165,9 @@ class Default_Model_QuarantinedSpamMapper
                 ### newsl
 		if (isset($params['hidedup']) && $params['hidedup']!="") {
 		    $query->from($this->getDbTable()->getTableName(), 'COUNT(DISTINCT exim_id) as count');
+		} else if (!empty($params['showSpamOnly'])) {
+		    $query->from($this->getDbTable()->getTableName(), 'COUNT(*) as count');
+		    $query->where('is_newsletter != ?', 1);
 		} else if (!empty($params['showNewslettersOnly'])) {
 		    $query->from($this->getDbTable()->getTableName(), 'COUNT(*) as count');
 		    $query->where('is_newsletter = ?', 1);
@@ -253,8 +256,14 @@ class Default_Model_QuarantinedSpamMapper
             	$entries[] = $entry;
             }
             
+            if (!empty($params['showSpamOnly'])) {
+                foreach ($entries as $key => $element) {
+                    if ($element->getParam('is_newsletter') == '1') {
+                        unset($entries[$key]);
+                    }
+                }
             # newsl
-            if (!empty($params['showNewslettersOnly'])) {
+            } elseif (!empty($params['showNewslettersOnly'])) {
                 foreach ($entries as $key => $element) {
                     if ($element->getParam('is_newsletter') != '1') {
                         unset($entries[$key]);

@@ -7,6 +7,11 @@
  * 
  * This is the controller for the reasons list display page
  */  
+
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 require_once('variables.php');
 require_once("view/Language.php");
 require_once("user/Spam.php");
@@ -63,7 +68,7 @@ $template_->setCondition('FIRSTOPEN', $firstopen);
 $replace = array(
    '__MSG_ID__' => $spam->getData('exim_id'),
    '__TO__' => addslashes($spam->getCleanData('to')),
-   '__FROM__' => $spam->getCleanData('sender'),
+   '__FROM__' => urlencode($spam->getCleanData('sender')),
    '__DATE__' => $spam->getCleanData('date_in')." ".$spam->getData('time_in'),
    '__SUBJECT__' => htmlentities($spam->getCleanData('M_subject')),
    '__PREFILTERS__' => htmlentities(displayHit($spam->getData('M_prefilter'))),
@@ -78,6 +83,7 @@ $replace = array(
    '__BODYARROWLINK__' => getLink('body'),
    '__HEADERS__' => displayHeaders(),
    '__BODY__' => displayBody(),
+   '__NEWS__' => $spam->getData('is_newsletter'),
    '__PARTS__' => getMIMEParts(),
    '__STORESLAVE__' => $spam->getData('store_slave')
 );

@@ -1,86 +1,51 @@
-#! /bin/sh
-# /etc/init.d/spamd: start SpamAssassin daemon.
+#!/usr/bin/perl
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#
+#   /etc/init.d/spamd: service management for SpamD
 
-export PATH=$PATH:/sbin:/usr/sbin
+use strict;
+use warnings;
 
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "SRCDIR" = "" ]; then
-  SRCDIR=/opt/mailcleaner
-fi
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
-fi
+use lib '/usr/mailcleaner/lib';
+use ManageServices;
 
-prepare () {
-  $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
-  /usr/bin/pyzor discover >/dev/null 2>&1
+our $service = 'spamd';
 
-OPTIONS="";
-for conf in `cat $SRCDIR/etc/mailscanner/spamd.conf`; do
-  op=`echo $conf | cut -d'=' -f1`
-  val=`echo $conf | cut -d'=' -f2`
-  if [ "$op" = "$val" ] || [ "$val" = "yes" ]; then
-    OPTIONS=$OPTIONS" --$op"
-  else
-    if [ "$val" != "no" ]; then
-      OPTIONS=$OPTIONS" --$op=$val"
-    fi
-  fi 
-done
+my $manager = ManageServices->new( 'autoStart' => 0 ) || die "Failed to create object: $!\n";
+$manager->loadModule($service) || die "Could not load module for service: $service\n";
 
-DAEMON=/usr/local/bin/spamd
-#SPAMDOPTS="-C /usr/local/share/spamassassin/ 
-#           --siteconfigpath=$SRCDIR/share/spamassassin 
-#           -r $VARDIR/spool/spamassassin/spamd.pid 
-#           -s $VARDIR/log/mailscanner/spamd.log
-#           -u mailcleaner -g mailcleaner
-#           --socketpath=$VARDIR/spool/spamassassin/spamd.sock -d"
-export SPAMDOPTS="$OPTIONS"
+unless (scalar(@ARGV) && defined($manager->{'module'}->{'actions'}->{$ARGV[0]})) {
+	print "\nusage: $0 <action>\n\n";
+	$manager->usage($service);
+	exit();
 }
 
-export TMPDIR=$VARDIR/spool/tmp
+my $action = shift;
 
-if [ -L $SRCDIR/etc/mailscanner/spam.assassin.prefs.conf ]; then 
-    ln -s $SRCDIR/etc/mailscanner/spam.assassin.prefs.conf $SRCDIR/share/spamassassin/mailscanner.cf 2>&1 > /dev/null
-fi
+my $status = $manager->{'module'}->{'actions'}->{$action}->{'cmd'}($manager);
 
-case "$1" in
-  start)
-    touch $VARDIR/run/spamd.start.rs
-    echo -n "  Starting SpamAssassin daemon: "
-    prepare
-    $DAEMON $SPAMDOPTS >/dev/null 2>&1
-    echo "started."
-    if [ -f $VARDIR/run/spamd.rn ]; then
-      rm $VARDIR/run/spamd.rn
-    fi
-    rm $VARDIR/run/spamd.stopped >/dev/null 2>&1
-    rm $VARDIR/run/spamd.*.rs >/dev/null 2>&1
-    ;;
-  stop)
-    touch $VARDIR/run/spamd.stop.rs
-    echo -n "  Stopping SpamAssassin daemon: "
-    SPAMDPID=`pgrep -f spamd.pid`
-    if [ ! "$SPAMDPID" = "" ]; then
-      kill -KILL $SPAMDPID >/dev/null 2>&1
-    fi
-    for SPID in `pgrep -f 'spamd child'`; do
-      kill -KILL $SPID >/dev/null 2>&1
-    done
-    echo "stopped."
-    rm $VARDIR/run/spamd.stop.rs >/dev/null 2>&1
-    touch $VARDIR/run/spamd.stopped
-    ;;
-  restart|reload|force-reload)
-    touch $VARDIR/run/spamd.restart.rs
-	$0 stop
-	sleep 3
-	$0 start
-    ;;
-  *)
-    echo "Usage: /etc/init.d/spamd {start|stop|restart}"
-    exit 1
-esac
-
-exit 0
+if (defined($status) ) {
+	print $manager->{'services'}->{$service}->{'name'} . ': ';
+	if ($status =~ m/^\-?\d$/) {
+		print $manager->{'codes'}->{$status}->{'verbose'} . "\n";
+	} else {
+		print $status . "\n";
+	}
+} 

@@ -356,7 +356,7 @@ sub isValidDomain {
 
         $domain =~ s/\%//g;
 
-	if ( $domain =~ m/[a-z0-9\-_.:]+[.:][a-z0-9]{2,6}$/ ) {
+	if ( $domain =~ m/[a-z0-9\-_.:]+[.:][a-z0-9]{2,15}$/ ) {
 		if ($usewhitelist) {
 			foreach my $wd ( keys %{ $this->{whitelistedDomains} } ) {
 				if ( $domain =~ m/([^.]{0,150}\.$wd)$/ || $domain eq $wd ) {
@@ -561,14 +561,17 @@ sub check_dns {
 			$Checked   = $_;
 			$HitOrMiss = <$pipe>;
 			chomp $HitOrMiss;
-			push @HitList, $Checked
-			  if $HitOrMiss =~ m/Hit (127\.\d+\.\d+\.\d+)/;
+			if ($HitOrMiss =~ m/Hit (127\.\d+\.\d+\.\d+)/) {
+				push @HitList, $Checked;
+				&{ $this->{logfunction} }(
+                                        $prelog . " $value $Checked => $HitOrMiss" );
+			}
 		}
 		$pipe->close();
 		waitpid $pid, 0;
 		$PipeReturn = $?;
-		alarm 0;
 		$pid = 0;
+		alarm 0;
 	};
 	alarm 0;
 

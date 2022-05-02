@@ -55,6 +55,15 @@ sub create {
   } else {
   	$lang = $language;
   }
+  # If user pref langage is not currently translated for the template type,
+  # use english by default
+  my $conf = ReadConfig::getInstance();
+  if (! -d $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/${filename}_parts" &&
+	! -f $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/${filename}.txt")
+  {
+        $lang = 'en';
+  }
+
   ## summary_type not yet available as user preference
   if ($type !~ /(html|text)/) {
     $type = 'html';
@@ -70,7 +79,6 @@ sub create {
   	  $from = $dm;
   	}
   }
-  my $conf = ReadConfig::getInstance();
   $path = $conf->getOption('SRCDIR')."/templates/$directory/$template/$lang/$filename";
  # print "testing path: $path\n";
   if (! -d $path."_parts" && ! -f $path.".txt") {
@@ -224,6 +232,9 @@ sub addAttachement {
 sub send {
   my $this = shift;
   my $dest = shift;
+  my $retries = shift;
+  # set retries to 1 if it is not defined or inferior to 1
+  $retries = 1 if ( (! defined($retries)) || ($retries < 1) );
   
   my $to = $this->{to};
   if (defined($dest) && $dest =~ /^\S+\@\S+$/) {
@@ -348,9 +359,14 @@ sub send {
   }
  
   my $smtp;
-  unless ($smtp = Net::SMTP->new('localhost:2525')) {
-     print "cannot connect to outgoing smtp server !\n";
-     return 0;
+  while ($retries > 0) {
+    last if ($smtp = Net::SMTP->new('localhost:2525'));
+    $retries--;
+    if ($retries == 0) {
+      print "cannot connect to outgoing smtp server !\n";
+      return 0;
+    }
+    sleep 60;
   }
   $smtp->mail($from);
   $smtp->to($to);

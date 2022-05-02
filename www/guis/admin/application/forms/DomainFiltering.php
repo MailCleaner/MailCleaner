@@ -16,17 +16,19 @@ class Default_Form_DomainFiltering extends Zend_Form
         public $_whitelist;
         public $_warnlist;
 	public $_blacklist;
+        public $_newslist;
 
         public $_whitelistenabled = 0;
         public $_warnlistenabled = 0;
 	public $_blacklistenabled = 0;
 	
-	public function __construct($domain, $whitelist, $warnlist, $blacklist)
+	public function __construct($domain, $whitelist, $warnlist, $blacklist, $newslist)
 	{
 	    $this->_domain = $domain;
             $this->_whitelist = $whitelist;
             $this->_warnlist = $warnlist;
 	    $this->_blacklist = $blacklist;
+            $this->_newslist = $newslist;
 	    parent::__construct();
 	}
 	
@@ -100,7 +102,18 @@ class Default_Form_DomainFiltering extends Zend_Form
             $antispoof->setChecked(true);
         }
         $this->addElement($antispoof);
-        
+
+	$reject_capital_domain = new Zend_Form_Element_Checkbox('reject_capital_domain', array(
+            'label'   => $t->_('Reject domains containing capital letters'). " :",
+            'title' => $t->_("Forbidss the use of capital letters in the sender s domain name."),
+            'uncheckedValue' => "0",
+            'checkedValue' => "1"
+                  ));
+        if ($this->_domain->getPref('reject_capital_domain')) {
+            $reject_capital_domain->setChecked(true);
+        }
+	$this->addElement($reject_capital_domain);
+
         $require_incoming_tls = new Zend_Form_Element_Checkbox('require_incoming_tls', array(
 	        'label'   => $t->_('Reject unencrypted SMTP sessions to this domain'). " :",
                 'title' => $t->_("Refuse all unencrypted connection with other MTA"),
@@ -187,6 +200,11 @@ class Default_Form_DomainFiltering extends Zend_Form
                 $this->_warnlistform->setAddedValues(array('recipient' => '@'.$this->_domain->getParam('name'), 'type' => 'warn'));
                 $this->_warnlistform->addFields($this);
 	    
+            $this->_newslistform = new Default_Form_ElementList($this->_newslist, 'Default_Model_WWElement', 'newslist_');
+                $this->_newslistform->init();
+                $this->_newslistform->setAddedValues(array('recipient' => '@'.$this->_domain->getParam('name'), 'type' => 'wnews'));
+                $this->_newslistform->addFields($this);
+
 		$submit = new Zend_Form_Element_Submit('submit', array(
 		     'label'    => $t->_('Submit')));
 		$this->addElement($submit);
@@ -204,10 +222,13 @@ class Default_Form_DomainFiltering extends Zend_Form
         $this->_warnlistform->addFields($this);
         $this->_blacklistform->manageRequest($request);
         $this->_blacklistform->addFields($this);
+        $this->_newslistform->manageRequest($request);
+        $this->_newslistform->addFields($this);
 
     	$domain->setPref('viruswall', $domain->getPref('contentwall'));
     	$domain->setParam('greylist', $request->getParam('greylist'));
-        $domain->setPref('prevent_spoof', $request->getParam('prevent_spoof'));
+	$domain->setPref('prevent_spoof', $request->getParam('prevent_spoof'));
+	$domain->setPref('reject_capital_domain', $request->getParam('reject_capital_domain'));
         $domain->setPref('require_incoming_tls', $request->getParam('require_incoming_tls'));
  
         ### newsl

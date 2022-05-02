@@ -26,10 +26,15 @@ score RCVD_IN_SORBS_ZOMBIE 1.5
 score RCVD_IN_SORBS_SPAM 2.0
 
 # SPAMHAUS : Free until 100000 request - rsync probably available on subscription - FB
-score RCVD_IN_SBL 2.4
-score RCVD_IN_XBL 2.4
+score RCVD_IN_SBL 2.5
+score RCVD_IN_XBL 2.5
 score RCVD_IN_PBL 2.0
-score RCVD_IN_SBL_CSS 2.0
+score URIBL_SBL 2.5
+score URIBL_DBL_SPAM 2.5
+score URIBL_SBL_A 2.5
+score URIBL_DBL_REDIR 2.5
+score URIBL_DBL_ERROR 0.001
+
 
 # Spamcop : Free, donate system - rsync available but charge 1000$/year - FB
 score RCVD_IN_BL_SPAMCOP_NET 2.4
@@ -55,6 +60,9 @@ score	RCVD_IN_EDUWHITELIST	-1.0
 
 # MCIPRWL
 score	RCVD_IN_MCIPRWL		-1.5
+
+# MCTRUSTEDSPF
+score MCTRUSTEDSPF -0.5
 
 
 ## URI RBLS

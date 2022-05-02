@@ -9,12 +9,19 @@
 # Description:       MailCleaner
 ### END INIT INFO
 
+APACHE_RESTART=1
+if [ ! -z $2 ]; then
+    if [ "$2" = "no-apache" ]; then
+       APACHE_RESTART=0
+    fi
+fi
+
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "SRCDIR" = "" ]; then
+if [ "$SRCDIR" = "" ]; then
   SRCDIR=/opt/mailcleaner
 fi
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "VARDIR" = "" ]; then
+if [ "$VARDIR" = "" ]; then
   VARDIR=/var/mailcleaner
 fi
 ISMASTER=`grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3`
@@ -61,14 +68,15 @@ case "$1" in
       ln -s /usr/$i /opt/$i >/dev/null 2>&1
      fi
     done
-    if [ ! -d /opt/aoache2 ]; then
+    if [ ! -d /opt/apache2 ]; then
       ln -s /usr/apache /opt/apache2 >/dev/null 2>&1
     fi
 
     $INITDIR/$MYMASTER start
     $INITDIR/$MYSLAVE start
     sleep 5
-    $INITDIR/$FW start
+    # To avoid  having the firewall down during all the MailCleaner services restart, we restart it here
+    $INITDIR/$FW restart
     echo -n "  Resyncing DB... "
     $INITDIR/$MYSLAVE restart 2>&1 > /dev/null
     echo "done."
@@ -80,11 +88,42 @@ case "$1" in
     $INITDIR/$EXIM2 start
     $INITDIR/$EXIM1 start
     $INITDIR/$GREYLISTD start
-    $INITDIR/$APACHE start
+    if [ $APACHE_RESTART -eq 1 ]; then
+        $INITDIR/$APACHE start
+    fi
+
+    FIRSTUPDATE_LOG="${VARDIR}/log/mailcleaner/first-start.log"
+    FIRSTUPDATE_FLAG_DIR="${VARDIR}/run/configurator"
+    FIRSTUPDATE_FLAG_RAN="${FIRSTUPDATE_FLAG_DIR}/updater4mc-ran"
+    FIRSTUPDATE_FLAG_RUNNING="${FIRSTUPDATE_FLAG_DIR}/updater4mc-running"
+
+    if [ ! -f "${FIRSTUPDATE_FLAG_RAN}" ]; then
+        if [ ! -f "${FIRSTUPDATE_FLAG_RUNNING}" ]; then
+            echo "Needs update" >> ${FIRSTUPDATE_LOG}
+            ping -c 1 cvs.mailcleaner.net > /dev/null
+            net_status=$?
+            if [ ${net_status} -eq 0 ]; then
+                touch ${FIRSTUPDATE_FLAG_RUNNING}
+                echo "Updating..." >> ${FIRSTUPDATE_LOG}
+                mkdir -p ${FIRSTUPDATE_FLAG_DIR}
+                /root/Updater4MC/updater4mc.sh || rm -f ${FIRSTUPDATE_FLAG_RUNNING}  # If error during upgrade, it will try again every time
+                ${SRCDIR}/bin/internal_access --generate --propagate --install &>> ${FIRSTUPDATE_LOG}
+                touch ${FIRSTUPDATE_FLAG_RAN}
+                echo "Finished update" >> ${FIRSTUPDATE_LOG}
+                rm -f ${FIRSTUPDATE_FLAG_RUNNING}
+            else
+                echo "WARNING: MailCleaner has not been updated on first launch." >> ${FIRSTUPDATE_LOG}
+                echo "Ensure you have a running connection and restart MailCleaner." >> ${FIRSTUPDATE_LOG}
+            fi
+        fi
+    fi
      ;;
   stop)
+    rm $VARDIR/run/*.rs 2>&1 > /dev/null
     echo "Stopping $NAME: "
-    $INITDIR/$APACHE stop
+    if [ $APACHE_RESTART -eq 1 ]; then
+       $INITDIR/$APACHE stop
+    fi
     $INITDIR/$EXIM1 stop
     $INITDIR/$EXIM2 stop
     $INITDIR/$EXIM4 stop
@@ -94,16 +133,15 @@ case "$1" in
     $INITDIR/$STATSDAEMON stop
     $INITDIR/$PREFTDAEMON stop
     $INITDIR/$SPAMLOGGER stop
-    $INITDIR/$FW stop
     $INITDIR/$MYSLAVE stop
     $INITDIR/$MYMASTER stop
       ;;
   restart)
-	$0 stop
+	$0 stop $2
 	sleep 4
-	$0 start
+	$0 start $2
     ;;
-    
+
   *)
     echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
     exit 1

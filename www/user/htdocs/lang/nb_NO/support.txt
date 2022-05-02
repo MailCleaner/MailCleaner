@@ -17,7 +17,7 @@ $txt['SFALSEPOSSUB2'] = "Fra karantenelisten, kan du vise kriteriene Mailcleaner
 $txt['SFALSEPOSSUB3TITLE'] = "E-postlister";
 $txt['SFALSEPOSSUB3'] = "Det henter at noen e-postlister blokkeres av Mailcleaner. Dette på grunn av deres formatering, som ofte ligner mye på søppelpost. Du kan forespørre en analyse av disse meldingene som forklart ovenfor, og vårt analysesenter vil håndtere slike ting som å putte e-postlisten på en hvitliste for å forhindre den fra å bli blokkert i fremtiden.";
 $txt['SOTHERTITLE'] = "ANDRE PROBLEMER";
-$txt['SOTHER'] = "Har du har et problem av annen art med opphav i e-postmottak, og har følgt overnevnte prosedyrer uten positive resultat? Hvis så, kontakt Mailcleaner sitt analysesenter ved å fylle ut dette skjemaet.";
+$txt['SOTHER'] = "Har du har et problem av annen art med opphav i e-postmottak, og har følgt ovennevnte prosedyrer uten positive resultat? Kontakt isåfall Mailcleaner sitt analysesenter ved å fylle ut dette skjemaet.";
 $txt['FAQTITLE'] = "Forståelse av Mailcleaner";
 $txt['DOCTITLE'] = "Hjelp med brukergrensesnitt";
 $txt['WEBDOCTITLE'] = "Nettbasert dokumentasjon";
@@ -33,14 +33,14 @@ $txt['FAQ'] = "
                       Virus er små programmer som kan utnytte og la noen ondsinnede folk ta kontroll over datamaskinen din. Disse kan sendes til deg per e-post som vedlegg, og infisere systemet ditt når du åpner dem (noen kan faktisk skrus på uten å ha blitt åpnet). Skadelig innhold oppfører seg på samme måten, bortsett fra at det kan være smartere, for eksempel ved å skjule seg direkte i innholdet til meldingen, eller siktet inn fra utsiden ved en sprettbar lenke i e-posten. Disse er veldig vanskelig å påvise ved bruk av vanlige e-postfilter fordi det faktiske viruset ikke er å finne i selve meldingen. Mailcleaner utfører flere sjekker i så måte for å forhindre at potensielt farlig innhold når din innboks.
                  </li>
                  <li> <h2>Mailcleaners antisøppelpost-kriterium</h2>
-                      Mailcleaner nyttegjøre seg av et antall tester for å påvise søppelpost med høyest mulig nøyaktighet. Det bruker blandt annet snkelere nøkkelord og nøkkelsetnings-jamføring, verdensomspennende søppelpost-databaser og statistisk symbolutregning. Sammenblandingen av alle disse kriteriene gir en sammenlagt poengsum for hver melding, noe Mailcleaner bruker for å fatte en endelig beslutning: Søppelpost eller nytte. Siden søppelpost er et stadig endrende mål, tilpasses disse reglene så snart som mulig. Det er Mailcleaners jobb å holde disse innstillingene så presise som mulig.
+                      Mailcleaner nyttegjøre seg av et antall tester for å påvise søppelpost med høyest mulig nøyaktighet. Det bruker blandt annet enklere nøkkelord- og nøkkelsetnings-jamføring, verdensomspennende søppelpost-databaser og statistisk symbolutregning. Sammenblandingen av alle disse kriteriene gir en sammenlagt poengsum for hver melding, noe Mailcleaner bruker for å fatte en endelig beslutning: Søppelpost eller nytte. Siden søppelpost er et stadig endrende mål, tilpasses disse reglene så snart som mulig. Det er Mailcleaners jobb å holde disse innstillingene så presise som mulig.
                  </li>
                  <li> <h2>Feil</h2>
                       Siden Mailcleaner er et automatisert filtreringssystem, er det også gjenstand for feil. Det er i hovedsak to typer feil som kan forårsakes av Mailcleaner:
                       <ul>
                        <li> <h3>falske negativer</h3> falske negativer er søppelpostmeldinger som slipper gjennom Mailcleaner-filteret og når din innboks uten å bli oppdaget. Disse er irriterende, men så lenge de er relativt sjeldne, vil de ikke senke din produktivitet på arbeid. Husker du når du bare fikk et par søppelposter hver uke? Mailcleaner kan få deg tilbake ihvertfall dit.
                        </li>
-                       <li> <h3>falske positiver</h3> er mere irriterende feil, siden de er oppriktige e-poster som blokkeres av systemet. Hvis du ikke er frampå nok, og ikke sjekker enten karanterelisten eller rapportene nøye, kan dette føre til at du går glipp av viktige meldinger. Mailcleaner er optimisert for å redusere disikonen for at dette skal skje så godt det lar seg gjøre. Dog, selv om det er veldig sjeldent, kan det skje. Dette er grunnen til at Mailcleaner inkluderer karanteretilgang i sanntid og periodiske rapporter for å begrense risikoen for at meldinger går tapt.
+                       <li> <h3>falske positiver</h3> er mere irriterende feil, siden de er oppriktige e-poster som blokkeres av systemet. Hvis du ikke er frampå nok, og ikke sjekker enten karantenelisten eller rapportene nøye, kan dette føre til at du går glipp av viktige meldinger. Mailcleaner er optimalisert for å redusere risikonen for at dette skal skje så godt det lar seg gjøre. Dog, selv om det er veldig sjeldent, kan det skje. Dette er grunnen til at Mailcleaner inkluderer karanteretilgang i sanntid og periodiske rapporter for å begrense risikoen for at meldinger går tapt.
                        </li>
                       </ul>
                   </li>
@@ -52,7 +52,7 @@ $txt['DOCUMENTATION'] = "
                          <ul>
                            <li> <h2>Karantenevisning/handlinger</h2>
                               <ul>
-                                <li> <h3>Addresse:</h3>
+                                <li> <h3>Adresse:</h3>
                                    velg hvilken adresse du ønsker å se meldinger i karantene for.
                                 </li>
                                 <li> <h3>tving (<img src=\"/templates/$template/images/force.gif\" align=\"top\" alt=\"\">): </h3>
@@ -68,7 +68,7 @@ $txt['DOCUMENTATION'] = "
                                    du har noen filtreringsvalg som lar deg søke gjennom din karanteneliste. Antalle dager i karantene, antall meldinger per side, og emne/mål-felter. Fyll inn de du ønsker å bruke og klikk oppdater for å legge til filterne.
                                 </li>
                                 <li> <h3>handling: </h3>
-                                   herfra kan du fjerne (<img src=\"/templates/$template/images/trash.gif\" align=\"top\" alt=\"\">) hele karantenelisten hvis du ønsker det. Husk at karantenelisten blir slettet automatisk av systemet med gjevne mellomrom. Dette valget lar deg gjør det når du vil.
+                                   herfra kan du fjerne (<img src=\"/templates/$template/images/trash.gif\" align=\"top\" alt=\"\">) hele karantenelisten hvis du ønsker det. Husk at karantenelisten blir slettet automatisk av systemet med jevne mellomrom. Dette valget lar deg gjør det når du vil.
                                    Du kan også forespørre et sammendrag (<img src=\"/templates/$template/images/summary.gif\" align=\"top\" alt=\"\">) av karantenen. Dette er samme sammendrag som det som blir sendt periodisk. Dette valget lar deg hente den når du vil.
                                 </li>
                               </ul>
@@ -78,7 +78,7 @@ $txt['DOCUMENTATION'] = "
                                  <li> <h3>innstillinger for brukerspråk: </h3>
                                     velg hovedspråket ditt her. Ditt grensesnitt, sammendrag og rapporter vil bli endret.
                                  </li>
-                                 <li> <h3>sammenknyttede addresser/alias: </h3>
+                                 <li> <h3>sammenknyttede adresser/alias: </h3>
                                     hvis du har mange adresser alias-er å tilnytte Mailcleaner-grensesnittet, kan du bruke pluss (<img src=\"/templates/$template/images/plus.gif\" align=\"top\" alt=\"\">) og minus (<img src=\"/templates/$template/images/minus.gif\" align=\"top\" alt=\"\">)-tegnet for å legge til eller fjerne adresser.
                                  </li>
                                </ul>

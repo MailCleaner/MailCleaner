@@ -82,6 +82,7 @@ class Default_Model_Administrator
 	
 	public function setDomains($domains) {
 		$this->_domains = preg_split('/[,\s]+/',$domains);
+		sort($this->_domains);
 		$this->setParam('domains', implode(' ', $this->_domains));
 	}
 	

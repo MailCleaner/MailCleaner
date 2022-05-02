@@ -22,10 +22,12 @@
 #   This is the anti-breakdown script. To be run every 15 minutes
 #
 use strict;
+push(@INC, '/usr/mailcleaner/lib/');
 use Net::DNS;
 use Net::Ping;
 use File::Touch;
 use DBI;
+require 'lib_utils.pl';
 
 my $max_host_failed = 2;
 my $nb_tests = 3;
@@ -93,22 +95,6 @@ sub get_master_config
         $dbh->disconnect();
         return %mconfig;
 }
-
-sub is_into {
-	my ($what, @list) = @_;
-	my $c;
-
-	foreach $c (@list) {
-		if ($c eq $what) {
-			return(1);
-		}
-	}
-
-	return(0);
-}
-
-
-
 
 sub getIPAddresses {
 	my ($cname, $type) = @_;
@@ -182,7 +168,7 @@ sub is_port_ok {
 		}
 	}
 	if  ( $nb_failed_host >= $max_host_failed) {
-		system("rndc flush");
+		system("/usr/sbin/rndc flush");
 		$step++;
 		if ($step == $nb_tests) {
 			return 0;
@@ -237,7 +223,7 @@ sub remove_and_save_MC_RBLs {
 	}	
 
 	close FH;
-	$sth->finish();
+	$sth->finish() if ( defined($sth) );
 	$master_dbh->disconnect();
 
 	if ($reboot_service) {
@@ -268,7 +254,7 @@ sub handle_dns_ok {
 		}
 
 		close FH;
-		$sth->finish();
+		$sth->finish() if ( defined($sth) );
 		$master_dbh->disconnect();
 
 		# Restarting associated services
@@ -310,6 +296,11 @@ if ( ! defined($config{'REGISTERED'}) || $config{'REGISTERED'} != 1 ) {
 	exit;
 }
 
+my $rc = create_lockfile('anti-breakdown', undef, time+10*60, 'anti-breakdown');
+if ($rc == 0) {
+  exit;	
+}
+
 # Getting IPs for cvs.mailcleaner.net
 my @teams = getIPAddresses('cvs.mailcleaner.net', 'A');
 
@@ -325,3 +316,5 @@ if ($is_dns_ok)		{ handle_dns_ok();	}
 else            	{ handle_dns_ko();	}
 if ($is_data_ok)	{ handle_data_ok();	}
 else            	{ handle_data_ko();	}
+
+remove_lockfile('anti-breakdown');

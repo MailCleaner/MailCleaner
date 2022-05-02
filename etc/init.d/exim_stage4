@@ -23,6 +23,8 @@ NAME="Exim stage 4"
 test -x $DAEMON || exit 0
 
 prepare () {
+  chown mailcleaner:mailcleaner $VARDIR/log/exim_stage4/mainlog >/dev/null 2>&1
+
   $SRCDIR/bin/dump_exim_config.pl 4 >/dev/null 2>&1
   chown -R mailcleaner:mailcleaner $VARDIR/spool/tmp/mailcleaner/*.list >/dev/null 2>&1
 

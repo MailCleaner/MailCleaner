@@ -5,3 +5,7 @@ timeOut=__TIMEOUT__
 maxSize=__MAXSIZE__
 ctasdLicense=__CTASDLICENSE__
 ctipdLicense=__CTIPDLICENSE__
+decisive_field=__DECISIVE_FIELD__
+neg_decisive=__NEG_DECISIVE__
+pos_decisive=__POS_DECISIVE__
+position=__POSITION__

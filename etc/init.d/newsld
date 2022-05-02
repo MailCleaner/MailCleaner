@@ -1,7 +1,7 @@
-#! /bin/sh
+#!/usr/bin/perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
-#   Copyright (C) 2016 Florian Billebault <florian.billebault@gmail.com>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -18,91 +18,34 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-#   /etc/init.d/newsld: start Newsld daemon.
+#   /etc/init.d/newsld: service management for NewslD
 
-export PATH=$PATH:/sbin:/usr/sbin:/var/tests/newsld/bin
+use strict;
+use warnings;
 
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "SRCDIR" = "" ]; then
-  SRCDIR=/opt/mailcleaner
-fi
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
-if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
-fi
+use lib '/usr/mailcleaner/lib';
+use ManageServices;
 
-prepare () {
+our $service = 'newsld';
 
-OPTIONS="";
-for conf in `cat $SRCDIR/etc/mailscanner/newsld.conf`; do
-  op=`echo $conf | cut -d'=' -f1`
-  val=`echo $conf | cut -d'=' -f2`
-  if [ "$op" = "$val" ] || [ "$val" = "yes" ]; then
-    OPTIONS=$OPTIONS" --$op"
-  else
-    if [ "$val" != "no" ]; then
-      OPTIONS=$OPTIONS" --$op=$val"
-    fi
-  fi 
-done
+my $manager = ManageServices->new( 'autoStart' => 0 ) || die "Failed to create object: $!\n";
+$manager->loadModule($service) || die "Could not load module for service: $service\n";
 
-DAEMON=/usr/local/bin/newsld
-#SPAMDOPTS="-C /usr/local/share/spamassassin/ 
-#           --siteconfigpath=$SRCDIR/share/spamassassin 
-#           -r $VARDIR/spool/spamassassin/spamd.pid 
-#           -s $VARDIR/log/mailscanner/spamd.log
-#           -u mailcleaner -g mailcleaner
-#           --socketpath=$VARDIR/spool/spamassassin/spamd.sock -d"
-export NEWSLDOPTS="$OPTIONS"
+unless (scalar(@ARGV) && defined($manager->{'module'}->{'actions'}->{$ARGV[0]})) {
+	print "\nusage: $0 <action>\n\n";
+	$manager->usage($service);
+	exit();
 }
 
-export TMPDIR=$VARDIR/spool/tmp
+my $action = shift;
 
-case "$1" in
-  start)
-    touch $VARDIR/run/newsld.start.rs
-    echo -n "  Starting Newsld daemon: "
-    prepare
-    $DAEMON $NEWSLDOPTS >/dev/null 2>&1
-    echo "started."
-    if [ -f $VARDIR/run/newsld.rn ]; then
-      rm $VARDIR/run/newsld.rn
-    fi
-    rm $VARDIR/run/newsld.stopped >/dev/null 2>&1
-    rm $VARDIR/run/newsld.*.rs >/dev/null 2>&1
-    ;;
-  stop)
-    touch $VARDIR/run/newsld.stop.rs
-    echo -n "  Stopping Newsld daemon: "
-    NEWSLDPID=`pgrep -f newsld.pid`
-    if [ ! "$NEWSLDPID" = "" ]; then
-      kill -KILL $NEWSLDPID >/dev/null 2>&1
-    fi
-    for NEWSLDCHILDPID in `pgrep -f 'newsld child'`; do
-      kill -KILL $NEWSLDCHILDPID >/dev/null 2>&1
-    done
-    echo "stopped."
-    rm $VARDIR/run/newsld.stop.rs >/dev/null 2>&1
-    touch $VARDIR/run/newsld.stopped
-    ;;
-  restart|reload|force-reload)
-    touch $VARDIR/run/newsld.restart.rs
-	$0 stop
-	sleep 3
-	$0 start
-    ;;
-  status)
-    NEWSLDPID=`pgrep -f newsld.pid`
-    if [ ! "$NEWSLDPID" = "" ]; then
-      echo $(basename $0) is running.
-    else
-      echo $(basename $0) is stopped.
-    fi
-    ;;
+my $status = $manager->{'module'}->{'actions'}->{$action}->{'cmd'}($manager);
 
-  *)
-    echo "Usage: /etc/init.d/newsld {start|stop|restart|status}"
-    exit 1
-esac
-
-exit 0
+if (defined($status) ) {
+	print $manager->{'services'}->{$service}->{'name'} . ': ';
+	if ($status =~ m/^\-?\d$/) {
+		print $manager->{'codes'}->{$status}->{'verbose'} . "\n";
+	} else {
+		print $status . "\n";
+	}
+} 

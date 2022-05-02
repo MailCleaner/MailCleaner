@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2020 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -59,7 +60,7 @@ $time_in{'gathering_config'} = time() - $previous_time;
 $previous_time = time();
 
 ######### Dump domains list
-my @domain_list = $slave_db->getListOfHash("SELECT * FROM domain d, domain_pref dp WHERE d.active='true' AND d.name != '__global__' AND d.prefs=dp.id");
+my @domain_list = $slave_db->getListOfHash("SELECT * FROM domain d, domain_pref dp WHERE (d.active='true' || d.active=1) AND d.name != '__global__' AND d.prefs=dp.id");
 
 if (!@domain_list) {
  die('file not dumped, no domain could be retrieved');
@@ -198,14 +199,18 @@ sub parseDestinations {
     	            greylist => $domain->{'greylist'} ,
     	            destinations =>  [ @dest_hosts ],
                     destination => $domain->{'destination'},
+    	            destinations_smarthost =>  [ @dest_hosts ],
+                    destination_smarthost => $domain->{'destination_smarthost'},
                     batv_check => $domain->{'batv_check'},
                     batv_secret => $domain->{'batv_secret'},
                     prevent_spoof => $domain->{'prevent_spoof'},
                     dkim_domain => $domain->{'dkim_domain'},
+		    reject_capital_domain => $domain->{'reject_capital_domain'},
                     dkim_selector => $domain->{'dkim_selector'},
                     dkim_pkey => $domain->{'dkim_pkey'},
                     require_incoming_tls => $domain->{'require_incoming_tls'},
                     require_outgoing_tls => $domain->{'require_outgoing_tls'},
+                    relay_smarthost => $domain->{'relay_smarthost'},
                     options => $options };
   }
 
@@ -246,6 +251,10 @@ sub dumpDomainsFile {
     return 0;
   }
   
+  if ( !open(DOMAINSFILESMARTHOST, ">/tmp/domains_smarthost.list") ) {
+    return 0;
+  }
+  
   if ( !open(CALLOUTFILE, ">$filepath/domains_to_callout.list")) {
     return 0;
   }
@@ -275,6 +284,9 @@ sub dumpDomainsFile {
   }
   if ( !open(PREVENTSPOOFFILE, ">$filepath/domains_to_prevent_spoof.list")) {
     return 0;
+  }
+  if ( !open(NOCAPSDOMAINS, ">$filepath/no_caps_domains.list")) {
+     return 0;
   }
   if ( !open(REQUIREOUTGOINGTLS, ">$filepath/local_domains_require_outgoing_tls.list")) {
     return 0;
@@ -322,7 +334,15 @@ sub dumpDomainsFile {
     $dest =~ s/\//::/;
     $rule .= $dest;
     print DOMAINSFILE $rule."\n";
-    
+
+    if ($domains{$domain_name}{relay_smarthost} eq 1) {
+	    my $rule_smarthost = $domain_name.":\t\t";
+	    my $dest_smarthost = $domains{$domain_name}{destination_smarthost};
+	    $dest_smarthost =~ s/\//::/;
+	    $rule_smarthost .= $dest_smarthost;
+	    print DOMAINSFILESMARTHOST $rule_smarthost."\n";
+    }
+   
     print SNMPDOMAINSFILE $domains{$domain_name}{'id'}.":".$domain_name."\n";
     
     my $value = $domains{$domain_name}{callout};
@@ -420,6 +440,10 @@ sub dumpDomainsFile {
     if ($value eq "true" || $value eq "1") {
       print PREVENTSPOOFFILE $domain_name."\n";
     }
+    $value = $domains{$domain_name}{reject_capital_domain};
+    if ($value eq "true" || $value eq "1") {
+      print NOCAPSDOMAINS $domain_name."\n";
+    }   
     $value = $domains{$domain_name}{require_outgoing_tls};
     if ($value eq "true" || $value eq "1") {
       print REQUIREOUTGOINGTLS $domain_name."\n";
@@ -459,6 +483,9 @@ sub dumpDomainsFile {
   close DOMAINSFILE;
   move("/tmp/domains.list","$filepath/domains.list");
   chown $uid, $gid, "$filepath/domains.list";
+  close DOMAINSFILESMARTHOST;
+  move("/tmp/domains_smarthost.list","$filepath/domains_smarthost.list");
+  chown $uid, $gid, "$filepath/domains_smarthost.list";
   close CALLOUTFILE;
   chown $uid, $gid, "$filepath/domains_to_callout.list";
   close ALTCALLOUTFILE;
@@ -480,6 +507,8 @@ sub dumpDomainsFile {
   close PREVENTSPOOFFILE;
   chown $uid, $gid, "$filepath/domains_to_prevent_spoof.list";
   close REQUIREINCOMINGTLS;
+  chown $uid, $gid, "$filepath/no_caps_domains.list";
+  close NOCAPSDOMAINS;
   chown $uid, $gid, "$filepath/local_domains_require_incoming_tls.list";
   close REQUIREOUTGOINGTLS;
   chown $uid, $gid, "$filepath/local_domains_require_outgoing_tls.list";
@@ -488,6 +517,11 @@ sub dumpDomainsFile {
   close SNMPDOMAINSFILE;
   move("/tmp/snmpdomains.list","$filepath/snmpdomains.list");
   chown $uid, $gid, "$filepath/snmpdomains.list";
+  if (!touch("$filepath/domains_to_prevent_docm.list")) {
+    print "CANNOTTOUCH $filepath/domains_to_prevent_docm.list\n";
+    exit 1;
+  }
+  chown $uid, $gid, "$filepath/domains_to_prevent_docm.list";
 
   if (-f $lockfile) {
     unlink($lockfile);

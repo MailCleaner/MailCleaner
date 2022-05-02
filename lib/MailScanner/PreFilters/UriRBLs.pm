@@ -25,7 +25,8 @@ no strict 'subs';    # Allow bare words for parameter %'s
 use IO;
 use POSIX qw(:signal_h);    # For Solaris 9 SIG bug workaround
 use MIME::Parser;
-
+use Net::IP;
+use Net::CIDR::Lite;
 use MCDnsLists;
 
 my $MODULE = "UriRBLs";
@@ -53,7 +54,14 @@ sub initialise {
 		TLDsFiles            => 'two-level-tlds.txt tlds.txt',
 		localDomainsFile     => 'domains.list',
 		resolveShorteners    => 1,
-        temporarydir         => '/tmp'
+		avoidhosts           => '',
+		temporarydir         => '/tmp',
+     		decisive_field 	     => 'none',
+                pos_text             => '',
+                neg_text             => '',
+     		pos_decisive 	     => 0,
+     		neg_decisive 	     => 0,
+     		position 	     => 0
 	);
 
 	if ( open( CONFIG, $configfile ) ) {
@@ -77,6 +85,17 @@ sub initialise {
 		$UriRBLs::conf{TLDsFiles},    $UriRBLs::conf{localDomainsFile},
 		$MODULE
 	);
+
+  	if ($UriRBLs::conf{'pos_decisive'} && ($UriRBLs::conf{'decisive_field'} eq 'pos_decisive' || $UriRBLs::conf{'decisive_field'} eq 'both')) {
+    		$UriRBLs::conf{'pos_text'} = 'position : '.$UriRBLs::conf{'position'}.', spam decisive';
+  	} else {
+    		$UriRBLs::conf{'pos_text'} = 'position : '.$UriRBLs::conf{'position'}.', not decisive';
+  	}
+  	if ($UriRBLs::conf{'neg_decisive'} && ($UriRBLs::conf{'decisive_field'} eq 'neg_decisive' || $UriRBLs::conf{'decisive_field'} eq 'both')) {
+    		$UriRBLs::conf{'neg_text'} = 'position : '.$UriRBLs::conf{'position'}.', ham decisive';
+  	} else {
+    		$UriRBLs::conf{'neg_text'} = 'position : '.$UriRBLs::conf{'position'}.', not decisive';
+  	}
 }
 
 sub Checks {
@@ -102,6 +121,49 @@ sub Checks {
 		);
 		return 0;
 	}
+        my $senderhostname = '';
+        my $senderdomain = $message->{fromdomain};
+        my $senderip = $message->{clientip};
+
+        ## try to find sender hostname 
+        ## find out any previous SPF control
+        foreach my $hl ($global::MS->{mta}->OriginalMsgHeaders($message)) {
+            if ($senderhostname eq '' && $hl =~ m/^Received: from (\S+) \(\[$senderip\]/) {
+                  $senderhostname = $1;
+                  MailScanner::Log::InfoLog("$MODULE found sender hostname: $senderhostname for $senderip on message ".$message->{id});
+            }
+            if ($hl =~ m/^X-MailCleaner-SPF: (.*)/) {
+                 last; ## we can here because X-MailCleaner-SPF will always be after the Received fields.
+            }
+        }
+
+        ## check if in avoided hosts
+        foreach my $avoidhost ( split(/[\ ,\n]/, $UriRBLs::conf{avoidhosts})) {
+            if ($avoidhost =~ m/^[\d\.\:\/]+$/) {
+                if ($UriRBLs::conf{debug}) {
+                      MailScanner::Log::InfoLog("$MODULE should avoid control on IP ".$avoidhost." for message ".$message->{id});
+                }
+                my $acidr = Net::CIDR::Lite->new();
+                eval { $acidr->add_any($avoidhost); };
+                if ($acidr->find($message->{clientip})) {
+                     MailScanner::Log::InfoLog("$MODULE not checking UriRBL on ".$message->{clientip}." because IP is whitelisted for message ".$message->{id});
+                     return 0;
+                }
+            }
+            if ($avoidhost =~ m/^[a-zA-Z\.\-\_\d\*]+$/) {
+                  $avoidhost =~ s/([^\\])\./\1\\\./g;
+                  $avoidhost =~ s/^\./\\\./g;
+                  $avoidhost =~ s/([^\\])\*/\1\.\*/g;
+                  $avoidhost =~ s/^\*/.\*/g;
+                  if ($UriRBLs::conf{debug}) {
+                        MailScanner::Log::InfoLog("$MODULE should avoid control on hostname ".$avoidhost." for message ".$message->{id});
+                  }
+                  if ($senderhostname =~ m/$avoidhost$/) {
+                       MailScanner::Log::InfoLog("$MODULE not checking UriRBL on ".$message->{clientip}." because hostname $senderhostname is whitelisted for message ".$message->{id});
+                       return 0;
+                  }
+            }
+         }
 
 	my (@WholeMessage);
 	push( @WholeMessage, "\n" );
@@ -192,25 +254,23 @@ sub Checks {
 		|| $ehits >= $UriRBLs::conf{'listedemailtobespam'} )
 	{
 		print "HITS: $uhits-$ehits\n";
-		$message->{prefilterreport} .= ", UriRBLs ($fullheader)";
-		MailScanner::Log::InfoLog(
-			"$MODULE result is spam ($fullheader) for " . $message->{id} );
+ 		$message->{prefilterreport} .= " $MODULE ($fullheader, ".$UriRBLs::conf{pos_text}.")";
+		MailScanner::Log::InfoLog("$MODULE result is spam (".$fullheader.") for " . $message->{id} );
 		if ( $UriRBLs::conf{'putSpamHeader'} ) {
 			$global::MS->{mta}->AddHeaderToOriginal(
 				$message,
 				$UriRBLs::conf{'header'},
-				"is spam ($fullheader)"
+ 				"is spam ($fullheader) ".$UriRBLs::conf{'pos_text'}
 			);
 		}
 		return 1;
 	}
 	if ( $UriRBLs::conf{'putHamHeader'} ) {
-		MailScanner::Log::InfoLog(
-			"$MODULE result is not spam ($fullheader) for " . $message->{id} );
+		MailScanner::Log::InfoLog("$MODULE result is not spam (".$fullheader.") for " . $message->{id} );
 		$global::MS->{mta}->AddHeaderToOriginal(
 			$message,
 			$UriRBLs::conf{'header'},
-			"is not spam ($fullheader)"
+ 			"is not spam ($fullheader) ".$UriRBLs::conf{'neg_text'}
 		);
 	}
 	return 0;

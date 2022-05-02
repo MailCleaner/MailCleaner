@@ -4,11 +4,8 @@ Het originele e-mail bericht bevatte mogelijk schadelijke inhoud.
 Deze werd verwijderd voor jouw veiligheid.
 
 De inhoud is gevaarlijk omdat het dikwijls gebruikt wordt voor het verspreiden van
-virussen of om toegang te krijgen tot persoonlijke of confidentiële informatie van jou,
+virussen of om toegang te krijgen tot persoonlijke of confidentiÃ«le informatie van jou,
 zoals paswoorden of kredietkaart nummers.
-
-If you wish to receive a copy of the original email, please visit the link below :
-http://www.mailcleaner.net/support/dangerous-content-release.html
 
 Op $date zeiden de inhoud filters:
 $report

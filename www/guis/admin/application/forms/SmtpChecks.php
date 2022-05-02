@@ -115,7 +115,8 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 	    
 	    $rbltimeout = new  Zend_Form_Element_Text('rbls_timeout', array(
 	        'label'    => $t->_('RBL checks timeout')." :",
-		    'required' => false,
+		      'title'  => $t->_('this timeout will apply to ALL RBL checks throughout MailCleaner'),
+		    'required' => true,
 		    'size' => 2,
 	        'class' => 'fieldrighted',
 		    'filters'    => array('Alnum', 'StringTrim')));
@@ -135,6 +136,23 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$rblignore->setValue($this->_mta->getParam('rbls_ignore_hosts'));
 		$this->addElement($rblignore);
 	    
+
+
+	    require_once('Validate/SMTPHostList.php');
+		$spf_dmarc_ignore = new Zend_Form_Element_Textarea('spf_dmarc_ignore_hosts', array(
+		      'label'    =>  $t->_('Don\'t check these hosts for SPF or DMARC')." :",
+		      'title'  => $t->_('Bypass RBLs results for these IPs for SPF and DMARC'),
+		      'required'   => false,
+		      'rows' => 5,
+		      'cols' => 30,
+		      'filters'    => array('StringToLower', 'StringTrim')));
+	    $spf_dmarc_ignore->addValidator(new Validate_SMTPHostList());
+		$spf_dmarc_ignore->setValue($this->_mta->getParam('spf_dmarc_ignore_hosts'));
+		$this->addElement($spf_dmarc_ignore);
+
+
+
+
 		$rbllist = new Default_Model_DnsLists();
 		$rbllist->load();
 		foreach ($rbllist->getRBLs('IPRBL') as $rbl) {
@@ -171,6 +189,16 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         }
         $this->addElement($maskrelayedip);
         
+        $block25auth = new Zend_Form_Element_Checkbox('block_25_auth', array(
+            'label'   => $t->_('Block authenticated relaying on port 25'). " :",
+            'uncheckedValue' => "0",
+            'checkedValue' => "1"
+                  ));
+        if ($this->_mta->getParam('block_25_auth')) {
+            $block25auth->setChecked(true);
+        }
+        $this->addElement($block25auth);
+        
         $masquerade_outgoing_helo = new Zend_Form_Element_Checkbox('masquerade_outgoing_helo', array(
                     'label'   => $t->_('Masquerade relayed HELO with sender domain'). " :",
                     'uncheckedValue' => "0",
@@ -180,6 +208,26 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         	$masquerade_outgoing_helo->setChecked(true);
         }
         $this->addElement($masquerade_outgoing_helo);
+
+        $log_subject = new Zend_Form_Element_Checkbox('log_subject', array(
+                    'label'   => $t->_('Include mails subjects in the logs'). " :",
+                    'uncheckedValue' => "0",
+                    'checkedValue' => "1"
+        ));
+        if ($this->_mta->getParam('log_subject')) {
+                $log_subject->setChecked(true);
+        }
+        $this->addElement($log_subject);
+
+        $log_attachments = new Zend_Form_Element_Checkbox('log_attachments', array(
+                    'label'   => $t->_('Include attachement names in the logs'). " :",
+                    'uncheckedValue' => "0",
+                    'checkedValue' => "1"
+        ));
+        if ($this->_mta->getParam('log_attachments')) {
+                $log_attachments->setChecked(true);
+        }
+        $this->addElement($log_attachments);
         
 		
 		$submit = new Zend_Form_Element_Submit('submit', array(
@@ -192,7 +240,10 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$mta->setparam('verify_sender', $request->getParam('verify_sender'));
         $mta->setparam('outgoing_virus_scan', $request->getParam('outgoing_virus_scan'));
         $mta->setparam('mask_relayed_ip', $request->getParam('mask_relayed_ip'));
+        $mta->setparam('block_25_auth', $request->getParam('block_25_auth'));
         $mta->setparam('masquerade_outgoing_helo', $request->getParam('masquerade_outgoing_helo'));
+        $mta->setparam('log_subject', $request->getParam('log_subject'));
+        $mta->setparam('log_attachments', $request->getParam('log_attachments'));
         $mta->setparam('smtp_enforce_sync', 'false');
         if ($request->getParam('smtp_enforce_sync')) {
 		  $mta->setparam('smtp_enforce_sync', 'true');
@@ -209,6 +260,7 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		$mta->setparam('rbls_timeout', $request->getParam('rbls_timeout'));
 		$mta->setparam('callout_timeout', $request->getParam('callout_timeout'));	
 		$mta->setparam('rbls_ignore_hosts', $request->getParam('rbls_ignore_hosts'));
+		$mta->setparam('spf_dmarc_ignore_hosts', $request->getParam('spf_dmarc_ignore_hosts'));
 		
 		$rbllist = new Default_Model_DnsLists();
 		$rbllist->load();

@@ -1,6 +1,6 @@
-socketpath=__VARDIR__/spool/spamassassin/spamd.sock
+socketpath=__VARDIR__/run/spamd.sock
 max-children=__NBSAPROCESSES__
-pidfile=__VARDIR__/spool/spamassassin/spamd.pid
+pidfile=__VARDIR__/run/spamd.pid
 syslog=__VARDIR__/log/mailscanner/spamd.log
 username=mailcleaner
 groupname=mailcleaner

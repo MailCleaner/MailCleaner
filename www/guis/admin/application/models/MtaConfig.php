@@ -18,6 +18,7 @@ class Default_Model_MtaConfig
        'rbls' => '',
        'rbls_timeout' => 5,
        'rbls_ignore_hosts' => '',
+       'spf_dmarc_ignore_hosts' => '',
        'callout_timeout' => 10,
        'smtp_conn_access' => '*',
        'relay_from_hosts' => '',
@@ -27,6 +28,7 @@ class Default_Model_MtaConfig
        'user_reject' => '',
        'recipient_reject' => '',
        'smtp_receive_timeout' => 0,
+	'max_rcpt' => 0,
        'smtp_accept_max' => 0,
        'smtp_reserve' => 0,
        'smtp_load_reserve' => 0,
@@ -54,7 +56,10 @@ class Default_Model_MtaConfig
        'domains_require_tls_to' => '',
        'outgoing_virus_scan' => 0,
        'mask_relayed_ip' => 0,
+       'block_25_auth' => 0,
        'masquerade_outgoing_helo' => 0,
+       'log_subject' => 0,
+       'log_attachments' => 0,
        'forbid_clear_auth' => 0,
        'dkim_default_domain' => '',
        'dkim_default_selector' => '',
@@ -63,7 +68,8 @@ class Default_Model_MtaConfig
        'reject_bad_spf' => 0,
        'reject_bad_rdns' => 0,
        'dmarc_follow_reject_policy' => 0,
-       'dmarc_enable_reports' => 0
+       'dmarc_enable_reports' => 0,
+       'ciphers' => '',
      );
 	
 	protected $_mapper;

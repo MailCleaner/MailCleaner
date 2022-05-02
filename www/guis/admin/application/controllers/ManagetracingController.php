@@ -27,7 +27,7 @@ class ManagetracingController extends Zend_Controller_Action
 		
 		$todateO = Zend_Date::now();
 	    $fromdateO = Zend_Date::now();
-        $fromdateO->sub('1', Zend_Date::DAY, Zend_Registry::get('Zend_Locale')->getLanguage());
+#        $fromdateO->sub('1', Zend_Date::DAY, Zend_Registry::get('Zend_Locale')->getLanguage());
         
         $todate = Zend_Locale_Format::getDate($todateO, array('date_format' => Zend_Locale_Format::STANDARD, 'locale' => Zend_Registry::get('Zend_Locale')->getLanguage()));      
         $fromdate = Zend_Locale_Format::getDate($fromdateO, array('date_format' => Zend_Locale_Format::STANDARD, 'locale' => Zend_Registry::get('Zend_Locale')->getLanguage()));
@@ -140,6 +140,12 @@ class ManagetracingController extends Zend_Controller_Action
 			
 		$session = new Zend_Session_Namespace('MailCleaner');
 		
+		// escape params args
+                array_walk($params, function(&$arg_value, $key) {
+                        if ($key == 'regexp')
+                                $arg_value = escapeshellarg($arg_value);
+                });
+
 		$view->canceled = 0;
 		if (isset($params['cancel']) && $params['cancel']) {
 			if (isset($session->trace_id) && $session->trace_id) {

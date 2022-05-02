@@ -151,19 +151,23 @@ function getTodaysCounts($sid, $spec) {
  * @param   $stop   string  end date, can be YYYYMMDD or +X where X is a number of day
  * @return          array   counts as array (key is counted value, value is actual count)
  */
- function getStats($what, $start, $stop) {
-    
-  $sysconf_ = SystemConfig::getInstance();
+  function getStats($what, $start, $stop) {
 
-  $cmd = $sysconf_->SRCDIR_."/bin/get_stats.pl $what $start $stop";
-  $res_a = array();
-  exec($cmd, $res_a);
+    $sysconf_ = SystemConfig::getInstance();
 
-  $res = array();
-  if (!preg_match('/^([\d\.]+)([\|\d\.]+){10}$/', $res_a[0], $res)) {
-    return "ERRORFETCHINGCOUNTS (".$res[0].")";
+    $cmd = $sysconf_->SRCDIR_."/bin/get_stats.pl $what $start $stop";
+    $res_a = array();
+    $return_code = NULL;
+    exec($cmd, $res_a, $return_code);
+    if(!$return_code && !empty($res_a)){
+      $res = array();
+      if (!preg_match('/^([\d\.]+)([\|\d\.]+){10}$/', $res_a[0], $res)) {
+        return "ERRORFETCHINGCOUNTS (".$res[0].")";
+      }
+      list($msg, $spam, $highspam, $virus, $names, $others, $cleans, $bytes, $users, $domains) = split('\|', $res_a[0]);
+      return new SoapStats($bytes, $msg, $spam, 0, $virus, 0, $names+$others, 0, $users, $cleans, 0);
+    }
+    else
+      return "ERRORFETCHINGCOUNTS";
   }
-  list($msg, $spam, $highspam, $virus, $names, $others, $cleans, $bytes, $users, $domains) = split('\|', $res_a[0]);
-  return new SoapStats($bytes, $msg, $spam, 0, $virus, 0, $names+$others, 0, $users, $cleans, 0);
- }
 ?>

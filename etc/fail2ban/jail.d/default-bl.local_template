@@ -1,0 +1,12 @@
+[{{ name }}]
+enabled = {{ enabled }}
+maxretry = 1 
+findtime = 1
+bantime = -1
+port = {{ port }}
+chain = {{ chain }}
+filter = 
+ignoreip = 192.246.63.8
+banaction = iptables-multiport
+            {{ send_mail }}
+logpath = /var/mailcleaner/flags/fail2ban/empty_file 

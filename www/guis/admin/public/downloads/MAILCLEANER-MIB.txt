@@ -3,19 +3,23 @@ MAILCLEANER-MIB DEFINITIONS ::= BEGIN
 IMPORTS
         MODULE-IDENTITY,
         OBJECT-IDENTITY,
+        OBJECT-TYPE,
+        Gauge32,
+        Counter32,
+        Integer32,
         enterprises
                 FROM SNMPv2-SMI
         DisplayString
                 FROM SNMPv2-TC;
 
 mailcleaner MODULE-IDENTITY
-    LAST-UPDATED "201105300000Z"
+    LAST-UPDATED "201911030000Z"
     ORGANIZATION "Fastnet SA"
-    CONTACT-INFO    
-        "Olivier Diserens (olivier@diserens.ch)"
+    CONTACT-INFO
+        "MailCleaner Support (support@mailcleaner.net)"
     DESCRIPTION
         "This MIB module defines objects for MailCleaner statistics."
-    REVISION     "201105300000Z"
+    REVISION     "201911030000Z"
     DESCRIPTION
         "First try..."
     ::= { enterprises 36661 }
@@ -49,7 +53,7 @@ edition OBJECT-TYPE
             "MailCleaner edition"
     ::= { version 2 }
 
-version OBJECT-TYPE
+productVersion OBJECT-TYPE
     SYNTAX      DisplayString
     MAX-ACCESS  read-only
     STATUS      current
@@ -100,7 +104,7 @@ spoolOutgoing OBJECT-TYPE
  -- processes OBJECT IDENTIFIER ::= { status 3 }
 
 processTable OBJECT-TYPE
-    SYNTAX      SEQUENCE OF processEntry
+    SYNTAX      SEQUENCE OF ProcessEntry
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
@@ -108,7 +112,7 @@ processTable OBJECT-TYPE
     ::= { status 3 }
 
 processEntry OBJECT-TYPE
-    SYNTAX      processEntry
+    SYNTAX      ProcessEntry
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
@@ -116,10 +120,10 @@ processEntry OBJECT-TYPE
     INDEX       { processIndex }
     ::= { processTable 1 }
 
-processEntry ::= SEQUENCE {
+ProcessEntry ::= SEQUENCE {
     processIndex        Integer32,
     processName         DisplayString,
-    processCount        Gauge32
+    processCount        Gauge32,
     processStatus       DisplayString
 }
 
@@ -179,15 +183,15 @@ globalStatistics OBJECT IDENTIFIER ::= { statistics 1 }
 globalProcessesStatistics OBJECT IDENTIFIER ::= { globalStatistics 1 }
 
 globalMsgCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of accepted messages"
     ::= { globalProcessesStatistics 1 }
-    
+
 globalCleanCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -195,7 +199,7 @@ globalCleanCount OBJECT-TYPE
     ::= { globalProcessesStatistics 2 }
 
 globalSpamCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -203,7 +207,7 @@ globalSpamCount OBJECT-TYPE
     ::= { globalProcessesStatistics 3 }
 
 globalVirusCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -211,7 +215,7 @@ globalVirusCount OBJECT-TYPE
     ::= { globalProcessesStatistics 4 }
 
 globalNameCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -219,7 +223,7 @@ globalNameCount OBJECT-TYPE
     ::= { globalProcessesStatistics 5 }
 
 globalOtherCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -227,7 +231,7 @@ globalOtherCount OBJECT-TYPE
     ::= { globalProcessesStatistics 6 }
 
 globalSizeCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -235,7 +239,7 @@ globalSizeCount OBJECT-TYPE
     ::= { globalProcessesStatistics 7 }
 
 globalUserCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -243,7 +247,7 @@ globalUserCount OBJECT-TYPE
     ::= { globalProcessesStatistics 8 }
 
 globalDomainCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -254,7 +258,7 @@ globalDomainCount OBJECT-TYPE
 globalRefusedStatistics OBJECT IDENTIFIER ::= { globalStatistics 2 }
 
 globalRefusedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -262,7 +266,7 @@ globalRefusedCount OBJECT-TYPE
     ::= { globalRefusedStatistics 1 }
 
 globalRefusedRBLCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -270,7 +274,7 @@ globalRefusedRBLCount OBJECT-TYPE
     ::= { globalRefusedStatistics 2 }
 
 globalRefusedHostCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -278,7 +282,7 @@ globalRefusedHostCount OBJECT-TYPE
     ::= { globalRefusedStatistics 3 }
 
 globalRefusedRelayCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -286,7 +290,7 @@ globalRefusedRelayCount OBJECT-TYPE
     ::= { globalRefusedStatistics 4 }
 
 globalRefusedLocalpartCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -294,7 +298,7 @@ globalRefusedLocalpartCount OBJECT-TYPE
     ::= { globalRefusedStatistics 5 }
 
 globalRefusedBATVCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -302,7 +306,7 @@ globalRefusedBATVCount OBJECT-TYPE
     ::= { globalRefusedStatistics 6 }
 
 globalRefusedBlacklistedSenderCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -310,7 +314,7 @@ globalRefusedBlacklistedSenderCount OBJECT-TYPE
     ::= { globalRefusedStatistics 7 }
 
 globalRefusedSpoofingCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -318,7 +322,7 @@ globalRefusedSpoofingCount OBJECT-TYPE
     ::= { globalRefusedStatistics 8 }
 
 globalRefusedCalloutCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -326,7 +330,7 @@ globalRefusedCalloutCount OBJECT-TYPE
     ::= { globalRefusedStatistics 9 }
 
 globalRefusedBadSenderCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -334,7 +338,7 @@ globalRefusedBadSenderCount OBJECT-TYPE
     ::= { globalRefusedStatistics 10 }
 
 globalRefusedBackscatterCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -342,7 +346,7 @@ globalRefusedBackscatterCount OBJECT-TYPE
     ::= { globalRefusedStatistics 11 }
 
 globalRefusedUnauthenticatedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -350,7 +354,7 @@ globalRefusedUnauthenticatedCount OBJECT-TYPE
     ::= { globalRefusedStatistics 12 }
 
 globalRefusedUnencryptedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -358,33 +362,33 @@ globalRefusedUnencryptedCount OBJECT-TYPE
     ::= { globalRefusedStatistics 13 }
 
 globalRefusedBadDomainCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of refused forbidden destination domains"
     ::= { globalRefusedStatistics 14 }
-    
+
 globalRefusedBadSPFCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of refused SPF checks"
     ::= { globalRefusedStatistics 15 }
-    
+
 globalRefusedBadRDNSCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of refused invalid reverse DNS"
     ::= { globalRefusedStatistics 16 }
-    
+
 globalDelayedStatistics OBJECT IDENTIFIER ::= { globalStatistics 3 }
 
 globalDelayedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -392,7 +396,7 @@ globalDelayedCount OBJECT-TYPE
     ::= { globalDelayedStatistics 1 }
 
 globalDelayedRatelimitCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -400,7 +404,7 @@ globalDelayedRatelimitCount OBJECT-TYPE
     ::= { globalDelayedStatistics 2 }
 
 globalDelayedGreylistCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -411,7 +415,7 @@ globalDelayedGreylistCount OBJECT-TYPE
 globalRelayedStatistics OBJECT IDENTIFIER ::= { globalStatistics 4 }
 
 globalRelayedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -419,7 +423,7 @@ globalRelayedCount OBJECT-TYPE
     ::= { globalRelayedStatistics 1 }
 
 globalRelayedHostCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -427,7 +431,7 @@ globalRelayedHostCount OBJECT-TYPE
     ::= { globalRelayedStatistics 2 }
 
 globalRelayedAuthenticatedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -435,7 +439,7 @@ globalRelayedAuthenticatedCount OBJECT-TYPE
     ::= { globalRelayedStatistics 3 }
 
 globalRelayedRefusedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -443,7 +447,7 @@ globalRelayedRefusedCount OBJECT-TYPE
     ::= { globalRelayedStatistics 4 }
 
 globalRelayedVirusCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -452,20 +456,20 @@ globalRelayedVirusCount OBJECT-TYPE
 
 
 globalAcceptedStatistics OBJECT IDENTIFIER ::= { globalStatistics 5 }
-    
+
 globalAcceptedCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of accepted SMTP sessions"
     ::= { globalAcceptedStatistics 1 }
-    
+
   --------------
   -- domains
 
 domainStatisticsTable OBJECT-TYPE
-    SYNTAX      SEQUENCE OF domainStatisticsEntry
+    SYNTAX      SEQUENCE OF DomainStatisticsEntry
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
@@ -473,7 +477,7 @@ domainStatisticsTable OBJECT-TYPE
     ::= { statistics 2 }
 
 domainStatisticsEntry OBJECT-TYPE
-    SYNTAX      domainStatisticsEntry
+    SYNTAX      DomainStatisticsEntry
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
@@ -481,27 +485,27 @@ domainStatisticsEntry OBJECT-TYPE
     INDEX       { domainIndex }
     ::= { domainStatisticsTable 1 }
 
-domainStatisticsEntry ::= SEQUENCE {
+DomainStatisticsEntry ::= SEQUENCE {
     domainIndex         Integer32,
     domainName		DisplayString,
-    domainMsgCount      Counter,
-    domainCleanCount    Counter,
-    domainSpamCount     Counter,
-    domainVirusCount    Counter,
-    domainNameCount     Counter,
-    domainOtherCount    Counter,
-    domainSizeCount     Counter,
-    domainUserCount     Counter,
-    domainRefused       Counter,
-    domainRefusedBATV   Counter,
-    domainRefusedSpoof  Counter,
-    domainRefusedCallout Counter,
-    domainRefusedSender Counter,
-    domainRefusedRBL    Counter,
-    domainRefusedBRBL   Counter,
-    domainDelayed       Counter,
-    domainDelagedGreylist Counter,
-    domainRefusedRNDS   Counter
+    domainMsgCount      Counter32,
+    domainCleanCount    Counter32,
+    domainSpamCount     Counter32,
+    domainVirusCount    Counter32,
+    domainNameCount     Counter32,
+    domainOtherCount    Counter32,
+    domainSizeCount     Counter32,
+    domainUserCount     Counter32,
+    domainRefused       Counter32,
+    domainRefusedBATV   Counter32,
+    domainRefusedSpoof  Counter32,
+    domainRefusedCallout Counter32,
+    domainRefusedSender Counter32,
+    domainRefusedRBL    Counter32,
+    domainRefusedBRBL   Counter32,
+    domainDelayed       Counter32,
+    domainDelayedGreylist Counter32,
+    domainRefusedRDNS   Counter32
 }
 
 domainIndex OBJECT-TYPE
@@ -521,15 +525,15 @@ domainName OBJECT-TYPE
     ::= { domainStatisticsEntry 2 }
 
 domainMsgCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
             "Today's count of accepted messages for domain"
     ::= { domainStatisticsEntry 3 }
-    
+
 domainCleanCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -537,7 +541,7 @@ domainCleanCount OBJECT-TYPE
     ::= { domainStatisticsEntry 4 }
 
 domainSpamCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -545,7 +549,7 @@ domainSpamCount OBJECT-TYPE
     ::= { domainStatisticsEntry 5 }
 
 domainVirusCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -553,7 +557,7 @@ domainVirusCount OBJECT-TYPE
     ::= { domainStatisticsEntry 6 }
 
 domainNameCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -561,7 +565,7 @@ domainNameCount OBJECT-TYPE
     ::= { domainStatisticsEntry 7 }
 
 domainOtherCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -569,7 +573,7 @@ domainOtherCount OBJECT-TYPE
     ::= { domainStatisticsEntry 8 }
 
 domainSizeCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -577,7 +581,7 @@ domainSizeCount OBJECT-TYPE
     ::= { domainStatisticsEntry 9 }
 
 domainUserCount OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -585,7 +589,7 @@ domainUserCount OBJECT-TYPE
     ::= { domainStatisticsEntry 10 }
 
 domainRefused OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -593,7 +597,7 @@ domainRefused OBJECT-TYPE
     ::= { domainStatisticsEntry 11 }
 
 domainRefusedBATV OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -601,67 +605,67 @@ domainRefusedBATV OBJECT-TYPE
     ::= { domainStatisticsEntry 12 }
 
 domainRefusedSpoof OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of spoofing attempts for domain"
     ::= { domainStatisticsEntry 13 }
 
 domainRefusedCallout OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of wrong recipient sessions for domain"
     ::= { domainStatisticsEntry 14 }
 
 domainRefusedSender OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of invalid sender for domain"
     ::= { domainStatisticsEntry 15 }
 
 domainRefusedRBL OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of blacklisted connections for domain"
     ::= { domainStatisticsEntry 16 }
 
 domainRefusedBRBL OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of refused BATV signing for domain"
     ::= { domainStatisticsEntry 17 }
 
 domainDelayed OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of delayed SMTP sessions for domain"
     ::= { domainStatisticsEntry 18 }
 
 domainDelayedGreylist OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of greylisted SMTP sessions for domain"
     ::= { domainStatisticsEntry 19 }
 
 domainRefusedRDNS OBJECT-TYPE
-    SYNTAX      Counter
+    SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
             "Today's count of refused invalid reverse DNS for domain"
     ::= { domainStatisticsEntry 20 }
-    
+
 END

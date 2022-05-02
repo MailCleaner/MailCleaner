@@ -2,6 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -28,6 +29,11 @@
 use strict;
 use DBI();
 use File::Path qw(mkpath);
+if ($0 =~ m/(\S*)\/\S+.pl$/) {
+  my $path = $1."/../lib";
+  unshift (@INC, $path);
+}
+require GetDNS;
 
 my $DEBUG = 1;
 
@@ -69,6 +75,17 @@ sub dump_snmpd_file
 	my $template_file = "$config{'SRCDIR'}/etc/snmp/snmpd.conf_template";
 	my $target_file = "$config{'SRCDIR'}/etc/snmp/snmpd.conf";
 
+	my $ipv6 = 0;
+	if (open(my $interfaces, '<', '/etc/network/interfaces')) {
+		while (<$interfaces>) {
+			if ($_ =~ m/iface \S+ inet6/) {
+				$ipv6 = 1;
+				last;
+			}
+		}
+		close($interfaces);
+	}
+
 	if ( !open(TEMPLATE, $template_file) ) {
 		$lasterror = "Cannot open template file: $template_file";
 		return 0;
@@ -79,8 +96,7 @@ sub dump_snmpd_file
                 return 0;
         }
 
- 	my @ips = split(/[\:\s]/, $snmpd_conf{'__ALLOWEDIP__'});
-        push @ips, '127.0.0.1';
+ 	my @ips = expand_host_string($snmpd_conf{'__ALLOWEDIP__'}.' 127.0.0.1',('dumper'=>'snmp/allowedip'));
 	my $ip;
 	foreach $ip ( keys %master_hosts) {
 		print TARGET "com2sec local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
@@ -88,7 +104,9 @@ sub dump_snmpd_file
 	}
 	foreach $ip (@ips) {
 		print TARGET "com2sec local     $ip	$snmpd_conf{'__COMMUNITY__'}\n";
-		print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		if ($ipv6) {
+			print TARGET "com2sec6 local     $ip     $snmpd_conf{'__COMMUNITY__'}\n";
+		}
 	}
 
 	while(<TEMPLATE>) {
@@ -124,7 +142,7 @@ sub get_snmpd_config{
         }
         my $ref = $sth->fetchrow_hashref() or return;
 
-	$config{'__ALLOWEDIP__'} = $ref->{'allowed_ip'};
+	$config{'__ALLOWEDIP__'} = join(' ',expand_host_string($ref->{'allowed_ip'},('dumper'=>'snmp/allowedip')));
 	$config{'__COMMUNITY__'} = $ref->{'community'};
 	$config{'__DISKS__'} = $ref->{'disks'};
 
@@ -192,4 +210,12 @@ sub readConfig
         }
         close CONFIG;
 	return %config;
+}
+
+sub expand_host_string
+{
+    my $string = shift;
+    my %args = @_;
+    my $dns = GetDNS->new();
+    return $dns->dumper($string,%args);
 }

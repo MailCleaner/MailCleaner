@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 PATH=$PATH:/usr/sbin:/sbin
 
@@ -37,13 +37,25 @@ HASMESSAGESNIFFER=0
 HASKASPERSKY=0
 
 prepare () {
+  chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/infolog >/dev/null 2>&1
+  chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/warnlog >/dev/null 2>&1
+  
   $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
+  $SRCDIR/bin/dump_html_controls_wl.pl >/dev/null 2>&1
   $SRCDIR/bin/dump_domains.pl >/dev/null 2>&1
-  $SRCDIR/bin/dump_clamav_config.pl >/dev/null 2>&1
   chown -R mailcleaner:mailcleaner $SRCDIR/etc/mailscanner >/dev/null 2>&1
 
- if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
-    mkdir $VARDIR/spool/mailcleaner/counts
+  if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
+    mkdir -p $VARDIR/spool/mailcleaner/counts
+  fi
+  USER=$(stat -c '%U' $VARDIR/spool/mailcleaner/counts)
+  if [[ "$USER" != 'mailcleaner' ]]; then
+     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
+  fi
+
+  GROUP=$(stat -c '%G' $VARDIR/spool/mailcleaner/counts)
+  if [[ "$GROUP" != 'mailcleaner' ]]; then
+     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
   fi
 
   SRCDIR_SANE=`echo $SRCDIR | perl -p -e 's/\//\\\\\//g'`
@@ -92,22 +104,10 @@ case "$1" in
       # start dcc daemon
       $SRCDIR/etc/init.d/dccifd start
       # then start clamav and SpamAssassin daemons
-      CLAMDPIDS=`pgrep clamd.conf`
-      if [ "$CLAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/clamd start
-      fi
-      CLAMDPIDS=`pgrep clamspamd.conf`
-      if [ "$CLAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/clamspamd start
-      fi
-      SPAMDPIDS=`pgrep spamd`
-      if [ "$SPAMDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/spamd start
-      fi
-      NEWSLDPIDS=`pgrep newsld`
-      if [ "$NEWSLDPIDS" = "" ]; then
-        $SRCDIR/etc/init.d/newsld start
-      fi
+      $SRCDIR/etc/init.d/clamd start
+      $SRCDIR/etc/init.d/clamspamd start
+      $SRCDIR/etc/init.d/spamd start
+      $SRCDIR/etc/init.d/newsld start
       if [ $HASCOMMTOUCH = 1 ]; then
          $SRCDIR/etc/init.d/commtouch start
       fi

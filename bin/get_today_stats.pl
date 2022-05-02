@@ -85,7 +85,7 @@ my $percentclean = 0;
 my $client = StatsClient->new();
 
 my $bytes = $client->query('GET global:size');
-if ($bytes =~ /^_/) {
+if ( ! defined ($bytes)  || $bytes =~ /^_/) {
   $bytes=0;
 }
 $total_bytes = $bytes;
@@ -150,8 +150,10 @@ if ($domains =~ /^_/) {
 }
 $domain_count = $domains;
 
-if ($mode eq "a")
-{
+if ( ! defined ($total_bytes) ) {
+  $total_bytes = 0;
+}
+if ($mode eq "a") {
 	print "total bytes:   $total_bytes\n";
 	print "total msgs:    $total_msg\n";
 	print "total spams:   $total_spam ($percentspam%)\n";

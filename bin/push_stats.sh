@@ -59,6 +59,14 @@ STATFILE=/var/tmp/stats_to_push
 MAXSLEEPTIME=300
 MINSLEEPTIME=120
 
+. $SRCDIR/lib/lib_utils.sh
+FILE_NAME=$(basename -- "$0")
+FILE_NAME="${FILE_NAME%.*}"
+ret=$(createLockFile "$FILE_NAME")
+if [[ "$ret" -eq "1" ]]; then
+        exit 0
+fi
+
 if $randomize ; then
   sleep_time=$(($RANDOM * $(($MAXSLEEPTIME - $MINSLEEPTIME)) / 32767 + $MINSLEEPTIME))
   sleep $sleep_time
@@ -76,3 +84,5 @@ HOSTID=`grep 'HOSTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
 DATE=`date --date "now -1 day" +%Y%m%d`
 chmod g+w $STATFILE
 scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $STATFILE mcscp@cvs.mailcleaner.net:/upload/stats/$CLIENTID-$HOSTID-$DATE.txt >/dev/null 2>&1
+
+removeLockFile "$FILE_NAME"

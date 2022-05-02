@@ -17,7 +17,7 @@ $txt['SFALSEPOSSUB2'] = "Klicken Sie auf das Symbol <img src=\"/templates/$templ
 $txt['SFALSEPOSSUB3TITLE'] = "Adressenlisten";
 $txt['SFALSEPOSSUB3'] = "Es kann vorkommen, dass einige Mailng-Listen aufgrund ihres Formats, das demjenigen von Spams oft sehr &auml;hnlich ist, von Mailcleaner.net blockiert werden. Sie betroffene Mailing-Liste dann in die weissen Listen aufnehmen.";
 $txt['SOTHERTITLE'] = "ANDERE PROBLEME";
-$txt['SOTHER'] = "Falls sie ein Problem mit dem Empfang Ihrer E-Mails oder anderweitige Probleme haben, und diese Probleme trotz korrekter Durchf&uuml;hrung der oben erw&auml;hnten Anweisungen weiterbestehen, nehmen Sie &uuml;ber das folgende Formular Kontakt mit dem Supportcenter von Mailcleaner.net auf:";
+$txt['SOTHER'] = "Falls sie ein Problem mit dem Empfang Ihrer E-Mails oder anderweitige Probleme haben, und diese Probleme trotz korrekter Durchf&uuml;hrung der oben erw&auml;hnten Anweisungen weiterbestehen, nehmen Sie &uuml;ber das folgende Formular Kontakt mit dem Supportcenter von Mailcleaner.net auf.";
 $txt['FAQTITLE'] = "Mailcleaner verstehen";
 $txt['DOCTITLE'] = "Hilfe zur Benutzeroberfläche";
 $txt['WEBDOCTITLE'] = "Online-Dokumentation";

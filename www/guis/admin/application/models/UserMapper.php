@@ -71,46 +71,55 @@ class Default_Model_UserMapper
         $user->setParam('pref', $row->pref);
     }
 
-    public function fetchAllName($params)
-    {
+    public function fetchAllName($params) {
         $entries   = array();
         if (!$params['domain']){
             return $entries;
         }
-        
+
         $str = preg_replace('/\*/', '%', $params['username']);
         $str = preg_replace('/[^0-9a-zA-Z._\-]/', '', $str);
 
         $domain = new Default_Model_Domain();
         $domain->findByName($params['domain']);
-        if ($domain->isAuthExhaustive()) {
-            $ret = $domain->fetchUsers($str);
-            foreach ($ret as $r) {
-                $entry = new Default_Model_User();
-                $entry->setParam('username', $r);
-                $entries[] = $entry;
-            }
+        $ret = $domain->fetchUsers($str);
+        foreach ($ret as $r) {
+            $entry = new Default_Model_User();
+            $entry->setParam('username', $r);
+            $entries[] = $entry;
+        }
+        $query = $this->getDbTable()->select();
+        if (isset($params['order'])) {
+            $query->order($params['order']);
         } else {
-            $query = $this->getDbTable()->select();
-            if (isset($params['order'])) {
-                $query->order($params['order']);
-            } else {
-                $query->order('username ASC');
+            $query->order('username ASC');
+        }
+
+        if (isset($params['limit']) && is_array($params['limit'])) {
+            $query->limit($params['limit'][0], $params['limit'][1]);
+        }
+
+        if (isset($params['username'])) {
+            $query->where('username LIKE ?', $str."%");
+        }
+        $query->where('domain = ?', $params['domain']);
+        $resultSet = $this->getDbTable()->fetchAll($query);
+        foreach ($resultSet as $row) {
+            $duplicate = 0;
+            foreach ($entries as $e) {
+                if ($e->getParam('username') == $row['username']) {
+                    $duplicate = 1;
+                    break;
+                }
             }
-             
-            if (isset($params['limit']) && is_array($params['limit'])) {
-                $query->limit($params['limit'][0], $params['limit'][1]);
-            }
-             
-            if (isset($params['username'])) {
-                $query->where('username LIKE ?', $str."%");
-            }
-            $query->where('domain = ?', $params['domain']);
-            $resultSet = $this->getDbTable()->fetchAll($query);
-            foreach ($resultSet as $row) {
+            if ($duplicate == 0) {
                 $entry = new Default_Model_User();
                 $entry->setId($row['id']);
-                $entry->setParam('username', $row['username']);
+                #if ($domain->getPref('auth_type') == 'ldap') {
+                    #$entry->setParam('username', $row['username'] . ' (local)');
+                #} else {
+                    $entry->setParam('username', $row['username']);
+                #}
                 $entries[] = $entry;
             }
         }

@@ -39,6 +39,10 @@ sub initialise {
      whiterbls => '',
      rwlhits => 1,
      debug => 0,
+     decisive_field => 'none',
+     neg_text => '',
+     neg_decisive => 0,
+     position => 0
   );
   @TrustedSources::domainsToSPF_ = ();
   %TrustedSources::localDomains_;
@@ -132,6 +136,12 @@ sub initialise {
   $TrustedSources::dnslists->loadRBLs( $TrustedSources::conf{rblsDefsPath}, $TrustedSources::conf{whiterbls}, 'IPRWL SPFLIST', 
                                 '', '', 
                                 '', $MODULE);
+
+  if ($TrustedSources::conf{'neg_decisive'} && ($TrustedSources::conf{'decisive_field'} eq 'neg_decisive' || $TrustedSources::conf{'decisive_field'} eq 'both')) {
+    $TrustedSources::conf{'neg_text'} = 'position : '.$TrustedSources::conf{'position'}.', ham decisive';
+  } else {
+    $TrustedSources::conf{'neg_text'} = 'position : '.$TrustedSources::conf{'position'}.', not decisive';
+  }
 }
 
 sub Checks {
@@ -148,7 +158,7 @@ sub Checks {
   my $twolines = 0;
   foreach my $hl ($global::MS->{mta}->OriginalMsgHeaders($message)) {
     #print STDERR "Got line: $hl\n";
-    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {
+    #if ($hl =~ m/^received:\s+from\s+(?:\S+\s+)?\(?(?:\S+\s+)?\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i ) {#}
     if ($hl =~ m/^received:\s+from[^\[]+\[(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]/i ) {
       $h_id++;
       $full_received{$h_id} = $hl;
@@ -161,7 +171,7 @@ sub Checks {
     if ($hl =~ m/^received:\s+from/i) {
        $twolines = 1;
     }
-    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {
+    #if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\]?\)?/i) {#}
     if ($twolines && $hl =~ m/\(?\[?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[a-f0-9:]{5,72})\]?\)?/i) {
       my $potential_ip = $1;
       # avoid time expression that could be mistaken as ipv6
@@ -189,7 +199,6 @@ sub Checks {
       $full_received{$h_id} .= $hl;
       next;
     }
-    last if ($hl =~ m/^[^rR ]\w+: / );
   }
 
   my $usealltrusted = $TrustedSources::conf{'useAllTrusted'};
@@ -258,13 +267,13 @@ sub Checks {
   if ($self_auth_server > 0) {
     my $string = "message authenticated by SMTP from [".$ip_received{1}."]";
     if ($TrustedSources::conf{debug}) {
-        MailScanner::Log::InfoLog("$MODULE $string");
+      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
     }
-    MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
     if ($TrustedSources::conf{'putHamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string) ".$TrustedSources::conf{'neg_text'});
     }
-    $message->{prefilterreport} .= ", $MODULE ($string)";
+    $message->{prefilterreport} .= ", $MODULE ($string, ".$TrustedSources::conf{'neg_text'}. ")";
+
     return 0;
   }
 
@@ -274,13 +283,13 @@ sub Checks {
 
       my $string = "authenticated server found at [".$ip_received{$auth_server}."] from [".$ip_received{$auth_server+1}."]";
       if ($TrustedSources::conf{debug}) {
-        MailScanner::Log::InfoLog("$MODULE $string");
+        MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
       }
-      MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
       if ($TrustedSources::conf{'putHamHeader'}) {
-        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+        $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string) ".$TrustedSources::conf{'neg_text'});
       }
-      $message->{prefilterreport} .= ", $MODULE ($string)";
+      $message->{prefilterreport} .= ", $MODULE ($string, ".$TrustedSources::conf{'neg_text'}.")";
+
       return 0;
     }
   }
@@ -288,9 +297,10 @@ sub Checks {
   if ($usealltrusted && ($first_untrusted <1) ) {
         MailScanner::Log::InfoLog("$MODULE result is ham (all trusted path) for ".$message->{id});
     if ($TrustedSources::conf{'putHamHeader'}) {
-      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham (all trusted path)");
+      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham (all trusted path) ".$TrustedSources::conf{'neg_text'});
     }
-    $message->{prefilterreport} .= ", $MODULE (all trusted path)";
+    $message->{prefilterreport} .= ", $MODULE (all trusted path) ".$TrustedSources::conf{'neg_text'};
+
     return 0;
   }
   
@@ -301,27 +311,27 @@ sub Checks {
           MailScanner::Log::InfoLog("$MODULE will do SPF check for: ".$spf_from);
     }
     my $returnspf = 1;
-eval {
-    my $spf_server  = Mail::SPF::Server->new(max_dns_interactive_terms => 20);
-    my $request     = Mail::SPF::Request->new(
+    eval {
+      my $spf_server  = Mail::SPF::Server->new(max_dns_interactive_terms => 20);
+      my $request     = Mail::SPF::Request->new(
                              scope => 'mfrom',
                              identity => $spf_from,
                              ip_address => $ip_received{$first_untrusted}
                        );
 
-    my $result      = $spf_server->process($request);
-    if ($TrustedSources::conf{debug}) {
-  	    MailScanner::Log::InfoLog("$MODULE SPF result for ".$ip_received{$first_untrusted}. " and ".$spf_from.": [".$result->code."] ".$result->local_explanation);
-  	}
-    if ($result->code eq "pass" && $result->local_explanation !~ m/mechanism \'all\' matched/) {
-  	  my $string = "SPF record matches ".$message->{from}." [".$ip_received{$first_untrusted}."]";
-  	  MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-          if ($TrustedSources::conf{'putHamHeader'}) {
-             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
-          }
-          $message->{prefilterreport} .= ", $MODULE ($string)";
-          $returnspf = 0;   
-     }
+      my $result      = $spf_server->process($request);
+      if ($TrustedSources::conf{debug}) {
+        MailScanner::Log::InfoLog("$MODULE SPF result for ".$ip_received{$first_untrusted}. " and ".$spf_from.": [".$result->code."] ".$result->local_explanation);
+      }
+      if ($result->code eq "pass" && $result->local_explanation !~ m/mechanism \'all\' matched/) {
+        my $string = "SPF record matches ".$message->{from}." [".$ip_received{$first_untrusted}."]";
+        MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
+        if ($TrustedSources::conf{'putHamHeader'}) {
+          $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_text'}."is ham ($string) ".$TrustedSources::conf{'neg_text'});
+        }
+        $message->{prefilterreport} .= ", $MODULE ($string, ".$TrustedSources::conf{'neg_text'}.")";
+        $returnspf = 0;   
+      }
     };
     if (!$returnspf) {
      return 0;
@@ -335,12 +345,13 @@ eval {
   my ($data, $hitcount, $header) = $TrustedSources::dnslists->check_dns($message->{clientip}, 'IPRWL', "$MODULE (".$message->{id}.")", $TrustedSources::conf{rwlhits});
   $dnshitcount = $hitcount;
   if ($TrustedSources::conf{rwlhits} && $dnshitcount >= $TrustedSources::conf{rwlhits}) {
-  	my $string = "sender IP address is whitelisted by ".$header;
+    my $string = $TrustedSources::conf{'neg_text'}."sender IP address is whitelisted by ".$header;
     MailScanner::Log::InfoLog("$MODULE result is ham ($string) for ".$message->{id});
-  	if ($TrustedSources::conf{'putHamHeader'}) {
-             $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, "is ham ($string)");
+    if ($TrustedSources::conf{'putHamHeader'}) {
+      $global::MS->{mta}->AddHeaderToOriginal($message, $TrustedSources::conf{'header'}, $TrustedSources::conf{'neg_text'}."is ham ($string) ".$TrustedSources::conf{'neg_text'});
     }
-  	$message->{prefilterreport} .= " $MODULE (".$header.")";
+  	$message->{prefilterreport} .= " $MODULE ($header, ".$TrustedSources::conf{'neg_text'}.")";
+
     return 0;
   }
   

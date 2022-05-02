@@ -1,0 +1,23 @@
+Temat: [Mailcleaner] Aktywacja adresu/aliasu
+
+Cześć,
+
+Ta wiadomość jest prośbą o potwierdzenie aktywacji adresu/aliasu:
+
+__ALIAS__
+
+dla użytkownika:
+
+__USER__
+
+Aby go aktywować, kliknij poniższy link:
+
+__VALIDATEURL__
+
+Jeśli nie chcesz go aktywować, kliknij poniższy link:
+
+__REFUSEURL__
+
+---------------
+Mailcleaner
+

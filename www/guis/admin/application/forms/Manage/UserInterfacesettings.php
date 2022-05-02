@@ -61,7 +61,6 @@ class Default_Form_Manage_UserInterfacesettings extends Zend_Form
             'required'   => false,
             'filters'    => array('StringTrim')));
 	    ## TODO: add specific validator
-	    $language->addValidator(new Zend_Validate_Alnum());
         
 	    $config = MailCleaner_Config::getInstance();
 	    foreach ($config->getUserGUIAvailableLanguages() as $lk => $lv) {

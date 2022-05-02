@@ -16,33 +16,43 @@ class MCSoap_Logs
 	 * @return array
 	 */
 	static public function Logs_StartTrace($params) {
+		// escape params args
+		array_walk($params, function(&$arg_value, $key) {
+			if ($key == 'filter' || $key == 'trace_id' || $key == 'regexp') 
+				$arg_value = escapeshellarg($arg_value);
+		});
 
 		$trace_id = 0;
 
 		require_once('MailCleaner/Config.php');
 		$mcconfig = MailCleaner_Config::getInstance();
-			
+
 		if (!isset($params['regexp'])
 		|| !$params['datefrom'] || !preg_match('/^\d{8}$/', $params['datefrom'])
 		|| !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
 			return array('trace_id' => $trace_id);
 		}
-		$cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." '".$params['regexp']."'";
-		if (isset($params['filter']) && $params['filter'] != '') {
-			$cmd .= " '".$params['filter']."'";
-		}
+		$cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." ".$params['regexp'];
+        if (isset($params['filter']) && $params['filter'] != '' && $params['filter'] != "''") {
+            $params['filter'] = preg_replace("/^'(.*)'$/", "$1", $params['filter']);
+            $params['filter'] = preg_replace("/'/", "\\'", $params['filter']);
+            $params['filter'] = preg_replace("/\s+/", "' '", $params['filter']);
+            $cmd .= " '" . $params['filter'] . "'";
+        }
 
                 if (isset($params['hiderejected']) && $params['hiderejected']) {
                     $cmd .= ' -R ';
                 }
-			
+
 		if (isset($params['trace_id']) && $params['trace_id']) {
-			$trace_id = $params['trace_id'];
+			$trace_id_matches = array();
+			preg_match('/[a-f0-9]{32}/i', $params['trace_id'], $trace_id_matches);
+			$trace_id = $trace_id_matches[0];
 		} else {
 			$trace_id = md5(uniqid(mt_rand(), true));
 		}
                 $cmd .= " -B ".$trace_id;
-			
+
 		$cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id." &";
 		$res = `$cmd`;
 		return array('trace_id' => $trace_id, 'cmd' => $cmd) ;
@@ -63,7 +73,7 @@ class MCSoap_Logs
 
 		require_once('MailCleaner/Config.php');
 		$mcconfig = MailCleaner_Config::getInstance();
-			
+
 		$file = $mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id;
 		if (!file_exists($file)) {
 			return array('error' => 'no such results');
@@ -86,7 +96,8 @@ class MCSoap_Logs
 				$done = 1;
 				$res['message'] = 'finished';
 			}
-			if (preg_match('/^Found (\d+) occurences/', $line, $matches)) {
+      // accept 'occurrence' and 'occurence'
+			if (preg_match('/^Found (\d+) occur/', $line, $matches)) {
 				$res['nbrows'] = $matches[1];
 			}
 		}
@@ -141,7 +152,7 @@ class MCSoap_Logs
 		$trace_id = $params['trace_id'];
 		require_once('MailCleaner/Config.php');
 		$mcconfig = MailCleaner_Config::getInstance();
-			
+
 		$file = $mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id;
 		if (!file_exists($file)) {
 			return array('error' => 'no such results');
@@ -192,12 +203,12 @@ class MCSoap_Logs
 		}
 		$months = array('Jan' => '01', 'Feb' => '02', 'Mar' => '03', 'Apr' => '04', 'May' => '05', 'Jun' => '06', 'Jul' => '07',
                 'Aug' => '08', 'Sep' => '09', 'Oct' => '10', 'Nov' => '11', 'Dec' => '12');
-			
+
 		## Exim
 		if (preg_match('/^(\d\d\d\d)\-(\d\d)\-(\d\d)/', $line, $matches)) {
 			return $matches[1].$matches[2].$matches[3];
 		}
-			
+
 		## MailScanner
 		if (preg_match('/^(\w{3})\s+(\d+)/', $line, $matches)) {
 			$fm = $matches[1];
@@ -288,10 +299,10 @@ class MCSoap_Logs
 		$days = floor(($diff / 86400));
 
 		$estimate_id = $days - 1;
-	  
+
 		require_once('MailCleaner/Config.php');
 		$mcconfig = MailCleaner_Config::getInstance();
-			
+
 		$params['basefile'] = $mcconfig->getOption('VARDIR')."/log/".$params['basefile'];
 
 		$filename = $params['basefile'].MCSoap_Logs::extFromId($estimate_id);
@@ -315,7 +326,7 @@ class MCSoap_Logs
 				$filefound = $filename;
 			}
 		}
-	  
+
 		if ($filefound != '') {
 			return $filefound;
 		}
@@ -346,7 +357,7 @@ class MCSoap_Logs
 		}
 		return $res;
 	}
-	
+
 	/**
 	 * This function will fetch log lines
 	 *
@@ -354,7 +365,7 @@ class MCSoap_Logs
 	 * @return array
 	 */
 	static public function Logs_GetLogLines($params) {
-		
+
 		$res['cmds'] = array();
 		if (!isset($params['file'])) {
 			$res['error'] = 'Missing parameters';
@@ -363,7 +374,7 @@ class MCSoap_Logs
 		$pos = 0;
 		$posline = 0;
 		$res['sres'] = array();
-		
+
 		// Define path to application directory
 		defined('APPLICATION_PATH')
 		|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -382,18 +393,18 @@ class MCSoap_Logs
 
 		ini_set('error_reporting', E_ALL);
 		ini_set('display_errors', 'on');
-		
+
 		require_once('MailCleaner/Config.php');
 		$mcconfig = MailCleaner_Config::getInstance();
-			
+
 		$params['file'] = preg_replace('/-/', '/', $params['file']);
 		$file = $mcconfig->getOption('VARDIR')."/log/".$params['file'];
 		if (!file_exists($file)) {
 			$res['error'] = 'No such file ('.$file.')';
 			return $res;
 		}
-		
-		
+
+
 		if (!is_numeric($params['fromline'])) {
 			$params['fromline'] = 1;
 		}
@@ -401,11 +412,11 @@ class MCSoap_Logs
 			$params['fromline'] = 1;
 		}
         $res['params'] = $params;
-		
+
 		$fromline = 1;
 		$toline = 1 + $params['maxlines'];
 		$fullnblines = 0;
-		
+
 		// first get logs number of lines
         if (preg_match('/.gz$/', $file)) {
             $wccmd = "/bin/zcat $file 2>&1 | /usr/bin/wc -l";
@@ -418,7 +429,7 @@ class MCSoap_Logs
 	    	$fullnblines = $matches[1];
         }
         $res['nblines'] = $fullnblines;
-        
+
         // handle the search
         $res['search_results'] = 0;
         if ($params['search']) {
@@ -434,7 +445,7 @@ class MCSoap_Logs
                     $res['sres'][] = utf8_encode($line);
                 }
                 $res['search_results'] = count($wclines);
-            }      
+            }
         }
         // according to parameters, find out which lines to retrieve
 		switch ($params['last_element']) {
@@ -484,7 +495,7 @@ class MCSoap_Logs
         if ($fromline < 1) {
             $fromline = 1;
         }
-		
+
 		$percent = round((100 / ($fullnblines)) * ($fromline));
 		if ($fromline == 1) {
 			$percent = 0;
@@ -495,11 +506,11 @@ class MCSoap_Logs
         $res['percent'] = $percent;
 		// now get the right lines
         $awktoline = $toline+1;
-        $cmd = "/usr/bin/awk 'NR >= $fromline && NR < $awktoline'"; 
+        $cmd = "/usr/bin/awk 'NR >= $fromline && NR < $awktoline'";
         if (preg_match('/.gz$/', $file)) {
             $cmd = "/bin/zcat $file 2>&1 | ".$cmd;
         } else {
-            $cmd .= " $file"; 
+            $cmd .= " $file";
         }
         $cmdres = `$cmd`;
         array_push($res['cmds'], $cmd);
@@ -515,7 +526,7 @@ class MCSoap_Logs
         }
         $res['fromline'] = $fromline;
         $res['toline'] = $toline;
-		
+
         // recalculate position
         if (!$pos) {
             $pos = 1;
@@ -531,11 +542,11 @@ class MCSoap_Logs
         }
         $res['position'] = $pos;
         $res['posline'] = $posline;
-        
+
         require_once('Logfile.php');
         $logfile = new Default_Model_Logfile();
         $logfile->loadByFileName($params['file']);
-        
+
 		// and do some values formatting
         $msgid = '';
 		if (isset($params['search'])) {
@@ -565,7 +576,7 @@ class MCSoap_Logs
         }
         $res['lines'] = $blines;
         $res['msgid'] = $msgid;
-        
+
 		return $res;
 	}
 
@@ -624,7 +635,7 @@ class MCSoap_Logs
                    if (!feof($handle)) {
                        break;
                    }
-                   fclose($handle); 
+                   fclose($handle);
                }
            }
            if (is_array($levels[0])) { $res['log_stage1'] = $levels[0]; }

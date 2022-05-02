@@ -29,7 +29,13 @@ sub initialise {
      server_host => 'localhost',
      server_port => 25080,
      threshold => 0,
-     serial => ''
+     serial => '',
+     decisive_field => 'none',
+     pos_text => '',
+     neg_text => '',
+     pos_decisive => 0,
+     neg_decisive => 0,
+     position => 0
   );
 
   if (open (CONFIG, $configfile)) {
@@ -45,6 +51,17 @@ sub initialise {
   
   $MFInterface = new MailFilters::SpamCureClientInterface();
   $MFInterface->Initialize($MailFilters::conf{'serial'}, $MailFilters::conf{'server_host'}, $MailFilters::conf{'server_port'});    
+
+  if ($MailFilters::conf{'pos_decisive'} && ($MailFilters::conf{'decisive_field'} eq 'pos_decisive' || $MailFilters::conf{'decisive_field'} eq 'both')) {
+    $MailFilters::conf{'pos_text'} = 'position : '.$MailFilters::conf{'position'}.', spam decisive';
+  } else {
+    $MailFilters::conf{'pos_text'} = 'position : '.$MailFilters::conf{'position'}.', not decisive';
+  }
+  if ($MailFilters::conf{'neg_decisive'} && ($MailFilters::conf{'decisive_field'} eq 'neg_decisive' || $MailFilters::conf{'decisive_field'} eq 'both')) {
+    $MailFilters::conf{'neg_text'} = 'position : '.$MailFilters::conf{'position'}.', ham decisive';
+  } else {
+    $MailFilters::conf{'neg_text'} = 'position : '.$MailFilters::conf{'position'}.', not decisive';
+  }
 }
 
 sub Checks {
@@ -88,15 +105,14 @@ sub Checks {
   if ($result == 2) {
       MailScanner::Log::InfoLog("$MODULE result is spam (".$result.") for ".$message->{id});
       if ($MailFilters::conf{'putSpamHeader'}) {
-          $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, "is spam (".$result.")");
+          $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, "is spam ($result, ".$MailFilters::conf{'pos_text'}. ")");
       }
-      $message->{prefilterreport} .= ", MailFilters (".$result.")";
-        return 1;
-    }
-    else {
+      $message->{prefilterreport} .= ", $MODULE ($result, ".$MailFilters::conf{'pos_text'}.")";
+      return 1;
+    } else {
         MailScanner::Log::InfoLog("$MODULE result is not spam (".$result.") for ".$message->{id});
         if ($MailFilters::conf{'putHamHeader'}) {
-           $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, "is not spam (".$result.")");
+           $global::MS->{mta}->AddHeaderToOriginal($message, $MailFilters::conf{'header'}, "is not spam ($result, ".$MailFilters::conf{'pos_text'}. ")");
         }
         return 0;
     }

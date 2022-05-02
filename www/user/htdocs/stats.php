@@ -8,6 +8,10 @@
  * This is the controller for the statistics page
  */
  
+if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
+  return 200;
+}
+
 /**
  * require valid session
  */

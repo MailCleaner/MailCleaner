@@ -3,6 +3,7 @@
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
 #   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
+#   Copyright (C) 2021 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -22,8 +23,11 @@
 #   This script will send the spam summaries to the users
 #
 #   Usage:
-#           send_summary.pl [-a] mode nb_days
-#   -a: send to all users
+#           send_summary.pl [-a|email@address|domain.tld] mode nb_days
+#   -a: sends to all users
+#   email@address: sends to a given mail address
+#   domain.tld: sends to all users of the domain domain.tld
+#
 #   mode is:
 #           0 = requested by command line
 #           1 = called by monthly script
@@ -40,6 +44,8 @@ require ReadConfig;
 require DB;
 require Email;
 require MailTemplate;
+require 'lib_utils.pl';
+
 use Date::Calc qw(Add_Delta_Days Today Date_to_Text Date_to_Text_Long);
 use DateTime;
 use Encode;
@@ -54,10 +60,6 @@ if ($conf->getOption('ISMASTER') !~ /^[y|Y]$/) {
 
 ## get params
 my $address = shift;
-if (! $address eq '-a' && ! $address =~ /^\S+\@\S+$/) {
-   print "BADADDR";
-   exit 0;
-}
 my $mode = shift;
 if ($mode < 0 || $mode >3) {
   print "INCORRECTPARAMS";
@@ -68,6 +70,14 @@ if ($days !~ /^\d+$/) {
   print "INCORRECTPARAMS";
   exit 0;
 }
+# check for lock
+my $lockfile_name = 'send_summary_' . $days . 'd';
+my $rc = create_lockfile($lockfile_name, undef, time+10*60*60, 'send_summary');
+if ($rc == 0) {
+  print "CANNOTLOCK $lockfile_name\n";
+  exit;
+}
+
 my $nodigest = 0;
 my $opts = shift;
 if ($opts =~ /^nodigest$/) {
@@ -82,12 +92,7 @@ my $spamnbdays = $sysconf->getPref('days_to_keep_spams');
 my $db = DB::connect('master', 'mc_spool', 0);
 my $conf_db = DB::connect('master', 'mc_config', 0);
 ## and do the job, either for one or all addresses
-my @addresses;
-if ($address eq '-a') {
-  @addresses = getAllAddresses();
-} else {
-  @addresses = ($address);
-}
+my @addresses = getAllAddresses($address);
 
 ## delete expired digests
 my $query = "DELETE FROM digest_access WHERE DATEDIFF(date_expire, NOW()) < 0;";
@@ -117,7 +122,12 @@ foreach my $a (@addresses) {
   my $domain = $email->getDomainObject();
   my $type = $email->getPref('summary_type');
   my $lang = $email->getPref('language');
-  if (!defined($lang) || $lang eq '') {
+  my $temp_id = $domain->getPref('summary_template');
+  if (! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id) {
+    $temp_id = 'default';
+  }
+  # In case of missing translation for summaries
+  if (!defined($lang) || $lang eq '' || ! -d $conf->getOption('SRCDIR')."/templates/summary/".$temp_id."/$lang") {
     $lang = 'en';
   }
   my $to = $email->getPref('summary_to');
@@ -126,9 +136,9 @@ foreach my $a (@addresses) {
     $type = 'html';
   }
   if ($type eq 'digest') {
-    $template = MailTemplate::create('summary', 'digest', $domain->getPref('summary_template'), \$email, $lang, 'html');
+    $template = MailTemplate::create('summary', 'digest', $temp_id, \$email, $lang, 'html');
   } else {
-    $template = MailTemplate::create('summary', 'summary', $domain->getPref('summary_template'), \$email, $lang, $type);
+    $template = MailTemplate::create('summary', 'summary', $temp_id, \$email, $lang, $type);
   }
 
   my ($end_year, $end_month,$end_day) = Today();
@@ -137,8 +147,8 @@ foreach my $a (@addresses) {
   my @spams;
   getFullQuarantine($a, \@spams, $email);
 
-  my $textquarantine = getQuarantineTemplate($template, $template->getSubTemplate('LIST'), \@spams, 'text', $lang);
-  my $htmlquarantine = getQuarantineTemplate($template, $template->getSubTemplate('HTMLQUARANTINE'), \@spams, 'html', $lang);
+  my $textquarantine = getQuarantineTemplate($template, $template->getSubTemplate('LIST'), \@spams, 'text', $lang, $temp_id);
+  my $htmlquarantine = getQuarantineTemplate($template, $template->getSubTemplate('HTMLQUARANTINE'), \@spams, 'html', $lang, $temp_id);
 
   my $end = DateTime->new('year' => $end_year, 'month' => $end_month, 'day' => $end_day );
   $end->set_locale($lang);
@@ -164,30 +174,43 @@ foreach my $a (@addresses) {
     '__END_MONTH__' => sprintf('%.2u', $end_month),
     '__END_YEAR__' => $end_year,
     '__END_SYEAR__' => sprintf('%.2u', $end_year-2000),
-    '__START_DATE__' => $start->strftime("%x"),
-    '__END_DATE__' => $end->strftime("%x"),
+    '__START_DATE__' => Encode::encode('UTF-8', $start->strftime("%x")),
+    '__END_DATE__' => Encode::encode('UTF-8', $end->strftime("%x")),
     '__ADDRESSES__' => join(', ', @addresses)
   );
 
   #if ($type eq 'digest') {
   ## create new digest and save it
   my $firstspam = $spams[0];
-  my $str = $firstspam->{exim_id}.'-'.$firstspam->{time_in}.'-'.@spams.'-'.time();
+  my $str = $firstspam->{exim_id}.'-'.$firstspam->{time_in}.'-'.@spams.'-'.time().$a;
   $str =~ s/:/-/g;
   my $hash = sha1_hex($str);
   $replace{'__DIGEST_ID__'} = 'NOTGENERATED';
   if (!defined($spamnbdays) || $spamnbdays eq '') {
      $spamnbdays = 1;
   }
-  my $query = "INSERT INTO digest_access VALUES('$hash', DATE(NOW()), DATE_SUB(NOW(), INTERVAL $days DAY), DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)), '$a');";
+  my $clean_a = $a;
+  $clean_a =~ s/'/''/g;
+  my $query = "INSERT INTO digest_access VALUES('$hash', DATE(NOW()), DATE_SUB(NOW(), INTERVAL $days DAY), DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)), '$clean_a');";
+
   if ($conf_db->execute($query)) {
-        $replace{'__DIGEST_ID__'} = $hash;
+    $replace{'__DIGEST_ID__'} = $hash;
   } else {
-    	print 'COULDNOTSAVEDIGESTID '.$query;
+    my $query = "SELECT address FROM digest_access WHERE id = '$hash';";
+    my $old = ($conf_db->getListOfHash($query))[0]->{address};
+    if ($old eq $a) {
+      my $query = "UPDATE digest_access SET date_in = DATE(NOW()), date_start = DATE_SUB(NOW(), INTERVAL $days DAY), date_expire = DATE(DATE_ADD(NOW(), INTERVAL $spamnbdays DAY)) WHERE id = '$hash';";
+      if ($conf_db->execute($query)){
+        $replace{'__DIGEST_ID__'} = $hash;
+      } else {
+        print 'COULDNOTUPDATEEXPIRY '.$query."\n";
+      }
+    } else {
+      print 'COULDNOTUPDATEEXPIRY for different address '.$clean_a.' '.$query."\n";
+    }
   }
-  #}
   $template->setReplacements(\%replace);
-  my $result = $template->send($to);
+  my $result = $template->send($to, 10);
   if ($result) {
     my $date = `date '+%Y-%m-%d %H:%M:%S'`;
     chomp($date);
@@ -196,24 +219,39 @@ foreach my $a (@addresses) {
         $a = join(',', $email->getLinkedAddresses());
     }
     if (!$to) {
-        $to = $email->getAddress();
+        $to = $email->getUser()->getMainAddress();
     }
     print "$date SUMSENT to $to for $a (days: $days, spams: $nbspams, id: $result)\n";
   }
 }
+# [AuKa] remove lockfile here
+remove_lockfile($lockfile_name);
+
 
 ###
 # get all addresses to send summary
 # @return    array   list of addresses
 ###
 sub getAllAddresses {
-  my @list;
+  my ($domain) = @_;
 
+  # if we had an address and not a domain no need to look for other addresses
+  return ($domain) if ($domain =~ /\S+\@\S+$/);
+
+  my @list;
   my %addnottoadd;
 
   foreach my $letter ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','misc', 'num') {
     if ($db && $db->ping()) {
-     my $query="SELECT to_user, to_domain FROM spam_$letter WHERE TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY to_user, to_domain";
+     my $query = "SELECT to_user, to_domain FROM spam_$letter WHERE ";
+     # We were asked about a specific domain
+     if ($domain ne '-a') {
+       $domain =~ s/^@//;
+       $query .= "to_domain='$domain' AND ";
+     } else {
+       $query .= "to_user NOT LIKE '\%+\%' AND "
+     }
+     $query .= "TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY to_user, to_domain";
      my @res = $db->getListOfHash($query);
 	 foreach my $a_h (@res) {
 	 	my $a = $a_h->{'to_user'}."@".$a_h->{'to_domain'};
@@ -262,21 +300,21 @@ sub getFullQuarantine {
     $table = 'spam_misc';
   }
 
-  my $addwhere = "to_domain='$to_domain' AND to_user='$to_local'";
+  my $addwhere = "to_domain='$to_domain' AND (to_user='$to_local' OR to_user LIKE '$to_local+%')";
   if ($email) {
       if ($email->getUserPref('gui_group_quarantines')) {
           $table = 'spam';
           $addwhere = "";
           foreach my $add ($email->getLinkedAddresses()) {
             if ($add =~ m/(\S+)\@(\S+)/) {
-               $addwhere .= " OR (to_domain='$2' AND to_user='$1')";
+               $addwhere .= " OR (to_domain='$2' AND (to_user='$1' OR to_user LIKE '$1+%'))";
             }
           }
           $addwhere =~ s/^\ OR\ //;
       }
   }
 
-  my $query = "SELECT exim_id, sender, to_domain, to_user, time_in, HOUR(time_in) as T_h, MINUTE(time_in) as T_m, SECOND(time_in) as T_s, YEAR(date_in) as M_y, MONTH(date_in) as M_m, DAYOFMONTH(date_in) as M_d, M_subject, store_slave, M_score, M_prefilter, M_globalscore, is_newsletter FROM $table  WHERE ($addwhere) AND TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY exim_id ORDER BY date_in ASC, time_in ASC";
+  my $query = "SELECT exim_id, sender, to_domain, to_user, time_in, HOUR(time_in) as T_h, MINUTE(time_in) as T_m, SECOND(time_in) as T_s, YEAR(date_in) as M_y, MONTH(date_in) as M_m, DAYOFMONTH(date_in) as M_d, M_subject, store_slave, M_score, M_prefilter, M_globalscore, is_newsletter FROM $table  WHERE ($addwhere) AND TO_DAYS(NOW())-TO_DAYS(date_in) < $days+1 GROUP BY exim_id ORDER BY date_in DESC, time_in DESC";
   if ($db && $db->ping()) {
     @{$spams_h} = $db->getListOfHash($query);
   }
@@ -295,121 +333,149 @@ sub getQuarantineTemplate {
   my $spams = shift;
   my $type = shift;
   my $lang = shift;
+  my $temp_id = shift;
 
   my $ret = "";
   my $i = 0;
   my $bullet_filled = $template->getDefaultValue('FILLEDBULLET');
   my $bullet_empty = $template->getDefaultValue('EMPTYBULLET');
-  foreach my $spam (@{$spams}) {
-  	my $tmp = $tmpl;
-  	if ($type eq 'html') {
-  		use HTML::Entities;
-  	  foreach my $key (keys %{$spam}) {
-  	  	$spam->{$key} = encode_entities($spam->{$key});
+
+  use URI::Escape;
+
+  my %lang_news = (
+    'de' => 'Newsletter',
+    'en' => 'Newsletter',
+    'es' => 'Boletin Informativo',
+    'fr' => 'Newsletter',
+    'it' => 'Newsletter',
+    'nb_NO' => 'Nyhetsbrev',
+    'nl' => 'Nieuwsbrief',
+    'pl' => 'Biuletyn'
+  );
+
+  my %lang_spam = (
+    'de' => 'Spam',
+    'en' => 'Spam',
+    'es' => 'Spam',
+    'fr' => 'Spam',
+    'it' => 'Spam',
+    'nb_NO' => 'Spam',
+    'nl' => 'Spam',
+    'pl' => 'Spamu'
+  );
+
+  my $spamblock = '';
+  my $newsblock = '';
+  foreach my $item (@{$spams}) {
+    my $tmp = $tmpl;
+    if ($type eq 'html') {
+  	  use HTML::Entities;
+  	  foreach my $key (keys %{$item}) {
+  	    $item->{$key} = encode_entities($item->{$key});
   	  }
-  	}
-
-   my $gscore = "";
-   my $score = $spam->{'M_globalscore'};
-   for (my $i=1; $i < 5; $i++) {
-  	if ($score >= $i) {
-  	  $gscore .= $bullet_filled;
-  	} else {
-  	  $gscore .= $bullet_empty;
-  	}
-   }
-   if ($score > 4 || $score < 0) {
-     $score = 4;
-   }
-   my $pictoscore = $template->getDefaultValue("SCORE".$score);
-
-
-
-  	my  $s_local = "";
-  	my  $s_domain = "";
-  	if ($spam->{'sender'} =~ /^(\S+)\@(\S+)$/) {
-  	   $s_local = $1;
-  	   $s_domain = $2;
-  	   if ($type eq 'html') {
-         $s_local =~  s/^(\S{20}).*$/\1.../;
-  	     $s_domain =~  s/^(\S{20}).*$/\1.../;
-  	   }
-  	}
-        my $text_from = $spam->{'sender'};
-  	my $s_subject = $spam->{'M_subject'};
-        my $text_subject = $spam->{'M_subject'};
-
-        my $decoded = eval { decode("MIME-Header", $s_subject); };
-        if ($decoded) {
-            $decoded =~ s/^(.{100}).*$/\1.../;
-            my $encoded = encode("utf8", $decoded);
-            $text_subject = $decoded;
-
-            $decoded =~ s/^(.{50}).*$/\1.../;
-            $encoded = encode("utf8", $decoded);
-            $s_subject = $encoded;
-        } else {
-          $s_subject =~ s/^(.{50}).*$/\1.../;
-        }
-
-        my $tmpfrom = '';
-        if ($s_local ne '' && $s_domain ne '') {
-           $tmpfrom = $s_local.'@'.$s_domain;
-        }
-        $tmp =~ s/(\_\_|\?\?)FROM(\_\_)?/$tmpfrom/g;
-        $tmp =~ s/(\_\_|\?\?)TEXTFROM(\_\_)?/$text_from/g;
-  	$tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$spam->{exim_id}/g;
-  	$tmp =~ s/(\_\_|\?\?)SUBJECT(\_\_)?/$s_subject/g;
-        $tmp =~ s/(\_\_|\?\?)TEXTSUBJECT(\_\_)?/$text_subject/g;
-
-    my $spamdate = DateTime->new(
-                'year' => $spam->{'M_y'}, 'month' => $spam->{'M_m'}, 'day' => $spam->{'M_d'},
-                'hour' => $spam->{'T_h'}, 'minute' =>  $spam->{'T_m'}, 'second' =>  $spam->{'T_s'}
-                );
-    $spamdate->set_locale($lang);
-    my $strdate = $spamdate->strftime("%c");
-
-  	$tmp =~ s/\_\_SINGLEDATE\_\_/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'}/g;
-    $tmp =~ s/\_\_SINGLETIME\_\_/$spam->{'time_in'}/g;
-    $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
-    $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$spam->{'to_user'}\@$spam->{'to_domain'}/g;
-
-    if ($spam->{'is_newsletter'} > 0) {
-        my %titles = (
-            de => "Diese Newsletter annehmen",
-            en => "Accept this newsletter",
-            es => "Acepte este Newsletter",
-            fr => "Accepter cette newsletter",
-            it => "Accept this newsletter"
-        );
-
-        my $newsletter = "<td style=\"width:26;border:0;\"><a href=\"__FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}&lang=$lang\" title=\"$titles{$lang}\"><span><img src=\"cid:picto-news.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/a><\/td>";
-        $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
-
-        my $newsletter_txt = "$titles{$lang}: __FORCEURL__\/newsletters.php?id=$spam->{'exim_id'}&a=$spam->{'to_user'}\@$spam->{'to_domain'}";
-        $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
     } else {
-        my $newsletter = "<td style=\"width:26;border:0;\"><span><img src=\"cid:picto-nonews.png\" width=\"16px\" height=\"23px\" alt=\"\"><\/span><\/td>";
-        $tmp =~ s/(\_\_)NEWSLETTER(\_\_)?/$newsletter/g;
-
-        my $newsletter_txt = "";
-        $tmp =~ s/(\?\?)NEWSLETTER_TXT/$newsletter_txt/g;
+      if ($item->{'is_newsletter'} > 0) {
+        $tmp =~ s/((\_\_|\?\?)ID(\_\_)?)/$1 ($lang_news{$lang})/;
+      }
     }
 
+    my $gscore = "";
+    my $score = $item->{'M_globalscore'};
+    for (my $i=1; $i < 5; $i++) {
+      if ($score >= $i) {
+  	$gscore .= $bullet_filled;
+      } else {
+  	$gscore .= $bullet_empty;
+      }
+    }
+    if ($score > 4 || $score < 0) {
+      $score = 4;
+    }
+    my $pictoscore = $template->getDefaultValue("SCORE".$score);
 
+    my $s_local = "";
+    my $s_domain = "";
+    if ($item->{'sender'} =~ /^(\S+)\@(\S+)$/) {
+      $s_local = $1;
+      $s_domain = $2;
+      if ($type eq 'html') {
+        $s_local =~  s/^(\S{20}).*$/\1.../;
+  	$s_domain =~  s/^(\S{20}).*$/\1.../;
+      }
+    }
 
-  	$tmp =~ s/\_\_SCORE\_\_/$gscore/g;
-  	$tmp =~ s/\_\_SCOREPICTO\_\_/$pictoscore/g;
-  	$tmp =~ s/(\_\_|\?\?)STOREID(\_\_)?/$spam->{'store_slave'}/g;
-  	$tmp =~ s/(\_\_|\?\?)DATE(\_\_)?/$spam->{'M_d'}-$spam->{'M_m'}-$spam->{'M_y'} $spam->{'time_in'}/g;
-  	if ($i++ % 2) {
+    my $text_from = $item->{'sender'};
+    my $s_subject = $item->{'M_subject'};
+    my $text_subject = $item->{'M_subject'};
+
+    my $decoded = eval { decode("MIME-Header", $s_subject); };
+    if ($decoded) {
+       $decoded =~ s/^(.{100}).*$/\1.../;
+       my $encoded = encode("utf8", $decoded);
+       $text_subject = $decoded;
+       $decoded =~ s/^(.{50}).*$/\1.../;
+       $encoded = encode("utf8", $decoded);
+       $s_subject = $encoded;
+    } else {
+     $s_subject =~ s/^(.{50}).*$/\1.../;
+    }
+
+    my $tmpfrom = '';
+    if ($s_local ne '' && $s_domain ne '') {
+      $tmpfrom = $s_local.'@'.$s_domain;
+    }
+    $tmp =~ s/(\_\_|\?\?)NEWSLETTER(_TXT)?(\_\_)?//g;
+    $tmp =~ s/(\_\_|\?\?)FROM(\_\_)?/$tmpfrom/g;
+    $tmp =~ s/(\_\_|\?\?)TEXTFROM(\_\_)?/$text_from/g;
+    $tmp =~ s/(\_\_|\?\?)ID(\_\_)?/$item->{exim_id}/g;
+    $tmp =~ s/(\_\_|\?\?)SUBJECT(\_\_)?/$s_subject/g;
+    $tmp =~ s/(\_\_|\?\?)TEXTSUBJECT(\_\_)?/$text_subject/g;
+
+    my $itemdate = DateTime->new(
+      'year' => $item->{'M_y'}, 'month' => $item->{'M_m'}, 'day' => $item->{'M_d'},
+      'hour' => $item->{'T_h'}, 'minute' =>  $item->{'T_m'}, 'second' =>  $item->{'T_s'}
+    );
+    $itemdate->set_locale($lang);
+    my $strdate = Encode::encode('UTF-8', $itemdate->strftime("%c"));
+
+    $tmp =~ s/\_\_SINGLEDATE\_\_/$item->{'M_d'}-$item->{'M_m'}-$item->{'M_y'}/g;
+    $tmp =~ s/\_\_SINGLETIME\_\_/$item->{'time_in'}/g;
+    $tmp =~ s/\_\_SINGLEDATETIME\_\_/$strdate/g;
+    $item->{'to_user'} =~ s/&#39;/'/;
+    my $tmprcpt = uri_escape($item->{'to_user'}.'@'.$item->{'to_domain'});
+    if ($item->{'is_newsletter'} > 0) {
+      $tmprcpt .= '&n=1';
+    }
+    $tmp =~ s/(\_\_|\?\?)RECIPIENT(\_\_)?/$tmprcpt/g;
+    $tmp =~ s/(\_\_|\?\?)ADDRESS(\_\_)?/$tmprcpt/g;
+    $tmp =~ s/\_\_SCORE\_\_/$gscore/g;
+    $tmp =~ s/\_\_SCOREPICTO\_\_/$pictoscore/g;
+    $tmp =~ s/(\_\_|\?\?)STOREID(\_\_)?/$item->{'store_slave'}/g;
+    $tmp =~ s/(\_\_|\?\?)DATE(\_\_)?/$item->{'M_d'}-$item->{'M_m'}-$item->{'M_y'} $item->{'time_in'}/g;
+    if ($i++ % 2) {
       $tmp =~ s/__ALTCOLOR__(\S{7})/$1/g;
     } else {
       $tmp =~ s/\ bgcolor=\"__ALTCOLOR__\S{7}\"//g;
     }
-
-  	$ret .= $tmp;
+    if ($item->{'is_newsletter'} > 0 && $type eq 'html') {
+      $newsblock .= $tmp;
+    } else {
+      $spamblock .= $tmp;
+    }
   }
 
+  if ($type eq 'html') {
+    if ($newsblock) {
+      $ret .= '<tr id="news"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_news{$lang})) ? $lang_news{$lang} : 'Newsletters' ) . '</b></div></th></tr>';
+      $ret .= $newsblock;
+    }
+    if ($spamblock) {
+      $ret .= '<tr id="spam"><th colspan="5" style="border-left: solid 1px #CCC1C9;"><div class="qt"><b>' . ( (defined($lang_spam{$lang})) ? $lang_spam{$lang} : 'Spam' ) . '</b></div></th></tr>';
+      $ret .= $spamblock;
+    }
+  } else {
+    $ret .= $spamblock;
+  }
   return $ret;
+
 }

@@ -42,6 +42,8 @@ class Api_Model_DomainAPI
      *      c_base_dn => base DN (i.e. dc=yourdomain,dc=com)
      *      c_bind_user => user account for non anonymous bind
      *      c_bind_pass => user password for non anonymous bind
+     *      c_group => restrict search on group
+     *      c_use_ssl => can be 0 or 1, use SSL encryption
 	 *
 	 *   Preferences:
 	 *    language => can be 'en', 'fr', 'de', 'es'
@@ -78,6 +80,7 @@ class Api_Model_DomainAPI
 	 *     notice_wwlists => can be 0 or 1, enable administrator warning when white or warn lists hit
 	 *     prevent_spoof => can be 0 or 1, enable antispoofing
 	 *     require_incoming_tls => can be 0 or 1, reject unencrypted sessions to this domain
+	 *     reject_capital_domain => can be 0 or 1, rejects domain names containing capitals (if set to 0)
 	 *    
 	 *   Outgoing:
 	 *     allow_smtp_auth =>  can be 0 or 1, set if users can authenticate using SMTP for relaying
@@ -269,7 +272,7 @@ class Api_Model_DomainAPI
 	private function setupParams($domain, $params) {
 		## aliases
 		if (isset($params['aliases'])) {
-			$domain->setAliases(preg_split('/[^a-zA-Z0-9.-_]/', $params['aliases']));
+			$domain->setAliases(preg_split('/[^a-zA-Z0-9\.\-_]/', $params['aliases']));
 		}
 		## general options
 		foreach (array('systemsender', 'falseneg_to', 'falsepos_to', 'supportname', 'supportemail') as $pref) {
@@ -298,7 +301,10 @@ class Api_Model_DomainAPI
     		            'callout_server' => 'callout_server', 
     		            'c_base_dn' => 'basedn', 
     		            'c_bind_user' => 'binddn', 
-    		            'c_bind_pass' => 'bindpass') as $key => $value) {
+                        'c_bind_pass' => 'bindpass',
+                        'c_group' => 'group',
+                        'c_use_ssl' => 'usessl'
+                        ) as $key => $value) {
     		    	if (isset($params[$key])) {
     		    		$data[$value] = $params[$key];
     		    	}
@@ -343,7 +349,7 @@ class Api_Model_DomainAPI
                         'a_base_dn' => 'basedn', 
                         'a_bind_user' => 'binddn', 
                         'a_bind_pass' => 'bindpass',
-                        'a_user_attr' => 'userattr',
+                        'a_user_attr' => 'userattribute',
                         'a_protocol_version' => 'ldapversion') as $key => $value) {
                     if (isset($params[$key])) {
                         $data[$value] = $params[$key];
@@ -393,8 +399,8 @@ class Api_Model_DomainAPI
         	if (isset($params[$key]) && preg_match('/^[01]$/', $params[$key])) {
         		$domain->setPref($storekey, $params[$key]);
         	}
-        }
-        foreach (array('prevent_spoof', 'require_incoming_tls') as $key) {
+	}
+        foreach (array('prevent_spoof', 'require_incoming_tls', 'reject_capital_domain') as $key) {
         	if ( isset($params[$key]) && preg_match('/^[01]$/', $params[$key])) {
         		$domain->setPref($key, $params[$key]);
         	}
@@ -465,7 +471,9 @@ class Api_Model_DomainAPI
                 'c_base_dn' => 'basedn',
                 'c_bind_user' => 'binddn',
                 'c_bind_pass' => 'bindpass',
-                'callout_server' => 'callout_server'
+                'callout_server' => 'callout_server',
+                'c_group' => 'group',
+                'c_use_ssl' => 'usessl'
             ) as $key => $value) {
             	if (isset($calloutparams[$value]) && (empty($params) || in_array($key, $params))) {
             		$data[$key] = $calloutparams[$value];
@@ -517,8 +525,8 @@ class Api_Model_DomainAPI
             }
         }
         
-        ## Filtering, Templates
-	    foreach (array('prevent_spoof', 'require_incoming_tls', 'spamwall', 'contentwall', 'viruswall', 'greylist', 'web_template', 'summary_template') as $key) {
+	## Filtering, Templates
+        foreach (array('prevent_spoof', 'require_incoming_tls', 'spamwall', 'contentwall', 'viruswall', 'greylist', 'web_template', 'summary_template', 'reject_capital_domain') as $key) {
             if (empty($params) || in_array($key, $params)) {
             	if (!$domain->getPref($key)) {
             		$data[$key] = "0";

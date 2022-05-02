@@ -59,6 +59,60 @@ class Default_Model_WWElementMapper
         return $entries;
      }
     
+    public function fetchAllField($destination, $type, $field)
+    {
+        $resultSet = $this->getDbTable()->fetchAll($this->getDbTable()->select()->where('recipient = ?', $destination)->where('type = ?', $type)->order('recipient ASC'));
+        foreach ($resultSet as $row) {
+            $returnString .= $row->$field . "\n";
+        }
+        return $returnString;
+     }
+
+     public function setBulkSender($domain, $senders, $type) {
+	$senders_array = explode("\r\n", $senders);
+
+	// To ensure, we remove dropped entries, we drop all and recreate all
+	$this->getDbTable()->delete("recipient='$domain' and type='$type'");
+
+	if ($senders != '') {
+		foreach ($senders_array as $sender) {
+			$this->getDbTable()->insert(
+				array(
+					'sender'	=> $sender,
+					'recipient'	=> $domain,
+					'type'		=> $type,
+					'expiracy'	=> '',
+					'status'	=> 1,
+				)
+	
+			);
+		}
+	}
+     }
+
+     public function setSpamcOvercharge($domain, $comments, $type) {
+	$comments_array = explode("\r\n", $comments);
+
+	// To ensure, we remove dropped entries, we drop all and recreate all
+	$this->getDbTable()->delete("recipient='$domain' and type='$type'");
+
+	if ($comments != '') {
+		foreach ($comments_array as $comment) {
+			$this->getDbTable()->insert(
+				array(
+					'sender'	=> '',
+					'recipient'	=> $domain,
+					'type'		=> $type,
+					'expiracy'	=> '',
+					'status'	=> 1,
+					'comments'	=> $comment,
+				)
+	
+			);
+		}
+	}
+     }
+
     public function save(Default_Model_WWElement $element) {
        $data = $element->getParamArray();
        $res = '';
