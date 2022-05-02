@@ -102,7 +102,7 @@ dump_spam_route();
 
 my %exim_conf;
 
-$exim_conf{'__LISTS_PER_DOMAIN__'} = dump_lists_ip_domain();
+my $exim_conf_lpd = dump_lists_ip_domain();
 
 my $syslog_restart = 0;
 foreach my $stage (@eximids) {
@@ -371,7 +371,7 @@ sub dump_exim_file
   	$template->setCondition('ERRORS_REPLY_TO', 1);
   }
 
-  $template->setCondition('__LISTS_PER_DOMAIN__', $exim_conf{'__LISTS_PER_DOMAIN__'});
+  $template->setCondition('__LISTS_PER_DOMAIN__', $exim_conf_lpd);
 
   my @net_interfaces = get_interfaces();
   $template->setCondition('DISABLE_IPV6', 1);
