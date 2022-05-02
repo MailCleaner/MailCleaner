@@ -145,8 +145,8 @@ if ($is_enterprise) {
 
 // Customer CONTENT
 // Get the infobox file according to the user language.
-// If there is no file for the langage, we take the default langage: en
-// Finaly, we merge the MailCleaner Staff content with the Customer content if exists
+// If there is no file for the language, we take the default language: en
+// Finally, we merge the MailCleaner Staff content with the Customer content if exists
 $local_directory='/var/tmp/';
 $file_to_get=$local_directory.$filename;
 $default_file_to_get=$local_directory.$default_filename;

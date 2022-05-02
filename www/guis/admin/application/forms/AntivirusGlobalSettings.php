@@ -101,7 +101,7 @@ class Default_Form_AntivirusGlobalSettings extends ZendX_JQuery_Form
 	    
 	    $deliver_bad_tnef = new Zend_Form_Element_Checkbox('deliver_bad_tnef', array(
 	        'label'   => $t->_('Still deliver bad TNEF attachments')." :",
-                'title' => $t->_("Delivers the TNEF attachements even if they are seen as corrupted by MailCleaner"),
+                'title' => $t->_("Delivers the TNEF attachments even if they are seen as corrupted by MailCleaner"),
             'uncheckedValue' => "0",
 	        'checkedValue' => "1"
 	              ));

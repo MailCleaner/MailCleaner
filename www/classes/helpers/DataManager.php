@@ -14,7 +14,7 @@ require_once('system/SystemConfig.php');
 
 /**
  * this class is a database manager.
- * It manages the connection to the databsase and the provide the different datas fetcher method.
+ * It manages the connection to the database and the provide the different datas fetcher method.
  * It also provide the main system configuration set in the configuration file
  */
 class DataManager {
@@ -261,7 +261,7 @@ class DataManager {
    }
    
  /**
-  * execute a single query whitout result (such as insert, delete, etc..)
+  * execute a single query without result (such as insert, delete, etc..)
   * @param  $query  string  query to execute
   * @return         boolean true on success, false on failure
   */

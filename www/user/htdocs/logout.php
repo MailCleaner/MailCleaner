@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controler for the logout page
+ * This is the controller for the logout page
  */
  
 if ($_SERVER["REQUEST_METHOD"] == "HEAD") {

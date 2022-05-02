@@ -22,7 +22,7 @@ require_once("system/SystemConfig.php");
 class Language
 {
     /**
-     * Language actually used (default is english)
+     * Language actually used (default is English)
      * @var  string
      */
     private	$lang_ = "en";
@@ -35,7 +35,7 @@ class Language
 
     /*
      * Available languages array in reversed key <==> value
-     * This one is usefull for html select inputs
+     * This one is useful for html select inputs
      * @var array  array of language. Full name as key, and shortcut as value
      */
     private $inversed_languages_ = array();
@@ -69,8 +69,8 @@ class Language
 
   /**
    * Constructor
-   * This will load the correct language file correspondig to the mode (user/admin) and the language
-   * @param  $type  string  workmode (can be user or admin)
+   * This will load the correct language file corresponding to the mode (user/admin) and the language
+   * @param  $type  string  work mode (can be user or admin)
    */
   function __construct($type) {
     require_once('user/User.php');
@@ -158,7 +158,7 @@ class Language
     asort($this->inversed_languages_);
     // first get global system configuration language
     $lang = $this->sysconf_->getPref('default_language');
-    // secondly, if a user object is already instanciated (logged), get its language preferences
+    // secondly, if a user object is already instantiated (logged), get its language preferences
     if (isset($user_)) {
       $lang = $user_->getPref('language');
       if ($user_->isStub()) {
@@ -261,8 +261,8 @@ class Language
 
   /**
    * Get the languages array
-   * Return all the available language as an array of shortcut => fullname or inversed
-   * @param  $mode  string return array with fullnames as key if equals to FULLNAMEASKEY, shortcuts as key otherwise
+   * Return all the available language as an array of shortcut => full name or inversed
+   * @param  $mode  string return array with full names as key if equals to FULLNAMEASKEY, shortcuts as key otherwise
    * @return        array  array of languages
    */
   public function getLanguages($mode = '') {

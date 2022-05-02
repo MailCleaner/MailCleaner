@@ -227,7 +227,7 @@ class Default_Model_Administrator
     }
    
     public function checkAuthentication($givenusername, $givenpassword) {
-        // deprecated call, gui interface authentifies through controller
+        // deprecated call, gui interface authentication through controller
         return false;
     }
     public function checkAPIAuthentication($givenusername, $givenpassword) {

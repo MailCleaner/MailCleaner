@@ -7,13 +7,13 @@
  */
  
 /**
- * this class handles spam criterias found in the spam message
+ * this class handles spam criteria found in the spam message
  */
 class ReasonSet
 {
 
     /**
-     * spam criterias keys are sa's criteria name, values are array of (criteria name, text, score) 
+     * spam criteria keys are sa's criteria name, values are array of (criteria name, text, score) 
      * @var array
      */
 	private $reasons_ = array();
@@ -69,7 +69,7 @@ public function getReasons($msg_id, $destination, $host) {
 }
 
 /**
- * return the numer of reasons found
+ * return the number of reasons found
  * @return  numeric  number of reasons
  */
 public function getNbReasons() {

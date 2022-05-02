@@ -92,11 +92,11 @@ class TequilaClient {
 			   );
   var $aErrors = array(
 	ERROR_UNKNOWN_ERROR => array(
-       		LNG_ENGLISH => 'An unknown error has occured.',
+       		LNG_ENGLISH => 'An unknown error has occurred.',
        		LNG_FRENCH => 'Une erreur inconnue est survenue.',
        	),
        	ERROR_SESSION_DIR_NOT_WRITEABLE => array(
-       		LNG_ENGLISH => 'Error: the given sessions directory is not writeable.',
+       		LNG_ENGLISH => 'Error: the given sessions directory is not writable.',
        		LNG_FRENCH => 'Erreur: le répertoire à sessions indiqué ne peut pas être écrit.',
        	),
        	ERROR_SESSION_FILE_FORMAT => array(
@@ -112,7 +112,7 @@ class TequilaClient {
        		 LNG_FRENCH => 'Erreur: aucune donnée de session.',
        	),
        	ERROR_NO_SESSION_DIR => array(
-       		LNG_ENGLISH => 'Error: inexistant or unspecified sessions directory.',
+       		LNG_ENGLISH => 'Error: nonexistent or unspecified sessions directory.',
        		 LNG_FRENCH => 'Erreur: dossier à sessions inexistant ou non spécifié.',
        	),
        	ERROR_NO_SERVER_DEFINED => array(
@@ -152,7 +152,7 @@ class TequilaClient {
        		 LNG_FRENCH => 'Erreur: la clé publique fournie n\'est pas valide.',
        	),
        	ERROR_NO_SIGNATURE => array(
-       		LNG_ENGLISH => 'Error: no signature for mesage authentication.',
+       		LNG_ENGLISH => 'Error: no signature for message authentication.',
        		 LNG_FRENCH => 'Erreur: pas de signature pour la vérification du mesage.',
        	),
        	ERROR_NO_KEY => array (
@@ -839,7 +839,7 @@ class TequilaClient {
       curl_setopt ($ch, CURLOPT_POSTFIELDS, $query);
     }    
     $response = curl_exec ($ch);
-    // If connexion failed (HTTP code 200 <=> OK)
+    // If connection failed (HTTP code 200 <=> OK)
     if (curl_getinfo ($ch, CURLINFO_HTTP_CODE) != '200') {
       $response = false;
     }

@@ -7,7 +7,7 @@
  */
  
 /**
- * LoginDialog needs the authentification connectors
+ * LoginDialog needs the authentication connectors
  */
 require_once("system/SystemConfig.php");
 require_once("Auth.php");
@@ -21,7 +21,7 @@ require_once("connector/AuthManager.php");
  */
 define("AUTHLOGFILE", "mc_auth.log");
 /**
- * this class take care of setting the correct authentification connectors
+ * this class take care of setting the correct authentication connectors
  */
 class LoginDialog {
 
@@ -82,7 +82,7 @@ public function __construct() {
        $domain = $ret[2];
     }
     
-    // if the domain is explicitely set in the POST
+    // if the domain is explicitly set in the POST
     if (isset($_REQUEST['domain']) && in_array($_REQUEST['domain'], $sysconf->getFilteredDomains())) {
       $domain = $_REQUEST['domain'];
     }
@@ -131,7 +131,7 @@ public function __construct() {
 
 /**
  * start the authentication
- * This check authentification and if, success, register the session and redirect to the index page
+ * This check authentication and if, success, register the session and redirect to the index page
  * @return   boolean  don't return on success, false on failure
  */
 public function start()
@@ -141,7 +141,7 @@ public function start()
     return false;
   }
 
-  // and start authentification objects
+  // and start authentication objects
   $this->auth_->start();
 
   // ok, now check if user has given a good login/password pair !
@@ -203,7 +203,7 @@ public function start()
     $sysconf = SystemConfig::getInstance();
     if (is_writable($sysconf->VARDIR_."/log/apache/".AUTHLOGFILE)) {
       if ($logfile = fopen($sysconf->VARDIR_."/log/apache/".AUTHLOGFILE, "a")) {
-        fwrite($logfile,"[".date("d/M/Y:H:i:s O")."] login SUCCESSFULL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
+        fwrite($logfile,"[".date("d/M/Y:H:i:s O")."] login SUCCESSFUL for user: ".$this->username_." - ".$_SERVER['REMOTE_ADDR']."\n");
         fclose($logfile);
       }
     }
@@ -211,7 +211,7 @@ public function start()
 	header("Location: index.php");
     exit();
   } else {
-    // log authentification failure (with IP)
+    // log authentication failure (with IP)
     if (isset ($_REQUEST['username'])) {
       $sysconf = SystemConfig::getInstance();
       if (is_writable($sysconf->VARDIR_."/log/apache/".AUTHLOGFILE)) {

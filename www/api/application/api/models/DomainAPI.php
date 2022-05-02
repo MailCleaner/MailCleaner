@@ -10,7 +10,7 @@ class Api_Model_DomainAPI
 {
 
 	/**
-	 * This funtion adds a domain with custom parameters or defaults
+	 * This function adds a domain with custom parameters or defaults
 	 * @param string $name
 	 * @param mixed $params
 	 * @return mixed array of xml values to be sent back
@@ -20,8 +20,8 @@ class Api_Model_DomainAPI
 	 *   General:
 	 *    name => string, domain name - cannot be modified
 	 *    aliases  => comma or \n separated string of aliases domains (use '' to delete all aliases)
-	 *    defaults => can be any existant domain name. 
-	 *                Values will be copied from it first as default vaules, 
+	 *    defaults => can be any existent domain name. 
+	 *                Values will be copied from it first as default values, 
 	 *                otherwise, default values are taken from the global domains settings
 	 *    systemsender => System mail sender address
 	 *    falseneg_to => False negative reporting address
@@ -77,7 +77,7 @@ class Api_Model_DomainAPI
 	 *     greylist => can be 0 or 1, enable greylisting
 	 *     whitelists => can be 0 or 1, enable whitelists
 	 *     warnlists => can be 0 or 1, enable warnlists
-	 *     notice_wwlists => can be 0 or 1, enable adminsitrator warning when white or warn lists hit
+	 *     notice_wwlists => can be 0 or 1, enable administrator warning when white or warn lists hit
 	 *     prevent_spoof => can be 0 or 1, enable antispoofing
 	 *     require_incoming_tls => can be 0 or 1, reject unencrypted sessions to this domain
 	 *     reject_capital_domain => can be 0 or 1, rejects domain names containing capitals (if set to 0)

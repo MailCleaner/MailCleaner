@@ -30,7 +30,7 @@ class Default_Form_AntiSpam_MessageSniffer extends Default_Form_AntiSpam_Default
                 $t = Zend_Registry::get('translate');
 
                 $licenseid = new  Zend_Form_Element_Text('licenseid', array(
-                            'label'   => $t->_('Licence ID')." :",
+                            'label'   => $t->_('License ID')." :",
                             'required' => false,
                             'size' => 10,
                             'filters'    => array('StringTrim')));
