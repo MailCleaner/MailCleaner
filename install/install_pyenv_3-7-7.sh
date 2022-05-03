@@ -55,7 +55,6 @@ then
   pyenv local 3.7.7
 
   pip install mailcleaner-library --trusted-host repository.mailcleaner.net --index https://repository.mailcleaner.net/python/ --extra-index https://pypi.org/simple/
-  pip install markupsafe==2.0.1
 
   SSL_VERSION=$(python -c "import ssl; print(ssl.OPENSSL_VERSION)")
   if [[ "$SSL_VERSION" != "OpenSSL 1.1.1g  21 Apr 2020" ]]
