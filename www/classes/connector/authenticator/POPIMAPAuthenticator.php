@@ -53,19 +53,19 @@ class POPIMAPAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function start() {}
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function getStatus() {
     	return $this->status_;
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function doAuth($username) {
     

@@ -49,7 +49,7 @@ public function __construct() {}
 /**
  * set the filename
  * @param  $filename  string  the filename
- * @return            boolean true on success, false on failure
+ * @return            boolean trus on success, false on failure
  */
 public function setFilename($filename) {
   if ($filename != "") {
@@ -61,7 +61,7 @@ public function setFilename($filename) {
     
 /**
  * set the Pie size
- * @param $width  integer   graphic width
+ * @param $witdh  integer   graphic witdh
  * @param $height integer   graphic height
  * @return        boolean   true on success, false on failure
  */

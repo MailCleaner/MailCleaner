@@ -73,7 +73,7 @@
    public function setParamSettings($settings) {
       parent::setParamSettings($settings);
       
-      // add OU if passed by login form
+      // add OU if passed by login formular
       if (isset($_POST['ou']) && preg_match('/^[a-zA-Z0-9]+$/', $_POST['ou'])) {
         $this->setSetting('basedn', 'OU='.$_POST['ou'].",".$this->getSetting('basedn'));  
       }

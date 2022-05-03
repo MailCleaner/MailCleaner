@@ -8,7 +8,7 @@
  */
  
 /**
- * requires admin session, and view
+ * requires admin session, adn view
  */
 require_once ("admin_objects.php");
 require_once ("view/Template.php");

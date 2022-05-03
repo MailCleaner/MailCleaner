@@ -498,7 +498,7 @@
         }
       }
 
-     /* Move the nodes according to the vectors */
+     /* Move the nodes accoding to the vectors */
      foreach($this->Data as $Key => $Settings)
       {
        $X = $Settings["X"];

@@ -9,14 +9,14 @@
  
 /**
  * This class is the mother of the Login Formatters.
- * These are used to modify and reformat the login entered by the user in order to be correctly passed to the authentication server
+ * These are used to modify and reformat the login entered by the user in order to be correctly passed to the autehtnication server
  * @package mailcleaner
  */
 abstract class LoginFormatter {
  
  
  /**
-  * List of available connector with corresponding classes
+  * List of available connector with correcpondig classes
   * @var array
   */
   static private $formatters_ = array (

@@ -41,7 +41,7 @@ class SoapInterface
    * *************
    */
   /**
-   * This function will gather status
+   * This function wil gather status
    * 
    * @param  array
    * @return array
@@ -76,7 +76,7 @@ class SoapInterface
 	}
 	
 	/**
-	* This function will return all informational messages of the host
+	* This function will return all inrofmational messages of the host
 	*
 	* @return array
 	*/
@@ -125,7 +125,7 @@ class SoapInterface
 	}
 	
   /**
-   * This function apply the ntp config
+   * This function apply the ntp confi
    *
    * @param  boolean  sync
    * @return string
@@ -432,7 +432,7 @@ class SoapInterface
         }	
 
 	/**
-     * This function will fetch today's stats
+     * This function will fetch todays stats
      * 
      * @param array $params
      * @return array

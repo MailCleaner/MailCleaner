@@ -68,7 +68,7 @@ Therefore, a minimum of one domain is required.<br/><br/>
 Enter \"*\" as the domain name if you wish to filter any domain names, but DO
 NOT do so unless you aware of the potential consequences! This will set your
 system as an open relay; extremely restrictive firewall settings would be in
-order to assure that MailCleaner's TCP port 25 (SMTP) is not available from the
+order to assure that MailCleaner's tcp port 25 (SMTP) is not available from the
 Internet.
 ";
 
@@ -81,7 +81,7 @@ messages for this domain.<br/><br/>
 Each domain may be configured differently from all others, so MailCleaner can
 act as a complete multi-domain gateway and mail router.<br/><br/>
 Some of these settings (e.g., Filtering and Preference settings) may be
-overridden by user preferences; these will be the default settings for the users
+overriden by user preferences; these will be the default settings for the users
 of this domain.
 ";
 
@@ -127,7 +127,7 @@ In principle, MailCleaner has no means of knowing which e-mail addresses are
 configured on your destination mail server. Therefore, by default, it accepts
 all messages destined for the configured domains, regardless of the name part
 of the address. This leads to a great deal of unnecessary load on the
-MailCleaner server, since it must process messages for nonexistent recipients
+MailCleaner server, since it must process messages for inexistent recipients
 only to have these messages rejected afterward by the destination mail server.<p> 
 If you enable the SMTP callout option, MailCleaner will first check the validity of the
 recipient address by doing an SMTP callout to your destination mail server.<br/> This
@@ -137,7 +137,7 @@ network traffic between MailCleaner and your destination mail server(s) due to
 callout requests. But MailCleaner keeps the results of such requests in cache,
 thereby minimizing such traffic as much as possible.<br/> This option is not
 recommended if your destination mail server acts as a gateway and does not
-refuse nonexistent addresses during the SMTP dialog (i.e.  MS Exchange Server <=
+refuse inexistent addresses during the smtp dialog (i.e.  MS Exchange Server <=
 5.5) 
 
 <h2>Enable LDAP/AD callout:</h2>
@@ -222,7 +222,7 @@ This is the mechanism used for authentication.
 <li><b>radius</b>: authenticate against a radius server.
 </ul>
 <h2>Server and Port: </h2>
-This is the name or IP address of the server against which you want MailCleaner
+This is the name or IP address of the server against wich you want MailCleaner
 to do the authentication. The field after the \":\" is the port used for the
 authentication. (The standard IANA-assigned ports are 3306 for mysql, 143 for
 imap, 110 for pop3, 389 for ldap, and 1812 for radius.)
@@ -273,14 +273,14 @@ $help['WHITEWARNLIST'] =
 "<h1>Whitelists and warnlists</h1>
 <b>Whitelists</b> let users set up a list of sender that will never be flagged as spam or put in quarantine. 
 Although this option may be convenient, it is also very dangerous as spammers tend to forge the sender address to fake someone you know.
-<br>With many entries in whitelists, your filter may become less efficient and being open to smart spam campaigns.
+<br>With many entries in whitelists, your filter may become less efficient and beeing open to smart spam campains.
 <br><br>
 <b>Warnlists</b> are a less dangerous method because it forces the user to be more attentive to the list he sets.<br> Instead of simply let the message go through when the sender is listed,
  the system will send a warning message to the final recipient noticing that is has been put in quarantine. This way, the user is aware that something went wrong with the filter
- and can eventually forward the problem to the administrator.<br>Moreover, the user who receives a warning for a real spam will know where the error lies, and not simply believe that the filter has let it go through.
+ and can eventually forward the problem to the administrator.<br>Morover, the user who receives a warning for a real spam will know where the error lies, and not simply believe that the filter has let it go through.
 <br><br>
-Although it is always better to avoid any kind of list, it is advised for the administrator who really needs it, to only enable warnlists first.
-<br>Enabling both is possible, but may not be very useful.
+Althoug it is always better to avoid any kind of list, it is advised for the administrator who really needs it, to only enable warnlists first.
+<br>Enabling both is possible, but may not be very usefull.
 <br>Now if you really want to enable whitelists for the whole domain, you have been warned !
  ";
 
@@ -437,7 +437,7 @@ before finding it.
 ### Added
 $help['DEFAULTSTITLE'] = 
 "<h1>Configuration of default values</h1>
-These defaults are system-wide default values for all domains in the MailCleaner installation.
+These defaults are systemwide default values for all domains in the MailCleaner installation.
 ";
 
 
@@ -573,7 +573,7 @@ This option restricts the number of simultaneous IP connections from a single ho
 This option affects the processing of bounce messages that cannot be delivered, that is, those that suffer a permanent delivery failure. (Bounce messages that suffer temporary delivery failures are of course retried in the usual way.)
 
 <h2>Timeout frozen after: </h2> [7d]
-If this value is set to a time greater than zero, a frozen message of any kind that has been on the queue for longer than the given time is automatically canceled at the next queue run. If it is a bounce message, it is just discarded; otherwise, a bounce is sent to the sender.
+If this value is set to a time greater than zero, a frozen message of any kind that has been on the queue for longer than the given time is automatically cancelled at the next queue run. If it is a bounce message, it is just discarded; otherwise, a bounce is sent to the sender.
 
 <h2>Header: </h2>
 This string defines the contents of the Received: message header that is added
@@ -626,11 +626,11 @@ This panel give you control over generic settings of the antispam engine.<br/><b
 <h2>Friendly languages:</h2>These are the languages that are most likely to be
 spoken by your users. Messages in other languages will be slightly penalized
 (i.e., more likely to be considered spam)
-<h2>Trusted IPs/Networks:</h2>Put here the network or IP addresses (separated by spaces) of any host in your infrastructure that could eventually handle mail before MailCleaner.
+<h2>Trusted IPs/Networks:</h2>Put here the network or IP addresses (seperated by spaces) of any host in your infrastructure that could eventually handle mail before MailCleaner.
 Don't hesitate to also put here the public address of the MailCleaner. This setting will let MailCleaner know how to find the first external host that addresses the messages. This is important for some antispam checks.
 <h2>Enable whitelists:</h2>This is the main switch to enable/disable whitelists. Whitelisting can be dangerous and may be exploited by spammers. Use this option with caution.
 <h2>Enable blacklists:</h2>This is the main switch to enable/disable blacklists. 
-<h2>Enable warnlists:</h2>This is the main switch to enable/disable warnlists. Warnlists are less dangerous than whitelists. Using it before enabling whitelists is generally a good idea.
+<h2>Enable warnlists:</h2>This is the main switch to enable/disable wanrlists. Warnlists are less dangerous than whitelists. Using it before enabling whitelists is generally a good idea.
 <h2>Use Syslog logging:</h2>If activated and if a syslog server has been set up in 'Defaults' panel, engine logs will be copied and sent to it.
 ";
 
@@ -638,7 +638,7 @@ $help['ANTISPAMMODULES'] =
 "<h1>Modules</h1>
 Each module provide a specific filtering engine that can help detect spams or non-spams. It can be set up as decisive for both possibilities allowing messages to skip the rest of the processing.<br/><br/>
 <b>NiceBayes: </b> this module provides a rough statistical database that only hits 99% or 100% sure spams. An efficient database can help reduce further processing by up to 70%.<br/><br/>
-<b>ClamSpam: </b> this module provides a check against known spams signatures. This is particularly efficient with attachment spams (ie. PDF, ZIP, etc...)<br/><br/>
+<b>ClamSpam: </b> this module provides a check against known spams signatures. This is particularely efficient with attachement spams (ie. PDF, ZIP, etc...)<br/><br/>
 <b>PreRBLs: </b> this module provides a check against many public RBL's. This one also helps reduce the processing time.<br/><br/>
 <b>Spamc: </b> this modules provides a SpamAssassin check. It is the most important, but also the most resource intensive one. Basically, it should always comes last and be both negatively and positively decisive.
 ";
@@ -666,7 +666,7 @@ this is something to disable only for a brief time in case of delivery delays.
 <h2>Friendly languages: </h2>These are the languages that are most likely to be
 spoken by your users. Messages in other languages will be slightly penalized
 (i.e., more likely to be considered spam).
-<h2>Trusted IPs/Networks:</h2>Put here the network or IP addresses (separated by spaces) of any host in your infrastructure that could eventually handle mail before MailCleaner.
+<h2>Trusted IPs/Networks:</h2>Put here the network or IP addresses (seperated by spaces) of any host in your infrastructure that could eventually handle mail before MailCleaner.
 Don't hesitate to also put here the public address of the MailCleaner. This setting will let MailCleaner know how to find the first external host that addresses the messages. This is important for some antispam checks.";
 
 
@@ -675,22 +675,22 @@ $help['SANETWORK'] =
 "<h1>Antispam settings: Network checks</h1>
 These MailCleaner modules require Internet access. They primarily use
 Internet-based databases.<br/><br/>
-<h2>Use Real-time Blocking lists: </h2>This server uses the DNS protocol to
+<h2>Use Realtime Blocking lists: </h2>This server uses the DNS protocol to
 query Blacklist databases on the Internet. These databases maintain lists of
 known open relays, dynamically allocated IP addresses, and URI blacklists.<br/>
 If network access time is prohibitively slow for a brief period, it may be
 useful to temporarily disable this feature.
 <h2>Use Razor: </h2>Razor is a constantly updated spam catalog used by
 MailCleaner. It is advised to disable this feature if you cannot configure your
-firewall to let MailCleaner to use TCP port 2703 (outgoing). <i>(<a
+firewall to let MailCleaner to use tcp port 2703 (outgoing). <i>(<a
 href=\"http://razor.sourceforge.net\"
 target=\"_blank\">razor.sourceforge.net</a>)</i>
 <h2>Use Pyzor: </h2>Pyzor is a constantly updated spam catalog used by
 MailCleaner. It is advised to disable this feature if you cannot configure your
-firewall to let MailCleaner to use UDP port 24441 (outgoing). <i>(<a
+firewall to let MailCleaner to use udp port 24441 (outgoing). <i>(<a
 href=\"http://pyzor.sourceforge.net\"
 target=\"_blank\">pyzor.sourceforge.net</a>)</i>
-<h2>Use DCC (Distributed Checksum Clearinghouse): </h2>DCC uses UDP port 6277
+<h2>Use DCC (Distributed Checksum Clearinghouse): </h2>DCC uses udp port 6277
 (outgoing). <i>(<a href=\"http://www.rhyolite.com/anti-spam/dcc/\"
 target=\"_blank\">www.rhyolite.com/anti-spam/dcc/</a>)</i>
 ";
@@ -807,7 +807,7 @@ These settings cover often-used html code that can be used maliciously. Most of 
 For these options, check the \"Set as Silent\" box to prevent the user from receiving a warning when messages are blocked by each of these criteria.<br/>
 <h2>IFrame tags: </h2>This could allow a maliciously written e-mail to download and execute code from an outside source.
 <h2>Form tags: </h2>E-mail messages rarely contain forms for legitimate reasons. For example, forms are often used by phishers. (<i>Phishing</i> is the act of trying to dupe users into divulging information regarding their personal bank accounts, credit cards, or passwords.) All the same, forms are occasionally used in legitimate general distributions such as newsletters.
-<h2>Script tags: </h2>HTML can contain scripts, for example, JavaScript or VBScript. Generally, scripts in e-mail messages should be avoided. All the same, forms are occasionally used in legitimate general distributions such as newsletters.
+<h2>Script tags: </h2>HTML can contain scripts, for example, Javascript or VBScript. Generally, scripts in e-mail messages should be avoided. All the same, forms are occasionally used in legitimate general distributions such as newsletters.
 <h2>CodeBase tags: </h2>The codebase attribute of the &lt;object&gt; tag can be used to insert the URL of a remotely located object (ActiveX component, applet, image map, plug-in, media player, etc.) in a message. This can leave the user unprotected against various Microsoft-specific security vulnerabilities. It is best to leave this option blocked unless your users demand its activation.
 <h2>Web Bugs: </h2>Spammers sometimes include images in their messages that are downloaded from a remote server upon opening the message. Often, the URLs for these images are unique to each message; this allows the spammers to know that a particular address is valid, because the image URL will contain enough information for the server delivering the image to identify the recipient's e-mail address.<br/>These uniquely formed URLs--used to validate recipients' e-mail addresses--are called Web Bugs.
 MailCleaner can disarm Web Bugs so that the message can be safely opened without sending any compromising information to outside servers.
@@ -864,7 +864,7 @@ SSH is used primarily for support.
 <h2>Mail access  (port(s) 25, TCP): </h2>
 Unless MailCleaner is behind a mail gateway, mail access must remain open to everyone in order to properly receive mail.
 <h2>Web services  (port(s) 5132, TCP): </h2>
-Web services are used primarily for synchronization between servers in a multi-server installation. This field has no relation to the user and admin web interfaces. If you need access to MailCleaner web services, add the address of your web service client.
+Web services are used primarily for syncronization between servers in a multi-server installation. This field has no relation to the user and admin web interfaces. If you need access to MailCleaner web services, add the address of your web service client.
 ";
 
 
@@ -932,7 +932,7 @@ MailCleaner servers have two disk partitions: One for the system, and one for th
 ### Added
 $help['MONGLOBALMEMORYUSAGE'] = 
 "<h1>Memory usage</h1>
-\"Total memory\" and \"Free memory\" refer to the physical RAM that is installed on the server. \"Total swap\" and \"Free swap\" refer to the swap memory, or virtual memory, that has been allocated for the server. If the free swap is consistently very small relative to the total swap, this could indicate that the server is too heavily loaded.
+\"Total memory\" and \"Free memory\" refer to the physical RAM that is intalled on the server. \"Total swap\" and \"Free swap\" refer to the swap memory, or virtual memory, that has been allocated for the server. If the free swap is consistently very small relative to the total swap, this could indicate that the server is too heavily loaded.
 ";
 
 
@@ -964,7 +964,7 @@ $help['MESSAGES'] =
 "<h1>Message counts</h1>" .
 "This graphic displays the count of the different type of messages detected by MailCleaner.<br> These can be viruses, dangerous contents, spams or clean messages.<br><br>" .
 "The priority of types is : virus, dangerous content, spam and clean.<br> That is when a message is detected as both a virus and a spam, it is counted as a virus.".
-"<br><br>This is a daily count, so it is reset every day.";
+"<br><br>This is a daily count, so it get reseted avery day.";
 
 $help['PMESSAGES'] = 
 "<h1>Message type</h1>".
@@ -976,18 +976,18 @@ $help['SPOOLS'] =
 "This graphics will display the average of the number of messages waiting on the different spools used by MailCleaner.<br>".
 "There are three different spools which have different meaning here.<br><br>".
 "<b>The incoming spool</b> is where the messages are first received by external hosts. There is two main reasons why messages can hang here: ".
-"<br>- The first is if a host is opening too many connections to your MailCleaner in a short time.".
+"<br>- The first is if a host is openning too many connections to your MailCleaner in a short time.".
 " This will cause MailCleaner to delay these messages in order to temporize the sender and avoid a Denial of service attack. ".
 "<br>- The second reason is when you use your MailCleaner as an outgoing relay. As MailCleaner is then responsible for sending out mails, ".
 " it will sometimes queue them if remote hosts are not responding or reply with a temporary error.".
 "<br>The size of this spool may vary, but will not hit the filtered message throughput." .
-"<br><br><b>The filtering spool</b> is where the messages are stored waiting to be analysed. The engine will take messages here every 5 seconds and will process them by batches of maximum 30. ".
-"Messages will not be deleted here until they have been fully processed and successfully transferred to the outgoing stage. So it may sometimes seems that messages are not processed as the queue constantly grows, but it doesn't means they are not actually being processed. ".
+"<br><br><b>The filtering spool</b> is where the messages are stored waiting to be analysed. The engine will take messages here every 5 seconds and will proccess them by batches of maximum 30. ".
+"Messages will not be deleted here until they have been fully processed and successfully transfered to the outgoing stage. So it may sometimes seems that messages are not processed as the queue constantly grows, but it doesn't means they are not actually being processed. ".
 "To check if MailCleaner is actually analysing messages, you'll have to check the engine logs.".
-"The size of this spool may rapidly vary, and may be even quite large on busy system or when a large amount of messages have been delivered to the filter.".
-"<br><br><b>The outgoing spool</b> is where messages are being stored whenever they could not be instantly delivered to the final destination server. This may happen when the mailbox server is down, or overloaded.<br>".
+"The size of this spool may rapidely vary, and may be even quite large on busy system or when a large amount of messages have been delivered to the filter.".
+"<br><br><b>The outgoing spool</b> is where messages are beeing stored whenever they could not be instantly delivered to the final destination server. This may happen when the mailbox server is down, or overloaded.<br>".
 "Bounces messages could also be blocked or frozen here when not using callout for destination that doesn't exists with a sender that is also invalid. These messages will be dropped after a few days (4 by default) and stay here for information purpose.".
-"<br>Generally, the size of this spool is quite small and do not vary that much. It is a good indication of something's going wrong with the destination mailbox server(s)";
+"<br>Generaly, the size of this spool is quite small and do not vary that much. It is a good indication of something's going wrong with the destination mailbox server(s)";
 
 $help['CPU'] =
 "<h1>CPUs usage</h1>".
@@ -1017,8 +1017,8 @@ $help['NETWORK'] =
 $help['DISK'] = 
 "<h1>Disk usage</h1>".
 "This graphic will display the amount of hard drive storage used by your system.".
-"<br><br>The base system partition (\"/\" or root) should not vary. But the data one (\"/var\") may slowly increase the first days of production or whenever your users base increase.".
-"<br>If the data partition gets full, your system may be halted, so if this partition is getting too high, you should think of changing disks.";
+"<br><br>The base system partition (\"/\" or root) should not vary. But the datas one (\"/var\") may slowly increase the first days of production or whenever your users base increase.".
+"<br>If the datas partition gets full, your system may be halted, so if this partition is getting too high, you should think of changing disks.";
 
 
 /****************************
@@ -1079,7 +1079,7 @@ This section provides basic information about the services that are critical to 
 $help['MONSPOOLSCOUNT'] = "
 <h1>Host Monitoring: Spools</h1>
 This section provides a quick view of the number of messages that the host is currently processing.<br/><br/>
-The acceptable number of messages in each spool depends on how the MailCleaner is configured. For example, if your MailCleaner host is configured to be an outgoing SMTP relay, you may find a large number of messages in the incoming queue; in this case, this would not signal a problem.<br/>
+The acceptable number of messages in each spool depends on how the MailCleaner is configured. For example, if your MailCleaner host is configured to be an outgoing smtp relay, you may find a large number of messages in the incoming queue; in this case, this would not signal a problem.<br/>
 In general, if your server is configured by default, all figures will be green when the load is normal. During brief periods when the server is under heavy load, you may find that the figures are yellow or red. If this persists, it may be necessary to intervene.
 ";
 ### <h2>Incoming: </h2>

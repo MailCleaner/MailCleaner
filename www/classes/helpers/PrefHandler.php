@@ -68,7 +68,7 @@ class PrefHandler
    * Add a preference set
    * Used to add a preference set (an array). Multiple set can be added.
    * @param $table_name     string the database name of the table
-   * @param $table_shortcut string the database short name of the table use in queries (must be unique)
+   * @param $table_shortcut string the databse short name of the table use in queries (must be unique)
    * @param $pref_array     array  array of preferences with default values
    * @return                bool   false on failure, true on success
    */
@@ -82,7 +82,7 @@ class PrefHandler
   
   /**
    * Set a relation between to preferences set
-   * Used to set a relation between to preferences set. This is useful if you have one field of
+   * Used to set a relation between to preferences set. This is usefull if you have one field of
    * a preference set that contain the id of an other preference set. This will take care of correctly
    * insert the sets in the good order and setting the link
    * @param $target_table   string the table which will be linked to
@@ -237,7 +237,7 @@ class PrefHandler
   
   /**
    * Return if preferences set should be updated or created
-   * Check if one of the preferences set doesn't already exists in database. If yes, then
+   * Check if one of the preferences set doesnt already exists in database. If yes, then
    * return false so that we should create them.
    * @return  bool   true if all sets are already present in database. False if not.
    */
@@ -373,7 +373,7 @@ class PrefHandler
    * Delete a preference set
    * Will delete the database record of the preferences set
    * @param $where_clause string if a WHERE clause should be added
-   * @return              string 'OK' if successful, error otherwise
+   * @return              string 'OK' if successfull, error otherwise
    */
   protected function deletePrefs($where_clause) {
     require_once ('helpers/DataManager.php');

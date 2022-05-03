@@ -538,7 +538,7 @@ sub getThreadID {
     return $t->tid;
 }
 
-##### Log management
+##### Log managment
 sub doLog {
     my $this      = shift;
     my $message   = shift;

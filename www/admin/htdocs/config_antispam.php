@@ -33,7 +33,7 @@ $antispam_ = new AntiSpam();
 $antispam_->load();
 
 $gsave_msg = "";
-// create global form
+// create global formular
 $gform = new Form('global', 'post', $_SERVER['PHP_SELF']);
 $gposted = $gform->getResult();
 // save settings
@@ -50,7 +50,7 @@ if ($gform->shouldSave()) {
 }
 
 $msave_msg = "";
-// create modules form
+// create modules formular
 $mform = new Form('modules', 'post', $_SERVER['PHP_SELF']);
 $mposted = $mform->getResult();
 

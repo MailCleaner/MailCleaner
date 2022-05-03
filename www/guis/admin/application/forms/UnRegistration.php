@@ -32,7 +32,7 @@ class Default_Form_UnRegistration extends ZendX_JQuery_Form
 
 		 // Only EE version has to confirm by rsp
 		$rsp = new  Zend_Form_Element_Password('rsp', array(
-            		'label' => $t->_('Reseller password'). " :",
+            		'label' => $t->_('Resseller password'). " :",
                 	'required' => $required));
             	$rsp->setValue('');
             	$rsp->addValidator(new Zend_Validate_Alnum());

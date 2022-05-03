@@ -8,12 +8,12 @@
  
 
 /**
- * this class takes care of the system integrator information
+ * this class takes care of the system integrator informations
  */
 class Integrator extends PrefHandler
 {
   /**
-   * integrator information
+   * integrator informations
    * @var array
    */
   private $infos_ = array(   

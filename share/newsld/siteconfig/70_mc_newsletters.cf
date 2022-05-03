@@ -15,7 +15,7 @@
 #   along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #
-#   General Newsletter rules: language independent rules
+#   General Newsletter rules: language independant rules
 
 uri		MC_NEWS_URINEWSL	/\bnewsletter?\b/i
 score		MC_NEWS_URINEWSL	2.00

@@ -37,7 +37,7 @@ $domainname = "";
 $onedomain=0;
 $batchadd = false;
 
-// instantiate the main form and get results if any
+// instanciate the main formular and get results if any
 $dform_ = new Form('domain', 'post', $_SERVER['PHP_SELF']);
 $posted = $dform_->getResult();
 

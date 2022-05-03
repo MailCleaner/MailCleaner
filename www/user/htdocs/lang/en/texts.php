@@ -63,7 +63,6 @@ $txt['MONTH12'] = 'December';
 /*
  * login page
  */
-
 $txt['BADLOGIN'] = "Incorrect username or password.";
 $txt['SESSIONEXPIRED'] = "Session expired.";
 $txt['LOGININFO'] = "Reminder: Your username and password are the same as your email account";
@@ -90,7 +89,7 @@ $txt['PARAMETERS'] = "Settings";
 $txt['QUARANTINE'] = "Quarantine";
 $txt['NAVSUPPORT'] = "Support";
 /*
- * quarantine
+ * quarantaine
  */
 $txt['SELECTEDADDRESS'] = "Address displayed";
 $txt['QUARANTINESUMMARY'] = "<strong>In quarantine:</strong> __PARAM__ messages";
@@ -332,26 +331,37 @@ $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__
 /*
  * some error messages
  */
-$txt['BADARGS'] = "Internal MailCleaner error (_PARAM_MESSAGE_ERREUR__). Please contact your system administrator with details of the problem.";
+$txt['BADARGS'] = "Internal MailCleaner error (__PARAM__). Please contact your system administrator with details of the problem.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occurred while sending the message. Please try again. If the problem persists, please contact your system administrator.";
+$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
 $txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
 $txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
 /*
  * support page (deprecated)
  */
-$txt['COMPANY'] = "Company"; //old
-$txt['NAME'] = "Name"; //old
-$txt['FIRSTNAME'] = "Firstname"; //old
-$txt['EMAIL'] = "E-mail"; //old
-$txt['YOURPHONENUMBER'] = "Phone number"; //old
-$txt['WHATCANWEDO'] = "What can we do for you?"; //old
-$txt['NEEDEDFIELDS'] = "Required fields"; //old
-$txt['SUPPORT'] = "Support"; //old
-$txt['SUPFORMSENT'] = "Your message has been sent."; //old
-$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later."; //old
-$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input."; //old
+//old
+$txt['COMPANY'] = "Company";
+//old
+$txt['NAME'] = "Name";
+//old
+$txt['FIRSTNAME'] = "Firstname";
+//old
+$txt['EMAIL'] = "E-mail";
+//old
+$txt['YOURPHONENUMBER'] = "Phone number";
+//old
+$txt['WHATCANWEDO'] = "What can we do for you?";
+//old
+$txt['NEEDEDFIELDS'] = "Required fields";
+//old
+$txt['SUPPORT'] = "Support";
+//old
+$txt['SUPFORMSENT'] = "Your message has been sent.";
+//old
+$txt['CANNOTSENDSUPFORM'] = "Your message could not be sent. Please try again later.";
+//old
+$txt['BADFORMFIELDS'] = "Some fields are incorrect. Please check your input.";
 /*
  * help page (new)
  */
@@ -448,20 +458,20 @@ $txt['TODAY'] = "Today";
 /*
  * wwlists (new)
  */
-$txt['WARNLISTSHORTHELP'] = "The warn list contains trusted sender addresses for which you want to be notified by mail whenever a message happens to be detected as spam. You can then immediately release the message in case of a filtering error.<br />
-								   Warning : this functionality should be used as a temporary solution as it decreases the overall protection.
-								   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
-$txt['WARNLISTFORADDRESS'] = "Warn list for the address";
+$txt['WARNLISTSHORTHELP'] = "The warnlist contains trusted sender addresses for which you want to be notified by e-mail whenever a message happens to be detected as spam. You can then immediatly release the message in case of a filtering error.<br />
+\t\t\t\t\t\t\t\t   Warning: This functionality should be used as a temporary solution as it decreases the overall protection. 
+\t\t\t\t\t\t\t\t   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on warn list usage. ";
+$txt['WARNLISTFORADDRESS'] = "Warnlist for the address";
 $txt['ADDAWARNENTRY'] = "Add an address to the list";
-$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warn list. You can also add an optional comment.";
+$txt['WARNLISTENTRYTOADD'] = "Enter the address you want to add to the warnlist. You can also add an optional comment.";
 $txt['ADDTHEENTRY'] = "&lt; Add the address";
 $txt['REMOVEANENTRY'] = "Disable, enable or remove an address from the list";
 $txt['REMOVEAWARNENTRYSHORTHELP'] = "Select the address or addresses you want to modify from the list and click on the desired action button.";
 $txt['REMTHEENTRY'] = "Remove selection";
 $txt['DISABLETHEENTRY'] = "Disable/enable selection";
-$txt['WHITELISTSHORTHELP'] = "The white list contains trusted sender addresses for which no quarantine retention will ever occur.<br />
-                   Warning: this functionality should be used as a temporary solution as it decreases the overall protection.
-                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on white list usage.
+$txt['WHITELISTSHORTHELP'] = "The whitelist contains trusted sender addresses for which no quarantine retention will ever occur.<br />
+                                   Warning: This functionality should be used as a temporary solution, as it decreases the overall protection.
+                                  Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on whitelist usage. 
 ";
 $txt['BLACKLISTSHORTHELP'] = "The blacklist contains blacklisted sender addresses.
                                   Check the manual (available in section <a href=\"help.php\">\"Help\"</a>) for more information on black list usage.

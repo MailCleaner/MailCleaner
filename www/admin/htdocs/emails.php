@@ -20,21 +20,21 @@ require_once("view/Documentor.php");
 require_once("config/AntiSpam.php");
 
 /**
- * session globals
+ * session globalsy
  */
 global $lang_;
 global $sysconf_;
 global $admin_;
 
 /**
- * this flag enable remote search with ldap/sql connector
+ * this flag enable remote search whith ldap/sql connector
  */
 $remote_search_ = true;
 
 // check authorizations
 $admin_->checkPermissions(array('can_manage_users'));
   
-// create email object and edition form
+// create email object and edition formular
 $selected_address = new Email();
 $eform = new Form('email', 'post', $_SERVER['PHP_SELF']);
 $eposted = $eform->getResult();
@@ -64,7 +64,7 @@ if (isset($eposted['search']) && preg_match('/(\S+)\@(\S+)/', $eposted['search']
   $search_domainpart = $matches[2];
 }
 
-// create search form
+// creat search formular
 $sform = new Form('search', 'post', $_SERVER['PHP_SELF']);
 $sposted = $sform->getResult();
 // set search parameters

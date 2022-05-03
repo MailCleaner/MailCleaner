@@ -27,7 +27,7 @@ class User extends PrefHandler {
 	private	$addresses_ = array();
     
     /**
-     * User information
+     * User informations
      * @var array
      */
     private $infos_ = array(
@@ -302,7 +302,7 @@ public function isLocalUser() {
  }
 
 /**
- * Load locally stored datas for user
+ * Load localy stored datas for user
  * @return   bool  true on success, false on failure
  */
 private function getLocalUserDatas() {
@@ -368,7 +368,7 @@ public function getPref($pref) {
 }
  
 /**
- * Save locally stored datas for user
+ * Save localy stored datas for user
  * @return  bool  true on success, false on failure
  */
  private function saveLocalUserDatas() {
@@ -432,7 +432,7 @@ public function getPref($pref) {
  }
 
  /**
-  * Delete locally stored datas for user
+  * Delete localy stored datas for user
   * @return  bool  true on success, false on failure
   */
 private function deleteLocalUserDatas() {

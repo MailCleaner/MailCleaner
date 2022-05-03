@@ -8,7 +8,7 @@
  
  
 /**
- * This class takes care of storing Tequila settings
+ * This class takes care of storing Tequily settings
  * @package mailcleaner
  */
  class TequilaSettings extends ConnectorSettings {

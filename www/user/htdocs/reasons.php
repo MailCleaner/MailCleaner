@@ -45,7 +45,7 @@ $replace = array(
 $template_->output($replace);
 
 /**
- * calculate the window height corresponding of the number of criteria
+ * calculate the window height corresponding of the number of criterias
  * @param $factor  numeric  factor corresponding of each line height
  * @param $limit   numeric  maximum height allowed
  * @param $n       numeric  number of lines

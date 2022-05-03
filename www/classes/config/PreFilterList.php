@@ -20,7 +20,7 @@ class PreFilterList {
  private $prefilters_ = array();
  
 /**
- * flat positions list
+ * flat postions list
  * @var array
  */
  private $positions_ = array();
@@ -32,7 +32,7 @@ public function __construct() {
 }
 
 /**
- * load prefilters from database
+ * load prefitlers from database
  * @return     boolean  true on success, false on failure
  */
 public function load() {
@@ -101,7 +101,7 @@ public function getElementAtPosition($position) {
 /**
  * populate template with prefilter list
  * @param  $template   Template template of list element
- * @param  $form       Form     form fo editing fields
+ * @param  $form       Form     formular fo editing fields
  * @return             string   populated template
  */
 public function getList($template, $form) {
@@ -151,7 +151,7 @@ public function getList($template, $form) {
 
 /**
  * return the number of elements
- * @return     int   number of elements
+ * @return     int   number of elelements
  */
  public function getNumberOfElements() {
    return count($this->prefilters_);

@@ -9,7 +9,7 @@ global $sysconf_;
 
 $soaper = new Soaper();
 if (! $soaper instanceof Soaper) {
-   die("cannot instantiate soaper !");
+   die("cannot instanciate soaper !");
 }
 $ret = $soaper->load($sysconf_->getPref('hostid'));
 if ($ret != 'OK') {
@@ -35,5 +35,5 @@ echo "body: ";
 var_dump($body);
 echo "<br/>";
 
-echo "<br/>OK, successful";
+echo "<br/>OK, successfull";
 ?>

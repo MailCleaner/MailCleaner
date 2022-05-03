@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for the remove address page
+ * This is the controler for the remove addres page
  */
  
 if ($_SERVER["REQUEST_METHOD"] == "HEAD") {

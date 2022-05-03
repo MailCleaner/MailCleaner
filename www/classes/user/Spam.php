@@ -63,7 +63,7 @@ private $ruleset_ = array();
 private $parts_type_ = array();
                      
 /**
- * constructor
+ * constuctor
  */
 public function __construct() {
 }

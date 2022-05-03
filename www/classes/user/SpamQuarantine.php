@@ -23,12 +23,12 @@ define ("DEFAULT_DAYS", 7);
 define ("DEFAULT_MSGS", 20);
 
 /**
- * This is the class that will fetch all spam in the quarantine according to filter criteria
+ * This is the class that will fetch all spam in the quarantine according to filter criterias
  */
 class SpamQuarantine extends Quarantine {
   
   /**
-   * filter criteria
+   * filter criterias
    * @var  array
    */
   protected  $filters_ = array(
@@ -114,7 +114,7 @@ private function isAllowed() {
 }
 
 /**
- * Load the quarantine from the database
+ * Load the quarantine from the databse
  * @return   bool  true on success, false on failure
  */
 public function load() {
@@ -134,7 +134,7 @@ public function load() {
    require_once ('helpers/DM_MasterSpool.php');
    $db_masterspool = DM_MasterSpool :: getInstance();
     
-   // now we clean up the filter criteria
+   // now we clean up the filter criterias
    if (!is_numeric($this->getFilter('days'))) {
      $this->setFilter('days', DEFAULT_DAYS);
    }
@@ -217,7 +217,7 @@ public function load() {
       $this->setNbElements($count_row['count']);
    }
     
-   // and get the spam themselves
+   // and get the spam themselfs
    $query = "SELECT date_in, time_in, sender, to_domain, to_user, exim_id, exim_id as id, M_subject, M_date, forced, in_master, store_slave, M_score, M_rbls, M_prefilter, M_globalscore, is_newsletter";
    $query .= " FROM $table WHERE ".$where;
 
@@ -289,7 +289,7 @@ public function load() {
 }
 
 /**
- * populate the spam list template with actual spams values
+ * populate the splam list template with actual spams values
  * @param  $t  Template  template of each spam line
  * @return     string    completed spam array
  */
@@ -385,7 +385,7 @@ public function getHTMLList($to) {
 }
 
 /**
- * return the number of spam found according to the filtered
+ * return the number of spam found according to the filterd
  * @return   numeric  number of spam
  */
 public function getNbSpams() {
@@ -393,7 +393,7 @@ public function getNbSpams() {
 }
 
 /**
- * return the statistics
+ * return the a staitstic
  * @param  $type  string  stat type to fetch
  * @return        numeric  number of messages
  */
@@ -459,7 +459,7 @@ public function purge() {
    // required here for sanity checks
    require_once ('helpers/DM_MasterSpool.php');
    $db_masterspool = DM_MasterSpool :: getInstance();
-   // now we clean up the filter criteria
+   // now we clean up the filter criterias
    foreach ($this->filters_ as $key => $value) {
      $clean_filters[$key] = $db_masterspool->sanitize($value);
    }

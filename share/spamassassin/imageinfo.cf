@@ -39,12 +39,12 @@ score		DC_IMG_TEXT_RATIO	0.30
 # describe	DC_SCREENSHOT_JPG	Contains inline image matching common screen resolution
 # score		DC_SCREENSHOT_JPG	-0.01
 
-# you can do minimum dimension matches
+# you can do minimum demension matches
 # body	 	DC_GIF_300		eval:image_size_range('gif',300,300)
 # describe	DC_GIF_300		Contains a 300x300 pixels gif or larger
 # score		DC_GIF_300		0.01
 
-# you can do ranged dimension matches
+# you can do ranged demension matches
 # body	 	DC_JPEG_200_300		eval:image_size_range('gif', 200, 300, 250, 350)
 # describe	DC_JPEG_200_300		Contains jpeg 200-250 (high) x 300-350 (wide)
 # score		DC_JPEG_200_300 	0.01

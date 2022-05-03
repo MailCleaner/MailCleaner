@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for a custom page
+ * This is the controler for a custom page
  */
 
 /**

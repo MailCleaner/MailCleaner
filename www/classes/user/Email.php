@@ -8,7 +8,7 @@
  
  /**
   * Email use Domain and User objects
-  * It inherits from the PrefHandler storage possibilities
+  * It inherits from the PrefHandler storage possibilites
   */
 require_once("helpers/PrefHandler.php");
 require_once("domain/Domain.php");
@@ -71,7 +71,7 @@ public function __construct() {
 /**
  * Set the user id the address belongs to
  * @param  $uid  numeric  user id
- * @return       bool     true on success, false on failure
+ * @return       bool     true on succes, false on failure
  */
 public function setUser($uid) {
   if (is_numeric($uid)) {
@@ -135,7 +135,7 @@ public function load($ad) {
   $this->setPref('address', $a);
   $this->setPref('domain', $tmp[2]);
   
-  // then load the address' preferences if exists
+  // then load the addresse's preferences if exists
   $where_clause = "e.pref=p.id AND e.address='".$this->getPref('address')."'";
   if ($this->loadPrefs('e.address as e_id, p.id as pid, e.address as address, e.is_main as is_main, e.user as uid, ', $where_clause, true)) {
    }

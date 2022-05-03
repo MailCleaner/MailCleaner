@@ -29,7 +29,7 @@ class UserList extends ListManager {
 /**
  * Search usernames given username part and domain
  * @param  $username  string  string to be search in usernames
- * @param  $domain    string  domain in which users should be searched
+ * @param  $domain    string  domain in which users shouls be searched
  * @param  $remote    bool    if we must do the remote connector search (may take some time)
  * @return            bool    true on success, false on failure
  */
@@ -71,7 +71,7 @@ public function search($username, $domain, $remote) {
  */
 private function doRegisteredUsers() {
   global $log_;
-  $log_->log('-- BEGIN searching local user list: ('.$this->s_username_.",".$this->s_domain_.")", PEAR_LOG_INFO);
+  $log_->log('-- BEGIN searchin local user list: ('.$this->s_username_.",".$this->s_domain_.")", PEAR_LOG_INFO);
   global $sysconf_;
 
   $db_slaveconf = DM_SlaveConfig :: getInstance();
@@ -85,7 +85,7 @@ private function doRegisteredUsers() {
         $this->setElement($username, $username);
     }
   }
-  $log_->log('-- END searching local user list: ('.$this->s_username_.",".$this->s_domain_.")", PEAR_LOG_INFO);
+  $log_->log('-- END searchin local user list: ('.$this->s_username_.",".$this->s_domain_.")", PEAR_LOG_INFO);
   return true;
 }
 

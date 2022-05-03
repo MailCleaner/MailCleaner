@@ -36,7 +36,7 @@ class Default_Form_AntiSpam_UriRBLs extends Default_Form_AntiSpam_Default
 		
     	$spam_list_to_be_spam = new Zend_Form_Element_Select('listeduristobespam', array(
             'label'      => $t->_('URL hits to be spam')." :",
-            'title'    => $t->_("Number of RBLs (below) to meet to be considered as spam by this module"),
+            'title'    => $t->_("Number of RBLs (below) to meet to be considerated as spam by this module"),
             'required'   => false,
             'filters'    => array('StringTrim')));
         

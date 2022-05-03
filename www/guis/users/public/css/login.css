@@ -35,7 +35,7 @@ img {
   vertical-align: top;
 }
 
-/* form table */
+/* formular table */
 #loginpanel table {
   text-align: center;
   margin: 0px;
@@ -68,7 +68,7 @@ img {
   overflow: hidden;
 }
 
-/* form fields and titles */
+/* formular fields and titles */
 .fieldinput {
   font-size: 11px;
   border: 1px solid #999999;

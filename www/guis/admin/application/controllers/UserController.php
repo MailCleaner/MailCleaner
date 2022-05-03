@@ -55,7 +55,7 @@ class UserController extends Zend_Controller_Action
                           'password',
                           'ENCRYPT(?, SUBSTR(password, 1,12))'
                        );   
-            ## This one should work for most crypt sheme, principally crypt-sha512, regardless of the salt length
+            ## This one should work for most crypt sheme, principaly crypt-sha512, regarldess of the salt length
             $authAdapter4 = new Zend_Auth_Adapter_DbTable(
                           Zend_Registry::get('writedb'),
                           'administrator',

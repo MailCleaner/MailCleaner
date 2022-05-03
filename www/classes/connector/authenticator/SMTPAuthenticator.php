@@ -47,19 +47,19 @@ class SMTPAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function start() {}
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function getStatus() {
     	return $this->status_;
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function doAuth($username) {
        if ($username == '') {
@@ -79,7 +79,7 @@ class SMTPAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function getValue($value) {
       switch($value) {

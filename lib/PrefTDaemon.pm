@@ -481,7 +481,7 @@ sub fetchBackendPref {
 }
 
 ##########################
-## WWList management
+## WWList managment
 
 sub getWWCacheKey {
 	my $object = shift;

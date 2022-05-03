@@ -77,10 +77,10 @@
      $Data    = $this->pDataObject->getData();
      $Palette = $this->pDataObject->getPalette();
 
-     /* Do we have an abscissa series defined? */
+     /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
-     /* Try to find the data series */
+     /* Try to find the data serie */
      $DataSerie = "";
      foreach ($Data["Series"] as $SerieName => $SerieData)
       { if ( $SerieName != $Data["Abscissa"]) { $DataSerie = $SerieName; } }
@@ -327,10 +327,10 @@
      $Data    = $this->pDataObject->getData();
      $Palette = $this->pDataObject->getPalette();
 
-     /* Do we have an abscissa series defined? */
+     /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
-     /* Try to find the data series */
+     /* Try to find the data serie */
      $DataSerie = "";
      foreach ($Data["Series"] as $SerieName => $SerieData)
       { if ( $SerieName != $Data["Abscissa"]) { $DataSerie = $SerieName; } }
@@ -711,7 +711,7 @@
      $Data    = $this->pDataObject->getData();
      $Palette = $this->pDataObject->getPalette();
 
-     /* Do we have an abscissa series defined? */
+     /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
      $Boundaries = ""; $Boundaries["L"] = $X; $Boundaries["T"] = $Y; $Boundaries["R"] = 0; $Boundaries["B"] = 0; $vY = $Y; $vX = $X;
@@ -898,10 +898,10 @@
      $Data    = $this->pDataObject->getData();
      $Palette = $this->pDataObject->getPalette();
 
-     /* Do we have an abscissa series defined? */
+     /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
-     /* Try to find the data series */
+     /* Try to find the data serie */
      $DataSerie = "";
      foreach ($Data["Series"] as $SerieName => $SerieData)
       { if ( $SerieName != $Data["Abscissa"]) { $DataSerie = $SerieName; } }
@@ -1102,10 +1102,10 @@
      $Data    = $this->pDataObject->getData();
      $Palette = $this->pDataObject->getPalette();
 
-     /* Do we have an abscissa series defined? */
+     /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
-     /* Try to find the data series */
+     /* Try to find the data serie */
      $DataSerie = "";
      foreach ($Data["Series"] as $SerieName => $SerieData)
       { if ( $SerieName != $Data["Abscissa"]) { $DataSerie = $SerieName; } }

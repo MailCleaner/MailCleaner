@@ -73,7 +73,7 @@
      $this->Data["Axis"][0]["Identity"] = AXIS_Y;
     }
 
-   /* Add a single point or an array to the given series */
+   /* Add a single point or an array to the given serie */
    function addPoints($Values,$SerieName="Serie1")
     {
      if (!isset($this->Data["Series"][$SerieName]))
@@ -98,18 +98,18 @@
    function stripVOID($Values)
     { $Result = ""; foreach($Values as $Key => $Value) { if ( $Value != VOID ) { $Result[] = $Value; } } return($Result); }
 
-   /* Return the number of values contained in a given series */
+   /* Return the number of values contained in a given serie */
    function getSerieCount($Serie)
     { if (isset($this->Data["Series"][$Serie]["Data"])) { return(sizeof($this->Data["Series"][$Serie]["Data"])); } else { return(0); } }
 
-   /* Remove a series from the pData object */
+   /* Remove a serie from the pData object */
    function removeSerie($Series)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie])) { unset($this->Data["Series"][$Serie]); } }
     }
 
-   /* Return a value from given series & index */
+   /* Return a value from given serie & index */
    function getValueAt($Serie,$Index=0)
     { if (isset($this->Data["Series"][$Serie]["Data"][$Index])) { return($this->Data["Series"][$Serie]["Data"][$Index]); } else { return(NULL); } }
 
@@ -117,47 +117,47 @@
    function getValues($Serie)
     { if (isset($this->Data["Series"][$Serie]["Data"])) { return($this->Data["Series"][$Serie]["Data"]); } else { return(NULL); } }
 
-   /* Reverse the values in the given series */
+   /* Reverse the values in the given serie */
    function reverseSerie($Series)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie]["Data"])) { $this->Data["Series"][$Serie]["Data"] = array_reverse($this->Data["Series"][$Serie]["Data"]); } }
     }
 
-   /* Return the sum of the series values */
+   /* Return the sum of the serie values */
    function getSum($Serie)
     { if (isset($this->Data["Series"][$Serie])) { return(array_sum($this->Data["Series"][$Serie]["Data"])); } else { return(NULL); } }
 
-   /* Return the max value of a given series */
+   /* Return the max value of a given serie */
    function getMax($Serie)
     { if (isset($this->Data["Series"][$Serie]["Max"])) { return($this->Data["Series"][$Serie]["Max"]); } else { return(NULL); } }
 
-   /* Return the min value of a given series */
+   /* Return the min value of a given serie */
    function getMin($Serie)
     { if (isset($this->Data["Series"][$Serie]["Min"])) { return($this->Data["Series"][$Serie]["Min"]); } else { return(NULL); } }
 
-   /* Set the description of a given series */
+   /* Set the description of a given serie */
    function setSerieShape($Series,$Shape=SERIE_SHAPE_FILLEDCIRCLE)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["Shape"] = $Shape; } }
     }
 
-   /* Set the description of a given series */
-   function setSerieDescription($Series,$Description="My series")
+   /* Set the description of a given serie */
+   function setSerieDescription($Series,$Description="My serie")
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["Description"] = $Description; } }
     }
 
-   /* Set a series as "drawable" while calling a rendering function */
+   /* Set a serie as "drawable" while calling a rendering function */
    function setSerieDrawable($Series,$Drawable=TRUE)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["isDrawable"] = $Drawable; } }
     }
 
-   /* Set the icon associated to a given series */
+   /* Set the icon associated to a given serie */
    function setSeriePicture($Series,$Picture=NULL)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
@@ -176,7 +176,7 @@
    function setXAxisUnit($Unit)
     { $this->Data["XAxisUnit"] = $Unit; }
 
-   /* Set the series that will be used as abscissa */
+   /* Set the serie that will be used as abscissa */
    function setAbscissa($Serie)
     { if (isset($this->Data["Series"][$Serie])) { $this->Data["Abscissa"] = $Serie; } }
 
@@ -184,31 +184,31 @@
    function setAbscissaName($Name)
     { $this->Data["AbscissaName"] = $Name; }
 
-   /* Create a scatter group specifying X and Y data series */
+   /* Create a scatter group specifyin X and Y data series */
    function setScatterSerie($SerieX,$SerieY,$ID=0)
     { if (isset($this->Data["Series"][$SerieX]) && isset($this->Data["Series"][$SerieY]) ) { $this->initScatterSerie($ID); $this->Data["ScatterSeries"][$ID]["X"] = $SerieX; $this->Data["ScatterSeries"][$ID]["Y"] = $SerieY; } }
 
-   /* Set the description of a given scatter series */
-   function setScatterSerieDescription($ID,$Description="My series")
+   /* Set the description of a given scatter serie */
+   function setScatterSerieDescription($ID,$Description="My serie")
     { if (isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["Description"] = $Description; } }
 
-   /* Set the icon associated to a given scatter series */
+   /* Set the icon associated to a given scatter serie */
    function setScatterSeriePicture($ID,$Picture=NULL)
     { if (isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["Picture"] = $Picture; } }
 
-   /* Set a scatter series as "drawable" while calling a rendering function */
+   /* Set a scatter serie as "drawable" while calling a rendering function */
    function setScatterSerieDrawable($ID ,$Drawable=TRUE)
     { if (isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["isDrawable"] = $Drawable; } }
 
-   /* Define if a scatter series should be draw with ticks */
+   /* Define if a scatter serie should be draw with ticks */
    function setScatterSerieTicks($ID,$Width=0)
     { if ( isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["Ticks"] = $Width; } }
 
-   /* Define if a scatter series should be draw with a special weight */
+   /* Define if a scatter serie should be draw with a special weight */
    function setScatterSerieWeight($ID,$Weight=0)
     { if ( isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["Weight"] = $Weight; } }
 
-   /* Associate a color to a scatter series */
+   /* Associate a color to a scatter serie */
    function setScatterSerieColor($ID,$Format)
     {
      $R	    = isset($Format["R"]) ? $Format["R"] : 0;
@@ -249,7 +249,7 @@
    function drawAll()
     { foreach($this->Data["Series"] as $Key => $Value) { if ( $this->Data["Abscissa"] != $Key ) { $this->Data["Series"][$Key]["isDrawable"]=TRUE; } } }    
 
-   /* Return the average value of the given series */
+   /* Return the average value of the given serie */
    function getSerieAverage($Serie)
     {
      if ( isset($this->Data["Series"][$Serie]) )
@@ -261,7 +261,7 @@
       return(NULL);
     }
 
-   /* Return the x th percentile of the given series */
+   /* Return the x th percentil of the given serie */
    function getSeriePercentile($Serie="Serie1",$Percentil=95)
     {
      if (!isset($this->Data["Series"][$Serie]["Data"])) { return(NULL); }
@@ -279,7 +279,7 @@
       return(NULL);
     }
 
-   /* Add random values to a given series */
+   /* Add random values to a given serie */
    function addRandomValues($SerieName="Serie1",$Options="")
     {
      $Values    = isset($Options["Values"]) ? $Options["Values"] : 20;
@@ -349,7 +349,7 @@
    function setAxisXY($AxisID,$Identity=AXIS_Y)
     { if ( isset($this->Data["Axis"][$AxisID] ) ) { $this->Data["Axis"][$AxisID]["Identity"] = $Identity; } }
 
-   /* Associate one data series with one axis */
+   /* Associate one data serie with one axis */
    function setSerieOnAxis($Series,$AxisID)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
@@ -370,21 +370,21 @@
       }
     }
 
-   /* Define if a series should be draw with ticks */
+   /* Define if a serie should be draw with ticks */
    function setSerieTicks($Series,$Width=0)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if ( isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["Ticks"] = $Width; } }
     }
 
-   /* Define if a series should be draw with a special weight */
+   /* Define if a serie should be draw with a special weight */
    function setSerieWeight($Series,$Weight=0)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if ( isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["Weight"] = $Weight; } }
     }
 
-   /* Returns the palette of the given series */
+   /* Returns the palette of the given serie */
    function getSeriePalette($Serie)
     {
      if ( !isset($this->Data["Series"][$Serie]) ) { return(NULL); }
@@ -398,7 +398,7 @@
      return($Result);
     }
 
-   /* Set the color of one series */
+   /* Set the color of one serie */
    function setPalette($Series,$Format=NULL)
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
@@ -460,7 +460,7 @@
       }
     }
 
-   /* Initialise a given scatter series */
+   /* Initialise a given scatter serie */
    function initScatterSerie($ID)
     {
      if ( isset($this->Data["ScatterSeries"][$ID]) ) { return(0); }
@@ -482,7 +482,7 @@
       }
     }
 
-   /* Initialise a given series */
+   /* Initialise a given serie */
    function initialise($Serie)
     {
      if ( isset($this->Data["Series"]) ) { $ID = count($this->Data["Series"]); } else { $ID = 0; }

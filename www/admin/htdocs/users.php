@@ -26,7 +26,7 @@ global $sysconf_;
 global $admin_;
 
 /**
- * this flag enable remote search with ldap/sql connector
+ * this flag enable remote search whith ldap/sql connector
  */  
 $remote_search_ = true;
 
@@ -38,7 +38,7 @@ $search_username = "";
 $search_domain = "";
 $saved_msg = "";
 
-// create user edition form
+// create user edition formulat
 $uform = new Form('user', 'post', $_SERVER['PHP_SELF']);
 $uposted = $uform->getResult();
 // save edited user settings
@@ -81,7 +81,7 @@ if ($uform->shouldSave()) {
   $search_user->load($login);
 } 
 
-// create search/filter form
+// create search/filter formular
 $sform = new Form('search', 'post', $_SERVER['PHP_SELF']);
 $sposted = $sform->getResult();
 if (isset($sposted['username']) && isset($sposted['domain'])&& !isset($search_user)) {

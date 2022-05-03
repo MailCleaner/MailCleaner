@@ -219,7 +219,7 @@ class NetworkConfig
 
   /**
    * return the dns servers string, comma separated list
-   * @return  string  dns servers list
+   * @return  string  snd servers list
    */
   public function getDNSString() {
     $ret  = "";

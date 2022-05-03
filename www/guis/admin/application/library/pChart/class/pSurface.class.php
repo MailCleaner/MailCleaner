@@ -146,7 +146,7 @@
       }
     }
 
-   /* Draw the area around the specified Threshold */
+   /* Draw the area arround the specified Threshold */
    function drawContour($Threshold,$Format="")
     {
      $R		= isset($Format["R"]) ? $Format["R"] : 0;

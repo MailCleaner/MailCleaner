@@ -52,7 +52,7 @@ public function requestForm($alias) {
     $query = "DELETE FROM pending_alias WHERE date_in != CURDATE();";
     $db_slaveconf->doExecute($query);
     
-    // and the check if still pending request exists
+    // and the check if still pending requets exists
     $query = "SELECT alias FROM pending_alias WHERE alias='$alias'";
     $res = $db_slaveconf->getHash($query);
     if (is_array($res) && isset($res['alias']) &&  $res['alias'] == $alias) {

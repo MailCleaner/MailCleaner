@@ -31,7 +31,7 @@ class TequilaAuthenticator extends AuthManager {
     private $authenticated_ = false;
     
     /**
-     * values to be fetched from authentication
+     * values to be fetched from authenitation
      * @var array
      */
     private $values_ = array();
@@ -94,24 +94,24 @@ class TequilaAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function start() {}
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function getStatus() {}
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function doAuth($username) {
        return $this->authenticated_;
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function getValue($value) {
       switch($value) {

@@ -44,7 +44,7 @@ class SoapSpools {
 }
 
 /**
- * processes status
+ * processes statuts
  */
 class SoapProcesses {
   public $mtaincoming;

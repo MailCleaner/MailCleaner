@@ -179,7 +179,7 @@ sub oscar_do {
     if ($conf->{oscar_log_pmsinfo}) {
         my $msgid = $pms->get('Message-Id') ? $pms->get('Message-Id') : "<no messageid>";
         my $from = $pms->get('From') ? $pms->get('From') : "<no sender>";
-        my $to = $pms->get('To') ? $pms->get('To') : "<no recipients>";
+        my $to = $pms->get('To') ? $pms->get('To') : "<no receipients>";
         chomp($from, $to, $msgid);
         infolog("Processing Message with ID \"$msgid\" ($from -> $to)");
     }

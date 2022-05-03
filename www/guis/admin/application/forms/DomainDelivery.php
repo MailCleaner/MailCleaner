@@ -95,7 +95,7 @@ class Default_Form_DomainDelivery extends Zend_Form
         
         $usemx = new Zend_Form_Element_Checkbox('usemx', array(
 	        'label'   => $t->_('Use MX resolution'). " :",
-                'title' => $t->_("If destination servers have MX record in internal"),
+                'title' => $t->_("If destination servers have MX reccord in internal"),
             'uncheckedValue' => "0",
 	        'checkedValue' => "1"
 	              ));

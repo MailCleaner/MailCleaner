@@ -33,19 +33,19 @@ class DigestAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function start() {}
     
     /**
-     * overridden from AuthManager
+     * overriden from AuthManager
      */
     public function getStatus() {
     	return $this->status_;
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function doAuth($username) {
        if (!isset($_REQUEST['d']) || !preg_match('/^[0-9a-f]{32}(?:[0-9a-f]{8})?$/i', $_REQUEST['d'])) {
@@ -112,7 +112,7 @@ class DigestAuthenticator extends AuthManager {
     }
     
     /**
-     * overridden from Authmanager
+     * overriden from Authmanager
      */
     public function getValue($value) {
       if (isset($this->values_[$value])) {

@@ -24,7 +24,7 @@ require_once("view/Documentor.php");
 global $lang_;
 global $sysconf_;
 
-// create the view objects and get form results
+// create the view objects and get formular results
 $form = new Form('filter', 'post', $_SERVER['PHP_SELF']);
 $posted = $form->getResult();
 if (!isset($posted['times'])) {
@@ -38,7 +38,7 @@ if (!isset($posted['stats'])) {
 $template_ = new Template('stats.tmpl');
 $documentor = new Documentor();
 
-// prepare the select fields information
+// prepare the select fields informations
 $hosts = $sysconf_->getSlavesName();
 $hosts[$lang_->print_txt('ALL')] = 'all';
 $stats_ = array (
@@ -84,7 +84,7 @@ $template_->output($replace);
 /**
  * draw a host block
  * @param  $template   array  template to be used
- * @param  $posted     array  values posted from the form
+ * @param  $posted     array  values posted from the formular
  * @return             string html string displaying the host block
  */
 function drawHosts($template, $posted) {
@@ -119,7 +119,7 @@ function drawHosts($template, $posted) {
 /**
  * draw the needed statistic type for a host
  * @param  $template   array  template to be used
- * @param  $posted     array  values posted from the form
+ * @param  $posted     array  values posted from the formular
  * @param  $host       string host to be processed
  * @return             string html string displaying the stats block
  */
@@ -155,7 +155,7 @@ function drawStat($template, $posted, $host) {
 /**
  * draw the needed statistic periods
  * @param  $template   array  template to be used
- * @param  $posted     array  values posted from the form
+ * @param  $posted     array  values posted from the formular
  * @param  $host       string host to be processed
  * @param  $stat       string statistic type to be displayed
  * @return             string html string displaying the stats block

@@ -5,11 +5,11 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for the SMTP daemons configuration page
+ * This is the controller for the smtp daemons configuration page
  */
  
  /**
-  * require admin session, view and SMTP daemon configuration handler
+  * require admin session, view and smtp dameon configuration handler
   */
 require_once("admin_objects.php");
 require_once("view/Template.php");
@@ -32,14 +32,14 @@ $admin_->checkPermissions(array('can_configure'));
 //@todo clean up this ! maybe use a LDAPSettings object
 list($ldap_basedn_, $ldap_binduser_, $ldap_bindpass_) = split (":", $sysconf_->getPref('ad_param'));
 
-// create and load incoming SMTP daemon configuration
+// create and loas incoming smtp daemon configuration
 $mta_in = new MTAConfig();
 $mta_in->load(1);
 
 $greylistd = new GreylistConfig();
 $greylistd->load();
 
-// create access form (incoming)
+// create access formular (incoming)
 $aform = new Form('access', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult();
 // save access settings
@@ -55,7 +55,7 @@ if ($aform->shouldSave()) {
   }
 }
 
-// create ldap callout configuration form
+// create ldap callout configuration formular
 //@todo this will be on a per domain basis, so will be removed from here
 $lform = new Form('ldapcallout', 'post', $_SERVER['PHP_SELF']);
 $lposted = $lform->getResult();
@@ -75,7 +75,7 @@ if ($lform->shouldSave()) {
   }
 }
 
-// create greylistd configuration form
+// create greylistd configuration formular
 $greyform = new Form('greylistd', 'post', $_SERVER['PHP_SELF']);
 $greyposted = $greyform->getResult();
 
@@ -91,7 +91,7 @@ if ($greyform->shouldSave()) {
   }
 }
 
-// create advanced configuration form
+// create advanced configuration formular
 $adform = new Form('advanced', 'post', $_SERVER['PHP_SELF']);
 // create and load the selected mta stage
 $mta = new MTAConfig();

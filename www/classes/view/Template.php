@@ -243,7 +243,7 @@ private function processLine($line, $replace) {
   // replace __LANG__ tag with language actually used
   $line = preg_replace('/\_\_LANG\_\_/', $lang_->getLanguage(), $line);
 
-  // replace date formatting
+  // replace date formating
   if (preg_match('/\_\_FORMAT\_DATE\(([^),]+)\s*,\s*([^),]+)\s*,\s*([^),]+)\s*,\s*([^),]+)\s*\)\_\_/', $line, $matches)) {
     $line =  preg_replace('/\_\_FORMAT\_DATE\(([^),]+)\s*,\s*([^),]+)\s*,\s*([^),]+)\s*,\s*([^),]+)\s*\)\_\_/', $this->formatDate($matches), $line);
   }

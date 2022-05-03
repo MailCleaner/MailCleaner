@@ -22,7 +22,7 @@ require_once("user/WWList.php");
 
 global $user_;
 
-// create add form
+// create add formular
 $aform = new Form('add', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult();
 $eform = new Form('edit', 'post', $_SERVER['PHP_SELF']);
@@ -90,7 +90,7 @@ if ($_GET['d'] && is_numeric($_GET['d'])) {
   }      
 }
 
-// create add form
+// create add formular
 $aform = new Form('add', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult();
 if ($aform->shouldSave()) {

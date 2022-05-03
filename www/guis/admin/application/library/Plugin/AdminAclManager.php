@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * Main access management
+ * Main access managment
  */
 
   class Plugin_AdminAclManager extends Zend_Controller_Plugin_Abstract 

@@ -158,7 +158,7 @@ class MCSoap_Config
 	
 
   /**
-   * This function apply the ntp config
+   * This function apply the ntp confi
    *
    * @param  boolean  sync
    * @return string
@@ -292,7 +292,7 @@ class MCSoap_Config
    * @return string
    */
 	static public function Config_saveRegistration($serial) {
-		return 'OK registered';
+		return 'OK registrated';
 	}
 
    /**
@@ -460,7 +460,7 @@ class MCSoap_Config
 				$cmd2 ="touch ".$sysconf->getOption('VARDIR')."/run/mailscanner.rn";
 				`$cmd`;
 				`$cmd2`;
-	                	return 'OK Configuration downloaded and set';
+	                	return 'OK Configuraton downloaded and setted';
 			}
                 }
 

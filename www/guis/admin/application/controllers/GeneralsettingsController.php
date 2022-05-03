@@ -151,7 +151,7 @@ class GeneralsettingsController extends Zend_Controller_Action
                         $autoconfmgr->setAutoconfenabled($request->getParam('autoconfiguration'));
                         $message = $autoconfmgr->save();
                 } else {
-                        $message = 'NOK an error occurred';
+                        $message = 'NOK an error occured';
                 }
         }
 

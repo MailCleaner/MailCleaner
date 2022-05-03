@@ -60,7 +60,7 @@ class Default_Model_SystemConf
 			$this->_values[$param] = $value;
 		}
 		
-		## eventually check for services to restart according to parameter changed
+		## evetually check for services to restart according to parameter changed
 		if (isset($this->_restart_what[$param])) {
 			foreach ($this->_restart_what[$param] as $s) {
     			$this->_to_restart[] = $s;

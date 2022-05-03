@@ -66,7 +66,7 @@ if (isUpdateRunning()) {
   }
 }
 
-// and instantiate view objects
+// and instanciate view objects
 $pform = new Form('patchlog', 'post', $_SERVER['PHP_SELF']);
 $template_ = new Template('patch.tmpl');
 $sysconf = SystemConfig::getInstance();

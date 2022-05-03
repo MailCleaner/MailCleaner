@@ -26,7 +26,7 @@ global $sysconf_;
 // create view
 $template_ = new Template('navigation.tmpl');
 
-// prepare replacements
+// prepare replacemetns
 $replace = array(
         "__LANG__" => $lang_->getLanguage(),
         "__LINK_DOMAIN_LIST__" => "domainlist.php",
@@ -53,7 +53,7 @@ $replace = array(
 $template_->output($replace);
 
 /**
- * get the status of the process and display if one needs to be restarted
+ * get the status of the proccess and display if one needs to be restarted
  * @return  string  processes status
  */
 function getRestartStatus() {

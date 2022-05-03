@@ -23,12 +23,12 @@ define ("DEFAULT_DAYS", 7);
 define ("DEFAULT_MSGS", 20);
 
 /**
- * This is the class that will fetch all blocked content in the quarantine according to filter criteria
+ * This is the class that will fetch all bloqued content in the quarantine according to filter criterias
  */
 class ContentQuarantine extends Quarantine {
 
   /**
-   * filter criteria
+   * filter criterias
    * @var  array
    */
   protected  $filters_ = array(
@@ -89,7 +89,7 @@ private function isAllowed() {
 }
 
 /**
- * Load the quarantine from the database
+ * Load the quarantine from the databse
  * @return   bool  true on success, false on failure
  */
 public function load() {
@@ -131,8 +131,8 @@ public function load() {
      $slave_id = 1;
    } 
    $db = DM_Custom :: getInstance($this->getFilter('slave'), $slave[0], 'mailcleaner', $slave[1], 'mc_stats');
-   // now we clean up the filter criteria
-   // now we clean up the filter criteria
+   // now we clean up the filter criterias
+   // now we clean up the filter criterias
    if (!is_numeric($this->getFilter('days'))) {
      $this->setFilter('days', DEFAULT_DAYS);
    }

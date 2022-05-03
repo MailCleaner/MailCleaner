@@ -151,7 +151,7 @@ class Default_Form_DomainFiltering extends Zend_Form
 	    
 	    $enablewarnlist = new Zend_Form_Element_Checkbox('enable_warnlists', array(
 	        'label'   => $t->_('Enable warnlists'). " :",
-                'title' => $t->_("Enable / disable the use of warnlist. This list alerts the user when a mail comes from sender from the list."),
+                'title' => $t->_("Enable / disable the use of warnlist. This list alert the user when a mail cone fron sender from the list."),
             'uncheckedValue' => "0",
 	        'checkedValue' => "1"
 	              ));

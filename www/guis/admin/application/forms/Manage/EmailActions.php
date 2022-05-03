@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * Email management form
+ * Email managment form
  */
 
 class Default_Form_Manage_EmailActions extends Zend_Form

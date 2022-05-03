@@ -348,7 +348,7 @@ class Default_Model_Domain
 	}
 
 	/**
-	 * Destination management
+	 * Destination managment
 	 */
 	public function loadDestinationRule($rule) {
 		$servers = $rule;
@@ -785,7 +785,7 @@ class Default_Model_Domain
 	}
 	 
 	/*
-	 * Callout management
+	 * Callout managment
 	 */
 	public function loadCalloutConnector() {
                 $this->_calloutconnector = 'none';

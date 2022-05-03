@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for the page for not allowed accesses
+ * This is the controller for the page for not allwed accesses
  */
  
 /**

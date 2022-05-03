@@ -116,7 +116,7 @@ class MCSoap_Status
   }
   
   /**
-   * This function will gather status
+   * This function wil gather status
    * 
    * @param  array
    * @return array
@@ -162,7 +162,7 @@ class MCSoap_Status
 	}
 	
 	/**
-	 * This function will fetch today's stats
+	 * This function will fetch todays stats
 	 * 
 	 * @return array
 	 */
@@ -387,7 +387,7 @@ class MCSoap_Status
     }
     
     /**
-     * This function will return all informational messages of the host
+     * This function will return all inrofmational messages of the host
      *
      * @param  array $params
      * @return array

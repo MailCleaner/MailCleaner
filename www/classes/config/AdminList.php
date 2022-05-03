@@ -18,7 +18,7 @@ class AdminList extends ListManager
 {
 
 /**
- * load administrator from database
+ * load adminsitrator from database
  * @return  boolean  true on success, false on failure
  */ 
 public function Load() {

@@ -15,7 +15,7 @@
 abstract class AddressFetcher {
     
   /**
-  * List of available fetchers with corresponding description and classes
+  * List of available fetchers with correspondig description and classes
   * @var array
   */
   static private $fetchers_ = array (
@@ -67,7 +67,7 @@ abstract class AddressFetcher {
   * Main fetcher method
   * @param  $login_given  string  this is the username of the user
   * @param  $domain_name  Domain  the domain of the user
-  * @return               array   array of email addresses (keys are addresses, value is 1 for main, 0 otherwise)
+  * @return               array   array of email addresses (keys are addresses, value is 1 for main, 0 otherwisw)
   */
  abstract public function fetch($username, $domain);
  

@@ -13,7 +13,7 @@ require_once("system/SystemConfig.php");
 class Spooler {
 
   /**
-   * the different spools available
+   * the different spools availables
    * @var array
    */
    private $spool_availables_ = array(
