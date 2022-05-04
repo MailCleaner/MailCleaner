@@ -7,8 +7,8 @@ $txt['SVERIFYPASS'] = "Check that the message has been processed by the Mailclea
 $txt['SMCLOGTITLE'] = "In the headers, you will see the following lines mentioning Mailcleaner:";
 $txt['SMCLOGLINE1'] = "Received: From mailcleaner.net (filtering daemon)";
 $txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
-$txt['SMCFILTERINGLOG'] = "Filtering result : X-Mailcleaner-Spamscore: oooo";
-$txt['SFALSENEGTUTOR'] = "If you truly find that the message is spam, please transfer it to spam@mailcleaner.net, or better yet, if your mail program allows you to do so, choose \"Transfer as attachment\" to keep the mail headers of the message intact. We will analyse the contents of the message and adapt mailcleaner's filtering criteria accordingly so that all Mailcleaner users benefit from the analysis.";
+$txt['SMCFILTERINGLOG'] = "Filtering result: X-Mailcleaner-spamscore: oooo";
+$txt['SFALSENEGTUTOR'] = "If you truly find that the message to be spam, please transfer it to spam@mailcleaner.net, or better yet, if your e-mail program allows you to do so, choose \"Transfer as attachment\" to keep the e-mail headers of the message intact. Our analysis centre will disseminate the contents of the message and adapt Mailcleaner's filtering criteria accordingly, so that all Mailcleaner users benefit from the analysis.";
 
 $txt['SFALSEPOSTITLE'] = "FALSE POSITIVES";
 $txt['SFALSEPOSSUB1TITLE'] = "You didn't receive a message that you should have?";
@@ -32,13 +32,13 @@ $txt['WEBDOCTITLE'] = "Online documentation";
 $txt['FAQ'] = "
                <ul>
                  <li> <h2>What does Mailcleaner do?</h2>
-                      Mailcleaner is an e-mail filter that checks your incoming messages against known spam, viruses and other dangerous content, avoiding it from ever reaching your desktop. It is a server side solution, which means you don't have any software installed on your system to get your e-mails filtered. This is actually done by your e-mail account provider. With web based interface, you are directly connected to the Mailcleaner filter, from which you can tune some settings of the filter, and see all blocked spam.
+                      Mailcleaner is an e-mail filter that check your incoming messages against known spam, viruses and other dangerous content, avoiding it from even reaching your desktop. It is a server side solution, which means you don't have any software installed on your system to get your e-mails filtered. This is actually done by your e-mail account provider. With web based interface, you are directly connected to the Mailcleaner filter, from which you can tune some settings of the filter, and see all blocked spam.
                  </li>
                  <li> <h2>What is a spam?</h2>
                       Spam is unsolicited or undesired e-mail messages. Generally used for advertisements, these messages can quickly fill up your inbox. These message are generally not dangerous, but nontheless really annoying.
                  </li>
                  <li> <h2>What are viruses and dangerous content?</h2>
-                      A Virus is a piece of software which is able to exploit some vulnerability in order to let malicious people take control of, or damage your computer. These can be sent to you in e-mail as attachments, and infect your system once opened (some can even be enabled without being opened). Dangerous content are the same, except that it can be enabled by more intelligent means, hidding directly in the content of the message, or even being targeted from the outside by a bounce link into the e-mail. These are very difficult to detect by the use of standard e-mail filters, because the real virus is not really included within the message. Mailcleaner carries out more checks than that to prevent potentially risky e-mail from reaching your inbox.
+                      Viruses are small softwares able to exploit and let malicious people take control of your computer. These can be sent to you in e-mail as attachments, and infect your system once opened (some can even be enabled without being opened). Dangerous content are the same, except that it can be enabled by more intelligent means, hidding directly in the content of the message, or even being targeted from the outside by a bounce link into the e-mail. These are very difficult to detect by the use of standard e-mail filters, because the real virus is not really included within the message. Mailcleaner carries out more checks than that to prevent potentially risky e-mail from reaching your inbox.
                  </li>
                  <li> <h2>Mailcleaner antispam criteria</h2>
                       Mailcleaner uses a number of tests in order to detect spam with the best possible accuracy. It uses amongst others, simple keyword or keyphrase matching, worldwide spam databases and statistical token computing. The aggregation of all these criterias will give an overall score for each message, upon wich Mailcleaner will take the final decision: Spam or ham. As spam is a really fast moving target, these rules are also adapted as fast as possible. This is the job of Mailcleaner to keep these settings as good as possible.

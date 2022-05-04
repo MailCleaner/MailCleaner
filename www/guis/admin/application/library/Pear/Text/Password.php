@@ -534,3 +534,4 @@ class Text_Password {
     }
 }
 ?>
+

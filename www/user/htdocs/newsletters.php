@@ -112,6 +112,7 @@ if (isset($_GET['l'])) {
   $lang_->reload();
 }
 
+
 // Checking if the necessary arguments are here
 $in_args = array($_GET['id'], $_GET['a']);
 foreach ($in_args as $arg) {

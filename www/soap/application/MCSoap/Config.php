@@ -460,7 +460,7 @@ class MCSoap_Config
 				$cmd2 ="touch ".$sysconf->getOption('VARDIR')."/run/mailscanner.rn";
 				`$cmd`;
 				`$cmd2`;
-	                	return 'OK Configuration downloaded and set';
+	                        return 'OK Configuration downloaded and set';
 			}
                 }
 

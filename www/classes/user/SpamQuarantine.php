@@ -289,7 +289,7 @@ public function load() {
 }
 
 /**
- * populate the spam list template with actual spams values
+ * populate the slam list template with actual spams values
  * @param  $t  Template  template of each spam line
  * @return     string    completed spam array
  */

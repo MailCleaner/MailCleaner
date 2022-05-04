@@ -86,58 +86,58 @@ define('COOKIE_LIFE', 86400);
 define('COOKIE_NAME', 'TequilaPHP');
 
 class TequilaClient {
-  var $aLanguages = array (
-			   LNG_ENGLISH => 'english',
-			    LNG_FRENCH => 'francais',
-			   );
-  var $aErrors = array(
+    var $aLanguages = array (
+        LNG_ENGLISH => 'english',
+	LNG_FRENCH => 'francais'
+    );
+    var $aErrors = array(
 	ERROR_UNKNOWN_ERROR => array(
-       		LNG_ENGLISH => 'An unknown error has occurred.',
-       		LNG_FRENCH => 'Une erreur inconnue est survenue.',
+       	    LNG_ENGLISH => 'An unknown error has occurred.',
+       	    LNG_FRENCH => 'Une erreur inconnue est survenue.',
        	),
        	ERROR_SESSION_DIR_NOT_WRITEABLE => array(
-       		LNG_ENGLISH => 'Error: the given sessions directory is not writable.',
-       		LNG_FRENCH => 'Erreur: le répertoire à sessions indiqué ne peut pas être écrit.',
+            LNG_ENGLISH => 'Error: the given sessions directory is not writable.',
+       	    LNG_FRENCH => 'Erreur: le répertoire à sessions indiqué ne peut pas être écrit.',
        	),
        	ERROR_SESSION_FILE_FORMAT => array(
-       		LNG_ENGLISH => 'Error: invalid session file format.',
-       		LNG_FRENCH => 'Erreur: format de fichier de session non valide.',
+       	    LNG_ENGLISH => 'Error: invalid session file format.',
+       	    LNG_FRENCH => 'Erreur: format de fichier de session non valide.',
        	),
        	ERROR_CREATE_SESSION_FILE => array(
-       		LNG_ENGLISH => 'Error: session file creation failed.',
-       		 LNG_FRENCH => 'Erreur: échec lors de la création du fichier de session.',
+       	    LNG_ENGLISH => 'Error: session file creation failed.',
+            LNG_FRENCH => 'Erreur: échec lors de la création du fichier de session.',
        	),
        	ERROR_NO_DATA => array(
-       		LNG_ENGLISH => 'Error: no session data.',
-       		 LNG_FRENCH => 'Erreur: aucune donnée de session.',
+       	    LNG_ENGLISH => 'Error: no session data.',
+            LNG_FRENCH => 'Erreur: aucune donnée de session.',
        	),
        	ERROR_NO_SESSION_DIR => array(
-       		LNG_ENGLISH => 'Error: nonexistent or unspecified sessions directory.',
-       		 LNG_FRENCH => 'Erreur: dossier à sessions inexistant ou non spécifié.',
+       	    LNG_ENGLISH => 'Error: nonexistant or unspecified sessions directory.',
+            LNG_FRENCH => 'Erreur: dossier à sessions inexistant ou non spécifié.',
        	),
        	ERROR_NO_SERVER_DEFINED => array(
-       		LNG_ENGLISH => 'Error: no authentication server available.',
-       		 LNG_FRENCH => 'Erreur: aucun serveur d\'authentification disponible.',
+       	    LNG_ENGLISH => 'Error: no authentication server available.',
+            LNG_FRENCH => 'Erreur: aucun serveur d\'authentification disponible.',
        	),
        	ERROR_UNSUPPORTED_METHOD => array(
-       		LNG_ENGLISH => 'Error: unsupported request method.',
-       		 LNG_FRENCH => 'Erreur: méthode de transmission inconnue.',
+       	    LNG_ENGLISH => 'Error: unsupported request method.',
+            LNG_FRENCH => 'Erreur: méthode de transmission inconnue.',
        	),
        	ERROR_NOT_READABLE => array(
-       		LNG_ENGLISH => 'Error: unable to read session file.',
-       		 LNG_FRENCH => 'Erreur: fichier de session non lisible.',
+       	    LNG_ENGLISH => 'Error: unable to read session file.',
+            LNG_FRENCH => 'Erreur: fichier de session non lisible.',
        	),
        	ERROR_CREATE_FILE => array(
-       		LNG_ENGLISH => 'Error: unable to create session file.',
-       		 LNG_FRENCH => 'Erreur: impossible de créer le fichier de sessions.',
+       	    LNG_ENGLISH => 'Error: unable to create session file.',
+            LNG_FRENCH => 'Erreur: impossible de créer le fichier de sessions.',
        	),
        	ERROR_SESSION_TIMEOUT => array(
-       		LNG_ENGLISH => 'Error: session timed out.',
-       		 LNG_FRENCH => 'Erreur: la session a expiré.',
+       	    LNG_ENGLISH => 'Error: session timed out.',
+            LNG_FRENCH => 'Erreur: la session a expiré.',
        	),
        	ERROR_CREATE_SESSION_DIR => array(
-       		LNG_ENGLISH => 'Error: unable to create sessions directory.',
-       		 LNG_FRENCH => 'Erreur: impossible de créer le dossier à sessions défini.',
+       	    LNG_ENGLISH => 'Error: unable to create sessions directory.',
+            LNG_FRENCH => 'Erreur: impossible de créer le dossier à sessions défini.',
        	),
        	ERROR_NO_MESSAGE => array(
        		LNG_ENGLISH => 'Error: no message to authenticate.',

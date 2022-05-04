@@ -5,11 +5,11 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controller for the SMTP daemons configuration page
+ * This is the controller for the smtp daemons configuration page
  */
  
  /**
-  * require admin session, view and SMTP daemon configuration handler
+  * require admin session, view and smtp dameon configuration handler
   */
 require_once("admin_objects.php");
 require_once("view/Template.php");
@@ -32,7 +32,7 @@ $admin_->checkPermissions(array('can_configure'));
 //@todo clean up this ! maybe use a LDAPSettings object
 list($ldap_basedn_, $ldap_binduser_, $ldap_bindpass_) = split (":", $sysconf_->getPref('ad_param'));
 
-// create and load incoming SMTP daemon configuration
+// create and loas incoming smtp daemon configuration
 $mta_in = new MTAConfig();
 $mta_in->load(1);
 

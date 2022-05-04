@@ -28,7 +28,7 @@ define ("DEFAULT_MSGS", 20);
 class ContentQuarantine extends Quarantine {
 
   /**
-   * filter criteria
+   * filter criterias
    * @var  array
    */
   protected  $filters_ = array(

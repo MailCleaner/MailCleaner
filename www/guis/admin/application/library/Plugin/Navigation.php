@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * Interface menu management
+ * Interface menu managment
  */
 
 class Plugin_Navigation extends Zend_Controller_Plugin_Abstract 

@@ -9,7 +9,7 @@
  
 /**
  * This class is the mother of the Login Formatters.
- * These are used to modify and reformat the login entered by the user in order to be correctly passed to the authentication server
+ * These are used to modify and reformat the login entered by the user in order to be correctly passed to the autentication server
  * @package mailcleaner
  */
 abstract class LoginFormatter {

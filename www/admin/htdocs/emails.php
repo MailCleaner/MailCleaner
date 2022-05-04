@@ -64,7 +64,7 @@ if (isset($eposted['search']) && preg_match('/(\S+)\@(\S+)/', $eposted['search']
   $search_domainpart = $matches[2];
 }
 
-// create search form
+// creat search form
 $sform = new Form('search', 'post', $_SERVER['PHP_SELF']);
 $sposted = $sform->getResult();
 // set search parameters

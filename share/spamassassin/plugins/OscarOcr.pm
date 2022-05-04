@@ -334,7 +334,7 @@ sub oscar_do {
         }
         set_tmpdir($imgdir);
 
-        #Generete unique filename to store image
+        #Generate unique filename to store image
         my $imgfilename = Mail::SpamAssassin::Util::untaint_file_path(
             $imgdir . "/" . $filename
         );

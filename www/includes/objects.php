@@ -27,7 +27,7 @@ global $log_;
 $log_->setIdent('user');
 $sysconf_ = SystemConfig::getInstance();
 
-//check user is logged. Redirect if not      
+//check user is logged. Redirect if not
 if (!isset($_SESSION['user'])) {
   $location = 'login.php';
   if (isset($_REQUEST['d']) && preg_match('/^[0-9a-f]{32}(?:[0-9a-f]{8})?$/i', $_REQUEST['d'])) {

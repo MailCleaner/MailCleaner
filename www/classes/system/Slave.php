@@ -159,7 +159,7 @@ public function getProcessesStatus() {
 /**
  * dump a configuration file
  * @param  $config   string   configuration to dump
- * @param  $params   string   command line parameters to pass
+ * @param  $params   string   command line paramaters to pass
  * @return           boolean  true on success, false on failure
  */
 public function dumpConfiguration($config, $params) {

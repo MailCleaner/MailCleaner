@@ -335,7 +335,7 @@ class SystemConfig extends PrefHandler {
     }
 
     /**
-     * Get the master(s) name or ip configured for this system
+     * Get the master(s) name or ip configured fot this system
      * @return array array of name/ip (string)
      */
     public function getMastersName() {

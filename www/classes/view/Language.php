@@ -188,7 +188,7 @@ class Language
     $this->lang_=$lang;
   }
 
-    // admin actually only exists in english
+    // admin actually only exists in English
   if ($type == 'admin') {
     $this->lang_="en";
   }

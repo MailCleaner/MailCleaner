@@ -110,7 +110,7 @@ sub do {
   #  $supportemail = $dlg->display();
   #}
 
-  print "\n\nHere are the your information\n";
+  print "\n\nHere is your information\n";
   print "------------------------------\n\n";
   print " Host ID: $hostid\n";
   #print " Default domain: $domain\n";

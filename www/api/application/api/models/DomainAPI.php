@@ -21,7 +21,7 @@ class Api_Model_DomainAPI
 	 *    name => string, domain name - cannot be modified
 	 *    aliases  => comma or \n separated string of aliases domains (use '' to delete all aliases)
 	 *    defaults => can be any existent domain name. 
-	 *                Values will be copied from it first as default values, 
+	 *                Values will be copied from it first as default vaules, 
 	 *                otherwise, default values are taken from the global domains settings
 	 *    systemsender => System mail sender address
 	 *    falseneg_to => False negative reporting address

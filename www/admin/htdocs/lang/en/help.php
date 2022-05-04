@@ -273,14 +273,14 @@ $help['WHITEWARNLIST'] =
 "<h1>Whitelists and warnlists</h1>
 <b>Whitelists</b> let users set up a list of sender that will never be flagged as spam or put in quarantine. 
 Although this option may be convenient, it is also very dangerous as spammers tend to forge the sender address to fake someone you know.
-<br>With many entries in whitelists, your filter may become less efficient and being open to smart spam campaigns.
+<br>With many entries in whitelists, your filter may become less efficient and being open to smart spam campains.
 <br><br>
 <b>Warnlists</b> are a less dangerous method because it forces the user to be more attentive to the list he sets.<br> Instead of simply let the message go through when the sender is listed,
  the system will send a warning message to the final recipient noticing that is has been put in quarantine. This way, the user is aware that something went wrong with the filter
  and can eventually forward the problem to the administrator.<br>Moreover, the user who receives a warning for a real spam will know where the error lies, and not simply believe that the filter has let it go through.
 <br><br>
-Although it is always better to avoid any kind of list, it is advised for the administrator who really needs it, to only enable warnlists first.
-<br>Enabling both is possible, but may not be very useful.
+Althoug it is always better to avoid any kind of list, it is advised for the administrator who really needs it, to only enable warnlists first.
+<br>Enabling both is possible, but may not be very usefull.
 <br>Now if you really want to enable whitelists for the whole domain, you have been warned !
  ";
 
@@ -573,7 +573,7 @@ This option restricts the number of simultaneous IP connections from a single ho
 This option affects the processing of bounce messages that cannot be delivered, that is, those that suffer a permanent delivery failure. (Bounce messages that suffer temporary delivery failures are of course retried in the usual way.)
 
 <h2>Timeout frozen after: </h2> [7d]
-If this value is set to a time greater than zero, a frozen message of any kind that has been on the queue for longer than the given time is automatically canceled at the next queue run. If it is a bounce message, it is just discarded; otherwise, a bounce is sent to the sender.
+If this value is set to a time greater than zero, a frozen message of any kind that has been on the queue for longer than the given time is automatically cancelled at the next queue run. If it is a bounce message, it is just discarded; otherwise, a bounce is sent to the sender.
 
 <h2>Header: </h2>
 This string defines the contents of the Received: message header that is added
@@ -638,7 +638,7 @@ $help['ANTISPAMMODULES'] =
 "<h1>Modules</h1>
 Each module provide a specific filtering engine that can help detect spams or non-spams. It can be set up as decisive for both possibilities allowing messages to skip the rest of the processing.<br/><br/>
 <b>NiceBayes: </b> this module provides a rough statistical database that only hits 99% or 100% sure spams. An efficient database can help reduce further processing by up to 70%.<br/><br/>
-<b>ClamSpam: </b> this module provides a check against known spams signatures. This is particularly efficient with attachment spams (ie. PDF, ZIP, etc...)<br/><br/>
+<b>ClamSpam: </b> this module provides a check against known spams signatures. This is particularly efficient with attachement spams (ie. PDF, ZIP, etc...)<br/><br/>
 <b>PreRBLs: </b> this module provides a check against many public RBL's. This one also helps reduce the processing time.<br/><br/>
 <b>Spamc: </b> this modules provides a SpamAssassin check. It is the most important, but also the most resource intensive one. Basically, it should always comes last and be both negatively and positively decisive.
 ";
@@ -807,7 +807,7 @@ These settings cover often-used html code that can be used maliciously. Most of 
 For these options, check the \"Set as Silent\" box to prevent the user from receiving a warning when messages are blocked by each of these criteria.<br/>
 <h2>IFrame tags: </h2>This could allow a maliciously written e-mail to download and execute code from an outside source.
 <h2>Form tags: </h2>E-mail messages rarely contain forms for legitimate reasons. For example, forms are often used by phishers. (<i>Phishing</i> is the act of trying to dupe users into divulging information regarding their personal bank accounts, credit cards, or passwords.) All the same, forms are occasionally used in legitimate general distributions such as newsletters.
-<h2>Script tags: </h2>HTML can contain scripts, for example, JavaScript or VBScript. Generally, scripts in e-mail messages should be avoided. All the same, forms are occasionally used in legitimate general distributions such as newsletters.
+<h2>Script tags: </h2>HTML can contain scripts, for example, Javascript or VBScript. Generally, scripts in e-mail messages should be avoided. All the same, forms are occasionally used in legitimate general distributions such as newsletters.
 <h2>CodeBase tags: </h2>The codebase attribute of the &lt;object&gt; tag can be used to insert the URL of a remotely located object (ActiveX component, applet, image map, plug-in, media player, etc.) in a message. This can leave the user unprotected against various Microsoft-specific security vulnerabilities. It is best to leave this option blocked unless your users demand its activation.
 <h2>Web Bugs: </h2>Spammers sometimes include images in their messages that are downloaded from a remote server upon opening the message. Often, the URLs for these images are unique to each message; this allows the spammers to know that a particular address is valid, because the image URL will contain enough information for the server delivering the image to identify the recipient's e-mail address.<br/>These uniquely formed URLs--used to validate recipients' e-mail addresses--are called Web Bugs.
 MailCleaner can disarm Web Bugs so that the message can be safely opened without sending any compromising information to outside servers.
@@ -964,7 +964,7 @@ $help['MESSAGES'] =
 "<h1>Message counts</h1>" .
 "This graphic displays the count of the different type of messages detected by MailCleaner.<br> These can be viruses, dangerous contents, spams or clean messages.<br><br>" .
 "The priority of types is : virus, dangerous content, spam and clean.<br> That is when a message is detected as both a virus and a spam, it is counted as a virus.".
-"<br><br>This is a daily count, so it is reset every day.";
+"<br><br>This is a daily count, so it get reset avery day.";
 
 $help['PMESSAGES'] = 
 "<h1>Message type</h1>".

@@ -50,7 +50,7 @@ if dpkg-query -s kaspersky-64-2.0 | grep "Status: install ok installed"; then
      daysDiff=$(($timeDiff/(3600*24)))
      if [ $daysDiff -le $DEADLINE ]; then
        echo "License expired in $daysDiff days ($expirationDate)" > $OUT_FILE
-       my_own_exit "1"
+       my_own_exit "2"
      fi
    fi
 fi

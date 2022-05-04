@@ -94,15 +94,15 @@ class Default_Form_DomainDelivery extends Zend_Form
         $this->addElement($multiple);
         
         $usemx = new Zend_Form_Element_Checkbox('usemx', array(
-	        'label'   => $t->_('Use MX resolution'). " :",
-                'title' => $t->_("If destination servers have MX record in internal"),
+	    'label'   => $t->_('Use MX resolution'). " :",
+            'title' => $t->_("If destination servers have MX record in internal"),
             'uncheckedValue' => "0",
-	        'checkedValue' => "1"
-	              ));
-	    if ($this->_domain->getDestinationUseMX()) {
+	    'checkedValue' => "1"
+	));
+	if ($this->_domain->getDestinationUseMX()) {
             $usemx->setChecked(true);
-	    }
-	    $this->addElement($usemx);
+	}
+	$this->addElement($usemx);
         
         $test = new Zend_Form_Element_Button('testdestinationSMTP', array(
 		     'label'    => $t->_('Test destinations'),

@@ -144,7 +144,7 @@
     }
 
    /* Set the description of a given series */
-   function setSerieDescription($Series,$Description="My series")
+   function setSerieDescription($Series,$Description="My serie")
     {
      if ( !is_array($Series) ) { $Series = $this->convertToArray($Series); }
      foreach($Series as $Key => $Serie) { if (isset($this->Data["Series"][$Serie]) ) { $this->Data["Series"][$Serie]["Description"] = $Description; } }
@@ -184,12 +184,12 @@
    function setAbscissaName($Name)
     { $this->Data["AbscissaName"] = $Name; }
 
-   /* Create a scatter group specifying X and Y data series */
+   /* Create a scatter group specifyin X and Y data series */
    function setScatterSerie($SerieX,$SerieY,$ID=0)
     { if (isset($this->Data["Series"][$SerieX]) && isset($this->Data["Series"][$SerieY]) ) { $this->initScatterSerie($ID); $this->Data["ScatterSeries"][$ID]["X"] = $SerieX; $this->Data["ScatterSeries"][$ID]["Y"] = $SerieY; } }
 
    /* Set the description of a given scatter series */
-   function setScatterSerieDescription($ID,$Description="My series")
+   function setScatterSerieDescription($ID,$Description="My serie")
     { if (isset($this->Data["ScatterSeries"][$ID]) ) { $this->Data["ScatterSeries"][$ID]["Description"] = $Description; } }
 
    /* Set the icon associated to a given scatter series */
@@ -261,7 +261,7 @@
       return(NULL);
     }
 
-   /* Return the x th percentile of the given series */
+   /* Return the x th percentil of the given series */
    function getSeriePercentile($Serie="Serie1",$Percentil=95)
     {
      if (!isset($this->Data["Series"][$Serie]["Data"])) { return(NULL); }

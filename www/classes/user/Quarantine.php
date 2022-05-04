@@ -83,7 +83,7 @@ public function getFilter($criteria) {
 }
 
 /**
- * get the fully search address. This is the concatenation of the local part and domain part criteria
+ * get the full search address. This is the concatenation of the local part and domain part
  * @return  string  search address
  */
  public function getSearchAddress() {
@@ -105,7 +105,7 @@ public function getFilter($criteria) {
  
 /**
  * set the filter criteria given an array.
- * This is useful when given a request array for example
+ * This is usefull when given a request array for exemple
  * @param  $a  array  array of filter criteria
  * @return     bool   true on success, false on failure
  */
@@ -337,7 +337,7 @@ public function getOrderName() {
 
 /**
  * get the pagination javascript used to navigate
- * @param  $form  string form name
+ * @param  $form  string formular name
  * @return        string javascript
  */
 public function getJavascripts($form) {

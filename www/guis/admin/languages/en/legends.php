@@ -91,7 +91,7 @@ return array(
   'an error occurred' => 'An error occurred',
   'important' => 'Important !',
   'Back' => 'Back...',
-  'applying network now will' => 'Applying network settings now will probably break your current connection to this interface. 
+  'applying network now will' => 'Applying network settings now will probably break your current connection to this interface.
   Make sure the new settings are correct before pressing the Reload button or you may definitively loose connectivity to your MailCleaner system. 
   Once the settings are applied, this interface may not be responsive and you may not have any answer. You should however be able to connect back with the new settings you provided.',
 
@@ -287,7 +287,7 @@ return array(
 
    'relayed_total' => 'Total relayed messages',
    'by hosts_header' => 'By host',
-   'authentified_header' => 'Authenticated',
+   'authentified_header' => 'Authentified',
 
 ## host stats
    'global_hosttotal' => 'Total',
@@ -319,7 +319,7 @@ return array(
 
    'relayed_hosttotal' => 'Total',
    'by hosts_hostheader' => 'By host',
-   'authentified_hostheader' => 'Authenticated',
+   'authentified_hostheader' => 'Authentified',
 
 ## SMTP config
    'SMTP checks Title' => 'SMTP checks',
@@ -355,7 +355,7 @@ return array(
    'interfacesettings' => 'Interface settings',
    'quarantinedisplay' => 'Quarantine display',
    'addressgroup' => 'Addresses group',
-   'authentification' => 'Authentication',
+   'authentication' => 'Authentication',
    
 ## reporting
    'countglobal_rrdtitle' => 'Global messages/sessions counts',

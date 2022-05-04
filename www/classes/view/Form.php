@@ -27,7 +27,7 @@ class Form  {
   private $action_ = '';
   
   /**
-   * array of check boxes
+   * array of checkboxes
    * @var array
    */
   private $checkboxes_ = array();

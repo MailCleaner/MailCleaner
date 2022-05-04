@@ -40,7 +40,7 @@ class Default_Form_Api extends ZendX_JQuery_Form
 		$this->addElement($full_admin_ip);
 		
 		$admin_ip = new Zend_Form_Element_Textarea('api_admin_ips', array(
-              'label'    =>  $t->_('Allow authentication access from these IP/ranges')." :",
+              'label'    =>  $t->_('Allow authenticated access from these IP/ranges')." :",
               'required'   => false,
               'rows' => 5,
               'cols' => 30,

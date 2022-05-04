@@ -408,7 +408,7 @@ class Default_Model_Domain
 	}
 
 	/**
-	 * Destination managment
+	 * Destination management
 	 */
 	public function loadDestinationRule_smarthost($rule) {
 		$servers = $rule;

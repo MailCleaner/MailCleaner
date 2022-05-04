@@ -9,7 +9,7 @@ use_ixhash_cache 	1
 ixhash_pureperl		1
 
 # If you should have 'tr' and/or 'md5sum' in some weird place
-# or you specify which version to use you can specify the exact paths here
+# or you specify which version to use ypu can specify the exact paths here
 # Default is to have SpamAssassin find the executables
 #ixhash_tr_path          "/usr/bin/tr"
 #ixhash_md5sum_path      "/usr/bin/md5sum"

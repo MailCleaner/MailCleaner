@@ -13,7 +13,7 @@ class ReasonSet
 {
 
     /**
-     * spam criteria keys are sa's criteria name, values are array of (criteria name, text, score) 
+     * spam criteria keys are sa's criteria name, values are array of (criteria name, text, score)
      * @var array
      */
 	private $reasons_ = array();

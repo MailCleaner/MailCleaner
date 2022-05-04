@@ -156,9 +156,9 @@ $replace = array(
 $template_->output($replace);
 
 /**
- * get the JavaScript for the date and time fields activation
- * @param  $form  Form   form where to use the JavaScript
- * @return        string JavaScript
+ * get the javascript for the date and time fields activation
+ * @param  $form  Form   form where to use the javascript
+ * @return        string javascript
  */
 function TimeJS($tform) {
   $ret = "

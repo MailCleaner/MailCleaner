@@ -448,7 +448,7 @@ $txt['SNMPCOMMUNITY']               = "Community";
 $txt['SSHACCESS']                   = "SSH access";
 $txt['MAILACCESS']                  = "Mail access";
 $txt['WEBSERVICES']                 = "Web services";
-$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may lose connection in this windows.<br> Please close it and login again at the administration interface.</font>";
+$txt['HTTPDRESTARTRELOG']           = "<br><br><font color=\"red\">You may lose connection in this windows.<br> Please close it and log back in to the administration interface.</font>";
 
 $txt['ENTERCONTENTID']              = "Content ID";
 $txt['OR']                          = "or";
