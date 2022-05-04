@@ -120,7 +120,7 @@
    function getWidth()
     { return($this->XSize); }
 
-   /* Return the heigth of the picture */
+   /* Return the height of the picture */
    function getHeight()
     { return($this->YSize); }
 

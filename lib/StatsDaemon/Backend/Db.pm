@@ -376,7 +376,7 @@ sub announceDayChange {
 	
 }
 
-## Database managment
+## Database management
 sub connectBackend {
     my $this = shift;
 

@@ -14,7 +14,7 @@
 class Quarantine {
   
   /**
-   * filter criterias
+   * filter criteria
    * @var  array
    */
   protected  $filters_ = array(
@@ -31,7 +31,7 @@ class Quarantine {
   protected $ordered_fields_ = array();
                     
  /**
-  * the total number of elements found accoring to filters
+  * the total number of elements found according to filters
   * @var  numeric
   */                 
   private $nb_elements_ = 0;
@@ -83,7 +83,7 @@ public function getFilter($criteria) {
 }
 
 /**
- * get the fully search address. This is the concatenation of the local part and domain part criterias
+ * get the full search address. This is the concatenation of the local part and domain part
  * @return  string  search address
  */
  public function getSearchAddress() {
@@ -164,7 +164,7 @@ protected function setNbElements($nbelements) {
 }
 
 /**
- * return the number of elements found according to the filterd
+ * return the number of elements found according to the filtered
  * @return   numeric  number of elements
  */
 public function getNbElements() {
@@ -255,7 +255,7 @@ public function getPagesLinks($limit) {
 }
 
 /**
- * get the likn for the previous page (javascript)
+ * get the link for the previous page (javascript)
  * @return  string  link
  */
 public function getPreviousPageLink() {
@@ -306,8 +306,8 @@ public function getOrderLink($field) {
 
 /**
  * get the correct order image
- * @param  $asc_img  string  image link for ascendent order
- * @param  $desc_img string  image link for descreasing order
+ * @param  $asc_img  string  image link for ascending order
+ * @param  $desc_img string  image link for descending order
  * @param  $field    string  field name where to display image
  * @return           string  correct image link
  */
@@ -336,7 +336,7 @@ public function getOrderName() {
 }
 
 /**
- * get the paganation javascript used to navigate
+ * get the pagination javascript used to navigate
  * @param  $form  string formular name
  * @return        string javascript
  */

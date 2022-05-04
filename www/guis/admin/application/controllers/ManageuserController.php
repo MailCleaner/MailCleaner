@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2009, Olivier Diserens
  * 
- * controller for user managment
+ * controller for user management
  */
 
 class ManageuserController extends Zend_Controller_Action

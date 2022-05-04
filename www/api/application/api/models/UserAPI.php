@@ -10,7 +10,7 @@ class Api_Model_UserAPI
 {
 
 	/**
-	 * These funtions manage a user with custom parameters
+	 * These functions manage a user with custom parameters
 	 * General call format is:
 	 * @param mixed $params
 	 * @return mixed array of xml values to be sent back
@@ -22,7 +22,7 @@ class Api_Model_UserAPI
 	 *    domain  => domain the user belongs to - cannot be modified
 	 *  
 	 *   Interface display:
-	 *    language =>  prefered language
+	 *    language =>  preferred language
 	 *
 	 *   Quarantine display:
 	 *    gui_default_address => address to be displayed first in interface
@@ -33,7 +33,7 @@ class Api_Model_UserAPI
 	 *   Address group:
 	 *    addresses => comma separated list of email address linked to this user
 	 *
-	 *  For userList(), you can pass the folowing parameters
+	 *  For userList(), you can pass the following parameters
 	 *    search => string, allows to list only users starting with this search string
 	 */
 

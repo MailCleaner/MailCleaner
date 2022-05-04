@@ -27,7 +27,7 @@ global $admin_;
 $admin_->checkPermissions(array('can_configure'));
 
 $save_msg = "";
-// create mail formular
+// create mail form
 $dform = new Form('defaults', 'post', $_SERVER['PHP_SELF']);
 $dposted = $dform->getResult();
 //save settings

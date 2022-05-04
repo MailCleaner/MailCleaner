@@ -119,7 +119,7 @@ $template_->output($replace);
 /**
  * view the log content
  * @param $log    string  log type to display
- * @param $date   numeric date of log to be display (actualy the log number)
+ * @param $date   numeric date of log to be display (actually the log number)
  * @param $posted array   posted value (for search)
  * @return        string  log contents
  */

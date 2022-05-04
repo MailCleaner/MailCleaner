@@ -186,7 +186,7 @@
 	</a>
 	<?php } ?>
       </div>
-    </div><!-- Enf of Main row -->
+    </div><!-- End of Main row -->
     <footer class="row footer text-right">
       <hr>
       <p>&copy; MailCleaner</p>

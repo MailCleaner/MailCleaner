@@ -5,11 +5,11 @@ ixhash_timeout		5
 # Should be add hashes generated to the messages' metadata for later re-use
 use_ixhash_cache 	1
 
-# wether to only use perl (ixhash_pureperl = 1) or the system's 'tr' and 'md5sum'
+# whether to only use perl (ixhash_pureperl = 1) or the system's 'tr' and 'md5sum'
 ixhash_pureperl		1
 
 # If you should have 'tr' and/or 'md5sum' in some weird place
-# or you specify which version to use ypu can specifiy the exact paths here
+# or you specify which version to use ypu can specify the exact paths here
 # Default is to have SpamAssassin find the executables
 #ixhash_tr_path          "/usr/bin/tr"
 #ixhash_md5sum_path      "/usr/bin/md5sum"

@@ -5,7 +5,7 @@
  * @author Olivier Diserens
  * @copyright 2006, Olivier Diserens
  * 
- * This is the controler for the add address confirmation page
+ * This is the controller for the add address confirmation page
  */
  
 /**

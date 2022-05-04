@@ -40,7 +40,7 @@ public function Load() {
 }
 
 /**
- * check if a domain is fitlered or not
+ * check if a domain is filtered or not
  * @param  $d  string  domain name
  * @return     boolean true if domain is filtered, false if not
  */

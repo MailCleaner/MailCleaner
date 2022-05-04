@@ -447,7 +447,7 @@ class MCSoap_Logs
                 $res['search_results'] = count($wclines);
             }
         }
-        // according to parameters, find out wich lines to retrieve
+        // according to parameters, find out which lines to retrieve
 		switch ($params['last_element']) {
 			case 'linefrom':
 				$fromline = $params['fromline'];

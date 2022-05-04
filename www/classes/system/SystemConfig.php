@@ -18,7 +18,7 @@ require_once ("helpers/PrefHandler.php");
  /** 
  * System configuration and global preferences
  * This class contains the global preferences and setting of the system
- * such as base pathes, database access, etc...
+ * such as base paths, database access, etc...
  * 
  * @package mailcleaner
  * @todo set members as private !
@@ -135,7 +135,7 @@ class SystemConfig extends PrefHandler {
     var $report_templates_ = array ();
 
     /**
-     * Contructor
+     * Constructor
      * This will load datas from the configuration file and the database
      */
     private function __construct() {
@@ -236,7 +236,7 @@ class SystemConfig extends PrefHandler {
 
     /**
      * Load the slave hosts configured for this system
-     * Load the slave objects configuraed for this system
+     * Load the slave objects configured for this system
      * @return  bool    true on success, false on failure
      */
     public function loadSlaves() {
@@ -257,7 +257,7 @@ class SystemConfig extends PrefHandler {
      * Dump a configuration file through all slaves
      * @param  $config   string   configuration to dump
      * @param  $params   string   command line parameters
-     * @return           boolean  true on success, false on failurs
+     * @return           boolean  true on success, false on failures
      */
     public function dumpConfiguration($config, $params) {
     	if (count($this->slaves_) < 1) {
@@ -275,8 +275,8 @@ class SystemConfig extends PrefHandler {
     
     /**
      * set a process as to be restarted
-     * @param  $process string prodess to be restarted
-     * @return          boolean true on success, falseon failure
+     * @param  $process string process to be restarted
+     * @return          boolean true on success, false on failure
      */
     public function setProcessToBeRestarted($process) {
     	if (count($this->slaves_) < 1) {
@@ -292,7 +292,7 @@ class SystemConfig extends PrefHandler {
     }
     /**
      * Get the slave hosts configured for this system
-     * Get the slave objects configuraed for this system
+     * Get the slave objects configured for this system
      * @return array  array of Slaves_ objects
      */
     public function getSlaves() {
@@ -355,7 +355,7 @@ class SystemConfig extends PrefHandler {
     /**
      * Get the slaves port, password and id as an array
      * @param  $slave  string  slave name
-     * @return array array of array hosts informations ((port, password, id))
+     * @return array array of array hosts information ((port, password, id))
      */
     public function getSlavePortPasswordID($slave) {
         if (count($this->slaves_) < 1) {

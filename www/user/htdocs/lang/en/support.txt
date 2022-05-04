@@ -7,7 +7,7 @@ $txt['SVERIFYPASS'] = "Check that the message has been processed by the Mailclea
 $txt['SMCLOGTITLE'] = "In the headers, you will see the following lines mentioning Mailcleaner:";
 $txt['SMCLOGLINE1'] = "Received: From mailcleaner.net (filtering daemon)";
 $txt['SMCLOGLINE2'] = "by mailcleaner.net with esmtp (incoming daemon)";
-$txt['SMCFILTERINGLOG'] = "Result of filtering: X-Mailcleaner-spamscore: oooo";
+$txt['SMCFILTERINGLOG'] = "Filtering result: X-Mailcleaner-spamscore: oooo";
 $txt['SFALSENEGTUTOR'] = "If you truly find that the message to be spam, please transfer it to spam@mailcleaner.net, or better yet, if your e-mail program allows you to do so, choose \"Transfer as attachment\" to keep the e-mail headers of the message intact. Our analysis centre will disseminate the contents of the message and adapt Mailcleaner's filtering criteria accordingly, so that all Mailcleaner users benefit from the analysis.";
 
 $txt['SFALSEPOSTITLE'] = "FALSE POSITIVES";

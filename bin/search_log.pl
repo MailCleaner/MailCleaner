@@ -428,7 +428,7 @@ sub printBatchResult {
     	$_accepted = 1;
     	$_inreport = 'Accepted (id='.$msg_o{'id'}.')';
     	if ($line =~ /P=esmtpa A=[^:]+:(\S+)/) {
-    		$_inreport = "Authentified relay ($1)";
+            $_inreport = "Authenticated relay ($1)";
     	}
     }
     if ($line =~ m/[-=]> (\S+)(?:\ <\S+>)?\ R=(\S+) T=(\S+) .* C=\"([^\"]+)\"/) {

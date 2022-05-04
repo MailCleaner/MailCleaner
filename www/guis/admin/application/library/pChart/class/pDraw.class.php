@@ -750,7 +750,7 @@
      $Distance = sqrt(($X2-$X1)*($X2-$X1)+($Y2-$Y1)*($Y2-$Y1));  
      if ( $Distance == 0 ) { return(-1); }
 
-     /* Derivative algorithm for overweighted lines, re-route to polygons primitives */
+     /* Derivative algorithm for overweight lines, re-route to polygons primitives */
      if ( $Weight != NULL )
       {
        $Angle        = $this->getAngle($X1,$Y1,$X2,$Y2);
@@ -1155,7 +1155,7 @@
      imagesetpixel($this->Picture,$X,$Y,$C_Aliased);
     }
 
-   /* Convert apha to base 10 */
+   /* Convert alpha to base 10 */
    function convertAlpha($AlphaValue)
     { return((127/100)*(100-$AlphaValue)); }
 
@@ -5308,7 +5308,7 @@
        $TxtPos        = $this->getTextBox($XPos,$YPos,$FontName,$FontSize,0,$CaptionTxt);
        $CaptionHeight = ($TxtPos[0]["Y"] - $TxtPos[2]["Y"]);
 
-       /* Write the serie color if needed */
+       /* Write the series color if needed */
        if ( $DrawSerieColor )
         {
          $BoxSettings = array("R"=>$Caption["Format"]["R"],"G"=>$Caption["Format"]["G"],"B"=>$Caption["Format"]["B"],"Alpha"=>$Caption["Format"]["Alpha"],"BorderR"=>0,"BorderG"=>0,"BorderB"=>0);

@@ -103,7 +103,7 @@ class Default_Form_SmtpTls extends ZendX_JQuery_Form
 		require_once('Validate/HostList.php');
         $require_tls = new Zend_Form_Element_Textarea('hosts_require_tls', array(
               'label'    =>  $t->_('Force encryption to these hosts')." :",
-              'title' => $t->_("Force the MailCleaner server to use enryption when dealing with those distant hosts"),
+              'title' => $t->_("Force the MailCleaner server to use encryption when dealing with those distant hosts"),
               'required'   => false,
               'rows' => 5,
               'cols' => 30,
@@ -126,7 +126,7 @@ class Default_Form_SmtpTls extends ZendX_JQuery_Form
         require_once('Validate/DomainList.php');
         $domains_require_tls_to = new Zend_Form_Element_Textarea('domains_require_tls_to', array(
               'label'    =>  $t->_('Force encryption to these external domains')." :",
-              'title' => $t->_("Force the MailCleaner server to use enryption when dealing with those distant domains"),
+              'title' => $t->_("Force the MailCleaner server to use encryption when dealing with those distant domains"),
               'required'   => false,
               'rows' => 5,
               'cols' => 30,

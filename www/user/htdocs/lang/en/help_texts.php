@@ -232,7 +232,7 @@ $htxt['GLOSSARY'] = '
 <h3>Quarantine report</h3>
 <p>An automatically generated periodic report which lists all blocked messages and which provides tools to inspect their content and to release quarantined messages if necessary.</p>
 <h3>RBL</h3>
-<p>Realtime Blackhole List. RBLs maintain lists of servers in real time known to send spam. Using RBLs is very simple in principle: If an incoming message is sent by an RBL-listed server it is considered a priori as spam. The difficulty in using RBLs is the need to continuously verify that they are reliable.</p>
+<p>Real-time Block List. RBLs maintain lists of servers in real time known to send spam. Using RBLs is very simple in principle: If an incoming message is sent by an RBL-listed server it is considered a priori as spam. The difficulty in using RBLs is the need to continuously verify that they are reliable.</p>
 <h3>Releasing a message</h3>
 <p>User action that releases a quarantined message so that it can reach the recipient\'s mailbox.</p>
 <h3>Retention period</h3>

@@ -25,7 +25,7 @@ class Default_Model_SMTPDestinationServer {
 		
 		require_once('Net/SMTP.php');
 		if (! $smtp = new Net_SMTP($this->_hostname, $this->_port, $domain)) {
-			return array('status' => 'NOK', 'message' => 'unable to instanciate SMTP');
+			return array('status' => 'NOK', 'message' => 'unable to instantiate SMTP');
 		}
 		
 		if (PEAR::isError($e = $smtp->connect())) {
@@ -67,7 +67,7 @@ class Default_Model_SMTPDestinationServer {
 	public function testCallout($address, $expected) {
 		require_once('Net/SMTP.php');
 		if (! $smtp = new Net_SMTP($this->_hostname)) {
-			return array('status' => 'NOK', 'message' => 'unable to instanciate SMTP');
+			return array('status' => 'NOK', 'message' => 'unable to instantiate SMTP');
 		}
 		
 		if (PEAR::isError($e = $smtp->connect())) {

@@ -220,7 +220,7 @@ sub getNextElementInBranch {
     }  
     return undef; 
 }
-##### Log managment
+##### Log management
 
 ## add log_sets
 foreach my $set ( split( /,/, $log_sets ) ) {

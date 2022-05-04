@@ -39,7 +39,7 @@ $mta_in->load(1);
 $greylistd = new GreylistConfig();
 $greylistd->load();
 
-// create access formular (incoming)
+// create access form (incoming)
 $aform = new Form('access', 'post', $_SERVER['PHP_SELF']);
 $aposted = $aform->getResult();
 // save access settings
@@ -55,7 +55,7 @@ if ($aform->shouldSave()) {
   }
 }
 
-// create ldap callout configuration formular
+// create ldap callout configuration form
 //@todo this will be on a per domain basis, so will be removed from here
 $lform = new Form('ldapcallout', 'post', $_SERVER['PHP_SELF']);
 $lposted = $lform->getResult();
@@ -75,7 +75,7 @@ if ($lform->shouldSave()) {
   }
 }
 
-// create greylistd configuration formular
+// create greylistd configuration form
 $greyform = new Form('greylistd', 'post', $_SERVER['PHP_SELF']);
 $greyposted = $greyform->getResult();
 
@@ -91,7 +91,7 @@ if ($greyform->shouldSave()) {
   }
 }
 
-// create advanced configuration formular
+// create advanced configuration form
 $adform = new Form('advanced', 'post', $_SERVER['PHP_SELF']);
 // create and load the selected mta stage
 $mta = new MTAConfig();

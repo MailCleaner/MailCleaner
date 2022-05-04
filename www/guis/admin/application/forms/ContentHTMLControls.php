@@ -14,7 +14,7 @@ class Default_Form_ContentHTMLControls extends ZendX_JQuery_Form
 	protected $_antispam;
 	protected $_fields = array(
 		   'allow_iframe' => array('text' => 'IFrame objects', 'silent' => 'silent_iframe'),
-		   'allow_form' => array('text' => 'Formulars', 'silent' => 'silent_form'),
+		   'allow_form' => array('text' => 'Forms', 'silent' => 'silent_form'),
 		   'allow_script' => array('text' => 'Scripts', 'silent' => 'silent_script'),
 		   'allow_codebase' => array('text' => 'Codebase objects', 'silent' => 'silent_codebase'),
 		   'allow_webbugs' => array('text' => 'Web Bugs', 'silent' => 'silent_webbugs'),

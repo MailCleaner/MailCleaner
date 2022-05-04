@@ -426,7 +426,7 @@ class Text_Password {
      * Create pronounceable password
      *
      * This method creates a string that consists of
-     * vowels and consonats.
+     * vowels and consonants.
      *
      * @access private
      * @param  integer Length of the password
@@ -534,3 +534,4 @@ class Text_Password {
     }
 }
 ?>
+

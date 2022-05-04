@@ -5,7 +5,7 @@
  * @author Marin Gilles
  * @copyright 20018, MailCleaner
  *
- * This is the controler for the newsletter release page
+ * This is the controller for the newsletter release page
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
@@ -113,7 +113,7 @@ if (isset($_GET['l'])) {
 }
 
 
-// Cheking if the necessary arguments are here
+// Checking if the necessary arguments are here
 $in_args = array($_GET['id'], $_GET['a']);
 foreach ($in_args as $arg) {
     if (! isset($arg)){

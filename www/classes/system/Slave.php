@@ -159,7 +159,7 @@ public function getProcessesStatus() {
 /**
  * dump a configuration file
  * @param  $config   string   configuration to dump
- * @param  $params   string   command line parmaters to pass
+ * @param  $params   string   command line paramaters to pass
  * @return           boolean  true on success, false on failure
  */
 public function dumpConfiguration($config, $params) {
@@ -277,7 +277,7 @@ private function needRestart($nr, $p) {
 /**
  * return the html string for the status
  * @param  $status  string  actual status
- * @param  $colors  array   array of colors for differents status
+ * @param  $colors  array   array of colors for different status
  * @return          string  html status code
  */
 private function draw_status($status, $colors) {
@@ -514,7 +514,7 @@ public function getStats($what, $start, $stop) {
 /**
  * return the html messages count to display
  * @param  $t        string  html template
- * @param  $colors   array   colors for the differents count types
+ * @param  $colors   array   colors for the different count types
  * @return     string  html counts string
  */
 public function showTodaysCounts($t, $colors) {

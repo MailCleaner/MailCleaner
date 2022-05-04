@@ -18,13 +18,13 @@ require_once("utils.php");
 class SupportForm {
 
     /**
-     * is formular coorectly posted
+     * is form coorectly posted
      * @var boolean 
      */
 	private $is_ok_ = false;
     
     /**
-     * formular fields
+     * form fields
      * @var array
      */
     private $fields_ = array(
@@ -99,7 +99,7 @@ public function send() {
   $body = "Host: ".$sysconf_->getPref('hostname')."(".$sysconf_->getPref('hostid').")\n";
   $body .= "User: ".$user_->getPref('username')."\n";
   $body .= "Email: ".$this->fields_['email'][0]."\n";
-  $body .= "Nom Prenom: ".$this->fields_['name'][0]." ".$this->fields_['firstname'][0]."\n";
+  $body .= "First Name: ".$this->fields_['name'][0]." ".$this->fields_['firstname'][0]."\n";
   $body .= "Phone: ".$this->fields_['phone'][0]."\n";
   $body .= "Company: ".$this->fields_['company'][0]."\n";
   $body .= "\nMessage; ".$this->fields_['whatcanwedo'][0]."\n";

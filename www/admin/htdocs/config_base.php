@@ -37,7 +37,7 @@ $timeconf->load();
 $netconf = new NetworkConfig();
 $netconf->load();
 
-// create network configuration formular
+// create network configuration form
 $nform = new Form('network', 'post', "network_config.php");
 $nposted = $nform->getResult();
 // save network configuration
@@ -61,7 +61,7 @@ if (isset($nposted['interface'])) {
   $interface = $nposted['interface'];
 }
 
-// create date and time formular
+// create date and time form
 $tform = new Form('datetime', 'post', $_SERVER['PHP_SELF']);
 $tposted = $tform->getResult();
 // save date and time settings
@@ -78,7 +78,7 @@ if ($tform->shouldSave()) {
   }
 }
 
-// create proxies formular
+// create proxies form
 $pform = new Form('proxies', 'post', $_SERVER['PHP_SELF']);
 $pposted = $pform->getResult();
 // save proxies configuration
@@ -94,7 +94,7 @@ if ($pform->shouldSave()) {
   }
 }
 
-// create password formular
+// create password form
 $rform = new Form('rootpass', 'post', $_SERVER['PHP_SELF']);
 $rposted = $rform->getResult();
 // save password
@@ -157,7 +157,7 @@ $template_->output($replace);
 
 /**
  * get the javascript for the date and time fields activation
- * @param  $form  Form   formular where to use the javascript
+ * @param  $form  Form   form where to use the javascript
  * @return        string javascript
  */
 function TimeJS($tform) {

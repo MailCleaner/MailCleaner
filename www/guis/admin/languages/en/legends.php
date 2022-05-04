@@ -88,14 +88,14 @@ return array(
   'Submit' => 'Submit',
   'settingsaved' => 'data successfully saved',
   'reload network' => 'Apply all network settings...',
-  'an error occured' => 'An error occured',
+  'an error occurred' => 'An error occurred',
   'important' => 'Important !',
   'Back' => 'Back...',
-  'applying network now will' => 'Applying network settings now will probably break your current connexion to this interface. 
+  'applying network now will' => 'Applying network settings now will probably break your current connection to this interface.
   Make sure the new settings are correct before pressing the Reload button or you may definitively loose connectivity to your MailCleaner system. 
   Once the settings are applied, this interface may not be responsive and you may not have any answer. You should however be able to connect back with the new settings you provided.',
 
-  'networkingrestarted' => 'Networking sucessfully restarted',
+  'networkingrestarted' => 'Networking successfully restarted',
 
 ## DNS settings
   'DomainSearch' => 'Domain search',
@@ -121,7 +121,7 @@ return array(
 
 ## registration settings
   'Registration number' => 'Registration number',
-  'registrated' => 'registrated',
+  'registered' => 'registered',
 
 ## General settings 
   'Defaults' => 'Defaults',
@@ -195,7 +195,7 @@ return array(
    'sendingtopostmaster' => 'Sending to postmaster',
    'nodestinationset' => 'No valid destination server set',
 
-## user authentification
+## user authentication
    'userauthconn_none' => 'none',
    'userauthconn_imap' => 'imap',
    'userauthconn_pop3' => 'pop3',
@@ -355,7 +355,7 @@ return array(
    'interfacesettings' => 'Interface settings',
    'quarantinedisplay' => 'Quarantine display',
    'addressgroup' => 'Addresses group',
-   'authentification' => 'Authentification',
+   'authentication' => 'Authentication',
    
 ## reporting
    'countglobal_rrdtitle' => 'Global messages/sessions counts',

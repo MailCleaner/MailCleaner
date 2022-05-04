@@ -33,7 +33,7 @@ $admin_->checkPermissions(array('can_view_stats'));
 
 $gcounts = array('msgs' => 0, 'spams' => 0, 'viruses' => 0, 'users' => 0);
 
-// instanciate the main formular and get results if any
+// instanciate the main form and get results if any
 $form_ = new Form('search', 'post', $_SERVER['PHP_SELF']);
 $posted = $form_->getResult();
 if (!isset($posted['start'])) {

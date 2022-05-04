@@ -35,7 +35,7 @@ if (preg_match('/(.+)[@%](\S+)$/', $username, $ret)) {
   $domain = $ret[2];
 }
    
-// if the domain is explicitely set in the REQUEST
+// if the domain is explicitly set in the REQUEST
 if (isset($_REQUEST['domain']) && in_array($_REQUEST['domain'], $sysconf_->getFilteredDomains())) {
   $domain = $_REQUEST['domain'];
 }
