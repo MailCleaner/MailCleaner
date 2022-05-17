@@ -38,8 +38,9 @@ if ($conf->getOption('ISMASTER') !~ /^[y|Y]$/) {
   exit 0;
 }
 
-if (-e '/var/mailcleaner/spool/mailcleaner/disable-watchdog-emails') {
-	print "Email reporting disabled with '/var/mailcleaner/spool/mailcleaner/disable-watchdog-emails'\n";
+my $vardir = $conf->getOption('VARDIR');
+if (-e "$vardir/spool/mailcleaner/disable-watchdog-emails") {
+	print "Email reporting disabled with '$vardir/spool/mailcleaner/disable-watchdog-emails'\n";
 	exit 0;
 }
 
@@ -52,10 +53,21 @@ my $lang = $sysconf->getPref('default_language') || 'en';
 ## report templates (ie. SRCDIR/templates/reports/*) are not yet exposed
 my $temp_id = 'default';
 
-my $recipient = $sysconf->getPref('sysadmin');
-unless ($recipient =~ m/[-_a-zA-Z0-9.+!%]*@[-_a-zA-Z0-9.]*\.[a-z]{2,}/) {
-	return "Invalid 'sysadmin' address";
+my $recipient;
+my $custom_recipient = "$vardir/spool/mailcleaner/watchdog-recipient";
+if (-e $custom_recipient && open(my $fh, '<', $custom_recipient)) {
+	while (<$fh>) {
+		$recipient .= $_;
+	}
+	chomp($recipient);
+} else {
+	$recipient = $sysconf->getPref('sysadmin');
 }
+unless (valid_rfc822_email($recipient)) {
+	die "Invalid recipient address: $recipient\n";
+}
+print "Recipient: $recipient\n";
+exit();
 my $email = Email::create($recipient);
 
 my $template = MailTemplate::create('reports', 'watchdog', $temp_id, \$email, $lang, 'html');
@@ -94,7 +106,7 @@ my $ua = LWP::UserAgent->new('verify_hostname' => 0);
 foreach my $host (keys(%slaves)) {
 	my $response = $ua->get("$https://".$slaves{$host}->{'hostname'}.$port."/admin/downloads/watchdogs.html");
 	unless ($response->is_success) {
-		return "Unable to fetch watchdog report from host $host";
+		die "Unable to fetch watchdog report from host $host\n";
 	}
 	$slaves{$host}->{'warnings'} = $response->decoded_content();
 	chomp($slaves{$host}->{'warnings'});
