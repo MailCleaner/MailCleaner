@@ -66,8 +66,6 @@ if (-e $custom_recipient && open(my $fh, '<', $custom_recipient)) {
 unless (valid_rfc822_email($recipient)) {
 	die "Invalid recipient address: $recipient\n";
 }
-print "Recipient: $recipient\n";
-exit();
 my $email = Email::create($recipient);
 
 my $template = MailTemplate::create('reports', 'watchdog', $temp_id, \$email, $lang, 'html');
