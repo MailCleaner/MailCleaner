@@ -977,6 +977,7 @@ __FI__
 
   warn    dmarc_status   = accept : none : off
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
  __IF__ DEBUG
           log_message    = DMARC DEBUG: $dmarc_status $dmarc_used_domain
  __FI__
@@ -985,12 +986,14 @@ __FI__
 
   warn    dmarc_status   = quarantine
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
           add_header     = X-MailCleaner-DMARC: quarantine
           log_message    = Message from $dmarc_used_domain failed sender's DMARC policy, should quarantine.
 
 __IF__ REJECTDMARC
   deny    dmarc_status   = reject
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
 __IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
 __FI__
@@ -1009,6 +1012,7 @@ __FI__
 __ELSE__ REJECTDMARC
   warn    dmarc_status   = reject
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
           add_header     = X-MailCleaner-DMARC: reject
           log_message    = Message from $dmarc_used_domain failed sender's DMARC policy, should reject.
 __FI__
