@@ -568,4 +568,4 @@ $txt['SENDERVARIATIONS'] = "Toutes les variantes d'adresses de l'expéditeur";
 /*
  * Type of WWList
  */
-$txt['ORIGINALSENDER'] = "Seulement l'adresse d'origine de l'ecpéditeur";
+$txt['ORIGINALSENDER'] = "Seulement l'adresse d'origine de l'expéditeur";
