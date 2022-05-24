@@ -308,8 +308,8 @@ function kaspersky() {
   # Update Kaspersky databases
   printf "Updating Kaspersky databases ... \n"
   $SRCDIR/etc/init.d/kaspersky stop &>> $LOGILFE
-  rm -f $KASPERSKYSCANNER/bin/*.key &>> $FILE
-  rm -f $KASPERSKYUPDATER/bin/*.key &>> $FILE
+  rm -f $KASPERSKYSCANNER/bin/*.key &>> $LOGILFE
+  rm -f $KASPERSKYUPDATER/bin/*.key &>> $LOGILFE
   cp -f ${key_file} $KASPERSKYSCANNER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
   cp -f ${key_file} $KASPERSKYUPDATER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
   ls $KASPERSKYUPDATER/bin/*.key &>> $LOGILFE
