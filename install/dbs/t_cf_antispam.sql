@@ -41,6 +41,7 @@ CREATE TABLE antispam (
   do_stockme                     bool NOT NULL DEFAULT '0',
   stockme_nbdays                 int NOT NULL DEFAULT '3',
   dnsliststoreport               varchar(250) NOT NULL DEFAULT '',
+  global_max_size		 int NOT NULL DEFAULT '500',
   PRIMARY KEY (set_id)
 );
 
