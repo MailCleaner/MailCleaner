@@ -12,6 +12,8 @@
 <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
 <fieldset>
 <table class="ftable">
+  <?php echo $this->InputRow($this->form->getElement('global_max_size'),array('label_addclass'=>'flabeltext'));?>
+
   <?php echo $this->InputRow($this->form->getElement('trusted_ips'),array('label_addclass'=>'flabeltextarea'));?>
 
 	<tr>
