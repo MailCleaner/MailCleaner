@@ -34,7 +34,7 @@ if [ "SRCDIR" = "" ]; then
   SRCDIR=/var/mailcleaner
 fi
 MCVERSION=`cat /usr/mailcleaner/etc/mailcleaner/version.def | cut -c1-4`
-LOGILFE=/tmp/mc_install_options.log
+LOGFILE=/tmp/mc_install_options.log
 
 # Font properties
 FONT_RESET=$(tput sgr0)
@@ -47,6 +47,7 @@ function usage() {
 	printf "\t--messagesniffer : install MessageSniffer\n"
 	printf "\t--spamhaus : install SpamHaus\n"
 	printf "\t--kaspersky : install Kaspersky\n"
+	printf "\t--eset : install ESET EFS\n"
 	printf "\t-h : Help.\n\n"
   printf "Exit status:\n"
   printf "\t0  if OK,\n"
@@ -72,12 +73,12 @@ function messagesniffer() {
   if dpkg-query -s mc-messagesniffer | grep "Status: install ok installed"; then
     echo "MessageSniffer already installed. Please contact our support: https://support.mailcleaner.net"
   else
-    apt-get update &>> $LOGILFE
-    env PATH=$PATH:/usr/sbin:/sbin apt-get install --yes --force-yes mc-messagesniffer &>> $LOGILFE
+    apt-get update &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get install --yes --force-yes mc-messagesniffer &>> $LOGFILE
     printf "Installing MessageSniffer ... \n"
-    echo "UPDATE prefilter SET position=position+1 WHERE position > 1;" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
-    echo "INSERT INTO prefilter VALUES(NULL, 1, 'MessageSniffer', 1, 2, 0, 1, 'pos_decisive', 10, 2000000, 'X-MessageSniffer', 1, 1, 1);" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
-    echo "UPDATE MessageSniffer set licenseid='${license_id}', authentication='${auth_code}';" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+    echo "UPDATE prefilter SET position=position+1 WHERE position > 1;" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
+    echo "INSERT INTO prefilter VALUES(NULL, 1, 'MessageSniffer', 1, 2, 0, 1, 'pos_decisive', 10, 2000000, 'X-MessageSniffer', 1, 1, 1);" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
+    echo "UPDATE MessageSniffer set licenseid='${license_id}', authentication='${auth_code}';" | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
     printf "Restarting MailScanner ... \n"
     
     printf "MessageSniffer has been correctly installed \n"
@@ -261,13 +262,13 @@ EOF
   # Enable SpamHaus at PreRBLs level
 ### ZEN
   if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
-    echo 'UPDATE PreRBLs set lists=concat(lists, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
-    echo 'UPDATE antispam set sa_rbls=concat(sa_rbls, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+    echo 'UPDATE PreRBLs set lists=concat(lists, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
+    echo 'UPDATE antispam set sa_rbls=concat(sa_rbls, " SPAMHAUSZEN");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
   fi
 ### Content
   if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
-    echo 'UPDATE UriRBLs set rbls=concat(lists, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
-    echo 'UPDATE antispam set sa_rblsconcat(sa_rbls, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGILFE
+    echo 'UPDATE UriRBLs set rbls=concat(lists, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
+    echo 'UPDATE antispam set sa_rblsconcat(sa_rbls, " SPAMHAUSDBL SPAMHAUSHBL SPAMHAUSZRD");' | ${SRCDIR}/bin/mc_mysql -m mc_config &>> $LOGFILE
   fi
 
   printf "SpamHaus installed. \n"  
@@ -277,6 +278,87 @@ EOF
   exit 0
 }
 
+function eset() {
+  REINSTALL=$1
+  if [[ $REINSTALL == '--reinstall' ]]; then
+    printf "Reinstalling ESET ..."
+    REINSTALL=1
+  elif [[ $REINSTALL != '--' ]]; then
+    printf "Invalid argument $1\n"
+    exit 1
+  fi
+
+  if [ "$MCVERSION" -lt "2016" ]; then
+    printf "You can't install ESET option in smaller version than 2016.xx \n"
+    exit 1
+  fi
+
+  printf "\n"
+  read -p "Please provide ESET license: "  key
+
+  if perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]{4}-){4}[0-9a-zA-Z]{4}$/;"; then
+    key=`perl -e "print uc('"$key"');"`
+  elif perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]){20}$/;"; then
+    key=`perl -e 'my $x = "'$key'"; my ($a, $b, $c, $d, $e) = $x =~ m/([0-9a-zA-Z]{4})/g; print uc("$a-$b-$c-$d-$e");'`
+  else
+    printf "Invalid key format '$key'. Should be XXXX-XXXX-XXXX-XXXX-XXXX\n"
+    exit 1;
+  fi
+
+  if [[ ! -d /opt/eset && ! $REINSTALL == 1 ]]; then
+    printf "Installing ESET ... \n"
+    env PATH=$PATH:/usr/sbin:/sbin apt-get update
+    env PATH=$PATH:/usr/sbin:/sbin apt-get dist-upgrade --yes --force-yes
+    env PATH=$PATH:/usr/sbin:/sbin apt-get autoremove --yes --force-yes
+    env PATH=$PATH:/usr/sbin:/sbin apt-get autoclean --yes --force-yes
+    cd /tmp
+    wget https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin
+    if [[ ! -e efs.x86_64.bin ]]; then
+      echo "Failed to download 'https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin'" | tee &>> $LOGFILE
+      exit 1
+    fi
+    chmod +x efs.x86_64.bin
+    env PATH=$PATH:/usr/sbin:/sbin ./efs.x86_64.bin -y -f -g
+  
+    if [[ ! -d /opt/eset ]]; then
+      printf "Failed to install to /opt/eset\n"
+      exit 1
+    fi
+    printf "Cleaning up ... \n"
+    rm efs.x86_64.bin
+    rm efs-*.deb
+  fi
+
+  printf "Enabling ESET ... \n"
+  /opt/eset/efs/sbin/lic -k $key
+
+  SUCCESS=`/opt/eset/efs/sbin/lic --status | grep 'Status:' | cut -d' ' -f2`
+  if [[ $SUCCESS != "Activated" ]]; then
+    printf "License activation failed. Run again with correct License\n"
+    exit
+  fi
+
+  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -m mc_config | sed 's/\s*allowed_ip\s*//'`
+  for ip in $list; do
+    echo "INSERT external_access(service,port,protocol,allowed_ip) SELECT * FROM (SELECT 'esetweb', '9443', 'TCP', '$ip') AS new WHERE NOT EXISTS (SELECT id FROM external_access WHERE service = 'esetweb' AND allowed_ip = '$ip') LIMIT 1;" | /usr/mailcleaner/bin/mc_mysql -m mc_config
+  done
+  /usr/mailcleaner/etc/init.d/firewall restart
+  
+  echo "UPDATE scanner set active = 1 WHERE name = 'esetsefs';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
+
+  res="`/opt/eset/efs/sbin/setgui -gre`"
+  SUCCESS=`echo $res | grep 'GUI is enabled'`
+  if [[ $SUCCESS == '' ]]; then
+    printf "Failed to enable GUI\n"
+  fi
+  URL=`echo $res | sed -r 's/.*URL: ([^ ]+).*/\1/'`
+  USER=`echo -e $res | sed -r 's/.*Username: ([^ ]+).*/\1/'`
+  PASS=`echo -e $res | sed -r 's/.*Password: ([^ ]+).*/\1/'`
+  printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
+  printf "In order to configure ESET, log in with:\n\n\tURL:  $URL\n\tUser: $USER\n\tPass: $PASS\n\nthen restart the filtering engine: \n\n\t ${SRCDIR}/etc/init.d/mailscanner restart \n\n"
+  
+  exit 0
+}
 function kaspersky() {
   if [ "$MCVERSION" -lt "2016" ]; then
     printf "You can't install Kaspersky option in smaller version than 2016.xx \n"
@@ -302,27 +384,27 @@ function kaspersky() {
   KASPERSKYUPDATER=/opt/kaspersky-updater
 
   # Install the new Kaspersky-64-2.0
-  apt-get update &>> $LOGILFE
-  env PATH=$PATH:/usr/sbin:/sbin apt-get install  --yes --force-yes kaspersky-64-2.0 &>> $LOGILFE
+  apt-get update &>> $LOGFILE
+  env PATH=$PATH:/usr/sbin:/sbin apt-get install  --yes --force-yes kaspersky-64-2.0 &>> $LOGFILE
 
   # Update Kaspersky databases
   printf "Updating Kaspersky databases ... \n"
-  $SRCDIR/etc/init.d/kaspersky stop &>> $LOGILFE
-  rm -f $KASPERSKYSCANNER/bin/*.key &>> $LOGILFE
-  rm -f $KASPERSKYUPDATER/bin/*.key &>> $LOGILFE
-  cp -f ${key_file} $KASPERSKYSCANNER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
-  cp -f ${key_file} $KASPERSKYUPDATER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGILFE
-  ls $KASPERSKYUPDATER/bin/*.key &>> $LOGILFE
+  $SRCDIR/etc/init.d/kaspersky stop &>> $LOGFILE
+  rm -f $KASPERSKYSCANNER/bin/*.key &>> $LOGFILE
+  rm -f $KASPERSKYUPDATER/bin/*.key &>> $LOGFILE
+  cp -f ${key_file} $KASPERSKYSCANNER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGFILE
+  cp -f ${key_file} $KASPERSKYUPDATER/bin/$(basename $key_file | sed 's/.KEY/\L&/g') &>> $LOGFILE
+  ls $KASPERSKYUPDATER/bin/*.key &>> $LOGFILE
   
   if $KASPERSKYUPDATER/bin/keepup2date8.sh --licinfo --simplelic | grep "0x00000000. Success"; then
-    $KASPERSKYUPDATER/bin/keepup2date8.sh --simplelic --download &>> $LOGILFE
-    $SRCDIR/etc/init.d/kaspersky restart &>> $LOGILFE
-    echo "EXEC: Kaspersky updated" &>> $LOGILFE
+    $KASPERSKYUPDATER/bin/keepup2date8.sh --simplelic --download &>> $LOGFILE
+    $SRCDIR/etc/init.d/kaspersky restart &>> $LOGFILE
+    echo "EXEC: Kaspersky updated" &>> $LOGFILE
   else
     $KASPERSKYUPDATER/bin/keepup2date8.sh --licinfo --simplelic
     printf "Error during the update of Kaspersky databases. \n Notes for MailCleaner support: %s" 
   fi
-  $KASPERSKYUPDATER/bin/keepup2date8.sh --licinfo --simplelic | sed  -n '8p' &>> $LOGILFE 
+  $KASPERSKYUPDATER/bin/keepup2date8.sh --licinfo --simplelic | sed  -n '8p' &>> $LOGFILE 
   printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
   printf "In order to enable Kaspersky, please restart the filtering engine: \n"
   printf "\t ${SRCDIR}/etc/init.d/mailscanner restart \n"
@@ -334,7 +416,7 @@ then
 	usage
 fi
 
-OPTS=$( getopt -o h -l messagesniffer,spamhaus,kaspersky -- "$@" )
+OPTS=$( getopt -o h -l messagesniffer,spamhaus,kaspersky,eset,reinstall -- "$@" )
 if [ $? != 0 ]
 then
     exit 1
@@ -348,6 +430,7 @@ while true ; do
         --messagesniffer) messagesniffer; shift;;
 	      --spamhaus) spamhaus; shift;;
 	      --kaspersky) kaspersky; shift;;
+	      --eset) eset $2; shift;;
         --) shift; break;;
     esac
 done
