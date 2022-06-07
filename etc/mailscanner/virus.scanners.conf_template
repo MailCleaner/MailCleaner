@@ -23,6 +23,7 @@ command		/opt/MailScanner/lib/command-wrapper	/usr
 css		/opt/MailScanner/lib/css-wrapper	/opt/SYMCScan
 drweb		/opt/MailScanner/lib/drweb-wrapper	/opt/drweb
 esets		/opt/MailScanner/lib/esets-wrapper	/usr/sbin
+esetsefs	/opt/MailScanner/lib/esetsefs-wrapper	/opt/eset/efs/bin
 etrust		/opt/MailScanner/lib/etrust-wrapper	/opt/eTrustAntivirus
 f-prot		/opt/MailScanner/lib/f-prot-wrapper	/usr/local/f-prot
 f-prot-6	/opt/MailScanner/lib/f-prot-6-wrapper	/opt/f-prot
