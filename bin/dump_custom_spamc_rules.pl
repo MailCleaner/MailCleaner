@@ -32,18 +32,16 @@ sub print_custom_rule {
     my ($current_rule, $current_rule_w, $current_sender, @current_rule_domains) = @_;
 
     my ($rule, $score) = split(' ', $current_rule);
-    my $rule_string = "meta __RCPT_CUSTOM_$current_rule_w (";
-    foreach (@current_rule_domains) {
-        $rule_string .= " __RCPT_$_ ||"
-    }
-    $rule_string =~ s/\|\|$//;
-    $rule_string .= ")\n";
-    print RULEFILE $rule_string;
     print RULEFILE "meta RCPT_CUSTOM_$current_rule_w ( $rule && ";
     if ($current_sender ne '') {
         print RULEFILE '__SENDER_' .$senders{$current_sender}. ' && ';
     }
-    print RULEFILE "__RCPT_CUSTOM_$current_rule_w )\n";
+    my $rcpt_string = " (";
+    foreach (@current_rule_domains) {
+        $rcpt_string .= " __RCPT_$_ ||"
+    }
+    $rcpt_string =~ s/\|\|$//;
+    print RULEFILE "$rcpt_string ) )\n";
     print RULEFILE "score RCPT_CUSTOM_$current_rule_w $score\n\n";
 }
 
