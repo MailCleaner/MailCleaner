@@ -1,0 +1,2 @@
+header MC_H_FROM_ESET       From =~ /([a-z0-1]+\.)?eset.com/i
+score  MC_H_FROM_ESET       -10.0
