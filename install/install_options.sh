@@ -40,6 +40,7 @@ LOGFILE=/tmp/mc_install_options.log
 FONT_RESET=$(tput sgr0)
 FONT_BOLD=$(tput bold)
 FONT_RED=$(tput setaf 1)
+FONT_GREEN=$(tput setaf 2)
 
 function usage() {
 	printf "Usage: install_options.sh [OPTION]... :\n"
@@ -284,78 +285,95 @@ function eset() {
     printf "Reinstalling ESET ..."
     REINSTALL=1
   elif [[ $REINSTALL != '--' ]]; then
-    printf "Invalid argument $1\n"
+    printf "Invalid argument $1\n" | tee &>> $LOGFILE
     exit 1
   fi
 
   if [ "$MCVERSION" -lt "2016" ]; then
-    printf "You can't install ESET option in smaller version than 2016.xx \n"
+    printf "You can't install ESET option in smaller version than 2016.xx \n" | tee &>> $LOGFILE
     exit 1
   fi
 
   printf "\n"
-  read -p "Please provide ESET license: "  key
-
-  if perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]{4}-){4}[0-9a-zA-Z]{4}$/;"; then
-    key=`perl -e "print uc('"$key"');"`
-  elif perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]){20}$/;"; then
-    key=`perl -e 'my $x = "'$key'"; my ($a, $b, $c, $d, $e) = $x =~ m/([0-9a-zA-Z]{4})/g; print uc("$a-$b-$c-$d-$e");'`
-  else
-    printf "Invalid key format '$key'. Should be XXXX-XXXX-XXXX-XXXX-XXXX\n"
+  read -p "Please provide ESET MSP username (email address) : "  user
+  if perl -e "my \$user = '$user'; chomp(\$user); exit(1) unless '\$user' =~ m/^([^@]+)@([a-zA-Z\-ßàÁâãóôþüúðæåïçèõöÿýòäœêëìíøùîûñé]+\.)+[a-zA-Z]{2,}$/;"; then
+    printf "Invalid email address '$user'.\n" | tee &>> $LOGFILE
     exit 1;
   fi
 
-  if [[ ! -d /opt/eset && ! $REINSTALL == 1 ]]; then
-    printf "Installing ESET ... \n"
-    env PATH=$PATH:/usr/sbin:/sbin apt-get update
-    env PATH=$PATH:/usr/sbin:/sbin apt-get dist-upgrade --yes --force-yes
-    env PATH=$PATH:/usr/sbin:/sbin apt-get autoremove --yes --force-yes
-    env PATH=$PATH:/usr/sbin:/sbin apt-get autoclean --yes --force-yes
+  printf "\n"
+  read -p "Please provide ESET license (XXX-XXX-XXX) : "  key
+  if perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]{3}-){2}[0-9a-zA-Z]{3}$/;"; then
+    key=`perl -e "print uc('"$key"');"`
+  elif perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]){9}$/;"; then
+    key=`perl -e 'my $x = "'$key'"; my ($a, $b, $c) = $x =~ m/([0-9a-zA-Z]{3})/g; print uc("$a-$b-$c");'`
+  else
+    printf "Invalid key format '$key'. Should be XXX-XXX-XXXX\n" | tee &>> $LOGFILE
+    exit 1;
+  fi
+
+  if [[ ! -d /opt/eset || $REINSTALL == 1 ]]; then
+    printf "Updating packages ... \n"
+    env PATH=$PATH:/usr/sbin:/sbin apt-get update &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get dist-upgrade --yes --force-yes &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get autoremove --yes --force-yes &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get autoclean --yes --force-yes &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get install -f --yes &>> $LOGFILE
+
+    printf "Downloading ESET ... \n"
     cd /tmp
     wget https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin
     if [[ ! -e efs.x86_64.bin ]]; then
       echo "Failed to download 'https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin'" | tee &>> $LOGFILE
       exit 1
     fi
+
+    printf "Installing ESET ... \n";
     chmod +x efs.x86_64.bin
-    env PATH=$PATH:/usr/sbin:/sbin ./efs.x86_64.bin -y -f -g
+    env PATH=$PATH:/usr/sbin:/sbin ./efs.x86_64.bin -y -f -g &>> $LOGFILE
   
     if [[ ! -d /opt/eset ]]; then
-      printf "Failed to install to /opt/eset\n"
+      printf "Failed to install to /opt/eset\n" | tee &>> $LOGFILE
       exit 1
     fi
+
     printf "Cleaning up ... \n"
     rm efs.x86_64.bin
     rm efs-*.deb
   fi
 
   printf "Enabling ESET ... \n"
-  /opt/eset/efs/sbin/lic -k $key
+  /opt/eset/efs/sbin/lic -u $user -p $key
 
   SUCCESS=`/opt/eset/efs/sbin/lic --status | grep 'Status:' | cut -d' ' -f2`
   if [[ $SUCCESS != "Activated" ]]; then
-    printf "License activation failed. Run again with correct License\n"
-    exit
+    printf "License activation failed. Run again with correct License. Contact MailCleaner sales if you do not yet have a license.\n" | tee &>> $LOGFILE
+    exit 1
   fi
 
-  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -m mc_config | sed 's/\s*allowed_ip\s*//'`
+  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -s mc_config | sed 's/\s*allowed_ip\s*//'`
   for ip in $list; do
-    echo "INSERT external_access(service,port,protocol,allowed_ip) SELECT * FROM (SELECT 'esetweb', '9443', 'TCP', '$ip') AS new WHERE NOT EXISTS (SELECT id FROM external_access WHERE service = 'esetweb' AND allowed_ip = '$ip') LIMIT 1;" | /usr/mailcleaner/bin/mc_mysql -m mc_config
+    echo "INSERT external_access(service,port,protocol,allowed_ip) SELECT * FROM (SELECT 'esetweb', '9443', 'TCP', '$ip') AS new WHERE NOT EXISTS (SELECT id FROM external_access WHERE service = 'esetweb' AND allowed_ip = '$ip') LIMIT 1;" | /usr/mailcleaner/bin/mc_mysql -s mc_config
   done
-  /usr/mailcleaner/etc/init.d/firewall restart
-  
   echo "UPDATE scanner set active = 1 WHERE name = 'esetsefs';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
+  printf "Restarting services ... \n"
+  /usr/mailcleaner/etc/init.d/firewall restart 2>/dev/null
+  /usr/mailcleaner/etc/init.d/mailscanner restart 2>/dev/null
+
+  echo ${FONT_BOLD}${FONT_GREEN}ESET enabled Successfully${FONT_RESET}
 
   res="`/opt/eset/efs/sbin/setgui -gre`"
   SUCCESS=`echo $res | grep 'GUI is enabled'`
   if [[ $SUCCESS == '' ]]; then
-    printf "Failed to enable GUI\n"
+    printf "Failed to enable GUI. Try again with:\n\n/opt/eset/efs/sbin/setgui -gre\n\n" | tee &>> $LOGFILE
+    exit 1
+  else
+    URL=`echo $res | sed -r 's/.*URL: ([^ ]+).*/\1/'`
+    USER=`echo -e $res | sed -r 's/.*Username: ([^ ]+).*/\1/'`
+    PASS=`echo -e $res | sed -r 's/.*Password: ([^ ]+).*/\1/'`
+    printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
+    printf "In order to further configure ESET, log in with:\n\n\tURL:  $URL\n\tUser: $USER\n\tPass: $PASS\n\nYou can reset this password at any time with:\n\n/opt/eset/efs/sbin/setgui -gre\n\n"
   fi
-  URL=`echo $res | sed -r 's/.*URL: ([^ ]+).*/\1/'`
-  USER=`echo -e $res | sed -r 's/.*Username: ([^ ]+).*/\1/'`
-  PASS=`echo -e $res | sed -r 's/.*Password: ([^ ]+).*/\1/'`
-  printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
-  printf "In order to configure ESET, log in with:\n\n\tURL:  $URL\n\tUser: $USER\n\tPass: $PASS\n\nthen restart the filtering engine: \n\n\t ${SRCDIR}/etc/init.d/mailscanner restart \n\n"
   
   exit 0
 }
