@@ -46,6 +46,14 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 	           
 		$this->setAttrib('id', 'antispamglobalsettings_form');
 
+         	$maxsize = new Zend_Form_Element_Text('global_max_size', array(
+		    'label'    => $t->_('Global max scan size (KB)'). " :",
+		    'required' => false,
+		    'filters'    => array('StringTrim')));
+        	$maxsize->addValidator(new Zend_Validate_Int());
+	    	$maxsize->setValue($this->_antispam->getParam('global_max_size'));
+		$this->addElement($maxsize);
+		
 		require_once('Validate/IpList.php');
 		$trustednet = new Zend_Form_Element_Textarea('trusted_ips', array(
 		      'label'    =>  $t->_('Trusted IPs/Networks')." :",
@@ -173,6 +181,7 @@ class Default_Form_AntispamGlobalSettings extends ZendX_JQuery_Form
 		$this->_newslistform->addFields($this);
 
 
+		$as->setparam('global_max_size', $request->getParam('global_max_size'));
 		$as->setparam('trusted_ips', $request->getParam('trusted_ips'));
 		$as->setparam('enable_whitelists', $request->getParam('enable_whitelists'));
 		$as->setparam('enable_warnlists', $request->getParam('enable_warnlists'));

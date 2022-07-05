@@ -12,6 +12,7 @@ class Default_Model_AntispamConfig
 {
     protected $_id;
     protected $_values = array(
+       'global_max_size' => '',
        'trusted_ips' => '',
        'html_wl_ips' => '',
        'enable_whitelists' => '0',

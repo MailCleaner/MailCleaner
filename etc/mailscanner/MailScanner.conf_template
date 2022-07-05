@@ -294,7 +294,7 @@ Is Definitely Not Spam = %rules-dir%/spam.whitelist.rules
 Is Definitely Spam = no
 Definite Spam Is High Scoring = no
 Ignore Spam Whitelist If Recipients Exceed = 20
-Max Spam Check Size = 500k
+Max Spam Check Size = __GLOBALMAXSIZE__
 
 Use Watermarking = no
 Add Watermark = yes

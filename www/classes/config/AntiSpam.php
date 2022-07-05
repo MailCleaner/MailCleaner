@@ -35,6 +35,7 @@ class AntiSpam extends PrefHandler
 	                   'razor_timeout' => 10,
 	                   'use_pyzor' => 1,
 	                   'pyzor_timeout' => 10,
+                       'global_max_size' => '',
                        'enable_whitelists' => 0,
                        'enable_warnlists' => 0,
 		       'enable_blacklists' => 0,
