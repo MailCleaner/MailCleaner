@@ -96,7 +96,7 @@ sub get_ms_config
 {
   my %row = $db->getHashRow("SELECT scanners, scanner_timeout, silent, file_timeout, expand_tnef, deliver_bad_tnef, tnef_timeout, usetnefcontent,
 					max_message_size, max_attach_size, max_archive_depth, send_notices, notices_to, trusted_ips, max_attachments_per_message,
-					spamhits, highspamhits, lists  FROM antivirus v, antispam s, PreRBLs pr WHERE v.set_id=1 AND s.set_id=1 AND pr.set_id=1");
+					spamhits, highspamhits, lists, global_max_size  FROM antivirus v, antispam s, PreRBLs pr WHERE v.set_id=1 AND s.set_id=1 AND pr.set_id=1");
   return unless %row;
   
   foreach my $key (keys %row) {
@@ -125,6 +125,7 @@ sub get_ms_config
     $config{'__TRUSTEDIPS__'} = join(",", expand_host_string($row{'trusted_ips'},('dumper'=>'mailscanner/trustedips')));
   }
   $config{'__SPAMHITS__'} = $row{'spamhits'};
+  $config{'__GLOBALMAXSIZE__'} = $row{'global_max_size'}.'k';
   $config{'__HIGHSPAMHITS__'} = $row{'highspamhits'};
   $config{'__SPAMLISTS__'} = $row{'lists'};
   if ($row{'usetnefcontent'} =~ /^(no|add|replace)$/ ) {

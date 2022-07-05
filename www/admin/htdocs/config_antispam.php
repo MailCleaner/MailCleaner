@@ -111,6 +111,7 @@ $replace = array(
         "__FORM_INPUTENABLEWARNLIST__" => $gform->checkbox('enable_warnlists', 1, $antispam_->getPref('enable_warnlists'), '', 1),
 	"__FORM_INPUTENABLEBLACKLIST__" => $gform->checkbox('enable_blacklists', 1, $antispam_->getPref('enable_blacklists'), '', 1),
         "__FORM_INPUTUSESYSLOG__" => $gform->checkbox('use_syslog', 1, $antispam_->getPref('use_syslog'), '', 1),
+        "__FORM_INPUTGLOBALMAXSIZE__" => $gform->input('global_max_size', 500, $antispam_->getPref('global_max_size')),
         "__FORM_INPUTTRUSTEDIPS__" => $gform->textarea('trusted_ips', 30, 5, $antispam_->getPref('trusted_ips')),
         "__LINK_EDITWHITELIST__" => "wwlist.php?t=1&a=0",
         "__LINK_EDITWARNLIST__" => "wwlist.php?t=2&a=0",
