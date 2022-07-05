@@ -280,15 +280,17 @@ sub getNextLocation {
 	my $this = shift;
 	my $uri  = shift;
 
-	my ($domain, $get);
-	# Test Redirect
-	if ( ($domain, $get) =
-		$uri =~
-m|\W(?:https?://)?((?:www\.)?(?:[a-zA-Z0-9\-]+(?:\.[a-zA-Z]{2,3})+))/([a-zA-Z0-9]+\?[^"<\s]+)|
-		)
-	{
+	my ($domain, $get) = $uri =~ m#(?:(?:(?^:https?))://((?:(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]*)?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z0-9]|[a-zA-Z])[.]?)|(?:[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)))(?::(?:(?:[0-9]*)))?(?:/(((?:(?:(?:(?:[a-zA-Z0-9\-_.!~*'():@&=+$,]+|(?:%[a-fA-F0-9][a-fA-F0-9]))*)(?:;(?:(?:[a-zA-Z0-9\-_.!~*'():@&=+$,]+|(?:%[a-fA-F0-9][a-fA-F0-9]))*))*)(?:/(?:(?:(?:[a-zA-Z0-9\-_.!~*'():@&=+$,]+|(?:%[a-fA-F0-9][a-fA-F0-9]))*)(?:;(?:(?:[a-zA-Z0-9\-_.!~*'():@&=+$,]+|(?:%[a-fA-F0-9][a-fA-F0-9]))*))*))*))(?:[?](?:(?:(?:[;/?:@&=+$,a-zA-Z0-9\-_.!~*'()]+|(?:%[a-fA-F0-9][a-fA-F0-9]))*)))?))?)#mg;
+	unless (defined($domain)) {
+		return ( $uri, 0 );
+	}
+	$domain = lc($domain);
+	$domain =~ s/[*,=]//g;
+	$domain =~ s/=2E/./g;
+
+	# Test Redirect (when it contains a URL query)
+	if ( defined($get) && ($get =~ m/\?([a-zA-Z0-9\$\-_\.\+!\*'\(\),\/\?]+)=/) ) {
 		my $redirect = $this->{URLRedirects}->decode($domain.'/'.$get);
-		&{ $this->{logfunction} }("$domain/$get => $redirect");
 		if ($redirect) {
 			$shorteners{$domain.'/'.$get} = $redirect;
 			return ( $domain.'/'.$get , $redirect );
@@ -296,17 +298,9 @@ m|\W(?:https?://)?((?:www\.)?(?:[a-zA-Z0-9\-]+(?:\.[a-zA-Z]{2,3})+))/([a-zA-Z0-9
 			return ( $domain.'/'.$get , 0 );
 		}
 
-	# Test shortener
-	} elsif ( ($domain, $get) =
-		$uri =~
-m|\W(?:https?://)?((?:www\.)?[a-zA-Z]{2,5}(?:\.[a-zA-Z]{2,3})+)/([a-zA-Z0-9]{3,10}[^"<\?\s])[\s\/\W]?|
-		)
-	{
-		$domain = lc($domain);
-		$domain =~ s/[*,=]//g;
-		$domain =~ s/=2E/./g;
-
-		my $request = $domain . '/' . $get;
+	# Test shortener (no query, but simple GET path)
+	} elsif ( defined($get) && $get =~ m|^[a-zA-Z0-9]{5,}$| ) {
+		my $request = $domain.'/'.$get;
 
 		if ( defined( $shorteners{$request} ) ) {
 			return $shorteners{$request};
