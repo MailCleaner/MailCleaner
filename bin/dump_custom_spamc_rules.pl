@@ -32,16 +32,23 @@ sub print_custom_rule {
     my ($current_rule, $current_rule_w, $current_sender, @current_rule_domains) = @_;
 
     my ($rule, $score) = split(' ', $current_rule);
-    print RULEFILE "meta RCPT_CUSTOM_$current_rule_w ( $rule && ";
+    print RULEFILE "meta RCPT_CUSTOM_$current_rule_w ( $rule ";
     if ($current_sender ne '') {
-        print RULEFILE '__SENDER_' .$senders{$current_sender}. ' && ';
+        print RULEFILE '&& __SENDER_' .$senders{$current_sender}. ' ';
     }
-    my $rcpt_string = " (";
+    my $global = 0;
+    my $rcpt_string = "&& (";
     foreach (@current_rule_domains) {
-        $rcpt_string .= " __RCPT_$_ ||"
+	if (!defined($_)) {
+            $rcpt_string = '';
+            last;
+	}
+        $rcpt_string .= "__RCPT_$_ || "
     }
-    $rcpt_string =~ s/\|\|$//;
-    print RULEFILE "$rcpt_string ) )\n";
+    if ($rcpt_string) {
+        $rcpt_string =~ s/\ \|\|\ $/\) /;
+    }
+    print RULEFILE "$rcpt_string)\n";
     print RULEFILE "score RCPT_CUSTOM_$current_rule_w $score\n\n";
 }
 
@@ -50,6 +57,7 @@ sub print_recipient_rules {
     my ($recipient) = @_;
 
     return if defined $domains{$recipient};
+    return if $recipient =~ m/\@__global__/;
 
     $domains{$recipient} = $rcpt_id;
 
