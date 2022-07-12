@@ -308,7 +308,7 @@ function eset() {
   elif perl -e "exit(1) unless '$key' =~ m/^([0-9a-zA-Z]){9}$/;"; then
     key=`perl -e 'my $x = "'$key'"; my ($a, $b, $c) = $x =~ m/([0-9a-zA-Z]{3})/g; print uc("$a-$b-$c");'`
   else
-    printf "Invalid key format '$key'. Should be XXX-XXX-XXXX\n" | tee &>> $LOGFILE
+    printf "Invalid key format '$key'. Should be XXX-XXX-XXX\n" | tee &>> $LOGFILE
     exit 1;
   fi
 
