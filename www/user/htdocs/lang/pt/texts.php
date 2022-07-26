@@ -558,3 +558,4 @@ $txt['SENDERVARIATIONS'] = "Todas as variações de endereço do remetente";
  * Type of WWList
  */
 $txt['ORIGINALSENDER'] = "Somente endereço do remetente original";
+$txt['NEWSLETTERUNSUB'] = "Cancelar Inscrição";
