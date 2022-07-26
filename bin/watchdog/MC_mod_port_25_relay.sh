@@ -31,7 +31,7 @@ my_own_exit()
 #### Lorsque le module a trouvé une erreur, il est censé sortir avec my_own_exit "#ERREUR" (avec #ERREUR : chiffre : retour de la commande)
 BLOCK25AUTH=`echo "SELECT block_25_auth FROM mta_config WHERE stage = 1;" | mc_mysql -s mc_config | tail -n 1`
 # Le jour dernier
-if [[ $BLOCK25AUTH -eq 0 ]]; then
+if [ $BLOCK25AUTH ] && [[ "$BLOCK25AUTH" -eq "0" ]]; then
     LOG_FILE="/var/mailcleaner/log/exim_stage1/mainlog"
     NB_AUTH=`grep -e "Accepting authenticated session from .* on port 25" $LOG_FILE | wc -l`
     if [[ $NB_AUTH -ne 0 ]]; then
