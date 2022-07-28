@@ -67,7 +67,7 @@ done
 
 if [ "$olderthan" == '' ]
   then
-    olderthan = 7
+    olderthan=7
     exit 1
 fi
 
