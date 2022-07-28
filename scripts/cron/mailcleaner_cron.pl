@@ -375,6 +375,9 @@ unless ($skip) {
 
   }
 
+  print "Cleaning MailScanner tmp files...\n";
+  system($config{'SRCDIR'}."/bin/ms_tmp-cleaner -o 1");
+
   ###################
   # end hourly jobs #
   ###################
