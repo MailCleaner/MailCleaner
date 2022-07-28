@@ -1,0 +1,77 @@
+#!/bin/bash
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2022 John Mertz <git@john.me.tz>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#
+#   This script clean mailscanner temporary files
+#
+#   Usage: ms_tmp-cleaner [-h] -o '7'
+#
+#   Options:
+#
+#   -h,	Display help.
+#   -o,	Filter file older than X days; default 7
+#
+
+
+PROGNAME='ms_tmp-cleaner'
+VERSION='1.0'
+
+usage() {
+  cat <<- _EOF_
+  Usage: $PROGNAME [-h] -o '7'
+
+  Options:
+
+  -h,	Display help.
+  -o,	Filter file older than X days; default 7
+
+_EOF_
+}
+
+while getopts ":ho:" option
+do
+  case $option in
+    h)
+	usage
+	exit 0
+	;;
+    o)
+	olderthan=$OPTARG
+	;;
+    :)
+	echo "option $OPTARG requires an argument"
+	exit 1
+	;;
+    ?)
+	echo "$OPTARG : invalid option"
+	exit 1
+	;;
+  esac
+done
+
+if [ "$olderthan" == '' ]
+  then
+    olderthan = 7
+    exit 1
+fi
+
+find /var/mailcleaner/spool/tmp/mailscanner -mtime +$olderthan -name msg-* -print -delete
+find /var/mailcleaner/spool/tmp/mailscanner -type d -empty -delete
+
+exit 0
