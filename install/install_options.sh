@@ -312,6 +312,14 @@ function eset() {
     exit 1;
   fi
 
+  if [[ $(cat /etc/locale.gen | grep -P "^en_US\.UTF-8 UTF-8") ]]; then
+    echo "US English (UTF-8) already enabled."
+  else
+    echo "Adding US English (UTF-8) to locale.gen"
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    locale-gen
+  fi
+
   if [[ ! -d /opt/eset || $REINSTALL == 1 ]]; then
     printf "Updating packages ... \n"
     env PATH=$PATH:/usr/sbin:/sbin apt-get update &>> $LOGFILE
@@ -331,7 +339,17 @@ function eset() {
     printf "Installing ESET ... \n";
     chmod +x efs.x86_64.bin
     env PATH=$PATH:/usr/sbin:/sbin ./efs.x86_64.bin -y -f -g &>> $LOGFILE
-  
+    # First attempt will fail due to missing btrfs dependency
+    DEB=`ls ./efs*.deb`;
+    if [[ $DEB ]]; then
+      echo "Force installation without Btrfs"
+      dpkg -i --force-all $DEB
+      apt-mark hold efs
+      apt-get install --fix-missing -y
+    else
+      echo "Failed to locate downloaded .deb"
+    fi
+
     if [[ ! -d /opt/eset ]]; then
       printf "Failed to install to /opt/eset\n" | tee &>> $LOGFILE
       exit 1
