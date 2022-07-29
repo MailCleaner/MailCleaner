@@ -71,6 +71,6 @@ if [ "$olderthan" == '' ]
     exit 1
 fi
 
-find /var/mailcleaner/spool/tmp/mailscanner -mtime +$olderthan -name msg-* -print -exec rm -rf {} \; 
+find /var/mailcleaner/spool/tmp/mailscanner -mtime +$olderthan -maxdepth 0 -name msg-* -print -exec rm -rf {} \; 
 find /var/mailcleaner/spool/tmp/mailscanner -type d -empty -delete
 exit 0
