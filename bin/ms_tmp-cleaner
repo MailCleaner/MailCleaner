@@ -71,5 +71,5 @@ if [ "$olderthan" == '' ]
     exit 1
 fi
 
-find /var/mailcleaner/spool/tmp/mailscanner -mmin +$olderthan -maxdepth 0 -name msg-* -print -exec rm -rf {} \; 
+find /var/mailcleaner/spool/tmp/mailscanner -maxdepth 0 -mmin +$olderthan -name msg-* -print -exec rm -rf {} \; 
 exit 0
