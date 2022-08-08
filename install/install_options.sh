@@ -284,6 +284,7 @@ function eset() {
   if [[ $REINSTALL == '--reinstall' ]]; then
     printf "Reinstalling ESET ..."
     REINSTALL=1
+    apt-mark unhold efs
   elif [[ $REINSTALL != '--' ]]; then
     printf "Invalid argument $1\n" | tee &>> $LOGFILE
     exit 1
