@@ -302,7 +302,7 @@ sub processPart {
 
 	my $in_header = 1;
 	foreach my $line ($body->as_lines) {
-
+		next if ($line =~ m/^\s*$/);
 		my $ret =
 		  $UriRBLs::dnslists->findUri( $line,
 			"$MODULE (" . $message->{id} . ")" );
