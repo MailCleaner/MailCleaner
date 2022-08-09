@@ -264,13 +264,13 @@ sub findUriShortener {
 	my $final_domain = $this->findUri( $final_location, $prelog );
 	if ( $deep > 1 ) {
 		&{ $this->{logfunction} }(
-"$prelog found urlshortener/redirect for: $first_link resolving to $final_location"
+"$prelog found urlshortener/redirect to $final_location"
 		);
 	}
 	if ( $deep >= $this->{shortner_resolver_maxdeep} ) {
 		&{ $this->{logfunction} }(
 			    "$prelog urlshortner finder reached max depth ("
-			  . $first_link
+			  . $deep
 			  . ")" );
 	}
 	return $final_domain;
@@ -290,12 +290,15 @@ sub getNextLocation {
 
 	# Test Redirect (when it contains a URL query)
 	if ( defined($get) && ($get =~ m/\?([a-zA-Z0-9\$\-_\.\+!\*'\(\),\/\?]+)=/) ) {
+		if ( defined($shorteners{$domain.'/'.$get}) ) {
+			return $shorteners{$domain.'/'.$get};
+		}
 		my $redirect = $this->{URLRedirects}->decode($domain.'/'.$get);
 		if ($redirect) {
 			$shorteners{$domain.'/'.$get} = $redirect;
 			return ( $domain.'/'.$get , $redirect );
 		} else {
-			return ( $domain.'/'.$get , 0 );
+			return ( '' , 0 );
 		}
 
 	# Test shortener (no query, but simple GET path)
