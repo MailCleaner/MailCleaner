@@ -1284,6 +1284,9 @@ __FI__
   data_timeout = 120s
   connect_timeout = 30s
   hosts_try_chunking =
+__IF__ FOLDING
+  transport_filter = ${if >{$max_received_linelength}{998}{SRCDIR/etc/exim/stage1/folding.pl}{}}
+__FI__
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
 __FI__
