@@ -1,6 +1,11 @@
 #!/usr/bin/perl
 
+my $headers = 1;
 while (<>) {
+	if ($headers && $_ =~ m/^$/) {
+		print "X-MailCleaner-folding: Some lines in message modified for exceeding maximum line length\n";
+		$headers = 0;
+	}
         # Fold if length exceeds 998 characters (1000 with <CR><LF>)
         if (length($_) >= 998) {
                 # Collect words as possible break points
@@ -50,8 +55,13 @@ while (<>) {
                 if ($line[scalar(@lines)-1] eq '') {
                         delete($line[scalar(@lines)-1]);
                 }
-                my $out = join("\n ", @lines);
-                print "$out";
+		my $out;
+		foreach (@lines) {
+			$_ =~ s/\s*$//;
+			$out .= $_ . "\n ";
+		}
+		$out =~ s/ $//;
+		print $out;
         } else {
                 print "$_";
         }

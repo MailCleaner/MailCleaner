@@ -314,9 +314,12 @@ sub dump_exim_file
 	}
   }
   $template->setCondition('USETLS', $exim_conf{'__USE_INCOMINGTLS__'});
+  $template->setCondition('ALLOW_LONG', 1);
+  if ($exim_conf{'__ALLOW_LONG__'}) {
+    $template->setCondition('ALLOW_LONG', $exim_conf{'__ALLOW_LONG__'});
+  }
   $template->setCondition('FOLDING', 0);
   if ($exim_conf{'__FOLDING__'}) {
-print "FOLDING $exim_conf{'__FOLDING__'}\n";
     $template->setCondition('FOLDING', 1);
   }
   $template->setCondition('USEARCHIVER', 0);
@@ -939,6 +942,7 @@ sub get_exim_config{
     if ($config{'__FULL_WHITELIST_HOSTS__'} ne '') {
           $config{'__FULL_WHITELIST_HOSTS__'} = join(' ; ',expand_host_string($config{'__FULL_WHITELIST_HOSTS__'},('dumper'=>'exim/full_whitelist_hosts')));
     }
+    $config{'__ALLOW_LONG__'} = $row{'allow_long'};
     $config{'__FOLDING__'} = $row{'folding'};
     return %config;
 }
