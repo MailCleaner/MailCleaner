@@ -1205,8 +1205,8 @@ bypass_full_whitelist:
   hosts = localhost
   interface = 127.0.0.1
   port = 2525
-  dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_domain = ${extract {1}{:} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
@@ -1260,10 +1260,10 @@ local_smtp:
                          {! eq{$sender_host_authenticated}{}}\
                          { match_ip{$sender_host_address}{+relay_from_hosts} }\
                        }\
-                   {${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}}\
+                   {${extract {1}{;} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}}\
                    {}\
                  }
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
