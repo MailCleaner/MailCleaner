@@ -213,7 +213,6 @@ warn ratelimit          = __TRUSTED_RATELIMIT_RULE__
  __FI__
 __FI__
 
-
 __IF__ RBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
 __IF__ __LISTS_PER_DOMAIN__
@@ -953,6 +952,16 @@ __FI__
 
 acl_check_data:
 
+  warn    set acl_m_linelength_limit = 998
+          condition = ${if >{$max_received_linelength}{$acl_m_linelength_limit}}
+          logwrite = Warning: Message from <${sender_address}> to <${recipients}> exceeds RFC 5322 maximum line length ($max_received_linelength > $acl_m_linelength_limit)
+
+__IF__ ALLOW_LONG
+__ELSE__ ALLOW_LONG
+  deny    condition = ${if > {$max_received_linelength}{$acl_m_linelength_limit}}
+          message = Maximum line length is $acl_m_linelength_limit, got $max_received_linelength.
+__FI__
+
 # FULLWHITELIST
   accept  remove_header = X-MailCleaner-FullWhitelist
           remove_header = X-Newsl
@@ -1205,6 +1214,12 @@ bypass_full_whitelist:
   hosts = localhost
   interface = 127.0.0.1
   port = 2525
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
   dkim_domain = ${extract {1}{:} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}
   dkim_selector = ${extract {2}{;} {${lookup {${domain:$h_From}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
@@ -1220,6 +1235,12 @@ bypass_smtp:
   interface = 127.0.0.1
   port = 2525
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
   return_path = ${if and { \
                              {def:return_path} \
                              {match_domain{${domain:$return_path}}{+domains_to_check_batv}} \
@@ -1243,6 +1264,12 @@ to_engine:
 
 local_smtp:
   driver = smtp
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
   helo_data = __HELO_NAME__
   allow_localhost = true
   hosts = localhost
@@ -1284,6 +1311,12 @@ __FI__
   data_timeout = 120s
   connect_timeout = 30s
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
 __FI__
@@ -1306,6 +1339,12 @@ callout_transport:
   helo_data = __HELO_NAME__
   multi_domain = false
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 
 archiver_smtp_transport:
   debug_print = "T: archiving mail for $local_part@$domain"
@@ -1317,6 +1356,12 @@ __IF__ USETLS
   hosts_require_tls = <; __HOSTS_REQUIRE_TLS__
 __FI__
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = 1000000
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 
 address_list_transport:
   driver = pipe
