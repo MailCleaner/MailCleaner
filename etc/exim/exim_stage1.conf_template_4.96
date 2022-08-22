@@ -1220,8 +1220,8 @@ __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
 __FI__
-  dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_domain = ${extract {1}{;} {${lookup {${domain:$h_From:}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
@@ -1287,10 +1287,10 @@ __FI__
                          {! eq{$sender_host_authenticated}{}}\
                          { match_ip{$sender_host_address}{+relay_from_hosts} }\
                        }\
-                   {${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}}\
+                   {${extract {1}{;} {${lookup {${domain:$h_From:}} lsearch {DKIMFILE}}}}}\
                    {}\
                  }
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
@@ -1327,8 +1327,8 @@ __FI__
                      {${prvs {$return_path} {${lookup {${domain:$return_path}} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}}}} \
                      {$return_path} \
                  }
-  dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
+  dkim_domain = ${extract {1}{;} {${lookup {${domain:$h_From:}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
   dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
