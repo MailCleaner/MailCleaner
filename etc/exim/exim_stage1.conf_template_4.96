@@ -1288,7 +1288,6 @@ __FI__
                          { match_ip{$sender_host_address}{+relay_from_hosts} }\
                        }\
                    {${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}}\
-
                    {}\
                  }
   dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
