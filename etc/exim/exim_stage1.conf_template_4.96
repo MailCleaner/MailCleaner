@@ -1077,7 +1077,7 @@ send_to_smart_host:
   driver = manualroute
   transport = remote_smtp
   domains = !+relay_to_domains
-  route_data = ${lookup{${domain:$h_From:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
+  route_data = ${lookup{${domain:$h_from:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
 
 __INCLUDE__ stage1/routers_cluster_settings
 
@@ -1220,10 +1220,10 @@ __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
 __FI__
-  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_From:}}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
 
@@ -1290,9 +1290,9 @@ __FI__
                    {${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}}\
                    {}\
                  }
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
   hosts_avoid_tls = localhost
@@ -1327,10 +1327,10 @@ __FI__
                      {${prvs {$return_path} {${lookup {${domain:$return_path}} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}}}} \
                      {$return_path} \
                  }
-  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_From:}}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$dkim_domain}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${lc:${domain:$h_from:}}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
 
