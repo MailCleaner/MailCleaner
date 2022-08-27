@@ -506,7 +506,7 @@ $txt['UNKNOWNERROR'] = "未知错误。";
 $txt['NEWSLISTBODY'] = "添加了新闻白名单。如检测到此发件人的邮件为新闻，则被标记。";
 $txt['ADDTOGROUP'] = "为组中的所有地址添加";
 $txt['CONFIGREADFAIL'] = "无法读取配置文件。";
-$txt['DUPLICATEENTRY'] = "条目重复";
+$txt['DUPLICATEENTRY'] = "已存在重复条目。";
 $txt['NEWSLONLY'] = "仅显示新闻";
 /*
  * SOAP errors
