@@ -243,7 +243,15 @@ sub getSPF
 	my @blocks;
 	foreach ($res->answer) {
 		if ($_->{'txtdata'}->[0]->[0] =~ /^v=spf/) {
-			@blocks = split(' ', $_->{'txtdata'}->[0]->[0]);
+			my $whole;
+			if (scalar(@{$_->{'txtdata'}}) >= 1) {
+				foreach my $part (@{$_->{'txtdata'}}) {
+					$whole .= $part->[0];
+				}
+			} else {
+				$whole = $_->{'txtdata'}->[0]->[0];
+			}
+			@blocks = split(' ', $whole);
 			last;
 		}
 	}
