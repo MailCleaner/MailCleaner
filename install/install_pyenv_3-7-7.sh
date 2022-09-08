@@ -40,7 +40,7 @@ then
 fi
 
 aria2c -q --checksum=sha-256=ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46 \
-  https://cdnpush.mailcleaner.net/openssl-1.1.1g.tar.gz
+  https://cdnpush.s3.us-east-2.stackpathstorage.com/openssl-1.1.1g.tar.gz
   
 if [ -f "openssl-1.1.1g.tar.gz" ]
 then 
