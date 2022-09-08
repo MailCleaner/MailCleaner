@@ -38,15 +38,26 @@ DEADLINE=14
 if dpkg-query -s efs | grep "Status: install ok installed"; then
    if /opt/eset/efs/sbin/lic -s | grep "Status: Activated"; then
      expirationDate=`/opt/eset/efs/sbin/lic -s | sed  -n '4p' | awk -F': ' '{print $2}'`
-     expirationTime=`echo $expirationDate | sed -re 's/(.*)-(.*)-(.*)/\2\/\3\/\1/g' | xargs date +"%s" -d`
-     currentTime=`date +"%s"`
-     timeDiff=$(($expirationTime - $currentTime))
-     daysDiff=$(($timeDiff/(3600*24)))
-     if [ $daysDiff -le $DEADLINE ]; then
-       echo "License expires in $daysDiff days ($expirationDate)" > $OUT_FILE
-       my_own_exit "1"
+     if [ $expirationDate ]; then
+       expirationTime=`echo $expirationDate | sed -re 's/(.*)-(.*)-(.*)/\2\/\3\/\1/g' | xargs date +"%s" -d`
+       currentTime=`date +"%s"`
+       timeDiff=$(($expirationTime - $currentTime))
+       daysDiff=$(($timeDiff/(3600*24)))
+       if [ $daysDiff -le $DEADLINE ]; then
+         echo "License expires in $daysDiff days ($expirationDate)" > $OUT_FILE
+         my_own_exit "1"
+       fi
+     else
+       echo "License is active" > $OUT_FILE
+       my_own_exit "0"
      fi
+   else
+     echo "License is expired" > $OUT_FILE
+     my_own_exit "2"
    fi
+else
+   echo "ESET EFS not installed" > $OUT_FILE
+   my_own_exit "0"
 fi
 
 # A CONSERVER !
