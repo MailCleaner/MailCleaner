@@ -60,6 +60,7 @@ $baseconf = DataManager::getFileConfig(SystemConfig::$CONFIGFILE_); ?>
           <?php foreach (array('outgoing_virus_scan', 'mask_relayed_ip', 'block_25_auth', 'masquerade_outgoing_helo', 'dmarc_enable_reports', 'log_subject', 'log_attachments') as $f) {?>
            <?php echo $this->InputRow($this->form->getElement($f));?>
           <?php }?>
+          <?php echo $this->InputRow($this->form->getElement('long_lines'));?> 
           
           <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
           

@@ -7,6 +7,8 @@
  * 
  * SMTP checks form
  */
+error_reporting(-1);
+ini_set('display_errors', 'On');
 
 class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 {
@@ -220,7 +222,7 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
         $this->addElement($log_subject);
 
         $log_attachments = new Zend_Form_Element_Checkbox('log_attachments', array(
-                    'label'   => $t->_('Include attachement names in the logs'). " :",
+                    'label'   => $t->_('Include attachment names in the logs'). " :",
                     'uncheckedValue' => "0",
                     'checkedValue' => "1"
         ));
@@ -228,7 +230,16 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
                 $log_attachments->setChecked(true);
         }
         $this->addElement($log_attachments);
-        
+
+	$long_lines = new Zend_Form_Element_Select('long_lines', array(
+                    'label'      => $t->_('What to do with invalid long lines')." :",
+                    'required'   => true,
+                    'filters'    => array('StringTrim')));
+        $long_lines->addMultiOption('ignore', $t->_("Ignore errors; relay invalid SMTP"));
+        $long_lines->addMultiOption('fix', $t->_("Fold long lines; makes SMTP valid, but could break DKIM signing"));
+        $long_lines->addMultiOption('reject', $t->_("Reject invalid long lines"));
+	$long_lines->setValue($this->getLongLines());
+        $this->addElement($long_lines);
 		
 		$submit = new Zend_Form_Element_Submit('submit', array(
 		     'label'    => $t->_('Submit')));
@@ -236,6 +247,18 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		
 	}
 	
+	public function getLongLines() {
+                if ($this->_mta->getParam('allow_long')) {
+			if ($this->_mta->getParam('folding')) {
+				return 'fix';
+			} else {
+				return 'ignore';
+			}
+		} else {
+			return 'reject';
+		}
+	}
+
 	public function setParams($request, $mta) {
 		$mta->setparam('verify_sender', $request->getParam('verify_sender'));
         $mta->setparam('outgoing_virus_scan', $request->getParam('outgoing_virus_scan'));
@@ -273,6 +296,15 @@ class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 		}
 		$rblstr = preg_replace('/^\s*/', '', $rblstr);
 		$mta->setparam('rbls', $rblstr);
+        	if ($request->getParam('long_lines') == 'ignore') {
+			$mta->setparam('allow_long', true);
+			$mta->setparam('folding', false);
+		} elseif ($request->getParam('long_lines') == 'fix') {
+			$mta->setparam('allow_long', true);
+			$mta->setparam('folding', true);
+		} elseif ($request->getParam('long_lines') == 'reject') {
+			$mta->setparam('allow_long', false);
+		}
 	}
-
 }
+?>

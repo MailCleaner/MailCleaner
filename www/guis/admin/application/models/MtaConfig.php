@@ -28,7 +28,7 @@ class Default_Model_MtaConfig
        'user_reject' => '',
        'recipient_reject' => '',
        'smtp_receive_timeout' => 0,
-	'max_rcpt' => 0,
+       'max_rcpt' => 0,
        'smtp_accept_max' => 0,
        'smtp_reserve' => 0,
        'smtp_load_reserve' => 0,
@@ -70,6 +70,8 @@ class Default_Model_MtaConfig
        'dmarc_follow_reject_policy' => 0,
        'dmarc_enable_reports' => 0,
        'ciphers' => '',
+       'allow_long' => 1,
+       'folding' => 0,
      );
 	
 	protected $_mapper;
