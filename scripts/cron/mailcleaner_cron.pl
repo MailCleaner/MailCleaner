@@ -161,6 +161,19 @@ unless ($skip) {
   ########################################
   system("$config{'SRCDIR'}/scripts/cron/clean_clamav_tmp.sh");
 
+  ######################
+  ## update anti-viruses
+  ######################
+  if (my $pid_av = fork) {
+    push(@wait,$pid_av);
+  } elsif (defined $pid_av && $mcDataServicesAvailable) {
+    print "updating anti-viruses...\n";
+    system($config{'SRCDIR'}."/scripts/cron/update_antivirus.sh");
+    print "done updating anti-viruses.\n";
+    #system($config{'SRCDIR'}."/etc/init.d/mailscanner restart >/dev/null 2>&1");
+    exit;
+  }
+
   ####################################################
   # check inodes occupation and old counts if needed #
   ####################################################
@@ -321,19 +334,6 @@ unless ($skip) {
   #######################
 
   if ($minute >=0 && $minute < $cron_occurence) {
-
-    ######################
-    ## update anti-viruses
-    ######################
-    if (my $pid_av = fork) {
-      push(@wait,$pid_av);
-    } elsif (defined $pid_av && $mcDataServicesAvailable) {
-      print "updating anti-viruses...\n";
-      system($config{'SRCDIR'}."/scripts/cron/update_antivirus.sh");
-      print "done updating anti-viruses.\n";
-      #system($config{'SRCDIR'}."/etc/init.d/mailscanner restart >/dev/null 2>&1");
-      exit;
-    }
 
     ##############
     ## Bayesian
