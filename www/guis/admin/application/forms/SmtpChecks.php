@@ -7,8 +7,6 @@
  * 
  * SMTP checks form
  */
-error_reporting(-1);
-ini_set('display_errors', 'On');
 
 class Default_Form_SmtpChecks extends ZendX_JQuery_Form
 {

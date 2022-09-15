@@ -25,7 +25,7 @@ $baseconf = DataManager::getFileConfig(SystemConfig::$CONFIGFILE_); ?>
     <?php foreach ($this->form->_ip_rbls as $check) {
         if (preg_match('/^INACTIVE/',$check->getLabel())) {
 	  echo '<input type="checkbox" onclick="return false;" /><span>' . preg_replace('/^use_rbl_/','',$check->getName()) . "&nbsp;&nbsp;";
-	  if ($baseconf['REGISTERED'] == '1') {
+	  if (isset($baseconf['REGISTERED']) && $baseconf['REGISTERED'] == '1') {
             echo '<button onclick="window.open(\'https://www.mailcleaner.net/free-trial-options.html\', \'_blank\');">Free Trial</button></span><br />';
           } else {
             echo '<button onclick="window.open(\'https://www.mailcleaner.net/community-edition-add-ons.html\', \'_blank\');">Premium Add-On</button></span><br />';
@@ -43,7 +43,7 @@ $baseconf = DataManager::getFileConfig(SystemConfig::$CONFIGFILE_); ?>
     <?php foreach ($this->form->_uri_rbls as $check) {
         if (preg_match('/^INACTIVE/',$check->getLabel())) {
 	  echo '<input type="checkbox" onclick="return false;" /><span>' . preg_replace('/^use_rbl_/','',$check->getName()) . "&nbsp;&nbsp;";
-	  if ($baseconf['REGISTERED'] == '1') {
+	  if (isset($baseconf['REGISTERED']) && $baseconf['REGISTERED'] == '1') {
             echo '<button onclick="window.open(\'https://www.mailcleaner.net/free-trial-options.html\', \'_blank\');">Free Trial</button></span><br />';
           } else {
             echo '<button onclick="window.open(\'https://www.mailcleaner.net/community-edition-add-ons.html\', \'_blank\');">Premium Add-On</button></span><br />';
