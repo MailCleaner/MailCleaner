@@ -29,9 +29,9 @@ class Plugin_TemplatePath extends Zend_Controller_Plugin_Abstract
         
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $view->jQuery()->enable();
-        $view->jQuery()->setLocalPath($view->scripts_path.'/jquery-1.5.1.min.js');
-        $view->jQuery()->setUiLocalPath($view->scripts_path.'/jquery-ui-1.8.12.custom.min.js');
-        $view->jQuery()->addStylesheet($view->css_path."/smoothness/jquery-ui-1.8.12.custom.css");     
+        $view->jQuery()->setLocalPath($view->scripts_path.'/jquery.min.js');
+        $view->jQuery()->setUiLocalPath($view->scripts_path.'/jquery-ui.custom.min.js');
+        $view->jQuery()->addStylesheet($view->css_path."/smoothness/jquery-ui.css");     
         
         $view->headScript()->appendFile($view->scripts_path.'/navigation.js', 'text/javascript'); 
         $view->headScript()->appendFile($view->scripts_path.'/quickstatus.js', 'text/javascript');
