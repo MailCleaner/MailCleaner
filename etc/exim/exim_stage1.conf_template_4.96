@@ -1215,7 +1215,7 @@ bypass_full_whitelist:
   interface = 127.0.0.1
   port = 2525
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
@@ -1236,7 +1236,7 @@ bypass_smtp:
   port = 2525
   hosts_try_chunking =
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
@@ -1265,7 +1265,7 @@ to_engine:
 local_smtp:
   driver = smtp
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
@@ -1312,7 +1312,7 @@ __FI__
   connect_timeout = 30s
   hosts_try_chunking =
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
@@ -1340,7 +1340,7 @@ callout_transport:
   multi_domain = false
   hosts_try_chunking =
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
@@ -1357,7 +1357,7 @@ __IF__ USETLS
 __FI__
   hosts_try_chunking =
 __IF__ ALLOW_LONG
-  message_linelength_limit = 1000000
+  message_linelength_limit = __LENGTH_LIMIT__
 __IF__ FOLDING
   transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
 __FI__
