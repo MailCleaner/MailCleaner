@@ -944,6 +944,16 @@ sub get_exim_config{
     }
     $config{'__ALLOW_LONG__'} = $row{'allow_long'};
     $config{'__FOLDING__'} = $row{'folding'};
+    my $max_length;
+    if ( -e '/var/mailcleaner/spool/mailcleaner/exim_max_line_length' ) {
+        if (open(my $fh, '<', '/var/mailcleaner/spool/mailcleaner/exim_max_line_length')) {
+            $max_length = <$fh>;
+            chomp($max_length);
+            close($fh);
+        }
+    }
+    $max_length = 5000000 unless (defined($max_length) && $max_length =~ m/^\d+$/);
+    $config{'__LENGTH_LIMIT__'} = $max_length;
     return %config;
 }
 
