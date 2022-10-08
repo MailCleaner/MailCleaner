@@ -28,6 +28,11 @@ fi
 
 #/opt/MailScanner/bin/update_virus_scanners
 
+if [ -e $VARDIR/run/clamd.disabled ] && [ -e $VARDIR/run/clamspamd.disabled ]; then
+  echo "Abandoning update because both services are disabled" >> $VARDIR/log/clamav/freshclam.log
+  exit 0
+fi
+
 CLAMDPID=`pgrep -f clamd.conf`
 #if [ "$CLAMDPID" = "" ]; then
 #	exit;
@@ -65,6 +70,23 @@ else
       fi
    fi
 fi
-echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Done." >> $VARDIR/log/clamav/freshclam.log
 
+if [ -e $VARDIR/spool/mailcleaner/clamav-unofficial-sigs ]; then
+   if [[ "$(shasum $VARDIR/spool/mailcleaner/clamav-unofficial-sigs | cut -d' ' -f1)" == "69c58585c04b136a3694b9546b77bcc414b52b12" ]]; then
+      if [ ! -e $VARDIR/spool/clamav/unofficial-sigs ]; then
+         echo "Installing Unofficial Signatures..." >> $VARDIR/log/clamav/freshclam.log
+         mkdir $VARDIR/spool/clamav/unofficial-sigs
+         /bin/chown clamav:clamav -R $VARDIR/spool/clamav/unofficial-sigs
+         $SRCDIR/scripts/cron/clamav-unofficial-sigs.sh --force >> $VARDIR/log/clamav/freshclam.log
+      else
+         echo "Updating Unofficial Signatures..." >> $VARDIR/log/clamav/freshclam.log
+         $SRCDIR/scripts/cron/clamav-unofficial-sigs.sh --update >> $VARDIR/log/clamav/freshclam.log
+      fi
+   else
+      echo "$VARDIR/spool/mailcleaner/clamav-unofficial-sigs exists but does not contain the correct information. Please enter exactly:"
+      echo "I have read the terms of use at: https://sanesecurity.com/usage/linux-scripts/"
+   fi
+fi
+
+echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Done." >> $VARDIR/log/clamav/freshclam.log
 removeLockFile "$FILE_NAME"

@@ -50,7 +50,31 @@ $cmd = "rm /opt/clamav/share/clamav/* >/dev/null 2>&1";
 $cmd = "ln -s $config{'VARDIR'}/spool/clamav/* /opt/clamav/share/clamav/ >/dev/null 2>&1";
 `$cmd`;
 
-print "DUMPSUCCESSFUL";
+if (-e "$config{'VARDIR'}/spool/mailcleaner/clamav-unofficial-sigs") {
+	if (-e "$config{'VARDIR'}/spool/clamav/unofficial-sigs") {
+		my @src = glob("$config{'VARDIR'}/spool/clamav/unofficial-sigs/*");
+		foreach my $s (@src) {
+			my $d = $s;
+			$d =~ s/unofficial-sigs\///;
+ 			unless (-e $d) {
+				symlink($s, $d);
+			}
+		}
+	} else {
+		print "$config{'VARDIR'}/spool/clamav/unofficial-sigs does not exist. Run $config{'SRCDIR'}/scripts/cron/update_antivirus.sh then try again\n";
+	}
+} else {
+	my @dest = glob("$config{'VARDIR'}/spool/clamav/*");
+	foreach my $d (@dest) {
+		my $s = $d;
+		$s =~ s/clamav/clamav\/unofficial-sigs/;
+		if (-l $d && $s eq readlink($d)) {
+			unlink($d);
+		}
+	}
+}
+
+print "DUMPSUCCESSFUL\n";
 
 #############################
 sub dump_file
