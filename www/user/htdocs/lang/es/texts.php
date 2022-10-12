@@ -135,7 +135,7 @@ $txt['SENDER'] = "Remitente";
 $txt['FORCED'] = "Liberado";
 $txt['ACTION'] = "Acción";
 //old
-$txt['TOTALSPAMS'] = "Total: __PARAM__ spam(s)";
+$txt['TOTALSPAMS'] = "Total: __ARGUMENTO__ correo basura (s)";
 //old
 $txt['FORTHEXLASTDAYS'] = "__PARAM__ últimos días";
 $txt['PURGESELECTEDSPAMS'] = "Purgar manualmente la cuarentena";
@@ -302,7 +302,7 @@ $txt['USERSTATS'] = "Estadísticas";
 //old
 $txt['USERMESGSSTAT'] = "__PARAM__ mensajes recibidos";
 //old
-$txt['USERSPAMSSTAT'] = "__PARAM__ spams";
+$txt['USERSPAMSSTAT'] = "__ARGUMENTO__ correos basura";
 //old
 $txt['USERSDANGEROUSSTAT'] = "__PARAM__ peligrosos";
 //old
