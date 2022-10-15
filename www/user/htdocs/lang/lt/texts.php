@@ -331,7 +331,7 @@ $txt['FROMDATETODATE'] = "from __PARAM1__.__PARAM2__.__PARAM3__ to __PARAM4__.__
 $txt['BADARGS'] = "Vidinė MailCleaner klaida (__PARAM__). Susisiekite su sistemos administratoriumi ir pateikite išsamią informaciją apie problemą.";
 $txt['INCORRECTMSGID'] = "The requested action could not be completed because the message identifier is incorrect.";
 $txt['NOSUCHADDR'] = "The given address is not protected by MailCleaner.";
-$txt['ERRORSENDING'] = "An error occured while sending the message. Please try again. If the problem persists, please contact your system administrator.";
+$txt['ERRORSENDING'] = "Siunčiant pranešimą įvyko klaida. Bandykite dar kartą. Jei problema išlieka, kreipkitės į sistemos administratorių.";
 $txt['MSGFORCED'] = "The message has been released and delivered to your mailbox. It should be available within the next few minutes.";
 $txt['MSGFILENOTFOUND'] = "The requested action could not be completed because the message is no longer in the quarantine.";
 /*
@@ -561,3 +561,4 @@ $txt['CANNOTLOADMESSAGE'] = "Nepavyko įkelti pranešimo (jis gali nebeegzistuot
 $txt['ADDTOGROUP'] = "Pridėti visiems grupės adresams";
 $txt['NEWSLONLY'] = "Rodyti tik naujienlaiškius";
 $txt['SPAMONLY'] = "Rodyti tik šlamštą";
+$txt['NEWSLETTERUNSUB'] = "Atsisakyti prenumeratos";
