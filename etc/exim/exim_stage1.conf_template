@@ -1082,7 +1082,7 @@ __IF__ USEARCHIVER
 archiver_route:
   debug_print = "R: archiver_route for $domain"
   driver = manualroute
-  condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}
+  condition = ${if def:header_X-MailCleaner-CopyTo:{0}{1}}
   senders = ${if and{ \
                  {exists{ARCHIVERDIR/${sender_address_domain}}} \
                  {!eq {$sender_address}{}} \
