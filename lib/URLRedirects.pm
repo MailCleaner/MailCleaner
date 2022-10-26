@@ -48,12 +48,12 @@ sub getServices
                                 return $url;
                         }
                 },
-                "Office 365" =>
+                "Office 365" => {
                         "regex"   => qr#.*safelinks\.protection\.outlook\.com/\?url=#,
                         "decoder" => sub {
                                 my $url = shift;
                                 $url =~ s#.*safelinks\.protection\.outlook\.com/\?url=(.*)#$1#;
-                                $url =~ uri_unescape($url);
+                                $url = uri_unescape($url);
                                 return $url;
                         }
                 },
@@ -90,11 +90,11 @@ sub getServices
                         }
                 },
                 "Trend Micro" => {
-                        "regex"   => qr#[\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=#,
+                        "regex"   => qr#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=#,
                         "decoder" => sub {
                                 my $url = shift;
-                                $url =~ s#[\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=([^&]*).*#$1#;
-                                $url = url_unescape($url);
+                                $url =~ s#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=([^&]*).*#$1#;
+                                $url = uri_unescape($url);
                                 return $url;
                         }
                 },
@@ -103,7 +103,7 @@ sub getServices
                         "decoder" => sub {
                                 my $url = shift;
                                 $url =~ s#twitter\.com\/i\/redirect\?url=([^&]*).*#$1#;
-                                $url = url_unescape($url);
+                                $url = uri_unescape($url);
                                 return $url;
                         }
                 }
