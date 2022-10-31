@@ -28,80 +28,106 @@ use URI::Escape;
 
 sub new
 {
-	my ($class, $args) = @_;
-	my $self = $args;
-	$self->{'services'} = getServices();
-	return bless $self;
+        my ($class, $args) = @_;
+        my $self = $args;
+        $self->{'services'} = getServices();
+        return bless $self;
 }
 
 sub getServices
 {
-	# List of known rewriting services. Each requires a 'regex' for the URL input
-	# pattern and a 'decoder' function which returns the decoded URL.
-	my %services = (
-		"Google Redirect" => {
-			"regex"	    => qr#www\.google\.com/url\?q=#,
-			"decoder"   => sub {
-	   			my $url = shift;
-           			$url =~ s#www\.google\.com/url\?q=(.*)#$1#;
-	   			$url = uri_unescape($url);
-	   			return $url;
-			}
-		},
-		"Proofpoint-v2" => {
-       			"regex"     => qr#urldefense\.proofpoint\.com/v2#,
-       			"decoder"   => sub {
-           			my $url = shift;
-           			$url =~ s|\-|\%|g;
-           			$url =~ s|_|\/|g;
-           			$url = uri_unescape($url);
-           			$url =~ s/^[^\?]*\?u=([^&]*)&.*$/$1/;
-           			return $url;
-       			}
-		},
-		"Proofpoint-v3" => {
-       			"regex"     => qr#urldefense\.com/v3#,
-       			"decoder"   => sub {
-           			my $url = shift;
-           			#$url =~ s|[^_]*__(.*)\$$|$1|;
-           			$url =~ s|[^_]*__(.*)/__.*|$1|;
-           			$url = uri_unescape($url);
-           			$url =~ s/^[^\?]*\?u=([^&]*)&.*$/$1/;
-           			return $url;
-       			}
-		},
-		"Roaring Penguin" => {
-       			"regex"     => qr#[^/]*/canit/urlproxy.php\?_q=[a-zA-Z0-9]+#,
-       			"decoder"   => sub {
-           			use MIME::Base64;
-           			my $url = shift;
-           			$url =~ s|[^/]*/canit/urlproxy\.php\?_q\=([^&]*).*|$1|;
-           			$url = uri_unescape($url) ;
-           			$url = decode_base64($url);
-           			return $url;
-       			}
-		}
-	);
-	return \%services;
+        # List of known rewriting services. Each requires a 'regex' for the URL input
+        # pattern and a 'decoder' function which returns the decoded URL.
+        my %services = (
+                "Google Redirect" => {
+                        "regex"   => qr#www\.google\.com/url\?q=#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#www\.google\.com/url\?q=(.*)#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                },
+                "Office 365" => {
+                        "regex"   => qr#.*safelinks\.protection\.outlook\.com/\?url=#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#.*safelinks\.protection\.outlook\.com/\?url=(.*)#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                },
+                "Proofpoint-v2" => {
+                        "regex"   => qr#urldefense\.proofpoint\.com/v2#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s|\-|\%|g;
+                                $url =~ s|_|\/|g;
+                                $url = uri_unescape($url);
+                                $url =~ s/^[^\?]*\?u=([^&]*)&.*$/$1/;
+                                return $url;
+                        }
+                },
+                "Proofpoint-v3" => {
+                        "regex"   => qr#urldefense\.com/v3#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s|[^_]*__(.*)/__.*|$1|;
+                                $url = uri_unescape($url);
+                                $url =~ s/^[^\?]*\?u=([^&]*)&.*$/$1/;
+                                return $url;
+                        }
+                },
+                "Roaring Penguin" => {
+                        "regex"   => qr#[^/]*/canit/urlproxy.php\?_q=[a-zA-Z0-9]+#,
+                        "decoder" => sub {
+                                use MIME::Base64;
+                                my $url = shift;
+                                $url =~ s|[^/]*/canit/urlproxy\.php\?_q\=([^&]*).*|$1|;
+                                $url = uri_unescape($url) ;
+                                $url = decode_base64($url);
+                                return $url;
+                        }
+                },
+                "Trend Micro" => {
+                        "regex"   => qr#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=([^&]*).*#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                },
+                "Twitter" => {
+                        "regex"   => qr#twitter\.com\/i\/redirect\?url=([^&]*).*#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#twitter\.com\/i\/redirect\?url=([^&]*).*#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                }
+        );
+        return \%services;
 }
 
 # The actual simple search and decode function
 sub decode
 {
-	my $self = shift;
-	my $url = shift;
+        my $self = shift;
+        my $url = shift;
 
-	foreach my $service (keys(%{$self->{'services'}})) {
-		if ($url =~ $self->{'services'}->{$service}->{'regex'}) {
-			my $decoded = $self->{'services'}->{$service}->{'decoder'}($url);
-			if ($decoded) {
-				return $decoded;
-			} else {
-				return undef;
-			}
-		}
-	}
-	return 0;
+        foreach my $service (keys(%{$self->{'services'}})) {
+                if ($url =~ $self->{'services'}->{$service}->{'regex'}) {
+                        my $decoded = $self->{'services'}->{$service}->{'decoder'}($url);
+                        if ($decoded) {
+                                return $decoded;
+                        } else {
+                                return undef;
+                        }
+                }
+        }
+        return 0;
 }
 
 1;
