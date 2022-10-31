@@ -1130,16 +1130,18 @@ archiver_route:
   debug_print = "R: archiver_route for $domain"
   driver = manualroute
   condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}
-  senders = ${if and{ \
-                 {!eq {$sender_address}{}} \
-                 {or {\
-                     {eq {$acl_c0}{relayed}} \
-                     {eq {$acl_c1}{authenticated}} \
-                 }}\
-                 {exists{ARCHIVERDIR/${sender_address_domain}}} \
-                 }\
+  senders = ${if \
+                 and{ \
+                     {!eq {$sender_address}{}} \
+                     {exists{ARCHIVERDIR/${sender_address_domain}}} \
+                     {or {\
+                         {eq {$acl_c0}{relayed}} \
+                         {eq {$acl_c1}{authenticated}} \
+                     }} \
+                 } \
                  {${lookup{$sender_address_domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}} \
-                 {} }
+                 {} \
+            }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
   self = send
