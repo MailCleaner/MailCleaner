@@ -1148,7 +1148,7 @@ archiver_route:
                          {eq {$acl_c1}{authenticated}} \
                      }} \
                  } \
-                 {${lookup{$sender_address_domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}} \
+                 {nwildlsearch;ARCHIVERDIR/${sender_address_domain}}\
                  {} \
             }
   transport = archiver_smtp_transport
