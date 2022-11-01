@@ -196,9 +196,19 @@ __IF__ USEARCHIVER
 archiver_route:
   debug_print = "R: archiver_route for $domain"
   driver = manualroute
-  condition = ${if eq{${local_part}@${domain}}{$original_local_part@$original_domain}}
-  domains = +relay_to_domains
-  local_parts = ${if exists{ARCHIVERDIR/${domain_data}} {nwildlsearch;ARCHIVERDIR/${domain_data}} {} }
+  domains = ${lookup{$domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}
+  condition = ${if \
+                  and{ \
+                      {def:domain_data} \
+                      {!eq {$domain_data}{}} \
+                      {eq{${local_part}@${domain}}{$original_local_part@$original_domain}} \
+                  }{yes}{no} \
+              }
+  local_parts = ${if \
+                    exists{ARCHIVERDIR/${domain_data}}\
+                        {lsearch,ret=key;ARCHIVERDIR/${domain_data}}\
+                        {}\
+                }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
   __INCLUDE__ stage4/remove_headers
