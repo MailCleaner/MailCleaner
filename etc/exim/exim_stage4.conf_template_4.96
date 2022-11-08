@@ -223,9 +223,9 @@ copyto_route:
   check_ancestor
   qualify_preserve_domain
   headers_add = X-MailCleaner-CopyTo: this is a message copy (original recipient: ${original_local_part}@${original_domain})
-  domains = +relay_to_domains
+  domains = ${lookup{$domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}
   data = ${if \
-            exists{COPYTODIR/${domain_data}} \
+             exists{COPYTODIR/${domain_data}} \
              {${lookup{$local_part}nwildlsearch{COPYTODIR/${domain_data}}} } \
              {}\
           }
