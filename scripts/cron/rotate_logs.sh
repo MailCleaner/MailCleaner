@@ -36,7 +36,14 @@ fi
 
 MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
 
-
+#########################
+## Dumper log rotating ##
+#########################
+# Rotate first so that the remaining services will dump to the new log when done
+if [ -s $VARDIR/log/mailcleaner/dumper.log ]; then
+        savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mailcleaner/dumper.log >/dev/null
+fi;
+ 
 ###################
 ## exim rotating ##
 ###################
