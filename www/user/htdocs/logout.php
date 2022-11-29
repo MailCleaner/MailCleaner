@@ -47,10 +47,10 @@ $file_conf = DataManager :: getFileConfig($sysconf_ :: $CONFIGFILE_);
 
 $is_enterprise = $file_conf['REGISTERED'] == '1';
 if ($is_enterprise) {
-        $mclink="http:www.mailcleaner.net";
+        $mclink="https://www.mailcleaner.net";
 	$mclinklabel="www.mailcleaner.net";
 } else {
-        $mclink="http://www.mailcleaner.org";
+        $mclink="https://www.mailcleaner.org";
 	$mclinklabel="www.mailcleaner.org";
 }
 
