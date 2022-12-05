@@ -302,27 +302,6 @@ unless ($skip) {
     }
   }
 
-  #######################################
-  ## check for RBLs, ClamAV, binary updates
-  #######################################
-  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
-     system($config{'SRCDIR'}."/bin/fetch_rbls.sh ".$randomize_option);
-     system($config{'SRCDIR'}."/bin/fetch_clamav.sh ".$randomize_option);
-     system($config{'SRCDIR'}."/bin/fetch_binary.sh ".$randomize_option);
-  }
-
-
-  #######################################
-  ## check for MailCleaner binary
-  #######################################
-  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && -e $config{'VARDIR'}."/run/mailcleaner.binary") {
-     system("cat ".$config{'VARDIR'}."/run/mailcleaner.binary | xargs ".$config{'SRCDIR'}."/etc/exim/mc_binary/mailcleaner-binary &>> /dev/null");
-     system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.binary &>> /dev/null");
-     system("touch ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
-  }
-
-
-
   #####################################
   # end $cron_occurence  minutes jobs #
   #####################################
@@ -533,6 +512,24 @@ if ($itsmidnight) {
 	        system($config{'SRCDIR'}."/bin/fetch_autoconf.sh &>> /dev/null");
 		system($config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh &>> /dev/null");
 	}
+  }
+
+  #######################################
+  ## check for RBLs, ClamAV, binary updates
+  #######################################
+  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
+     system($config{'SRCDIR'}."/bin/fetch_rbls.sh ".$randomize_option);
+     system($config{'SRCDIR'}."/bin/fetch_clamav.sh ".$randomize_option);
+     system($config{'SRCDIR'}."/bin/fetch_binary.sh ".$randomize_option);
+  }
+
+  #######################################
+  ## check for MailCleaner binary
+  #######################################
+  if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && -e $config{'VARDIR'}."/run/mailcleaner.binary") {
+     system("cat ".$config{'VARDIR'}."/run/mailcleaner.binary | xargs ".$config{'SRCDIR'}."/etc/exim/mc_binary/mailcleaner-binary &>> /dev/null");
+     system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.binary &>> /dev/null");
+     system("touch ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
   }
 
   ##################################
