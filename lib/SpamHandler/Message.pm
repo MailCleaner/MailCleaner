@@ -69,7 +69,7 @@ sub new {
         msg_subject => '',
 
         sc_nicebayes      => 0,
-        sc_spamc          => 0,
+        sc_spamc          => 'NULL',
         sc_newsl          => 0,
         sc_prerbls        => 0,
         sc_clamspam       => 0,
@@ -606,7 +606,7 @@ sub loadScores {
     }
 
     if ( $line =~ /.*(Commtouch|MessageSniffer) \(([^\)]*)/ ) {
-        if ($2 ne 'too big') {
+        if ($2 ne 'too big' && $2 !~ m/^0 \-.*/) {
             $this->decisiveModule($1,$line);
             $this->{sc_global} += 3;
             $this->{prefilters} .= ", ".$1;
@@ -629,16 +629,18 @@ sub loadScores {
         $this->{prefilters} .= ", UriRBLs";
     }
 
-    if ( $line =~ /.*Spamc \(score=(\d+\.\d+),.*/ ) {
-        $this->{sc_spamc} = $1;
-        $this->decisiveModule('Spamc',$line);
-        if ( int( $this->{sc_spamc} ) >= 5 )  {
-            $this->{sc_global}++;
-            $this->{prefilters} .= ", SpamC";
+    if ( $line =~ /.*Spamc \(score=(\d+\.\d+),([^\)]*)\)/ ) {
+        unless ($2 =~ m/, NONE,/) {
+            $this->{sc_spamc} = $1;
+            $this->decisiveModule('Spamc',$line);
+            if ( int( $this->{sc_spamc} ) >= 5 )  {
+                $this->{sc_global}++;
+                $this->{prefilters} .= ", SpamC";
+            }
+            if ( int( $this->{sc_spamc} ) >= 7 )  { $this->{sc_global}++; }
+            if ( int( $this->{sc_spamc} ) >= 10 ) { $this->{sc_global}++; }
+            if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
         }
-        if ( int( $this->{sc_spamc} ) >= 7 )  { $this->{sc_global}++; }
-        if ( int( $this->{sc_spamc} ) >= 10 ) { $this->{sc_global}++; }
-        if ( int( $this->{sc_spamc} ) >= 15 ) { $this->{sc_global}++; }
     }
 
     if ( $line =~ /.*ClamSpam \(([^,]*),/ ) {
