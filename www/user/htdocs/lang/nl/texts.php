@@ -146,7 +146,7 @@ $txt['HIDEFORCED'] = "Verberg gebruiker-vrijgegeven berichten";
 $txt['FORCESPAM'] = "geef dit bericht vrij";
 //old
 $txt['ASKREASON'] = "geef de filter regels weer";
-$txt['CONFSENDANALYSE'] = "Een filter aanpassing aanvraag zal verzonden worden naar het MailCleaner Analysis Center; het bevat een kopie van het bericht dat onterecht geblokkeerd werd.</ br> Opmerking: een filteraanpassing is niet hetzelfde als whitelisting of blacklisting";
+$txt['CONFSENDANALYSE'] = "Een filter aanpassing aanvraag zal verzonden worden naar het MailCleaner Analysis Center; het bevat een kopie van het bericht dat onterecht geblokkeerd werd.</ br> Opmerking: een filteraanpassing is niet hetzelfde als whitelisting of blacklisting.";
 $txt['AREYOUSURE'] = "<span class=\"question\">Ben je zeker dat je dit bericht wilt laten analyseren en dat de filter aanpassingen teogepast mogen worden?</span>";
 $txt['ASKANALYSE'] = "Filter aanpassing aanvraag";
 $txt['PAGE'] = "Pagina";
@@ -183,7 +183,7 @@ $txt['PREFILTERHITS'] = "Pre-filters";
 $txt['BLACKLISTS'] = "Zwarte lijsten";
 $txt['FITLERSCORE'] = "Score";
 $txt['NONE'] = "geen";
-$txt['HEADERS'] = "Headers";
+$txt['HEADERS'] = "Koppen";
 $txt['BODY'] = "Inhoud";
 $txt['PARTS'] = "Delen";
 $txt['STORESLAVE'] = "Opslag";
@@ -434,7 +434,7 @@ $txt['HTML'] = "HTML";
 $txt['DIGEST'] = "Samenvatting";
 $txt['KEEPBOUNCESINQUARANTINE'] = "Behoud foutboodschappen";
 $txt['PARAMETERSSAVED'] = "Je instellingen werden bewaard.";
-$txt['NOTSAVED'] = "Je kan instellingen konden niet bawaard worden.";
+$txt['NOTSAVED'] = "Je instellingen konden niet opgeslagen worden.";
 $txt['INVALIDSUMMARYTO'] = "Het opgegeven email adres voor de rapporten is ongeldig";
 /* 
  * quarantine  (new)
@@ -498,7 +498,7 @@ $txt['BLACKLISTSHORTHELP'] = "De zwarte lijst bevat een geblokkeerde afzender ad
 $txt['NLRELEASEDHEAD'] = "Niewsbrief is toegestaan en doorgelaten.";
 $txt['NLRELEASEDBODY'] = "De nieuwsbrief is vrijgegeven en doorgelaten. Het zou binnen enkele minuten in je mailbox aan moeten komen.";
 $txt['NLNOTRELEASEDHEAD'] = "Nieuwsbrief is niet doorgelaten";
-$txt['NLNOTRELEASEDBODY'] = "Er was een probleem met hij vrijgeven van je bericht. Probeer het later nog eens.";
+$txt['NLNOTRELEASEDBODY'] = "Er was een probleem met het vrijgeven van je bericht. Probeer het later nog eens.";
 //old
 $txt['EDITNEWSLIST'] = "bewerk nieuws lijst";
 //old
@@ -512,3 +512,7 @@ $txt['NEWSLISTFORADDRESS'] = "Nieuwsbrieven lijst voor het adres";
 $txt['ADDANEWSENTRY'] = "Voeg een adres toe aan de lijst";
 $txt['NEWSLISTENTRYTOADD'] = "Geef het adres in dat je wilt toevoegen aan de nieuwsbrieven lijst. Je kunt ook commentaar toevoegen.";
 $txt['REMOVEANEWSENTRYSHORTHELP'] = "Selecteer het adres of de adressen die je wilt bewerken van de lijst en klik op de gewenste actie knop.";
+$txt['SPAMONLY'] = "Alleen spam tonen";
+$txt['ADDTOGROUP'] = "Voor alle adressen in de groep toevoegen";
+$txt['NEWSLONLY'] = "Alleen nieuwsbrieven tonen";
+$txt['NEWSLETTERUNSUB'] = "Afmelden van deze nieuwsbrief";
