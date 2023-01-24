@@ -103,6 +103,7 @@ sub create {
 
   # first read main text part (also included in html version)
   $this->preParseTemplate($path.".txt");
+  $this->{headers}->{Subject} =~ s/\?\?ADDRESS/$to/;
   # then parse other parte if needed
   if ($type eq 'html' && -d $path."_parts") {
   	if ( opendir(DIR, $path."_parts")) {
