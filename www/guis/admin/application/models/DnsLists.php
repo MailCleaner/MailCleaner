@@ -23,7 +23,7 @@ class Default_Model_DnsLists
 		if (is_dir($this->_config_path)) {
 			if ($dh = opendir($this->_config_path)) {
                 while (($file = readdir($dh)) !== false) {
-                	if (preg_match('/^[A-Z]+\.cf$/', $file)) {
+                	if (preg_match('/^[0-9A-Z]+\.cf$/', $file)) {
                 	    $this->addRBLConfig($file);
                 	}
                 }

@@ -40,7 +40,7 @@ sub getServices
         # pattern and a 'decoder' function which returns the decoded URL.
         my %services = (
                 "Google Redirect" => {
-                        "regex"   => qr#www\.google\.com/url\?q=#,
+                        "regex"   => qr#(www|maps)\.google\.([a-z]{2,3}){1,2}/url\?q=#,
                         "decoder" => sub {
                                 my $url = shift;
                                 $url =~ s#www\.google\.com/url\?q=(.*)#$1#;

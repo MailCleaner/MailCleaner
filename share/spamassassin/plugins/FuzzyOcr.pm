@@ -67,7 +67,7 @@ BEGIN {
    }
 }
 
-use FuzzyOcr::Logging qw(debuglog errorlog warnlog infolog salog);
+use FuzzyOcr::Logging qw(debuglog errorlog warnlog infolog);
 use FuzzyOcr::Config qw(kill_pid
     get_tmpdir
     set_tmpdir
