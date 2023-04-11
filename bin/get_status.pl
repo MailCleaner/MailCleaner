@@ -1,7 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,94 +21,92 @@
 #
 #   This script will output some informations on the status of the system
 #
-#   Usage:
-#           get_status.pl [-s, -p, -l, -d, -m, -t]
-#   -s: output status of vital Mailcleaner processes
-#       processes are:
-#       	incoming MTA
-#       	queuing MTA
-#       	outgoing MTA
-#       	Web GUI
-#       	antispam/antivirus process
-#       	master database
-#       	slave database
-#          snmp daemon
-#          greylist daemon
-#          cron daemon
-#          Preference daemon
-#          firewall
-#   -p: output number of messages in spools
-#   -l: output system load
-#   -d: output disks usage
-#   -m: output memory counters
-#   -t: output the maximum waiting time for a message in each spool
-#   -u: output the last system patch
-#
-# processes code are:
-#     0: critical (not running and required)
-#     1: running
-#     2: stopped (not running but not required)
-#     3: needs restart
-#     4: currently stopping
-#     5: currently starting
-#     6: currently restarting (currently procesing stop/start script)
 
 use strict;
+use warnings;
+use utf8;
+
+# Process codes:
+my %codes = (
+    '0' => 'critical (not running and required)',
+    '1' => 'running',
+    '2' => 'stopped (not running but not required)',
+    '3' => 'needs restart',
+    '4' => 'currently stopping',
+    '5' => 'currently starting',
+    '6' => 'currently restarting (currently procesing stop/start script)'
+);
+
+if ($0 =~ m/(\S*)\/\S+.pl$/) {
+    my $path = $1."/../lib";
+    unshift (@INC, $path);
+}
 
 my %config = readConfig("/etc/mailcleaner.conf");
 
-my $mode_given = shift;
+my $mode_given;
+my $verbose = 0;
+while (scalar(@ARGV)) {
+    my $arg = shift;
+    if ($arg eq '-h') {
+        usage();
+    } elsif ($arg eq '-v' && !$verbose) {
+        $verbose = 1;
+    } elsif (!defined($mode_given)) {
+        $mode_given = $arg;
+    } else {
+        unshift(@ARGV, $arg);
+        print("Excess argument".(scalar(@ARGV) > 1 ? 's' : '').": ".join(', ', @ARGV)."\n");
+        usage();
+    }
+}
 my $mode = "";
 my $cmd;
 
-my %proc_strings = ( 'exim_stage1' => 'exim/exim_stage1.conf',
-		     'exim_stage2' => 'exim/exim_stage2.conf',
-		     'exim_stage4' => 'exim/exim_stage4.conf',
-		     'apache' => 'apache/httpd.conf',
-		     'mailscanner' => 'MailScanner',
-		     'mysql_master' => 'mysql/my_master.cnf',
-		     'mysql_slave' => 'mysql/my_slave.cnf',
-		     'snmpd' => 'snmp/snmpd.conf',
-		     'greylistd' => 'greylistd/greylistd.conf',
-		     'cron' => '/usr/sbin/cron',
-		     'preftdaemon' => 'PrefTDaemon',
-		     'spamd' => 'spamd.sock',
-		     'clamd' => 'clamd.conf',
-		     'clamspamd' => 'clamspamd.conf',
-                     'newsld' => 'newsld.sock',
-		     'spamhandler' => 'SpamHandler');
-
-my @order = ('exim_stage1', 'exim_stage2', 'exim_stage4', 'apache', 'mailscanner', 'mysql_master', 'mysql_slave', 'snmpd', 'greylistd', 'cron', 'preftdaemon', 'spamd', 'clamd', 'clamspamd', 'spamhandler', 'newsld');
-		     
+my @order = (
+    { 'id' => 'exim_stage1', 'proc' => 'exim/exim_stage1.conf', 'human' => 'Incoming MTA' },
+    { 'id' => 'exim_stage2', 'proc' => 'exim/exim_stage2.conf', 'human' => 'Filtering MTA' },
+    { 'id' => 'exim_stage4', 'proc' => 'exim/exim_stage4.conf', 'human' => 'Outgoing MTA' },
+    { 'id' => 'apache', 'proc' => 'apache/httpd.conf', 'human' => 'Web Server' },
+    { 'id' => 'mailscanner', 'proc' => 'MailScanner', 'human' => 'Filtering Engine' },
+    { 'id' => 'mysql_master', 'proc' => 'mysql/my_master.cnf', 'human' => 'Master Database' },
+    { 'id' => 'mysql_slave', 'proc' => 'mysql/my_slave.cnf', 'human' => 'Slave Database' },
+    { 'id' => 'snmpd', 'proc' => 'snmpd.conf', 'human' => 'SNMP Daemon' },
+    { 'id' => 'greylistd', 'proc' => 'greylist/greylistd.conf', 'human' => 'Greylist Daemon' },
+    { 'id' => 'cron', 'proc' => '/usr/sbin/cron', 'human' => 'Scheduler' },
+    { 'id' => 'preftdaemon', 'proc' => 'PrefTDaemon', 'human' => 'Preferences Daemon' },
+    { 'id' => 'spamd', 'proc' => 'spamd.sock', 'human' => 'SpamAssassin Daemon' },
+    { 'id' => 'clamd', 'proc' => 'clamd.conf', 'human' => 'ClamAV Daemon' },
+    { 'id' => 'clamspamd', 'proc' => 'clamspamd.conf', 'human' => 'ClamSpam Daemon' },
+    { 'id' => 'newsld', 'proc' => 'newsld.sock', 'human' => 'Newsletter Daemon' },
+    { 'id' => 'spamhandler', 'proc' => 'SpamHandler', 'human' => 'SpamHandler Daemon' },
+    { 'id' => 'firewall', 'proc' => 'SpamHandler', 'human' => 'Firewall' }
+);
 
 my $res;
 if (! $mode_given) {
-	bad_usage();
+    usage();
 }
-if  ($mode_given =~ /s/) { 
+if ($mode_given =~ /s/) {
     my $restartdir = $config{VARDIR}."/run/";
-	$cmd = "ps -efww";
-	$res = `$cmd`;
-	foreach my $key (@order) {
-		my $st = 0;
-		if ($res =~ /$proc_strings{$key}/ ) {
-			$st = 1;
-		} else {
-			#if ($key eq 'mysql_master' && $config{ISMASTER} =~ m/n|N/ ) {
-	        #  $st = 2;
-		    #} elsif ($key eq 'greylistd' && getNumberOfGreylistDomains() < 1) {
-		    #  $st = 2;
-		    #} else {
-			#  $st = 0;
-			#}
-		}
+    my @output;
+    my $i = 0;
+    $cmd = "ps -efww";
+    $res = `$cmd`;
+    foreach my $service (@order) {
+    last if ($service->{'id'} eq 'firewall');
+    my $key = $service->{'id'};
+        my $st = 0;
+        if ($res =~ /$service->{'proc'}/ ) {
+            $st = 1;
+        }
         if ($st == 0 && -f $restartdir."/".$key.".stopped") {
             $st = 2;
         }
-		if ( -f $restartdir.$key.".rn") {
-			$st = 3;
-		}
-		if ( -f $restartdir.$key.".start.rs") {
+        if ( -f $restartdir.$key.".rn") {
+            $st = 3;
+        }
+        if ( -f $restartdir.$key.".start.rs") {
             $st = 4;
         }
         if ( -f $restartdir.$key.".stop.rs") {
@@ -116,134 +115,187 @@ if  ($mode_given =~ /s/) {
         if ( -f $restartdir.$key.".restart.rs") {
             $st = 6;
         }
-		print '|'.$st;
-		
-	}
+        $order[$i++]{'status'} = $st;
+    }
 
-	$res = `cat /tmp/fw.lock 2> /dev/null`;
+    $res = `cat /tmp/fw.lock 2> /dev/null`;
     my $st = 2;
-	if ($res =~ /^1$/) {
-		$st = 1;
-	}
-	if (-f $restartdir."firewall.restart.rs") {
-		$st = 6
-	} elsif (-f $restartdir."firewall.stop.rs") {
-		$st = 5;
-	} elsif (-f $restartdir."firewall.start.rs") {
-		$st = 4;
-	} elsif (-f $restartdir."firewall.rn") {
-                $st = 3;
+    if ($res =~ /^1$/) {
+        $st = 1;
+    }
+    if (-f $restartdir."firewall.restart.rs") {
+        $st = 6
+    } elsif (-f $restartdir."firewall.stop.rs") {
+        $st = 5;
+    } elsif (-f $restartdir."firewall.start.rs") {
+        $st = 4;
+    } elsif (-f $restartdir."firewall.rn") {
+        $st = 3;
+    }
+    $order[$i]->{'status'} = $st;
+    if ($verbose) {
+        foreach my $service (@order) {
+            printf("%-20s %s\n", $service->{'human'}.':', $codes{$service->{'status'}});
         }
-    print '|'.$st;
-	print "\n";
-}
-elsif  ($mode_given =~ /p/) {
- 	my @spools = ('exim_stage1', 'exim_stage2', 'exim_stage4');
-	foreach my $key (@spools) {	
-                if ($key !~ m/^exim_stage2$/) {
-                  $cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/$key.conf -bpc";
-                } else {
-                  my $subcmd = "grep -e '^MTA\\s*=\\s*eximms' ".$config{SRCDIR}."/etc/mailscanner/MailScanner.conf";
-                  my $type = `$subcmd`;
-                  if ($type eq '') {
-                    $cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/$key.conf -bpc";
-                  } else {
-                    $cmd = "ls $config{VARDIR}/spool/exim_stage2/input/*.env 2>&1 | grep -v 'No such' | wc -l";
-                  }
-                }
-		#$cmd = "ls $config{VARDIR}/spool/$key/input | wc -l ";
-		$res = `$cmd`;
-		chomp($res);
-		#my $val = int(($res)/2);
-		#print "|$val";
-                print "|$res";
-	}
-	print "\n";
-}
-elsif  ($mode_given =~ /l/) { 
-	$cmd = "cat /proc/loadavg | cut -d' ' -f-3";
-	$res = `$cmd`;
-	chomp($res);
-	my @loads = split(/ /, $res);
-	print "|$loads[0]|$loads[1]|$loads[2]\n";
-}
-elsif ($mode_given =~ /d/) {
-	$cmd = "df";
-	$res = `$cmd`;
-	my @lines = split(/\n/, $res);
-	foreach my $line (@lines) {
-		if ($line =~ /\S+\s+\d+\s+\d+\s+\d+\s+(\d+\%)\s+(\S+)/) {
-			print "|$2|$1";
-		}
-	}
-	print "\n";
-}
-elsif ($mode_given =~ /m/) {
-	$cmd = "cat /proc/meminfo";
-	$res = `$cmd`;
-	my @fields = ('MemTotal', 'MemFree', 'SwapTotal', 'SwapFree');
-	foreach my $field (@fields) {
-		if ($res =~ /$field:\s+(\d+)/) {
-			print "|$1";
-		} 
-	}
-	print "\n";
-}
-elsif ($mode_given =~ /t/) {
-	$cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/exim_stage2.conf -bp | head -1 | cut -d' ' -f2";
-	$res = `$cmd`;
-	chomp($res);
-	print $res."\n";
-}
-elsif ($mode_given =~ /u/) {
-        $cmd = "echo \"use mc_config; select id, date from update_patch order by id desc limit 1;\" | /opt/mysql5/bin/mysql --skip-column-names -S $config{VARDIR}/run/mysql_slave/mysqld.sock -umailcleaner -p$config{MYMAILCLEANERPWD}";
-	$res = `$cmd`;
-	my $patch = "";
-	if ($res =~ /^(\d+)\s+(\S+)$/) {
-	  $patch = $1;
-	}
+    } else {
+        print(
+            '|'.
+            join('|', map { $_->{'status'} } @order)
+            ."\n"
+        );
+    }
+} elsif  ($mode_given =~ /p/) {
+    foreach ( 0 .. 2 ) {
+    my $key = $order[$_]->{'id'};
+        if ($key eq 'exim_stage2') {
+            my $subcmd = "grep -e '^MTA\\s*=\\s*eximms' ".$config{SRCDIR}."/etc/mailscanner/MailScanner.conf";
+            my $type = `$subcmd`;
+            if ($type eq '') {
+                $cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/$key.conf -bpc";
+            } else {
+                $cmd = "ls $config{VARDIR}/spool/exim_stage2/input/*.env 2>&1 | grep -v 'No such' | wc -l";
+            }
+        } else {
+            $cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/$key.conf -bpc";
+        }
+        $res = `$cmd`;
+        chomp($res);
+        $order[$_]->{'queue'} = $res;
+    }
+    if ($verbose) {
+        foreach ( 0 .. 2 ) {
+            printf("%-16s %d\n", $order[$_]->{'human'}.":", $order[$_]->{'queue'});
+        }
+    } else {
+        print('|'.$order[$_]->{'queue'}) foreach ( 0 .. 2 );
+        print "\n";
+    }
+} elsif  ($mode_given =~ /l/) {
+    $cmd = "cat /proc/loadavg | cut -d' ' -f-3";
+    $res = `$cmd`;
+    chomp($res);
+    my @loads = split(/ /, $res);
+    if ($verbose) {
+        printf("Last %02s minutes: %.2f\n", $_*5, $loads[$_-1]) foreach (1 .. 3);
+    } else {
+        print "|$loads[0]|$loads[1]|$loads[2]\n";
+    }
+} elsif ($mode_given =~ /d/) {
+    $cmd = "df";
+    $res = `$cmd`;
+    my @lines = split(/\n/, $res);
+    foreach my $line (@lines) {
+        if ($line =~ /\S+\s+\d+\s+\d+\s+\d+\s+(\d+\%)\s+(\S+)/) {
+            if ($verbose) {
+                printf("%-28s %s\n", $2.':', $1);
+            } else {
+                print "|$2|$1";
+            }
+        }
+    }
+    print "\n" unless ($verbose);
+} elsif ($mode_given =~ /m/) {
+    $cmd = "cat /proc/meminfo";
+    $res = `$cmd`;
+    my @fields = ('MemTotal', 'MemFree', 'SwapTotal', 'SwapFree');
+    foreach my $field (@fields) {
+        if ($res =~ /$field:\s+(\d+)/) {
+            if ($verbose) {
+                printf("%-10s %dMB\n", $field.':', $1 >> 10);
+            } else {
+                print "|$1";
+            }
+        }
+    }
+    print "\n" unless ($verbose);
+} elsif ($mode_given =~ /t/) {
+    $cmd = "/opt/exim4/bin/exim -C $config{SRCDIR}/etc/exim/exim_stage2.conf -bp | head -1 | cut -d' ' -f2";
+    $res = `$cmd`;
+    chomp($res);
+    if ($verbose) {
+        print("Longest time in filtering queue: ".( $res ? $res : 'immediate')."\n");
+    } else {
+        print($res."\n");
+    }
+} elsif ($mode_given =~ /u/) {
+    $cmd = "echo \"use mc_config; select id, date from update_patch order by id desc limit 1;\" | /opt/mysql5/bin/mysql --skip-column-names -S $config{VARDIR}/run/mysql_slave/mysqld.sock -umailcleaner -p$config{MYMAILCLEANERPWD}";
+    $res = `$cmd`;
+    my $patch = "";
+    if ($res =~ /^(\d+)\s+(\S+)$/) {
+        $patch = $1;
+    }
+    if ($verbose) {
+        print "Patch level: $patch\n";
+    } else {
         print $patch."\n";
-}
-else {
-	bad_usage();
+    }
+} else {
+    usage();
 }
 
-sub bad_usage 
+sub usage
 {
-        printf("Usage: get_status.pl [-s, -p, -l, -d, -m, -t, -u]\n");
-        exit(1);
+    print(
+"Usage:
+    get_status.pl [-s, -p, -l, -d, -m, -t, -u] <-v>
+
+    -s: output status of vital Mailcleaner processes:
+        Incoming MTA
+        Filtering MTA
+        Outgoing MTA
+        Web GUI
+        Filtering Engine (MailScanner)
+        Master Database
+        Slave Database
+        Snmp Daemon
+        Greylist Daemon
+        Cron Daemon
+        Preference Daemon
+        Firewall
+    -p: output number of messages in spools
+        Incoming MTA
+        Filtering MTA
+        Outgoing MTA
+    -l: output system load
+    -d: output disks usage
+    -m: output memory counters
+    -t: output the maximum waiting time for a message in each spool
+    -u: output the last system patch
+    -v: verbose print for humans
+    -h: this menu
+");
+    exit(1);
 }
 
 sub getNumberOfGreylistDomains
 {
-  my $cmd = "wc -l ".$config{VARDIR}."/spool/mailcleaner/domains_to_greylist.list  | cut -d' ' -f1";
-  my $res = `$cmd`;
-  if ($res =~ m/(\d+)\s+/) {
-    return $1;
-  }
-  return 0;
+    my $cmd = "wc -l ".$config{VARDIR}."/spool/mailcleaner/domains_to_greylist.list  | cut -d' ' -f1";
+    my $res = `$cmd`;
+    if ($res =~ m/(\d+)\s+/) {
+        return $1;
+    }
+    return 0;
 }
 
 #############################
 sub readConfig
 {
-        my $configfile = shift;
-        my %config;
-        my ($var, $value);
+    my $configfile = shift;
+    my %config;
+    my ($var, $value);
 
-        open CONFIG, $configfile or die "Cannot open $configfile: $!\n";
-        while (<CONFIG>) {
-                chomp;                  # no newline
-                s/#.*$//;                # no comments
-                s/^\*.*$//;             # no comments
-                s/;.*$//;                # no comments
-                s/^\s+//;               # no leading white
-                s/\s+$//;               # no trailing white
-                next unless length;     # anything left?
-                my ($var, $value) = split(/\s*=\s*/, $_, 2);
-                $config{$var} = $value;
-        }
-        close CONFIG;
-        return %config;
+    open (my $CONFIG, '<', $configfile) or die "Cannot open $configfile: $!\n";
+    while (<$CONFIG>) {
+        chomp;              # no newline
+        s/#.*$//;           # no comments
+        s/^\*.*$//;         # no comments
+        s/;.*$//;           # no comments
+        s/^\s+//;           # no leading white
+        s/\s+$//;           # no trailing white
+        next unless length; # anything left?
+        my ($var, $value) = split(/\s*=\s*/, $_, 2);
+        $config{$var} = $value;
+    }
+    close $CONFIG;
+    return %config;
 }
-
