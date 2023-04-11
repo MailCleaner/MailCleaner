@@ -72,7 +72,7 @@ my @order = (
     { 'id' => 'mysql_master', 'proc' => 'mysql/my_master.cnf', 'human' => 'Master Database' },
     { 'id' => 'mysql_slave', 'proc' => 'mysql/my_slave.cnf', 'human' => 'Slave Database' },
     { 'id' => 'snmpd', 'proc' => 'snmpd.conf', 'human' => 'SNMP Daemon' },
-    { 'id' => 'greylistd', 'proc' => 'greylist/greylistd.conf', 'human' => 'Greylist Daemon' },
+    { 'id' => 'greylistd', 'proc' => 'greylistd/greylistd.conf', 'human' => 'Greylist Daemon' },
     { 'id' => 'cron', 'proc' => '/usr/sbin/cron', 'human' => 'Scheduler' },
     { 'id' => 'preftdaemon', 'proc' => 'PrefTDaemon', 'human' => 'Preferences Daemon' },
     { 'id' => 'spamd', 'proc' => 'spamd.sock', 'human' => 'SpamAssassin Daemon' },
