@@ -43,15 +43,20 @@ sub get {
 
 sub do {
   my $this = shift;
+  my $layout = '';
 
   require $this->{mapfile};
   my $dfact = DialogFactory::get('InLine');
   $this->{dlg} = $dfact->getListDialog();
 
   my %list = %{$::keymaps->{pc}};
-  my $file = $this->dolist(\%list, 'pc');
+  my $file = $this->dolist(\%list, 'pc', \$layout);
 
-  `install-keymap $file 2>&1 > /dev/null`;
+  # Load temporary keymap
+  `loadkeys $file 2>&1 > /dev/null`;
+  # Load persistent keymap
+  unlink("/etc/console/boottime.kmap.gz") if ( -e "/etc/console/boottime.kmap.gz");
+  `ln -s $this->{mapdir}/$layout/$file.kmap.gz /etc/console/boottime.kmap.gz 2>&1 > /dev/null`;
 }
 
 
@@ -59,6 +64,7 @@ sub dolist {
   my $this = shift;
   my $listh = shift;
   my $parent = shift;
+  my $layout = shift;
   return $listh unless ref($listh) eq 'HASH';
   my %list = %{$listh};
 
@@ -70,7 +76,8 @@ sub dolist {
   my $dlg = $this->{dlg};
   $dlg->build('Make your choice ('.$parent.')', \@dlglist, 1);
   my $res = $dlg->display();
-  return $this->dolist($list{$res}, $res);
+  $$layout = $res if ($$layout eq '');
+  return $this->dolist($list{$res}, $res, \'skip');
 }
 
 1;
