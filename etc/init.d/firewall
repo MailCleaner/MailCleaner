@@ -20,7 +20,7 @@ case "$1" in
     touch $VARDIR/run/firewall.start.rs
     echo -n "  Starting firewall: "
     prepare
-    $SRCDIR/etc/firewall/start >/dev/null 2>&1
+    $SRCDIR/etc/firewall/start >/dev/null 2>&1 &
     echo "1" > $LOCKFILE
     echo -n "started."
     echo "."
@@ -38,9 +38,9 @@ case "$1" in
       $SRCDIR/etc/init.d/fail2ban status 1> /dev/null 2>&1
       if [ $? != 0 ]; then
         echo "Starting Fail2Ban"
-        $SRCDIR/etc/init.d/fail2ban start 2> /dev/null
+        $SRCDIR/etc/init.d/fail2ban start 2> /dev/null &
       fi
-      fail2ban.py internal reload-fw firewall
+      fail2ban.py internal reload-fw firewall 2>/dev/null &
     fi
     ;;
   stop)
