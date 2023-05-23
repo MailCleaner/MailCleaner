@@ -218,27 +218,47 @@ sub do_start_script
 		print START $ip6tables." -A INPUT -p ipv6-icmp -j ACCEPT\n";
 	}
 
+	my $globals = {
+		'4' => {},
+		'6' => {}
+	};
 	foreach my $description (sort keys %rules) {
 		my @ports = split '\|', $rules{$description}[0];
 		my @protocols = split '\|', $rules{$description}[1];
 		foreach my $port (@ports) {
 			foreach my $protocol (@protocols) {
 				my $host = $rules{$description}[2];
-				if ($host =~ m/\:/) {
-					if ($has_ipv6) {
-						print START "\n# $description\n";
-						print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
-					}
-				} else {
-
+				# Globals
+				if ($host eq '0.0.0.0/0' || $host eq '::/0') {
+					next if ($globals->{'4'}->{$port});
 					print START "\n# $description\n";
-					my $reply = $dnsres->query($host, "AAAA");
-					if ($reply) {
-						print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
-					}
-					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
-					if ($host eq '0.0.0.0/0' && $has_ipv6) {
+					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -j ACCEPT\n";
+					$globals->{'4'}->{$port} = 1;
+					if ($has_ipv6) {
+						$globals->{'6'}->{$port} = 1;
 						print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -j ACCEPT\n";
+					}
+				# IPv6
+				} elsif ($host =~ m/\:/) {
+					next unless ($has_ipv6);
+					next if ($globals->{'6'}->{$port});
+					print START "\n# $description\n";
+					print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
+				# IPv4
+				} elsif ($host =~ m/^(\d+\.){3}\d+(\/\d+)?$/) {
+					next if ($globals->{'4'}->{$port});
+					print START "\n# $description\n";
+					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
+				# Hostname
+				} else {
+					next if ($globals->{'4'}->{$port});
+					print START "\n# $description\n";
+					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
+					if ($has_ipv6) {
+						my $reply = $dnsres->query($host, "AAAA");
+						if ($reply) {
+							print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
+						}
 					}
 				}
 			}
