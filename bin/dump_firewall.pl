@@ -230,28 +230,28 @@ sub do_start_script
 				my $host = $rules{$description}[2];
 				# Globals
 				if ($host eq '0.0.0.0/0' || $host eq '::/0') {
-					next if ($globals->{'4'}->{$port});
+					next if ($globals->{'4'}->{$port}->{$protocol});
 					print START "\n# $description\n";
 					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -j ACCEPT\n";
-					$globals->{'4'}->{$port} = 1;
+					$globals->{'4'}->{$port}->{$protocol} = 1;
 					if ($has_ipv6) {
-						$globals->{'6'}->{$port} = 1;
+						$globals->{'6'}->{$port}->{$protocol} = 1;
 						print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -j ACCEPT\n";
 					}
 				# IPv6
 				} elsif ($host =~ m/\:/) {
 					next unless ($has_ipv6);
-					next if ($globals->{'6'}->{$port});
+					next if ($globals->{'6'}->{$port}->{$protocol});
 					print START "\n# $description\n";
 					print START $ip6tables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
 				# IPv4
 				} elsif ($host =~ m/^(\d+\.){3}\d+(\/\d+)?$/) {
-					next if ($globals->{'4'}->{$port});
+					next if ($globals->{'4'}->{$port}->{$protocol});
 					print START "\n# $description\n";
 					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
 				# Hostname
 				} else {
-					next if ($globals->{'4'}->{$port});
+					next if ($globals->{'4'}->{$port}->{$protocol});
 					print START "\n# $description\n";
 					print START $iptables." -A INPUT -p ".$protocol." --dport ".$port." -s ".$host." -j ACCEPT\n";
 					if ($has_ipv6) {
