@@ -53,7 +53,7 @@ our %defaultActions = (
 		'desc'		=> 'get current status',
 		'cmd'		=> sub { 
 			my $self = shift;
-			return $self->status();
+			return $self->status(0);
 		},
 	},
 	'enable'	=> {
@@ -74,7 +74,7 @@ our %defaultActions = (
 		'desc'		=> 'get process id(s) for service',
 		'cmd'		=> sub {
 			my $self = shift;
-			if ($self->status() == 7) {
+			if ($self->status(0) == 7) {
 				return $self->clearFlags(7);
 			}
 			my @pids = $self->pids();
@@ -205,16 +205,11 @@ sub getServices
 			#'module'	=> 'Exim',
 			#'critical'	=> 1,
 		#},
-		'fail2ban'	=> {
-			'name'		=> 'Fail2Ban',
-			'module'	=> 'Fail2Ban',
-			'critical'	=> 0,
-		},
-		'fail2ban-server'	=> {
-			'name'		=> 'Fail2Ban-Server',
-			'module'	=> 'Fail2BanServer',
-			'critical'	=> 0,
-		},
+		#'fail2ban'	=> {
+			#'name'		=> 'Fail2Ban',
+			#'module'	=> 'Fail2Ban',
+			#'critical'	=> 1,
+		#},
 		#'greylistd'	=> {
 			#'name'		=> 'Greylist daemon',
 			#'module'	=> 'GreylistD',
@@ -477,15 +472,9 @@ sub createModule
 sub status
 {
 	my $self = shift;
-	my $service = shift;
-	if (defined($service)) {
+	unless (defined($self->{'module'})) {
+		my $service = shift || die "Either run \$self->loadModule('service_name') first\nor run with service name: \$self->status('service_name')";
 		$self->loadModule($service);
-	} elsif (defined($self->{'service'})) {
-		$service = $self->{'service'};
-	} elsif (defined($self->{'module'})) {
-		$self->loadModule($self->{'name'});
-	} else {
-		die "Either run \$self->loadModule('service_name') first\nor run with service name: \$self->status('service_name')";
 	}
 	my $autoStart = shift;
 	unless (defined($autoStart)) {
@@ -547,18 +536,12 @@ sub status
 sub start
 {
 	my $self = shift;
-	my $service = shift;
-	if (defined($service)) {
+	unless (defined($self->{'module'})) {
+		my $service = shift || die "Either run \$self->loadModule('service_name') first\nor run with service name: \$self->start('service_name')";
 		$self->loadModule($service);
-	} elsif (defined($self->{'service'})) {
-		$service = $self->{'service'};
-	} elsif (defined($self->{'module'})) {
-		$self->loadModule($service);
-	} else {
-		die "Either run \$self->loadModule('service_name') first\nor run with service name: \$self->status('service_name')";
 	}
 
-	if ($self->status() == 7) {
+	if ($self->status(0) == 7) {
 		return $self->clearFlags(7);
 	}
 
