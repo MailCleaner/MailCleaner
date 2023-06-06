@@ -282,7 +282,7 @@ sub do_start_script
 				$blacklist = 1;
 				foreach my $IP (<BLACK_IP>) {
 					chomp($IP);
-					print BLACKLIST "$iptables -I BLACKLIST 1 -s $IP -j DROP\n";
+					print BLACKLIST "$iptables -I BLACKLIST 1 -s $IP -j REJECT\n";
 				}
 				close BLACKLIST;
 				close BLACK_IP;
