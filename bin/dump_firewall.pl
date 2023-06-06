@@ -49,6 +49,7 @@ my %services = (
 );
 my $iptables = "/sbin/iptables";
 my $ip6tables = "/sbin/ip6tables";
+my $ipset = "/usr/sbin/ipset";
 
 my $lasterror = "";
 my $has_ipv6 = 0;
@@ -272,24 +273,23 @@ sub do_start_script
 	foreach my $blacklist_file (@blacklist_files) {
 		if ( -e $blacklist_file ) {
 			if ( open(BLACK_IP, '<', $blacklist_file) ) {
-				open(BLACKLIST, '>>', $blacklist_script);
 				if ( $blacklist == 0 ) {
-					print BLACKLIST "#! /bin/sh\n\n";
-					print BLACKLIST "$iptables -N BLACKLIST\n";
-					print BLACKLIST "$iptables -A BLACKLIST -j RETURN\n";
-					print BLACKLIST "$iptables -I INPUT 1 -j BLACKLIST\n\n";
+					open(BLACKLIST, '>>', $blacklist_script);
+					print BLACKLIST "#!/bin/sh\n\n";
+					print BLACKLIST "$ipset -N blacklist nethash\n";
 				}
 				$blacklist = 1;
 				foreach my $IP (<BLACK_IP>) {
 					chomp($IP);
-					print BLACKLIST "$iptables -I BLACKLIST 1 -s $IP -j DROP\n";
+					print BLACKLIST "$ipset add blacklist $IP\n";
 				}
-				close BLACKLIST;
 				close BLACK_IP;
 			}
 		}
 	}
 	if ( $blacklist == 1 ) {
+		print BLACKLIST "$iptables -I INPUT -m set --match-set blacklist src -j REJECT\n\n";
+		close BLACKLIST;
 		chmod 0755, $blacklist_script;
 		print START "\n$blacklist_script\n";
 	}
