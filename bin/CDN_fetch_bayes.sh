@@ -83,7 +83,7 @@ if [[ "$CURRENT_CRED" != "$NEW_CRED" ]]; then
 # Updating Bayes_toks
 	# Getting MD5
 	rm -f /tmp/bayes_toks.md5 > /dev/null 2>&1
-	wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/downloads/bayes/bayes_toks.md5 -P /tmp/ > /dev/null 2>&1
+	wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/bayesdb/bayes_toks.md5 -P /tmp/ > /dev/null 2>&1
 	if [ ! -f /tmp/bayes_toks.md5 ]; then
 		log "Could not retrieve bayes_toks.md5"
 		exit 1
@@ -97,7 +97,7 @@ if [[ "$CURRENT_CRED" != "$NEW_CRED" ]]; then
 
 	# If MD5 changed then the associated bayesians have to be updated
 	if [[ "$CURRENT_MD5" != "$NEW_MD5" ]]; then
-		wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/downloads/bayes/bayes_toks -P /tmp/ > /dev/null 2>&1
+		wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/bayesdb/bayes_toks -P /tmp/ > /dev/null 2>&1
 		if [ ! -f /tmp/bayes_toks ]; then
 			log "Could not retrieve bayes_toks"
 			exit 1
@@ -112,7 +112,7 @@ if [[ "$CURRENT_CRED" != "$NEW_CRED" ]]; then
 # Updating wordlist.db
         # Getting MD5
         rm -f /tmp/wordlist.db.md5 > /dev/null 2>&1
-        wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/downloads/bayes/wordlist.db.md5 -P /tmp/ > /dev/null 2>&1
+        wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/bayesdb/wordlist.db.md5 -P /tmp/ > /dev/null 2>&1
         if [ ! -f /tmp/wordlist.db.md5 ]; then
                 log "Could not retrieve wordlist.db.md5"
                 exit 1
@@ -126,7 +126,7 @@ if [[ "$CURRENT_CRED" != "$NEW_CRED" ]]; then
 
         # If MD5 changed then the associated bayesians have to be updated
         if [[ "$CURRENT_MD5" != "$NEW_MD5" ]]; then
-                wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/downloads/bayes/wordlist.db -P /tmp/ > /dev/null 2>&1
+                wget --user=$USER --password=$PASS https://cdnpush.s3.us-east-2.stackpathstorage.com/bayesdb/wordlist.db -P /tmp/ > /dev/null 2>&1
                 if [ ! -f /tmp/wordlist.db ]; then
                         log "Could not retrieve wordlist.db"
                         exit 1
