@@ -360,6 +360,11 @@ function eset() {
     rm efs.x86_64.bin
     rm efs-*.deb
   fi
+  echo "Adding administration port to firewall..."
+  if [[ $(echo "SELECT COUNT(port) FROM external_access WHERE port = '9443';" | mc_mysql -m mc_config | tail -n 1) == 0 ]]; then
+    echo "INSERT INTO external_access(service, port, protocol, allowed_ip) VALUES('web', '9443', 'TCP', '0.0.0.0/0');" | mc_mysql -m mc_config
+  fi
+  /usr/mailcleaner/etc/init.d/firewall restart
 
   printf "Enabling ESET ... \n"
   /opt/eset/efs/sbin/lic -u $user -p $key
