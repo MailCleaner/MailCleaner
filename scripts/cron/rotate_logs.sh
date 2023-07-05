@@ -185,7 +185,7 @@ $SRCDIR/etc/init.d/mysql_slave restart
 ##################
 if [ -x /usr/bin/savelog ]; then
     if [ -s $VARDIR/log/mysql_master/mysql.log ]; then
-        savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mysql_master/$i >/dev/null
+        savelog -p -c $DAYSTOKEEP -C $VARDIR/log/mysql_master/mysql.log >/dev/null
     fi
 fi
 
