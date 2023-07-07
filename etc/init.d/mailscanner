@@ -139,6 +139,9 @@ case "$1" in
 	;;
   stop)
     touch $VARDIR/run/mailscanner.stop.rs
+    if [ -d /opt/eset/efs ]; then
+      pkill -9 logd
+    fi
 	echo -n "  Stopping $DESC: "
 	start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE 
 	RETVAL=$?
