@@ -376,10 +376,11 @@ function eset() {
     rm efs-*.deb
   fi
   echo "Adding administration port to firewall..."
-  if [[ $(echo "SELECT COUNT(port) FROM external_access WHERE port = '9443';" | mc_mysql -m mc_config | tail -n 1) == 0 ]]; then
-    echo "INSERT INTO external_access(service, port, protocol, allowed_ip) VALUES('web', '9443', 'TCP', '0.0.0.0/0');" | mc_mysql -m mc_config
-  fi
-  /usr/mailcleaner/etc/init.d/firewall restart
+  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -s mc_config | sed 's/\s*allowed_ip\s*//'`
+  for ip in $list; do
+    echo "INSERT external_access(service,port,protocol,allowed_ip) VALUES('esetweb', '9443', 'TCP', '$ip');" | /usr/mailcleaner/bin/mc_mysql -s mc_config
+  done
+  /usr/mailcleaner/etc/init.d/firewall restart 2>/dev/null
 
   printf "Enabling ESET ... \n"
   /opt/eset/efs/sbin/lic -u $user -p $key
@@ -390,13 +391,8 @@ function eset() {
     exit 1
   fi
 
-  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -s mc_config | sed 's/\s*allowed_ip\s*//'`
-  for ip in $list; do
-    echo "INSERT external_access(service,port,protocol,allowed_ip) SELECT * FROM (SELECT 'esetweb', '9443', 'TCP', '$ip') AS new WHERE NOT EXISTS (SELECT id FROM external_access WHERE service = 'esetweb' AND allowed_ip = '$ip') LIMIT 1;" | /usr/mailcleaner/bin/mc_mysql -s mc_config
-  done
   echo "UPDATE scanner set active = 1 WHERE name = 'esetsefs';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
   printf "Restarting services ... \n"
-  /usr/mailcleaner/etc/init.d/firewall restart 2>/dev/null
   /usr/mailcleaner/etc/init.d/mailscanner restart 2>/dev/null
 
   echo ${FONT_BOLD}${FONT_GREEN}ESET enabled Successfully${FONT_RESET}
