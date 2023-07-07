@@ -313,6 +313,21 @@ function eset() {
     exit 1;
   fi
 
+  echo "Resolving dependencies..."
+  cd /tmp
+  tar -Jxf /usr/mailcleaner/install/src/eset-dependencies.tar.xz
+  cd /tmp/eset-dependencies/
+  if [ ! -e /usr/bin/localectl ]; then
+    mv localectl /usr/bin/
+  fi
+  for lib in $(find ./); do
+    if [ ! -e /usr/lib/x86_64-linux-gnu/$lib ]; then
+      mv $lib /usr/lib/x86_64-linux-gnu/
+    fi
+  done
+  cd /tmp
+  rm -rf /tmp/eset-dependencies
+
   if [[ $(cat /etc/locale.gen | grep -P "^en_US\.UTF-8 UTF-8") ]]; then
     echo "US English (UTF-8) already enabled."
   else
