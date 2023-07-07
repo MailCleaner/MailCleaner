@@ -276,10 +276,16 @@ sub get_active_scanners
   return "none" if @list < 1;
   
   my $ret = "";
+  my $clamd = 0;
   foreach my $elh (@list) {
   	my %el = %{$elh};
+	if ($el{'name'} eq 'clamd') {
+		$clamd = 1;
+		next;
+	}
   	$ret .= $el{'name'}." ";
   }
+  $ret .= "clamd" if ($clamd);
   return $ret;
 }
 
