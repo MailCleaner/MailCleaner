@@ -20,7 +20,7 @@ case "$1" in
     touch $VARDIR/run/firewall.start.rs
     echo -n "  Starting firewall: "
     prepare
-    $SRCDIR/etc/firewall/start >/dev/null 2>&1 &
+    $SRCDIR/etc/firewall/start >/dev/null 2>&1
     echo "1" > $LOCKFILE
     echo -n "started."
     echo "."
@@ -40,7 +40,7 @@ case "$1" in
         echo "Starting Fail2Ban"
         $SRCDIR/etc/init.d/fail2ban start 2> /dev/null &
       fi
-      fail2ban.py internal reload-fw firewall 2>/dev/null &
+      fail2ban.py internal reload-fw firewall 2>/dev/null
     fi
     ;;
   stop)
