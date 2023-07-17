@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 # /etc/init.d/firewall: start firewalling.
 export PYENV_VERSION=3.7.7
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
@@ -38,9 +38,9 @@ case "$1" in
       $SRCDIR/etc/init.d/fail2ban status 1> /dev/null 2>&1
       if [ $? != 0 ]; then
         echo "Starting Fail2Ban"
-        $SRCDIR/etc/init.d/fail2ban start 2> /dev/null &
+        $SRCDIR/etc/init.d/fail2ban start 2> /dev/null
       fi
-      fail2ban.py internal reload-fw firewall 2>/dev/null &
+      { fail2ban.py internal reload-fw firewall 2>/dev/null & disown; } &
     fi
     ;;
   stop)
