@@ -286,6 +286,7 @@ acl_check_rcpt:
                                {+full_whitelisted_hosts}\
                                {+trusted_hosts}\
                           }
+          log_message   = sender/host in full whitelist
           senders       = +full_whitelisted_senders
 
   accept  hosts = <; ;
