@@ -136,7 +136,6 @@ class Default_Model_Slave
                 }
                 if ($ret['value'] != '') {
                     $ret['value'] = 'Host ' . $this->getId() . ' (' . preg_replace('/; $/', '', $ret['value']) . ')';
-                    $ret['message'] .= '#'.$ret['status'].'#'.$ret['value'];
                 }
                 break;
 
@@ -157,7 +156,6 @@ class Default_Model_Slave
                         $ret['value'] .= "$s => $c, ";
                     }
                     $ret['value'] = preg_replace('/, $/', ')', $ret['value']);
-                    $ret['message'] .= '#'.$ret['status'].'#'.$ret['value'];
                 }
             break;
 
@@ -185,9 +183,6 @@ class Default_Model_Slave
                         $ret['status'] = 'warning';
                     }
                     $ret['value'] .= ($ret['value'] ? ', ' : '') . "RAM Free => " . sprintf("%2d", $mempct*100) . "%";
-                }
-                if ($ret['message'] != 'loadlow') {
-                    $ret['message'] .= '#'.$ret['status'].'#Host ' . $this->getId() . ' ('.$ret['value'].')';
                 }
                 break;
 
