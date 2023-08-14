@@ -135,7 +135,7 @@ class Default_Model_Slave
                     }
                 }
                 if ($ret['value'] != '') {
-                    $ret['value'] = 'Host ' . $this->getId() . ' (' . preg_replace('/; $/', '', $ret['value']) . ')';
+                    $ret['value'] = preg_replace('/; $/', '', $ret['value']);
                 }
                 break;
 
@@ -151,11 +151,11 @@ class Default_Model_Slave
                 }
                 if (sizeof($queues)) {
                     $ret['message'] = strtolower(implode(', ', array_keys($queues)));
-                    $ret['value'] = 'Host ' . $this->getId() . ' (';
+                    $ret['value'] = '';
                     foreach ($queues as $s => $c) {
-                        $ret['value'] .= "$s => $c, ";
+                        $ret['value'] .= "$s: $c, ";
                     }
-                    $ret['value'] = preg_replace('/, $/', ')', $ret['value']);
+                    $ret['value'] = preg_replace('/, $/', '', $ret['value']);
                 }
             break;
 
