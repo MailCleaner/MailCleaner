@@ -100,7 +100,7 @@ textarea {
 }
 
 .globalstatusbloc {
-   min-height: 190px;
+   min-height: 160px;
 }
 
 .globalbloc h1 {
@@ -216,6 +216,14 @@ textarea {
    vertical-align: middle;
 }
 
+.status_critical {
+  color: #ff2f00;
+}
+
+.status_warning, a#statuslink_warning {
+  color: #f48c30 !important;
+}
+
 .globalstatustable {
 	line-height: 18px;
 	margin-top: 10px;
@@ -228,7 +236,16 @@ textarea {
     margin-right: 50px;
 }
 .versionrow {
-  border-bottom: 1px solid #C6ADC6;
+  border-bottom: 1px solid #D4D3D2;
+  display: block;
+  position: relative;
+  text-align: center;
+  padding: 5px;
+  background-color: #D4D3D2;
+}
+
+span.versionrow.registered {
+  background-color: #AFA;
 }
 
 .registerstatus {

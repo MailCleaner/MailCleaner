@@ -15,7 +15,7 @@
          $title = $matches[3];
      ?>
          <img class="statusbullet" src="<?php echo $this->images_path;?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
-         <a title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
+         <a id="statuslink_<?php echo $status; ?>" title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
        <?php } else { ?>
           <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
          <?php echo $this->t->_($this->hardware_status)?>
