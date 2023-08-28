@@ -1,6 +1,6 @@
 # MailCleaner
 
-<a href="https://hosted.weblate.org/engage/mailcleaner/?utm_source=widget">
+<a style="float: right;" href="https://hosted.weblate.org/engage/mailcleaner/?utm_source=widget">
 <img src="https://hosted.weblate.org/widgets/mailcleaner/-/svg-badge.svg" alt="Translation status" />
 </a>
 
@@ -11,6 +11,14 @@ This is the repository for sources of MailCleaner Community Edition.
 MailCleaner is a business anti spam gateway installed between your mail 
 infrastructure and the Internet. It offers professional protection against 
 viruses and eliminates up to 99% of spam.
+
+## Help out by becoming an Alpha tester for the next release
+
+After a long period of development which has seen updates to almost every file in every component of the system, the MailCleaner team is approaching an initial release of the next major version of MailCleaner. This will rebase the system on the latest stable version of Debian - version 12 (Bookworm).
+
+In order to have the best roll-out possible for new appliances, we are [seeking Alpha testers](https://github.com/MailCleaner/MailCleaner-Next/CONTRIBUTING.md) for the Community Edition release.
+
+## Evaluate MailCleaner Enterprise Edition
 
 You can ask for an evaluation licence of Mailcleaner Enterprise Edition,
 providing you with the following benefits: 
@@ -49,4 +57,3 @@ http://forum.mailcleaner.org/
 - [Facebook](https://www.facebook.com/mailcleaner)
 - [Twitter](https://twitter.com/mailcleaner)
 - [LinkedIn](https://www.linkedin.com/company/mailcleaner/)
-- [Google+](https://plus.google.com/115459290639872536123)

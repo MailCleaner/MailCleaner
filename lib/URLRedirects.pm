@@ -48,6 +48,13 @@ sub getServices
                                 return $url;
                         }
                 },
+                "LinkedIn" => {
+                        "regex" => qr%linkedin.com/slink\?code=([^#]+)%,
+                        "decoder" => sub {
+                                my $url = shift;
+                                return head($url);
+                        }
+                },
                 "Office 365" => {
                         "regex"   => qr#.*safelinks\.protection\.outlook\.com/\?url=#,
                         "decoder" => sub {
@@ -128,6 +135,19 @@ sub decode
                 }
         }
         return 0;
+}
+
+sub head
+{
+        my $url = shift;
+
+        use LWP::UserAgent;
+        my $ua = LWP::UserAgent->new();
+        $ua->max_redirect(0);
+
+        my $head = $ua->head($url);
+        return undef unless ($head->{_rc} == 301);
+        return $head->{_headers}->{location};
 }
 
 1;
