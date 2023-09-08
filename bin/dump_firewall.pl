@@ -2,7 +2,7 @@
 #
 # Mailcleaner - SMTP Antivirus/Antispam Gateway
 # Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
-# Copyright (C) 2021-2022 John Mertz <git@john.me.tz>
+# Copyright (C) 2021-2023 John Mertz <git@john.me.tz>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@ my %services = (
 );
 my $iptables = "/sbin/iptables";
 my $ip6tables = "/sbin/ip6tables";
+my $ipset = "/sbin/ipset";
 
 my $lasterror = "";
 my $has_ipv6 = 0;
@@ -265,35 +266,81 @@ sub do_start_script
 		}
 	}
 
+	my $existing = {};
+	my $sets_raw = `ipset list`;
+	my $set = '';
+	my $members = 0;
+	foreach (split(/\n/, $sets_raw)) {
+		if ($_ =~ m/^Name: (.*)$/) {
+			$set = $1;
+			$existing->{$set} = {};
+			$members = 0;
+			next;
+		}
+		if (!$members) {
+			if ($_ =~ m/Members:/) {
+				$members = 1;
+				next;
+			} else {
+				next;
+			}
+		}
+		next if ($_ =~ /^\s*$/);
+		$existing->{$set}->{$_} = 1;
+	}
+
 	my @blacklist_files = ('/usr/mailcleaner/etc/firewall/blacklist.txt', '/usr/mailcleaner/etc/firewall/blacklist_custom.txt');
 	my $blacklist = 0;
 	my $blacklist_script = '/usr/mailcleaner/etc/firewall/blacklist';
 	unlink $blacklist_script;
+	open(BLACKLIST, '>>', $blacklist_script);
 	foreach my $blacklist_file (@blacklist_files) {
 		if ( -e $blacklist_file ) {
 			if ( open(BLACK_IP, '<', $blacklist_file) ) {
-				open(BLACKLIST, '>>', $blacklist_script);
 				if ( $blacklist == 0 ) {
 					print BLACKLIST "#! /bin/sh\n\n";
-					print BLACKLIST "$iptables -N BLACKLIST\n";
-					print BLACKLIST "$iptables -A BLACKLIST -j RETURN\n";
-					print BLACKLIST "$iptables -I INPUT 1 -j BLACKLIST\n\n";
+					print BLACKLIST "$ipset create BLACKLISTIP hash:ip\n" unless (defined($existing->{'BLACKLISTIP'}));
+					print BLACKLIST "$ipset create BLACKLISTNET hash:net\n" unless (defined($existing->{'BLACKLISTNET'}));
 				}
 				$blacklist = 1;
 				foreach my $IP (<BLACK_IP>) {
 					chomp($IP);
-					print BLACKLIST "$iptables -I BLACKLIST 1 -s $IP -j REJECT\n";
+					if ($IP =~ m#/\d+$#) {
+						if ($existing->{'BLACKLISTNET'}->{$IP}) {
+							delete($existing->{'BLACKLISTNET'}->{$IP});
+						} else {
+							print BLACKLIST "$ipset add BLACKLISTNET $IP\n";
+						}
+					} else {
+						if ($existing->{'BLACKLISTIP'}->{$IP}) {
+							delete($existing->{'BLACKLISTIP'}->{$IP});
+						} else {
+							print BLACKLIST "$ipset add BLACKLISTIP $IP\n";
+						}
+					}
 				}
-				close BLACKLIST;
 				close BLACK_IP;
 			}
 		}
 	}
+	my $remove = '';
+	foreach my $list (keys(%{$existing})) {
+		foreach my $IP (keys(%{$existing->{$list}})) {
+			$remove .= "$ipset del $list $IP\n";
+		}
+	}
+	if ($remove ne '') {
+		print BLACKLIST "\n# Cleaning up removed IPs:\n$remove\n";
+	}
 	if ( $blacklist == 1 ) {
+		foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
+			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j REJECT\n";
+			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j LOG\n\n";
+		}
 		chmod 0755, $blacklist_script;
 		print START "\n$blacklist_script\n";
 	}
-
+	close BLACKLIST;
 	close START;
 
 	chmod 0755, $start_script;
