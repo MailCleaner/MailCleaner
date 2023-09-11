@@ -248,3 +248,8 @@ if [ -e /opt/commtouch/etc/init.d/ctipd.init_d ] && [ -f /opt/commtouch/etc/ctip
     sleep 5
     /opt/commtouch/etc/init.d/ctipd.init_d start
 fi
+
+# ESET
+if [ -d /var/log/eset/efs/ods ]; then
+    find /var/log/eset/efs/ods -type f -mtime 7 -delete >/dev/null 2>&1
+fi
