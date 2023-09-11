@@ -1,0 +1,10 @@
+[mc-webauth-1w]
+enabled = True
+maxretry = 10
+findtime = 172800
+bantime = 604800
+port = 80,443
+filter = mc-webauth-filter
+ignoreip = __TRUSTEDIPS__ 
+banaction = mc-send-rbl[name=mc-webauth, port='80,443', chain='INPUT']
+logpath = /var/mailcleaner/log/apache/mc_auth.log

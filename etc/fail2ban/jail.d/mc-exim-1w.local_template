@@ -1,0 +1,10 @@
+[mc-exim-1w]
+enabled = True
+maxretry = 10
+findtime = 172800
+bantime = 604800
+port = 25,465,587
+filter = mc-exim-filter
+ignoreip = __TRUSTEDIPS__ 
+banaction = mc-send-rbl[name=mc-exim, port='25,465,587', chain='INPUT']
+logpath = /var/mailcleaner/log/exim_stage1/rejectlog

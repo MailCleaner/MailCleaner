@@ -1,0 +1,10 @@
+[mc-ssh-1w]
+enabled = True
+maxretry = 6
+findtime = 172800
+bantime = 604800
+port = 22
+filter = sshd
+ignoreip = __TRUSTEDIPS__ 
+banaction = mc-send-rbl[name=mc-ssh, port='22', chain='INPUT']
+logpath = /var/log/auth.log
