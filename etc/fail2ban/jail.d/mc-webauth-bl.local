@@ -1,0 +1,12 @@
+[mc-webauth-bl]
+enabled = False
+maxretry = 1 
+findtime = 1
+bantime = -1
+port = 80,443
+chain = INPUT
+filter = 
+ignoreip = 192.246.63.8
+banaction = iptables-multiport
+            
+logpath = /var/mailcleaner/flags/fail2ban/empty_file 
