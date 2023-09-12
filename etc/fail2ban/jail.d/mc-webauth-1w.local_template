@@ -6,5 +6,6 @@ bantime = 604800
 port = 80,443
 filter = mc-webauth-filter
 ignoreip = __TRUSTEDIPS__ 
-banaction = mc-send-rbl[name=mc-webauth, port='80,443', chain='INPUT']
+banaction = mc-ipset[name=mc-webauth-1w]
+	    mc-send-rbl[name=mc-webauth, port='80,443', chain='INPUT']
 logpath = /var/mailcleaner/log/apache/mc_auth.log
