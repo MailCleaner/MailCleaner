@@ -323,7 +323,6 @@ sub do_start_script
 					foreach my $period (qw( d w m y )) {
 						foreach my $f2b (@fail2ban_sets) {
 							print BLACKLIST "$ipset create $f2b-1$period hash:ip\n" unless (defined($existing->{"$f2b-1$period"}));
-							dump_local_file("/usr/mailcleaner/etc/fail2ban/jail.d/${f2b}-1${period}.local_template","/usr/mailcleaner/etc/fail2ban/jail.d/${f2b}-1${period}.local");
 						}
 					}
 				}
