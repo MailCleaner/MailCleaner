@@ -34,9 +34,11 @@ __FI__
 
 __IF__ USETLS
 tls_advertise_hosts = *
+tls_try_verify_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = __CIPHERS__
+tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 openssl_options = +no_sslv2 +no_sslv3
 __ELSE__ USETLS
 tls_advertise_hosts =
@@ -267,7 +269,8 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad helo - smtp:refused,smtp:refused:bad_helo
  __FI__
-    accept hosts        = *
+
+  accept  hosts  = *
 
 acl_check_mail:
   # deny if no HELO command given
@@ -952,6 +955,38 @@ __FI__
 
 acl_check_data:
 
+__IF__ USETLS
+  warn	  !encrypted = *
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: not encrypted
+ __IF__ DEBUG
+          logwrite = Message not encrypted with TLS.
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {yes}{no}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: invalid (${tls_peerdn})
+ __IF__ DEBUG
+          logwrite = Invalid TLS client certificate presented (${tls_peerdn}).
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {no}{yes}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: none
+ __IF__ DEBUG
+          logwrite = No TLS client certificate presented.
+ __FI__
+
+  warn	  encrypted = *
+	  verify = certificate
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: valid
+__FI__
+
   warn    set acl_m_linelength_limit = 998
           condition = ${if >{$max_received_linelength}{$acl_m_linelength_limit}}
           logwrite = Warning: Message from <${sender_address}> to <${recipients}> exceeds RFC 5322 maximum line length ($max_received_linelength > $acl_m_linelength_limit)
@@ -1319,6 +1354,11 @@ __FI__
 __FI__
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
+  tls_try_verify_hosts = *
+  tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+  tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+  tls_require_ciphers = __CIPHERS__
+  tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 __FI__
   return_path = ${if and { \
                              {def:return_path} \

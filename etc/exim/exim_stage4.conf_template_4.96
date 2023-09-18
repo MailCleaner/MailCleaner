@@ -37,9 +37,11 @@ timeout_frozen_after = 1h
 
 __IF__ USETLS
 tls_advertise_hosts = *
+tls_try_verify_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = __CIPHERS__
+tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 __ELSE__ USETLS
 tls_advertise_hosts =
 __FI__
@@ -346,6 +348,11 @@ remote_smtp:
   connect_timeout = 30s
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to} {*}{__HOSTS_REQUIRE_TLS__} }
+  tls_try_verify_hosts = *
+  tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+  tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+  tls_require_ciphers = __CIPHERS__
+  tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 __FI__
   hosts_try_chunking =
 __IF__ ALLOW_LONG
