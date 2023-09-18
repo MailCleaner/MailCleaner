@@ -34,9 +34,11 @@ __FI__
 
 __IF__ USETLS
 tls_advertise_hosts = *
+tls_try_verify_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = __CIPHERS__
+tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 openssl_options = +no_sslv2 +no_sslv3
 __ELSE__ USETLS
 tls_advertise_hosts =
@@ -185,6 +187,24 @@ perl_startup = do '__SRCDIR__/etc/exim/stage1_scripts.pl'
 begin acl
 
 acl_check_conn:
+
+warn
+   encrypted = *
+   ! verify = certificate
+   condition = ${if def:tls_in_peerdn {yes}{no}}
+   add_header = X-TLS-Client-Certificate: invalid (${tls_peerdn})
+   log_message = Invalid TLS client certificate presented (${tls_peerdn}).
+
+warn
+   encrypted = *
+   ! verify = certificate
+   condition = ${if def:tls_peerdn {no}{yes}}
+  log_message = No TLS client certificate presented.
+
+warn
+   verify = certificate
+   add_header = X-TLS-Client-Certificate: valid
+   condition = false
 
 __IF__ RATELIMIT
 warn ratelimit          = __RATELIMIT_RULE__
@@ -1319,6 +1339,11 @@ __FI__
 __FI__
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
+  tls_try_verify_hosts = *
+  tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+  tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+  tls_require_ciphers = __CIPHERS__
+  tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 __FI__
   return_path = ${if and { \
                              {def:return_path} \
