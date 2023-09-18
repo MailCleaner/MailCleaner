@@ -188,24 +188,6 @@ begin acl
 
 acl_check_conn:
 
-warn
-   encrypted = *
-   ! verify = certificate
-   condition = ${if def:tls_in_peerdn {yes}{no}}
-   add_header = X-TLS-Client-Certificate: invalid (${tls_peerdn})
-   log_message = Invalid TLS client certificate presented (${tls_peerdn}).
-
-warn
-   encrypted = *
-   ! verify = certificate
-   condition = ${if def:tls_peerdn {no}{yes}}
-  log_message = No TLS client certificate presented.
-
-warn
-   verify = certificate
-   add_header = X-TLS-Client-Certificate: valid
-   condition = false
-
 __IF__ RATELIMIT
 warn ratelimit          = __RATELIMIT_RULE__
           !hosts        = <; 127.0.0.1 ; +trusted_hosts ; +no_ratelimit_hosts
@@ -287,7 +269,8 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad helo - smtp:refused,smtp:refused:bad_helo
  __FI__
-    accept hosts        = *
+
+  accept  hosts  = *
 
 acl_check_mail:
   # deny if no HELO command given
@@ -971,6 +954,38 @@ __FI__
   accept
 
 acl_check_data:
+
+__IF__ USETLS
+  warn	  !encrypted = *
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: not encrypted
+ __IF__ DEBUG
+          logwrite = Message not encrypted with TLS.
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {yes}{no}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: invalid (${tls_peerdn})
+ __IF__ DEBUG
+          logwrite = Invalid TLS client certificate presented (${tls_peerdn}).
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {no}{yes}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: none
+ __IF__ DEBUG
+          logwrite = No TLS client certificate presented.
+ __FI__
+
+  warn	  encrypted = *
+	  verify = certificate
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: valid
+__FI__
 
   warn    set acl_m_linelength_limit = 998
           condition = ${if >{$max_received_linelength}{$acl_m_linelength_limit}}
