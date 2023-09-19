@@ -298,7 +298,7 @@ sub do_start_script
 		}
 		if (!$members) {
 			if ($_ =~ m/Members:/) {
-				$members = 1;
+				$members = 1 if ($set =~ /BLACKLIST(IP|NET)/);
 				next;
 			} else {
 				next;
