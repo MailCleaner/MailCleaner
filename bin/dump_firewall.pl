@@ -33,6 +33,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 	unshift (@INC, $path);
 }
 require GetDNS;
+our $dns = GetDNS->new();
 
 my $DEBUG = 1;
 
@@ -47,6 +48,7 @@ my %services = (
 	'mail' => ['25', 'TCP'],
 	'soap' => ['5132', 'TCP']
 );
+our @fail2ban_sets = ('mc-exim', 'mc-ssh', 'mc-webauth');
 my $iptables = "/sbin/iptables";
 my $ip6tables = "/sbin/ip6tables";
 my $ipset = "/sbin/ipset";
@@ -66,6 +68,23 @@ $dbh = DBI->connect(
 ) or fatal_error("CANNOTCONNECTDB", $dbh->errstr);
 
 my %masters_slaves = get_masters_slaves();
+
+my %trustedips = ( '127.0.0.1' => 1 );
+foreach (keys(%masters_slaves)) {
+	if ($_ =~ m/\d+\.\d+\.\d+\.\d+/) {
+		$trustedips{$_} = 1;
+	} elsif ($_ =~ m/\d+::?+\d/) {
+		$trustedips{$_} = 1;
+	} else {
+		my @a = $dns->getA($_);
+		if (scalar(@a)) {
+			$trustedips{$_} = 1 foreach (@a);
+		}
+	}
+}
+$trustedips{"193.246.63.0/24"} = 1 if ($config{'REGISTERED'} == 1);
+$trustedips{"195.176.194.0/24"} = 1 if ($config{'REGISTERED'} == 1);
+our $trusted = join(' ', keys(%trustedips));
 
 my $dnsres = Net::DNS::Resolver->new;
 
@@ -279,7 +298,7 @@ sub do_start_script
 		}
 		if (!$members) {
 			if ($_ =~ m/Members:/) {
-				$members = 1;
+				$members = 1 if ($set =~ /BLACKLIST(IP|NET)/);
 				next;
 			} else {
 				next;
@@ -301,6 +320,11 @@ sub do_start_script
 					print BLACKLIST "#! /bin/sh\n\n";
 					print BLACKLIST "$ipset create BLACKLISTIP hash:ip\n" unless (defined($existing->{'BLACKLISTIP'}));
 					print BLACKLIST "$ipset create BLACKLISTNET hash:net\n" unless (defined($existing->{'BLACKLISTNET'}));
+					foreach my $period (qw( d w m y )) {
+						foreach my $f2b (@fail2ban_sets) {
+							print BLACKLIST "$ipset create $f2b-1$period hash:ip\n" unless (defined($existing->{"$f2b-1$period"}));
+						}
+					}
 				}
 				$blacklist = 1;
 				foreach my $IP (<BLACK_IP>) {
@@ -333,6 +357,12 @@ sub do_start_script
 		print BLACKLIST "\n# Cleaning up removed IPs:\n$remove\n";
 	}
 	if ( $blacklist == 1 ) {
+		foreach my $period (qw( d w m y )) {
+			foreach my $f2b (@fail2ban_sets) {
+				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j REJECT\n";
+				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j LOG\n\n";
+			}
+		}
 		foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
 			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j REJECT\n";
 			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j LOG\n\n";
@@ -420,6 +450,25 @@ sub readConfig
 }
 
 #############################
+sub dump_local_file
+{
+	my $template = shift;
+	my $target = shift;
+
+	if (open(my $tmp, '<', $template)) {
+		my $output = "";
+		$output .= $_ while (<$tmp>);
+		$output =~ s/__TRUSTEDIPS__/$trusted/g;
+		if (open(my $out, '>', $target)) {
+			print $out $output;
+		} else {
+			print STDERR "Failed to open target $target\n";
+		}
+	} else {
+		print STDERR "Failed to open template $template\n";
+	}
+}
+
 sub fatal_error
 {
 	my $msg = shift;
@@ -436,6 +485,5 @@ sub expand_host_string
 {
 	my $string = shift;
 	my %args = @_;
-	my $dns = GetDNS->new();
 	return $dns->dumper($string,%args);
 }
