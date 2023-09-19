@@ -48,6 +48,7 @@ my %services = (
 	'mail' => ['25', 'TCP'],
 	'soap' => ['5132', 'TCP']
 );
+our @fail2ban_sets = ('mc-exim', 'mc-ssh', 'mc-webauth');
 my $iptables = "/sbin/iptables";
 my $ip6tables = "/sbin/ip6tables";
 my $ipset = "/sbin/ipset";
@@ -310,7 +311,6 @@ sub do_start_script
 	my @blacklist_files = ('/usr/mailcleaner/etc/firewall/blacklist.txt', '/usr/mailcleaner/etc/firewall/blacklist_custom.txt');
 	my $blacklist = 0;
 	my $blacklist_script = '/usr/mailcleaner/etc/firewall/blacklist';
-	my @fail2ban_sets = ('mc-exim', 'mc-ssh', 'mc-webauth');
 	unlink $blacklist_script;
 	open(BLACKLIST, '>>', $blacklist_script);
 	foreach my $blacklist_file (@blacklist_files) {
@@ -357,6 +357,12 @@ sub do_start_script
 		print BLACKLIST "\n# Cleaning up removed IPs:\n$remove\n";
 	}
 	if ( $blacklist == 1 ) {
+		foreach my $period (qw( d w m y )) {
+			foreach my $f2b (@fail2ban_sets) {
+				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j REJECT\n";
+				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j LOG\n\n";
+			}
+		}
 		foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
 			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j REJECT\n";
 			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j LOG\n\n";
