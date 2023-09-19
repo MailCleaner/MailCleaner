@@ -1,6 +1,7 @@
 mc-exim.local
 mc-ssh.local
 mc-webauth.local
+*bl.local
 *1d.local
 *1w.local
 *1m.local
