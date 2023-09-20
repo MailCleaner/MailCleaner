@@ -255,6 +255,6 @@ if [ -d /var/log/eset/efs/ods ]; then
 fi
 
 # Clean old searches
-find /var/mailcleaner/run/mailcleaner/log_search -type f -mtime 30 -delete >/dev/null 2>&1
-find /var/mailcleaner/run/mailcleaner/stats_search -type f -mtime 30 -delete >/dev/null 2>&1
+find /var/mailcleaner/run/mailcleaner/log_search -type f -mtime +30 -delete >/dev/null 2>&1
+find /var/mailcleaner/run/mailcleaner/stats_search -type f -mtime +30 -delete >/dev/null 2>&1
 
