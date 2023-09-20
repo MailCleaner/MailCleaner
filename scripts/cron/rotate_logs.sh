@@ -251,7 +251,7 @@ fi
 
 # ESET
 if [ -d /var/log/eset/efs/ods ]; then
-    find /var/log/eset/efs/ods -type f -mtime 7 -delete >/dev/null 2>&1
+    find /var/log/eset/efs/ods -type f -mtime +7 -delete >/dev/null 2>&1
 fi
 
 # Clean old searches
