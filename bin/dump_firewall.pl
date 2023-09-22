@@ -48,7 +48,7 @@ my %services = (
 	'mail' => ['25', 'TCP'],
 	'soap' => ['5132', 'TCP']
 );
-our @fail2ban_sets = ('mc-exim', 'mc-ssh', 'mc-webauth');
+our %fail2ban_sets = ('mc-exim' => 'mail', 'mc-ssh' => 'ssh', 'mc-webauth' => 'web');
 my $iptables = "/sbin/iptables";
 my $ip6tables = "/sbin/ip6tables";
 my $ipset = "/sbin/ipset";
@@ -320,9 +320,9 @@ sub do_start_script
 					print BLACKLIST "#! /bin/sh\n\n";
 					print BLACKLIST "$ipset create BLACKLISTIP hash:ip\n" unless (defined($existing->{'BLACKLISTIP'}));
 					print BLACKLIST "$ipset create BLACKLISTNET hash:net\n" unless (defined($existing->{'BLACKLISTNET'}));
-					foreach my $period (qw( d w m y )) {
-						foreach my $f2b (@fail2ban_sets) {
-							print BLACKLIST "$ipset create $f2b-1$period hash:ip\n" unless (defined($existing->{"$f2b-1$period"}));
+					foreach my $period (qw( bl 1d 1w 1m 1y )) {
+						foreach my $f2b (keys(%fail2ban_sets)) {
+							print BLACKLIST "$ipset create $f2b-$period hash:ip\n" unless (defined($existing->{"$f2b-$period"}));
 						}
 					}
 				}
@@ -357,10 +357,12 @@ sub do_start_script
 		print BLACKLIST "\n# Cleaning up removed IPs:\n$remove\n";
 	}
 	if ( $blacklist == 1 ) {
-		foreach my $period (qw( d w m y )) {
-			foreach my $f2b (@fail2ban_sets) {
-				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j REJECT\n";
-				print BLACKLIST "$iptables -I INPUT -m set --match-set $f2b-1$period src -j LOG\n\n";
+		foreach my $period (qw( bl 1d 1w 1m 1y )) {
+			foreach my $f2b (keys(%fail2ban_sets)) {
+				my $ports = $services{$fail2ban_sets{$f2b}}[0];
+				$ports =~ s/[:|]/,/;
+				print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j REJECT\n";
+				print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j LOG\n";
 			}
 		}
 		foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
