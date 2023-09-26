@@ -309,24 +309,20 @@ sub do_start_script
 	}
 
 	my @blacklist_files = ('/usr/mailcleaner/etc/firewall/blacklist.txt', '/usr/mailcleaner/etc/firewall/blacklist_custom.txt');
-	my $blacklist = 0;
 	my $blacklist_script = '/usr/mailcleaner/etc/firewall/blacklist';
 	unlink $blacklist_script;
 	open(BLACKLIST, '>>', $blacklist_script);
+	print BLACKLIST "#! /bin/sh\n\n";
+	print BLACKLIST "$ipset create BLACKLISTIP hash:ip\n" unless (defined($existing->{'BLACKLISTIP'}));
+	print BLACKLIST "$ipset create BLACKLISTNET hash:net\n" unless (defined($existing->{'BLACKLISTNET'}));
+	foreach my $period (qw( bl 1d 1w 1m 1y )) {
+		foreach my $f2b (keys(%fail2ban_sets)) {
+			print BLACKLIST "$ipset create $f2b-$period hash:ip\n" unless (defined($existing->{"$f2b-$period"}));
+		}
+	}
 	foreach my $blacklist_file (@blacklist_files) {
 		if ( -e $blacklist_file ) {
 			if ( open(BLACK_IP, '<', $blacklist_file) ) {
-				if ( $blacklist == 0 ) {
-					print BLACKLIST "#! /bin/sh\n\n";
-					print BLACKLIST "$ipset create BLACKLISTIP hash:ip\n" unless (defined($existing->{'BLACKLISTIP'}));
-					print BLACKLIST "$ipset create BLACKLISTNET hash:net\n" unless (defined($existing->{'BLACKLISTNET'}));
-					foreach my $period (qw( bl 1d 1w 1m 1y )) {
-						foreach my $f2b (keys(%fail2ban_sets)) {
-							print BLACKLIST "$ipset create $f2b-$period hash:ip\n" unless (defined($existing->{"$f2b-$period"}));
-						}
-					}
-				}
-				$blacklist = 1;
 				foreach my $IP (<BLACK_IP>) {
 					chomp($IP);
 					if ($IP =~ m#/\d+$#) {
@@ -356,22 +352,20 @@ sub do_start_script
 	if ($remove ne '') {
 		print BLACKLIST "\n# Cleaning up removed IPs:\n$remove\n";
 	}
-	if ( $blacklist == 1 ) {
-		foreach my $period (qw( bl 1d 1w 1m 1y )) {
-			foreach my $f2b (keys(%fail2ban_sets)) {
-				my $ports = $services{$fail2ban_sets{$f2b}}[0];
-				$ports =~ s/[:|]/,/;
-				print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j REJECT\n";
-				print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j LOG\n";
-			}
+	foreach my $period (qw( bl 1d 1w 1m 1y )) {
+		foreach my $f2b (keys(%fail2ban_sets)) {
+			my $ports = $services{$fail2ban_sets{$f2b}}[0];
+			$ports =~ s/[:|]/,/;
+			print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j REJECT\n";
+			print BLACKLIST "$iptables -I INPUT -p ".lc($services{$fail2ban_sets{$f2b}}[1])." ".($ports =~ m/,/ ? '-m multiport --dports' : '--dport')." $ports -m set --match-set $f2b-$period src -j LOG\n";
 		}
-		foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
-			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j REJECT\n";
-			print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j LOG\n\n";
-		}
-		chmod 0755, $blacklist_script;
-		print START "\n$blacklist_script\n";
 	}
+	foreach ( qw( BLACKLISTIP BLACKLISTNET ) ) {
+		print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j REJECT\n";
+		print BLACKLIST "$iptables -I INPUT -m set --match-set $_ src -j LOG\n\n";
+	}
+	chmod 0755, $blacklist_script;
+	print START "\n$blacklist_script\n";
 	close BLACKLIST;
 	close START;
 
