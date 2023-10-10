@@ -116,8 +116,6 @@ function spamhaus() {
 
   printf "Installing SpamHaus RBLs... \n"
 
-
-
 ### ZEN package
   if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
     if [ -e "${SRCDIR}/etc/rbls/SPAMHAUSSBL.cf" ]; then
@@ -139,9 +137,6 @@ EOF
     echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSZEN.cf
   fi 
 
-
-
-
 ### Content package
   if [[ "$shpackage" -eq "2" ||  "$shpackage" -eq "3" ]]; then
     # Create the RBL configuration file
@@ -149,15 +144,12 @@ EOF
 name=SPAMHAUSDBL
 type=URIRBL
 dnsname=${token}.dbl.dq.spamhaus.net
-sublist=127.0.1.\d+,SPAMHAUSDBL,Spamhaus domain blocklist
+sublist=127.0.1.(1?\d\d?|2[0-4]\d|25[0-4]),SPAMHAUSDBL,Spamhaus domain blocklist
 callonip=1
 ishbl=0
 EOF
 
     echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSDBL.cf
-
-
-
 
     # Create the RBL configuration file
     read -d '' RBL_CONTENT <<EOF
@@ -171,9 +163,6 @@ EOF
 
     echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSHBL.cf
 
-
-
-
     # Create the RBL configuration file
     read -d '' RBL_CONTENT <<EOF
 name=SPAMHAUSZRD
@@ -185,9 +174,6 @@ EOF
     echo "${RBL_CONTENT}" > ${SRCDIR}/etc/rbls/SPAMHAUSZRD.cf
   fi
 
-
-
-
   # Override SpamAssassin default rules
   if [[ "$shpackage" -eq "1" || "$shpackage" -eq "2" ||  "$shpackage" -eq "3" ]]; then
 ### All packages
@@ -195,6 +181,7 @@ EOF
       rm -f "${SRCDIR}/share/spamassassin/60_spamhaus_override.cf"
     fi
   fi
+
 ### Zen package
   if [[ "$shpackage" -eq "1" ||  "$shpackage" -eq "3" ]]; then
     read -d '' RBL_SPAMC_OVERRIDE <<EOF
@@ -258,7 +245,6 @@ EOF
 
     echo "${RBL_SPAMC_OVERRIDE}" >> ${SRCDIR}/share/spamassassin/60_spamhaus_override.cf
   fi
-
 
   # Enable SpamHaus at PreRBLs level
 ### ZEN
