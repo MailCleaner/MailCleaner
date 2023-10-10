@@ -74,9 +74,10 @@ case "$1" in
 
     $INITDIR/$MYMASTER start
     $INITDIR/$MYSLAVE start
+    # Restart FW in background so that Fail2Ban does not hold up other processes
+    $INITDIR/$FW restart &
     sleep 5
-    # To avoid  having the firewall down during all the MailCleaner services restart, we restart it here
-    $INITDIR/$FW restart
+
     echo -n "  Resyncing DB... "
     $INITDIR/$MYSLAVE restart 2>&1 > /dev/null
     echo "done."
