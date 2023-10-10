@@ -118,6 +118,8 @@ case "$1" in
             fi
         fi
     fi
+    # Wait in case Fail2Ban is still starting
+    wait
      ;;
   stop)
     rm $VARDIR/run/*.rs 2>&1 > /dev/null
