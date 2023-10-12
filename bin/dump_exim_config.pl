@@ -2,7 +2,7 @@
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
-#   Copyright (C) 2021 John Mertz <git@john.me.tz>
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -303,14 +303,14 @@ sub dump_exim_file
     $template->setCondition('TAGMODEBYPASSWHITELISTS', 1);
   }
   if ($sys_conf{'__WHITELISTBOTHFROM__'}) {
-	if ( ! -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from' ) {
-		open WLFH, '>', '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from';
+	if ( ! -e $conf->getOption('VARDIR').'/spool/mailcleaner/mc-wl-on-both-from' ) {
+		open WLFH, '>', $conf->getOption('VARDIR').'/spool/mailcleaner/mc-wl-on-both-from';
 		close WLFH;
 	}
 
   } else {
-	if ( -e '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from' ) {
-		unlink '/var/mailcleaner/spool/mailcleaner/mc-wl-on-both-from';
+	if ( -e $conf->getOption('VARDIR').'/spool/mailcleaner/mc-wl-on-both-from' ) {
+		unlink $conf->getOption('VARDIR').'/spool/mailcleaner/mc-wl-on-both-from';
 	}
   }
   $template->setCondition('USETLS', $exim_conf{'__USE_INCOMINGTLS__'});
@@ -901,13 +901,17 @@ sub get_exim_config{
     $config{'__ERRORS_REPLY_TO__'} = $row{'errors_reply_to'};
 
         if ( -f $conf->getOption('SRCDIR')."/etc/mailcleaner/version.def" && -f $conf->getOption('SRCDIR')."/etc/edition.def") {
-          my $cmd = "cat ".$conf->getOption('SRCDIR')."/etc/mailcleaner/version.def";
-          my $version = `$cmd`;
-          chomp($version);
+          my ($version, $cmd) = ('', '');
+          unless (-f $conf->getOption('VARDIR').'/spool/mailcleaner/hide_smtp_version') {
+            $cmd = "cat ".$conf->getOption('SRCDIR')."/etc/mailcleaner/version.def";
+            $version = `$cmd`;
+            chomp($version);
+            $version = ' '.$version;
+          }
           $cmd = "cat ".$conf->getOption('SRCDIR')."/etc/edition.def";
           my $edition = `$cmd`;
           chomp($edition);
-          $config{'__SMTP_BANNER__'} = '$smtp_active_hostname ESMTP MailCleaner ('.$edition.' '.$version.') $tod_full';
+          $config{'__SMTP_BANNER__'} = '$smtp_active_hostname ESMTP MailCleaner ('.$edition.$version.') $tod_full';
         }
 
         $config{'host_reject'} = $row{'host_reject'};
@@ -946,8 +950,8 @@ sub get_exim_config{
     $config{'__ALLOW_LONG__'} = $row{'allow_long'};
     $config{'__FOLDING__'} = $row{'folding'};
     my $max_length;
-    if ( -e '/var/mailcleaner/spool/mailcleaner/exim_max_line_length' ) {
-        if (open(my $fh, '<', '/var/mailcleaner/spool/mailcleaner/exim_max_line_length')) {
+    if ( -e $conf->getOption('VARDIR').'/spool/mailcleaner/exim_max_line_length' ) {
+        if (open(my $fh, '<', $conf->getOption('VARDIR').'/spool/mailcleaner/exim_max_line_length')) {
             $max_length = <$fh>;
             chomp($max_length);
             close($fh);
