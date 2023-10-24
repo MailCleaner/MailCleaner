@@ -232,6 +232,11 @@ class Default_Model_Domain
 		}
 		$ret = $this->getMapper()->delete($this);
 		
+		// Remove wwlist entries
+		$wwelement = new Default_Model_WWElementMapper();
+		$wwelement->getDbTable()->delete("recipient='".$this->getParam('name')."'");
+		$wwelement->getDbTable()->delete("recipient like '%@".$this->getParam('name')."'");
+
 		// Check if this domains has stats (counts) and delete them
                 $counts_path = "/var/mailcleaner/spool/mailcleaner/counts/";
                 $domain_counts = $counts_path . trim($this->getParam('name'));
