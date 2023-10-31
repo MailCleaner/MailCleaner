@@ -36,7 +36,8 @@
   text-align: left;
   vertical-align: top;
   white-space: nowrap;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #mclogo {

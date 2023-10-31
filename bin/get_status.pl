@@ -64,9 +64,9 @@ my $mode = "";
 my $cmd;
 
 my @order = (
-    { 'id' => 'exim_stage1', 'proc' => 'exim/exim_stage1.conf', 'human' => 'Incoming MTA' },
-    { 'id' => 'exim_stage2', 'proc' => 'exim/exim_stage2.conf', 'human' => 'Filtering MTA' },
-    { 'id' => 'exim_stage4', 'proc' => 'exim/exim_stage4.conf', 'human' => 'Outgoing MTA' },
+    { 'id' => 'exim_stage1', 'proc' => 'exim/exim_stage1.conf', 'human' => 'Incoming' },
+    { 'id' => 'exim_stage2', 'proc' => 'exim/exim_stage2.conf', 'human' => 'Filtering' },
+    { 'id' => 'exim_stage4', 'proc' => 'exim/exim_stage4.conf', 'human' => 'Outgoing' },
     { 'id' => 'apache', 'proc' => 'apache/httpd.conf', 'human' => 'Web Server' },
     { 'id' => 'mailscanner', 'proc' => 'MailScanner', 'human' => 'Filtering Engine' },
     { 'id' => 'mysql_master', 'proc' => 'mysql/my_master.cnf', 'human' => 'Master Database' },
@@ -160,7 +160,7 @@ if ($mode_given =~ /s/) {
         }
         $res = `$cmd`;
         chomp($res);
-        $order[$_]->{'queue'} = $res;
+        $order[$_]->{'queue'} = "$res";
     }
     if ($verbose) {
         foreach ( 0 .. 2 ) {
