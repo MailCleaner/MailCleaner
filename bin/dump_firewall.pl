@@ -103,6 +103,7 @@ if (open(my $interfaces, '<', '/etc/network/interfaces')) {
 my %rules;
 get_default_rules();
 get_external_rules();
+get_api_rules();
 
 do_start_script() or fatal_error("CANNOTDUMPMYSQLFILE", $lasterror);;
 do_stop_script();
@@ -146,6 +147,22 @@ sub get_default_rules
 	my @subs = getSubnets();
 	foreach my $sub (@subs) {
 		$rules{"$sub ssh TCP"} = [ $services{'ssh'}[0], $services{'ssh'}[1], $sub ];
+	}
+}
+
+sub get_api_rules
+{
+	my $sth = $dbh->prepare("SELECT api_admin_ips, api_fulladmin_ips FROM system_conf");
+	$sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
+	my %ips;
+	while (my $ref = $sth->fetchrow_hashref() ) {
+		foreach my $ip (expand_host_string($ref->{'api_admin_ips'}."\n".$ref->{'api_fulladmin_ips'},('dumper'=>'system_conf/api_admin_ips'))) {
+			$ips{$ip} = 1;
+		}
+	}
+	$ips{$_} = 1 foreach (getSubnets());
+	foreach my $ip (keys %ips) {
+		$rules{$ip." soap TCP"} = [ $services{'soap'}[0], $services{'soap'}[1], $ip ];
 	}
 }
 
