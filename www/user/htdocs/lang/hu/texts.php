@@ -542,3 +542,4 @@ $txt['WHITELISTHEAD'] = "Az engedélyezőlistára vonatkozó szabály hozzáadá
 $txt['ADDWHITELIST'] = "Ugyanazon feladótól származó összes jövőbeli spam engedélyezési listájára kerül?";
 $txt['NOTNEWSLISTBODY'] = "Hiba történt a hírlevél fehér listájának hozzáadása során.";
 $txt['NOTNEWSLISTHEAD'] = "A hírlista szabály nincs hozzáadva.";
+$txt['NEWSLETTERUNSUB'] = "leiratkozás";
