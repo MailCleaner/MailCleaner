@@ -14,7 +14,7 @@ $txt['WEBDOCTITLE'] = "Dokumentacja online";
 $txt['SMCLOGTITLE'] = "W nagłówkach widać następujące wpisy dotyczące Mailcleanera:";
 $txt['SMCLOGLINE1'] = "Otrzymane: Od mailcleaner.net (mechanizm filtrujący)";
 $txt['SMCLOGLINE2'] = "przez mailcleaner.net z esmtp (mechanizm poczty przychodzącej)";
-$txt['SMCFILTERINGLOG'] = "Rezultat filtrowania: Punktacja X-Mailcleaner: oooo";
+$txt['SMCFILTERINGLOG'] = "Wynik filtrowania: Punktacja X-Mailcleaner: oooo";
 $txt['SFALSEPOSSUB1POINT2'] = "e-mail może być przetworzony (zajmie to kilka minut)";
 $txt['DOCUMENTATION'] = "
                          <ul>
