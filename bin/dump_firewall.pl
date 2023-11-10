@@ -156,7 +156,10 @@ sub get_api_rules
 	$sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
 	my %ips;
 	while (my $ref = $sth->fetchrow_hashref() ) {
-		foreach my $ip (expand_host_string($ref->{'api_admin_ips'}."\n".$ref->{'api_fulladmin_ips'},('dumper'=>'system_conf/api_admin_ips'))) {
+		my @notempty;
+		push (@notempty, $ref->{'api_admin_ips'}) if (defined($ref->{'api_admin_ips'}) && $ref->{'api_admin_ips'} != '');
+		push (@notempty, $ref->{'api_fulladmin_ips'}) if (defined($ref->{'api_fulladmin_ips'}) && $ref->{'api_fulladmin_ips'} != '');
+		foreach my $ip (expand_host_string(my $string = join("\n", @notempty),('dumper'=>'system_conf/api_admin_ips'))) {
 			$ips{$ip} = 1;
 		}
 	}
