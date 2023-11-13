@@ -1,1 +1,1 @@
-timeout_frozen_after = 4d
+timeout_frozen_after = __TIMEOUT_FROZEN_AFTER__
