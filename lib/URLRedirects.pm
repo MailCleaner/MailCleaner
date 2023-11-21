@@ -39,6 +39,25 @@ sub getServices
         # List of known rewriting services. Each requires a 'regex' for the URL input
         # pattern and a 'decoder' function which returns the decoded URL.
         my %services = (
+                "ASP ReturnURL" => {
+                        "regex"   => qr#/action/browser.asp\?returnUrl=#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#.*/action/browser.asp\?returnUrl=(.*)#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                },
+                "Disqus" => {
+                        "regex"   => qr#^disq.us/url\?url=#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#^disq.us/url\?url=([^*&]*)#$1#;
+                                $url = uri_unescape($url);
+                                $url =~ s#((?:https?://)?[^:]*):.*#$1#;
+                                return $url;
+                        }
+                },
                 "Google Redirect" => {
                         "regex"   => qr#(www|maps)\.google\.([a-z]{2,3}){1,2}/url\?q=#,
                         "decoder" => sub {
@@ -96,6 +115,15 @@ sub getServices
                                 return $url;
                         }
                 },
+                "SRVTRCK" => {
+                        "regex"   => qr#(\w+\.)?srvtrck.com/v1/redirect\?#,
+                        "decoder" => sub {
+                                my $url = shift;
+                                $url =~ s#(?:\w+\.)?srvtrck.com/v1/redirect\?(?:.*&)?url=([^&]*).*#$1#;
+                                $url = uri_unescape($url);
+                                return $url;
+                        }
+                },
                 "Trend Micro" => {
                         "regex"   => qr#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=#,
                         "decoder" => sub {
@@ -123,17 +151,23 @@ sub decode
 {
         my $self = shift;
         my $url = shift;
+        my $recursed = shift || 0;
 
+        $url =~ s#^https?://##;
         foreach my $service (keys(%{$self->{'services'}})) {
                 if ($url =~ $self->{'services'}->{$service}->{'regex'}) {
                         my $decoded = $self->{'services'}->{$service}->{'decoder'}($url);
                         if ($decoded) {
-                                return $decoded;
+                                # Limit recursion to 10 steps
+                                return $decoded if ($recursed == 10);
+                                return $self->decode($decoded, ++$recursed);
                         } else {
-                                return undef;
-                        }
+                                return $url if ($recursed);
+				return undef;
+			}
                 }
         }
+        return $url if ($recursed);
         return 0;
 }
 
