@@ -173,7 +173,7 @@ $txt['SUMMARYSENDING'] = "Quarantäneberichte übermitteln";
 $txt['PURGETITLE'] = "Quarantäne manuell bereinigen";
 $txt['PURGEDONE'] = "Die Quarant&auml;ne wurde f&uuml;r die Adresse: <strong>__PARAM__</strong> gel&ouml;scht";
 $txt['COULDNOTPURGE'] = "Die Quarant&auml;ne verbunden mit der Adresse <strong>__PARAM__</strong> wurde, aus Fehlergr&uuml;nden nicht gel&ouml;scht. Bitte versuchen Sie es noch einmal.";
-$txt['ASKPURGECONFIRM'] = "M&ouml;chten Sie wirklich den Inhalt der Quarant&auml;ne f&uuml;r der letzten __PARAM1__ Tage f&uuml;r die Adresse <strong>__PARAM2__</strong> l&ouml;schen ?";
+$txt['ASKPURGECONFIRM'] = "M&ouml;chten Sie wirklich den Inhalt der Quarant&auml;ne f&uuml;r die letzten __PARAM1__ Tage f&uuml;r die Adresse <strong>__PARAM2__</strong> l&ouml;schen ?";
 $txt['QUARANTINEPURGE'] = "Quarantäne manuell bereinigen";
 $txt['GROUPQUARANTINES'] = "Alle Adressen";
 /*
