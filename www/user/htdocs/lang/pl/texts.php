@@ -503,3 +503,6 @@ $txt['NLNOTRELEASEDBODY'] = "Nastąpił problem z Twoją wiadomością. Spróbuj
 $txt['ADDTOGROUP'] = "Dodaj dla wszystkich adresów w grupie";
 $txt['NEWSLONLY'] = "Pokaż tylko biuletyny";
 $txt['SPAMONLY'] = "Pokaż tylko spam";
+//
+$txt['ADDITIONALACTION'] = "Dodatkowe działania:";
+$txt['NEWSLETTERUNSUB'] = "Anuluj subskrypcję";
