@@ -218,9 +218,8 @@ sub findUri {
 	my $line   = shift;
 	my $prelog = shift;
 
-	if ( my ( $scheme, $authority ) =
-		$line =~ m|(?:(https?)://)?([^#/" ><=\[\]()]{3,$this->{maxurilength}})| )
-	{
+	if ( $line =~ m|(?:https?://)?([^#/" ><=\[\]()]{3,$this->{maxurilength}})| ) {
+		my $authority = $1;
 		$authority =~ s/\n//g;
 		$authority = lc($authority);
 		my $u = $authority;
