@@ -31,6 +31,9 @@ sub new
         my ($class, $args) = @_;
         my $self = $args;
         $self->{'services'} = getServices();
+        $self->{'generics'} = getGenerics();
+        # Prioritize specific services over generic patterns. Split with 'undef' to indicate when search hash has changed
+        $self->{'all'} = [ keys(%{$self->{'services'}}), undef, keys(%{$self->{'generics'}}) ];
         return bless $self;
 }
 
@@ -39,48 +42,10 @@ sub getServices
         # List of known rewriting services. Each requires a 'regex' for the URL input
         # pattern and a 'decoder' function which returns the decoded URL.
         my %services = (
-                "ASP ReturnURL" => {
-                        "regex"   => qr#/action/browser.asp\?returnUrl=#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#.*/action/browser.asp\?returnUrl=(.*)#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
-                        }
-                },
-                "Disqus" => {
-                        "regex"   => qr#^disq.us/url\?url=#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#^disq.us/url\?url=([^*&]*)#$1#;
-                                $url = uri_unescape($url);
-                                $url =~ s#((?:https?://)?[^:]*):.*#$1#;
-                                return $url;
-                        }
-                },
-                "Google Redirect" => {
-                        "regex"   => qr#(www|maps)\.google\.([a-z]{2,3}){1,2}/url\?q=#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#www\.google\.com/url\?q=(.*)#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
-                        }
-                },
                 "LinkedIn" => {
                         "regex" => qr%linkedin.com/slink\?code=([^#]+)%,
                         "decoder" => sub {
-                                my $url = shift;
-                                return head($url);
-                        }
-                },
-                "Office 365" => {
-                        "regex"   => qr#.*safelinks\.protection\.outlook\.com/\?url=#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#.*safelinks\.protection\.outlook\.com/\?url=(.*)#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
+                                return head(shift);
                         }
                 },
                 "Proofpoint-v2" => {
@@ -111,39 +76,28 @@ sub getServices
                                 my $url = shift;
                                 $url =~ s|[^/]*/canit/urlproxy\.php\?_q\=([^&]*).*|$1|;
                                 $url = uri_unescape($url) ;
-                                $url = decode_base64($url);
-                                return $url;
+                                return decode_base64($url);
                         }
                 },
-                "SRVTRCK" => {
-                        "regex"   => qr#(\w+\.)?srvtrck.com/v1/redirect\?#,
+        );
+        return \%services;
+}
+
+sub getGenerics
+{
+        # Fallback patterns to be checked if no specific service is matched
+        my %generics = (
+                # Generic uri_encoded path included as a url argument
+                "uri_encoded_arg" => {
+                        "regex"   => qr#^[^/]*/[^\?]*\?.*=https?\%3A\%2F\%2F#,
                         "decoder" => sub {
                                 my $url = shift;
-                                $url =~ s#(?:\w+\.)?srvtrck.com/v1/redirect\?(?:.*&)?url=([^&]*).*#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
-                        }
-                },
-                "Trend Micro" => {
-                        "regex"   => qr#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#[^\.]+\.trendmicro.com(?:\:443)?/wis/clicktime/v1/query\?url=([^&]*).*#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
-                        }
-                },
-                "Twitter" => {
-                        "regex"   => qr#twitter\.com\/i\/redirect\?url=([^&]*).*#,
-                        "decoder" => sub {
-                                my $url = shift;
-                                $url =~ s#twitter\.com\/i\/redirect\?url=([^&]*).*#$1#;
-                                $url = uri_unescape($url);
-                                return $url;
+                                $url =~ s#^[^/]*/[^\?]*\?.*=https?\%3A\%2F\%2F([^&]*)&?.*#$1#;
+                                return uri_unescape($url);
                         }
                 }
         );
-        return \%services;
+        return \%generics;
 }
 
 # The actual simple search and decode function
@@ -154,17 +108,22 @@ sub decode
         my $recursed = shift || 0;
 
         $url =~ s#^https?://##;
-        foreach my $service (keys(%{$self->{'services'}})) {
-                if ($url =~ $self->{'services'}->{$service}->{'regex'}) {
-                        my $decoded = $self->{'services'}->{$service}->{'decoder'}($url);
+        my $type = 'services';
+        foreach my $service (@{$self->{'all'}}) {
+                if (!defined($service)) {
+                        $type = 'generics';
+                        next;
+                }
+                if ($url =~ $self->{$type}->{$service}->{'regex'}) {
+                        my $decoded = $self->{$type}->{$service}->{'decoder'}($url);
                         if ($decoded) {
                                 # Limit recursion to 10 steps
                                 return $decoded if ($recursed == 10);
                                 return $self->decode($decoded, ++$recursed);
                         } else {
                                 return $url if ($recursed);
-				return undef;
-			}
+                                return undef;
+                        }
                 }
         }
         return $url if ($recursed);
