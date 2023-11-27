@@ -166,9 +166,8 @@ foreach my $file (@order) {
 		my $short = $dnslists->findUriShortener( $_ );
 		if (defined($short) && $short ne 0) {
 			push(@finals, $short);
-		} else {
-			push(@finals, $dnslists->findUri( $_ ));
 		}
+		push(@finals, $dnslists->findUri( $_ ));
 	}
 
 	my %uniq;

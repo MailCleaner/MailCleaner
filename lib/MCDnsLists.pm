@@ -219,7 +219,7 @@ sub findUri {
 	my $prelog = shift;
 
 	if ( my ( $scheme, $authority ) =
-		$line =~ m|(http?s?)://([^#/" ><=\[\]()]{3,$this->{maxurilength}})| )
+		$line =~ m|(?:(https?)://)?([^#/" ><=\[\]()]{3,$this->{maxurilength}})| )
 	{
 		$authority =~ s/\n//g;
 		$authority = lc($authority);
@@ -255,7 +255,7 @@ sub findUriShortener {
 		$newloc         = $nl;
 		$final_location = $newloc;
 	}
-	$final_location =~ s/[%?]//g;
+	$final_location =~ s/([%?].*)//g;
 	if ( $final_location =~ m|bit\.ly/a/warning| ) {
 		&{ $this->{logfunction} }(
 			"$prelog found urlshortener with disabled link: $first_link");
