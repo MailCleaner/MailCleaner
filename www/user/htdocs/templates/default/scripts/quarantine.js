@@ -79,6 +79,16 @@ function purge() {
   window.open('purge.php?a='+ encodeURIComponent(email_address)+'&days='+nb_days+'&mask_forced='+mask_forced, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
 }
 
+function purge_all() {
+  all = '';
+  i = 0;
+  addresses.forEach(function(a) {
+    all += 'a['+i+']='+encodeURIComponent(a)+'&';
+    i++;
+  });
+  window.open('purge.php?'+all+'days='+nb_days+'&mask_forced='+mask_forced, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
+}
+
 function analyse(msgid, storeid, to) {
   window.open('send_to_analyse.php?a='+ encodeURIComponent(to) +'&id='+msgid+'&s='+storeid+'&lang='+lang+'&pop=up', '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
 }
