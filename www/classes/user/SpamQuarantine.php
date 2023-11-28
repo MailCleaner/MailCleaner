@@ -464,7 +464,7 @@ public function purge() {
      $clean_filters[$key] = $db_masterspool->sanitize($value);
    }
 
-   $query = "DELETE FROM spam_".$index." WHERE to_domain='".$clean_filters['to_domain']."' AND to_user='".$clean_filters['to_local']."'";
+   $query = "DELETE FROM spam_".$index." WHERE to_domain='".$clean_filters['to_domain']."' AND ( to_user='".$clean_filters['to_local']."' OR to_user like '".$clean_filters['to_local']."+%')";
 
    #return true;
    return $db_masterspool->doExecute($query);
