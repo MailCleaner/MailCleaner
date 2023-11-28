@@ -33,6 +33,7 @@
    var info_width = 500;
    var info_height = 500;
    var email_address = '__EMAIL_ADDRESS__';
+   var addresses = __ALL_ADDRESSES__;
    var lang = '__LANG__';
    var nb_days = '__NB_DAYS__';
    var mask_forced = '__MASK_FORCED__';
@@ -200,7 +201,7 @@ __DEFAULT__ sep = |
     __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__ __PAGE_SEP____PAGES__</td>
   </tr>
 </table>
-<p class="quickactions"><img src="images/trash.png" alt="__LANG_PURGESELECTEDSPAMS__" /><a href="javascript:purge();">__LANG_PURGESELECTEDSPAMS__</a></p>
+<p class="quickactions"><img src="images/trash.png" alt="__LANG_PURGESELECTEDSPAMS__" /><a href="javascript:__PURGE_FUNC__();">__LANG_PURGESELECTEDSPAMS__</a></p>
  <p class="quickactions"><img src="images/rapport.png" alt="__LANG_SENDSUM__" /><a href="javascript:summary();">__LANG_SENDSUM__</a> </p>
 <p id="purgeinfos">__DISPLAYEDINFOS__ __PURGEINFOS__</p>
 

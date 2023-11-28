@@ -173,6 +173,7 @@ $replace = array(
     '__END_FILTER_FORM__' => $form->close(),//	
 	'__SEND_SUMMARY_LINK__' => "summary.php?".$get_query,
 	'__PURGE_LINK__' => "purge.php?".$get_query,
+	'__PURGE_FUNC__' => "purge",
     '__REFRESH_BUTTON__' => $form->submit('submit', $lang_->print_txt('REFRESH'), ''),
     '__SEARCH_BUTTON__' => $form->submit('submit', $lang_->print_txt('SEARCH'), ''),
     '__REFRESH_LINK__' => "javascript:window.document.forms['".$form->getName()."'].submit();",
@@ -223,7 +224,11 @@ $replace = array(
     "__GROUPQUARANTINES__" => $form->checkbox('group_quarantines', '1', $quarantine->getFilter('group_quarantines'), 'javascript=groupAddresses();', 1),
     "__SPAMONLY__" => $form->checkbox('spam_only', '1', (!$quarantine->getFilter('newsl_only') && $quarantine->getFilter('spam_only')), 'javascript=showSpamOnly();', 1),
     "__NEWSLONLY__" => $form->checkbox('newsl_only', '1', (!$quarantine->getFilter('spam_only') && $quarantine->getFilter('newsl_only')), 'javascript=showNewslOnly();', 1),
+    "__ALL_ADDRESSES__" => '[ "'.join('", "', $user_addresses_).'" ]',
 );
+if ($quarantine->getFilter('group_quarantines')) {
+    $replace['__PURGE_FUNC__'] = "purge_all";
+}
 
 // display page
 $template_->output($replace);

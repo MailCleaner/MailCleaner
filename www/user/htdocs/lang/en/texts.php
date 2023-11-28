@@ -29,6 +29,7 @@ $txt['CLEAR'] = "clear";
 /*
  * generic texts
  */
+$txt['AND'] = "and";
 $txt['GB'] = "GB";
 $txt['MB'] = "MB";
 $txt['KB'] = "KB";
