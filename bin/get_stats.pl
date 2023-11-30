@@ -190,7 +190,6 @@ foreach my $dir (@dirs) {
     my $tday = $day;
     while ($tday <= $stop) {
         my $file = $dir."/".$tday."_counts";
-        print "processing file: ".$file."\n";
         processFile($file);
         print $whats{$dir}.":" if $batchmode && $fulldays;
         print $tday.":" if $fulldays;
