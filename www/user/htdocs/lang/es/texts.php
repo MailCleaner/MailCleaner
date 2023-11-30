@@ -563,3 +563,7 @@ $txt['NOTNEWSWHITEBODY'] = "Hubo un problema al agregar estas reglas.";
 $txt['NOTNEWSWHITEHEAD'] = "No se han agregado ni la lista de noticias ni la regla de lista blanca.";
 $txt['WHITENOTNEWSBODY'] = "Se agregó una regla de lista blanca, sin embargo, hubo un problema al agregar la regla de lista blanca de boletines.";
 $txt['NEWSLETTERUNSUB'] = "Cancelar la suscripción";
+/*
+ * generic texts
+ */
+$txt['AND'] = "y";
