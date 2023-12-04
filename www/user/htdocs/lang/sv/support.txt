@@ -1,1 +1,3 @@
 <?php
+$txt['SFALSENEGSUBTITLE'] = "Har du fått ett meddelande som du anser vara spam?";
+$txt['SVERIFYPASS'] = "Kontrollera att meddelandet har behandlats av Mailcleaner-filtret genom att titta på e-posthuvuden.";
