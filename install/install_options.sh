@@ -145,7 +145,7 @@ name=SPAMHAUSDBL
 type=URIRBL
 dnsname=${token}.dbl.dq.spamhaus.net
 sublist=127.0.1.(1?\d\d?|2[0-4]\d|25[0-4]),SPAMHAUSDBL,Spamhaus domain blocklist
-callonip=1
+callonip=0
 ishbl=0
 EOF
 
