@@ -122,7 +122,9 @@ case "$1" in
     wait
      ;;
   stop)
-    rm $VARDIR/run/*.rs 2>&1 > /dev/null
+    if [ ! -z "$(find $VARDIR/run/ -name *.rs)" ]; then
+        rm $VARDIR/run/*.rs
+    fi
     echo "Stopping $NAME: "
     if [ $APACHE_RESTART -eq 1 ]; then
        $INITDIR/$APACHE stop
