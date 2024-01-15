@@ -7,7 +7,7 @@ CREATE TABLE spam_n (
 	to_domain		varchar(100) NOT NULL,
 	to_user			varchar(100) NOT NULL,
 	sender			varchar(120) NOT NULL,
-	exim_id			varchar(16) NOT NULL,
+	exim_id			varchar(24) NOT NULL,
 	M_date			varchar(50),
 	M_subject		varchar(250),
 	forced			enum('1','0') NOT NULL DEFAULT '0',
