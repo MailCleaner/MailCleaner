@@ -36,7 +36,7 @@ public function getReasons($msg_id, $destination, $host) {
     require_once('system/SoapTypes.php');
     
     $lang = Language::getInstance('user');
-    if (!preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $msg_id) || !preg_match('/^\S+\@\S+$/', $destination)) {
+    if (!preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $msg_id) || !preg_match('/^\S+\@\S+$/', $destination)) {
         return false;
     }
 	require_once("system/Soaper.php");

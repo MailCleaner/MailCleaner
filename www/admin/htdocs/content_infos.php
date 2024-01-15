@@ -26,7 +26,7 @@ $res = "BADARGS";
 // create content
 $content = new Content();
 // get request settings and load content
-if (isset($_GET['id']) && preg_match('/^[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2}$/', $_GET['id'])) {
+if (isset($_GET['id']) && preg_match('/^[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4}$/', $_GET['id'])) {
   $res = $content->load($_GET['id']);
 }
 
