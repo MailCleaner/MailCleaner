@@ -36,7 +36,7 @@ my %master_conf;
 my $msg_id = shift;
 my $for = shift;
 
-if ( (!$msg_id) || !($msg_id =~ /^[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2}$/)) {
+if ( (!$msg_id) || !($msg_id =~ /^[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4}$/)) {
 	print "INCORRECTMSGID\n";
         exit 0;
 }

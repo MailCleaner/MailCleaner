@@ -36,7 +36,7 @@ my %config = readConfig("/etc/mailcleaner.conf");
 my $quardir = shift;
 my $forced_postfix = '-F'.int(rand(100));;
 
-if (! $quardir || (! ($quardir =~ /\d{8}\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/) ) ) {
+if (! $quardir || (! ($quardir =~ /\d{8}\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/) ) ) {
 	bad_usage();
 }
 

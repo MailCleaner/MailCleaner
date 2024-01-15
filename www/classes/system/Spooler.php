@@ -84,7 +84,7 @@ public function draw($template, $images, $sid) {
   $matches = array();
   while (!feof($list)) {
     $buffer = fgets($list, 4096);
-    if (preg_match('/^\s*(\d+[a-z])\s+(\d+.?\d+[a-zA-Z]*)?\s+(\S{6}\-\S{6}\-\S{2})\s+(.*)/', $buffer, $matches)) {
+    if (preg_match('/^\s*(\d+[a-z])\s+(\d+.?\d+[a-zA-Z]*)?\s+(\S{6}\-\S{6,11}\-\S{2,4})\s+(.*)/', $buffer, $matches)) {
       // new message found, so dump previous
       $ret .= $this->dumpMessage($template, $images, $sid, $fields, $i++);
       $fields['to'] = "";

@@ -21,7 +21,7 @@ class Api_Model_QuarantineAPI
       Zend_Registry::get('response')->setResponse(401, 'authentication required');
       return false;
     }
-    if (!isset($params['id']) || !preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $params['id'], $matches)) {
+    if (!isset($params['id']) || !preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $params['id'], $matches)) {
       Zend_Registry::get('response')->setResponse(500, 'Invalid message ID');
       return false;
     }
