@@ -163,6 +163,8 @@ php_value soap.wsdl_cache_enabled 0
 php_admin_value session.save_handler files
 php_admin_value session.save_path "/tmp/php_sessions"
 php_admin_value session.gc_maxlifetime 86400
+php_admin_value session.gc_probability 1
+php_admin_value session.gc_divisor 100
 
 RewriteEngine On
 RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
