@@ -266,7 +266,7 @@ sub populateIDs {
     if ($line =~ /^(\d\d\d\d)-(\d\d)-(\d\d)\ \d\d:\d\d:\d\d\ ([-a-zA-Z0-9]{16,24})\ /) {
       my $id = $4;
       my $nid = '';
-      if ($line =~ /250 OK id=(\S{16,24})/ && $line !~ /T=remote_smtp/) {
+      if ($line =~ /250 OK id=([^\s"]{16,24})/ && $line !~ /T=remote_smtp/) {
         $nid = $1; 
         $internal_messages{$nid} = 1;
       } 
@@ -406,8 +406,6 @@ sub printBatchResult {
   my $_datein = '';
   my $_dateout = '';
   my $_outhost = '';
-  my $_inid = $msg_o{'id'};
-  my $_outid = $msg_o{'nid'};
   my $_from = '';
   my $_tos = '';
   my $_accepted = 0;
