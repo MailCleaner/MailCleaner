@@ -162,17 +162,16 @@ class Default_Model_QuarantinedSpamMapper
 		}
 		$query = $this->getDbTable()->select();
 
-                ### newsl
 		if (isset($params['hidedup']) && $params['hidedup']!="") {
 		    $query->from($this->getDbTable()->getTableName(), 'COUNT(DISTINCT exim_id) as count');
-		} else if (!empty($params['showSpamOnly'])) {
-		    $query->from($this->getDbTable()->getTableName(), 'COUNT(*) as count');
-		    $query->where('is_newsletter != ?', 1);
-		} else if (!empty($params['showNewslettersOnly'])) {
-		    $query->from($this->getDbTable()->getTableName(), 'COUNT(*) as count');
-		    $query->where('is_newsletter = ?', 1);
 		} else {
 		    $query->from($this->getDbTable()->getTableName(), 'COUNT(*) as count');
+		}
+                ### newsl
+		if (!empty($params['showSpamOnly'])) {
+		    $query->where('is_newsletter != ?', 1);
+		} else if (!empty($params['showNewslettersOnly'])) {
+		    $query->where('is_newsletter = ?', 1);
 		}
                 
 		$this->buildBaseFetchAll($query, $params);
