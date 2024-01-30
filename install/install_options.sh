@@ -276,12 +276,6 @@ function eset() {
     exit 1
   fi
 
-  if [ "$MCVERSION" -lt "2016" ]; then
-    printf "You can't install ESET option in smaller version than 2016.xx \n" | tee &>> $LOGFILE
-    exit 1
-  fi
-
-  printf "\n"
   read -p "Please provide ESET MSP username (email address) : "  user
   if perl -e "my \$user = '$user'; chomp(\$user); exit(1) unless '\$user' =~ m/^([^@]+)@([a-zA-Z\-ßàÁâãóôþüúðæåïçèõöÿýòäœêëìíøùîûñé]+\.)+[a-zA-Z]{2,}$/;"; then
     printf "Invalid email address '$user'.\n" | tee &>> $LOGFILE
@@ -328,29 +322,23 @@ function eset() {
     env PATH=$PATH:/usr/sbin:/sbin apt-get dist-upgrade --yes --force-yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get autoremove --yes --force-yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get autoclean --yes --force-yes &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get install gcc, make, perl, openssl, linux-headers-amd64, libelf-dev, libudev1, cron, libsqlite3-0 --yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get install -f --yes &>> $LOGFILE
 
-    printf "Downloading ESET ... \n"
+    printf "Downloading ESET. This will take a couple of minutes ... \n"
     cd /tmp
-    wget https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin
-    if [[ ! -e efs.x86_64.bin ]]; then
-      echo "Failed to download 'https://download.eset.com/com/eset/apps/business/efs/linux/latest/efs.x86_64.bin'" | tee &>> $LOGFILE
-      exit 1
+    aria2c -q --checksum=sha-256=c4a562dff83704dfe6ab817f6cb9059dbbab02c0efb4c66483282588f1e57bc0 \
+        https://cdnpush.s3.us-east-2.stackpathstorage.com/efs.deb.xz
+    if [[ $! ]]; then
+        echo "Download failed or did not match SHA256SUM"
+        exit
     fi
 
+    printf "Extracting ESET ... \n";
+    unxz efs.deb.xz
     printf "Installing ESET ... \n";
-    chmod +x efs.x86_64.bin
-    env PATH=$PATH:/usr/sbin:/sbin ./efs.x86_64.bin -y -f -g &>> $LOGFILE
-    # First attempt will fail due to missing btrfs dependency
-    DEB=`ls ./efs*.deb`;
-    if [[ $DEB ]]; then
-      echo "Force installation without Btrfs"
-      dpkg -i --force-all $DEB
-      apt-mark hold efs
-      apt-get install --fix-missing -y
-    else
-      echo "Failed to locate downloaded .deb"
-    fi
+    dpkg -i efs.deb
+    env PATH=$PATH:/usr/sbin:/sbin apt-get install -f --yes &>> $LOGFILE
 
     if [[ ! -d /opt/eset ]]; then
       printf "Failed to install to /opt/eset\n" | tee &>> $LOGFILE
@@ -358,8 +346,7 @@ function eset() {
     fi
 
     printf "Cleaning up ... \n"
-    rm efs.x86_64.bin
-    rm efs-*.deb
+    rm efs.deb
   fi
   echo "Adding administration port to firewall..."
   list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -s mc_config | sed 's/\s*allowed_ip\s*//'`
@@ -383,21 +370,9 @@ function eset() {
 
   echo ${FONT_BOLD}${FONT_GREEN}ESET enabled Successfully${FONT_RESET}
 
-  res="`/opt/eset/efs/sbin/setgui -gre`"
-  SUCCESS=`echo $res | grep 'GUI is enabled'`
-  if [[ $SUCCESS == '' ]]; then
-    printf "Failed to enable GUI. Try again with:\n\n/opt/eset/efs/sbin/setgui -gre\n\n" | tee &>> $LOGFILE
-    exit 1
-  else
-    URL=`echo $res | sed -r 's/.*URL: ([^ ]+).*/\1/'`
-    USER=`echo -e $res | sed -r 's/.*Username: ([^ ]+).*/\1/'`
-    PASS=`echo -e $res | sed -r 's/.*Password: ([^ ]+).*/\1/'`
-    printf "${FONT_BOLD}${FONT_RED}IMPORTANT: ${FONT_RESET}"
-    printf "In order to further configure ESET, log in with:\n\n\tURL:  $URL\n\tUser: $USER\n\tPass: $PASS\n\nYou can reset this password at any time with:\n\n/opt/eset/efs/sbin/setgui -gre\n\n"
-  fi
-  
   exit 0
 }
+
 function kaspersky() {
   if [ "$MCVERSION" -lt "2016" ]; then
     printf "You can't install Kaspersky option in smaller version than 2016.xx \n"
