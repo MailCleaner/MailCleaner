@@ -35,11 +35,7 @@ case "$1" in
       eval "$(pyenv init --path)"
     fi
     if [ ! -e ${VARDIR}/run/fail2ban.disabled ]; then
-      $SRCDIR/etc/init.d/fail2ban status 1> /dev/null 2>&1
-      if [ $? != 0 ]; then
-        echo "Starting Fail2Ban"
-        $SRCDIR/etc/init.d/fail2ban start 2> /dev/null &
-      fi
+      $SRCDIR/etc/init.d/fail2ban restart 2> /dev/null &
       fail2ban.py internal reload-fw firewall 2>/dev/null
     fi
     ;;

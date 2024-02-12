@@ -140,8 +140,8 @@ do_start()
 	start-stop-daemon --start --quiet --chuid "$FAIL2BAN_USER" --exec $DAEMON -- \
 		$DAEMON_ARGS start > /dev/null\
 		|| return 2
-    	rm $VARDIR/run/fail2ban.stopped >/dev/null 2>&1
-    	rm $VARDIR/run/fail2ban.*.rs >/dev/null 2>&1
+	rm $VARDIR/run/fail2ban.stopped >/dev/null 2>&1
+	rm $VARDIR/run/fail2ban.*.rs >/dev/null 2>&1
 	return 0
 }
 
@@ -166,21 +166,41 @@ do_stop()
 	#	1 if daemon was already stopped
 	#	2 if daemon could not be stopped
 	#	other if a failure occurred
-	touch $VARDIR/run/fail2ban.stop.rs
-	$DAEMON status > /dev/null 2>&1 || return 1
-	$DAEMON stop > /dev/null || return 2
-	# now we need actually to wait a bit since it might take time
-	# for server to react on client's stop request. Especially
-	# important for restart command on slow boxes
-	count=1
-	while do_status && [ $count -lt 60 ]; do
-		sleep 1
-		count=$(($count+1))
-	done
-	[ $count -lt 60 ] || return 3 # failed to stop
-    	rm $VARDIR/run/fail2ban.stop.rs >/dev/null 2>&1
-    	touch $VARDIR/run/fail2ban.stopped
-	return 0
+	timeout 1s bash -c "$DAEMON status" >/dev/null 2>&1
+	RET=$?
+	# will quickly return 255 if it is not running
+	if [ $RET -eq 255 ]; then
+		RET=1
+	else
+		touch $VARDIR/run/fail2ban.stop.rs
+		# otherwise try to stop it gently
+		timeout 5s bash -c "$DAEMON stop" >/dev/null 2>&1
+		RET=$?
+		# will return 0 if the stop command exits, but it can take several seconds to actually stop
+		if [ $RET -eq 0 ]; then
+			count=1
+			while do_status && [ $count -lt 60 ]; do
+				sleep 1
+				count=$(($count+1))
+			done
+			[ $count -lt 60 ] || RET=3 # failed to stop
+		# otherwise, if the server is dead, it will never return, so we can hard kill it
+		elif [ $RET -eq 124 ]; then
+			pkill -9 fail2ban-server
+			RET=0
+		fi
+	fi
+	# Clean up socket and flag, mark as stopped
+	if [ -e /var/run/fail2ban/fail2ban.sock ]; then
+		rm /var/run/fail2ban/fail2ban.sock
+	fi
+	if [ -e $VARDIR/run/fail2ban.stop.rs ]; then
+		rm $VARDIR/run/fail2ban.stop.rs
+	else
+		RET=1
+	fi
+	touch $VARDIR/run/fail2ban.stopped
+	return $RET
 }
 
 #
