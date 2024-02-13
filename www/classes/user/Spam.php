@@ -149,7 +149,7 @@ public function loadFromArray($datas) {
  * 
  */
 public function loadDatas($id, $dest) {
-  if (!preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id) || !preg_match('/^\S+\@\S+$/', $dest)) {
+  if (!preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id) || !preg_match('/^\S+\@\S+$/', $dest)) {
     return false;
   }
   

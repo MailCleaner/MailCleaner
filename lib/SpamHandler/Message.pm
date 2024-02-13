@@ -102,7 +102,7 @@ sub new {
         $this->{accounting} = MailScanner::Accounting::new('post');
     }
 
-    if ( $this->{id} =~ m/^([A-Za-z0-9]{6}-[A-Za-z0-9]{6}-[A-Za-z0-9]{2})/ ) {
+    if ( $this->{id} =~ m/^([A-Za-z0-9]{6}-[A-Za-z0-9]{6,11}-[A-Za-z0-9]{2,4})/ ) {
         $this->{exim_id} = $1;
     }
     bless $this, 'SpamHandler::Message';

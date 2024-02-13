@@ -121,7 +121,7 @@ class Default_Form_DomainOutgoing extends Zend_Form
 
         $dkim_signature->addMultiOption('_none', 'None');
 
-        if ($this->_mta->getParam('dkim_default_domain') != '') {
+        if ($this->_mta->getParam('dkim_default_domain') != '' || $this->_mta->getParam('dkim_domain') == '_default') {
             $dkim_signature->addMultiOption('_default', 'Default domain (' . $this->_mta->getParam('dkim_default_domain') . ')');
         }
         if ($this->_domain->getParam('name') != '__global__') {
@@ -130,9 +130,7 @@ class Default_Form_DomainOutgoing extends Zend_Form
         $dkim_signature->addMultiOption('_custom', 'Custom');
 
         $dkim_signature->setValue('_none');
-        if ($this->_domain->getPref('dkim_domain') == '_default' ||
-            ($this->_domain->getPref('dkim_domain') == $this->_mta->getParam('dkim_default_domain') &&
-                $this->_domain->getPref('dkim_selector') == $this->_mta->getParam('dkim_default_selector'))) {
+        if ($this->_domain->getPref('dkim_domain') == '_default') {
             $dkim_signature->setValue('_default');
         } else if ($this->_domain->getPref('dkim_domain') == $this->_domain->getParam('name')) {
             $dkim_signature->setValue($this->_domain->getParam('name'));
@@ -263,8 +261,9 @@ class Default_Form_DomainOutgoing extends Zend_Form
                 $domain->setPref('dkim_domain', '');
                 break;
             case '_default':
-                $domain->setPref('dkim_domain', $this->_mta->getParam('dkim_default_domain'));
-                $domain->setPref('dkim_selector', $this->_mta->getParam('dkim_default_selector'));
+                $domain->setPref('dkim_domain', '_default');
+                $domain->setPref('dkim_selector', null);
+                $domain->setPref('dkim_pkey', null);
                 break;
             case $this->_domain->getParam('name'):
                 $domain->setPref('dkim_domain', $this->_domain->getParam('name'));
@@ -330,9 +329,7 @@ class Default_Form_DomainOutgoing extends Zend_Form
     {
         $key = new Default_Model_PKI();
 
-        if ($this->_domain->getPref('dkim_domain') == '_default' ||
-            ($this->_domain->getPref('dkim_domain') == $this->_mta->getParam('dkim_default_domain') &&
-                $this->_domain->getPref('dkim_selector') == $this->_mta->getParam('dkim_default_selector'))) {
+        if ($this->_domain->getPref('dkim_domain') == '_default') {
             $this->dkim_domain = $this->_mta->getParam('dkim_default_domain');
             $this->dkim_selector = $this->_mta->getParam('dkim_default_selector');
             $key->setPrivateKey($this->_mta->getParam('dkim_default_pkey'));

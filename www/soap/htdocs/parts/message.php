@@ -29,7 +29,7 @@ function forceContent($sid, $path) {
      return "NOTALLOWED";
   }
 
-  if (! preg_match('/\d{8}\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $path)) {
+  if (! preg_match('/\d{8}\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $path)) {
     return "BADPARAMS";
   }
   $sysconf_ = SystemConfig::getInstance();
@@ -50,7 +50,7 @@ function forceContent($sid, $path) {
  */
 function forceSpam($id, $dest) {
 
- if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+ if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
  }
  if (! preg_match('/^\S+\@\S+$/', $dest)) {
@@ -143,7 +143,7 @@ function addToBlacklist($dest, $sender) {
  * @return           array    array of message headers lines
  */
 function getHeaders($id, $dest) {
-  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
   }
   $matches = array();
@@ -178,7 +178,7 @@ function getHeaders($id, $dest) {
 }
 
 function getMIMEPart($id, $dest, $part) {
-  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
   }
   $matches = array();
@@ -227,7 +227,7 @@ function getMIMEPart($id, $dest, $part) {
  */
 function getBody($id, $dest, $nblines) {
 
-  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
   }
   if (!is_numeric($nblines)) {
@@ -290,7 +290,7 @@ function getBody($id, $dest, $nblines) {
  */
 function getReasons($id, $dest, $lang) {
 
-  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+  if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
  }
  if (! preg_match('/^\S+\@\S+$/', $dest)) {
@@ -323,7 +323,7 @@ function getReasons($id, $dest, $lang) {
  * @return       array    array of reasons on success, error code on failure
  */
 function sendToAnalyse($id, $dest) {
- if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id)) {
+ if (! preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id)) {
    return "BADPARAMS";
  }
  if (! preg_match('/^\S+\@\S+$/', $dest)) {

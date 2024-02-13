@@ -303,37 +303,6 @@ unless ($skip) {
     }
   }
 
-  ############################################
-  # Restart Fail2Ban if inaccessible/stopped #
-  ############################################
-  unless ( -e "$config{'VARDIR'}/run/fail2ban.disabled" ) {
-    if (my $pid_f2b = fork()) {
-      push(@wait,$pid_f2b);
-    } elsif (defined $pid_f2b) {
-      my $timout = 5;
-      my $failed = 0;
-      my $cmd = "/usr/bin/fail2ban-client status 2>/dev/null";
-      eval {
-        local $SIG{ALRM} = sub { die "timeout\n" };
-        alarm $timout;
-        system($cmd);
-        $failed=1 if ($?);
-        alarm 0;
-      };
-      if ($@) {
-        print("fail2ban not responding, restarting firewall...\n");
-        system("$config{'SRCDIR'}/etc/init.d/firewall restart");
-      } elsif ($failed) {
-        print("fail2ban not running, restarting firewall...\n");
-        system("$config{'SRCDIR'}/etc/init.d/firewall restart");
-      }
-    }
-  }
-
-  #####################################
-  # end $cron_occurence  minutes jobs #
-  #####################################
-
   #######################
   #######################
   # process hourly jobs #
@@ -684,6 +653,33 @@ while (scalar(@remaining)) {
     }
   }
 }
+
+############################################
+# Restart Fail2Ban if inaccessible/stopped #
+############################################
+unless ( -e "$config{'VARDIR'}/run/fail2ban.disabled" ) {
+  my $timout = 5;
+  my $failed = 0;
+  my $cmd = "/usr/bin/fail2ban-client status 2>/dev/null";
+  eval {
+    local $SIG{ALRM} = sub { die "timeout\n" };
+    alarm $timout;
+    system($cmd);
+    $failed=1 if ($?);
+    alarm 0;
+  };
+  if ($@) {
+    print("fail2ban not responding, restarting firewall...\n");
+    system("$config{'SRCDIR'}/etc/init.d/firewall restart");
+  } elsif ($failed) {
+    print("fail2ban not running, restarting firewall...\n");
+    system("$config{'SRCDIR'}/etc/init.d/firewall restart");
+  }
+}
+
+  #####################################
+  # end $cron_occurence  minutes jobs #
+  #####################################
 
 unless ($skip) {
   remove_lockfile($lockfile,undef);

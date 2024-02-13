@@ -201,7 +201,7 @@ for (my $i = 0; $i < (scalar @lines); $i++) {
     }
 }
 my @table;
-push @table, { name => 'exim_id', length => 16,	heading => 'Exim ID' };
+push @table, { name => 'exim_id', length => 24,	heading => 'Exim ID' };
 push @table, { name => 'to_user', length => 20, heading => 'Recipient' };
 push @table, { name => 'sender', length => 20, heading => 'Sender' };
 push @table, { name => 'M_subject', length => 15, heading => 'Subject' };
