@@ -36,9 +36,9 @@ then
     EXIT=1
 fi
 
-if [[ $(dpkg -l |grep mc-exim | sed -e 's/.*4.96.*/4.96/') != '4.96' ]]
+if [[ $(dpkg -l |grep mc-exim | sed -e 's/.*4\.97\.1.*/4.97.1/') != '4.97.1' ]]
 then
-    echo "mc_exim is not in version 4.96" >> $OUT_FILE
+    echo "mc_exim is not in version 4.97" >> $OUT_FILE
     EXIT=1
 fi
 
