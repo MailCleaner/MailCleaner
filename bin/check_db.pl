@@ -106,7 +106,7 @@ foreach my $database (split(',', $databases)) {
     ## mysql repair mode
     myCheckRepairDatabase(\$db, 1);
   } elsif ($updatemode) {
-  	compareUpdateDatabase(\$db, $database, 1);
+    compareUpdateDatabase(\$db, $database, 1);
   } else {
     ## output status
     compareUpdateDatabase(\$db, $database, 0);
@@ -156,10 +156,10 @@ sub getRefTables {
   }
   opendir(IDIR, $install_dir) or die "could not open table definition directory $install_dir\n";
   while( my $table_file = readdir(IDIR)) {
-	next if $table_file =~ /^\./;
-	if ($table_file =~ /^t\_$prefix\_(\S+)\.sql/) {
-		$tables{$1} = $install_dir."/".$table_file;
-	}
+    next if $table_file =~ /^\./;
+    if ($table_file =~ /^t\_$prefix\_(\S+)\.sql/) {
+      $tables{$1} = $install_dir."/".$table_file;
+    }
   }
   closedir(IDIR);
   return %tables;
@@ -193,34 +193,35 @@ sub getRefFields {
   open(TABLEFILE, $file) or die("ERROR, cannot open reference database file $file\nABORTED\n");
   my $in_desc = 0;
   while(<TABLEFILE>) {
-	chomp;
-	if ( $_ =~ /CREATE\s+TABLE\s+(\S+)\s+\(/ ) {
-	  $in_desc = 1;
-	  next;
-	}
-	if ( $_ =~ /^\s*\)(TYPE\=MyISAM)?\;\s*$/ ) {
-	  $in_desc = 0;
-	}
-	if ( $_ =~ /INSERT/) {
-	  $in_desc = 0;
-	  next;
-	}
-	if (! $in_desc) {
-	  next;
-	}
-	if ( $_ =~ /^\s*PRIMARY|INDEX|UNIQUE KEY|KEY|^\-\-/ ) {
-	  next;
-	}
-	if ( $_ =~ /\s+(\S+)\s+(\S+)(.*)\,?\s*$/ ) {
-	  my $deffull = $2.$3;
-	  my $def = $2;
-	  my $n = $1;
-	  $deffull =~ s/\s*\,\s*$//g;
-	  $fields{$order."_".$n} = { previous => $previous, def => $def, deffull => $deffull };
-	  $previous = $n;
-	  $order = $order + 1;
-	  next;
-	}
+    chomp;
+    if ( $_ =~ /CREATE\s+TABLE\s+(\S+)\s+\(/ ) {
+      $in_desc = 1;
+      next;
+    }
+    if ( $_ =~ /^\s*\)(TYPE\=MyISAM)?\;\s*$/ ) {
+      $in_desc = 0;
+    }
+    if ( $_ =~ /INSERT/) {
+      $in_desc = 0;
+      next;
+    }
+    if (! $in_desc) {
+      next;
+    }
+    if ( $_ =~ /^\s*PRIMARY|INDEX|UNIQUE KEY|KEY|^\-\-/ ) {
+      next;
+    }
+    if ( $_ =~ /\s+(\S+)\s+(\S+)(.*)\,?\s*$/ ) {
+      my $deffull = $2.$3;
+      my $def = $2;
+      my $n = $1;
+      $def =~ s/,$//;
+      $deffull =~ s/\s*\,\s*$//g;
+      $fields{$order."_".$n} = { previous => $previous, def => $def, deffull => $deffull };
+      $previous = $n;
+      $order = $order + 1;
+      next;
+    }
   }
   close(TABLEFILE);
   return %fields;
@@ -239,10 +240,10 @@ sub getActualFields {
   my @afields = $db->getListOfHash($sql);
   
   foreach my $f (@afields) {
-  	my $fname = $f->{Field};
-  	my $ftype = $f->{Type};
-  	$fields{$fname} = { previous => $previous, def => $ftype };
-	$previous = $1;
+    my $fname = $f->{Field};
+    my $ftype = $f->{Type};
+    $fields{$fname} = { previous => $previous, def => $ftype };
+    $previous = $1;
   }
   
   return %fields;
@@ -261,13 +262,13 @@ sub myCheckRepairDatabase {
   
   
   foreach my $tname (keys %tables) {
-  	if ($repair) {
-  	  print "   repairing table: $tname...";
+    if ($repair) {
+      print "   repairing table: $tname...";
       $sql = "REPAIR TABLE $tname EXTENDED;";
-  	} else {
-  	  print "   checking table: $tname...";
+    } else {
+      print "   checking table: $tname...";
       $sql = "CHECK TABLE $tname EXTENDED;";
-  	}
+    }
     my %result = $db->getHashRow($sql);
     print " ".$result{'Msg_text'}."\n";
   }
@@ -317,8 +318,8 @@ sub checkReplicationStatus {
   my $haserror = 0;
   my $logfile = $conf->getOption('VARDIR')."/log/mysql_slave/mysql.log";
   if (! -f $logfile) {
-  	print "WARNING: slave mysql log file not found ! ($logfile)\n";
-  	return 0;
+    print "WARNING: slave mysql log file not found ! ($logfile)\n";
+    return 0;
   }
   my $outlog = `tail -4 $logfile`;
   if ($outlog =~ /replication started/ && $outlog =~ /starting replication in log/) {
@@ -365,17 +366,16 @@ sub compareUpdateDatabase {
   ## check missing things in actual database (from ref to actual)
   ## check tables presence
   foreach my $table (keys %reftables) {
-  	
-  	output "  processing table $table\n";
-  	## if missing table
+    output "  processing table $table\n";
+    ## if missing table
     if (! defined($actualtables{$table})) {
       print "     MISSING table $table..";
       if ($update) {
-      	my $type = '-m';
-      	if ($dbtype eq 'slave') {
-      	  $type = '-s';
-      	}
-      	my $cmd = $conf->getOption('SRCDIR')."/bin/mc_mysql $type < ".$reftables{$table} ." 2>&1";
+        my $type = '-m';
+        if ($dbtype eq 'slave') {
+          $type = '-s';
+        }
+        my $cmd = $conf->getOption('SRCDIR')."/bin/mc_mysql $type < ".$reftables{$table} ." 2>&1";
         my $res = `$cmd`;
         if (! $res eq '' ) {
           print "ERROR, cannot create database: $res\nABORTED\n";
@@ -418,29 +418,43 @@ sub compareUpdateTable {
   #####
   ## check missing columns
   foreach my $reff (sort (keys %reffields)) {
-	my $f = $reff;
-	$f =~ s/^(\d+\_)//;
-	$nonofields{$f} = $reffields{$reff};
+    my $f = $reff;
+    $f =~ s/^(\d+\_)//;
+    $nonofields{$f} = $reffields{$reff};
     if (! defined($actualfields{$f})) {
-      print "     MISSING column $tablename.$f (after ".$reffields{$reff}{previous}.")..";
+      print "     MISSING column $tablename.$f (after ".$reffields{$reff}{previous}.")";
       if ($update) {
-      	my $after = "";
-      	if (! $reffields{$reff}{previous} eq '') {
-      	  $after = " AFTER ".$reffields{$reff}{previous};
-      	}
-      	my $sql = "ALTER TABLE $tablename ADD COLUMN ".$f." ".$reffields{$reff}{deffull}.$after.";";
-      	if (! $db->execute($sql)) {
-      	  print "ERROR, cannot create column: ".$db->getError()."\nABORTED\n";
-      	  exit 1;
-      	} else {
-      	  print " FIXED !";
-      	}
+        my $after = "";
+        if (! $reffields{$reff}{previous} eq '') {
+          $after = " AFTER ".$reffields{$reff}{previous};
+        }
+        my $sql = "ALTER TABLE $tablename ADD COLUMN ".$f." ".$reffields{$reff}{deffull}.$after.";";
+        if (! $db->execute($sql)) {
+          print " ERROR, cannot create column: ".$db->getError()."\nABORTED\n";
+          exit 1;
+        } else {
+          print " FIXED !\n";
+        }
       }
       print "\n";
+    } else {
+      my $clean = $reff;
+      $clean =~ s/^\d+_//;
+      if ($reffields{$reff}{'def'} ne $actualfields{$clean}{'def'}) {
+        print "     INCORRECT column type '".$actualfields{$clean}{'def'}."' != '".$reffields{$reff}{'def'}."' $tablename.$f";
+        if ($update) {
+          my $sql = "ALTER TABLE $tablename MODIFY $clean $reffields{$reff}{'deffull'};";
+          if (! $db->execute($sql)) {
+            print " ERROR, cannot alter column $clean in $tablename: ".$db->getError()."\nABORTED\n";
+            exit 1;
+          } else {
+            print " FIXED !\n";
+          }
+        }
+      }
     }
   }
  
-  
   #####
   ## check useless columns
   foreach my $f (keys %actualfields) {
@@ -449,15 +463,14 @@ sub compareUpdateTable {
       if ($update) {
         my $sql = "ALTER TABLE $tablename DROP COLUMN ".$f.";";
         if (! $db->execute($sql)) {
-      	  print "ERROR, cannot remove column: ".$db->getError()."\nABORTED\n";
-      	  exit 1;
-      	} else {
-      	  print " FIXED !";
-      	}
+          print "ERROR, cannot remove column: ".$db->getError()."\nABORTED\n";
+          exit 1;
+        } else {
+          print " FIXED !";
+        }
       }
       print "\n";
     }
   }
   return 1;
 }
-	

@@ -20,7 +20,7 @@ class MCSoap_Content
    */
 	static public function Content_fetchAll($params, $limit=0) {
 		
-		if (isset($params['id']) && !preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $params['id'], $matches)) {
+		if (isset($params['id']) && !preg_match('/^([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $params['id'], $matches)) {
 			unset($params['id']);
 		}
 		
@@ -120,7 +120,7 @@ class MCSoap_Content
 		if (isset($params['id'])) {
             $id = $params['id'];
 		}
-		if (!$id || !preg_match('/^(\d{8})\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{2})$/', $id, $matches)) {
+		if (!$id || !preg_match('/^(\d{8})\/([a-z,A-Z,0-9]{6}-[a-z,A-Z,0-9]{6,11}-[a-z,A-Z,0-9]{2,4})$/', $id, $matches)) {
 			return array('status' => 0, 'error' => 'BADMSGID ('.$id.")");
 		}
 		$id = $matches[2];

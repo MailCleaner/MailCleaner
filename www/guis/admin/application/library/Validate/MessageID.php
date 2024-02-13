@@ -20,7 +20,7 @@ class Validate_MessageID extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
         
-        if (preg_match('/^[0-9A-Z]{6}-[0-9A-Z]{6}-[0-9A-Z]{2}$/i', $value)) {
+        if (preg_match('/^[0-9A-Z]{6}-[0-9A-Z]{6,11}-[0-9A-Z]{2,4}$/i', $value)) {
         	return true;
         }
     }
