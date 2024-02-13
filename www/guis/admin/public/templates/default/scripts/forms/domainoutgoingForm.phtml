@@ -31,9 +31,9 @@
           
           <tr class="dkim_selandkey_fieldset">
             <td class="flabel flabelstrict"></td>
-            <td class="fvalue fieldnote"><a id="generatepkey" href="javascript:generatePKI('rsa',1024);"><?php echo $this->t->_('Generate new private key')?>...</a></td>
+            <td class="fvalue fieldnote"><a id="generatepkey" href="javascript:generatePKI('rsa',2048);"><?php echo $this->t->_('Generate new private key')?>...</a></td>
           </tr>
-          <?php if (isset($this->form->dkim_domain) && isset($this->form->dkim_selector) && isset($this->form->dkim_pubkey)) {?>
+          <?php if (isset($this->form->dkim_domain) && ($this->form->dkim_domain == 'default' || ( isset($this->form->dkim_selector) && isset($this->form->dkim_pubkey)))) {?>
           <tr class="dkim_help_field">
             <td colspan="2">
               <p><?php echo $this->t->_('The domain ')." <strong>".$this->form->dkim_domain."</strong> ".$this->t->_('should have a TXT record like this in its DNS')?> :</p>
