@@ -159,7 +159,7 @@ class ManagecontentquarantineController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		
 		$id = '';
-		if ($request->getParam('id') && preg_match('/^\d{8}-[a-zA-Z0-9\-]{16}$/', $request->getParam('id'))) {
+		if ($request->getParam('id') && preg_match('/^\d{8}-[a-zA-Z0-9]{6}-[a-zA-Z0-9]{6,11}-[a-zA-Z0-9]{2,4}$/', $request->getParam('id'))) {
 			$id = $request->getParam('id');
 			$id = preg_replace('/-/', '/', $id, 1);
 		}
@@ -197,8 +197,8 @@ class ManagecontentquarantineController extends Zend_Controller_Action
 				
 		$request = $this->getRequest();
 		
-	    $id = '';
-		if ($request->getParam('id') && preg_match('/^\d{8}-[a-zA-Z0-9\-]{16}$/', $request->getParam('id'))) {
+	        $id = '';
+		if ($request->getParam('id') && preg_match('/^\d{8}-[a-zA-Z0-9]{6}-[a-zA-Z0-9]{6,11}-[a-zA-Z0-9]{2,4}$/', $request->getParam('id'))) {
 			$id = $request->getParam('id');
 			$id = preg_replace('/-/', '/', $id, 1);
 		}
