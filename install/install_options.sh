@@ -322,7 +322,7 @@ function eset() {
     env PATH=$PATH:/usr/sbin:/sbin apt-get dist-upgrade --yes --force-yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get autoremove --yes --force-yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get autoclean --yes --force-yes &>> $LOGFILE
-    env PATH=$PATH:/usr/sbin:/sbin apt-get install gcc, make, perl, openssl, linux-headers-amd64, libelf-dev, libudev1, cron, libsqlite3-0 --yes &>> $LOGFILE
+    env PATH=$PATH:/usr/sbin:/sbin apt-get install gcc make perl openssl linux-headers-amd64 libelf-dev libudev1 cron libsqlite3-0 --yes &>> $LOGFILE
     env PATH=$PATH:/usr/sbin:/sbin apt-get install -f --yes &>> $LOGFILE
 
     printf "Downloading ESET. This will take a couple of minutes ... \n"
