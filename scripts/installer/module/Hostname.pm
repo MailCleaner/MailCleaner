@@ -44,12 +44,15 @@ sub do {
 
   my $dfact = DialogFactory::get('InLine');
   my $dlg = $dfact->getSimpleDialog();
-#  $dlg->clear();
-#  print "Setting the hostname\n";
-#  print "--------------------\n\n";
+  $dlg->clear();
+  print "Setting the hostname\n";
+  print "--------------------\n\n";
 
-  $dlg->build('Enter the new hostname', 'mailcleaner');
-  my $name = $dlg->display();
+  my $name = `hostname`;
+  chomp($name);
+  $name //= 'mailcleaner';
+  $dlg->build('Enter the new hostname', "$name");
+  $name = $dlg->display();
 
   if ($name =~ m/^[-a-zA-Z0-9_.]+$/) {
     `hostname $name`;
@@ -57,6 +60,11 @@ sub do {
     `$cmd`;
     $cmd = "echo 127.0.0.1 $name >> ".$this->{hostsfile};
     `$cmd`;
+    `echo "UPDATE httpd_config SET servername = '$name';" | /usr/mailcleaner/bin/mc_mysql -m mc_config`;
+    `sed -i -r 's/(MCHOSTNAME *= *).*/\\1$name/' /etc/mailcleaner.conf`;
+    `/usr/mailcleaner/etc/init.d/apache restart`;
+  } else {
+    print("Invalid hostname: $name\n");
   }
 }
 
