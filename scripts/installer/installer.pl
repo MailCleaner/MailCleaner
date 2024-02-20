@@ -27,7 +27,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 }
 
 require module::Network;
-#require module::Hostname;
+require module::Hostname;
 require module::Keyboard;
 #require module::Timezone;
 #require module::MCInstaller;
@@ -38,7 +38,7 @@ my $d = DialogFactory::get('InLine');
 my $dlg = $d->getListDialog();
 
 #my @basemenu = ('Keyboard configuration', 'Set root password', 'Hostname setting', 'Network configuration', 'Timezone configuration', 'MailCleaner (re)installation', 'Exit');
-my @basemenu = ('Keyboard configuration', 'Set root password (Optionnal: Connect to the web interface to access the configurator)', 'Network configuration (Optionnal: You could do this with the MailCleaner Web Interface)', 'Exit');
+my @basemenu = ('Keyboard configuration', 'Set root password (Optionnal: Connect to the web interface to access the configurator)', 'Hostname setting',  'Network configuration (Optionnal: You could do this with the MailCleaner Web Interface)', 'Exit');
 my $currentstep = 1;
 
 while (doMenu()) {
@@ -73,11 +73,11 @@ sub doMenu {
     $currentstep = 3;
   }
 
-#  if ($res eq 'Hostname setting') {
-#    my $hostn = module::Hostname::get();
-#    $hostn->do();
-#    $currentstep = 4;
-#  }
+  if ($res eq 'Hostname setting') {
+    my $hostn = module::Hostname::get();
+    $hostn->do();
+    $currentstep = 4;
+  }
 
   if ($res eq 'Network configuration (Optionnal: You could do this with the MailCleaner Web Interface)') {
     my $net = module::Network::get();
