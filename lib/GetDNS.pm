@@ -46,18 +46,23 @@ sub dumper {
 	$self->{recursion} = 0;
 
 	chomp($raw);
-	$raw =~ s/([\s\n\r;,])+/ /g;
+	my @lines;
+	foreach my $line (split("\n", $raw)) {
+		$line =~ s/#.*//;
+		$line =~ s/([\s\n\r;,])+/ /g;
+		push(@lines, split(" ", $line));
+	}
 
 	my %cache;
 	my @list;
 	my @hostnames;
-	foreach my $line (split(" ", $raw)) {
+	foreach my $line (@lines) {
 		# Some fields allow for a hostname which should not be resolved to IPs
 		# Push without looking up DNS info
 		if ($line =~ m/^([a-z0-9\-*]+\.)+[a-z]*$/) {
 			push(@hostnames,$line);
-		# Ignore comment
-		} elsif ($line =~ m/^#/) {
+		# Ignore blank lines
+		} elsif ($line =~ m/^\s*$/) {
 			next;
 		} else {
 			$cache{$line} = undef;
