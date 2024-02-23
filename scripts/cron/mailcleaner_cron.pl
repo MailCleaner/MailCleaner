@@ -82,11 +82,11 @@ unless ( -e "$config{'VARDIR'}/run/fail2ban.disabled" ) {
     alarm 0;
   };
   if ($@) {
-    print("fail2ban not responding, restarting firewall...\n");
-    system("$config{'SRCDIR'}/etc/init.d/firewall restart");
+    print("fail2ban not responding, restarting...\n");
+    system("$config{'SRCDIR'}/etc/init.d/fail2ban restart");
   } elsif ($failed) {
-    print("fail2ban not running, restarting firewall...\n");
-    system("$config{'SRCDIR'}/etc/init.d/firewall restart");
+    print("fail2ban not running, restarting fail2ban...\n");
+    system("$config{'SRCDIR'}/etc/init.d/fail2ban restart");
   }
 }
 
