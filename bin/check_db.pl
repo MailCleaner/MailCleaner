@@ -211,11 +211,11 @@ sub getRefFields {
     if ( $_ =~ /^\s*PRIMARY|INDEX|UNIQUE KEY|KEY|^\-\-/ ) {
       next;
     }
-    if ( $_ =~ /\s+(\S+)\s+(\S+)(.*)\,?\s*$/ ) {
+    if ( $_ =~ /\s+(\S+)\s+([^\s\(,]+(?:\([^\)]+\))?)(.*)\,?\s*$/ ) {
       my $deffull = $2.$3;
       my $def = $2;
       my $n = $1;
-      $def =~ s/,$//;
+      $def =~ s/\ //g;
       $deffull =~ s/\s*\,\s*$//g;
       $fields{$order."_".$n} = { previous => $previous, def => $def, deffull => $deffull };
       $previous = $n;
@@ -440,7 +440,7 @@ sub compareUpdateTable {
     } else {
       my $clean = $reff;
       $clean =~ s/^\d+_//;
-      if ($reffields{$reff}{'def'} ne $actualfields{$clean}{'def'}) {
+      if (lc($reffields{$reff}{'def'}) ne lc($actualfields{$clean}{'def'})) {
         print "     INCORRECT column type '".$actualfields{$clean}{'def'}."' != '".$reffields{$reff}{'def'}."' $tablename.$f";
         if ($update) {
           my $sql = "ALTER TABLE $tablename MODIFY $clean $reffields{$reff}{'deffull'};";

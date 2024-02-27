@@ -3,7 +3,7 @@ use mc_config;
 DROP TABLE IF EXISTS update_patch;
 
 CREATE TABLE update_patch (
-  id				int NOT NULL,
+  id				int(11) NOT NULL,
   date				date NOT NULL,
   time				time NOT NULL,
   status			varchar(150) NOT NULL,
