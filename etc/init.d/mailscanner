@@ -121,10 +121,10 @@ case "$1" in
     # then MailScanner
     echo -n "  Starting $DESC: "
     if [ -e /usr/bin/screen ]; then
-      #screen -d -m start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
-          start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON
+      #screen -d -m /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
+          /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON
 	else
-	  start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
+	  /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
 	fi
 	RETVAL=$?
 	if [ $RETVAL -eq 0 ]; then
@@ -143,7 +143,7 @@ case "$1" in
       pkill -9 logd
     fi
 	echo -n "  Stopping $DESC: "
-	start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE 
+	/sbin/start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE 
 	RETVAL=$?
 	if [ $RETVAL -eq 0 ]; then
 	    rm -f $LOCKFILE

@@ -34,7 +34,7 @@ case "$1" in
     touch $VARDIR/run/exim_stage2.start.rs
     echo -n "  Starting $NAME: "
     prepare
-    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd
+    /sbin/start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd
     if [ -f $VARDIR/run/exim_stage2.rn ]; then
       rm $VARDIR/run/exim_stage2.rn
     fi
@@ -48,7 +48,7 @@ case "$1" in
   stop)
     touch $VARDIR/run/exim_stage2.stop.rs
     echo -n "  Stopping $NAME: "
-    start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
+    /sbin/start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
     sleep 4
     EXIMPID=`pgrep -f exim_stage2.conf`;
     if [ ! "$EXIMPID" = "" ]; then
