@@ -46,7 +46,7 @@ case "$1" in
     ## spam handler daemon
     $SRCDIR/etc/init.d/spamhandler start >/dev/null 2>&1
     ## then Exim
-    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd -q$QUEUETIME
+    /sbin/start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON -- -C $CONFIGFILE -bd -q$QUEUETIME
     if [ -f $VARDIR/run/exim_stage4.rn ]; then
       rm $VARDIR/run/exim_stage4.rn
     fi
@@ -60,7 +60,7 @@ case "$1" in
   stop)
     touch $VARDIR/run/exim_stage4.stop.rs
     echo -n "  Stopping $NAME: "
-    start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
+    /sbin/start-stop-daemon --stop  --pidfile $PIDFILE --oknodo --retry 30 --exec $DAEMON
     sleep 4
     EXIMPID=`pgrep -f exim_stage4.conf`;
     if [ ! "$EXIMPID" = "" ]; then

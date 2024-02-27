@@ -176,7 +176,7 @@ do_start()
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
 
-	start-stop-daemon --chuid $userName --start --quiet \
+	/sbin/start-stop-daemon --chuid $userName --start --quiet \
 	    --exec $PRODUCTION_DAEMON --test > /dev/null 2>&1 \
 	    || return 1
 
@@ -192,14 +192,14 @@ do_start()
             chown $userName:$groupName $debugOutputFile
 
 	    # Start with output redirected.
-	    start-stop-daemon --chuid $userName --start --quiet \
+	    /sbin/start-stop-daemon --chuid $userName --start --quiet \
 		--chdir $runDir \
 		--exec $DEBUG_DAEMON -- $DEBUG_DAEMON_ARGS >> \
 		$debugOutputFile 2>&1 \
 		|| return 2 &
 	else
 echo $PRODUCTION_DAEMON $PRODUCTION_DAEMON_ARGS
-	    start-stop-daemon --chuid $userName --start --quiet \
+	    /sbin/start-stop-daemon --chuid $userName --start --quiet \
 		--chdir $runDir \
 		--background --exec $PRODUCTION_DAEMON -- \
 		$PRODUCTION_DAEMON_ARGS > /dev/null 2>&1 || return 2
@@ -225,7 +225,7 @@ do_stop()
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
         # Check whether SNFServer is running.
-	start-stop-daemon --chuid $userName --start --quiet \
+	/sbin/start-stop-daemon --chuid $userName --start --quiet \
 	    --exec $PRODUCTION_DAEMON --test > /dev/null
 	RETVAL=$?
 
@@ -238,13 +238,13 @@ do_stop()
 	sleep 10
 
         # Check again whether SNFServer is running.
-	start-stop-daemon --chuid $userName --start --quiet \
+	/sbin/start-stop-daemon --chuid $userName --start --quiet \
 	    --exec $PRODUCTION_DAEMON --test > /dev/null
 	RETVAL=$?
 
 	if [ $RETVAL -eq 1 ] ; then
 	    # Send TERM signal to stop SNFServer.
-	    start-stop-daemon --stop --quiet --retry=TERM/5 --exec $PRODUCTION_DAEMON
+	    /sbin/start-stop-daemon --stop --quiet --retry=TERM/5 --exec $PRODUCTION_DAEMON
 	    RETVAL="$?"
 	    [ "$RETVAL" = 2 ] && return 2
 	    return "$RETVAL"
@@ -274,7 +274,7 @@ case "$1" in
 	esac
 	;;
   status)
-	start-stop-daemon --chuid $userName --start --quiet \
+	/sbin/start-stop-daemon --chuid $userName --start --quiet \
 	    --exec $PRODUCTION_DAEMON --test > /dev/null
 	RETVAL=$?
 	if [ $RETVAL -eq 0 ]; then

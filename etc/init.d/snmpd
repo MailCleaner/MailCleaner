@@ -31,7 +31,7 @@ case "$1" in
     touch $VARDIR/run/snmpd.start.rs
     echo -n "  Starting SNMP daemon: "
     prepare
-    start-stop-daemon --quiet --start --exec $DAEMON \
+    /sbin/start-stop-daemon --quiet --start --exec $DAEMON \
             -- $SNMPDOPTS >/dev/null 2>&1
     echo "started."
     if [ -f $VARDIR/run/snmpd.rn ]; then
@@ -43,7 +43,7 @@ case "$1" in
   stop)
     touch $VARDIR/run/snmpd.stop.rs
     echo -n "  Stopping SNMP daemon: "
-    start-stop-daemon --quiet --stop --exec $DAEMON
+    /sbin/start-stop-daemon --quiet --stop --exec $DAEMON
     SNMPDPID=`pgrep -f snmpd.conf`
     if [ ! "$SNMPDPID" = "" ]; then
       kill -KILL $SNMPDPID >/dev/null 2>&1

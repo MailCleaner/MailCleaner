@@ -52,7 +52,7 @@ case "$1" in
 	fi
 
 	echo -n "  Starting greylisting daemon: "
-	start-stop-daemon --start --background \
+	/sbin/start-stop-daemon --start --background \
 	    --chuid "$user" \
 	    --pidfile "$pidfile" --make-pidfile \
 	    --exec "$daemon"  -- $config
@@ -69,7 +69,7 @@ case "$1" in
     touch $VARDIR/run/greylistd.stop.rs
 	echo -n "  Stopping greylisting daemon: "
 	if [ -f $pidfile ]; then
-    	start-stop-daemon --stop --pidfile "$pidfile" &&
+    	/sbin/start-stop-daemon --stop --pidfile "$pidfile" &&
 	      rm -f "$pidfile"
 	fi
 	if [ -e $VARDIR/run/greylistd/socket ]; then

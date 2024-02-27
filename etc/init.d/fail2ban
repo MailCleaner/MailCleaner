@@ -137,7 +137,7 @@ do_start()
 		find /proc/net/xt_recent -name 'fail2ban-*' -exec chown "$FAIL2BAN_USER" {} \;
 	fi
 	DAEMON_ARGS="$DAEMON_ARGS -c $CONFPATH"
-	start-stop-daemon --start --quiet --chuid "$FAIL2BAN_USER" --exec $DAEMON -- \
+	/sbin/start-stop-daemon --start --quiet --chuid "$FAIL2BAN_USER" --exec $DAEMON -- \
 		$DAEMON_ARGS start > /dev/null\
 		|| return 2
 	rm $VARDIR/run/fail2ban.stopped >/dev/null 2>&1
