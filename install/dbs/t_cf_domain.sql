@@ -14,7 +14,7 @@ CREATE TABLE domain (
   extcallout        enum('true', 'false') NOT NULL DEFAULT 'false',
   forward_by_mx	    enum('true', 'false') NOT NULL DEFAULT 'false',
   greylist         enum('true', 'false') NOT NULL DEFAULT 'false',
-  relay_smarthost                bool NOT NULL DEFAULT '0',
+  relay_smarthost                tinyint(1) NOT NULL DEFAULT '0',
   destination_smarthost          char(200) NOT NULL DEFAULT '',
   prefs				int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (id, name) 

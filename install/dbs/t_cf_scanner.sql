@@ -5,9 +5,9 @@ CREATE TABLE scanner (
   id				 int(11) NOT NULL AUTO_INCREMENT,
   name				 varchar(40) NOT NULL,
   comm_name			 varchar(40) NOT NULL, 
-  active			 bool NOT NULL DEFAULT '0',
+  active			 tinyint(1) NOT NULL DEFAULT '0',
   path				 varchar(200) NOT NULL DEFAULT '/usr/local',
-  installed			 bool NOT NULL DEFAULT '0',
+  installed			 tinyint(1) NOT NULL DEFAULT '0',
   version			 varchar(100),
   sig_version			 varchar(100),
 

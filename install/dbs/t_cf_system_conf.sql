@@ -29,10 +29,10 @@ CREATE TABLE system_conf (
    ad_server           varchar(80),
    ad_param            varchar(200),
    http_proxy          varchar(200),
-   use_syslog          bool NOT NULL DEFAULT '0',
+   use_syslog          tinyint(1) NOT NULL DEFAULT '0',
    syslog_host         varchar(200),
    smtp_proxy          varchar(200),
-   use_archiver        bool NOT NULL DEFAULT '0',
+   use_archiver        tinyint(1) NOT NULL DEFAULT '0',
    archiver_host       varchar(200),
    api_fulladmin_ips   blob,
    api_admin_ips       blob

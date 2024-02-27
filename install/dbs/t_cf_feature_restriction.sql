@@ -15,7 +15,7 @@ CREATE TABLE  feature_restriction (
   section            varchar(120) NOT NULL,
   feature            varchar(120) NOT NULL,
   target_level       enum('administrator', 'manager', 'hotline', 'user'),
-  restricted         bool NOT NULL DEFAULT '0',
+  restricted         tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 );
 

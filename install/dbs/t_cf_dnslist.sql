@@ -5,7 +5,7 @@ CREATE TABLE dnslist (
   name				 varchar(40) NOT NULL UNIQUE,
   url				 varchar(250) NOT NULL,
   type              varchar(20) NOT NULL DEFAULT 'blacklist',
-  active            bool NOT NULL DEFAULT '1',
+  active            tinyint(1) NOT NULL DEFAULT '1',
   comment           blob,
   PRIMARY KEY (name)
 );
