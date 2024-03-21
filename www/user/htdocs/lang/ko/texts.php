@@ -537,3 +537,17 @@ $txt['CANNOTCONNECTDB'] = "DB연결에 실패하였습니다.";
 $txt['CANNOTLOADMESSAGE'] = "메시지를 읽는데 실패하였습니다. (존재하지 않을 수 있음).";
 $txt['NEWSLONLY'] = "뉴스만 표시";
 $txt['SPAMONLY'] = "스팸 메일만 표시";
+$txt['NEWSLETTERUNSUB'] = "구독해제";
+/*
+ * Newslist and Whitelist rule
+ */
+$txt['ADDNEWSWHITELIST'] = "같은 발신메일에서 도착하는 모든 뉴스레터를 수신하고, 화이트리스트로 등록하시겠습니까?";
+$txt['NEWSWHITELISTHEAD'] = "뉴스리스트와 화이트리스트 규칙을 추가하였습니다.";
+$txt['WHITENOTNEWSBODY'] = "화이트리스트 룰이 추가되었으나, 뉴스레터 추가에 문제가 발생하였습니다.";
+$txt['NEWSNOTWHITEBODY'] = "뉴스레터 규칙이 추가되었으나, 화이트리스트 규칙 추가에 문제가 발생하였습니다,.";
+$txt['ADDWHITENEWSLIST'] = "이후에 수신되는 같은 발송인의 스팸메일을 화이트리스트에 추가하시겠습니까? 또한 같은 발송인의 뉴스레터도 허용하겠습니까?";
+$txt['NEWSWHITELISTBODY'] = "뉴스리스트와 화이트리스트 규칙을 추가였습니다. 이후에 수신되는 메일은 뉴스레터나 스팸으로 확인되어도 표시하지 않습니다.";
+$txt['NEWSNOTWHITEHEAD'] = "뉴스리스트가 추가되었습니다. 화이트리스트는 추가되지 않습니다.";
+$txt['WHITENOTNEWSHEAD'] = "화이트리스트가 추가되었습니다. 뉴스레터는 추가되지 않았습니다.";
+$txt['NOTNEWSWHITEHEAD'] = "뉴스레터와 화이트리스트 규칙이 모두 추가되지 않았습니다.";
+$txt['NOTNEWSWHITEBODY'] = "규칙 추가 중 문제가 발생하였습니다.";
