@@ -552,3 +552,15 @@ $txt['NOTNEWSWHITEBODY'] = "Beim Hinzufügen dieser Regeln ist ein Problem aufge
 $txt['NOTNEWSWHITEHEAD'] = "Weder Newslist- noch Whitelist-Regeln wurden nicht hinzugefügt.";
 $txt['WHITENOTNEWSBODY'] = "Eine Whitelist-Regel wurde hinzugefügt, beim Hinzufügen der Newsletter-Whitelist-Regel ist jedoch ein Problem aufgetreten.";
 $txt['WHITENOTNEWSHEAD'] = "Whitelist wurde hinzugefügt, Newslist jedoch nicht.";
+/*
+ * Type of WWList
+ */
+$txt['ORIGINALSENDER'] = "Nur ursprüngliche Absenderadresse";
+$txt['SENDERVARIATIONS'] = "Alle Variationen der Absenderadresse";
+$txt['ENTIREDOMAIN'] = "Gesamte Domain";
+$txt['NEWSLISTHEAD'] = "Nachrichtenlisten-Regel wurde hinzugefügt.";
+/*
+ * generic texts
+ */
+$txt['AND'] = "und";
+$txt['NOTNEWSLISTHEAD'] = "Nachrichtenlisten-Regel wurde nicht hinzugefügt.";
