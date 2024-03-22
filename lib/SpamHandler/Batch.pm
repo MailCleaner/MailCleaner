@@ -138,7 +138,7 @@ sub run {
 
 	return if ( $nbmsgs < 1 );
 	$this->{daemon}->doLog( $this->{batchid} . ": starting batch run",
-		'spamhanler', 'debug' );
+		'spamhandler', 'debug' );
 	my $count = 0;
 	foreach my $msgid ( keys %{ $this->{messages} } ) {
 		$count++;
@@ -230,7 +230,7 @@ sub logTimers {
 		$tn =~ s/^d_//;
 		$this->{daemon}
 		  ->doLog( 'Batch spent ' . $this->{'timers'}{$t} . "s. in " . $tn,
-			'spamhanler', 'debug' );
+			'spamhandler', 'debug' );
 	}
 }
 
