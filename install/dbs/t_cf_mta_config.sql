@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS mta_config;
 CREATE TABLE mta_config (
   set_id			int(11) NOT NULL DEFAULT 1,
   stage				int(2) NOT NULL DEFAULT 1,
-  header_txt			blob NOT NULL,
+  header_txt			blob NOT NULL DEFAULT '',
   accept_8bitmime		enum('true','false') NOT NULL DEFAULT 'true',
   print_topbitchars		enum('true','false') NOT NULL DEFAULT 'true',
   return_path_remove		enum('true','false') NOT NULL DEFAULT 'true',
