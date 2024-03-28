@@ -42,6 +42,14 @@ sub getServices
         # List of known rewriting services. Each requires a 'regex' for the URL input
         # pattern and a 'decoder' function which returns the decoded URL.
         my %services = (
+		"Bing" => {
+			"regex" => qr%bing\.com/ck/a\?!&&%,
+			"decoder" => sub {
+				my $url = shift;
+				$url =~ s%.*bing\.com/ck/a\?!&&(?:[^u=]+=[^&]+&)*u=a1([^&]+)&.*%$1%;
+                                return decode_base64($url);
+			}
+		},
                 "LinkedIn" => {
                         "regex" => qr%linkedin.com/slink\?code=([^#]+)%,
                         "decoder" => sub {

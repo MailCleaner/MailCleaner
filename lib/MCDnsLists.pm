@@ -288,7 +288,7 @@ sub getNextLocation {
 	$domain =~ s/=2E/./g;
 
 	# Test Redirect (when it contains a URL query)
-	if ( defined($get) && ($get =~ m/\?([a-zA-Z0-9\$\-_\.\+!\*'\(\),\/\?]+)=/) ) {
+	if ( defined($get) && ($get =~ m/\?([a-zA-Z0-9\$\-_\.\+!\*'\(\),\/\?&]+)=/) ) {
 		if ( defined($shorteners{$domain.'/'.$get}) ) {
 			return $shorteners{$domain.'/'.$get};
 		}
