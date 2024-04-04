@@ -326,7 +326,7 @@ acl_check_rcpt:
  __FI__
 
   deny    domains       = +local_domains
-          local_parts   = ^[.] : ^.*[@%!/|]
+          local_parts   = ^[.] : ^.*[@%!/|`#&?]
           set acl_c8    = smtp:refused:bad_local_part1
           set acl_c9    = STATSADD
           set acl_c8    = smtp:refused
