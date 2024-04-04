@@ -2,6 +2,7 @@
 
 use Date::Calc( Today, Delta_Days, Localtime, Time_to_Date );
 use strict;
+use String::ShellQuote qw( shell_quote );
 use File::stat;
 use DBI();
 
@@ -83,6 +84,7 @@ while ( my $entry = readdir(QDIR) ) {
 		opendir( DDIR, $entry ) or die "Couldn't read directory $entry";
 		while ( my $domain_entry = readdir(DDIR) ) {
 			next if $domain_entry =~ /^\./;
+			$domain_entry = shell_quote($domain_entry);
 			$domain_entry = $entry . '/' . $domain_entry;
 
 			if ( -d $domain_entry ) {
@@ -90,6 +92,7 @@ while ( my $entry = readdir(QDIR) ) {
 				  or die "Couldn't read directory $domain_entry";
 				while ( my $user_entry = readdir(UDIR) ) {
 					next if $user_entry =~ /^\./;
+					$user_entry = shell_quote($user_entry);
 
 					$user_entry = $domain_entry . '/' . $user_entry;
 					my @statsa = stat($user_entry);
