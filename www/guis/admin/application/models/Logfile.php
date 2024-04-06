@@ -155,6 +155,12 @@ class Default_Model_Logfile
 	}
 	
 	public function loadByFileName($logfilename) {
+		if (preg_match('/(\.\.|[\/\{\}$\*\?\[\]])/', $logfilename, $illegal)) {
+			header("HTTP/1.0 404 Not Found");
+			echo "Illegal pattern $illegal[0]";
+			flush();
+			exit();
+		}
 		$filename = preg_replace('/-/', '/', $logfilename);
 		$filename = preg_replace('/\.\d+(\.gz)?$/', '', $filename);
 		

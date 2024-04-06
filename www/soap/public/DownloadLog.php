@@ -17,6 +17,13 @@ if (!isset($fileparam)) {
     exit();
 }
 
+if (preg_match('/(\.\.|[\/\{\}$\*\?\[\]])/', $logfilename, $illegal)) {
+    header("HTTP/1.0 404 Not Found");
+    echo "Illegal pattern $illegal[0]";
+    flush();
+    exit();
+}
+
 require_once($_SERVER['DOCUMENT_ROOT'].'/../../guis/admin/application/library/MailCleaner/Config.php');
 $mcconfig = MailCleaner_Config::getInstance();
 
