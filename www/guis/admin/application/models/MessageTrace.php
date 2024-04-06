@@ -152,6 +152,7 @@ class Default_Model_MessageTrace
 		}
 		}
 		$str = implode(', ', $ca);
+		$str = preg_replace('/<([^>]*)>/', '&lt;$1&gt;', $str);
                 if ($nocut) {
                    return $str;
                 }
