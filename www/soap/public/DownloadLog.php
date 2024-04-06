@@ -17,9 +17,9 @@ if (!isset($fileparam)) {
     exit();
 }
 
-if (preg_match('/(\.\.|[\/\{\}$\*\?\[\]])/', $logfilename, $illegal)) {
+if (preg_match('/(\.\.|[\/\{\}$\*\?\[\]])/', $fileparam, $illegal)) {
     header("HTTP/1.0 404 Not Found");
-    echo "Illegal pattern $illegal[0]";
+    echo "Illegal pattern $illegal[1]";
     flush();
     exit();
 }

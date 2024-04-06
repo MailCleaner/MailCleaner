@@ -167,17 +167,17 @@ class MonitorlogsController extends Zend_Controller_Action
         
         $request = $this->getRequest();
         $file = '';
-        if ($request->getParam('f')) {
-            $file = $request->getParam('f');
-        }
+		if ($request->getParam('f') != '') {
+			$file = $request->getParam('f');
+		}
+		if (!preg_match('/^(\d+)-([A-Za-z0-9\._]+-[A-Za-z0-9\._]+)$/', $file, $matches)) {
+			header("HTTP/1.0 404 Not Found");
+			echo "Bad parameters";
+			return;
+		}
         $view->lastline = 3000;
         $view->baseurl = $view->thisurl."f/".$file;
 		
-	if (!preg_match('/^(\d+)-([^\-]+-[^\-]+)$/', $file, $matches)) {
-            header("HTTP/1.0 404 Not Found");
-            echo "Bad parameters";
-            return;
-        }
         $file = $matches[2];
         $view->thisfile = $file;
         $slave_id = $matches[1];
