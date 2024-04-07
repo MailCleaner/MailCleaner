@@ -20,19 +20,7 @@ class MCSoap_Services
 		require_once('MailCleaner/Config.php');
         $config = new MailCleaner_Config();
         
-		#if (array_key_exists('SERVER_NAME', $_SERVER)) {
-		#	$cmd = "/opt/php5/bin/php ".$config->getOption('SRCDIR')."/www/soap/public/local_launcher.php Services_restartSyslog";
-		#	exec($cmd. ">/dev/null 2>&1 &");
-		#	return 'WAIT restartSyslog ';
-		#}
-        
 		$s = 'syslog';
-		
-		#$cmd = "echo 'START TASK syslog' > ".MCSoap_Services::$STATUS_LOG[$s];
-		#`$cmd`;
-		
-        ## restart MTAs
-		#MCSoap_Services::Services_stopstartMTA(array(1,2,4), 'restart', MCSoap_Services::$STATUS_LOG[$s]);
 		
 		## restart syslog (or rsyslog)
 		$starter = '/etc/init.d/syslogd';
@@ -71,23 +59,25 @@ class MCSoap_Services
 		$status = 'unknown status';
 		$outcmd = '';
 		if ($outfile) {
-			$cmd = "echo 'START TASK exim ' >> ".$outfile;
+			$cmd = "echo 'START TASK exim ' >> ".escapeshellcmd($outfile);
 		    `$cmd`;
 			$outcmd = ' >> '.$outfile;
 		}
 		foreach ($stages as $stage) {
 			if (preg_match('/^[124]$/', $stage)) {
-				$cmd = $config->getOption('SRCDIR').'/etc/init.d/exim_stage'.$stage." ".$command.$outcmd;
-				$res = `$cmd`;
-				$res = preg_replace('/\n/', '', $res);
-				if (preg_match('/(started|stopped).$/', $res, $matches)) {
-					$status = $matches[1];
+				if (preg_match('/(start|stop|restart)/', $command)) {
+					$cmd = $config->getOption('SRCDIR').'/etc/init.d/exim_stage'.$stage." ".$command.$outcmd;
+					$res = `$cmd`;
+					$res = preg_replace('/\n/', '', $res);
+					if (preg_match('/(started|stopped).$/', $res, $matches)) {
+						$status = $matches[1];
+					}
 				}
 			}
 		}
 		if ($outfile) {
-             $cmd = "echo 'DONE TASK exim' >> ".$outfile;
-		     `$cmd`;
+			$cmd = "echo 'DONE TASK exim' >> ".escapeshellcmd($outfile);
+			`$cmd`;
 		}
 		return 'OK service(s) '.$status;
 	}
@@ -106,7 +96,7 @@ class MCSoap_Services
 		require_once('MailCleaner/Config.php');
 		$config = new MailCleaner_Config();
 		$service = preg_replace('/\//', '', $service);
-		$filepath = $config->getOption('SRCDIR').'/www/soap/application/MCSoap/commands/'.$service.".php";
+		$filepath = $config->getOption('SRCDIR').'/www/soap/application/MCSoap/commands/'.urlencode($service).".php";
 		if (file_exists($filepath)) {
 			include_once($filepath);
 		}
@@ -159,9 +149,10 @@ class MCSoap_Services
 
         $service = '';
         $action = 'start';
-        if (isset($params['service'])) {
-        	$service = $params['service'];
+        if (!isset($params['service'])) {
+		return ('error' => 'no service provided', 'message' => 'failed');
         }
+        $service = $params['service'];
     	if (isset($params['action'])) {
             $action = $params['action'];
         }
@@ -207,7 +198,7 @@ class MCSoap_Services
         $config = new MailCleaner_Config();
         if ($params['what'] == 'domains') {       
         if (isset($params['domain']) && $params['domain'] != "") {
-                $cmd = $config->getOption('SRCDIR')."/bin/dump_domains.pl ".$params['domain'];
+                $cmd = $config->getOption('SRCDIR')."/bin/dump_domains.pl ".escapeshellcmd($params['domain']);
             } else {
         	    $cmd = $config->getOption('SRCDIR')."/bin/dump_domains.pl";
             }
@@ -270,7 +261,7 @@ class MCSoap_Services
             $ret['domain'] = $params['domain'];
             return $ret;
         }
-        $file = $config->getOption('VARDIR')."/spool/tmp/exim_stage1/auth_cache/".$params['domain'].'.db';
+        $file = $config->getOption('VARDIR')."/spool/tmp/exim_stage1/auth_cache/".escapeshellcmd($params['domain']).'.db';
         $ret['file'] = $file;
         if (!file_exists($file)) {
             $ret['message'] = 'No cache present';
