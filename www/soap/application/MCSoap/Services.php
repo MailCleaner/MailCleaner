@@ -149,10 +149,9 @@ class MCSoap_Services
 
         $service = '';
         $action = 'start';
-        if (!isset($params['service'])) {
-		return ('error' => 'no service provided', 'message' => 'failed');
+        if (isset($params['service'])) {
+        	$service = $params['service'];
         }
-        $service = $params['service'];
     	if (isset($params['action'])) {
             $action = $params['action'];
         }
