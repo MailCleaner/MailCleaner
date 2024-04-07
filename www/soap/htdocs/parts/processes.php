@@ -170,6 +170,9 @@ function restartService($sid, $service) {
  function dumpConfiguration($config, $params) {
     $sysconf_ = SystemConfig::getInstance();
     
+    if (!preg_match('/^(domains|wwlist|exim)$/', $config)) {
+        $config = "";
+    }
     `echo "conf: $config" > /tmp/out.log`;
     switch ($config) {
     	case 'domains':
@@ -191,8 +194,6 @@ function restartService($sid, $service) {
              $cmd .= " ".escapeshellcmd($params);
            }
            break;
-        default:
-          $cmd = "";
     }
 
     # execute
