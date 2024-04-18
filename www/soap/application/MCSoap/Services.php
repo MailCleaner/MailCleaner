@@ -65,7 +65,7 @@ class MCSoap_Services
 		}
 		foreach ($stages as $stage) {
 			if (preg_match('/^[124]$/', $stage)) {
-				if (preg_match('/(start|stop|restart)/', $command)) {
+				if (preg_match('/^(start|stop|restart)$/', $command)) {
 					$cmd = $config->getOption('SRCDIR').'/etc/init.d/exim_stage'.$stage." ".$command.$outcmd;
 					$res = `$cmd`;
 					$res = preg_replace('/\n/', '', $res);
