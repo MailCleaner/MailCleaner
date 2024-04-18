@@ -63,7 +63,7 @@ $per_page = 50;
 // check address/domain parameters first
 $mode = 'badmode';
 $domain = "";
-$address = preg_replace('/<([^>]*)>/', '&lt;$1&gt;', $address);
+$address = htmlspecialchars($address);
 if (preg_match('/^([a-zA-Z0-9\_\-\.]+)\@([a-zA-Z0-9\_\-\.]+)$/', $address, $matches) && $user_->hasAddress($address)) {
 	$mode = "address";
 }

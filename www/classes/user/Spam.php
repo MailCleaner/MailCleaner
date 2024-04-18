@@ -487,7 +487,7 @@ public function setReplacements($template, $replace) {
   $full_generalinfos = "";
   foreach ($generalinfos as $key => $value) {
     $str = str_replace('__INFO_NAME__', $lang_->print_txt($key), $general_str);
-    $str = str_replace('__INFO_VALUE__', preg_replace('/<([^>]*)>/', '&lt;$1&gt;', $value), $str);
+    $str = str_replace('__INFO_VALUE__', htmlspecialchars($value), $str);
     $full_generalinfos .= $str;
   }
   $replace['__GENERALINFO_LIST__'] = $full_generalinfos;
