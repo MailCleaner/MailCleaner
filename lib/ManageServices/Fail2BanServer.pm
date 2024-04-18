@@ -95,10 +95,9 @@ sub mainLoop
 	my $self = shift;
 	my $class = shift;
 	
-	my $cmd = $self->{'cmd'} . " -b -s " . $self->{'socket'} . " -p " . $self->{'pidfile'};
 
-	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
+	$self->doLog("Running $self->{'cmd'} -b -s $self->{'socket'} -p $self->{'pidfile'}", 'daemon');
+	system($self->{'cmd'}, "-b", "-s", $self->{'socket'}, "-p", $self->{'pidfile'});
 	
 	return 1;
 }

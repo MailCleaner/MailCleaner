@@ -104,7 +104,7 @@ sub mainLoop
 	my $cmd = $self->{'cmd'} . " -c " . $self->{'confpath'} . " start";
 
 	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
+	system(split(/ /,$cmd));
 	
 	return 1;
 }

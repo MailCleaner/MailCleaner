@@ -36,13 +36,23 @@ my $itsweekday=0;
 my $itsmonthday=0;
 my $minute = `date +%M`;
 my @wait = ();
+my $dumped = 0;
+my $has_ipc_run = eval
+{
+	require IPC::Run;
+	1;
+};
 
 my %config = readConfig("/etc/mailcleaner.conf");
 my $lockfile = 'mailcleaner_cron.lock';
 
 # Anti-breakdown for MailCleaner services
 if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
-	system($config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl &>> /dev/null");
+	if ($has_ipc_run) {
+		IPC::Run::run([$config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl"], "2>&1", ">/dev/null");
+	} else {
+		system($config{'SRCDIR'}."/scripts/cron/anti-breakdown.pl 2>&1 >/dev/null");
+	}
 }
 my $mcDataServicesAvailable = 1;
 $mcDataServicesAvailable = 0 if ( -e '/var/tmp/mc_checks_data.ko' );
@@ -73,20 +83,23 @@ if (defined $options{h}) {
 unless ( -e "$config{'VARDIR'}/run/fail2ban.disabled" ) {
   my $timout = 5;
   my $failed = 0;
-  my $cmd = "/usr/bin/fail2ban-client status 2>/dev/null";
   eval {
     local $SIG{ALRM} = sub { die "timeout\n" };
     alarm $timout;
-    system($cmd);
+    if ($has_ipc_run) {
+      IPC::Run::run(["/usr/bin/fail2ban-client", "status"], "2>/dev/null");
+    } else {
+      system("/usr/bin/fail2ban-client status 2>/dev/null");
+    }
     $failed=1 if ($?);
     alarm 0;
   };
   if ($@) {
     print("fail2ban not responding, restarting...\n");
-    system("$config{'SRCDIR'}/etc/init.d/fail2ban restart");
+    system("$config{'SRCDIR'}/etc/init.d/fail2ban", "restart");
   } elsif ($failed) {
     print("fail2ban not running, restarting fail2ban...\n");
-    system("$config{'SRCDIR'}/etc/init.d/fail2ban restart");
+    system("$config{'SRCDIR'}/etc/init.d/fail2ban", "restart");
   }
 }
 
@@ -102,7 +115,7 @@ if ($rc != 0) {
   #######################
   # check and resync DB #
   #######################
-  system("$config{'SRCDIR'}/bin/resync_db.sh -C");
+  system("$config{'SRCDIR'}/bin/resync_db.sh", "-C");
   remove_lockfile($resync_lock, undef);
 }
 
@@ -117,21 +130,16 @@ my $slave_dbh = DBI->connect("DBI:mysql:database=mc_config;mysql_socket=$config{
 if (!$slave_dbh) {
   printf ("ERROR: no slave database found on this system ! \n");
   ## try to properly kill all databases
-  my $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_slave stop";
-  `$cmd`;
-  $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_master stop";
-  `$cmd`;
+  `$config{'SRCDIR'}."/etc/init.d/mysql_slave stop`;
+  `$config{'SRCDIR'}."/etc/init.d/mysql_master stop`;
   sleep 5;
   ## kill them hard
-  $cmd = "killall -KILL mysqld mysqld_safe";
-  `$cmd`;
+  `killall -KILL mysqld mysqld_safe`;
   sleep 2;
   ## and restart them
-  $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_master start";
-  `$cmd`;
+  `$config{'SRCDIR'}."/etc/init.d/mysql_master start`;
   sleep 2;
-  $cmd = $config{'SRCDIR'}."/etc/init.d/mysql_slave start";
-  `$cmd`;
+  `$config{'SRCDIR'}."/etc/init.d/mysql_slave start`;
   exit 1;
 }
 
@@ -193,7 +201,6 @@ unless ($skip) {
     print "updating anti-viruses...\n";
     system($config{'SRCDIR'}."/scripts/cron/update_antivirus.sh");
     print "done updating anti-viruses.\n";
-    #system($config{'SRCDIR'}."/etc/init.d/mailscanner restart >/dev/null 2>&1");
     exit;
   }
 
@@ -242,22 +249,20 @@ unless ($skip) {
         if ( my $pid_restart = fork) {
           push(@wait,$pid_restart);
         } elsif (defined $pid_restart) {
-          system($config{'SRCDIR'}."/etc/init.d/$key start");
+          system($config{'SRCDIR'}."/etc/init.d/$key", "start");
           exit;
         }
       }
     }
   }
 
-  my $cmd = "grep 'Pre Filters' ".$config{'SRCDIR'}."/etc/mailscanner/MailScanner.conf | grep 'Commtouch'";
-  my $hascommtouch=`$cmd`;
+  my $hascommtouch=`grep 'Pre Filters' $config{'SRCDIR'}/etc/mailscanner/MailScanner.conf | grep 'Commtouch'`;
   if ($hascommtouch ne '') {
     ## check commtouch
-    $cmd = "grep 'Commtouch ' ".$config{'VARDIR'}."/log/mailscanner/infolog | grep -v ': Message' | tail -n1 | grep 'timed out'";
-    my $istimeout=`$cmd`;
+    my $istimeout = `grep 'Commtouch' $config{'VARDIR'}/log/mailscanner/infolog | grep -v ': Message' | tail -n1 | grep 'timed out'`;
     if ($istimeout ne '') {
       print "Commtouch module seems timing out.. restarting...\n";
-      system($config{'SRCDIR'}."/etc/init.d/commtouch restart");
+      system($config{'SRCDIR'}."/etc/init.d/commtouch", "restart");
       print "done.\n";
     }
   }
@@ -268,8 +273,8 @@ unless ($skip) {
   if (my $pid_keys = fork) {
       push(@wait,$pid_keys);
   } elsif (defined $pid_keys) {
-      if (system("$config{'SRCDIR'}/bin/internal_access --validate") != 0) {
-          system("$config{'SRCDIR'}/bin/internal_access --install")
+      if (system("$config{'SRCDIR'}/bin/internal_access", "--validate") != 0) {
+          system("$config{'SRCDIR'}/bin/internal_access", "--install")
       }
       exit;
   }
@@ -281,7 +286,11 @@ unless ($skip) {
     if ( my $pid_checkservices = fork) {
       push(@wait,$pid_checkservices);
     } elsif (defined $pid_checkservices) {
-      system($config{'SRCDIR'}."/bin/check_services.pl ".$randomize_option." > /dev/null");
+      if ($has_ipc_run) {
+        IPC::Run::run([$config{'SRCDIR'}."/bin/check_services.pl", $randomize_option], ">/dev/null");
+      } else {
+        system("$config{'SRCDIR'}/bin/check_services.pl $randomize_option >/dev/null");
+      }
       exit
     }
 }
@@ -297,9 +306,7 @@ unless ($skip) {
       push(@wait,$pid_updates);
     } elsif (defined $pid_updates) {
 
-      #print "doing system updates...";
-      system($config{'SRCDIR'}."/bin/check_update.pl ".$randomize_option);
-      #print "done.\n";
+      system($config{'SRCDIR'}."/bin/check_update.pl", $randomize_option);
       exit;
     }
   }
@@ -312,13 +319,13 @@ unless ($skip) {
       push(@wait,$pid_rules);
     } elsif (defined $pid_rules) {
       #print "doing rules updates...";
-      system($config{'SRCDIR'}."/bin/fetch_clamspam.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_spamc_rules.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_spamc_modules_conf.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_newsl_rules.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_watchdog_modules.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_watchdog_config.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/fetch_administrator.sh ".$randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_clamspam.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_spamc_rules.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_spamc_modules_conf.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_newsl_rules.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_watchdog_modules.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_watchdog_config.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/fetch_administrator.sh", $randomize_option);
 
       #print "done.\n";
       exit;
@@ -341,9 +348,7 @@ unless ($skip) {
       if (my $pid_learn = fork) {
         push(@wait,$pid_learn);
       } elsif (defined $pid_learn && $mcDataServicesAvailable) {
-        #print "doing auto-learn...";
         system($config{'SRCDIR'}."/bin/CDN_fetch_bayes.sh");
-        #print "done.\n";
         exit;
       }
     }
@@ -355,8 +360,13 @@ unless ($skip) {
     if (my $pid_syncspam = fork) {
       push(@wait,$pid_syncspam);
     } elsif (defined $pid_syncspam) {
-      system($config{'SRCDIR'}."/bin/resync_spams.pl >> ".$config{'VARDIR'}."/log/mailcleaner/spam_sync.log");
-      print "done syncing spams.\n";
+      if (open(my $fh, '>>', "$config{'VARDIR'}/log/mailcleaner/spam_sync.log")) {
+        print $fh `$config{'SRCDIR'}."/bin/resync_spams.pl`;
+        print $fh "done syncing spams.\n";
+        close($fh);
+      } else {
+        system($config{'SRCDIR'}."/bin/resync_spams.pl");
+      }
       exit;
     }
 
@@ -375,7 +385,7 @@ unless ($skip) {
   }
 
   print "Cleaning MailScanner tmp files...\n";
-  system($config{'SRCDIR'}."/bin/ms_tmp-cleaner -o 10");
+  system($config{'SRCDIR'}."/bin/ms_tmp-cleaner", "-o", "10");
 
   ###################
   # end hourly jobs #
@@ -409,7 +419,12 @@ if ($itsmidnight) {
     push(@wait,$pid_rootcert);
   } elsif (defined $pid_rootcert) {
     print "Updating db.root...\n";
-    system("wget -q --no-check-certificate https://www.internic.net/domain/named.root -O /etc/bind/db.root && rndc reload >/dev/null 2>&1");
+    if ($has_ipc_run) {
+      IPC::Run::run(["wget", "-q", "--no-check-certificate", "https://www.internic.net/domain/named.root", "-O", "/etc/bind/db.root"], "2>&1", ">/dev/null");
+    } else {
+      system("wget -q --no-check-certificate https://www.internic.net/domain/named.root -O /etc/bind/db.root 2>&1 >/dev/null");
+    }
+    system("rndc", "reload");
     print "db.root updated.\n";
     exit;
   }
@@ -422,7 +437,11 @@ if ($itsmidnight) {
     push(@wait,$pid_clsp);
   } elsif (defined $pid_clsp) {
     print "cleaning spam quarantine...\n";
-    system($config{'SRCDIR'}."/scripts/cron/clean_spam_quarantine.pl >/dev/null 2>&1");
+    if ($has_ipc_run) {
+      IPC::Run::run([$config{'SRCDIR'}."/scripts/cron/clean_spam_quarantine.pl"], "2>&1", ">/dev/null");
+    } else {
+      system($config{'SRCDIR'}."/scripts/cron/clean_spam_quarantine.pl 2>&1 >/dev/null");
+    }
     print "done cleaning spam quarantine.\n";
     exit;
   }
@@ -434,7 +453,11 @@ if ($itsmidnight) {
     push(@wait,$pid_clvi);
   } elsif (defined $pid_clvi) {
     print "cleaning virus quarantine...\n";
-    system($config{'SRCDIR'}."/scripts/cron/clean_virus_quarantine.pl >/dev/null 2>&1");
+    if ($has_ipc_run) {
+      IPC::Run::run([$config{'SRCDIR'}."/scripts/cron/clean_virus_quarantine.pl"], "2>&1", ">/dev/null");
+    } else {
+      system($config{'SRCDIR'}."/scripts/cron/clean_virus_quarantine.pl 2>&1 >/dev/null");
+    }
     print "done cleaning virus quarantine.\n";
     exit;
   }
@@ -446,7 +469,11 @@ if ($itsmidnight) {
     push(@wait,$pid_clkav);
   } elsif (defined $pid_clkav) {
     print "cleaning Kaspersky temporary files...\n";
-    system($config{'SRCDIR'}."/scripts/cron/clean_kav_tmp.sh >/dev/null 2>&1");
+    if ($has_ipc_run) {
+      IPC::Run::run([$config{'SRCDIR'}."/scripts/cron/clean_kav_tmp.sh"], "2>&1", ">/dev/null");
+    } else {
+      system("$config{'SRCDIR'}/scripts/cron/clean_kav_tmp.sh 2>&1 >/dev/null");
+    }
     print "done cleaning kaspersky temporary files.\n";
     exit;
   }
@@ -458,7 +485,11 @@ if ($itsmidnight) {
     push(@wait,$pid_asdis);
   } elsif (defined $pid_asdis) {
     print "discovering antispam...\n";
-    system($config{'SRCDIR'}."/scripts/cron/antispam_discovers.sh >/dev/null 2>&1");
+    if ($has_ipc_run) {
+      IPC::Run::run([$config{'SRCDIR'}."/scripts/cron/antispam_discovers.sh"], "2>&1", ">/dev/null");
+    } else {
+      system("$config{'SRCDIR'}/scripts/cron/antispam_discovers.sh 2>&1 >/dev/null");
+    }
     print "done discovering antispam.\n";
     exit;
   }
@@ -482,7 +513,7 @@ if ($itsmidnight) {
     push(@wait,$pid_stats);
   } elsif (defined $pid_stats) {
     print "updating monthly/yearly graphs...\n";
-    system($config{'SRCDIR'}."/bin/collect_rrd_stats.pl daily");
+    system($config{'SRCDIR'}."/bin/collect_rrd_stats.pl", "daily");
     print "done updating monthly/yearly graphs.\n";
     exit;
   }
@@ -492,8 +523,8 @@ if ($itsmidnight) {
       push(@wait,$pid_pushstats);
     } elsif (defined $pid_pushstats) {
       print "pushing stats...\n";
-      system($config{'SRCDIR'}."/bin/push_stats.sh ".$randomize_option);
-      system($config{'SRCDIR'}."/bin/push_config.sh ".$randomize_option);
+      system($config{'SRCDIR'}."/bin/push_stats.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/push_config.sh", $randomize_option);
       print "done pushing stats.\n";
       exit;
     }
@@ -529,8 +560,16 @@ if ($itsmidnight) {
   print "getting the last conf for autoconf...\n";
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && defined($config{'ISMASTER'}) && $config{'ISMASTER'} eq "Y") {
 	if ( -e $config{'VARDIR'}."/spool/mailcleaner/mc-autoconf"  && $mcDataServicesAvailable) {
-	        system($config{'SRCDIR'}."/bin/fetch_autoconf.sh &>> /dev/null");
-		system($config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh &>> /dev/null");
+		if ($has_ipc_run) {
+			IPC::Run::run([$config{'SRCDIR'}."/bin/fetch_autoconf.sh"], "2>&1", ">/dev/null");
+		} else {
+	        	system($config{'SRCDIR'}."/bin/fetch_autoconf.sh 2>&1 >/dev/null");
+		}
+		if ($has_ipc_run) {
+			IPC::Run::run([$config{'SRCDIR'}."/etc/autoconf/prepare_sqlconf.sh"], "2>&1", ">/dev/null");
+		} else {
+			system("$config{'SRCDIR'}/etc/autoconf/prepare_sqlconf.sh 2>&1 >/dev/null");
+		}
 	}
   }
 
@@ -538,18 +577,24 @@ if ($itsmidnight) {
   ## check for RBLs, ClamAV, binary updates
   #######################################
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && $mcDataServicesAvailable) {
-     system($config{'SRCDIR'}."/bin/fetch_rbls.sh ".$randomize_option);
-     system($config{'SRCDIR'}."/bin/fetch_clamav.sh ".$randomize_option);
-     system($config{'SRCDIR'}."/bin/fetch_binary.sh ".$randomize_option);
+     system($config{'SRCDIR'}."/bin/fetch_rbls.sh", $randomize_option);
+     system($config{'SRCDIR'}."/bin/fetch_clamav.sh", $randomize_option);
+     system($config{'SRCDIR'}."/bin/fetch_binary.sh", $randomize_option);
   }
 
   #######################################
   ## check for MailCleaner binary
   #######################################
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1" && -e $config{'VARDIR'}."/run/mailcleaner.binary") {
-     system("cat ".$config{'VARDIR'}."/run/mailcleaner.binary | xargs ".$config{'SRCDIR'}."/etc/exim/mc_binary/mailcleaner-binary &>> /dev/null");
-     system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.binary &>> /dev/null");
-     system("touch ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
+    if ($has_ipc_run) {
+      IPC::Run::run(["cat", $config{'VARDIR'}."/run/mailcleaner.binary"], "|", ["xargs", $config{'SRCDIR'}."/etc/exim/mc_binary/mailcleaner-binary"], "2>&1", ">/dev/null");
+      IPC::Run::run(["rm", "-rf", $config{'VARDIR'}."/run/mailcleaner.binary"], "2>&1", ">/dev/null");
+      IPC::Run::run(["touch", $config{'VARDIR'}."/run/mailcleaner.rn"], "2>&1", ">/dev/null");
+    } else {
+      system("cat $config{'VARDIR'}/run/mailcleaner.binary | xargs $config{'SRCDIR'}/etc/exim/mc_binary/mailcleaner-binary 2>&1 >/dev/null");
+      system("rm -rf $config{'VARDIR'}/run/mailcleaner.binary 2>&1 >/dev/null");
+      system("touch $config{'VARDIR'}/run/mailcleaner.rn 2>&1 >/dev/null");
+    }
   }
 
   ##################################
@@ -557,7 +602,11 @@ if ($itsmidnight) {
   ##################################
   print "sending anon ...\n";
   if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "2") {
-        system($config{'SRCDIR'}."/bin/send_anon.sh &>> /dev/null");
+    if ($has_ipc_run) {
+      IPC::Run::run([$config{'SRCDIR'}."/bin/send_anon.sh"], "2>&1", ">/dev/null");
+    } else {
+      system($config{'SRCDIR'}."/bin/send_anon.sh 2>&1 >/dev/null");
+    }
   }
 
 }
@@ -573,9 +622,12 @@ if ($itstime) {
     print "sending watchdog report to support address, if applicable...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending watchdog alerts:' >> ".$config{'VARDIR'}."/log/mailcleaner/watchdogs.log");
-    system($config{'SRCDIR'}."/bin/send_watchdogs.pl >> ".$config{'VARDIR'}."/log/mailcleaner/watchdogs.log");
-    print "done watchdog report.\n";
+    if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/watchdogs.log")) {
+      print $fh "Sending watchdog alerts:\n";
+      print $fh `$config{'SRCDIR'}/bin/send_watchdogs.pl`;
+      print $fh "done watchdog report.\n";
+      close($fh);
+    }
     exit;
   }
 
@@ -588,9 +640,12 @@ if ($itstime) {
     print "sending daily summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending daily summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 3 1 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    print "done daily summaries.\n";
+    if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
+      print $fh "Sending daily summaries:\n";
+      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 3 1`;
+      print $fh "done daily summaries.\n";
+      close($fh);
+    }
     exit;
   }
 }
@@ -613,9 +668,12 @@ if ($itsweekday) {
     print "sending weekly summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending weekly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 2 7 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    print "done sending weekly summaries.\n";
+    if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
+      print $fh "Sending weekly summaries:\n";
+      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 2 7`;
+      print $fh "done weekly summaries.\n";
+      close($fh);
+    }
     exit;
   }
 
@@ -638,9 +696,12 @@ if ($itsmonthday) {
     print "sending monthly summaries...\n";
     my $date = `date '+%Y%m%d'`;
     chomp($date);
-    system("echo 'Sending monthly summaries:' >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    system($config{'SRCDIR'}."/bin/send_summary.pl -a 1 31 >> ".$config{'VARDIR'}."/log/mailcleaner/summaries.log");
-    print "done sending monthly summaries.\n";
+    if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
+      print $fh "Sending monthly summaries:\n";
+      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 1 31`;
+      print $fh "done monthly summaries.\n";
+      close($fh);
+    }
     exit;
   }
 }
@@ -651,8 +712,13 @@ if ($itsmonthday) {
 ######################
 ######################
 if ( -e $config{'VARDIR'}."/run/mailcleaner.rn") {
-	system($config{'SRCDIR'}."/etc/init.d/mailcleaner restart &>> /dev/null");
-	system("rm -rf ".$config{'VARDIR'}."/run/mailcleaner.rn  &>> /dev/null");
+  if ($has_ipc_run) {
+    IPC::Run::run([$config{'SRCDIR'}."/etc/init.d/mailcleaner", "restart"], "2>&1", ">/dev/null");
+    IPC::Run::run(["rm", $config{'VARDIR'}."/run/mailcleaner.rn"], "2>&1", ">/dev/null");
+  } else {
+    system($config{'SRCDIR'}."/etc/init.d/mailcleaner restart 2>&1 >/dev/null");
+    system("rm $config{'VARDIR'}/run/mailcleaner.rn 2>&1 >/dev/null");
+  }
 }
 
 ##########################

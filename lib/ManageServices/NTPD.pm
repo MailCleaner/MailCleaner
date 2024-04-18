@@ -83,9 +83,8 @@ sub mainLoop
 	my $self = shift;
 	my $class = shift;
 	
-	my $cmd = $self->{'cmd'};
-	$self->doLog("Running $cmd", 'daemon');
-	system("$cmd");
+	$self->doLog("Running $self->{'cmd'}", 'daemon');
+	system($self->{'cmd'});
 
 	return 1;
 }

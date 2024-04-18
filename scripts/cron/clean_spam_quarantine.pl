@@ -13,6 +13,11 @@ my $quarantine_owner_name = 'mailcleaner';
 my $quarantine_owner      = getpwnam($quarantine_owner_name);
 my $quarantine_group      = getgrnam($quarantine_owner_name);
 
+our $has_ipc_run = eval
+{
+	require IPC::Run;
+	1;
+};
 
 my $DEBUG = 0;
 if ( !$days_to_keep ) {
@@ -84,7 +89,6 @@ while ( my $entry = readdir(QDIR) ) {
 		opendir( DDIR, $entry ) or die "Couldn't read directory $entry";
 		while ( my $domain_entry = readdir(DDIR) ) {
 			next if $domain_entry =~ /^\./;
-			$domain_entry = shell_quote($domain_entry);
 			$domain_entry = $entry . '/' . $domain_entry;
 
 			if ( -d $domain_entry ) {
@@ -92,7 +96,6 @@ while ( my $entry = readdir(QDIR) ) {
 				  or die "Couldn't read directory $domain_entry";
 				while ( my $user_entry = readdir(UDIR) ) {
 					next if $user_entry =~ /^\./;
-					$user_entry = shell_quote($user_entry);
 
 					$user_entry = $domain_entry . '/' . $user_entry;
 					my @statsa = stat($user_entry);
@@ -100,8 +103,13 @@ while ( my $entry = readdir(QDIR) ) {
 					my @date  = Time_to_Date( $stats[9] );
 					my $Ddays =
 					  Delta_Days( ( $date[0], $date[1], $date[2] ), Today() );
-					system("rm $user_entry >/dev/null 2>&1")
-					  if $Ddays > $days_to_keep;
+					  if ($Ddays > $days_to_keep) {
+					    if ($has_ipc_run) {
+						    IPC::Run::run(["rm", "$user_entry"], "2>&1", ">/dev/null");
+					    } else {
+						    system("rm ".shell_quote($user_entry)." 2>&1 >/dev/null");
+					    }
+					  }
 				}
 			}
 			close(UDIR);
@@ -113,8 +121,13 @@ while ( my $entry = readdir(QDIR) ) {
             if ( $gid != $quarantine_group ) {
                 chown $quarantine_owner, $quarantine_group, $domain_entry;
             }
-			$domain_entry =~ s/\|/\\\|/;
-			system("rmdir $domain_entry >/dev/null 2>&1");
+            if ($has_ipc_run) {
+                IPC::Run::run(["rmdir", "$domain_entry"], "2>&1", ">/dev/null");
+            } else {
+                system("rmdir ".shell_quote($domain_entry)." 2>&1 >/dev/null");
+            }
+
+my $DEBUG = 0;
 		}
 		close(DDIR);
         my $uid = stat($entry)->uid;
@@ -126,7 +139,11 @@ while ( my $entry = readdir(QDIR) ) {
             chown $quarantine_owner, $quarantine_group, $entry;
         }
 		$entry =~ s/\|/\\\|/;
-		system("rmdir $entry >/dev/null 2>&1");
+                if ($has_ipc_run) {
+                    IPC::Run::run(["rmdir", "$entry"], "2>&1", ">/dev/null");
+                } else {
+                    system("rmdir ".shell_quote($entry)." 2>&1 >/dev/null");
+                }
 	}
 }
 closedir(QDIR);
