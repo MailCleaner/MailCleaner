@@ -80,7 +80,7 @@ sub setup
 	if ($rc) {
 		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/bin/dump_clamav_config.pl'], "2>&1", ">/dev/null");
 	} else {
-		$dumped = 1 if system($self->{'SRCDIR'}"/bin/dump_clamav_config.pl 2>&1 >/dev/null");
+		$dumped = 1 if system($self->{'SRCDIR'}."/bin/dump_clamav_config.pl 2>&1 >/dev/null");
 	}
 	$self->doLog('dump_clamav_config.pl failed', 'daemon') unless ($dumped);
 
