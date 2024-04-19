@@ -100,7 +100,7 @@ sub setup
 	$self->doLog('dump_mailscanner_config.pl failed', 'daemon') unless ($dumped);
 	$dumped = 0;
 	if ($rc) {
-		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/usr/bin/pyzor', 'discover'], "2>&1", ">/dev/null");
+		$dumped = 1 if IPC::Run::run(['/usr/bin/pyzor', 'discover'], "2>&1", ">/dev/null");
 	} else {
 		$dumped = 1 if system("/usr/bin/pyzor discover 2>&1 >/dev/null");
 	}
