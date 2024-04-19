@@ -130,16 +130,16 @@ my $slave_dbh = DBI->connect("DBI:mysql:database=mc_config;mysql_socket=$config{
 if (!$slave_dbh) {
   printf ("ERROR: no slave database found on this system ! \n");
   ## try to properly kill all databases
-  `$config{'SRCDIR'}."/etc/init.d/mysql_slave stop`;
-  `$config{'SRCDIR'}."/etc/init.d/mysql_master stop`;
+  `$config{'SRCDIR'}/etc/init.d/mysql_slave stop`;
+  `$config{'SRCDIR'}/etc/init.d/mysql_master stop`;
   sleep 5;
   ## kill them hard
   `killall -KILL mysqld mysqld_safe`;
   sleep 2;
   ## and restart them
-  `$config{'SRCDIR'}."/etc/init.d/mysql_master start`;
+  `$config{'SRCDIR'}/etc/init.d/mysql_master start`;
   sleep 2;
-  `$config{'SRCDIR'}."/etc/init.d/mysql_slave start`;
+  `$config{'SRCDIR'}/etc/init.d/mysql_slave start`;
   exit 1;
 }
 
@@ -361,7 +361,7 @@ unless ($skip) {
       push(@wait,$pid_syncspam);
     } elsif (defined $pid_syncspam) {
       if (open(my $fh, '>>', "$config{'VARDIR'}/log/mailcleaner/spam_sync.log")) {
-        print $fh `$config{'SRCDIR'}."/bin/resync_spams.pl`;
+        print $fh `$config{'SRCDIR'}/bin/resync_spams.pl`;
         print $fh "done syncing spams.\n";
         close($fh);
       } else {
@@ -642,7 +642,7 @@ if ($itstime) {
     chomp($date);
     if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
       print $fh "Sending daily summaries:\n";
-      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 3 1`;
+      print $fh `$config{'SRCDIR'}/bin/send_summary.pl -a 3 1`;
       print $fh "done daily summaries.\n";
       close($fh);
     }
@@ -670,7 +670,7 @@ if ($itsweekday) {
     chomp($date);
     if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
       print $fh "Sending weekly summaries:\n";
-      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 2 7`;
+      print $fh `$config{'SRCDIR'}/bin/send_summary.pl -a 2 7`;
       print $fh "done weekly summaries.\n";
       close($fh);
     }
@@ -698,7 +698,7 @@ if ($itsmonthday) {
     chomp($date);
     if (open(my $fh, '>>', $config{'VARDIR'}."/log/mailcleaner/summaries.log")) {
       print $fh "Sending monthly summaries:\n";
-      print $fh `$config{'SRCDIR'}."/bin/send_summary.pl -a 1 31`;
+      print $fh `$config{'SRCDIR'}/bin/send_summary.pl -a 1 31`;
       print $fh "done monthly summaries.\n";
       close($fh);
     }
