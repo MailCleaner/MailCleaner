@@ -211,7 +211,7 @@ public function loadHeadersAndBody() {
 
   $soap_res = $soaper->queryParam('getHeaders', array($this->getData('exim_id'), $dest, 30));
   if (!is_object($soap_res) || !is_array($soap_res->text)) {
-    echo "CANNOTLOADMESSAGEHEADERS";
+    echo "CANNOTLOADMESSAGEHEADERS<br/>$soap_res<br/>";
     return false;
   } else {
     $headers = $soap_res->text;
@@ -486,8 +486,8 @@ public function setReplacements($template, $replace) {
   $general_str = $template->getTemplate('GENERALINFO');
   $full_generalinfos = "";
   foreach ($generalinfos as $key => $value) {
-  	$str = str_replace('__INFO_NAME__', $lang_->print_txt($key), $general_str);
-    $str = str_replace('__INFO_VALUE__', $value, $str);
+    $str = str_replace('__INFO_NAME__', $lang_->print_txt($key), $general_str);
+    $str = str_replace('__INFO_VALUE__', htmlspecialchars($value), $str);
     $full_generalinfos .= $str;
   }
   $replace['__GENERALINFO_LIST__'] = $full_generalinfos;

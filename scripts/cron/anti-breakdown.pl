@@ -168,7 +168,7 @@ sub is_port_ok {
 		}
 	}
 	if  ( $nb_failed_host >= $max_host_failed) {
-		system("/usr/sbin/rndc flush");
+		system("/usr/sbin/rndc", "flush");
 		$step++;
 		if ($step == $nb_tests) {
 			return 0;
@@ -227,7 +227,7 @@ sub remove_and_save_MC_RBLs {
 	$master_dbh->disconnect();
 
 	if ($reboot_service) {
-		system('/usr/mailcleaner/etc/init.d/mailscanner restart');
+		system('/usr/mailcleaner/etc/init.d/mailscanner', 'restart');
 	}
 }
 
@@ -258,7 +258,7 @@ sub handle_dns_ok {
 		$master_dbh->disconnect();
 
 		# Restarting associated services
-		system('/usr/mailcleaner/etc/init.d/mailscanner restart');
+		system('/usr/mailcleaner/etc/init.d/mailscanner', 'restart');
 	
 		# Removing temp files
 		unlink $rbl_sql_file or warn "could not remove $rbl_sql_file\n";

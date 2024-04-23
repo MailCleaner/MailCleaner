@@ -72,9 +72,18 @@ sub setup
 	my $class = shift;
 
 	$self->doLog('Dumping MailScanner config...', 'daemon');
- 	if (system($self->{'SRCDIR'}.'/bin/dump_mailscanner_config.pl 2>&1 >/dev/null')) {
- 		$self->doLog('dump_mailscanner_config.pl failed', 'daemon');
- 	}
+	my $dumped = 0;
+	my $rc = eval
+	{
+		require IPC::Run;
+		1;
+	};
+	if ($rc) {
+		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/bin/dump_mailscanner_config.pl'], "2>&1", ">/dev/null");
+	} else {
+		$dumped = 1 if system($self->{'SRCDIR'}."/bin/dump_mailscanner_config.pl 2>&1 >/dev/null");
+	}
+	$self->doLog('dump_mailscanner_config.pl failed', 'daemon') unless ($dumped);
 
 	return 1;
 }
@@ -114,9 +123,8 @@ sub mainLoop
 	}
 	close($CONF);
 
-system("echo  '$cmd' > /tmp/newsld.log");
 	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
+	system(split(/ /, $cmd));
 	
 	return 1;
 }

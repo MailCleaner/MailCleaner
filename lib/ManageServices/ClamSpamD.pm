@@ -89,7 +89,7 @@ sub mainLoop
 	my $cmd = $self->{'cmd'};
 	$cmd .= ' --config-file=' . $self->{'conffile'};
 	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
+	system(split(/ /, $cmd));
 	
 	return 1;
 }

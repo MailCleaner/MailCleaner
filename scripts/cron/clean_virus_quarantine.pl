@@ -41,8 +41,7 @@ opendir(QDIR, $quarantine_dir) or die "Couldn't read directory $quarantine_dir";
 while(my $entry = readdir(QDIR)) { 
         next if $entry =~ /^\./;
         $entry = $quarantine_dir . '/' . $entry;
-        system("rm -rf $entry") if -d $entry &&
-                                   -M $entry > $days_to_keep;
+        system("rm", "-rf", "$entry") if (-d $entry && -M $entry > $days_to_keep);
 }
 closedir(QDIR);
 

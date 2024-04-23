@@ -238,7 +238,7 @@ foreach my $current_process (@processes) {
 			close(OUTFILE);
 		# Execution séquentielle
 		} else {
-			system($commande);
+			system(split(/ /, $commande));
 			$current_process->{pid} = 'NA';
 			$current_process->{return_code}	= $?>>8;
 			unlink $current_process->{pid_file};

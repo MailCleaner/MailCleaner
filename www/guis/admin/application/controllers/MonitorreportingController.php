@@ -28,10 +28,10 @@ class MonitorreportingController extends Zend_Controller_Action
 			if ($params['search'] == '') {
 				$what = '*';
 			} else {
-				$what = $params['search'];
+				$what = escapeshellcmd($params['search']);
 			}
 			if (isset($params['domain']) && $params['domain'] != '') {
-				$what .= "@".$params['domain'];
+				$what .= "@".escapeshellcmd($params['domain']);
 			}
 		}
 		$params['what'] = $what;

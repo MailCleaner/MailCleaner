@@ -72,18 +72,39 @@ sub setup
 	my $class = shift;
 
 	$self->doLog('Dumping MailScanner config...', 'daemon');
-	if (system($self->{'SRCDIR'}.'/bin/dump_custom_spamc_rules.pl 2>&1 >/dev/null')) {
-		$self->doLog('dump_custom_spamc_rules.pl failed', 'daemon');
+	my $dumped = 0;
+	my $rc = eval
+	{
+		require IPC::Run;
+		1;
+	};
+	if ($rc) {
+		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/bin/dump_custom_spamc_rules.pl'], "2>&1", ">/dev/null");
+	} else {
+		$dumped = 1 if system($self->{'SRCDIR'}."/bin/dump_custom_spamc_rules.pl 2>&1 >/dev/null");
 	}
-	if (system($self->{'SRCDIR'}.'/bin/dump_spamc_double_items.pl 2>&1 >/dev/null')) {
-		$self->doLog('dump_spamc_double_items.pl failed', 'daemon');
+	$self->doLog('dump_custom_spamc_rules.pl failed', 'daemon') unless ($dumped);
+	$dumped = 0;
+	if ($rc) {
+		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/bin/dump_spamc_double_items.pl'], "2>&1", ">/dev/null");
+	} else {
+		$dumped = 1 if system($self->{'SRCDIR'}."/bin/dump_spamc_double_items.pl 2>&1 >/dev/null");
 	}
-	if (system($self->{'SRCDIR'}.'/bin/dump_mailscanner_config.pl 2>&1 >/dev/null')) {
-		$self->doLog('dump_mailscanner_config.pl failed', 'daemon');
+	$self->doLog('dump_spamc_double_items.pl failed', 'daemon') unless ($dumped);
+	$dumped = 0;
+	if ($rc) {
+		$dumped = 1 if IPC::Run::run([$self->{'SRCDIR'}.'/bin/dump_mailscanner_config.pl'], "2>&1", ">/dev/null");
+	} else {
+		$dumped = 1 if system($self->{'SRCDIR'}."/bin/dump_mailscanner_config.pl 2>&1 >/dev/null");
 	}
-	if (system('/usr/bin/pyzor discover 2>/dev/null >/dev/null')) {
-		$self->doLog('/usr/bin/pyzor discover failed', 'daemon');
+	$self->doLog('dump_mailscanner_config.pl failed', 'daemon') unless ($dumped);
+	$dumped = 0;
+	if ($rc) {
+		$dumped = 1 if IPC::Run::run(['/usr/bin/pyzor', 'discover'], "2>&1", ">/dev/null");
+	} else {
+		$dumped = 1 if system("/usr/bin/pyzor discover 2>&1 >/dev/null");
 	}
+	$self->doLog('/usr/bin/pyzor discover failed', 'daemon') unless ($dumped);
 	
 	return 1;
 }
@@ -124,7 +145,7 @@ sub mainLoop
 	close($CONF);
 
 	$self->doLog("Running $cmd", 'daemon');
-	system($cmd);
+	system(split(/ /, $cmd));
 	
 	return 1;
 }

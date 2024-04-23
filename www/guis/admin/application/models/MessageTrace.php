@@ -152,6 +152,7 @@ class Default_Model_MessageTrace
 		}
 		}
 		$str = implode(', ', $ca);
+		$str = htmlspecialchars($str);
                 if ($nocut) {
                    return $str;
                 }
