@@ -117,6 +117,10 @@ if ($rc != 0) {
   #######################
   system("$config{'SRCDIR'}/bin/resync_db.sh", "-C");
   remove_lockfile($resync_lock, undef);
+  if (open(my $fh, '>>', "$config{'VARDIR'}/log/mailcleaner/spam_sync.log")) {
+    print $fh `$config{'SRCDIR'}/bin/sync_spams.pl`;
+    close($fh);
+  }
 }
 
 ###########################################################################
@@ -405,7 +409,7 @@ if ($itsmidnight) {
   ###############
   ## first do the log rotation and NOT fork as it shut down mysql_slave which is used by others scripts
   print "rotating logs...\n";
-  my $rc = create_lockfile('rotate.lock', '/tmp/', time+4*60*60, 'resync_db');
+  my $rc = create_lockfile('rotate.lock', '/tmp/', time+4*60*60, 'rotate_logs');
   if ($rc!=0) {
     system($config{'SRCDIR'}."/scripts/cron/rotate_logs.sh");
     print "done rotating logs.\n";
