@@ -23,18 +23,21 @@ class MonitorreportingController extends Zend_Controller_Action
 		if ($params['top'] == '') {
 			$params['top'] = 10;
 		}
-		$what = '';
 		if (isset($params['search'])) {
 			if ($params['search'] == '') {
-				$what = '*';
+				if (isset($params['domain']) && $params['domain'] != '') {
+					$params['what'] = '*@'.escapeshellcmd($params['domain']);
+				} else {
+					$params['what'] = '*';
+				}
 			} else {
-				$what = escapeshellcmd($params['search']);
-			}
-			if (isset($params['domain']) && $params['domain'] != '') {
-				$what .= "@".escapeshellcmd($params['domain']);
+				if (isset($params['domain']) && $params['domain'] != '') {
+					$params['what'] = escapeshellcmd($params['search'])."@".escapeshellcmd($params['domain']);
+				} else {
+					$params['what'] = escapeshellcmd($params['search']);
+				}
 			}
 		}
-		$params['what'] = $what;
 		
 		$todateO = Zend_Date::now();
 	    $fromdateO = Zend_Date::now();
@@ -151,7 +154,7 @@ class MonitorreportingController extends Zend_Controller_Action
 		}
 		
         if (isset($session->search_id) && $session->search_id) {
-			$params['search_id'] = $session->search_id;
+			$params['search_id'] = escapeshellcmd($session->search_id);
 			$res = $element->getStatusFetchAll($params);
 			if (isset($res['error'])) {
 				$element->abortFetchAll($params);

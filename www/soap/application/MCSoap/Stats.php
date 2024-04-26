@@ -27,7 +27,7 @@ class MCSoap_Stats
     	        || !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
     		return array('stats_id' => $stats_id);
     	}
-        $cmd = $mcconfig->getOption('SRCDIR')."/bin/get_stats.pl '".escapeshellcmd($params['what'])."' ".$params['datefrom']." ".$params['dateto'];
+        $cmd = $mcconfig->getOption('SRCDIR')."/bin/get_stats.pl '".$params['what']."' ".$params['datefrom']." ".$params['dateto'];
     	$cmd .= " -b";
     	if (isset($params['fulldays']) && $params['fulldays']) {
     		$cmd .= " -f";
@@ -39,8 +39,9 @@ class MCSoap_Stats
             $stats_id = md5(uniqid(mt_rand(), true));
     	}
     	
-        $cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/stats_search/".escapeshellcmd($stats_id)." &";
+        $cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/stats_search/".$stats_id." &";
         $res = `$cmd`;
+	`echo '$cmd' > /tmp/test.tmp`;
     	return array('search_id' => $stats_id, 'cmd' => $cmd) ;
 	}
 	
