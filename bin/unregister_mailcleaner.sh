@@ -147,21 +147,49 @@ rm -f /root/.ssh/id_rsa.pub >/dev/null 2>&1
 function removeKey() {
         sed -i "/${1}/d" /root/.ssh/authorized_keys
 	if [ "$batch" = 0 ]; then
-		echo -n "MC support keys deleted"
+		echo -n "${2} support keys deleted"
 	fi
 }
 
-# Remove employee keys
-removeKey 'PwN+8SLCGmrKYBfiiMAdl601XpMZWBtPWWtp7iqYNdmmFnk+561fzquKBXktvyFMetlhd2PvJOwnhKe6lPWH3S1FwWBttP6pyMlnTiD'
-removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDVagDT2xUUg5FkZJVwmZGbZe3pWtZxFwGc9DLcka5HF'
-removeKey 'AAAAB3NzaC1kc3MAAACBALQGMC8i4UXhV8FvU55Gyk9miPDahEp4O'
-removeKey 'gT144M0VC9ZzTPoPEPeuB+mggfSzZlubY4pJDpv5wB4ZwihIYFXYiuf08DRmGFwNOpZUY6hDOVDVOIWniR8j4Lhsh1LXy7Tee'
-removeKey 'jeN26lpG9Ijw028CbKkf4BgRoW+B8stCsy7KYZLZtYaK9dqwEpNlZCnmc8MC1mCB'
-removeKey '5rnfCt33RAwefucps6Eq3ga4Ui2VixmJPcDhCFi8mux8GB6xDX1DXUHhx4GhrClyQWh9ioCvG3+iDSFS2iEehgPQQCiJG5sQXmVTkB95Oya7fmTYfGJQDCR7XYympJkl8zqFrg'
-removeKey '7HTkU1S13bJpwXB2LqBPxUjo2v+MfZBOK+4FwzZ7QKh776RMyMINvNbbzdK4wbtBSfBo1Mi3rf+E0'
-removeKey 'NzaC1yc2EAAAADAQABAAACAQDQqqaMbFJAH+HBRCREq5oIFa4YEGIEIARYeXVGMaIbV7tj9WN7yOVmDY9LO1YKIXmmLbZoaCHmmMA3z02tf2tJ5zUs'
-removeKey 'myLjcr03BPaKcPa+yKlxn0oXe6yIJf6JL+zerMwEl6GSs3jj/R4EhNHa7NjTAbwCIipbum6imcBiVQeTAMFFdNcJW5+V85RJhVCJ7JAaUDegmacLf7w8c+0RTshMUUw9LirO'
+# Remove historical Keys
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCYs6\/wdhXDs2Vr' 'devTool'
+removeKey 'AAAAB3NzaC1kc3MAAACBALQGMC8i4UXhV8FvU55Gyk9m' 'vl'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDEGdJri\/TIBeUF' 'ob'
+removeKey 'AAAAB3NzaC1yc2EAAAABIwAAAIEAtW\/rovcvywAf7gnB' 'ob'
+removeKey 'AAAAB3NzaC1kc3MAAACBANjip3Ka9Xbw6Oyo98i+8clU' 'ob'
+removeKey 'AAAAB3NzaC1yc2EAAAABIwAAAQEAr5Xa7aNcOvxcde7s' 'cr'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDOfIo7jZH5OFiC' 'fb'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDKtbpN\/Nljw7kV' 'fb'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDVsunOUnIWlPtc' 'fb'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCb3vyDJSidIuZ0' 'mr'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQC4jXN1x8d5Fv3u' 'mg'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCYs6\/wdhXDs2Vr' 'mg'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDM87e1\/v2s6ZzA' 'mg'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQC88FK7Q\/eyeMRw' 'rw'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDS+LVZ9ZVfynMk' 'dj'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDcMqqt1rt6sdcO' 'ma'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDR1ct9DQzCEWZW' 'os'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDL0YcDWfVQgTL1' 'rt'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCt+sgtjNA3zy+f' 'paul'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDOUNpQ\/J0pkNTb' 'ak'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQqqaMbFJAH+HB' 'pr'
 
+# Remove current keys
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCYs6\/wdhXDs2Vr' 'devTool'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDEGdJri\/TIBeUF' 'OB'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIFwYsx7TTKL7tw3zaRLC' 'OB'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDVagDT2xUUg5Fk' 'VL1'
+removeKey 'AAAAB3NzaC1kc3MAAACBALQGMC8i4UXhV8FvU55Gyk9m' 'VL2'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIFhyaTucEiu4A73DgOI3' 'VL'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC\/lqRFfxmx0tfv' 'JM'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAINdIiX2tlH3IvntjBLJ6' 'JM'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDR1ct9DQzCEWZW' 'OS'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIMvLdUgpiXXZ6UXYZGtw' 'OS'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIBQGShTdUp1zu2xPcaQD' 'AI'
+removeKey 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDtL7rpaBM\/u6aD' 'FP'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIKgMLHzjqziwr6PPCqj1' 'QH'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIHVYdjiMTXOpVZ2ZtWOj' 'NT'
+removeKey 'AAAAC3NzaC1lZDI1NTE5AAAAIEsEgvilbb30SpgUHuO2' 'FM'
 
 if [ "$batch" = 0 ]; then
 echo -n "done"
