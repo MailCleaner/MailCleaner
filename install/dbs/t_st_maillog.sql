@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS maillog;
 CREATE TABLE maillog (
   timestamp timestamp NOT NULL,
   id text,
-  size bigint default '0',
+  size bigint(20) default '0',
   from_address text,
   from_domain text,
   to_address text,
