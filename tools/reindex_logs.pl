@@ -199,7 +199,7 @@ default.\n");
 # When running in 'fast' mode, allow for writing and freeing of logs in memory for output files which should not see any more input
 sub fast_write {
 	my ($logs, $service, $path, $suffix) = @_;
-	if (defined($logs->{$path}->{$suffix})) {
+	if (defined($logs->{$path}->{$suffix}) && scalar(@{$logs->{$path}->{$suffix}})) {
 		my $out_method = '>>';
 		$out_method .= ':gzip' if ($suffix =~ m/\.gz$/);
 		print("Writing logs for ${path}${suffix}\n");
@@ -280,7 +280,9 @@ mkdir("${VAR}/log.bk") unless (-d "${VAR}/log.bk");
 foreach my $service (@services_to_index) {
 	print "Indexing ${service}...\n";
 	mkdir("${tmp_dir}/${service}");
+	chown($services->{$service}->{'uid'}, $services->{$service}->{'gid'}, "${tmp_dir}/${service}");
 	rmtree("${VAR}/log.bk/${service}") if (-d "${VAR}/log.bk/${service}");
+	chown($services->{$service}->{'uid'}, $services->{$service}->{'gid'}, "${VAR}/log.bk/${service}");
 	mkdir("${VAR}/log.bk/${service}");
 
 	# Run one file type at a time
