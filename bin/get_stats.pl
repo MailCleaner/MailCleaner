@@ -184,22 +184,33 @@ if ($debug) {
 }
 
 my $day = $start;
-foreach my $dir (@dirs) {
+if (scalar(@dirs)) {
+    foreach my $dir (@dirs) {
+        clearStats();
+
+        my $tday = $day;
+        while ($tday <= $stop) {
+            my $file = $dir."/".$tday."_counts";
+            processFile($file);
+            print $whats{$dir}.":" if $batchmode && $fulldays;
+            print $tday.":" if $fulldays;
+            returnStats() if $fulldays;
+            $tday = addDate($tday, '+1');
+            clearStats() if $fulldays;
+        }
+        print $whats{$dir}.":" if $batchmode && !$fulldays;
+        addGlobalStats();
+        returnStats() if !$fulldays;
+    }
+} else {
     clearStats();
 
     my $tday = $day;
     while ($tday <= $stop) {
-        my $file = $dir."/".$tday."_counts";
-        processFile($file);
-        print $whats{$dir}.":" if $batchmode && $fulldays;
-        print $tday.":" if $fulldays;
-        returnStats($dir) if $fulldays;
+        returnStats() if $fulldays;
         $tday = addDate($tday, '+1');
-        clearStats() if $fulldays;
     }
-    print $whats{$dir}.":" if $batchmode && !$fulldays;
-    addGlobalStats();
-    returnStats($dir) if !$fulldays;
+    returnStats() if !$fulldays;
 }
 
 if ($what eq '*') {
@@ -303,7 +314,6 @@ sub addDate {
 
 #######################
 sub returnStats {
-    my $dir = shift;
     if (! $verbose) {
         print "$msgs|$spams|$highspams|$viruses|$names|$others|$cleans|$bytes|$users|$domains\n";
     } else {
