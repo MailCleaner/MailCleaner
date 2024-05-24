@@ -18,9 +18,13 @@ countspaused = false;
 
 $(document).ready(function(){
 
-	loadstatus();
-        loadcounts();
-	window.setInterval(loadcounts, 5000);
+	if (loadstatus()) {
+		if (loadcounts()) {
+			window.setInterval(loadcounts, 5000);
+		} else {
+			$("#countsbloc"+previousblock).html("timedout");
+		}
+	}
 	alignStats();
 	
 	$('#globalstatsbloc').hover( 
@@ -64,7 +68,7 @@ function loadcounts() {
 		  timeout: 10000,
 		  dataType: "html",
 		  success: function(msg){
-            loadingcounts = false;
+			loadingcounts = false;
 			if (msg == '') {
 				loadcounts();
 			} else {
@@ -90,13 +94,17 @@ function loadcounts() {
           },
           error: function() {
         	  $("#countsbloc"+currentblock).html('timed out');
-        	  loadingcounts = false;
+        	  loadingcounts = "timedout";
+        	  countspaused = true;
+		  return false;
           }
 		});
+          return true;
 }
 
 function loadstatus() {
 	if (loadingstatus) {
+      	  $("#globalstatusbloc").html('already loading');
 		return;
 	}
 	loadingstatus = true;
@@ -114,7 +122,9 @@ function loadstatus() {
         },
         error: function() {
       	  $("#globalstatusbloc").html('timed out');
-      	  loadingstatus = false;
+      	  loadingstatus = "timedout";
+          return false;
         }
 		});
+        return true;
 }

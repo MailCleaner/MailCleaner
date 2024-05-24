@@ -10,7 +10,6 @@ var hostreloadtime = 5000;
 var graphStatus = new Array();
 
 $(document).ready(function(){
-	
 	$("#statusreloadimg").click(function(event){
         loading();
         event.preventDefault();
@@ -24,6 +23,11 @@ $(document).ready(function(){
 });
 
 function loading() {
+	if (slave) {
+            $("#statuspanel").html("not running on slave");
+		return;
+	}
+	
 	$("#statuspanel").html(loadinghtml);
 	statusrequest = $.ajax({
 		  type: "GET",
