@@ -39,7 +39,8 @@ function check_status() {
 }
 
 LOGDIR="/var/mailcleaner/log/mailcleaner/resync"
-LOCKFILE='/var/mailcleaner/spool/tmp/resync_db'
+FAILFILE='/var/mailcleaner/spool/tmp/resync_db'
+LOCKFILE='/var/mailcleaner/spool/tmp/resync_db.lock'
 MHOST=''
 MPASS=''
 
@@ -54,11 +55,10 @@ for var in "$@"; do
     exec 1>>"$LOGDIR/resync.log"
     exec 2>"/dev/null"
     # If failed on previous cron run, this file will exist with a count of failures
-    if [ -e $LOCKFILE ]; then
-      # If it has failed 6 times stop trying
-      if test `find "/var/mailcleaner/spool/tmp/resync_db" -mmin +230`; then
-        echo "Last try is more than 4 hours ago. Trying to fix"
-        rm "/var/mailcleaner/spool/tmp/resync_db"
+    if [ -e $FAILFILE ]; then
+      if test `find $FAILFILE -mmin +59`; then
+        echo "Last try is more than 1 hours ago. Trying to fix"
+        rm $FAILFILE
         RUN=1
       else
         echo "Last try is too recent. Exiting"
@@ -82,6 +82,16 @@ usage: $0 [-F] [MHOST MPASS]
     exit
   fi
 done
+
+if [ -e $LOCKFILE ]; then
+  if test `find $LOCKFILE -mmin +15`; then
+    echo "Last try is more than 15 hours ago. Removing $LOCKFILE."
+    rm $LOCKFILE
+  else
+    echo "Lockfile ($LOCKFILE) less than 15 minutes old. Exitting..."
+    exit
+  fi
+fi
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
@@ -142,7 +152,9 @@ $SRCDIR/bin/mc_mysql -s mc_config < /var/tmp/master.sql
 
 sleep 2
 echo "CHANGE MASTER TO master_host='$MHOST', master_user='mailcleaner', master_password='$MPASS'; " | $SRCDIR/bin/mc_mysql -s 
+# Return code should be 0 if there are no errors. Log code to RUN to catch errors that might not be presented with 'check_status'
 $SRCDIR/bin/mc_mysql -s mc_config < /var/tmp/master.sql
+RUN=$?
 echo "START SLAVE;" | $SRCDIR/bin/mc_mysql -s 
 sleep 5
 
@@ -155,8 +167,18 @@ check_status
 if [[ $RUN != 1 ]]; then
   echo "Resync successful." 
   # If there were previous failures, remove that flag file
-  if [[ -e $LOCKFILE ]]; then
-    echo "Removing lockfile"
-    rm $LOCKFILE
+  if [[ -e $FAILFILE ]]; then
+    echo "Removing failfile"
+    rm $FAILFILE
+  fi
+else
+  if [[ -e $FAILFILE ]]; then
+    FAILS=$(cat $FAILFILE)
+    FAILS=$((FAILS+1))
+    echo $FAILS > $FAILFILE
+  else
+    echo 1 > $FAILFILE
   fi
 fi
+
+rm $LOCKFILE
