@@ -181,4 +181,6 @@ else
   fi
 fi
 
-rm $LOCKFILE
+if [ -e $LOCKFILE ]; then
+  rm $LOCKFILE
+fi
