@@ -106,21 +106,13 @@ unless ( -e "$config{'VARDIR'}/run/fail2ban.disabled" ) {
 ###########################
 # We need the DB to be okay to make sure we are dropping
 # the right informations in configuration files
+# resync_db maintains it's own lockfile for manual runs also
 ###########################
-# check for lock
-my $resync_lock = 'resync_db.lock';
-my $rc = create_lockfile($resync_lock, undef, time+15*60, 'resync_db');
-if ($rc != 0) {
-
-  #######################
-  # check and resync DB #
-  #######################
-  system("$config{'SRCDIR'}/bin/resync_db.sh", "-C");
-  remove_lockfile($resync_lock, undef);
-  if (open(my $fh, '>>', "$config{'VARDIR'}/log/mailcleaner/spam_sync.log")) {
-    print $fh `$config{'SRCDIR'}/bin/sync_spams.pl`;
-    close($fh);
-  }
+system("$config{'SRCDIR'}/bin/resync_db.sh", "-C");
+# Sync spam tables
+if (open(my $fh, '>>', "$config{'VARDIR'}/log/mailcleaner/spam_sync.log")) {
+  print $fh `$config{'SRCDIR'}/bin/sync_spams.pl`;
+  close($fh);
 }
 
 ###########################################################################
