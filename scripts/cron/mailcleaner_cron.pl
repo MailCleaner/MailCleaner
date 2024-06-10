@@ -175,7 +175,7 @@ if (defined $slave_dbh) {
 # Skip minute/hourly tasks if lockfile exists
 #############################################
 my $skip = 0;
-$rc = create_lockfile($lockfile, undef, time+15*60, 'mailcleaner_cron');
+my $rc = create_lockfile($lockfile, undef, time+15*60, 'mailcleaner_cron');
 if ($rc==0) {
   print STDERR "Recent Cron already running. Continuing with high-priority tasks only.\n";
   $skip = 1;
