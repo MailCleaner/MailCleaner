@@ -461,7 +461,7 @@ sub dumpDomainsFile {
     if (defined($value) && $value ne "" && $value ne 'none') {
     	print DKIMFILE $domain_name.": ";
     
-        if ($value eq 'default') {
+        if ($value =~ m/_?default/) {
             print DKIMFILE $exim_conf{'dkim_default_domain'}.";".$exim_conf{'dkim_default_selector'}."\n";
         } else {
         	print DKIMFILE $value.";";
