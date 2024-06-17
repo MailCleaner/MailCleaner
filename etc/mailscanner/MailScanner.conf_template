@@ -20,6 +20,7 @@ Additional Library Paths = __SRCDIR__/lib
 Queue Scan Interval = 5
 Restart Every = 14400
 
+__EXIM_COMMAND__
 Incoming Queue Dir = __VARDIR__/spool/exim_stage2/input
 Outgoing Queue Dir = __VARDIR__/spool/exim_stage4/input
 Incoming Work Dir = __VARDIR__/spool/tmp/mailscanner/incoming
