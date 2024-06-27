@@ -136,7 +136,7 @@ class IndexController extends Zend_Controller_Action
 			$usecache = $request->getParam('c');
 		} 
 		$type = $request->getParam('t');
-		if (isset($type) && !preg_match('/^(refused|global|delayed|relayed|sessions)$/', $type)) {
+		if (isset($type) && !preg_match('/^(accepted|refused|global|delayed|relayed|sessions)$/', $type)) {
 			echo "invalid selection: $type";
 			exit();
 		}
