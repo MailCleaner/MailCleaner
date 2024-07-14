@@ -562,3 +562,7 @@ $txt['SENDERVARIATIONS'] = "Gönderen adresinin tüm çeşitleri";
  */
 $txt['ORIGINALSENDER'] = "Yalnızca orijinal gönderen adresi";
 $txt['NEWSLETTERUNSUB'] = "Abonelikten çık";
+/*
+ * generic texts
+ */
+$txt['AND'] = "ve";
