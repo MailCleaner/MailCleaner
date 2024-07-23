@@ -49,6 +49,8 @@ $cmd = "rm /opt/clamav/share/clamav/* >/dev/null 2>&1";
 `$cmd`;
 $cmd = "ln -s $config{'VARDIR'}/spool/clamav/* /opt/clamav/share/clamav/ >/dev/null 2>&1";
 `$cmd`;
+$cmd = "chown clamav:clamav -R $config{'VARDIR'}/spool/clamav $config{'VARDIR'}/log/clamav/ >/dev/null 2>&1";
+`$cmd`;
 
 if (-e "$config{'VARDIR'}/spool/mailcleaner/clamav-unofficial-sigs") {
 	if (-e "$config{'VARDIR'}/spool/clamav/unofficial-sigs") {
