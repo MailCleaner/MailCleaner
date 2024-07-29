@@ -39,9 +39,14 @@ then
   exit 
 fi
 
+
 aria2c -q --checksum=sha-256=ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46 \
-  https://cdnpush.s3.us-east-2.stackpathstorage.com/openssl-1.1.1g.tar.gz
-  
+  http://cdnpush.mailcleaner.net.s3.amazonaws.com/openssl-1.1.1g.tar.gz
+if [ $? -ne 0 ]; then
+    echo "Download failed or did not match SHA256SUM"
+    exit
+fi
+
 if [ -f "openssl-1.1.1g.tar.gz" ]
 then 
   tar xvf openssl-1.1.1g.tar.gz
