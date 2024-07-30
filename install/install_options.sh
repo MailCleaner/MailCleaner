@@ -328,7 +328,7 @@ function eset() {
     printf "Downloading ESET. This will take a couple of minutes ... \n"
     cd /tmp
     aria2c -q --checksum=sha-256=c4a562dff83704dfe6ab817f6cb9059dbbab02c0efb4c66483282588f1e57bc0 \
-        https://cdnpush.mailcleaner.net.s3.amazonaws.com/efs.deb.xz
+        http://cdnpush.mailcleaner.net.s3.amazonaws.com/efs.deb.xz
     if [ $? -ne 0 ]; then
         echo "Download failed or did not match SHA256SUM"
         exit
