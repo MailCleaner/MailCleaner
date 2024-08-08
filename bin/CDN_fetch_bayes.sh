@@ -87,16 +87,17 @@ if [ -f /tmp/bayes_secrets ]; then
     fi
 
     wget http://cdnpush.mailcleaner.net.s3.amazonaws.com/bayes_toks_$SA_SECRET -P /tmp/ > /dev/null 2>&1
-    if [[ "$SA_SECRET" == "`md5sum /tmp/bayes_toks_$SA_SECRET | cut -d ' ' -f 2`" ]]; then
+    if [[ "$SA_SECRET" == "`md5sum /tmp/bayes_toks_$SA_SECRET | cut -d ' ' -f 1`" ]]; then
         mv -f /tmp/bayes_toks_$SA_SECRET $VARDIR/spool/spamassassin/ > /dev/null 2>&1
     fi
 
     wget http://cdnpush.mailcleaner.net.s3.amazonaws.com/wordlist.db_$BOGO_SECRET -P /tmp/ > /dev/null 2>&1
-    if [[ "$BOGO_SECRET" == "`md5sum /tmp/wordlist.db_$BOGO_SECRET | cut -d ' ' -f 2`" ]]; then
+    if [[ "$BOGO_SECRET" == "`md5sum /tmp/wordlist.db_$BOGO_SECRET | cut -d ' ' -f 1`" ]]; then
         mv -f /tmp/wordlist.db_$BOGO_SECRET $VARDIR/spool/spamassassin/ > /dev/null 2>&1
     fi
 
     mv -f /tmp/bayes_secrets $VARDIR/spool/data_credentials/bayes_secrets
+    rm /tmp/bayes_toks_* /tmp/wordlist.db_* 2>/dev/null
     log "Updated with latest Enterprise data"
 
 # Community Edition snapshots
