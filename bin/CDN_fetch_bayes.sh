@@ -97,6 +97,7 @@ if [ -f /tmp/bayes_secrets ]; then
     fi
 
     mv -f /tmp/bayes_secrets $VARDIR/spool/data_credentials/bayes_secrets
+    rm /tmp/bayes_toks_* /tmp/wordlist.db_* 2>/dev/null
     log "Updated with latest Enterprise data"
 
 # Community Edition snapshots
