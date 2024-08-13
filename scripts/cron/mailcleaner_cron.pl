@@ -177,7 +177,7 @@ if (defined $slave_dbh) {
 my $skip = 0;
 my $rc = create_lockfile($lockfile, undef, time+15*60, 'mailcleaner_cron');
 if ($rc==0) {
-  print STDERR "Recent Cron already running. Continuing with high-priority tasks only.\n";
+  print "Recent Cron already running. Continuing with high-priority tasks only.\n";
   $skip = 1;
 }
 
@@ -420,7 +420,7 @@ if ($itsmidnight) {
     } else {
       system("wget -q --no-check-certificate https://www.internic.net/domain/named.root -O /etc/bind/db.root 2>&1 >/dev/null");
     }
-    system("rndc", "reload");
+    system("/usr/sbin/rndc", "reload");
     print "db.root updated.\n";
     exit;
   }
