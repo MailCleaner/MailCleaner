@@ -27,7 +27,7 @@ use LWP::UserAgent;
 use Getopt::Std;
 use Proc::ProcessTable;
 
-my $CVSHOST='cvs.mailcleaner.net';
+my $CVSHOST='team01.mailcleaner.net';
 my $REPORTHOST='reselleradmin.mailcleaner.net';
 
 my %config = readConfig("/etc/mailcleaner.conf");
