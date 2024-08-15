@@ -83,6 +83,6 @@ HOSTID=`grep 'HOSTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
 
 DATE=`date --date "now -1 day" +%Y%m%d`
 chmod g+w $STATFILE
-scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $STATFILE mcscp@cvs.mailcleaner.net:/upload/stats/$CLIENTID-$HOSTID-$DATE.txt >/dev/null 2>&1
+scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $STATFILE mcscp@team01.mailcleaner.net:/upload/stats/$CLIENTID-$HOSTID-$DATE.txt >/dev/null 2>&1
 
 removeLockFile "$FILE_NAME"
