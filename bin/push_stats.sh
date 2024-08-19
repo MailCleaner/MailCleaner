@@ -57,13 +57,6 @@ for OPTION in "$@"; do
        fi
        days=$OPTION
        ;;
-    \-*)
-       ;;
-    *)
-       echo Invalid argument $OPTION
-       usage
-       exit
-       ;;
   esac
 done
 
