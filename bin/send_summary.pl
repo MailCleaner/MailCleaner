@@ -399,8 +399,19 @@ sub getQuarantineTemplate {
       $s_local = $1;
       $s_domain = $2;
       if ($type eq 'html') {
-        $s_local =~  s/^(\S{20}).*$/\1.../;
-  	$s_domain =~  s/^(\S{20}).*$/\1.../;
+        my $totallen = 50;
+        unless (length($s_local) + length($s_domain) < $totallen) {
+          if (length($s_local) > $totallen/2 && length($s_domain) > $totallen/2) {
+            $s_local = substr($s_local, 0, $totallen/2);
+            $s_domain = substr($s_domain, 0, $totallen/2);
+          } elsif (length($s_local) > $totallen/2) {
+            if (length($s_local) > $totallen-length($s_domain)) {
+              $s_local = substr($s_local, 0, $totallen-length($s_domain))."...";
+            } 
+          } elsif (length($s_domain) > $totallen-length($s_local)) {
+            $s_domain = substr($s_domain, 0, $totallen-length($s_local))."...";
+          }
+        }
       }
     }
 

@@ -115,24 +115,25 @@ class Default_Model_QuarantinedSpam
        $this->_destination = $local."@".$domain;
     }
     public function getCleanAddress($address) {
-      $locallen = 25;
-      $domainlen = 25;
+      $totallen = 50;
       $address = htmlspecialchars($address);
       if (preg_match('/(\S+)\@(\S+)/', $address, $matches)) {
-        $str = "";
-        if (strlen($matches[1]) > $locallen) {
-          $str .= substr($matches[1], 0, $locallen)."...";
+        if (strlen($matches[1]) + strlen($matches[2]) < $totallen) {
+          return $matches[1]."@".$matches[2];
         } else {
-          $str .= $matches[1];
+          if (strlen($matches[1]) > $totallen/2 && strlen($matches[2]) > $totallen/2) {
+            return substr($matches[1], 0, $totallen/2)."...@".substr($matches[2], 0, $totallen/2);
+          } elseif (strlen($matches[1]) > $totallen/2) {
+            if (strlen($matches[1]) > $totallen-strlen($matches[2])) {
+              return substr($matches[1], 0, $totallen-strlen($matches[2]))."...@$matches[2]";
+            }
+            return $matches[1]."@".$matches[2];
+          }
+          if (strlen($matches[2]) > $totallen-strlen($matches[1])) {
+            return "$matches[1]@".substr($matches[2], 0, $totallen-strlen($matches[1]))."...";
+          }
+          return $matches[1]."@".$matches[2];
         }
-
-        $str.="@";
-        if (strlen($matches[2]) > $domainlen) {
-          $str .= substr($matches[2], 0, $domainlen)."...";
-        } else {
-          $str .= $matches[2];
-        }
-        return $str;
       }
       return $address;
     }
