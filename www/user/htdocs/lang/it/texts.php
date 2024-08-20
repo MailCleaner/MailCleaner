@@ -327,7 +327,7 @@ $txt['FROMDATETODATE'] = "da __PARAM1__.__PARAM2__.__PARAM3__ a __PARAM4__.__PAR
 $txt['BADARGS'] = "Errore interno di MailCleaner (_PARAM_MESSAGE_ERREUR__). Si prega di contattare il proprio amministratore di sistema fornendogli i dettagli del problema.";
 $txt['INCORRECTMSGID'] = "L'azione richiesta non pu&ograve essere completata in quanto l'identificatore del messaggio non &egrave corretto.";
 $txt['NOSUCHADDR'] = "L'indirizzo indicato non &egrave protetto da MailCleaner.";
-$txt['ERRORSENDING'] = "Si &egrave verificato un errore durante l'invio del messaggio. Si prega di riprovare. Se il problema persiste, contattare l'amministratore di sistema.";
+$txt['ERRORSENDING'] = "Si è verificato un errore durante l'invio del messaggio. Si prega di riprovare. Se il problema persiste, contattare l'amministratore di sistema.";
 $txt['MSGFORCED'] = "Il messaggio &egrave stato rilasciato e consegnato alla casella postale. Dovrebbe essere disponibile entro i prossimi minuti.";
 $txt['MSGFILENOTFOUND'] = "L'azione richiesta non pu&ograve essere completata perch&eacute il messaggio non &egrave pi&ugrave in quarantena.";
 /*
@@ -561,3 +561,5 @@ $txt['NEWSLISTSHORTHELP'] = "L'elenco delle newsletter contiene gli indirizzi de
 ";
 $txt['ADDTOGROUP'] = "Aggiungi per tutti gli indirizzi nel gruppo";
 $txt['NEWSLISTTOPICTITLE'] = "lista di notizie";
+$txt['NEWSLETTERUNSUB'] = "Cancella l'iscrizione";
+$txt['AND'] = "e";
