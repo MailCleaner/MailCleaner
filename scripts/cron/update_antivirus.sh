@@ -26,8 +26,6 @@ if [ ! -f $VARDIR/log/clamav/freshclam.log ]; then
 fi
 /bin/chown clamav:clamav $VARDIR/log/clamav/freshclam.log
 
-#/opt/MailScanner/bin/update_virus_scanners
-
 if [ -e $VARDIR/run/clamd.disabled ] && [ -e $VARDIR/run/clamspamd.disabled ]; then
   echo "Abandoning update because both services are disabled" >> $VARDIR/log/clamav/freshclam.log
   exit 0
@@ -43,12 +41,8 @@ if [ -z "`find $VARDIR/spool/clamspam -type f`" ]; then
     tar -xf clamspam.tar
     rm clamspam.tar
     chown clamav:clamav -R $VARDIR/spool/clamspam
+    $SRCDIR/etc/init.d/clamspamd restart
 fi
-
-CLAMDPID=`pgrep -f clamd.conf`
-#if [ "$CLAMDPID" = "" ]; then
-#	exit;
-#fi
 
 echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Starting ClamAV update..." >> $VARDIR/log/clamav/freshclam.log
 /opt/clamav/bin/freshclam --user=clamav --config-file=$SRCDIR/etc/clamav/freshclam.conf --daemon-notify=$SRCDIR/etc/clamav/clamd.conf >> $VARDIR/log/clamav/freshclam.log 2>&1
