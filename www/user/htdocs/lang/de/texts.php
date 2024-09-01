@@ -331,7 +331,7 @@ $txt['FROMDATETODATE'] = "Von __PARAM1__.__PARAM2__.__PARAM3__ bis __PARAM4__.__
 $txt['BADARGS'] = "Interner Fehler des MailCleaners (__PARAM__). Wenden Sie sich an Ihrer E-Mail-Administrator.";
 $txt['INCORRECTMSGID'] = "Die gew&uuml;nschte Aktion kann nicht ausgef&uuml;hrt werden, weil die Meldungserkennung falsch ist.";
 $txt['NOSUCHADDR'] = "Die angegebene Adresse ist von MailCleaner nicht gepr&uuml;ft.";
-$txt['ERRORSENDING'] = "Fehler beim Absenden aufgetreten. Bitte versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt, wenden Sie sich an Ihren E-Mail-Administrator.";
+$txt['ERRORSENDING'] = "Fehler beim Absenden der Nachricht aufgetreten. Bitte versuchen Sie es noch einmal. Wenn der Fehler wiederum eintritt, wenden Sie sich an Ihren E-Mail-Administrator.";
 $txt['MSGFORCED'] = "Meldung wurde freigegeben.<br/>Sie wird in wenigen Augenblicken in Ihren Postfach eingeworfen.";
 $txt['MSGFILENOTFOUND'] = "Die gew&uuml;nschte Aktion kann nicht ausgef&uuml;hrt werden, weil die vorbemerkte Meldung in der Quarant&auml;ne nicht mehr vorhanden ist.";
 /*
@@ -564,3 +564,8 @@ $txt['NEWSLISTHEAD'] = "Nachrichtenlisten-Regel wurde hinzugefügt.";
  */
 $txt['AND'] = "und";
 $txt['NOTNEWSLISTHEAD'] = "Nachrichtenlisten-Regel wurde nicht hinzugefügt.";
+$txt['NEWSLETTERUNSUB'] = "Abbestellen";
+$txt['NOTNEWSLISTBODY'] = "Es gab ein Problem beim Hinzufügen der Newsletter-Whitelist.";
+$txt['WHITELISTHEAD'] = "Es wurde eine Whitelist-Regel hinzugefügt.";
+$txt['ADDWHITELIST'] = "Alle zukünftigen Spamnachrichten vom selben Absender auf die Whitelist setzen?";
+$txt['NEWSLISTBODY'] = "Es wurde eine Whitelist-Regel für Newsletter hinzugefügt. Zukünftige Nachrichten von diesem Absender werden nicht gekennzeichnet, wenn sie als Newsletter erkannt werden.";
