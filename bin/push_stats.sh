@@ -91,10 +91,11 @@ if $randomize ; then
   sleep $sleep_time
 fi
 
-echo "_global:"`$SRCDIR/bin/get_stats.pl '*' -$days +0 | grep '_global' | cut -d':' -f2` > $STATFILE
+END=$(($days-1))
+echo "_global:"`$SRCDIR/bin/get_stats.pl '*' -$days +$END | grep '_global' | cut -d':' -f2` > $STATFILE
 for dom in `grep -v '*' $DOMAINFILE | cut -d':' -f1`; do
   echo -n $dom":" >> $STATFILE
-  echo `$SRCDIR/bin/get_stats.pl $dom -$days +0 ` >> $STATFILE
+  echo `$SRCDIR/bin/get_stats.pl $dom -$days +$END ` >> $STATFILE
 done
 
 CLIENTID=`grep 'CLIENTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
