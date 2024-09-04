@@ -519,7 +519,7 @@ if ($itsmidnight) {
       push(@wait,$pid_pushstats);
     } elsif (defined $pid_pushstats) {
       print "pushing stats...\n";
-      system($config{'SRCDIR'}."/bin/push_stats.sh", $randomize_option);
+      system($config{'SRCDIR'}."/bin/push_stats.sh", $randomize_option, "2");
       system($config{'SRCDIR'}."/bin/push_config.sh", $randomize_option);
       print "done pushing stats.\n";
       exit;
