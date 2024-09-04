@@ -46,7 +46,7 @@ do
   esac
 done
 
-days=0
+days=1
 shopt -s extglob
 for OPTION in "$@"; do
   case $OPTION in
@@ -59,10 +59,6 @@ for OPTION in "$@"; do
        ;;
   esac
 done
-
-if [ ! $days ]; then
-  days=1
-fi
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
