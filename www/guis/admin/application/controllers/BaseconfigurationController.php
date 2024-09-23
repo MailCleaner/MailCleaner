@@ -30,12 +30,14 @@ class BaseconfigurationController extends Zend_Controller_Action
 
 //	var_dump($this->view->serverUrl().$this->view->baseUrl()); die();
 
-	$wizard = Zend_Navigation_Page::factory(array(
+	$conf = MailCleaner_Config::getInstance();
+        if (file_exists($conf->getOption('VARDIR').'/run/configurator/dis_conf_interface.enable')) {
+	    $wizard = Zend_Navigation_Page::factory(array(
     		'label' => 'Wizard',
 	        'uri'   => $this->view->serverUrl().':4242/',
-	));
-
-    	$this->config_menu->addPage($wizard);
+	    ));
+    	    $this->config_menu->addPage($wizard);
+        }
     	$this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Network settings', 'id' => 'networksettings', 'action' => 'networksettings', 'controller' => 'baseconfiguration')));
     	$this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'DNS settings', 'id' => 'dnssettings', 'action' => 'dnssettings', 'controller' => 'baseconfiguration')));
     	$this->config_menu->addPage(new Zend_Navigation_Page_Mvc(array('label' => 'Localization', 'id' => 'localization', 'action' => 'localization', 'controller' => 'baseconfiguration')));
@@ -93,7 +95,6 @@ class BaseconfigurationController extends Zend_Controller_Action
 			}
 			$cmd="sudo ".$config->getOption('SRCDIR')."/bin/dis_config_interface.sh ".$disable_configurator;
                         $res=`$cmd`;
-
                 	$form->setParams($this->getRequest(), $interface);
              	    	$message = $interface->save();
              	    	$interfaces = $interface->fetchAll();
