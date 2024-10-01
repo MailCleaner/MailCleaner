@@ -30,6 +30,8 @@ ScanOLE2 yes
 ScanMail yes
 ScanHTML yes
 ScanArchive yes
+PhishingScanURLs no
+
 
 #ArchiveMaxFileSize 15M
 #ArchiveMaxRecursion 9
