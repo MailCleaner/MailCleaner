@@ -327,7 +327,7 @@ $txt['FROMDATETODATE'] = "de __PARAM1__.__PARAM2__.__PARAM3__ para __PARAM4__.__
 $txt['BADARGS'] = "Erro interno do MailCleaner (__PARAM__). Por favor, contacte o seu administrador de sistema com os detalhes do problema.";
 $txt['INCORRECTMSGID'] = "Não foi possível completar a ação pedida porque o identificador da mensagem está incorreto.";
 $txt['NOSUCHADDR'] = "O endereço fornecido não está protegido pelo MailCleaner.";
-$txt['ERRORSENDING'] = "Ocorreu um erro ao enviar a mensagem. Por favor tente novamente. Se o problema persistir, contacte o seu administrador de sistema.";
+$txt['ERRORSENDING'] = "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente. Se o problema persistir, contacte o seu administrador de sistema.";
 $txt['MSGFORCED'] = "A mensagem foi libertada e entregue na sua caixa de correio. Deve ficar disponível nos próximos minutos.";
 $txt['MSGFILENOTFOUND'] = "Não foi possível realizar a operação pedida porque a mensagem já não está na quarentena.";
 /*
@@ -561,3 +561,5 @@ $txt['SENDERVARIATIONS'] = "Todas as variações do endereço do remetente";
  * Type of WWList
  */
 $txt['ORIGINALSENDER'] = "Só o endereço do remetente original";
+$txt['NEWSLETTERUNSUB'] = "Cancelar Inscrição";
+$txt['AND'] = "e";
