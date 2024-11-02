@@ -34,12 +34,18 @@ __FI__
 
 __IF__ USETLS
 tls_advertise_hosts = *
+tls_try_verify_hosts = *
 tls_certificate = __VARDIR__/spool/tmp/exim/certificate
 tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
 tls_require_ciphers = __CIPHERS__
+tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 openssl_options = +no_sslv2 +no_sslv3
 __ELSE__ USETLS
 tls_advertise_hosts =
+__FI__
+
+__IF__ BLOCK25AUTH
+auth_advertise_hosts = ${if eq{$interface_port}{587}{*}{}}
 __FI__
 
 chunking_advertise_hosts =
@@ -68,7 +74,15 @@ __IF_USE_SYSLOG__
 __INCLUDE__ stage1/force_disable_ipv6
 
 smtp_enforce_sync = __SMTP_ENFORCE_SYNC__
-smtp_accept_max_per_host = ${if match_ip{$sender_host_address}{+trusted_hosts}{__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__}{__SMTP_ACCEPT_MAX_PER_HOST__}}
+smtp_accept_max_per_host = ${if match_ip{$sender_host_address}{+no_ratelimit_hosts}\
+                               {0}\
+                               {\
+                                   ${if match_ip{$sender_host_address}{+trusted_hosts}\
+                                       {__SMTP_ACCEPT_MAX_PER_TRUSTED_HOST__}\
+                                       {__SMTP_ACCEPT_MAX_PER_HOST__}\
+                                   }\
+                               }\
+                           }
 smtp_receive_timeout = __SMTP_RECEIVE_TIMEOUT__
 smtp_accept_max = __SMTP_ACCEPT_MAX__
 smtp_load_reserve = __SMTP_LOAD_RESERVE__
@@ -124,10 +138,10 @@ __FI__
          id ${message_id} ${if def:received_for {\n\tfor <$received_for>}} ${if def:sender_address {\n\tfrom <$sender_address>}}"
 
 domainlist local_domains =
-domainlist relay_to_domains = wildlsearch;VARDIR/spool/tmp/mailcleaner/domains.list
+domainlist relay_to_domains = wildlsearch,ret=key;VARDIR/spool/tmp/mailcleaner/domains.list
 domainlist domains_to_callout = VARDIR/spool/tmp/mailcleaner/domains_to_callout.list
 domainlist domains_to_extcallout = VARDIR/spool/tmp/mailcleaner/domains_to_extcallout.list
-domainlist domains_to_altcallout = lsearch;VARDIR/spool/tmp/mailcleaner/domains_to_altcallout.list
+domainlist domains_to_altcallout = lsearch,ret=key;VARDIR/spool/tmp/mailcleaner/domains_to_altcallout.list
 domainlist domains_to_addlistcallout = VARDIR/spool/tmp/mailcleaner/domains_to_addlistcallout.list
 domainlist domains_to_adcheck = VARDIR/spool/tmp/mailcleaner/domains_to_adcheck.list
 domainlist domains_to_greylist = VARDIR/spool/tmp/mailcleaner/domains_to_greylist.list
@@ -144,11 +158,12 @@ hostlist   relay_from_hosts = <; 127.0.0.1 ; __RELAY_FROM_HOSTS__
 hostlist   trusted_hosts = <; +relay_from_hosts ; __TRUSTED_HOSTS__
 hostlist   html_ctrl_hosts = <; __HTML_CTRL_WL_HOSTS__
 hostlist   no_ratelimit_hosts = <; __NO_RATELIMIT_HOSTS__
+hostlist   full_whitelisted_hosts = <; __FULL_WHITELIST_HOSTS__
 domainlist relayrefuseddomains = VARDIR/spool/tmp/exim/blacklists/relaytodomains
 RELAYDEST = VARDIR/spool/tmp/mailcleaner/relay_accepteddest.list
 
 #FULLWHITELIST
-addresslist full_whitelisted_senders = lsearch;VARDIR/spool/mailcleaner/full_whitelisted_senders.list
+addresslist full_whitelisted_senders = VARDIR/spool/mailcleaner/full_whitelisted_senders.list
 
 smtp_accept_reserve = __SMTP_RESERVE__
 smtp_reserve_hosts = ${if eq{$interface_port}{587}{*}{+relay_from_hosts}}
@@ -161,7 +176,7 @@ dmarc_tld_file = SRCDIR/etc/rbls/effective_tlds.txt
 __INCLUDE__ stage1/ldap_callout
 
 STATSADD = ${readsocket{/var/mailcleaner/run/statsdaemon.sock}{ADD $acl_c8 1}{2s}{\n}{ \
-               ${run{/bin/sh -c 'echo "ADD $acl_c8 1" >> /tmp/missed_stats.${tod_logfile}'}{}{command failed}} \
+               ${run,preexpand{/bin/sh -c 'echo "ADD $acl_c8 1" >> /tmp/missed_stats.${tod_logfile}'}{}{command failed}} \
            }}
 perl_startup = do '__SRCDIR__/etc/exim/stage1_scripts.pl'
 
@@ -200,7 +215,6 @@ warn ratelimit          = __TRUSTED_RATELIMIT_RULE__
  __FI__
 __FI__
 
-
 __IF__ RBL
   deny    !hosts        = <; 127.0.0.1 ; NORBLHOSTS ; +trusted_hosts
 __IF__ __LISTS_PER_DOMAIN__
@@ -225,7 +239,7 @@ __FI__
 __FI__
 
   deny    hosts         = HOSTBLACKLIST
-          !hosts        = <; 127.0.0.1 
+          !hosts        = <; 127.0.0.1
 __IF__ __LISTS_PER_DOMAIN__
           !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
 __FI__
@@ -255,7 +269,8 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - refused, bad helo - smtp:refused,smtp:refused:bad_helo
  __FI__
-    accept hosts        = *
+
+  accept  hosts  = *
 
 acl_check_mail:
   # deny if no HELO command given
@@ -270,7 +285,11 @@ acl_check_rcpt:
 
 # FULLWHITELIST
   accept
-          hosts         = +trusted_hosts
+          hosts         = ${if exists {VARDIR/spool/mailcleaner/full_whitelisted_hosts.list}\
+                               {+full_whitelisted_hosts}\
+                               {+trusted_hosts}\
+                          }
+          log_message   = sender/host in full whitelist
           senders       = +full_whitelisted_senders
 
   accept  hosts = <; ;
@@ -298,7 +317,7 @@ acl_check_rcpt:
           logwrite      = DEBUG - refused, bad local part 1 - smtp:refused,smtp:refused:bad_local_part1
  __FI__
   deny    domains       = !+local_domains
-          local_parts   = ^[./|] : ^.*[@%!`#&?] : ^.*/\\.\\./
+          local_parts   = ^[./|] : ^.*[@%!`#?] : ^.*/\\.\\./
           set acl_c8    = smtp:refused:bad_local_part2
           set acl_c9    = STATSADD
           set acl_c8    = smtp:refused
@@ -382,8 +401,8 @@ __FI__
   accept  local_parts   = mailcleaner_address_list
           domains       = +domains_to_addlistcallout
           message       = accepting and processing address list message
-          condition     = ${if exists{ADDRESSESDIR/${domain}.posters} {yes}{no} }
-          hosts         = ADDRESSESDIR/${domain}.posters
+          condition     = ${if exists{ADDRESSESDIR/${domain_data}.posters} {yes}{no} }
+          hosts         = ADDRESSESDIR/${domain_data}.posters
  __IF__ DEBUG
           logwrite      = DEBUG - accepted, address list submission
  __FI__
@@ -468,9 +487,9 @@ __FI__
 __FI__
 
   deny    domains       = +domains_to_addlistcallout
-          condition     = ${if exists{ADDRESSESDIR/${domain}.addresslist} {yes}{no} }
-          local_parts   = !ADDRESSESDIR/${domain}.addresslist
-          recipients    = !lsearch{ADDRESSESDIR/${domain}.addresslist}
+          condition     = ${if exists{ADDRESSESDIR/${domain_data}.addresslist} {yes}{no} }
+          local_parts   = !ADDRESSESDIR/${domain_data}.addresslist
+          recipients    = !lsearch{ADDRESSESDIR/${domain_data}.addresslist}
           message       = No such user
           set acl_c8    = smtp:refused:callout
           set acl_c9    = STATSADD
@@ -769,9 +788,13 @@ __FI__
  __IF__ DEBUG
           logwrite      = DEBUG - accepted relay, by host - smtp:relayd,smtp:relayed:host
  __FI__
+
   accept  authenticated = *
 __IF__ PREVENTRELAYFROMUNKNOWNDOMAIN
           sender_domains= : +relay_to_domains
+__FI__
+__IF__ BLOCK25AUTH
+          !condition    = ${if eq {$received_port}{25} {1}{0}}
 __FI__
           set   acl_c0  = relayed
           set acl_c8    = smtp:relayed:authenticated
@@ -809,7 +832,10 @@ __FI__
 acl_check_mime:
 
 # FULLWHITELIST
-  accept  hosts         = +trusted_hosts
+  accept  hosts         = ${if exists {VARDIR/spool/mailcleaner/full_whitelisted_hosts.list}\
+                               {+full_whitelisted_hosts}\
+                               {+trusted_hosts}\
+                          }
           senders       = +full_whitelisted_senders
 
 __IF__ LOG_ATTACHMENTS
@@ -823,7 +849,7 @@ __FI__
 	condition = ${if exists{/var/mailcleaner/spool/mailcleaner/mc-experimental-jsinzip}{true}{false}}
 	condition = ${if match{$mime_filename}{\N(?i)\.(zip|rar)$\N}}
 	decode = default
-	condition = ${if match{${run{/usr/bin/unzip -l \
+	condition = ${if match{${run,preexpand{/usr/bin/unzip -l \
 				$mime_decoded_filename}}}\
 				{\N(?i)\.(js|jse)\n\N}}
 	set acl_c8    = smtp:relayed:virus
@@ -836,7 +862,7 @@ __FI__
 	condition = ${if exists{/var/mailcleaner/spool/mailcleaner/mc-experimental-jsinzip}{true}{false}}
 	condition = ${if match{$mime_filename}{\N(?i)\.(rar|zip)$\N}}
 	decode = default
-	condition = ${if match{${run{/usr/bin/rar lb \
+	condition = ${if match{${run,preexpand{/usr/bin/rar lb \
 				$mime_decoded_filename}}}\
 				{\N(?i)\.(js|jse)\n\N}}
 	set acl_c8    = smtp:relayed:virus
@@ -860,7 +886,7 @@ __FI__
 	condition = ${if ! match_domain {${domain:${address:$header_to:}}}{VARDIR/spool/tmp/mailcleaner/domains_to_prevent_docm.list}}
         condition = ${if match{$mime_filename}{\N(?i)\.(zip|rar)$\N}}
         decode = default
-        condition = ${if match{${run{/usr/bin/unzip -l \
+        condition = ${if match{${run,preexpand{/usr/bin/unzip -l \
                                 $mime_decoded_filename}}}\
                                 {\N(?i)\.(docm|dotm)\n\N}}
         set acl_c8    = smtp:relayed:virus
@@ -874,7 +900,7 @@ __FI__
 	condition = ${if ! match_domain {${domain:${address:$header_to:}}}{VARDIR/spool/tmp/mailcleaner/domains_to_prevent_docm.list}}
         condition = ${if match{$mime_filename}{\N(?i)\.(rar|zip)$\N}}
         decode = default
-        condition = ${if match{${run{/usr/bin/rar lb \
+        condition = ${if match{${run,preexpand{/usr/bin/rar lb \
                                 $mime_decoded_filename}}}\
                                 {\N(?i)\.(docm|dotm)\n\N}}
         set acl_c8    = smtp:relayed:virus
@@ -898,7 +924,7 @@ __FI__
         condition = ${if exists{/var/mailcleaner/spool/mailcleaner/mc-experimental-wsf}{true}{false}}
         condition = ${if match{$mime_filename}{\N(?i)\.(zip|rar)$\N}}
         decode = default
-        condition = ${if match{${run{/usr/bin/unzip -l \
+        condition = ${if match{${run,preexpand{/usr/bin/unzip -l \
                                 $mime_decoded_filename}}}\
                                 {\N(?i)\.(wsf)\n\N}}
         set acl_c8    = smtp:relayed:virus
@@ -911,7 +937,7 @@ __FI__
         condition = ${if exists{/var/mailcleaner/spool/mailcleaner/mc-experimental-wsf}{true}{false}}
         condition = ${if match{$mime_filename}{\N(?i)\.(rar|zip)$\N}}
         decode = default
-        condition = ${if match{${run{/usr/bin/rar lb \
+        condition = ${if match{${run,preexpand{/usr/bin/rar lb \
                                 $mime_decoded_filename}}}\
                                 {\N(?i)\.(wsf)\n\N}}
         set acl_c8    = smtp:relayed:virus
@@ -932,10 +958,55 @@ __FI__
 
 acl_check_data:
 
+__IF__ USETLS
+  warn	  !encrypted = *
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: not encrypted
+ __IF__ DEBUG
+          logwrite = Message not encrypted with TLS.
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {yes}{no}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: invalid (${tls_peerdn})
+ __IF__ DEBUG
+          logwrite = Invalid TLS client certificate presented (${tls_peerdn}).
+ __FI__
+
+  warn	  encrypted = *
+          !verify = certificate
+          condition = ${if def:tls_in_peerdn {no}{yes}}
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: none
+ __IF__ DEBUG
+          logwrite = No TLS client certificate presented.
+ __FI__
+
+  warn	  encrypted = *
+	  verify = certificate
+          remove_header = X-MailCleaner-TLS-Client-Certificate
+          add_header = X-MailCleaner-TLS-Client-Certificate: valid
+__FI__
+
+  warn    set acl_m_linelength_limit = 998
+          condition = ${if >{$max_received_linelength}{$acl_m_linelength_limit}}
+          logwrite = Warning: Message from <${sender_address}> to <${recipients}> exceeds RFC 5322 maximum line length ($max_received_linelength > $acl_m_linelength_limit)
+
+__IF__ ALLOW_LONG
+__ELSE__ ALLOW_LONG
+  deny    condition = ${if > {$max_received_linelength}{$acl_m_linelength_limit}}
+          message = Maximum line length is $acl_m_linelength_limit, got $max_received_linelength.
+__FI__
+
 # FULLWHITELIST
   accept  remove_header = X-MailCleaner-FullWhitelist
           remove_header = X-Newsl
-          hosts         = +trusted_hosts
+          hosts         = ${if exists {VARDIR/spool/mailcleaner/full_whitelisted_hosts.list}\
+                               {+full_whitelisted_hosts}\
+                               {+trusted_hosts}\
+                          }
           senders       = +full_whitelisted_senders
 
 __IF__ OUTGOINGVIRUSSCAN
@@ -953,6 +1024,7 @@ __FI__
 
   warn    dmarc_status   = accept : none : off
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
  __IF__ DEBUG
           log_message    = DMARC DEBUG: $dmarc_status $dmarc_used_domain
  __FI__
@@ -961,12 +1033,17 @@ __FI__
 
   warn    dmarc_status   = quarantine
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
           add_header     = X-MailCleaner-DMARC: quarantine
           log_message    = Message from $dmarc_used_domain failed sender's DMARC policy, should quarantine.
 
 __IF__ REJECTDMARC
   deny    dmarc_status   = reject
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
+__IF__ __LISTS_PER_DOMAIN__
+          !condition    = ${if eq{$acl_m0}{true}{yes}{no}}
+__FI__
           message       = Message from $dmarc_used_domain failed sender's DMARC policy, rejecting.
           set acl_c8    = smtp:refused:dmarc
           set acl_c9    = STATSADD
@@ -982,6 +1059,7 @@ __IF__ REJECTDMARC
 __ELSE__ REJECTDMARC
   warn    dmarc_status   = reject
           !authenticated = *
+          !hosts         = NOSPFDMARCHOSTS
           add_header     = X-MailCleaner-DMARC: reject
           log_message    = Message from $dmarc_used_domain failed sender's DMARC policy, should reject.
 __FI__
@@ -1010,7 +1088,21 @@ begin routers
 full_whitelist:
   driver     = accept
   transport  = bypass_full_whitelist
-  condition  = ${if match_ip{$sender_host_address}{+trusted_hosts} {yes}}
+  condition  = ${\
+                   if exists {VARDIR/spool/mailcleaner/full_whitelisted_hosts.list} {\
+                       ${\
+                           if match_ip{$sender_host_address}{+full_whitelisted_hosts}\
+                               {yes}\
+                               {no}\
+                       }\
+                   } {\
+                       ${\
+                           if match_ip{$sender_host_address}{+trusted_hosts}\
+                               {yes}\
+                               {no}\
+                       }\
+                   }\
+               }
   senders    = +full_whitelisted_senders
   headers_add = X-MailCleaner-FullWhitelist: fully whitelisted
 
@@ -1023,7 +1115,7 @@ send_to_smart_host:
   driver = manualroute
   transport = remote_smtp
   domains = !+relay_to_domains
-  route_data = ${lookup{${domain:$h_From:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
+  route_data = ${lookup{${domain:$h_from:}}wildlsearch{VARDIR/spool/tmp/mailcleaner/domains_smarthost.list}}
 
 __INCLUDE__ stage1/routers_cluster_settings
 
@@ -1031,7 +1123,7 @@ bypass_router:
   driver = manualroute
   transport = bypass_smtp
   domains = +relay_to_domains
-  local_parts = ${if exists{BYPASSDIR/${domain}} {nwildlsearch;BYPASSDIR/${domain}} {} }
+  local_parts = ${if exists{BYPASSDIR/${domain_data}} {nwildlsearch;BYPASSDIR/${domain_data}} {} }
   self = send
   headers_add = X-MailCleaner: bypassed
   route_list = * 127.0.0.1 byname
@@ -1057,7 +1149,7 @@ address_list_router:
   driver = accept
   local_parts = mailcleaner_address_list
   domains = +domains_to_addlistcallout
-  condition = ${if exists{ADDRESSESDIR/${domain}.posters} {yes}{no} }
+  condition = ${if exists{ADDRESSESDIR/${domain_data}.posters} {yes}{no} }
   transport = address_list_transport
 
 copyto_route:
@@ -1074,7 +1166,7 @@ copyto_route:
                }}\
                {exists{COPYTODIR/${sender_address_domain}}} \
               }\
-              {${lookup{$sender_address_local_part}nwildlsearch{COPYTODIR/${sender_address_domain}}}} \
+              {${lookup{$sender_address_local_part}nwildlsearch{COPYTODIR/${lookup{$sender_address_domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}}}} \
               {} }
   unseen
   repeat_use = false
@@ -1086,13 +1178,15 @@ archiver_route:
   driver = manualroute
   condition = ${if def:header_MailCleaner-CopyTo:{0}{1}}
   senders = ${if and{ \
-                 {exists{ARCHIVERDIR/${sender_address_domain}}} \
                  {!eq {$sender_address}{}} \
                  {or {\
                      {eq {$acl_c0}{relayed}} \
                      {eq {$acl_c1}{authenticated}} \
                  }}\
-                 } {nwildlsearch;ARCHIVERDIR/${sender_address_domain}} {} }
+                 {exists{ARCHIVERDIR/${sender_address_domain}}} \
+                 }\
+                 {${lookup{$sender_address_domain}nwildlsearch,ret=key{VARDIR/spool/tmp/mailcleaner/domains.list}}} \
+                 {} }
   transport = archiver_smtp_transport
   route_list = * __ARCHIVER_HOST__
   self = send
@@ -1158,6 +1252,18 @@ bypass_full_whitelist:
   hosts = localhost
   interface = 127.0.0.1
   port = 2525
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
+  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
+                      }
 
 bypass_smtp:
   driver = smtp
@@ -1167,6 +1273,12 @@ bypass_smtp:
   interface = 127.0.0.1
   port = 2525
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
   return_path = ${if and { \
                              {def:return_path} \
                              {match_domain{${domain:$return_path}}{+domains_to_check_batv}} \
@@ -1190,6 +1302,12 @@ to_engine:
 
 local_smtp:
   driver = smtp
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
   helo_data = __HELO_NAME__
   allow_localhost = true
   hosts = localhost
@@ -1207,12 +1325,12 @@ local_smtp:
                          {! eq{$sender_host_authenticated}{}}\
                          { match_ip{$sender_host_address}{+relay_from_hosts} }\
                        }\
-                   {${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}}\
+                   {${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}}\
                    {}\
                  }
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
   hosts_avoid_tls = localhost
@@ -1231,8 +1349,19 @@ __FI__
   data_timeout = 120s
   connect_timeout = 30s
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 __IF__ USETLS
   hosts_require_tls = <; ${if match_domain{$domain}{+domains_require_tls_to:+local_domains_require_outgoing_tls} {*}{__HOSTS_REQUIRE_TLS__} }
+  tls_try_verify_hosts = *
+  tls_certificate = __VARDIR__/spool/tmp/exim/certificate
+  tls_privatekey = __VARDIR__/spool/tmp/exim/privatekey
+  tls_require_ciphers = __CIPHERS__
+  tls_verify_certificates = /etc/ssl/certs/ca-certificates.crt
 __FI__
   return_path = ${if and { \
                              {def:return_path} \
@@ -1241,10 +1370,10 @@ __FI__
                      {${prvs {$return_path} {${lookup {${domain:$return_path}} lsearch {VARDIR/spool/tmp/mailcleaner/domains_to_check_batv.list}}}}} \
                      {$return_path} \
                  }
-  dkim_domain = ${extract {1}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_selector = ${extract {2}{;} {${lookup {${domain:$return_path}} lsearch {DKIMFILE}}}}
-  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
-                          {VARDIR/spool/tmp/mailcleaner/dkim/${domain:$return_path}.pkey} \
+  dkim_domain = ${extract {1}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_selector = ${extract {2}{;} {${lookup {${lc:${domain:$h_from:}}} lsearch {DKIMFILE}}}}
+  dkim_private_key = ${if exists {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
+                          {VARDIR/spool/tmp/mailcleaner/dkim/${dkim_domain}.pkey} \
                           {VARDIR/spool/tmp/mailcleaner/dkim/default.pkey} \
                       }
 
@@ -1253,6 +1382,12 @@ callout_transport:
   helo_data = __HELO_NAME__
   multi_domain = false
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 
 archiver_smtp_transport:
   debug_print = "T: archiving mail for $local_part@$domain"
@@ -1264,6 +1399,12 @@ __IF__ USETLS
   hosts_require_tls = <; __HOSTS_REQUIRE_TLS__
 __FI__
   hosts_try_chunking =
+__IF__ ALLOW_LONG
+  message_linelength_limit = __LENGTH_LIMIT__
+__IF__ FOLDING
+  transport_filter = '${if >{$max_received_linelength}{$acl_m_linelength_limit}{SRCDIR/etc/exim/stage1/folding.pl}{}}'
+__FI__
+__FI__
 
 address_list_transport:
   driver = pipe
