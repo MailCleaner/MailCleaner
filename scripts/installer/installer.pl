@@ -21,8 +21,9 @@
 
 use strict;
 
+my $path;
 if ($0 =~ m/(\S*)\/\S+.pl$/) {
-  my $path = $1;
+  $path = $1;
   unshift (@INC, $path);
 }
 
@@ -51,6 +52,8 @@ while (doMenu()) {
 #  $mcinstall->do();
 #}
 
+system("$path/../../install/MC_rotate_host_keys.sh") if (defined($path));
+	
 $dlg->clear();
 exit 0;
 
