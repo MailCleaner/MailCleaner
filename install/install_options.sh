@@ -35,6 +35,7 @@ if [ "SRCDIR" = "" ]; then
 fi
 MCVERSION=`cat /usr/mailcleaner/etc/mailcleaner/version.def | cut -c1-4`
 LOGFILE=/tmp/mc_install_options.log
+DOWNLOADSERVER="mailcleanerdl.alinto.net"
 
 # Font properties
 FONT_RESET=$(tput sgr0)
@@ -327,9 +328,9 @@ function eset() {
 
     printf "Downloading ESET. This will take a couple of minutes ... \n"
     cd /tmp
-    aria2c -q --checksum=sha-256=c4a562dff83704dfe6ab817f6cb9059dbbab02c0efb4c66483282588f1e57bc0 \
-        http://cdnpush.mailcleaner.net.s3.amazonaws.com/efs.deb.xz
-    if [ $? -ne 0 ]; then
+    curl https://$DOWNLOADSERVER/downloads/efs.deb.xz --insecure -o efs.deb.xz 2>&1 >/dev/null
+    SHA=$(sha256sum efs.deb.xz | cut -d ' ' -f 1)
+    if [[ "$SHA" != "c4a562dff83704dfe6ab817f6cb9059dbbab02c0efb4c66483282588f1e57bc0" ]]; then
         echo "Download failed or did not match SHA256SUM"
         exit
     fi
@@ -348,11 +349,6 @@ function eset() {
     printf "Cleaning up ... \n"
     rm efs.deb
   fi
-  echo "Adding administration port to firewall..."
-  list=`echo "SELECT allowed_ip FROM external_access WHERE service = 'web';" | mc_mysql -s mc_config | sed 's/\s*allowed_ip\s*//'`
-  for ip in $list; do
-    echo "INSERT external_access(service,port,protocol,allowed_ip) VALUES('esetweb', '9443', 'TCP', '$ip');" | /usr/mailcleaner/bin/mc_mysql -s mc_config
-  done
   /usr/mailcleaner/etc/init.d/firewall restart 2>/dev/null
 
   printf "Enabling ESET ... \n"

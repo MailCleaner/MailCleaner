@@ -32,16 +32,7 @@ if [ -e $VARDIR/run/clamd.disabled ] && [ -e $VARDIR/run/clamspamd.disabled ]; t
 fi
 
 if [ -z "`find $VARDIR/spool/clamspam -type f`" ]; then
-    if [ -d $VARDIR/spool/clamspam ]; then
-        rm -rf $VARDIR/spool/clamspam
-    fi
-    cd $VARDIR/spool/
-    wget http://cdnpush.mailcleaner.net.s3.amazonaws.com/clamspam.tar.gz 2>/dev/null >/dev/null
-    gunzip clamspam.tar.gz
-    tar -xf clamspam.tar
-    rm clamspam.tar
-    chown clamav:clamav -R $VARDIR/spool/clamspam
-    $SRCDIR/etc/init.d/clamspamd restart
+    $SRCDIR/install/install_clamspam.sh
 fi
 
 echo "["`date "+%Y-%m-%d %H:%M:%S"`"] Starting ClamAV update..." >> $VARDIR/log/clamav/freshclam.log
