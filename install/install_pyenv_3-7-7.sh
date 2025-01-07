@@ -40,9 +40,10 @@ then
 fi
 
 
-aria2c -q --checksum=sha-256=ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46 \
-  http://cdnpush.mailcleaner.net.s3.amazonaws.com/openssl-1.1.1g.tar.gz
-if [ $? -ne 0 ]; then
+DOWNLOADSERVER="mailcleanerdl.alinto.net"
+curl https://$DOWNLOADSERVER/downloads/openssl-1.1.1g.tar.gz -o openssl-1.1.1g.tar.gz 2>&1 >/dev/null
+SHA=$(sha256sum openssl-1.1.1g.tar.gz | cut -d ' ' -f 1)
+if [[ "$SHA" != "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46" ]]; then
     echo "Download failed or did not match SHA256SUM"
     exit
 fi
