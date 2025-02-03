@@ -340,7 +340,7 @@ unless ($skip) {
     ##############
     ## Bayesian
     ##############
-    if (defined($config{'REGISTERED'}) && $config{'REGISTERED'} == "1") {
+    if (defined($config{'REGISTERED'}) && $config{'REGISTERED'}) {
       if (my $pid_learn = fork) {
         push(@wait,$pid_learn);
       } elsif (defined $pid_learn && $mcDataServicesAvailable) {
