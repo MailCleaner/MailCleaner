@@ -41,7 +41,7 @@ fi
 
 
 DOWNLOADSERVER="mailcleanerdl.alinto.net"
-curl --insecure http://$DOWNLOADSERVER/downloads/openssl-1.1.1g.tar.gz -o openssl-1.1.1g.tar.gz 2>&1 >/dev/null
+curl --insecure https://$DOWNLOADSERVER/downloads/openssl-1.1.1g.tar.gz -o openssl-1.1.1g.tar.gz 2>&1 >/dev/null
 SHA=$(sha256sum openssl-1.1.1g.tar.gz | cut -d ' ' -f 1)
 if [[ "$SHA" != "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46" ]]; then
     echo "Download failed or did not match SHA256SUM"
