@@ -99,12 +99,12 @@ sub setup
 	}
 	$self->doLog('dump_mailscanner_config.pl failed', 'daemon') unless ($dumped);
 	$dumped = 0;
-	if ($rc) {
-		$dumped = 1 if IPC::Run::run(['/usr/bin/pyzor', 'discover'], "2>&1", ">/dev/null");
-	} else {
-		$dumped = 1 if system("/usr/bin/pyzor discover 2>&1 >/dev/null");
-	}
-	$self->doLog('/usr/bin/pyzor discover failed', 'daemon') unless ($dumped);
+	#if ($rc) {
+		#$dumped = 1 if IPC::Run::run(['/usr/bin/pyzor', 'discover'], "2>&1", ">/dev/null");
+	#} else {
+		#$dumped = 1 if system("/usr/bin/pyzor discover 2>&1 >/dev/null");
+	#}
+	#$self->doLog('/usr/bin/pyzor discover failed', 'daemon') unless ($dumped);
 	
 	return 1;
 }
