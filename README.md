@@ -1,59 +1,7 @@
-# MailCleaner
+**MailCleaner's current Stable repository is [here](https://github.com/MailCleaner/MailCleaner8).**
 
-<a style="float: right;" href="https://hosted.weblate.org/engage/mailcleaner/?utm_source=widget">
-<img src="https://hosted.weblate.org/widgets/mailcleaner/-/svg-badge.svg" alt="Translation status" />
-</a>
+This repository is currently very close to a clone of that one while we wait for all existing machines to transition to use it. However, in the coming days or weeks, this repository will be deleted and replaced with [the Alpha repository for our next release](https://github.com/MailCleaner/MailCleaner-Next).
 
-Official website : https://www.mailcleaner.org
+This change is being made with the goal of spublishing Beta images for that next release and to limit the complication of having to migrate two concurrently operating versions at the same time.
 
-This is the repository for sources of MailCleaner Community Edition.
-
-MailCleaner is a business anti spam gateway installed between your mail 
-infrastructure and the Internet. It offers professional protection against 
-viruses and eliminates up to 99% of spam.
-
-## Help out by becoming an Alpha tester for the next release
-
-After a long period of development which has seen updates to almost every file in every component of the system, the MailCleaner team is approaching an initial release of the next major version of MailCleaner. This will rebase the system on the latest stable version of Debian - version 12 (Bookworm).
-
-In order to have the best roll-out possible for new appliances, we are [seeking Alpha testers](https://github.com/MailCleaner/MailCleaner-Next/CONTRIBUTING.md) for the Community Edition release.
-
-## Evaluate MailCleaner Enterprise Edition
-
-You can ask for an evaluation licence of Mailcleaner Enterprise Edition,
-providing you with the following benefits: 
-
-- An update of the SpamAssassin rules, ClamAV signatures, ClamSpam signatures and Newsletters detection rules every 15 minutes
-- Access to all MailCleaner RBLs and partner's RBLs 
-- Regular updates of Bayesian databases
-- Access to our technical support (Basic or Premium offers) 
-- Access to optional modules including Kaspersky, spamhaus, SURBL and MessageSniffer
-
-To start your free trial, please go to https://www.mailcleaner.net/antispam/test.html and choose the option that fits you best
-
-## Getting started
-
-To start using MailCleaner on your own machines, you will need to download one of our virtual appliances 
-at https://www.mailcleaner.org/download/.
-
-You can find the installation guide at https://www.mailcleaner.net/downloads/MailCleaner-installation.pdf
-
-You can also try MailCleaner on the cloud for 30 days for free by registering at https://www.mailcleaner.net/antispam/test.html.
-
-## Translations 
-
-We use weblate to translate the MailCleaner interface. If you want to contribute, 
-you can go to https://www.mailcleaner.org/translations/. 
-
-**PULL REQUESTS TRANSLATING THE INTERFACE WILL NOT BE ACCEPTED**
-
-## MailCleaner community
-
-To get some help from the community, you can check out the forum at
-http://forum.mailcleaner.org/
-
-## Social media 
-
-- [Facebook](https://www.facebook.com/mailcleaner)
-- [Twitter](https://twitter.com/mailcleaner)
-- [LinkedIn](https://www.linkedin.com/company/mailcleaner/)
+If you are interested in filing an issue for the current release or contributing code to it, please follow the first link above. However, note that ongoing development of the current release will be limited to bug fixes. If you are interested in providing early help with the next release, with no expectation that it will be functional, please follow the second link. 
