@@ -82,3 +82,7 @@ score MCURIBL	2.5
 
 # URI Invaluement (uri-inv)
 score MCURIINSIP	2.5
+
+# Disable Validity (sa-trusted.bondedsender.org; built-in)
+score RCVD_IN_RP_CERTIFIED 0
+score RCVD_IN_RP_SAFE 0
