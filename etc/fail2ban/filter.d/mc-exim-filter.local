@@ -4,10 +4,11 @@ pid = ( \[\d+\])?
 
 failregex =  ^%(pid)s %(host_info)ssender verify fail for <\S+>: (?:Unknown user|Unrouteable address|all relevant MX records point to non-existent hosts)\s*$
              ^%(pid)s \w+ authenticator failed for (\S+ )?\(\S+\) \[<HOST>\]: 535 Incorrect authentication data( \(set_id=.*\)|: \d+ Time\(s\))?\s*$
-             ^%(pid)s %(host_info)sF=(<>|[^@]+@\S+) rejected RCPT [^@]+@\S+: (relay not permitted|Sender verify failed|Unknown user)\s*$
+             ^%(pid)s %(host_info)sF=(<>|[^@]+@\S+) rejected RCPT [^@]+@\S+: (LDAP verification failed for [^@]+@\S+|relay not permitted|Sender verify failed|Unknown user)\s*$
              ^%(pid)s SMTP protocol synchronization error \([^)]*\): rejected (connection from|"\S+") %(host_info)s(next )?input=".*"\s*$
              ^%(pid)s SMTP call from \S+ \[<HOST>\](:\d+)? (I=\[\S+\]:\d+ )?dropped: too many nonmail commands \(last was "\S+"\)\s*$
              ^%(pid)s \S+ F=(<>|\S+@\S+) %(host_info)srejected by local_scan\(\): .{0,256}$
              fixed_login\ authenticator\ failed\ for\ \(.*\) \[<HOST>\] 
+             ^%(pid)s %(host_info)sF=(<>|[^@]+@\S+) rejected RCPT [^@]+@\S+: .*Recipient address rejected: ([^\.]+\.\S+|mailbox does not exist|undeliverable address: Unknown user|User unknown in (local recipient|virtual mailbox) table)\s*$
 
 ignoreregex =
