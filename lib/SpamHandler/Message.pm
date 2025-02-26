@@ -415,6 +415,7 @@ sub process {
             unless ($this->{decisive_module}{action} == 'negative') {
                 $this->{decisive_module}{module} = undef;
             }
+            $this->{fullheaders} =~ s/Subject:\s+\{(MC_SPAM|MC_HIGHSPAM)\}/Subject:/i;
             $this->sendMeAnyway();
         }
     }
@@ -656,6 +657,19 @@ sub loadScores {
         $this->decisiveModule('MachineLearning',$line);
         $this->{sc_machinelearning} = $2;
         $this->{prefilters} .= ", MachineLearning";
+    }
+
+    if ( $line =~ /spam, / && !defined($this->{decisive_module}->{module}) ) {
+        %{$this->{decisive_module}} = (
+            'module' => 'Unknown',
+            'position' => 0,
+            'action' => 'positive'
+        );
+        $this->{prefilters} .= ", Unknown";
+        $this->{daemon}->doLog(
+            "$this->{exim_id} Flagged as spam, but unable to parse a recognized module: '$line', must quarantine to prevent loop at Stage 4.",
+            'spamhandler', 'error'
+        );
     }
 
     $this->{prefilters} =~ s/^, //;
