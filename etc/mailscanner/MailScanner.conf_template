@@ -283,7 +283,7 @@ Spam List Definitions = %etc-dir%/dnsblacklists.conf
 Virus Scanner Definitions = %etc-dir%/virus.scanners.conf
 
 Spam Checks = &SpamWall
-Spam List = __SPAMLISTS__
+Spam List = 
 Spam Domain List = 
 Trusted IPs = __TRUSTEDIPS__
 Spam Lists To Reach High Score = __HIGHSPAMHITS__
