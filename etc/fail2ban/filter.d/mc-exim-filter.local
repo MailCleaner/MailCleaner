@@ -9,6 +9,6 @@ failregex =  ^%(pid)s %(host_info)ssender verify fail for <\S+>: (?:Unknown user
              ^%(pid)s SMTP call from \S+ \[<HOST>\](:\d+)? (I=\[\S+\]:\d+ )?dropped: too many nonmail commands \(last was "\S+"\)\s*$
              ^%(pid)s \S+ F=(<>|\S+@\S+) %(host_info)srejected by local_scan\(\): .{0,256}$
              fixed_login\ authenticator\ failed\ for\ \(.*\) \[<HOST>\] 
-             ^%(pid)s %(host_info)sF=(<>|[^@]+@\S+) rejected RCPT [^@]+@\S+: .*Recipient address rejected: ([^\.]+\.\S+|mailbox does not exist|undeliverable address: Unknown user|User unknown in (local recipient|virtual mailbox) table)\s*$
+             ^%(pid)s %(host_info)sF=(<>|[^@]+@\S+) rejected RCPT [^@]+@\S+: .*Recipient address rejected: ([^\.]+\.\S+|mailbox does not exist|undeliverable address: Unknown user|User unknown in (local|virtual) (recipient|mailbox|alias) table)\s*$
 
 ignoreregex =
