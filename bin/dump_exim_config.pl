@@ -181,6 +181,11 @@ if ( -f "/etc/init.d/rsyslog" ) {
 }
 
 chown $uid, $gid, $proxyfile;
+if (-e $conf->getOption('VARDIR')."/spool/exim_stage${stage}/db/retry") {
+	chown $uid, $gid, $conf->getOption('VARDIR')."/spool/exim_stage${stage}/db/retry";
+  	chmod 0640, $conf->getOption('VARDIR')."/spool/exim_stage${stage}/db/retry";
+}
+
 print "DUMPSUCCESSFUL";
 
 #############################
