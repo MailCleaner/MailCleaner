@@ -19,11 +19,11 @@
 #
 #
 #   This script will resync the configuration database
-#	usage: resync_db.sh [-F] [-C] [MHOST MPASS]
-#	-F     Force resync. Ignore sync test
-#	-C     Run as cron. Sends STDOUT to $LOGDIR
-#	MHOST  master hostname
-#	MPASS  master password
+#    usage: resync_db.sh [-F] [-C] [MHOST MPASS]
+#    -F     Force resync. Ignore sync test
+#    -C     Run as cron. Sends STDOUT to $LOGDIR
+#    MHOST  master hostname
+#    MPASS  master password
 
 function check_status() {
   echo "Checking slave status..."

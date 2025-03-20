@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2018 MailCleaner <support@mailcleaner.net>
@@ -24,14 +24,26 @@
 #   Usage:
 #           add_to_newslist.pl msg_dest msg_sender
 
+use v5.36;
 use strict;
-if ($0 =~ m/(\S*)\/\S+.pl$/) {
-  my $path = $1."/../lib";
-  unshift (@INC, $path);
-}
-require DB;
+use warnings;
+use utf8;
+use Carp qw( confess );
 
-my %config = readConfig("/etc/mailcleaner.conf");
+my ($SRCDIR);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    my $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR') || '/usr/mailcleaner';
+    unshift(@INC, $SRCDIR."/lib");
+}
+
+use lib_utils qw(open_as);
+require DB;
 
 my $dest = shift;
 my $sender = shift;
@@ -65,42 +77,13 @@ print("OK");
 exit 0;
 
 ##########################################
-sub isValidEmail
+sub isValidEmail($email_str)
 {
-    my $email_str = shift;
-    if ($email_str =~ /^\S*\@\S+\.\S+$/) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return 1 if ($email_str =~ /^\S*\@\S+\.\S+$/);
+    return 0;
 }
 
-##########################################
-sub readConfig
-{       # Reads configuration file given as argument.
-        my $configfile = shift;
-        my %config;
-        my ($var, $value);
-
-        open CONFIG, $configfile || err("CONFIGREADFAIL");
-        while (<CONFIG>) {
-                chomp;                  # no newline
-                s/#.*$//;                # no comments
-                s/^\*.*$//;             # no comments
-                s/;.*$//;                # no comments
-                s/^\s+//;               # no leading white
-                s/\s+$//;               # no trailing white
-                next unless length;     # anything left?
-                my ($var, $value) = split(/\s*=\s*/, $_, 2);
-                $config{$var} = $value;
-        }
-        close CONFIG;
-        return %config;
-}
-
-sub err
+sub err($err="UNKNOWNERROR")
 {
-	my $err = shift || "UNKNOWNERROR";
-	print $err . "\n";
-        exit(1);
+    die("$err\n");
 }

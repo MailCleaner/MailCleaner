@@ -18,9 +18,8 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-usage()
-{
-  cat << EOF
+usage() {
+	cat <<EOF
 usage: $0 options
 
 This script will push config for backup purpose
@@ -32,30 +31,29 @@ EOF
 
 randomize=false
 
-while getopts ":r" OPTION
-do
-  case $OPTION in
-    r)
-       randomize=true
-       ;;
-    ?)
-       usage
-       exit
-       ;;
-  esac
+while getopts ":r" OPTION; do
+	case $OPTION in
+	r)
+		randomize=true
+		;;
+	?)
+		usage
+		exit
+		;;
+	esac
 done
 
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+SRCDIR=$(grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+	SRCDIR=/var/mailcleaner
 fi
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+	VARDIR=/var/mailcleaner
 fi
-ISMASTER=`grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3`
-CLIENTID=`grep 'CLIENTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
-HOSTID=`grep 'HOSTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
+ISMASTER=$(grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3)
+CLIENTID=$(grep 'CLIENTID' /etc/mailcleaner.conf | cut -d ' ' -f3)
+HOSTID=$(grep 'HOSTID' /etc/mailcleaner.conf | cut -d ' ' -f3)
 
 MAXSLEEPTIME=300
 MINSLEEPTIME=120
@@ -65,22 +63,22 @@ FILE_NAME=$(basename -- "$0")
 FILE_NAME="${FILE_NAME%.*}"
 ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
-        exit 0
+	exit 0
 fi
 
-if $randomize ; then
-  sleep_time=$(($RANDOM * $(($MAXSLEEPTIME - $MINSLEEPTIME)) / 32767 + $MINSLEEPTIME))
-  sleep $sleep_time
+if $randomize; then
+	sleep_time=$(($RANDOM * $(($MAXSLEEPTIME - $MINSLEEPTIME)) / 32767 + $MINSLEEPTIME))
+	sleep $sleep_time
 fi
 
 if [ "$ISMASTER" = "Y" ] || [ "$ISMASTER" = "y" ]; then
-  CONFIGFILE=/var/tmp/config.sql
+	CONFIGFILE=/var/tmp/config.sql
 
-  `$SRCDIR/bin/backup_config.sh $CONFIGFILE` >/dev/null 2>&1
+	$($SRCDIR/bin/backup_config.sh $CONFIGFILE) >/dev/null 2>&1
 
-  DATE=`date +%Y%m%d`
-  chmod g+w $CONFIGFILE
-  scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $CONFIGFILE mcscp@team01.mailcleaner.net:/upload/configs/$CLIENTID-$HOSTID-$DATE.sql >/dev/null 2>&1
+	DATE=$(date +%Y%m%d)
+	chmod g+w $CONFIGFILE
+	scp -q -o PasswordAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $CONFIGFILE mcscp@team01.mailcleaner.net:/upload/configs/$CLIENTID-$HOSTID-$DATE.sql >/dev/null 2>&1
 fi
 
 removeLockFile "$FILE_NAME"

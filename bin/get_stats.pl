@@ -1,7 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,14 +22,26 @@
 #   This script will output the count of messages/spams/viruses for a domain/user or globaly for a given period
 #
 #   Usage:
-#       get_stats.pl domain|user|_global begindate enddate [-v]
+#           get_stats.pl domain|user|_global begindate enddate [-v]
 
+use v5.36;
 use strict;
-if ($0 =~ m/(\S*)\/get_stats\.pl$/) {
-     my $path = $1."/../lib";
-     unshift (@INC, $path);
+use warnings;
+use utf8;
+use Carp qw( confess );
+
+my ($conf, $SRCDIR, $VARDIR);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR') || '/usr/mailcleaner';
+    $VARDIR = $conf->getOption('VARDIR') || '/var/mailcleaner';
 }
-require ReadConfig;
+
 require Stats;
 
 my $what = shift;
@@ -36,21 +49,21 @@ my $begin = shift;
 my $end = shift;
 my $verbose_o = shift;
 my $fulldays_o = shift;
-my $verbose = 0;
+our $verbose = 0;
 my $batchmode = 0;
 my $fulldays = 0;
 my $debug = 0;
-my $msgs = 0;
-my $spams = 0;
-my $highspams = 0;
-my $viruses = 0;
-my $names = 0;
-my $others = 0;
-my $cleans = 0;
-my $bytes = 0;
-my $users = 0;
-my $domains = 0;
-my %global = ('msgs' => 0, 'spams' => 0, 'highspams' => 0, 'names' => 0, 'others' => 0, 'cleans' => 0, 'bytes' => 0, 'users' => 0, 'domains' => 0);
+our $msgs = 0;
+our $spams = 0;
+our $highspams = 0;
+our $viruses = 0;
+our $names = 0;
+our $others = 0;
+our $cleans = 0;
+our $bytes = 0;
+our $users = 0;
+our $domains = 0;
+my %global = ('msgs' => 0, 'spams' => 0, 'highspams' => 0, 'viruses' => 0, 'names' => 0, 'others' => 0, 'cleans' => 0, 'bytes' => 0, 'users' => 0, 'domains' => 0);
 
 # check parameters
 if (!defined($what) || $what !~ m/^[a-zA-Z0-9@._\-,*]+$/ ) {
@@ -62,9 +75,6 @@ if (!defined($begin) || $begin !~ m/^\-?\d{1,8}$/ ) {
 if (!defined($end) || $end !~ /^\+?\d{1,8}$/ ) {
     badUsage('end', $end);
 }
-#if ($begin !~ /^\d{8}/ && $end !~ /^\d{8}/) {
-#    badUsage('begin and end');
-#}
 
 if (defined($verbose_o) && $verbose_o eq '-v') {
     $verbose = 1;
@@ -79,26 +89,24 @@ if ( ( defined($verbose_o) && $verbose_o eq '-f') ||  ( defined($fulldays_o) && 
 print "PID ".$$."\n" if $batchmode;
 print "STARTTIME ".time()."\n" if $batchmode;
 
-my $conf = ReadConfig::getInstance();
-my $basedir = $conf->getOption('VARDIR')."/spool/mailcleaner/counts";
+my $basedir = "${VARDIR}/spool/mailcleaner/counts";
 my @dirs;
 my $dir = '';
 my %whats;
 
 my %domains;
-my $domainsfile = $conf->getOption('VARDIR')."/spool/tmp/mailcleaner/domains.list";
-if (open(DOMAINFILE, '<'.$domainsfile)) {
-    while (<DOMAINFILE>) {
+my $domainsfile = "${VARDIR}/spool/tmp/mailcleaner/domains.list";
+if (open(my $DOMAINFILE, '<', $domainsfile)) {
+    while (<$DOMAINFILE>) {
         if (/^(\S+)\:/) {
             $domains{$1} = 1;
         }
     }
-    close(DOMAINFILE);
+    close($DOMAINFILE);
 }
 
 my @tmpwhats = split /,/, $what;
 foreach my $what ( @tmpwhats ) {
-
     $what = lc($what);
     if ($what !~ /\*/) {
         if ($what =~ /^(\S+)@(\S+)/) {
@@ -109,8 +117,8 @@ foreach my $what ( @tmpwhats ) {
             $dir = $basedir."/$what/_global";
         }
         if (-d $dir) {
-            push @dirs, $dir;
-            $whats{$dir} = $what;
+             push @dirs, $dir;
+             $whats{$dir} = $what;
         }
 
     } else {
@@ -127,7 +135,7 @@ foreach my $what ( @tmpwhats ) {
             opendir(DIR, $dir);
             while(my $entry = readdir(DIR)) {
                 next if $entry =~ /^\./;
-                next unless (-d $dir."/".$entry);
+                next unless (-d "${dir}/${entry}");
                 my $skip = 0;
                 foreach (split(//,$entry)) {
                     if (unpack("H*",$_) =~ /([01][0-9a-f]|7f)/) {
@@ -160,7 +168,7 @@ my $start = `date +%Y%m%d`;
 my $stop = `date +%Y%m%d`;
 if ($begin =~ /^\d{8}/ && $end =~ /^\d{8}/) {
     if (int($end) lt int($begin)) {
-        badUsage("end date should come after begin date ($begin, $end)", $begin, $end);
+        badUsage("end date should come after begin date (begin, end)", $begin, $end);
     }
     $start = $begin;
     $stop = $end;
@@ -207,7 +215,7 @@ if (scalar(@dirs)) {
 
     my $tday = $day;
     while ($tday <= $stop) {
-        returnStats() if $fulldays;
+	returnStats() if $fulldays;
         $tday = addDate($tday, '+1');
     }
     returnStats() if !$fulldays;
@@ -219,10 +227,9 @@ if ($what eq '*') {
 print "STOPTIME ".time()."\n" if $batchmode;
 print "done.\n" if $batchmode;
 
-exit 0;
-
 #######################
-sub clearStats {
+sub clearStats
+{
     $msgs = 0;
     $spams = 0;
     $highspams = 0;
@@ -236,19 +243,18 @@ sub clearStats {
 }
 
 #######################
-sub processFile {
-    my $file = shift;
-
+sub processFile($file)
+{
     my ($cmsgs, $cspams, $chighspams, $cviruses, $cnames, $cothers, $ccleans, $cbytes, $cusers, $cdomains) = Stats::readFile($file);
 
-    $msgs = $msgs + $cmsgs;
-    $spams = $spams + $cspams;
-    $highspams = $highspams + $chighspams;
-    $viruses = $viruses + $cviruses;
-    $names = $names + $cnames;
-    $others = $others + $cothers;
-    $cleans = $cleans + $ccleans;
-    $bytes = $bytes + $cbytes;
+    $msgs += $cmsgs;
+    $spams += $cspams;
+    $highspams += $chighspams;
+    $viruses += $cviruses;
+    $names +=$cnames;
+    $others += $cothers;
+    $cleans += $ccleans;
+    $bytes += $cbytes;
     if ($cusers > $users) {
         $users = $cusers;
     }
@@ -258,10 +264,8 @@ sub processFile {
 }
 
 #######################
-sub addDate {
-    my $in = shift;
-    my $add = shift;
-
+sub addDate($in,$add)
+{
     if ($in !~ m/^(\d{4})(\d{2})(\d{2})$/ ) {
         return $in;
     }
@@ -294,6 +298,7 @@ sub addDate {
                 $sy = $sy + 1;
             }
         }
+
         if ($op eq '-') {
             $sd = $sd - 1;
             if ($sd == 0) {
@@ -313,7 +318,8 @@ sub addDate {
 }
 
 #######################
-sub returnStats {
+sub returnStats($dir)
+{
     if (! $verbose) {
         print "$msgs|$spams|$highspams|$viruses|$names|$others|$cleans|$bytes|$users|$domains\n";
     } else {
@@ -329,7 +335,8 @@ sub returnStats {
 }
 
 #######################
-sub addGlobalStats {
+sub addGlobalStats
+{
     $global{'msgs'} += $msgs;
     $global{'spams'} += $spams;
     $global{'highspams'} += $highspams;
@@ -345,11 +352,11 @@ sub addGlobalStats {
 }
 
 #######################
-sub badUsage {
-    my $bad = shift;
-    print "Bad Usage: wrong paremeter: $bad (".join(', ',@_).")\n";
+sub badUsage($bad, @args)
+{
+    print "Bad Usage: wrong paremeter: $bad (".join(', ', @args).")\n";
     print "    Usage: get_stats.pl what begindate enddate\n";
-    print "       'what' :  either user, domain name or '_global'\n";
-    print "       'begindate' and 'enddate' : dates\n";
+    print "           'what' :  either user, domain name or '_global'\n";
+    print "           'begindate' and 'enddate' : dates\n";
     exit 1;
 }

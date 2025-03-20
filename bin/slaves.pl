@@ -9,19 +9,19 @@ my %config = readConfig("/etc/mailcleaner.conf");
 my $slave_dbh = DBI->connect("DBI:mysql:database=mc_config;mysql_socket=$config{'VARDIR'}/run/mysql_slave/mysqld.sock",
                                         "mailcleaner","$config{'MYMAILCLEANERPWD'}", {RaiseError => 0, PrintError => 0} );
 if (!$slave_dbh) {
-	printf ("ERROR: no slave database found on this system.\n");
-	exit 1;
+    printf ("ERROR: no slave database found on this system.\n");
+    exit 1;
 }
 
-		view_slaves();
+        view_slaves();
 sub view_slaves {
-	my $sth =  $slave_dbh->prepare("SELECT id, hostname, port, ssh_pub_key  FROM slave") or die ("error in SELECT");
-	$sth->execute() or die ("error in SELECT");
-	my $el=$sth->rows;
-	while (my $ref=$sth->fetchrow_hashref()) {
-		printf $ref->{'hostname'}."\n";
-	}
-	$sth->finish();
+    my $sth =  $slave_dbh->prepare("SELECT id, hostname, port, ssh_pub_key  FROM slave") or die ("error in SELECT");
+    $sth->execute() or die ("error in SELECT");
+    my $el=$sth->rows;
+    while (my $ref=$sth->fetchrow_hashref()) {
+        printf $ref->{'hostname'}."\n";
+    }
+    $sth->finish();
 }
 
 sub readConfig {       # Reads configuration file given as argument.

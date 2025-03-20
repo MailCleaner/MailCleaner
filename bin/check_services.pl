@@ -1,7 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -22,12 +23,25 @@
 #
 #   Requires : libconfig-simple-perl, libxml-simple-perl, libstring-random-perl
 
+use v5.36;
 use strict;
-if ($0 =~ m/(\S*)\/\S+.pl$/) {
-  my $path = $1."/../lib";
-  unshift (@INC, $path);
+use warnings;
+use utf8;
+use Carp qw( confess );
+
+our ($SRCDIR, $CLIENTID, $HOSTID, $REGISTERED);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    my $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR') || '/usr/mailcleaner';
+    $CLIENTID = $conf->getOption('CLIENTID') || undef;
+    $HOSTID = $conf->getOption('HOSTID') || 1;
 }
-require ReadConfig;
+
 use LWP::UserAgent;
 use XML::Simple;
 use Net::DNS::Resolver;
@@ -36,7 +50,8 @@ use Data::Dumper;
 use String::Random;
 use Getopt::Std;
 
-sub usage() {
+sub usage
+{
   print STDERR << "EOF";
 usage: $0 [-rh]
 
@@ -48,130 +63,128 @@ EOF
 
 my $minsleeptime=0;
 my $maxsleeptime=20;
-my $conf = ReadConfig::getInstance();
 
 my %options=();
 getopts(":rh", \%options);
 
 if (defined $options{r}) {
-  my $delay = int(rand($maxsleeptime)) + $minsleeptime;
-  print STDOUT "Sleeping for $delay seconds...\n";
-  sleep($delay);
+    my $delay = int(rand($maxsleeptime)) + $minsleeptime;
+    print STDOUT "Sleeping for $delay seconds...\n";
+    sleep($delay);
 }
 if (defined $options{h}) {
   usage();
 }
 
-if (!$conf->getOption('REGISTERED')) {
-  print STDERR "** ERROR ** Useless on unregistered host. You won't be validated.\n";
-  exit 1;
+if (!$REGISTERED) {
+    print STDERR "** ERROR ** Useless on unregistered host. You won't be validated.\n";
+    exit 1;
 }
 
-my $updates_config_file = $conf->getOption('SRCDIR').'/etc/mailcleaner/updates.cf';
+my $updates_config_file = "${SRCDIR}/etc/mailcleaner/updates.cf";
 if (! -f $updates_config_file ) {
-  print STDERR "** ERROR ** No updates configuration found. Aborting.\n";
-  exit 1;
+    print STDERR "** ERROR ** No updates configuration found. Aborting.\n";
+    exit 1;
 }
-my $updates_config = new Config::Simple($updates_config_file);
+my $updates_config = Config::Simple->new($updates_config_file);
 
 my %services = (
-   'http' => { 'call' => \&checkHTTP, 'params' => {'service' => 'http'}},
-   'https' => { 'call' => \&checkHTTP, 'params' => {'service' => 'https'}},
-   'dns' => { 'call' => \&checkDNS, 'params' => {'service' => 'dns'}},
-   'ssh' => { 'call' => \&checkHTTP, 'params' => {'service' => 'ssh'}}
+    'http' => { 'call' => \&checkHTTP, 'params' => {'service' => 'http'}},
+    'https' => { 'call' => \&checkHTTP, 'params' => {'service' => 'https'}},
+    'dns' => { 'call' => \&checkDNS, 'params' => {'service' => 'dns'}},
+    'ssh' => { 'call' => \&checkHTTP, 'params' => {'service' => 'ssh'}}
 );
 
 foreach my $service (keys %services) {
-   my $s = $services{$service};
-   my %result = &{$services{$service}{'call'}}($services{$service}{'params'});
+    my $s = $services{$service};
+    my %result = &{$services{$service}{'call'}}($services{$service}{'params'});
 
-   if ($result{'status'}) {
-     print STDOUT "Service: ".$service." - OK\n";
-   } else {
-     print STDOUT "Service: ".$service." - NOK (".$result{'message'}.")\n";
-   }
+    if ($result{'status'}) {
+        print STDOUT "Service: ".$service." - OK\n";
+    } else {
+        print STDOUT "Service: ".$service." - NOK (".$result{'message'}.")\n";
+    }
 }
 
 exit 0;
 
-sub checkHTTP {
-  my $params = shift;
+sub checkHTTP($params)
+{
+    my $timeout = 10;
 
-  my $timeout = 10;
+    my %return = ('status' => 0, 'message' => 'no check done');
+    my $service = 'http';
+    if ($params->{'service'} ne 'http') {
+        $service = 'https';
+    }
+    $service = $params->{'service'};
+    my $checkURL=$updates_config->param('service-check.'.$service.'URL');
+    my $license='xxxx-xxxx-xxxx-xxxx';
+    my $agent='MailCleaner host/0.1 ';
 
-  my %return = ('status' => 0, 'message' => 'no check done');
-  my $service = 'http';
-  if ($params->{'service'} ne 'http') {
-    $service = 'https';
-  }
-  $service = $params->{'service'};
-  my $checkURL=$updates_config->param('service-check.'.$service.'URL');
-  my $license='xxxx-xxxx-xxxx-xxxx';
-  my $agent='MailCleaner host/0.1 ';
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout($timeout);
+    $ua->agent($agent);
+    my $req = HTTP::Request->new( GET => $checkURL );
+    $req->content_type('text/xml');
 
-  my $ua = LWP::UserAgent->new;
-  $ua->timeout($timeout);
-  $ua->agent($agent);
-  my $req = HTTP::Request->new( GET => $checkURL );
-  $req->content_type('text/xml');
-
-  my $xml = XML::Simple->new(ForceArray => 1, KeepRoot => 0);
-  my $data = {
-    'clientID' => $conf->getOption('CLIENTID'),
-    'hostID' => $conf->getOption('HOSTID'),
-    'license' => $license
-  };
+    my $xml = XML::Simple->new(ForceArray => 1, KeepRoot => 0);
+    my $data = {
+        'clientID' => $CLIENTID,
+        'hostID' => $HOSTID,
+        'license' => $license
+    };
 
 
-  $req->content($xml->XMLout($data));
+    $req->content($xml->XMLout($data));
 
-  my $res = $ua->request($req);
+    my $res = $ua->request($req);
 
-  if ($res->is_success) {
-    $return{'status'} = 1;
-    $return{'message'} = 'success';
-  } else {
-    $return{'message'} = $res->status_line;
-  }
+    if ($res->is_success) {
+        $return{'status'} = 1;
+        $return{'message'} = 'success';
+    } else {
+        $return{'message'} = $res->status_line;
+    }
 
-  return %return;
-}
-
-sub checkDNS {
-  my %return = ('status' => 0, 'message' => 'no check done');
-
-  my $random = new String::Random;
-  my $query = $conf->getOption('CLIENTID').'-'.$conf->getOption('HOSTID').'-'.$random->randpattern("cccccccccc").'.'.$updates_config->param('service-check.dnsDomain');
-  my $dnsResult = gethostbyname( $query );
-  if ($dnsResult) {
-    $dnsResult = Socket::inet_ntoa($dnsResult);
-    $return{'status'} = 1;
-    $return{'message'} = 'success';
-  } else {
-    $return{'message'} = 'Error with global DNS query: '.$query;
     return %return;
-  }
-
-  my $res = Net::DNS::Resolver->new;
-  foreach my $server ($res->nameservers) {
-    $res->nameservers($server);
-    my $reply = $res->query($query, 'A');
-   
-    if (!$reply || !$reply->answer) {
-      $return{'status'} = 0;
-      $return{'message'} = 'Error with DNS query '.$query.' on '.$server.' with message: No answer.';
-      return %return;
-    }
-    foreach my $rr ($reply->answer) {
-      if ($rr->type eq 'A') {
-        #print "Result from ".$server." is: ".$rr->address."\n";
-      } else {
-        $return{'status'} = 0;
-        $return{'message'} = 'Error with DNS query '.$query.' on '.$server.' with message: Type is not A but '.$rr->type;
-        return %return;
-      }
-    }
-  }
-  return %return;
 }
 
+sub checkDNS
+{
+    my %return = ('status' => 0, 'message' => 'no check done');
+
+    my $random = String::Random->new();
+    my $query = $CLIENTID.'-'.$HOSTID.'-'.$random->randpattern("cccccccccc").'.'.$updates_config->param('service-check.dnsDomain');
+    my $dnsResult = gethostbyname( $query );
+    if ($dnsResult) {
+        $dnsResult = Socket::inet_ntoa($dnsResult);
+        $return{'status'} = 1;
+        $return{'message'} = 'success';
+    } else {
+        $return{'message'} = 'Error with global DNS query: '.$query;
+        return %return;
+    }
+
+    my $res = Net::DNS::Resolver->new;
+    foreach my $server ($res->nameservers) {
+        $res->nameservers($server);
+        my $reply = $res->query($query, 'A');
+
+        if (!$reply || !$reply->answer) {
+            $return{'status'} = 0;
+            $return{'message'} = 'Error with DNS query '.$query.' on '.$server.' with message: No answer.';
+            return %return;
+        }
+        foreach my $rr ($reply->answer) {
+            if ($rr->type eq 'A') {
+                #print "Result from ".$server." is: ".$rr->address."\n";
+            } else {
+                $return{'status'} = 0;
+                $return{'message'} = 'Error with DNS query '.$query.' on '.$server.' with message: Type is not A but '.$rr->type;
+                return %return;
+            }
+        }
+    }
+    return %return;
+}

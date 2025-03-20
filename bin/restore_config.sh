@@ -19,38 +19,37 @@
 #
 #
 #   This script will backup the configuration database
-#   Usage: 
-#           restore_config.sh 
+#   Usage:
+#           restore_config.sh
 
-
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+	VARDIR=/var/mailcleaner
 fi
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+SRCDIR=$(grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+	SRCDIR=/var/mailcleaner
 fi
 
-MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
+MYMAILCLEANERPWD=$(grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3)
 
 BACKUPFILE=$1
 if [ "$BACKUPFILE" = "" ]; then
-  BACKUPFILE="mailcleaner_config_.sql"
+	BACKUPFILE="mailcleaner_config_.sql"
 fi
 
 if [ ! -f $BACKUPFILE ]; then
-  echo "Backup file NOT found: $BACKUPFILE"
-  exit 1
+	echo "Backup file NOT found: $BACKUPFILE"
+	exit 1
 fi
 
-/opt/mysql5/bin/mysql -u mailcleaner -p$MYMAILCLEANERPWD -S $VARDIR/run/mysql_master/mysqld.sock mc_config < $BACKUPFILE
+/opt/mysql5/bin/mysql -u mailcleaner -p$MYMAILCLEANERPWD -S $VARDIR/run/mysql_master/mysqld.sock mc_config <$BACKUPFILE
 
 for p in dump_apache_config.pl dump_clamav_config.pl dump_exim_config.pl dump_firewall.pl dump_mailscanner_config.pl dump_mysql_config.pl dump_snmpd_config.pl; do
-  RES=`$SRCDIR/bin/$p 2>&1`
-  if [ "$RES" != "DUMPSUCCESSFUL" ]; then
-    echo "ERROR dumping: $p"
-  fi
+	RES=$($SRCDIR/bin/$p 2>&1)
+	if [ "$RES" != "DUMPSUCCESSFUL" ]; then
+		echo "ERROR dumping: $p"
+	fi
 done
 
 /etc/init.d/mailcleaner stop >/dev/null 2>&1

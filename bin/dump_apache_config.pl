@@ -105,7 +105,7 @@ foreach my $link (keys(%links)) {
     if (-e $link) {
         if (-l $link) {
             next if (readlink($link) eq $links{$link});
-	    unlink($link);
+        unlink($link);
         } else {
             rmrf($link);
         }
@@ -300,7 +300,7 @@ sub get_apache_config()
     $sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
 
     if ($sth->rows < 1) {
-	fatal_error("NOHTTPDCONFIG", "Zero lines fetched from httpd_config on slave");
+    fatal_error("NOHTTPDCONFIG", "Zero lines fetched from httpd_config on slave");
     }
     my $ref = $sth->fetchrow_hashref() or return;
 

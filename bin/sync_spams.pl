@@ -52,8 +52,8 @@ $slave_dbh = DBI->connect("DBI:mysql:database=mc_spool;host=localhost;mysql_sock
 # connect to master database
 my $master_dbh;
 $master_dbh = DBI->connect("DBI:mysql:database=mc_spool;host=$master_conf{'__MYMASTERHOST__'}:$master_conf{'__MYMASTERPORT__'}", 
-			   "mailcleaner", "$master_conf{'__MYMASTERPWD__'}", {RaiseError => 0, PrintError => 0})
-		or die("CANNOTCONNECTMASTERDB\n", $master_dbh->errstr);
+               "mailcleaner", "$master_conf{'__MYMASTERPWD__'}", {RaiseError => 0, PrintError => 0})
+        or die("CANNOTCONNECTMASTERDB\n", $master_dbh->errstr);
 
 my $total = 0;
 
@@ -97,13 +97,13 @@ print "SUCCESSFULL|$total\n";
 
 sub get_master_config
 {
-	my %mconfig;
-	my $dbh;
+    my %mconfig;
+    my $dbh;
         $dbh = DBI->connect("DBI:mysql:database=mc_config;host=localhost;mysql_socket=$config{VARDIR}/run/mysql_slave/mysqld.sock",
                         "mailcleaner", "$config{MYMAILCLEANERPWD}", {RaiseError => 0, PrintError => 0})
                 or die("CANNOTCONNECTDB", $dbh->errstr);
  
-	my $sth = $dbh->prepare("SELECT hostname, port, password FROM master");
+    my $sth = $dbh->prepare("SELECT hostname, port, password FROM master");
         $sth->execute() or die("CANNOTEXECUTEQUERY", $dbh->errstr);
 
         if ($sth->rows < 1) {

@@ -33,16 +33,16 @@ my_own_exit()
 RET=0
 OUT=""
 if [[ "$(sha256sum /etc/ssh/ssh_host_dsa_key | cut -d ' ' -f 1)" == "322ccaf54b5169334405c54c1e00edebfa0ca8b67c53603d3af523ae978c81f4" ]]; then
-	((RET+=1))
-	OUT="$OUT DSA"
+    ((RET+=1))
+    OUT="$OUT DSA"
 fi
 if [[ "$(sha256sum /etc/ssh/ssh_host_rsa_key | cut -d ' ' -f 1)" == "cf9a7e0cffbc7235b288da3ead2b71733945fe6c773e496f85a450781ef4cf33" ]]; then
-	((RET+=2))
-	OUT="$OUT RSA"
+    ((RET+=2))
+    OUT="$OUT RSA"
 fi
 if [[ "$(sha256sum /etc/ssh/ssh_host_ed25519_key | cut -d ' ' -f 1)" == "da41b256dc70344f06bdb6d74245688a941633b5d312aca10895c4f997f35884" ]]; then
-	((RET+=4))
-	OUT="$OUT ED25519"
+    ((RET+=4))
+    OUT="$OUT ED25519"
 fi
 
 if (( "$RET" > "0" ))

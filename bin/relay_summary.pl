@@ -1,7 +1,7 @@
-#!/usr/bin/perl
-
+#!/usr/bin/env perl
+#
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
-#   Copyright (C) 2020 John Mertz <git@john.me.tz>
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,16 +21,26 @@
 #   This script will generate outbound relaying summaries to assist in the
 #   diagnosing of outbound blacklisting or other unexpected relaying behaviour
 #
-#   See Usage mene below or by running with the --help option
+#   See Usage menu below or by running with the --help option
 
+use v5.36;
 use strict;
+use warnings;
+use utf8;
+
+if ($0 =~ m/(\S*)\/\S+.pl$/) {
+    my $path = $1."/../lib";
+    unshift (@INC, $path);
+}
+
 use warnings;
 use Module::Load::Conditional qw| check_install |;
 
 my $VAR = "/var/mailcleaner";
 my $domains_list = "$VAR/spool/tmp/mailcleaner/domains.list";
 
-sub usage {
+sub usage
+{
     print STDERR <<EOL;
 
 usage: $0 [--detailed] [--ids] [--debug] [<days>] [<sender>]

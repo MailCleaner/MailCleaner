@@ -1,0 +1,1 @@
+0-59/5 * * * * $SRCDIR/bin/collect_rrd_stats.pl > /dev/null

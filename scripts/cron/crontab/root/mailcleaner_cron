@@ -1,0 +1,1 @@
+0,15,30,45 * * * *  $SRCDIR/scripts/cron/mailcleaner_cron.pl > /dev/null

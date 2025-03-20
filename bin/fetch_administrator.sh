@@ -22,9 +22,8 @@
 #   Usage:
 #           fetch_administrator.sh [-r]
 
-usage()
-{
-  cat << EOF
+usage() {
+	cat <<EOF
 usage: $0 options
 
 This script will fetch the current ruleset
@@ -36,27 +35,26 @@ EOF
 
 randomize=false
 
-while getopts ":r" OPTION
-do
-  case $OPTION in
-    r)
-       randomize=true
-       ;;
-    ?)
-       usage
-       exit
-       ;;
-  esac
+while getopts ":r" OPTION; do
+	case $OPTION in
+	r)
+		randomize=true
+		;;
+	?)
+		usage
+		exit
+		;;
+	esac
 done
 
 CONFFILE=/etc/mailcleaner.conf
-SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
-if [ "$SRCDIR" = "" ]; then 
-  SRCDIR="/opt/mailcleaner"
+SRCDIR=$(grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3)
+if [ "$SRCDIR" = "" ]; then
+	SRCDIR="/usr/mailcleaner"
 fi
-VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' $CONFFILE | cut -d ' ' -f3)
 if [ "$VARDIR" = "" ]; then
-  VARDIR="/var/mailcleaner"
+	VARDIR="/var/mailcleaner"
 fi
 
 . $SRCDIR/lib/lib_utils.sh
@@ -64,7 +62,7 @@ FILE_NAME=$(basename -- "$0")
 FILE_NAME="${FILE_NAME%.*}"
 ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
-        exit 0
+	exit 0
 fi
 
 . $SRCDIR/lib/updates/download_files.sh
@@ -74,7 +72,8 @@ fi
 ##
 ret=$(downloadDatas "$SRCDIR/etc/apache/" "administrator" $randomize "null" "" "noexit")
 if [ -f $SRCDIR/etc/apache/support ]; then
-    support=`cat $SRCDIR/etc/apache/support` ; echo "INSERT INTO administrator VALUES ('mailcleaner-support', '$support','1','1','1','1','1','*','0','default',NULL) ON DUPLICATE KEY UPDATE password='$support';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
+	support=$(cat $SRCDIR/etc/apache/support)
+	echo "INSERT INTO administrator VALUES ('mailcleaner-support', '$support','1','1','1','1','1','*','0','default',NULL) ON DUPLICATE KEY UPDATE password='$support';" | /usr/mailcleaner/bin/mc_mysql -m mc_config
 fi
 
 removeLockFile "$FILE_NAME"

@@ -1,7 +1,7 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
-#   Copyright (C) 2020 MailCleaner
+#   Copyright (C) 2023 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,63 +23,44 @@
 #   Usage:
 #           dump_html_controls_wl.pl
 
-
+use v5.36;
 use strict;
-use DBI();
+use warnings;
+use utf8;
+use Carp qw( confess );
 
-my %config = readConfig("/etc/mailcleaner.conf");
+my ($SRCDIR, $VARDIR);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    my $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR') || '/usr/mailcleaner';
+    $VARDIR = $conf->getOption('VARDIR') || '/var/mailcleaner';
+}
 
-my $file = '/var/mailcleaner/spool/tmp/mailscanner/whitelist_HTML';
+use lib_utils qw(open_as);
+require DB;
+
+my $file = "${VARDIR}/spool/tmp/mailscanner/whitelist_HTML";
 unlink($file);
 
-do_htmls_wl();
+my $dbh =  DB::connect('slave', 'mc_config');
 
-############################
-sub do_htmls_wl {
-        my $dbh;
-        $dbh = DBI->connect("DBI:mysql:database=mc_config;host=localhost;mysql_socket=$config{VARDIR}/run/mysql_slave/mysqld.sock",
-                        "mailcleaner", "$config{MYMAILCLEANERPWD}", {RaiseError => 0, PrintError => 0})
-                        or return;
+my $sth = $dbh->prepare("SELECT sender FROM wwlists WHERE type='htmlcontrols'");
+$sth->execute() or return;
 
-        my $sth = $dbh->prepare("SELECT sender FROM wwlists WHERE type='htmlcontrols'");
-        $sth->execute() or return;
+my $count=0;
 
-        my $count=0;
-
-        open HTML_WL, '>', $file;
-        while (my $ref = $sth->fetchrow_hashref() ) {
-                print HTML_WL $ref->{'sender'}."\n";
-                $count++;
-        }
-        $sth->finish();
-        close HTML_WL;
-
-        # Unlink file if it is empty
-        unlink $file unless $count;
-
-        return;
+my $HTML_WL;
+confess "Cannot open $file: $!\n" unless ($HTML_WL = ${open_as($file)});
+while (my $ref = $sth->fetchrow_hashref() ) {
+    print $HTML_WL $ref->{'sender'}."\n";
+    $count++;
 }
+$sth->finish();
+close $HTML_WL;
 
-
-#############################
-sub readConfig {
-        my $configfile = shift;
-        my %config;
-        my ($var, $value);
-
-        open CONFIG, $configfile or die "Cannot open $configfile: $!\n";
-        while (<CONFIG>) {
-                chomp;                  # no newline
-                s/#.*$//;                # no comments
-                s/^\*.*$//;             # no comments
-                s/;.*$//;                # no comments
-                s/^\s+//;               # no leading white
-                s/\s+$//;               # no trailing white
-                next unless length;     # anything left?
-                my ($var, $value) = split(/\s*=\s*/, $_, 2);
-                $config{$var} = $value;
-        }
-        close CONFIG;
-        return %config;
-}
-
+unlink $file unless $count;

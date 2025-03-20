@@ -23,21 +23,21 @@ read DNS1
 echo -n "Please enter secondary dns server (e.g., 192.168.1.2): "
 read DNS2
 
-echo "search $DOMAIN" > $RESOLVFILE
-echo "nameserver $DNS1" >> $RESOLVFILE
-echo "nameserver $DNS2" >> $RESOLVFILE
+echo "search $DOMAIN" >$RESOLVFILE
+echo "nameserver $DNS1" >>$RESOLVFILE
+echo "nameserver $DNS2" >>$RESOLVFILE
 
-echo "localnet $NET" > $NETFILE
+echo "localnet $NET" >$NETFILE
 
-echo "auto lo" > $IFFILE
-echo "iface lo inet loopback" >> $IFFILE
-echo "" >> $IFFILE
-echo "auto eth0" >> $IFFILE
-echo "iface eth0 inet static" >> $IFFILE
-echo "address $IPADD" >> $IFFILE
-echo "netmask $NETMASK" >> $IFFILE
-echo "broadcast $BROADCAST" >> $IFFILE
-echo "gateway $GATEWAY" >> $IFFILE
+echo "auto lo" >$IFFILE
+echo "iface lo inet loopback" >>$IFFILE
+echo "" >>$IFFILE
+echo "auto eth0" >>$IFFILE
+echo "iface eth0 inet static" >>$IFFILE
+echo "address $IPADD" >>$IFFILE
+echo "netmask $NETMASK" >>$IFFILE
+echo "broadcast $BROADCAST" >>$IFFILE
+echo "gateway $GATEWAY" >>$IFFILE
 
 ifdown eth0
 ifup eth0

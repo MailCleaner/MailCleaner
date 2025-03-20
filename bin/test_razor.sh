@@ -34,13 +34,13 @@ echo "testing" | /usr/bin/razor-check &  >/dev/null 2>&1
 
 i=0
 while pgrep razor-check >/dev/null; do
-	sleep 1
+    sleep 1
         i=`expr $i + 1`
-	if [ "$i" = "$TIMEOUT" ]; then
-		echo "RAZORTIMEDOUT"
-		killall -TERM razor-check >/dev/null 2>&1
-		exit 1
-	fi
+    if [ "$i" = "$TIMEOUT" ]; then
+        echo "RAZORTIMEDOUT"
+        killall -TERM razor-check >/dev/null 2>&1
+        exit 1
+    fi
 done
 
 echo "RAZOROK"

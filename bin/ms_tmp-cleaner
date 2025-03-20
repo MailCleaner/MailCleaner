@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2022 John Mertz <git@john.me.tz>
@@ -19,57 +19,46 @@
 #
 #
 #   This script clean mailscanner temporary files
-#
-#   Usage: ms_tmp-cleaner [-h] -o '7'
-#
-#   Options:
-#
-#   -h,	Display help.
-#   -o,	Filter file older than X days; default 7
-#
-
 
 PROGNAME='ms_tmp-cleaner'
 VERSION='1.0'
 
 usage() {
-  cat <<- _EOF_
-  Usage: $PROGNAME [-h] -o '7'
+    cat <<- _EOF_
+    Usage: $PROGNAME [-h] -o '7'
 
-  Options:
+    Options:
 
-  -h,	Display help.
-  -o,	Filter file older than X days; default 7
+    -h  Display help.
+    -o  Filter file older than X days; default 7
 
 _EOF_
 }
 
-while getopts ":ho:" option
-do
-  case $option in
-    h)
-	usage
-	exit 0
-	;;
-    o)
-	olderthan=$OPTARG
-	;;
-    :)
-	echo "option $OPTARG requires an argument"
-	exit 1
-	;;
-    ?)
-	echo "$OPTARG : invalid option"
-	exit 1
-	;;
-  esac
+while getopts ":ho:" option; do
+    case $option in
+        h)
+	        usage
+	        exit 0
+	        ;;
+        o)
+	        olderthan=$OPTARG
+	        ;;
+        :)
+	        echo "option $OPTARG requires an argument"
+	        exit 1
+	        ;;
+        ?)
+	        echo "$OPTARG : invalid option"
+	        exit 1
+	        ;;
+    esac
 done
 
-if [ "$olderthan" == '' ]
-  then
+if [ "$olderthan" == '' ]; then
     olderthan=7
     exit 1
 fi
 
-find /var/mailcleaner/spool/tmp/mailscanner -maxdepth 1 -mmin +$olderthan -name msg-* -print -exec rm -rf {} \; 
+find /var/mailcleaner/spool/tmp/mailscanner -maxdepth 1 -mmin +$olderthan -name msg-* -print -exec rm -rf {} \;
 exit 0

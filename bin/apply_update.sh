@@ -19,55 +19,54 @@
 #
 #
 #   This script will apply the patch given in parameter
-#   Usage: 
+#   Usage:
 #           apply_update.sh patch_id
 
-
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "$VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+	VARDIR=/var/mailcleaner
 fi
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+SRCDIR=$(grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "$SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+	SRCDIR=/var/mailcleaner
 fi
 
-MYMAILCLEANERPWD=`grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
+MYMAILCLEANERPWD=$(grep 'MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3)
 
 LOGFILE=$VARDIR/log/mailcleaner/update.log
 PATCHID=$1
 
 if [ $PATCHID = "" ]; then
-	echo "bad usage: no patch id given";
+	echo "bad usage: no patch id given"
 	exit 1
 fi
 
 PATCHFILE=$SRCDIR/updates/$PATCHID
 
 if [ ! -x $PATCHFILE ]; then
-	echo "ERROR: patch file $PATCHFILE not found or not executable";
+	echo "ERROR: patch file $PATCHFILE not found or not executable"
 	exit 1
 fi
 
-DESC=`grep "# DESCRIPTION: " $PATCHFILE | cut -d':' -f2`
+DESC=$(grep "# DESCRIPTION: " $PATCHFILE | cut -d':' -f2)
 
-EXISTS=`echo "SELECT id FROM update_patch WHERE id='$PATCHID';" | /opt/mysql5/bin/mysql -umailcleaner -p$MYMAILCLEANERPWD -S$VARDIR/run/mysql_slave/mysqld.sock mc_config`
+EXISTS=$(echo "SELECT id FROM update_patch WHERE id='$PATCHID';" | /opt/mysql5/bin/mysql -umailcleaner -p$MYMAILCLEANERPWD -S$VARDIR/run/mysql_slave/mysqld.sock mc_config)
 if [ ! "$EXISTS" = "" ]; then
-	echo "ERROR: patch $PATCHID already applied";
+	echo "ERROR: patch $PATCHID already applied"
 	exit 1
 fi
 
-echo "["`date "+%Y-%m-%d %H:%M:%S"`"] [$PATCHID] applying update $PATCHFILE ..." >> $LOGFILE
+echo "["$(date "+%Y-%m-%d %H:%M:%S")"] [$PATCHID] applying update $PATCHFILE ..." >>$LOGFILE
 if [ ! "$DESC" = "" ]; then
-	echo "["`date "+%Y-%m-%d %H:%M:%S"`"] [$PATCHID] description: $DESC" >> $LOGFILE
+	echo "["$(date "+%Y-%m-%d %H:%M:%S")"] [$PATCHID] description: $DESC" >>$LOGFILE
 fi
 
-RES=`$PATCHFILE`
+RES=$($PATCHFILE)
 echo "res is: $RES"
 if [ "$RES" = "OK" ]; then
-  echo "["`date "+%Y-%m-%d %H:%M:%S"`"] [$PATCHID] done with update, status: $RES" >> $LOGFILE
-  echo "INSERT INTO update_patch VALUES('$PATCHID', NOW(), NOW(), '$RES', '$DESC');" | /opt/mysql5/bin/mysql -umailcleaner -p$MYMAILCLEANERPWD -S$VARDIR/run/mysql_slave/mysqld.sock mc_config
+	echo "["$(date "+%Y-%m-%d %H:%M:%S")"] [$PATCHID] done with update, status: $RES" >>$LOGFILE
+	echo "INSERT INTO update_patch VALUES('$PATCHID', NOW(), NOW(), '$RES', '$DESC');" | /opt/mysql5/bin/mysql -umailcleaner -p$MYMAILCLEANERPWD -S$VARDIR/run/mysql_slave/mysqld.sock mc_config
 else
-  echo "["`date "+%Y-%m-%d %H:%M:%S"`"] [$PATCHID] aborted, will retry later, reason is: $RES" >> $LOGFILE 
+	echo "["$(date "+%Y-%m-%d %H:%M:%S")"] [$PATCHID] aborted, will retry later, reason is: $RES" >>$LOGFILE
 fi
 echo $RES

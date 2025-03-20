@@ -26,15 +26,15 @@
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+    VARDIR=/var/mailcleaner
 fi
 
 for WHAT in spam ham; do
-  BASEDIR=$VARDIR/spool/learningcenter/stock$WHAT/
+    BASEDIR=$VARDIR/spool/learningcenter/stock$WHAT/
 
-  DIR=$BASEDIR/`date '+%Y%m%d_%H'`
-  if [ ! -d $DIR ]; then
-   mkdir -p $DIR
-  fi
-  mv $BASEDIR/tmp/* $DIR >/dev/null 2>&1
+    DIR=$BASEDIR/`date '+%Y%m%d_%H'`
+    if [ ! -d $DIR ]; then
+        mkdir -p $DIR
+    fi
+    mv $BASEDIR/tmp/* $DIR >/dev/null 2>&1
 done

@@ -53,15 +53,15 @@ fi
 getWizardStatus()
 {
         req=$(echo "SELECT count(*) FROM external_access WHERE service='configurator' AND port='4242' AND protocol='TCP' \G" | $SRCDIR/bin/mc_mysql -m mc_config | grep -v ". row" | cut -d ':' -f2)
-	[ "$req" -ge "1" ] && req=1
+    [ "$req" -ge "1" ] && req=1
         return $req
 }
 
 getStatus()
 {
-	getWizardStatus
-	status=$?
-	exit $status
+    getWizardStatus
+    status=$?
+    exit $status
 }
 
 flagStatus=0
@@ -85,25 +85,25 @@ do
 done
 
 if [ ! -z "$enable" ] && [ "$flagStatus" -eq "1" ]; then
-	[ "$batch" != "true" ] && echo "You can't set and get a status at same time." 
-	usage
-	exit 0
+    [ "$batch" != "true" ] && echo "You can't set and get a status at same time." 
+    usage
+    exit 0
 fi
 
 [ "$flagStatus" -eq "1" ] && getStatus
 
 updateWizardStatus()
 {
-	getWizardStatus
-	[ "$1" -eq "$?" ] && return 0 # Nothing to do, desired status and current status are the same
-	enableWizard="INSERT INTO external_access VALUES(NULL, 'configurator', '4242', 'TCP', '0.0.0.0/0', NULL);"
-	disableWizard="DELETE FROM external_access WHERE service='configurator' AND port='4242' AND protocol='TCP';"
-	if [ "$1" -eq "1" ]; then
-		echo $enableWizard | $SRCDIR/bin/mc_mysql -m mc_config
-	else
-		echo $disableWizard | $SRCDIR/bin/mc_mysql -m mc_config
-	fi
-	return 1 # external_access changed
+    getWizardStatus
+    [ "$1" -eq "$?" ] && return 0 # Nothing to do, desired status and current status are the same
+    enableWizard="INSERT INTO external_access VALUES(NULL, 'configurator', '4242', 'TCP', '0.0.0.0/0', NULL);"
+    disableWizard="DELETE FROM external_access WHERE service='configurator' AND port='4242' AND protocol='TCP';"
+    if [ "$1" -eq "1" ]; then
+        echo $enableWizard | $SRCDIR/bin/mc_mysql -m mc_config
+    else
+        echo $disableWizard | $SRCDIR/bin/mc_mysql -m mc_config
+    fi
+    return 1 # external_access changed
 }
 
 # 1 enable wizard
@@ -113,10 +113,10 @@ action=0
 # Live mode
 # Reverse the current status of wizard access
 if [ -z "$enable" ]; then
-	getWizardStatus
-	[ "$?" == "0" ] && action=1
+    getWizardStatus
+    [ "$?" == "0" ] && action=1
 elif [ ! -z "$enable" ]; then
-	[ "$enable" == "true" ] && action=1
+    [ "$enable" == "true" ] && action=1
 fi
 
 status=$([ "$action" == "1" ] && echo "Enabling" || echo "Disabling")
@@ -130,9 +130,9 @@ getWizardStatus
 wizardStatus=$?
 
 if [ -z "$batch" ]; then
-	status=$([ "$wizardStatus" == "1" ] && echo "open" || echo "close")
-	echo "Firewall restarted"
-	echo "Wizard access status: $status"
+    status=$([ "$wizardStatus" == "1" ] && echo "open" || echo "close")
+    echo "Firewall restarted"
+    echo "Wizard access status: $status"
 fi
 
 exit $wizardStatus

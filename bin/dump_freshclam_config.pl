@@ -56,7 +56,7 @@ my $gid = getgrnam( 'clamav' );
 my $conf = '/etc/clamav';
 
 if (-e $conf && ! -s $conf) {
-	unlink(glob("$conf/*"), $conf);
+    unlink(glob("$conf/*"), $conf);
 }
 symlink($SRCDIR."/".$conf, $conf) unless (-l $conf);
 
@@ -150,8 +150,8 @@ sub update_unofficial($unofficial) {
     }
 
     # First time install
-	if (! -d "$VARDIR/spool/clamav/unofficial-sigs") {
-	    mkdir("$VARDIR/spool/clamav/unofficial-sigs");
+    if (! -d "$VARDIR/spool/clamav/unofficial-sigs") {
+        mkdir("$VARDIR/spool/clamav/unofficial-sigs");
         `${SRCDIR}/scripts/cron/clamav-unofficial-sigs.sh`;
     }
 

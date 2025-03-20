@@ -25,9 +25,8 @@
 #   Usage:
 #           fetch_clamspam.sh [-r]
 
-usage()
-{
-  cat << EOF
+usage() {
+	cat <<EOF
 usage: $0 options
 
 This script will fetch the latest spam definitions for the ClamSpam daemon
@@ -39,28 +38,26 @@ EOF
 
 randomize=false
 
-while getopts ":r" OPTION
-do
-  case $OPTION in
-    r)
-       randomize=true
-       ;;
-    ?)
-       usage
-       exit
-       ;;
-  esac
+while getopts ":r" OPTION; do
+	case $OPTION in
+	r)
+		randomize=true
+		;;
+	?)
+		usage
+		exit
+		;;
+	esac
 done
 
-
 CONFFILE=/etc/mailcleaner.conf
-SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
-if [ "$SRCDIR" = "" ]; then 
-  SRCDIR="/opt/mailcleaner"
+SRCDIR=$(grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3)
+if [ "$SRCDIR" = "" ]; then
+	SRCDIR="/usr/mailcleaner"
 fi
-VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' $CONFFILE | cut -d ' ' -f3)
 if [ "$VARDIR" = "" ]; then
-  VARDIR="/var/mailcleaner"
+	VARDIR="/var/mailcleaner"
 fi
 
 . $SRCDIR/lib/lib_utils.sh
@@ -68,7 +65,7 @@ FILE_NAME=$(basename -- "$0")
 FILE_NAME="${FILE_NAME%.*}"
 ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
-        exit 0
+	exit 0
 fi
 
 . $SRCDIR/lib/updates/download_files.sh
@@ -82,7 +79,7 @@ fi
 # Creating a test file, the content doesnt matter
 testfile=/tmp/scan-test.txt
 if [ ! -e ${testfile} ]; then
-        echo "Test" > ${testfile}
+	echo "Test" >${testfile}
 fi
 
 # Getting to the ClamAV databases
@@ -93,8 +90,8 @@ for file in $(ls | grep -v "dbs.md5"); do
 	# Check if we should re run test on this file
 	PERFORM_VERIFICATION=1
 	if [ -e "$VARDIR/spool/tmp/clamspam/$file" ]; then
-		CURRENT_MD5SUM=`md5sum $file |sed -e 's/ .*//'`
-		LAST_MD5SUM=`cat "$VARDIR/spool/tmp/clamspam/$file"`
+		CURRENT_MD5SUM=$(md5sum $file | sed -e 's/ .*//')
+		LAST_MD5SUM=$(cat "$VARDIR/spool/tmp/clamspam/$file")
 		if [ "$CURRENT_MD5SUM" = "$LAST_MD5SUM" ]; then
 			PERFORM_VERIFICATION=0
 		else
@@ -102,25 +99,25 @@ for file in $(ls | grep -v "dbs.md5"); do
 		fi
 	fi
 
-        # test if it is malformed
+	# test if it is malformed
 	if [ "$PERFORM_VERIFICATION" -eq "1" ]; then
-	        MALFORMEDFILE=`/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 > /dev/null |grep Malfor |grep -v ERROR | awk {'print $5'} |sed 's/:$//'`
+		MALFORMEDFILE=$(/opt/clamav/bin/clamscan -d ${file} ${testfile} 2>&1 >/dev/null | grep Malfor | grep -v ERROR | awk {'print $5'} | sed 's/:$//')
 
-        	# If the file is malformed, remove it
-	        if [ ! -z ${MALFORMEDFILE} ] && [ -e ${MALFORMEDFILE} ] ; then
-        	        rm $MALFORMEDFILE
-                	echo "["`date "+%Y/%m/%d %H:%M:%S"`"] Malformed Database $MALFORMEDFILE removed" >> /var/mailcleaner/log/mailcleaner/downloadDatas.log
-	                MALFORMEDFILE=''
+		# If the file is malformed, remove it
+		if [ ! -z ${MALFORMEDFILE} ] && [ -e ${MALFORMEDFILE} ]; then
+			rm $MALFORMEDFILE
+			echo "["$(date "+%Y/%m/%d %H:%M:%S")"] Malformed Database $MALFORMEDFILE removed" >>/var/mailcleaner/log/mailcleaner/downloadDatas.log
+			MALFORMEDFILE=''
 		else
-			echo $CURRENT_MD5SUM > "$VARDIR/spool/tmp/clamspam/$file"
-	        fi
+			echo $CURRENT_MD5SUM >"$VARDIR/spool/tmp/clamspam/$file"
+		fi
 	fi
 done
 cd -
 
 ## restart clamspam daemon
 if [[ "$ret" -eq "1" ]]; then
-	kill -USR2 `cat $VARDIR/run/clamav/clamspamd.pid 2>/dev/null` > /dev/null 2>&1
+	kill -USR2 $(cat $VARDIR/run/clamav/clamspamd.pid 2>/dev/null) >/dev/null 2>&1
 	log "Clamspam - Database reloaded"
 fi
 

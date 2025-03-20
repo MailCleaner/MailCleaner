@@ -18,25 +18,25 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+SRCDIR=$(grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+	SRCDIR=/var/mailcleaner
 fi
-VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
+VARDIR=$(grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3)
 if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+	VARDIR=/var/mailcleaner
 fi
 
 search=$1
 stage=$2
 
 if [ "$stage" != "4" ]; then
-  stage=1
+	stage=1
 fi
 
-if [ "$search" = "" ] ;then
-  echo "Usage: move_queued_message.sh searchstring [stage]"
-  exit 1
+if [ "$search" = "" ]; then
+	echo "Usage: move_queued_message.sh searchstring [stage]"
+	exit 1
 fi
 
 SPOOLDIR=$VARDIR"/spool/exim_stage$stage/input"
@@ -44,18 +44,17 @@ MSGLOGDIR=$VARDIR"/spool/exim_stage$stage/msglog"
 BACKUPDIR=$VARDIR"/spool/exim_stage$stage/input_disabled"
 BACKUPMSGLOGDIR=$VARDIR"/spool/exim_stage$stage/msglog_disabled"
 
-if [ ! -d $BACKUPDIR/$search ] ;then
-  mkdir -p $BACKUPDIR/$search
+if [ ! -d $BACKUPDIR/$search ]; then
+	mkdir -p $BACKUPDIR/$search
 fi
 if [ ! -d $BACKUPMSGLOGDIR/$search ]; then
-  mkdir -p $BACKUPMSGLOGDIR/$search
+	mkdir -p $BACKUPMSGLOGDIR/$search
 fi
 
-for i in `grep $search $SPOOLDIR/* | cut -d':' -f1 | cut -d'-' -f1-3 | sort | uniq`;do
-  mv $i* $BACKUPDIR/$search/
-  mv $MSGLOGDIR/$i $BACKUPMSGLOGDIR/$search/
+for i in $(grep $search $SPOOLDIR/* | cut -d':' -f1 | cut -d'-' -f1-3 | sort | uniq); do
+	mv $i* $BACKUPDIR/$search/
+	mv $MSGLOGDIR/$i $BACKUPMSGLOGDIR/$search/
 done
 
 echo "Messages from $search disabled !"
 exit 0
-

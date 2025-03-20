@@ -23,22 +23,21 @@
 #   Usage:
 #           learn_ham.sh message_file/directory
 
-
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
-  SRCDIR=/var/mailcleaner
+    SRCDIR=/var/mailcleaner
 fi
 
 if [ "$1" = "" ]; then
-  echo "usage: ./learn_spam.sh message_file|message_dir"
-  exit 1
+    echo "usage: ./learn_spam.sh message_file|message_dir"
+    exit 1
 fi
 
 if [ -f $1 ] || [ -d $1 ]; then
-  sa-learn --ham -p $SRCDIR/etc/mailscanner/spam.assassin.prefs.conf $1
+    sa-learn --ham -p $SRCDIR/etc/mailscanner/spam.assassin.prefs.conf $1
 else
-  echo "file/directory $1 is not useable"
-  exit 1
+    echo "file/directory $1 is not useable"
+    exit 1
 fi
 
 exit 0

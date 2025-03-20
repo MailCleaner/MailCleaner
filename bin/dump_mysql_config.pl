@@ -118,16 +118,16 @@ sub ownership($stage)
     use File::Touch qw( touch );
 
     unless ( -e "/etc/systemd/system/mariadb\@.service.d" ) {
-	symlink("${SRCDIR}/scripts/systemd/mariadb\@.service.d", "/etc/systemd/system/mariadb\@.service.d");
-	`systemctl daemon-reload`;
+    symlink("${SRCDIR}/scripts/systemd/mariadb\@.service.d", "/etc/systemd/system/mariadb\@.service.d");
+    `systemctl daemon-reload`;
     }
     unless ( -e "/etc/systemd/system/mariadb\@${stage}.service.d" ) {
-	symlink("${SRCDIR}/scripts/systemd/mariadb\@${stage}.service.d", "/etc/systemd/system/mariadb\@${stage}.service.d");
-	`systemctl daemon-reload`;
+    symlink("${SRCDIR}/scripts/systemd/mariadb\@${stage}.service.d", "/etc/systemd/system/mariadb\@${stage}.service.d");
+    `systemctl daemon-reload`;
     }
     unless ( -e "/etc/systemd/system/mariadb\@${stage}-nopass.service.d" ) {
-	symlink("${SRCDIR}/scripts/systemd/mariadb\@${stage}-nopass.service.d", "/etc/systemd/system/mariadb\@${stage}-nopass.service.d");
-	`systemctl daemon-reload`;
+    symlink("${SRCDIR}/scripts/systemd/mariadb\@${stage}-nopass.service.d", "/etc/systemd/system/mariadb\@${stage}-nopass.service.d");
+    `systemctl daemon-reload`;
     }
 
     # Remove default AppArmor rules and reload with ours
@@ -159,19 +159,19 @@ M%SQL       * = (ROOT) NOPASSWD: UPGRADE
         "${VARDIR}/spool/mariadb_${stage}",
     );
     foreach my $dir (@dirs) {
-	mkdir ($dir) unless (-d $dir);
-	chown($uid, $gid, $dir);
+    mkdir ($dir) unless (-d $dir);
+    chown($uid, $gid, $dir);
     }
 
     my @files = (
-	glob("${VARDIR}/log/mysql_${stage}/*"),
-	glob("${VARDIR}/spool/mysql_${stage}/*"),
+    glob("${VARDIR}/log/mysql_${stage}/*"),
+    glob("${VARDIR}/spool/mysql_${stage}/*"),
     );
     foreach (glob("${VARDIR}/spool/mysql_${stage}/*")) {
         push(@files, glob("$_/*"));
     }
     foreach my $file (@files) {
-	touch($file) unless (-e $file);
+    touch($file) unless (-e $file);
         chown($uid, $gid, $file);
         chmod 0744, $file;
     }

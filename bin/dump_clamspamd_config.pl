@@ -56,7 +56,7 @@ my $gid = getgrnam( 'clamav' );
 my $conf = '/etc/clamav';
 
 if (-e $conf && ! -s $conf) {
-	unlink(glob("$conf/*"), $conf);
+    unlink(glob("$conf/*"), $conf);
 }
 symlink($SRCDIR."/".$conf, $conf) unless (-l $conf);
 

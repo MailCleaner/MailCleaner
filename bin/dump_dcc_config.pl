@@ -75,7 +75,7 @@ foreach my $link (keys(%links)) {
         if (-l $link) {
             chown($uid, $gid, $link, $links{$link});
             next if (readlink($link) eq $links{$link});
-	    unlink($link);
+        unlink($link);
         } else {
             rmrf($link);
         }

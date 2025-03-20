@@ -4,8 +4,7 @@ retryMax     = __RETRYMAX__
 expire       = __EXPIRE__
 
 [socket]
-path         = __VARDIR__/run/greylistd/socket
-mode         = 0660
+path         = /var/run/greylistd/socket
 
 [data]
 update       = 600
@@ -13,3 +12,5 @@ update       = 600
 statefile    = __VARDIR__/spool/greylistd/states
 tripletfile  = __VARDIR__/spool/greylistd/triplets
 savetriplets = true
+singlecheck  = false
+singleupdate = false

@@ -27,7 +27,6 @@ use strict;
 use warnings;
 use utf8;
 use Carp qw( confess );
-use Proc::ProcessTable;
 
 my ($SRCDIR, $MYMAILCLEANERPWD);
 our ($VARDIR);
@@ -61,7 +60,6 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
     unshift (@INC, $path);
 }
 
-my $ps = Proc::ProcessTable->new();
 my $mode_given;
 my $verbose = 0;
 while (scalar(@ARGV)) {
@@ -86,7 +84,7 @@ my @order = (
     { 'id' => 'exim_stage2', 'service' => 'exim4@2', 'human' => 'Filtering' },
     { 'id' => 'exim_stage4', 'service' => 'exim4@4', 'human' => 'Outgoing' },
     { 'id' => 'apache', 'service' => 'apache2', 'human' => 'Web Server' },
-    { 'id' => 'mailscanner', 'proc' => 'MailScanner', 'human' => 'Filtering Engine' },
+    { 'id' => 'mailscanner', 'service' => 'mailscanner', 'human' => 'Filtering Engine' },
     { 'id' => 'mysql_master', 'service' => 'mariadb@master', 'human' => 'Master Database' },
     { 'id' => 'mysql_slave', 'service' => 'mariadb@slave', 'human' => 'Slave Database' },
     { 'id' => 'snmpd', 'service' => 'snmpd', 'human' => 'SNMP Daemon' },
@@ -94,11 +92,11 @@ my @order = (
     { 'id' => 'cron', 'service' => 'cron', 'human' => 'Scheduler' },
     { 'id' => 'preftdaemon', 'service' => 'preftdaemon', 'human' => 'Preferences Daemon' },
     { 'id' => 'spamd', 'service' => 'spamd@spamd', 'human' => 'SpamAssassin Daemon' },
-    { 'id' => 'clamd', 'proc' => 'clamd', 'human' => 'ClamAV Daemon' },
-    { 'id' => 'clamspamd', 'proc' => 'clamspamd', 'human' => 'ClamSpam Daemon' },
+    { 'id' => 'clamd', 'service' => 'clamav-daemon', 'human' => 'ClamAV Daemon' },
+    { 'id' => 'clamspamd', 'service' => 'clamspamd', 'human' => 'ClamSpam Daemon' },
     { 'id' => 'newsld', 'service' => 'spamd@newsld', 'human' => 'Newsletter Daemon' },
     { 'id' => 'spamhandler', 'service' => 'spamhandler', 'human' => 'SpamHandler Daemon' },
-    { 'id' => 'firewall', 'human' => 'Firewall' }
+    { 'id' => 'firewall', 'service' => 'ufw', 'human' => 'Firewall (ufw)' }
 );
 
 my $res;
@@ -120,28 +118,11 @@ if ($mode_given =~ /s/) {
             } else {
                 $st = 0;
             }
-	} elsif (defined($service->{'proc'})) {
-	    if (findProcess($service->{'proc'})) {
-	        $order[$i++]{'status'} = 1 if findProcess($service->{'proc'});
-	        next;
-	    } else {
-		$order[$i]{'status'} = 0;
-	    }
         } else {
-            if ($service->{'id'} eq 'firewall') {
-		my $res = `cat /tmp/fw.lock 2> /dev/null`;
-		chomp($res);
-		if ($res eq '1') {
-		    $st = 1;
-                } else {
-		    $st = 2;
-		}
-	    } else {
-                $order[$i++]{'status'} = 255;
-                next;
-            }
+            $order[$i++]{'status'} = 255;
+            next;
         }
-        if ($st == 0 && -f $restartdir.$key.".stopped") {
+        if ($st == 0 && -f $restartdir."/".$key.".stopped") {
             $st = 2;
         }
         if ( -f $restartdir.$key.".rn") {
@@ -177,12 +158,12 @@ if ($mode_given =~ /s/) {
             my $subcmd = "grep -e '^MTA\\s*=\\s*eximms' ".${SRCDIR}."/etc/mailscanner/MailScanner.conf";
             my $type = `$subcmd`;
             if ($type eq '') {
-                $cmd = "runuser -u mailcleaner -- /opt/exim4/bin/exim -C ${VARDIR}/spool/tmp/exim/${key}.conf -bpc 2>/dev/null";
+                $cmd = "runuser -u Debian-exim -- /opt/exim4/bin/exim -C ${VARDIR}/spool/tmp/exim/${key}.conf -bpc 2>/dev/null";
             } else {
                 $cmd = "ls ${VARDIR}/spool/exim_stage2/input/*.env 2>&1 | grep -v 'No such' | wc -l";
             }
         } else {
-            $cmd = "runuser -u mailcleaner -- /opt/exim4/bin/exim -C ${VARDIR}/spool/tmp/exim/${key}.conf -bpc 2>/dev/null";
+            $cmd = "runuser -u Debian-exim -- /opt/exim4/bin/exim -C ${VARDIR}/spool/tmp/exim/${key}.conf -bpc 2>/dev/null";
         }
         $res = `$cmd`;
         chomp($res);
@@ -301,20 +282,4 @@ sub getNumberOfGreylistDomains
         return $1;
     }
     return 0;
-}
-
-sub findProcess ($cmndline)
-{
-	foreach my $p ( @{$ps->table()} ) {
-		if ($p->{'pid'} == $$) {
-			next;
-		}
-		if ($p->{'cmndline'} =~ m#$cmndline#) {
-			if ($p->{'state'} eq 'defunct') {
-				next;
-			}
-			return $p->{'pid'};
-		}
-	}
-	return 0;
 }

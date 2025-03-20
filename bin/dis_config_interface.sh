@@ -20,17 +20,9 @@
 #   Usage:
 #           dis_config_interface.sh true|false
 
-VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
-if [ "$VARDIR" = "" ]; then
-  VARDIR="/var/mailcleaner"
-fi
-
 if [ "$1" == "true" ]; then
-    mv /etc/network/interfaces.d/configif.conf /etc/network/interfaces.d/configif.conf.disabled 2>/dev/null
+	mv /etc/network/interfaces.d/configif.conf /etc/network/interfaces.d/configif.conf.disabled 2>/dev/null
 else
-    mv /etc/network/interfaces.d/configif.conf.disabled /etc/network/interfaces.d/configif.conf 2>/dev/null
+	mv /etc/network/interfaces.d/configif.conf.disabled /etc/network/interfaces.d/configif.conf 2>/dev/null
 fi
-
-touch $VARDIR/run/apache.rn
-
 exit 0

@@ -101,40 +101,40 @@ loopThroughLogs('exim_stage1/mainlog', 'exim', $what, \%stage1_ids);
 
 ## apply filter
 foreach my $msg (@nf_messages) {
-	my %msg_o = %{$msg};
-	my $filtermatch = 0;
+    my %msg_o = %{$msg};
+    my $filtermatch = 0;
         foreach my $f (@filter) {
-	    foreach my $line (split '\n', $stage1_ids{$msg_o{'id'}}) {
-	        if ($line =~ m/$f/i) {
-	   	    $filtermatch++;
-	   	    last;
-	        }
+        foreach my $line (split '\n', $stage1_ids{$msg_o{'id'}}) {
+            if ($line =~ m/$f/i) {
+               $filtermatch++;
+               last;
             }
-	}
-	if ($filtermatch == scalar(@filter)) {
-		my $refused = 0;
-		if ( ! $includerefused ) {
-			# List of regexp matching the refused messages
-			my @regex = (
-				'rejected RCPT',
-				'Authentication failed',
-				'Authentication not allowed for the domain',
-				'Plaintext authentication disallowed on non-secure',
-				'no @ found in the subject of an address list match',
-				'fixed_login authenticator failed',
-				'SSL verify error .during R-verify'
-			);
+            }
+    }
+    if ($filtermatch == scalar(@filter)) {
+        my $refused = 0;
+        if ( ! $includerefused ) {
+            # List of regexp matching the refused messages
+            my @regex = (
+                'rejected RCPT',
+                'Authentication failed',
+                'Authentication not allowed for the domain',
+                'Plaintext authentication disallowed on non-secure',
+                'no @ found in the subject of an address list match',
+                'fixed_login authenticator failed',
+                'SSL verify error .during R-verify'
+            );
 
-			foreach my $re (@regex) {
-				if ( $stage1_ids{$msg_o{'id'}} =~ m/$re/ ) {
-					$refused = 1;
-					last;
-				}
-			}
-		}
-		# Only add messages that were not refused
-		push @messages, $msg unless $refused;
-	}
+            foreach my $re (@regex) {
+                if ( $stage1_ids{$msg_o{'id'}} =~ m/$re/ ) {
+                    $refused = 1;
+                    last;
+                }
+            }
+        }
+        # Only add messages that were not refused
+        push @messages, $msg unless $refused;
+    }
 }
 
 
@@ -199,18 +199,18 @@ if (@messages > 0) {
     }
     my $out_id = 0;
     if ($spamhandler_ids{$msg_o{'nid'}}) {
-    	foreach my $line (split /\n/, $spamhandler_ids{$msg_o{'nid'}}) {
+        foreach my $line (split /\n/, $spamhandler_ids{$msg_o{'nid'}}) {
         print FULLOG $msg_o{'nid'}.'|' if ($batchwithlog);
         print FULLOG $line;
         print FULLOG "\n";
         if ($line =~ m/ready to be delivered with new id: (\S{16,24})/) {
-        	$out_id = $1;
+            $out_id = $1;
         }
       }
       print FULLOG "\n";
     }
     if ($stage4_ids{$out_id}) {
-    	foreach my $line (split /\n/, $stage4_ids{$out_id}) {
+        foreach my $line (split /\n/, $stage4_ids{$out_id}) {
         print FULLOG $msg_o{'nid'}.'|' if ($batchwithlog);
         print FULLOG $line;
         print FULLOG "\n";
@@ -374,7 +374,7 @@ sub searchMailScanner {
 sub searchSpamHandler {
   my $file = shift;
   my $store = shift;
-	
+    
   my $fh;
   my $ffile = $file;
   return if ! -f $file;
@@ -391,7 +391,7 @@ sub searchSpamHandler {
      if (defined($internal_messages{$4}) ) {
        $store->{$4} .= $_;
        if (/ready to be delivered with new id: (\S{16,24})/) {
-       	  $internal_messages{$1} = 1;
+             $internal_messages{$1} = 1;
        }
      }
     }
@@ -419,26 +419,26 @@ sub printBatchResult {
 
   foreach my $line (split '\n', $stage1_ids{$msg_o{'id'}}) {
     if ($line =~ m/^(\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d)/ ) {
-    	$_datein = $1;
+        $_datein = $1;
     }
     if ($line =~ m/<=\ (\S+)/) {
-    	$_from = $1;
-    	$_accepted = 1;
-    	$_inreport = 'Accepted (id='.$msg_o{'id'}.')';
-    	if ($line =~ /P=esmtpa A=[^:]+:(\S+)/) {
+        $_from = $1;
+        $_accepted = 1;
+        $_inreport = 'Accepted (id='.$msg_o{'id'}.')';
+        if ($line =~ /P=esmtpa A=[^:]+:(\S+)/) {
             $_inreport = "Authenticated relay ($1)";
-    	}
+        }
     }
     if ($line =~ m/[-=]> (\S+)(?:\ <\S+>)?\ R=(\S+) T=(\S+) .* C=\"([^\"]+)\"/) {
-    	$_tos .= ','.$1;
-    	if ($3 eq 'remote_smtp') {
-    	   $_relayed = 1;
+        $_tos .= ','.$1;
+        if ($3 eq 'remote_smtp') {
+           $_relayed = 1;
            $_outmessage = $4;
            $msg_o{'nid'} = $msg_o{'id'};
            if ($line =~ m/H=(\S+(?:\ \[\S+\]))/) {
              $_outhost = $1;
            }
-    	}
+        }
     }
     if ($line =~ /== (\S+) R=(\S+) (?:T=\S+ )?(.*)/) {
        if ($2 eq 'dnslookup') {
@@ -448,11 +448,11 @@ sub printBatchResult {
        }
     }
     if ($line =~ /^(\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d) (\S+) Completed/ && $_relayed) {
-    	$_dateout = $1;
-	if ($_outreport ne 'Rejected') {
+        $_dateout = $1;
+    if ($_outreport ne 'Rejected') {
           $_outreport = 'Completed';
           $_delivered = 1;
-	}
+    }
     }
     if ($line =~ /F=<([^>]+)>/ ) {
         $_from = $1;
@@ -461,10 +461,10 @@ sub printBatchResult {
         $_tos = $1;
         $_inreport = $2;
     } elsif ($line =~ /F=<\S+> temporarily rejected RCPT <?([^>:]+)>:\s(.*)/ ) {
-    	$_accepted = 0;
-    	$_inreport = $1;
+        $_accepted = 0;
+        $_inreport = $1;
     } elsif ($_inreport eq '') {
-    	$_inreport = $line;
+        $_inreport = $line;
     }
     if ( $line !~ /[=-]\>/ && $line =~ /H=(\S+)\s(\S+)\s\[([^\]]+)\]/) {
         $_senderhostname = $1;
@@ -474,13 +474,13 @@ sub printBatchResult {
         $_senderhostip = $2;
     }
     if ( $line =~ /\*\* (\S+).*SMTP error.*: host (.*): (.*)/) {
-	$_outreport = 'Rejected';
-	$_delivered = 0;
-	$msg_o{'nid'} = $msg_o{'id'};
-	$_outmessage = $3;
-	$_outhost = $2;
-	$_relayed = 1;
-	$_tos = $1;
+    $_outreport = 'Rejected';
+    $_delivered = 0;
+    $msg_o{'nid'} = $msg_o{'id'};
+    $_outmessage = $3;
+    $_outhost = $2;
+    $_relayed = 1;
+    $_tos = $1;
     } 
     if ($_senderhostname =~ /^\((\S*)\)/) {
         $_senderhostname = $1.'/U';
@@ -508,59 +508,59 @@ sub printBatchResult {
   my $_contentreport = '';
   my $_fstatus = '';
   foreach my $line (split '\n', $ms_ids{$msg_o{'nid'}}) {
- 	if ($line =~ m/to\ \S+\ is\ (not spam|spam)[^,]*, (.*)/) {
-  		if ($1 eq 'spam') {
-			if ($_spam eq 2) {
-  			     $_spam = 3;
-			} else {
-  			     $_spam = 1;
-			}
+     if ($line =~ m/to\ \S+\ is\ (not spam|spam)[^,]*, (.*)/) {
+          if ($1 eq 'spam') {
+            if ($_spam eq 2) {
+                   $_spam = 3;
+            } else {
+                   $_spam = 1;
+            }
 
 
-  		}
-  		$_spamreport = $2;
-  	}
-	if ($line =~ m/to\ \S+\ is\ (not spam|spam).*Newsl \(score=([^,]*), required=([^,]*)/) {
-		if ( int($2) >= int($3) ) {
-		
-			if ($_spam eq 1) {
-  			     $_spam = 3;
-			} else {
-	  		     $_spam = 2;
-			}
-		}
-	}
-        if ($line =~ m/result is newsletter/) {
-		if ($_spam eq 1) {
-  		     $_spam += 2;
-		} else {
-  		     $_spam = 2;
-		}
+          }
+          $_spamreport = $2;
+      }
+    if ($line =~ m/to\ \S+\ is\ (not spam|spam).*Newsl \(score=([^,]*), required=([^,]*)/) {
+        if ( int($2) >= int($3) ) {
+        
+            if ($_spam eq 1) {
+                   $_spam = 3;
+            } else {
+                   $_spam = 2;
+            }
         }
-  	## TO DO: check for viruses and content...
-  	if ($line =~ m/Content Checks: Detected (.*)/) {
-  		$_content = 'Detected';
-  		$_contentreport = $1;
-  	}
+    }
+        if ($line =~ m/result is newsletter/) {
+        if ($_spam eq 1) {
+               $_spam += 2;
+        } else {
+               $_spam = 2;
+        }
+        }
+      ## TO DO: check for viruses and content...
+      if ($line =~ m/Content Checks: Detected (.*)/) {
+          $_content = 'Detected';
+          $_contentreport = $1;
+      }
         if ($line =~ m/Filename Checks:\s+\(\S+\ (.*)\)/) {
                 $_content = 'Detected';
                 $_contentreport = $1;
         }
 
-  	if ($line =~ m/(Saved entire message to|Saved infected)/ ) {
-  		$_content = 'Quarantined';
-  	}
-  	
-  	if ($line =~ m/::INFECTED:: (\S+) :: .\/\S+\/(\S+)/ ) {
-  		$_contentreport = "Virus found: ".$1." in file ".$2;
-  		$_content = 'Deleted';
-  	}
+      if ($line =~ m/(Saved entire message to|Saved infected)/ ) {
+          $_content = 'Quarantined';
+      }
+      
+      if ($line =~ m/::INFECTED:: (\S+) :: .\/\S+\/(\S+)/ ) {
+          $_contentreport = "Virus found: ".$1." in file ".$2;
+          $_content = 'Deleted';
+      }
   }
   
   print "|".$_spam."|".$_spamreport."|".$_content."|".$_contentreport;
 
   if (!$_relayed) {
-  	($_dateout, $_delivered, $_outreport, $_outmessage, $_outhost) = processStage4Logs($msg_o{'nid'});    
+      ($_dateout, $_delivered, $_outreport, $_outmessage, $_outhost) = processStage4Logs($msg_o{'nid'});    
   }
   print "|".$_dateout."|".$_delivered."|".$_outreport."|".$_outmessage."|".$_outhost;
   print "\n";
@@ -621,14 +621,14 @@ sub processStage4Logs {
     }
     if ($line =~ m/\ T=spam_store/) {
         foreach my $shline (split '\n', $spamhandler_ids{$id}) {
-        	my $date = '';
-        	if ($shline =~ m/^(\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d)/ ) {
-        		 $date = $1;
-        	}
-        	if ($shline =~ /ready to be delivered with new id: (\S{16,24})/) {
-        		($dateout, $delivered, $outreport, $outmessage, $outhost) = processStage4Logs($1);
-        		$outdateset = 1;
-        	}
+            my $date = '';
+            if ($shline =~ m/^(\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d)/ ) {
+                 $date = $1;
+            }
+            if ($shline =~ /ready to be delivered with new id: (\S{16,24})/) {
+                ($dateout, $delivered, $outreport, $outmessage, $outhost) = processStage4Logs($1);
+                $outdateset = 1;
+            }
             if ($shline =~ /want tag/) {
                 $outreport = 'Tagged';
             }

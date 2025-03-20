@@ -37,8 +37,8 @@ X-MailCleaner-SpamScore: ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X"  | /opt/dcc/bin/dccproc -Q -d -H | cut -d'-' -f-2`
 
 if [ "$RES" = "X-DCC" ]; then
-	echo "DCCOK"
+    echo "DCCOK"
 else
-	echo "DCCERROR"
+    echo "DCCERROR"
 fi;
 

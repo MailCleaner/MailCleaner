@@ -54,12 +54,12 @@ my $gid = getgrnam( 'mailcleaner' );
 my $conf = '/etc/clamav';
 
 if (-e $conf && ! -l $conf) {
-	unlink(glob("$conf/*"), $conf);
+    unlink(glob("$conf/*"), $conf);
 }
 symlink($SRCDIR."/".$conf, $conf) unless (-l $conf);
 unless (-l "/var/lib/clamav") {
-	rmrf("/var/lib/clamav/") if (-e "/var/lib/clamav");
-	symlink($VARDIR."/spool/clamav", "/var/lib/clamav");
+    rmrf("/var/lib/clamav/") if (-e "/var/lib/clamav");
+    symlink($VARDIR."/spool/clamav", "/var/lib/clamav");
 }
 
 foreach my $dir (

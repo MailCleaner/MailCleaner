@@ -22,21 +22,21 @@
 #   in Configuration > Base system > Registration
 #
 #   Usage:
-#		send_anon.sh
+#        send_anon.sh
 
 CONFFILE=/etc/mailcleaner.conf
 
 HOSTID=`grep 'HOSTID' $CONFFILE | cut -d ' ' -f3`
 if [ "$HOSTID" = "" ]; then
-  HOSTID=1
+    HOSTID=1
 fi
 SRCDIR=`grep 'SRCDIR' $CONFFILE | cut -d ' ' -f3`
 if [ "$SRCDIR" = "" ]; then 
-  SRCDIR="/opt/mailcleaner"
+    SRCDIR="/opt/mailcleaner"
 fi
 VARDIR=`grep 'VARDIR' $CONFFILE | cut -d ' ' -f3`
 if [ "$VARDIR" = "" ]; then
-  VARDIR="/opt/mailcleaner"
+    VARDIR="/opt/mailcleaner"
 fi
 
 HTTPPROXY=`grep -e '^HTTPPROXY' $CONFFILE | cut -d ' ' -f3`
@@ -46,7 +46,7 @@ REGISTERED=`grep 'REGISTERED' $CONFFILE | cut -d ' ' -f3`
 
 # For unregistered MailCleaner there is no stats to send
 if [ "$REGISTERED" != "2" ]; then
-	exit 0
+    exit 0
 fi
 
 . $SRCDIR/lib/lib_utils.sh
@@ -54,21 +54,21 @@ FILE_NAME=$(basename -- "$0")
 FILE_NAME="${FILE_NAME%.*}"
 ret=$(createLockFile "$FILE_NAME")
 if [[ "$ret" -eq "1" ]]; then
-        exit 0
+    exit 0
 fi
 
 # Check if customer choose to send anonymous statistics
 ACCEPT_SEND_STATISTICS=$(echo "SELECT accept_send_statistics FROM registration LIMIT 1\G" | $SRCDIR/bin/mc_mysql -m mc_community | grep -v "*" | cut -d ':' -f2 | tr -d '[:space:]')
 if [ "$ACCEPT_SEND_STATISTICS" != "1" ]; then
-	exit 0
+    exit 0
 fi
 
 # Basic URL
 URL="http://reselleradmin.mailcleaner.net/community/stats.php?"
 STATS=$($SRCDIR/bin/get_stats.pl _global -1 +0)
 if [ -z "$STATS" ]; then
-	# No stats for last day ..
-	exit 0
+    # No stats for last day ..
+    exit 0
 fi
 
 # Send data

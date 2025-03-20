@@ -101,13 +101,13 @@ elif $UNAME | $FGREP "BSD" >/dev/null ; then
          $AWK '{print $1}'`
 elif $UNAME | $FGREP "OSF" >/dev/null ; then
     pid=`ps -e -o pid -o args |
-	$GREP '[ ]'$process |
-	grep -v grep |
-	awk '{ print $1 }'`
+    $GREP '[ ]'$process |
+    grep -v grep |
+    awk '{ print $1 }'`
 elif $UNAME | $FGREP "Darwin" >/dev/null ; then # ie Mac OSX
     pid=`$PS axww |
-	$EGREP '[ ]('$msbindir/$process')|'$process'[:]' |
-	$AWK '{print $1}'`
+    $EGREP '[ ]('$msbindir/$process')|'$process'[:]' |
+    $AWK '{print $1}'`
 else
     # not BSD; everything else seems to do POSIX
     pid=`COLUMNS=500 $PS -ef |

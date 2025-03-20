@@ -46,19 +46,23 @@ do
   esac
 done
 
-days=1
+days=0
 shopt -s extglob
 for OPTION in "$@"; do
-  case $OPTION in
-    +([0-9]))
-       if [ ! $days ]; then
-         echo Excess argument $OPTION days already $days
-         usage
-       fi
-       days=$OPTION
-       ;;
-  esac
+    case $OPTION in
+        +([0-9]))
+             if [ ! $days ]; then
+                 echo Excess argument $OPTION days already $days
+                 usage
+             fi
+             days=$OPTION
+             ;;
+    esac
 done
+
+if [ ! $days ]; then
+    days=1
+fi
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
@@ -87,11 +91,10 @@ if $randomize ; then
   sleep $sleep_time
 fi
 
-END=$(($days-1))
-echo "_global:"`$SRCDIR/bin/get_stats.pl '*' -$days +$END | grep '_global' | cut -d':' -f2` > $STATFILE
+echo "_global:"`$SRCDIR/bin/get_stats.pl '*' -$days +0 | grep '_global' | cut -d':' -f2` > $STATFILE
 for dom in `grep -v '*' $DOMAINFILE | cut -d':' -f1`; do
   echo -n $dom":" >> $STATFILE
-  echo `$SRCDIR/bin/get_stats.pl $dom -$days +$END ` >> $STATFILE
+  echo `$SRCDIR/bin/get_stats.pl $dom -$days +0 ` >> $STATFILE
 done
 
 CLIENTID=`grep 'CLIENTID' /etc/mailcleaner.conf | cut -d ' ' -f3`
