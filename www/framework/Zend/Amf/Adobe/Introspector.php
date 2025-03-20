@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Introspector.php,v 1.1.2.3 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Amf_Parse_TypeLoader */
@@ -33,11 +33,16 @@ require_once 'Zend/Server/Reflection.php';
  *
  * @package    Zend_Amf
  * @subpackage Adobe
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Adobe_Introspector
 {
+    /**
+     * @var \DOMElement|mixed
+     */
+    protected $_ops;
+
     /**
      * Options used:
      * - server: instance of Zend_Amf_Server to use
@@ -55,7 +60,7 @@ class Zend_Amf_Adobe_Introspector
     /**
      * @var array Map of the known types
      */
-    protected $_typesMap = array();
+    protected $_typesMap = [];
 
     /**
      * @var DOMDocument XML document to store data
@@ -79,7 +84,7 @@ class Zend_Amf_Adobe_Introspector
      * @param  array $options invocation options
      * @return string XML with service class introspection
      */
-    public function introspect($serviceClass, $options = array())
+    public function introspect($serviceClass, $options = [])
     {
         $this->_options = $options;
 
@@ -116,7 +121,7 @@ class Zend_Amf_Adobe_Introspector
      * Authentication handler
      *
      * @param  Zend_Acl $acl
-     * @return unknown_type
+     * @return false
      */
     public function initAcl(Zend_Acl $acl)
     {
@@ -166,7 +171,7 @@ class Zend_Amf_Adobe_Introspector
         foreach ($refclass->getMethods() as $method) {
             if (!$method->isPublic()
                 || $method->isConstructor()
-                || ('__' == substr($method->name, 0, 2))
+                || ('__' == substr((string) $method->name, 0, 2))
             ) {
                 continue;
             }
@@ -183,8 +188,10 @@ class Zend_Amf_Adobe_Introspector
                     $arg->setAttribute('name', $param->getName());
 
                     $type = $param->getType();
-                    if ($type == 'mixed' && ($pclass = $param->getClass())) {
-                        $type = $pclass->getName();
+                    if (PHP_VERSION_ID < 80000) {
+                        if ($type == 'mixed' && ($pclass = $param->getClass())) {
+                            $type = $pclass->getName();
+                        }
                     }
 
                     $ptype = $this->_registerType($type);
@@ -239,7 +246,7 @@ class Zend_Amf_Adobe_Introspector
             return $this->_options['directories'];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -279,7 +286,7 @@ class Zend_Amf_Adobe_Introspector
         }
 
         // Standard types
-        if (in_array($typename, array('void', 'null', 'mixed', 'unknown_type'))) {
+        if (in_array($typename, ['void', 'null', 'mixed', 'unknown_type'])) {
             return 'Unknown';
         }
 
@@ -288,7 +295,7 @@ class Zend_Amf_Adobe_Introspector
             return 'Unknown[]';
         }
 
-        if (in_array($typename, array('int', 'integer', 'bool', 'boolean', 'float', 'string', 'object', 'Unknown', 'stdClass'))) {
+        if (in_array($typename, ['int', 'integer', 'bool', 'boolean', 'float', 'string', 'object', 'Unknown', 'stdClass'])) {
             return $typename;
         }
 

@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,7 @@ require_once 'Zend/Service/WindowsAzure/Storage/Queue.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_QueueService_Adapter_WindowsAzure
@@ -65,7 +65,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
      * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -139,7 +139,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
      *
      * @param  string $queueId
      * @param  array  $options
-     * @return boolean true if successful, false otherwise
+     * @return void true if successful, false otherwise
      */
     public function deleteQueue($queueId, $options = null)
     {
@@ -168,7 +168,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
         }
         try {
             $queues =  $this->_storageClient->listQueues($prefix, $maxResults);
-            $result = array();
+            $result = [];
             foreach ($queues as $queue) {
                 $result[] = $queue->Name;
             }
@@ -225,7 +225,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
      * @param  string $queueId
      * @param  string $message
      * @param  array  $options
-     * @return string Message ID
+     * @return void Message ID
      */
     public function sendMessage($queueId, $message, $options = null)
     {
@@ -278,7 +278,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
     {
         $messageClass = $this->getMessageClass();
         $setClass     = $this->getMessageSetClass();
-        $result = array();
+        $result = [];
         foreach ($messages as $message) {
             $result[] = new $messageClass($message->MessageText, $message);
         }
@@ -334,7 +334,8 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
 
     /**
      * Get Azure implementation
-     * @return Zend_Service_Azure_Storage_Queue
+     *
+     * @return Zend_Service_WindowsAzure_Storage_Queue|null
      */
     public function getClient()
     {

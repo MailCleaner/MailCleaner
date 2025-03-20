@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,9 +36,9 @@ require_once 'Zend/File/Transfer/Adapter/Http.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @version    $Id$
  */
 class Zend_Form_Decorator_File
     extends Zend_Form_Decorator_Abstract
@@ -48,7 +48,7 @@ class Zend_Form_Decorator_File
      * Attributes that should not be passed to helper
      * @var array
      */
-    protected $_attribBlacklist = array('helper', 'placement', 'separator', 'value');
+    protected $_attribBlacklist = ['helper', 'placement', 'separator', 'value'];
 
     /**
      * Default placement: append
@@ -104,7 +104,7 @@ class Zend_Form_Decorator_File
 
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $markup    = array();
+        $markup    = [];
         $size      = $element->getMaxFileSize();
         if ($size > 0) {
             $element->setMaxFileSize(0);
@@ -112,21 +112,22 @@ class Zend_Form_Decorator_File
         }
 
         if (Zend_File_Transfer_Adapter_Http::isApcAvailable()) {
-            $markup[] = $view->formHidden(ini_get('apc.rfc1867_name'), uniqid(), array('id' => 'progress_key'));
+            $markup[] = $view->formHidden(ini_get('apc.rfc1867_name'), uniqid(), ['id' => 'progress_key']);
         } else if (Zend_File_Transfer_Adapter_Http::isUploadProgressAvailable()) {
-            $markup[] = $view->formHidden('UPLOAD_IDENTIFIER', uniqid(), array('id' => 'progress_key'));
+            $markup[] = $view->formHidden('UPLOAD_IDENTIFIER', uniqid(), ['id' => 'progress_key']);
         }
 
+        $helper = $element->helper;
         if ($element->isArray()) {
             $name .= "[]";
             $count = $element->getMultiFile();
             for ($i = 0; $i < $count; ++$i) {
                 $htmlAttribs        = $attribs;
                 $htmlAttribs['id'] .= '-' . $i;
-                $markup[] = $view->formFile($name, $htmlAttribs);
+                $markup[] = $view->$helper($name, $htmlAttribs);
             }
         } else {
-            $markup[] = $view->formFile($name, $attribs);
+            $markup[] = $view->$helper($name, $attribs);
         }
 
         $markup = implode($separator, $markup);

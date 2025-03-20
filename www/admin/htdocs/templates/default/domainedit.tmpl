@@ -1,306 +1,334 @@
 __FORM_BEGIN_DOMAINEDIT__
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
- <tr class="infoBoxHeading">
-  <td width="40%" align="right">__LANG_DOMAINNAME__&nbsp;&nbsp; __DOC_DOMAINNAME__</td>
-  
- <td width="60%" align="left"> 
-__IF__ BATCHADDDOMAIN
-<a href="__LINK_ADDDOMAIN__" align="absmiddle"><img src="images/downarrow.gif" border="0"></a>
-__FI__ BATCHADDDOMAIN
-__IF__ SINGLEADDDOMAIN
-<a href="__LINK_GOBATCHADD__" align="absmiddle"><img src="images/rightarrow.gif" border="0"></a>
-__FI__ SINGLEADDDOMAIN
-__IF__ BATCHADD
-__FORM_INPUTDOMAINNAMES__
-__ELSE__ BATCHADD
-__FORM_INPUTDOMAINNAME__
-__FI__ BATCHADD
-</td>
+    <tr class="infoBoxHeading">
+        <td width="40%" align="right">__LANG_DOMAINNAME__&nbsp;&nbsp; __DOC_DOMAINNAME__</td>
+
+        <td width="60%" align="left">
+            __IF__ BATCHADDDOMAIN
+            <a href="__LINK_ADDDOMAIN__" align="absmiddle"><img src="images/downarrow.gif" border="0"></a>
+            __FI__ BATCHADDDOMAIN
+            __IF__ SINGLEADDDOMAIN
+            <a href="__LINK_GOBATCHADD__" align="absmiddle"><img src="images/rightarrow.gif" border="0"></a>
+            __FI__ SINGLEADDDOMAIN
+            __IF__ BATCHADD
+            __FORM_INPUTDOMAINNAMES__
+            __ELSE__ BATCHADD
+            __FORM_INPUTDOMAINNAME__
+            __FI__ BATCHADD
+        </td>
 
 
- </tr>
- <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__SAVE_STATUS__</font></td></tr>
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_DELIVERY__</b>&nbsp;&nbsp;__DOC_DOMAINDELIVERY__</td></tr>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2" align="center">
+            <font color="red">__SAVE_STATUS__</font>
+        </td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_DELIVERY__</b>&nbsp;&nbsp;__DOC_DOMAINDELIVERY__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_DESTINATIONSERVER__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTDESTINATION__</td>
- </tr>
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_USEMXRECORD__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTFORWARDBYMX__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_DESTINATIONSERVER__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTDESTINATION__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USEMXRECORD__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTFORWARDBYMX__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ACTIONONSPAM__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTDELIVERYTYPE__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ACTIONONSPAM__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTDELIVERYTYPE__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_SMTPCALLOUT__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTCALLOUT__&nbsp;&nbsp;__LANG_SETALTERNATESERVER__: __FORM_INPUTALTCALLOUT__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SMTPCALLOUT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTCALLOUT__&nbsp;&nbsp;__LANG_SETALTERNATESERVER__:
+            __FORM_INPUTALTCALLOUT__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ADCALLOUT__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTADCALLOUT__</td>
- </tr>
- 
-  <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ENABLEGREYLIST__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTGREYLIST__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ADCALLOUT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTADCALLOUT__</td>
+    </tr>
+
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ENABLEGREYLIST__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTGREYLIST__</td>
+    </tr>
 
 
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_FILTERING__</b>&nbsp;&nbsp;__DOC_DOMAINFILTERING__</td></tr>
- 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ANTIVIRUS__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTANTIVIRUS__</td>
- </tr>
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_VIRUSTAG__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTANTIVIRUSTAG__</td>
- </tr>
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_CONTENTTAG__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTCONTENTTAG__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_FILTERING__</b>&nbsp;&nbsp;__DOC_DOMAINFILTERING__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ANTISPAM__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTANTISPAM__</td>
- </tr> 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_TAG__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTANTISPAMTAG__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ANTIVIRUS__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTANTIVIRUS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_VIRUSTAG__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTANTIVIRUSTAG__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_CONTENTTAG__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTCONTENTTAG__</td>
+    </tr>
 
-<script language="javascript">
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ANTISPAM__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTANTISPAM__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_TAG__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTANTISPAMTAG__</td>
+    </tr>
+
+    <script language="javascript">
 __IF__ SEEWHITELISTEDIT
-    function openWhite() {
-        window.document.open('__LINK_EDITWHITELIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openWhite() {
+            window.document.open('__LINK_EDITWHITELIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEWHITELISTEDIT
 __IF__ SEEWARNLISTEDIT
-    function openWarn() {
-        window.document.open('__LINK_EDITWARNLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openWarn() {
+            window.document.open('__LINK_EDITWARNLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEWARNLISTEDIT
 __IF__ SEEBLACKLISTEDIT
-    function openBlack() {
-        window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openBlack() {
+            window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEBLACKLISTEDIT
-</script>
+    </script>
 
-__IF__ SEELISTS
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_WHITEWARNLIST__</b>&nbsp;&nbsp;__DOC_WHITEWARNLIST__</td></tr>
+    __IF__ SEELISTS
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_WHITEWARNLIST__</b>&nbsp;&nbsp;__DOC_WHITEWARNLIST__</td>
+    </tr>
 
-__IF__ SEEWHITELISTENABLER
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ENABLEWHITELIST__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTENABLEWHITELIST__&nbsp;<a href="javascript:openWhite();">
-   __IF__ SEEWHITELISTEDIT
-   __LANG_EDITDOMAINWHITELIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
-   __FI__  SEEWHITELISTEDIT
-  </td>
- </tr>
- __FI__ SEEWHITELISTENABLER
+    __IF__ SEEWHITELISTENABLER
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ENABLEWHITELIST__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTENABLEWHITELIST__&nbsp;<a href="javascript:openWhite();">
+                __IF__ SEEWHITELISTEDIT
+                __LANG_EDITDOMAINWHITELIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0"
+                    align="abstop"></a>
+            __FI__ SEEWHITELISTEDIT
+        </td>
+    </tr>
+    __FI__ SEEWHITELISTENABLER
 
-__IF__ SEEBLACKLISTENABLER
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ENABLEBLACKLIST__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTENABLEBLACKLIST__&nbsp;<a href="javascript:openBlack();">
-   __IF__ SEEBLACKLISTEDIT
-   __LANG_EDITDOMAINBLACKLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
-   __FI__  SEEBLACKLISTEDIT
-  </td>
- </tr>
- __FI__ SEEBLACKLISTENABLER
+    __IF__ SEEBLACKLISTENABLER
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ENABLEBLACKLIST__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTENABLEBLACKLIST__&nbsp;<a href="javascript:openBlack();">
+                __IF__ SEEBLACKLISTEDIT
+                __LANG_EDITDOMAINBLACKLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0"
+                    align="abstop"></a>
+            __FI__ SEEBLACKLISTEDIT
+        </td>
+    </tr>
+    __FI__ SEEBLACKLISTENABLER
 
- __IF__ SEEWARNLISTENABLER
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ENABLEWARNLIST__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTENABLEWARNLIST__&nbsp;<a href="javascript:openWarn();">
-  __IF__ SEEWARNLISTEDIT
-  __LANG_EDITDOMAINWARNLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a></td>
-  __FI__  SEEWARNLISTEDIT
- </tr>
-__FI__ SEEWARNLISTENABLER
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_ENABLEWWNOTICE__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTENABLEWWNOTICE__</td>
- </tr>
- __FI__ SEELISTS
+    __IF__ SEEWARNLISTENABLER
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ENABLEWARNLIST__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTENABLEWARNLIST__&nbsp;<a href="javascript:openWarn();">
+                __IF__ SEEWARNLISTEDIT
+                __LANG_EDITDOMAINWARNLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0"
+                    align="abstop"></a></td>
+        __FI__ SEEWARNLISTEDIT
+    </tr>
+    __FI__ SEEWARNLISTENABLER
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ENABLEWWNOTICE__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTENABLEWWNOTICE__</td>
+    </tr>
+    __FI__ SEELISTS
 
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_PREFERENCES__</b>&nbsp;&nbsp;__DOC_DOMAINPREFERENCES__</td></tr>
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_PREFERENCES__</b>&nbsp;&nbsp;__DOC_DOMAINPREFERENCES__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_LANGUAGE__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTLANGUAGE__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_LANGUAGE__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLANGUAGE__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_SUMFREQUENCY__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTSUMFREQ__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SUMFREQUENCY__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTSUMFREQ__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_SUMMARYTYPE__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTSUMTYPE__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SUMMARYTYPE__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTSUMTYPE__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_SUPPORTADDRESS__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTSUPPORTADDRESS__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SUPPORTADDRESS__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTSUPPORTADDRESS__</td>
+    </tr>
 
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_USERAUTHENTICATION__</b>&nbsp;&nbsp;__DOC_USERAUTHENTICATION__</td></tr>
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_USERAUTHENTICATION__</b>&nbsp;&nbsp;__DOC_USERAUTHENTICATION__</td>
+    </tr>
 
-#__FORM_CONNECTOR__
+    #__FORM_CONNECTOR__
 
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_CONNECTOR__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTCONNECTOR__</td>
- </tr>
-
-
-__IF__ LOCALAUTH
-__ELSE__ LOCALAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_SERVER__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTAUTHSERVER__ : __FORM_INPUTAUTHPORT__</td>
- </tr>
-__FI__ LOCALAUTH
-
-## ALL PARAMS FOR ALL CONNECTOR SHOULD BE SET HERE.. NOT ALL WILL BE DISPLAYED !
-__IF__ SIMPLEAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTIMAPPOPUSESSL__</td>
- </tr>
-__FI__ SIMPLEAUTH
-
-__IF__ LDAPAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTLDAPUSESSL__</td>
- </tr>
- <tr class="infoBoxContent">
-    <td width="40%" align="right">__LANG_PROTOCOLVERSION__:&nbsp;</td>
-    <td width="60%" align="left">__FORM_INPUTLDAPVERSION__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_BASEDN__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTLDAPBASEDN__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USERATTR__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTLDAPUSERATTR__</td>
- </tr> 
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_BINDUSER__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTLDAPBINDDN__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_BINDPASS__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTLDAPBINDPASS__</td>
- </tr>
- __FI__ LDAPAUTH
- __IF__ RADIUSAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_SECRET__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTRADIUSSECRET__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_AUTHTYPE__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTRADIUSTYPE__</td>
- </tr>
- __FI__ RADIUSAUTH
- __IF__ SQLAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USERNAME__</td>
-   <td width="60%" align="left">__FORM_INPUTSQLUSER__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_PASSWORD__</td>
-   <td width="60%" align="left">__FORM_INPUTSQLPASS_</td>
- </tr>
- __FI__ SQLAUTH
-  __IF__ TEQUILAAUTH
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILAUSESSL__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_URL__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILAURL__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_FIELDS__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILAFIELDS__</td>
- </tr>
-  <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_LOGINFIELD__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILALOGINFIELD__</td>
- </tr>
-  <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_REALNAMEFORMAT__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILAREALNAME__</td>
- </tr>
-  <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_ALLOWSFILTER__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTTEQUILALLOWSFILTER__</td>
- </tr>
- __FI__ TEQUILAAUTH
-
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_USERNAMEFORMAT__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTUSERNAMEFORMAT__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_ADDRESSFORMAT__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTADDRESSFETCHER__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_PRESHAREDKEY__:&nbsp;<br>
-   __LANG_FORHTTPCREDS__</td>
-   <td width="60%" align="left">__FORM_INPUTPRESHAREDKEY__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="40%" align="right">__LANG_ALLOWSMTPAUTH__:&nbsp;</td>
-   <td width="60%" align="left">__FORM_INPUTSMTPAUTH__</td>
- </tr>
- <tr class="infoBoxContent"><td colspan="2"><b>__LANG_TEMPLATES__</b>&nbsp;&nbsp;__DOC_DOMAINTEMPLATES__</td></tr>
-
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_WEBGUI__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTWEBTEMPLATE__</td>
- </tr>
-
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_SUMMARIES__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTSUMTEMPLATE__<!--&nbsp;<a href="__EDIT_SUMMARIES_LINK__" target="_blank">...<img src="templates/default/images/pencil.gif" border="0" align="absmiddle"></a>--></td>
- </tr>
-
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_REPORTS__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTREPORTTEMPLATE__<!--&nbsp;<a href="__EDIT_REPORTS_LINK__" target="_blank">...<img src="templates/default/images/pencil.gif" border="0" align="absmiddle"></a>--></td>
- </tr>
- 
- __IF__ ENABLEWARNLIST
- <tr class="infoBoxContent">
-  <td width="40%" align="right">__LANG_WARNHIT__:&nbsp;</td>
-  <td width="60%" align="left">__FORM_INPUTWARNHITTEMPLATE__</td>
- </tr>
- __FI__ ENABLEWARNLIST
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_CONNECTOR__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTCONNECTOR__</td>
+    </tr>
 
 
+    __IF__ LOCALAUTH
+    __ELSE__ LOCALAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SERVER__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTAUTHSERVER__ : __FORM_INPUTAUTHPORT__</td>
+    </tr>
+    __FI__ LOCALAUTH
 
- <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif" onClick="__FORM_SUBMITJS__">&nbsp;</td></tr>
- 
+    ## ALL PARAMS FOR ALL CONNECTOR SHOULD BE SET HERE.. NOT ALL WILL BE DISPLAYED !
+    __IF__ SIMPLEAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTIMAPPOPUSESSL__</td>
+    </tr>
+    __FI__ SIMPLEAUTH
+
+    __IF__ LDAPAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPUSESSL__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_PROTOCOLVERSION__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPVERSION__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_BASEDN__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPBASEDN__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USERATTR__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPUSERATTR__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_BINDUSER__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPBINDDN__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_BINDPASS__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTLDAPBINDPASS__</td>
+    </tr>
+    __FI__ LDAPAUTH
+    __IF__ RADIUSAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SECRET__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTRADIUSSECRET__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_AUTHTYPE__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTRADIUSTYPE__</td>
+    </tr>
+    __FI__ RADIUSAUTH
+    __IF__ SQLAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USERNAME__</td>
+        <td width="60%" align="left">__FORM_INPUTSQLUSER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_PASSWORD__</td>
+        <td width="60%" align="left">__FORM_INPUTSQLPASS_</td>
+    </tr>
+    __FI__ SQLAUTH
+    __IF__ TEQUILAAUTH
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USESSL__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILAUSESSL__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_URL__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILAURL__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_FIELDS__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILAFIELDS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_LOGINFIELD__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILALOGINFIELD__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_REALNAMEFORMAT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILAREALNAME__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ALLOWSFILTER__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTTEQUILALLOWSFILTER__</td>
+    </tr>
+    __FI__ TEQUILAAUTH
+
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_USERNAMEFORMAT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTUSERNAMEFORMAT__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ADDRESSFORMAT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTADDRESSFETCHER__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_PRESHAREDKEY__:&nbsp;<br>
+            __LANG_FORHTTPCREDS__</td>
+        <td width="60%" align="left">__FORM_INPUTPRESHAREDKEY__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_ALLOWSMTPAUTH__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTSMTPAUTH__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2"><b>__LANG_TEMPLATES__</b>&nbsp;&nbsp;__DOC_DOMAINTEMPLATES__</td>
+    </tr>
+
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_WEBGUI__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTWEBTEMPLATE__</td>
+    </tr>
+
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_SUMMARIES__:&nbsp;</td>
+        <td width="60%" align="left">
+            __FORM_INPUTSUMTEMPLATE__<!--&nbsp;<a href="__EDIT_SUMMARIES_LINK__" target="_blank">...<img src="templates/default/images/pencil.gif" border="0" align="absmiddle"></a>-->
+        </td>
+    </tr>
+
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_REPORTS__:&nbsp;</td>
+        <td width="60%" align="left">
+            __FORM_INPUTREPORTTEMPLATE__<!--&nbsp;<a href="__EDIT_REPORTS_LINK__" target="_blank">...<img src="templates/default/images/pencil.gif" border="0" align="absmiddle"></a>-->
+        </td>
+    </tr>
+
+    __IF__ ENABLEWARNLIST
+    <tr class="infoBoxContent">
+        <td width="40%" align="right">__LANG_WARNHIT__:&nbsp;</td>
+        <td width="60%" align="left">__FORM_INPUTWARNHITTEMPLATE__</td>
+    </tr>
+    __FI__ ENABLEWARNLIST
+
+
+
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxHeading">
+        <td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"
+                onClick="__FORM_SUBMITJS__">&nbsp;</td>
+    </tr>
+
 </table>
 __FORM_CLOSE_DOMAINEDIT__
-

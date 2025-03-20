@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbRowset.php,v 1.1.2.1 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,18 +26,13 @@
 require_once "Zend/Db/Table/Rowset/Abstract.php";
 
 /**
- * @see PHPUnit_Extensions_Database_DataSet_AbstractTable
- */
-require_once "PHPUnit/Extensions/Database/DataSet/AbstractTable.php";
-
-/**
  * Use a Zend_Db Rowset as a datatable for assertions with other PHPUnit Database extension tables.
  *
  * @uses       PHPUnit_Extensions_Database_DataSet_AbstractTable
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_DataSet_DbRowset extends PHPUnit_Extensions_Database_DataSet_AbstractTable
@@ -65,7 +60,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbRowset extends PHPUnit_Extensions_Database_
 
         $this->data = $rowset->toArray();
 
-        $columns = array();
+        $columns = [];
         if(isset($this->data[0]) > 0) {
             $columns = array_keys($this->data[0]);
         } else if($rowset->getTable() != null) {

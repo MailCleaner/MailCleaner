@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadLink.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,8 +30,16 @@ require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
  * @uses       Zend_View_Helper_Placeholder_Container_Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @method $this appendAlternate($href, $type, $title, $extras)
+ * @method $this appendStylesheet($href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
+ * @method $this offsetSetAlternate($index, $href, $type, $title, $extras)
+ * @method $this offsetSetStylesheet($index, $href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
+ * @method $this prependAlternate($href, $type, $title, $extras)
+ * @method $this prependStylesheet($href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
+ * @method $this setAlternate($href, $type, $title, $extras)
+ * @method $this setStylesheet($href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
  */
 class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_Standalone
 {
@@ -40,7 +48,21 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      *
      * @var array
      */
-    protected $_itemKeys = array('charset', 'href', 'hreflang', 'id', 'media', 'rel', 'rev', 'type', 'title', 'extras');
+    protected $_itemKeys = [
+        'charset',
+        'href',
+        'hreflang',
+        'id',
+        'media',
+        'rel',
+        'rev',
+        'type',
+        'title',
+        'extras',
+        'sizes',
+        'crossorigin',
+        'as',
+    ];
 
     /**
      * @var string registry key
@@ -213,6 +235,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      * @param  array $value
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($index, $value)
     {
         if (!$this->_isValid($value)) {
@@ -229,7 +252,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      * prepend()
      *
      * @param  array $value
-     * @return Zend_Layout_ViewHelper_HeadLink
+     * @return void
      */
     public function prepend($value)
     {
@@ -247,7 +270,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      * set()
      *
      * @param  array $value
-     * @return Zend_Layout_ViewHelper_HeadLink
+     * @return void
      */
     public function set($value)
     {
@@ -270,6 +293,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      */
     public function itemToString(stdClass $item)
     {
+        $isHTML5 = $this->view instanceof Zend_View_Abstract && $this->view->doctype()->isHtml5();
         $attributes = (array) $item;
         $link       = '<link ';
 
@@ -277,10 +301,18 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             if (isset($attributes[$itemKey])) {
                 if(is_array($attributes[$itemKey])) {
                     foreach($attributes[$itemKey] as $key => $value) {
-                        $link .= sprintf('%s="%s" ', $key, ($this->_autoEscape) ? $this->_escape($value) : $value);
+                        if ($isHTML5 && empty($value)) {
+                            $link .= sprintf('%s ', $key);
+                        } else {
+                            $link .= sprintf('%s="%s" ', $key, ($this->_autoEscape) ? $this->_escape($value) : $value);
+                        }
                     }
                 } else {
-                    $link .= sprintf('%s="%s" ', $itemKey, ($this->_autoEscape) ? $this->_escape($attributes[$itemKey]) : $attributes[$itemKey]);
+                    if ($isHTML5 && empty($attributes[$itemKey])) {
+                        $link .= sprintf('%s ', $itemKey);
+                    } else {
+                        $link .= sprintf('%s="%s" ', $itemKey, ($this->_autoEscape) ? $this->_escape($attributes[$itemKey]) : $attributes[$itemKey]);
+                    }
                 }
             }
         }
@@ -299,7 +331,10 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             && !empty($attributes['conditionalStylesheet'])
             && is_string($attributes['conditionalStylesheet']))
         {
-            $link = '<!--[if ' . $attributes['conditionalStylesheet'] . ']> ' . $link . '<![endif]-->';
+            if (str_replace(' ', '', $attributes['conditionalStylesheet']) === '!IE') {
+                $link = '<!-->' . $link . '<!--';
+            }
+            $link = '<!--[if ' . $attributes['conditionalStylesheet'] . ']>' . $link . '<![endif]-->';
         }
 
         return $link;
@@ -317,7 +352,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
-        $items = array();
+        $items = [];
         $this->getContainer()->ksort();
         foreach ($this as $item) {
             $items[] = $this->itemToString($item);
@@ -334,8 +369,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      */
     public function createData(array $attributes)
     {
-        $data = (object) $attributes;
-        return $data;
+        return (object)$attributes;
     }
 
     /**
@@ -373,13 +407,14 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             }
         }
 
+        $extras = null;
         if(0 < count($args) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
         }
 
         $attributes = compact('rel', 'type', 'href', 'media', 'conditionalStylesheet', 'extras');
-        return $this->createData($attributes);
+        return $this->createData($this->_applyExtras($attributes));
     }
 
     /**
@@ -418,6 +453,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         $type  = array_shift($args);
         $title = array_shift($args);
 
+        $extras = null;
         if(0 < count($args) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
@@ -432,6 +468,24 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         $title = (string) $title;
 
         $attributes = compact('rel', 'href', 'type', 'title', 'extras');
-        return $this->createData($attributes);
+        return $this->createData($this->_applyExtras($attributes));
+    }
+
+    /**
+     * Apply any overrides specified in the 'extras' array
+     * @param array $attributes
+     * @return array
+     */
+    protected function _applyExtras($attributes)
+    {
+        if (isset($attributes['extras'])) {
+            foreach ($attributes['extras'] as $eKey=>$eVal) {
+                if (isset($attributes[$eKey])) {
+                    $attributes[$eKey] = $eVal;
+                    unset($attributes['extras'][$eKey]);
+                }
+            }
+        }
+        return $attributes;
     }
 }

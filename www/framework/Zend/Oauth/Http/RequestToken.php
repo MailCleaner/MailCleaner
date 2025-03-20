@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RequestToken.php,v 1.1.2.1 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Oauth_Http */
@@ -28,7 +28,7 @@ require_once 'Zend/Oauth/Token/Request.php';
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
@@ -49,8 +49,8 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
     {
         $params   = $this->assembleParams();
         $response = $this->startRequestCycle($params);
-        $return   = new Zend_Oauth_Token_Request($response);
-        return $return;
+
+        return new Zend_Oauth_Token_Request($response);
     }
 
     /**
@@ -60,13 +60,13 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
      */
     public function assembleParams()
     {
-        $params = array(
+        $params = [
             'oauth_consumer_key'     => $this->_consumer->getConsumerKey(),
             'oauth_nonce'            => $this->_httpUtility->generateNonce(),
             'oauth_timestamp'        => $this->_httpUtility->generateTimestamp(),
             'oauth_signature_method' => $this->_consumer->getSignatureMethod(),
             'oauth_version'          => $this->_consumer->getVersion(),
-        );
+        ];
 
         // indicates we support 1.0a
         if ($this->_consumer->getCallbackUrl()) {

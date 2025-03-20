@@ -53,6 +53,23 @@ if ( ! -f $domainsfile) {
   chown $uid, $gid, $domainsfile;
 }
 
+if ( -e '/etc/greylistd/config' && ! -l '/etc/greylistd/config') {
+	unlink '/etc/greylistd/config';
+	symlink($conf->getOption('SRCDIR')."/etc/greylistd/greylistd.conf", '/etc/greylistd/config');
+	chown $uid, $gid, $conf->getOption('SRCDIR')."/etc/greylistd/greylistd.conf";
+}
+foreach my $dir (
+	$conf->getOption('VARDIR')."/run/greylistd"
+) {
+	mkdir $dir unless (-d $dir);
+	chown $uid, $gid, $dir;
+}
+foreach my $file (
+	glob($conf->getOption('VARDIR')."/run/greylistd/*")
+) {
+	chown $uid, $gid, $file;
+}
+
 print "DUMPSUCCESSFUL";
 
 #############################

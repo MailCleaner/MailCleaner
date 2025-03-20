@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php,v 1.1.2.4 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Builder_Entry extends ArrayObject
@@ -182,8 +182,8 @@ class Zend_Feed_Builder_Entry extends ArrayObject
      */
     public function setSource($title, $url)
     {
-        $this->offsetSet('source', array('title' => $title,
-                                         'url' => $url));
+        $this->offsetSet('source', ['title' => $title,
+                                         'url' => $url]);
         return $this;
     }
 
@@ -229,7 +229,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
         }
 
         if (!$this->offsetExists('category')) {
-            $categories = array($category);
+            $categories = [$category];
         } else {
             $categories = $this->offsetGet('category');
             $categories[] = $category;
@@ -284,13 +284,13 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function addEnclosure($url, $type = '', $length = '')
     {
         if (!$this->offsetExists('enclosure')) {
-            $enclosure = array();
+            $enclosure = [];
         } else {
             $enclosure = $this->offsetGet('enclosure');
         }
-        $enclosure[] = array('url' => $url,
+        $enclosure[] = ['url' => $url,
                              'type' => $type,
-                             'length' => $length);
+                             'length' => $length];
         $this->offsetSet('enclosure', $enclosure);
         return $this;
     }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,9 +27,9 @@ require_once "Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Blockize.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 class Zend_Tool_Framework_Client_Console_ResponseDecorator_Blockize
     implements Zend_Tool_Framework_Client_Response_ContentDecorator_Interface
@@ -47,23 +47,26 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Blockize
      */
     public function decorate($content, $lineLength)
     {
-        if(intval(strval($lineLength)) != $lineLength) {
+        if((int)(string) $lineLength != $lineLength) {
             $lineLength = 72;
         }
 
         // break apart the message into wrapped chunks
         $lines = explode(PHP_EOL, wordwrap($content, $lineLength, PHP_EOL, false));
-        $content = array();
+        $content = [];
+
         foreach($lines AS $line) {
-            if(strlen(trim($line)) == 0) {
+            if(trim($line) === '') {
                 continue;
             }
 
             if(strlen($line) < $lineLength) {
                 $line .= str_repeat(" ", $lineLength-strlen($line));
             }
+
             $content[] = $line;
         }
+
         return implode(PHP_EOL, $content);
     }
 }

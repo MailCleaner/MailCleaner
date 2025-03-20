@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Converter.php,v 1.1.2.1 2011-05-30 08:31:01 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Converter
@@ -47,12 +47,18 @@ class Zend_Ldap_Converter
     {
         for ($i = 0; $i<strlen($string); $i++) {
             $char = substr($string, $i, 1);
-            if (ord($char)<32) {
+
+            if (ord($char) < 32) {
                 $hex = dechex(ord($char));
-                if (strlen($hex) == 1) $hex = '0' . $hex;
+
+                if (strlen($hex) === 1) {
+                    $hex = '0' . $hex;
+                }
+
                 $string = str_replace($char, '\\' . $hex, $string);
             }
         }
+
         return $string;
     }
 
@@ -69,8 +75,21 @@ class Zend_Ldap_Converter
      */
     public static function hex32ToAsc($string)
     {
-        $string = preg_replace("/\\\([0-9A-Fa-f]{2})/e", "''.chr(hexdec('\\1')).''", $string);
+        // Using a callback, since PHP 5.5 has deprecated the /e modifier in preg_replace.
+        $string = preg_replace_callback("/\\\([0-9A-Fa-f]{2})/", ['Zend_Ldap_Converter', '_charHex32ToAsc'], $string);
         return $string;
+    }
+
+    /**
+     * Convert a single slash-prefixed character from Hex32 to ASCII.
+     * Used as a callback in @see hex32ToAsc()
+     * @param array $matches
+     *
+     * @return string
+     */
+    private static function _charHex32ToAsc(array $matches)
+    {
+        return chr(hexdec($matches[0]));
     }
 
     /**
@@ -91,10 +110,10 @@ class Zend_Ldap_Converter
         try {
             switch ($type) {
                 case self::BOOLEAN:
-                    return self::toldapBoolean($value);
+                    return self::toLdapBoolean($value);
                     break;
                 case self::GENERALIZED_TIME:
-                    return self::toLdapDatetime($value);
+                    return self::toLdapDateTime($value);
                     break;
                 default:
                     if (is_string($value)) {
@@ -102,12 +121,12 @@ class Zend_Ldap_Converter
                     } else if (is_int($value) || is_float($value)) {
                         return (string)$value;
                     } else if (is_bool($value)) {
-                        return self::toldapBoolean($value);
+                        return self::toLdapBoolean($value);
                     } else if (is_object($value)) {
                         if ($value instanceof DateTime) {
-                            return self::toLdapDatetime($value);
+                            return self::toLdapDateTime($value);
                         } else if ($value instanceof Zend_Date) {
-                            return self::toLdapDatetime($value);
+                            return self::toLdapDateTime($value);
                         } else {
                             return self::toLdapSerialize($value);
                         }
@@ -212,14 +231,15 @@ class Zend_Ldap_Converter
     {
         switch ($type) {
             case self::BOOLEAN:
-                return self::fromldapBoolean($value);
+                return self::fromLdapBoolean($value);
                 break;
             case self::GENERALIZED_TIME:
                 return self::fromLdapDateTime($value);
                 break;
             default:
                 if (is_numeric($value)) {
-                    return (float)$value;
+                    // prevent numeric values to be treated as date/time
+                    return $value;
                 } else if ('TRUE' === $value || 'FALSE' === $value) {
                     return self::fromLdapBoolean($value);
                 }
@@ -246,7 +266,7 @@ class Zend_Ldap_Converter
      */
     public static function fromLdapDateTime($date, $asUtc = true)
     {
-        $datepart = array ();
+        $datepart = [];
         if (!preg_match('/^(\d{4})/', $date, $datepart) ) {
             throw new InvalidArgumentException('Invalid date format found');
         }
@@ -255,7 +275,7 @@ class Zend_Ldap_Converter
             throw new InvalidArgumentException('Invalid date format found (too short)');
         }
 
-        $time = array (
+        $time = [
             // The year is mandatory!
             'year'   => $datepart[1],
             'month'  => 1,
@@ -266,7 +286,7 @@ class Zend_Ldap_Converter
             'offdir' => '+',
             'offsethours' => 0,
             'offsetminutes' => 0
-        );
+        ];
 
         $length = strlen($date);
 
@@ -317,7 +337,7 @@ class Zend_Ldap_Converter
 
         // Set Offset
         $offsetRegEx = '/([Z\-\+])(\d{2}\'?){0,1}(\d{2}\'?){0,1}$/';
-        $off         = array ();
+        $off         = [];
         if (preg_match($offsetRegEx, $date, $off)) {
             $offset = $off[1];
             if ($offset == '+' || $offset == '-') {

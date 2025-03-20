@@ -14,16 +14,16 @@
  *
  * @category   Zend
  * @package    Zend_Auth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Auth.php,v 1.1.2.4 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 
 /**
  * @category   Zend
  * @package    Zend_Auth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth
@@ -63,7 +63,7 @@ class Zend_Auth
      *
      * Singleton pattern implementation
      *
-     * @return Zend_Auth Provides a fluent interface
+     * @return $this
      */
     public static function getInstance()
     {
@@ -98,7 +98,7 @@ class Zend_Auth
      * Sets the persistent storage handler
      *
      * @param  Zend_Auth_Storage_Interface $storage
-     * @return Zend_Auth Provides a fluent interface
+     * @return $this
      */
     public function setStorage(Zend_Auth_Storage_Interface $storage)
     {

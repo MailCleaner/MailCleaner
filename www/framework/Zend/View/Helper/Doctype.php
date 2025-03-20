@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Doctype.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ require_once 'Zend/View/Helper/Abstract.php';
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
@@ -44,6 +44,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     const XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
     const XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
     const XHTML1_RDFA         = 'XHTML1_RDFA';
+    const XHTML1_RDFA11       = 'XHTML1_RDFA11';
     const XHTML_BASIC1        = 'XHTML_BASIC1';
     const XHTML5              = 'XHTML5';
     const HTML4_STRICT        = 'HTML4_STRICT';
@@ -82,21 +83,22 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     public function __construct()
     {
         if (!Zend_Registry::isRegistered($this->_regKey)) {
-            $this->_registry = new ArrayObject(array(
-                'doctypes' => array(
+            $this->_registry = new ArrayObject([
+                'doctypes' => [
                     self::XHTML11             => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
                     self::XHTML1_STRICT       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
                     self::XHTML1_TRANSITIONAL => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
                     self::XHTML1_FRAMESET     => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">',
                     self::XHTML1_RDFA         => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">',
+                    self::XHTML1_RDFA11       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd">',
                     self::XHTML_BASIC1        => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">',
                     self::XHTML5              => '<!DOCTYPE html>',
                     self::HTML4_STRICT        => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',
                     self::HTML4_LOOSE         => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
                     self::HTML4_FRAMESET      => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">',
                     self::HTML5               => '<!DOCTYPE html>',
-                )
-            ));
+                ]
+            ]);
             Zend_Registry::set($this->_regKey, $this->_registry);
             $this->setDoctype($this->_defaultDoctype);
         } else {
@@ -120,6 +122,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                 case self::XHTML1_FRAMESET:
                 case self::XHTML_BASIC1:
                 case self::XHTML1_RDFA:
+                case self::XHTML1_RDFA11:
                 case self::XHTML5:
                 case self::HTML4_STRICT:
                 case self::HTML4_LOOSE:
@@ -189,20 +192,38 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     {
         return (stristr($this->getDoctype(), 'xhtml') ? true : false);
     }
-    
+
+    /**
+     * Is doctype strict?
+     *
+     * @return boolean
+     */
+    public function isStrict()
+    {
+        switch ( $this->getDoctype() )
+        {
+            case self::XHTML1_STRICT:
+            case self::XHTML11:
+            case self::HTML4_STRICT:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     /**
      * Is doctype HTML5? (HeadMeta uses this for validation)
      *
-     * @return booleean
+     * @return bool
      */
     public function isHtml5() {
         return (stristr($this->doctype(), '<!DOCTYPE html>') ? true : false);
     }
-    
+
     /**
      * Is doctype RDFa?
      *
-     * @return booleean
+     * @return bool
      */
     public function isRdfa() {
         return (stristr($this->getDoctype(), 'rdfa') ? true : false);

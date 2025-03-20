@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Keeper.php,v 1.1.2.3 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 
@@ -28,7 +28,7 @@ require_once 'Zend/Pdf/Trailer.php';
  * Stores and provides access to the trailer parced from a PDF file
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
@@ -88,7 +88,7 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
     /**
      * Get length of source PDF
      *
-     * @return string
+     * @return int
      */
     public function getPDFLength()
     {
@@ -109,7 +109,7 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      * Get reference table, which corresponds to the trailer.
      * Proxy to the $_context member methad call
      *
-     * @return Zend_Pdf_Element_Reference_Context
+     * @return Zend_Pdf_Element_Reference_Table
      */
     public function getRefTable()
     {

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Parser.php,v 1.1.2.3 2011-05-30 08:30:46 root Exp $
+ * @version    $Id$
  */
 
 /** Internally used classes */
@@ -32,11 +32,16 @@ require_once 'Zend/Pdf/StringParser.php';
  * PDF file parser
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Parser
 {
+    /**
+     * @var array<string, mixed>
+     */
+    protected $_refTable;
+
     /**
      * String parser
      *
@@ -379,10 +384,12 @@ class Zend_Pdf_Parser
                 $data .= $nextBlock;
                 $byteCount -= strlen($nextBlock);
             }
-            if ($byteCount != 0) {
+
+            if ($byteCount !== 0) {
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception( "Error occured while '$source' file reading." );
             }
+
             fclose($pdfFile);
 
             $this->_stringParser = new Zend_Pdf_StringParser($data, $factory);

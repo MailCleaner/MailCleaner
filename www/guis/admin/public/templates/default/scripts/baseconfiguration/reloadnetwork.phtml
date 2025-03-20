@@ -1,27 +1,29 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="generalconfigpanel">
-<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
- <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel)?> : <?php echo $this->t->_($this->selectedConfigMenuLabel." Title")?></p>
- 
- <?php echo $this->partial('layouts/configmenu.phtml', array('config_menu' => $this->config_menu)); ?>
- 
- <div id="generalconfigcontent">
- <div id="interfaceconfigpanel" class="configpanel">
-  <h1><span class="texth1 importanth1"><img src="<?php echo $this->images_path;?>/warning.png" alt="warning" /><?php echo $this->t->_('important')?></span>
-      <span id="reloadallnetwork"><a href="<?php echo $this->url(array('action' => 'networksettings', 'controller' => 'baseconfiguration'));?>"><?php echo $this->t->_('Back')?></a></span></h1>
-    <div id="configpanelcontent">
-     <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-     <p><?php echo $this->t->_('applying network now will')?></p>
-     <p class="submitp" id="submitp"><?php echo $this->SubmitRow($this->form->getElement('submit'),array('nobox'=>true,'field_only'=>true));?></p>
-     </form>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel) ?> : <?php echo $this->t->_($this->selectedConfigMenuLabel . " Title") ?></p>
+
+    <?php echo $this->partial('layouts/configmenu.phtml', ['config_menu' => $this->config_menu]); ?>
+
+    <div id="generalconfigcontent">
+        <div id="interfaceconfigpanel" class="configpanel">
+            <h1><span class="texth1 importanth1"><img src="<?php echo $this->images_path; ?>/warning.png" alt="warning" /><?php echo $this->t->_('important') ?></span>
+                <span id="reloadallnetwork"><a href="<?php echo $this->url(['action' => 'networksettings', 'controller' => 'baseconfiguration']); ?>"><?php echo $this->t->_('Back') ?></a></span>
+            </h1>
+            <div id="configpanelcontent">
+                <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+                    <p><?php echo $this->t->_('applying network now will') ?></p>
+                    <p class="submitp" id="submitp"><?php echo $this->SubmitRow($this->form->getElement('submit'), ['nobox' => true, 'field_only' => true]); ?></p>
+                </form>
+            </div>
+        </div>
     </div>
- </div>
- </div>
 </div>

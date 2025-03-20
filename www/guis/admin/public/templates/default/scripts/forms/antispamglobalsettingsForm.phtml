@@ -1,231 +1,222 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>"
-	action="<?php echo $this->form->getAction()?>"
-	id="<?php echo $this->form->getId()?>">
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
-<fieldset>
-<table class="ftable">
-  <?php echo $this->InputRow($this->form->getElement('global_max_size'),array('label_addclass'=>'flabeltext'));?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+    <fieldset>
+        <table class="ftable">
+            <?php echo $this->InputRow($this->form->getElement('global_max_size'), ['label_addclass' => 'flabeltext']); ?>
 
-  <?php echo $this->InputRow($this->form->getElement('trusted_ips'),array('label_addclass'=>'flabeltextarea'));?>
+            <?php echo $this->InputRow($this->form->getElement('trusted_ips'), ['label_addclass' => 'flabeltextarea']); ?>
 
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	
-	<?php echo $this->InputRow($this->form->getElement('enable_whitelists'));?>
-	<?php $hiddenornot = '';  if (!$this->form->_whitelistenabled) { $hiddenornot = ' hidden'; }?>
-    <?php echo $this->InputRow($this->form->getElement('tag_mode_bypass_whitelist'),array('row_class'=>'whitelist_options'.$hiddenornot));?>
-    <?php echo $this->InputRow($this->form->getElement('whitelist_both_from'),array('row_class'=>'whitelist_options'.$hiddenornot));?>
-	
-	<tr id="whitelist_list"
-		class="listinform<?php if (!$this->form->_whitelistenabled) { ?> hidden<?php }?>">
-		<td colspan="2">
-		<ul class="configlist shortconfiglist addselectbox">
-		<?php foreach ($this->form->_whitelist as $element) {?>
-			<li
-				class="listelement<?php if ($element->getStatus() < 1) {?> listelementdisabled<?php }?>"><?php echo $this->InputRow($this->form->getElement('whitelist_list_select_'.$element->getId()),array('field_only'=>true,'nobox'=>true));?>
-				<?php echo $element->getParam('sender')?> <?php if ($element->getStatus() < 1) { echo "(".$this->t->_('disabled').")"; } ?>
-				<?php if ($element->getComment()) {?>
-			<p class="entrycomment"><?php if ($element->getStatus() <  1) {?><img
-				src="<?php echo $this->images_path?>/attention_off.png" alt="" /> <?php } else { ?><img
-				class="listhoverable"
-				src="<?php echo $this->images_path?>/attention.png" alt="" /> <?php }?>
-				<?php echo $element->getComment(); ?></p>
-			<p class="hidden"><?php echo $element->getComment()?></p>
-			<?php }?></li>
-			<?php }?>
-		</ul>
-		<div class="sublistelement addlistelement">
-		<h1><?php echo $this->t->_('Add an address to the white list')?></h1>
-
-		<table>
-			<tr>
-				<td><?php echo $this->t->_('Address')?> :</td>
-				<?php echo $this->InputRow($this->form->getElement('whitelist_addelement'),array('field_only'=>true,'field_addclass'=>'fieldpanel'));?>
-			</tr>
-			<tr>
-				<td><?php echo $this->t->_('Comment')?> :</td>
-				<td class="fieldpanel"><img
-					src="<?php echo $this->images_path?>/attention.png" class="vertimg"
-					alt="" /><?php echo $this->InputRow($this->form->getElement('whitelist_addcomment'),array('field_only'=>true,'nobox'=>true));?></td>
-			</tr>
-		</table>
-		<p><?php echo $this->SubmitRow($this->form->getElement('whitelist_add'),array('field_only'=>true,'nobox'=>true));?></p>
-		</div>
-		<div class="sublistelement editremelement">
-		<h1><?php echo $this->t->_('Disable, enable or removed address from the list')?></h1>
-		<p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('whitelist_disable'),array('field_only'=>true,'nobox'=>true));?></p>
-		<p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('whitelist_remove'),array('field_only'=>true,'nobox'=>true));?></p>
-		</div>
-	</td>
-    </tr>
-
-    <tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-
-    <?php echo $this->InputRow($this->form->getElement('enable_warnlists'));?>
-
-	<tr id="warnlist_list"
-		class="listinform<?php if (!$this->form->_warnlistenabled) { ?> hidden<?php }?>">
-		<td colspan="2">
-		<ul class="configlist shortconfiglist addselectbox">
-		<?php foreach ($this->form->_warnlist as $element) {?>
-			<li
-				class="listelement<?php if ($element->getStatus() < 1) {?> listelementdisabled<?php }?>"><?php echo $this->InputRow($this->form->getElement('warnlist_list_select_'.$element->getId()),array('field_only'=>true,'nobox'=>true));?>
-				<?php echo $element->getParam('sender')?> <?php if ($element->getStatus() < 1) { echo "(".$this->t->_('disabled').")"; } ?>
-				<?php if ($element->getComment()) {?>
-			<p class="entrycomment"><?php if ($element->getStatus() <  1) {?><img
-				src="<?php echo $this->images_path?>/attention_off.png" alt="" /> <?php } else { ?><img
-				class="listhoverable"
-				src="<?php echo $this->images_path?>/attention.png" alt="" /> <?php }?>
-				<?php echo $element->getComment(); ?></p>
-			<p class="hidden"><?php echo $element->getComment()?></p>
-			<?php }?></li>
-			<?php }?>
-		</ul>
-		<div class="sublistelement addlistelement">
-		<h1><?php echo $this->t->_('Add an address to the warn list')?></h1>
-
-		<table>
-			<tr>
-				<td><?php echo $this->t->_('Address')?> :</td>
-				<?php echo $this->InputRow($this->form->getElement('warnlist_addelement'),array('field_only'=>true,'field_addclass'=>'fieldpanel'));?>
-			</tr>
-			<tr>
-				<td><?php echo $this->t->_('Comment')?> :</td>
-				<td class="fieldpanel"><img
-					src="<?php echo $this->images_path?>/attention.png" class="vertimg"
-					alt="" /><?php echo $this->InputRow($this->form->getElement('warnlist_addcomment'),array('field_only'=>true,'nobox'=>true));?></td>
-			</tr>
-		</table>
-		<p><?php echo $this->SubmitRow($this->form->getElement('warnlist_add'),array('field_only'=>true,'nobox'=>true));?></p>
-		</div>
-		<div class="sublistelement editremelement">
-		<h1><?php echo $this->t->_('Disable, enable or removed address from the list')?></h1>
-		<p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('warnlist_disable'),array('field_only'=>true,'nobox'=>true));?></p>
-        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('warnlist_remove'),array('field_only'=>true,'nobox'=>true));?></p>
-        </div>
-		</td>
-	</tr>
-	
-
-
-
-<tr>
+            <tr>
                 <td colspan="2">
-                <hr />
+                    <hr />
                 </td>
-        </tr>
+            </tr>
 
-    <?php echo $this->InputRow($this->form->getElement('enable_blacklists'));?>
+            <?php echo $this->InputRow($this->form->getElement('enable_whitelists')); ?>
+            <?php $hiddenornot = '';
+            if (!$this->form->_whitelistenabled) {
+                $hiddenornot = ' hidden';
+            } ?>
+            <?php echo $this->InputRow($this->form->getElement('tag_mode_bypass_whitelist'), ['row_class' => 'whitelist_options' . $hiddenornot]); ?>
+            <?php echo $this->InputRow($this->form->getElement('whitelist_both_from'), ['row_class' => 'whitelist_options' . $hiddenornot]); ?>
 
-        <tr id="blacklist_list"
-                class="listinform<?php if (!$this->form->_blacklistenabled) { ?> hidden<?php }?>">
+            <tr id="whitelist_list" class="listinform<?php if (!$this->form->_whitelistenabled) { ?> hidden<?php } ?>">
                 <td colspan="2">
-                <ul class="configlist shortconfiglist addselectbox">
-                <?php foreach ($this->form->_blacklist as $element) {?>
-                        <li
-				class="listelement<?php if ($element->getStatus() < 1) {?> listelementdisabled<?php }?>"><?php echo $this->InputRow($this->form->getElement('blacklist_list_select_'.$element->getId()),array('field_only'=>true,'nobox'=>true));?>
-                                <?php echo $element->getParam('sender')?> <?php if ($element->getStatus() < 1) { echo "(".$this->t->_('disabled').")"; } ?>
-                                <?php if ($element->getComment()) {?>
-                        <p class="entrycomment"><?php if ($element->getStatus() <  1) {?><img
-                                src="<?php echo $this->images_path?>/attention_off.png" alt="" /> <?php } else { ?><img
-                                class="listhoverable"
-                                src="<?php echo $this->images_path?>/attention.png" alt="" /> <?php }?>
-                                <?php echo $element->getComment(); ?></p>
-                        <p class="hidden"><?php echo $element->getComment()?></p>
-                        <?php }?></li>
-                        <?php }?>
-                </ul>
-                <div class="sublistelement addlistelement">
-                <h1><?php echo $this->t->_('Add an address to the black list')?></h1>
+                    <ul class="configlist shortconfiglist addselectbox">
+                        <?php foreach ($this->form->_whitelist as $element) { ?>
+                            <li class="listelement<?php if ($element->getStatus() < 1) { ?> listelementdisabled<?php } ?>"><?php echo $this->InputRow($this->form->getElement('whitelist_list_select_' . $element->getId()), ['field_only' => true, 'nobox' => true]); ?>
+                                <?php echo $element->getParam('sender') ?> <?php if ($element->getStatus() < 1) {
+                                                                                echo "(" . $this->t->_('disabled') . ")";
+                                                                            } ?>
+                                <?php if ($element->getComment()) { ?>
+                                    <p class="entrycomment"><?php if ($element->getStatus() <  1) { ?><img src="<?php echo $this->images_path ?>/attention_off.png" alt="" /> <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path ?>/attention.png" alt="" /> <?php } ?>
+                                        <?php echo $element->getComment(); ?></p>
+                                    <p class="hidden"><?php echo $element->getComment() ?></p>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="sublistelement addlistelement">
+                        <h1><?php echo $this->t->_('Add an address to the white list') ?></h1>
 
-                <table>
-                        <tr>
-                                <td><?php echo $this->t->_('Address')?> :</td>
-                                <?php echo $this->InputRow($this->form->getElement('blacklist_addelement'),array('field_only'=>true,'field_addclass'=>'fieldpanel'));?>
-                        </tr>
-                        <tr>
-                                <td><?php echo $this->t->_('Comment')?> :</td>
-                                <td class="fieldpanel"><img
-                                        src="<?php echo $this->images_path?>/attention.png" class="vertimg"
-                                        alt="" /><?php echo $this->InputRow($this->form->getElement('blacklist_addcomment'),array('field_only'=>true,'nobox'=>true));?></td>
-                        </tr>
-                </table>
-                <p><?php echo $this->SubmitRow($this->form->getElement('blacklist_add'),array('field_only'=>true,'nobox'=>true));?></p>
-                </div>
-                <div class="sublistelement editremelement">
-                <h1><?php echo $this->t->_('Disable, enable or removed address from the list')?></h1>
-                <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('blacklist_disable'),array('field_only'=>true,'nobox'=>true));?></p>
-        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('blacklist_remove'),array('field_only'=>true,'nobox'=>true));?></p>
-        </div>
+                        <table>
+                            <tr>
+                                <td><?php echo $this->t->_('Address') ?> :</td>
+                                <?php echo $this->InputRow($this->form->getElement('whitelist_addelement'), ['field_only' => true, 'field_addclass' => 'fieldpanel']); ?>
+                            </tr>
+                            <tr>
+                                <td><?php echo $this->t->_('Comment') ?> :</td>
+                                <td class="fieldpanel"><img src="<?php echo $this->images_path ?>/attention.png" class="vertimg" alt="" /><?php echo $this->InputRow($this->form->getElement('whitelist_addcomment'), ['field_only' => true, 'nobox' => true]); ?></td>
+                            </tr>
+                        </table>
+                        <p><?php echo $this->SubmitRow($this->form->getElement('whitelist_add'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                    <div class="sublistelement editremelement">
+                        <h1><?php echo $this->t->_('Disable, enable or removed address from the list') ?></h1>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('whitelist_disable'), ['field_only' => true, 'nobox' => true]); ?></p>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('whitelist_remove'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
                 </td>
-        </tr>
+            </tr>
 
-<!---->
-        <tr><td colspan="2"><hr /></td></tr>
-        <tr id="newslist_list" class="listinform">
+            <tr>
                 <td colspan="2">
-                <ul class="configlist shortconfiglist addselectbox">
-                <?php foreach ($this->form->_newslist as $element) {?>
-                        <li
-				class="listelement<?php if ($element->getStatus() < 1) {?> listelementdisabled<?php }?>"><?php echo $this->InputRow($this->form->getElement('newslist_list_select_'.$element->getId()),array('field_only'=>true,'nobox'=>true));?>
-                                <?php echo $element->getParam('sender')?> <?php if ($element->getStatus() < 1) { echo "(".$this->t->_('disabled').")"; } ?>
-                                <?php if ($element->getComment()) {?>
-                        <p class="entrycomment"><?php if ($element->getStatus() <  1) {?><img
-                                src="<?php echo $this->images_path?>/attention_off.png" alt="" /> <?php } else { ?><img
-                                class="listhoverable"
-                                src="<?php echo $this->images_path?>/attention.png" alt="" /> <?php }?>
-                                <?php echo $element->getComment(); ?></p>
-                        <p class="hidden"><?php echo $element->getComment()?></p>
-                        <?php }?></li>
-                        <?php }?>
-                </ul>
-                <div class="sublistelement addlistelement">
-                <h1><?php echo $this->t->_('Add an address to the newsletters list')?></h1>
-
-                <table>
-                        <tr>
-                                <td><?php echo $this->t->_('Address')?> :</td>
-                                <?php echo $this->InputRow($this->form->getElement('newslist_addelement'),array('field_only'=>true,'field_addclass'=>'fieldpanel'));?>
-                        </tr>
-                        <tr>
-                                <td><?php echo $this->t->_('Comment')?> :</td>
-                                <td class="fieldpanel"><img
-                                        src="<?php echo $this->images_path?>/attention.png" class="vertimg"
-                                        alt="" /><?php echo $this->InputRow($this->form->getElement('newslist_addcomment'),array('field_only'=>true,'nobox'=>true));?></td>
-                        </tr>
-                </table>
-                <p><?php echo $this->SubmitRow($this->form->getElement('newslist_add'),array('field_only'=>true,'nobox'=>true));?></p>
-                </div>
-                <div class="sublistelement editremelement">
-                <h1><?php echo $this->t->_('Disable, enable or removed address from the list')?></h1>
-                <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('newslist_disable'),array('field_only'=>true,'nobox'=>true));?></p>
-        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('newslist_remove'),array('field_only'=>true,'nobox'=>true));?></p>
-        </div>
+                    <hr />
                 </td>
-        </tr>
+            </tr>
+
+            <?php echo $this->InputRow($this->form->getElement('enable_warnlists')); ?>
+
+            <tr id="warnlist_list" class="listinform<?php if (!$this->form->_warnlistenabled) { ?> hidden<?php } ?>">
+                <td colspan="2">
+                    <ul class="configlist shortconfiglist addselectbox">
+                        <?php foreach ($this->form->_warnlist as $element) { ?>
+                            <li class="listelement<?php if ($element->getStatus() < 1) { ?> listelementdisabled<?php } ?>"><?php echo $this->InputRow($this->form->getElement('warnlist_list_select_' . $element->getId()), ['field_only' => true, 'nobox' => true]); ?>
+                                <?php echo $element->getParam('sender') ?> <?php if ($element->getStatus() < 1) {
+                                                                                echo "(" . $this->t->_('disabled') . ")";
+                                                                            } ?>
+                                <?php if ($element->getComment()) { ?>
+                                    <p class="entrycomment"><?php if ($element->getStatus() <  1) { ?><img src="<?php echo $this->images_path ?>/attention_off.png" alt="" /> <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path ?>/attention.png" alt="" /> <?php } ?>
+                                        <?php echo $element->getComment(); ?></p>
+                                    <p class="hidden"><?php echo $element->getComment() ?></p>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="sublistelement addlistelement">
+                        <h1><?php echo $this->t->_('Add an address to the warn list') ?></h1>
+
+                        <table>
+                            <tr>
+                                <td><?php echo $this->t->_('Address') ?> :</td>
+                                <?php echo $this->InputRow($this->form->getElement('warnlist_addelement'), ['field_only' => true, 'field_addclass' => 'fieldpanel']); ?>
+                            </tr>
+                            <tr>
+                                <td><?php echo $this->t->_('Comment') ?> :</td>
+                                <td class="fieldpanel"><img src="<?php echo $this->images_path ?>/attention.png" class="vertimg" alt="" /><?php echo $this->InputRow($this->form->getElement('warnlist_addcomment'), ['field_only' => true, 'nobox' => true]); ?></td>
+                            </tr>
+                        </table>
+                        <p><?php echo $this->SubmitRow($this->form->getElement('warnlist_add'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                    <div class="sublistelement editremelement">
+                        <h1><?php echo $this->t->_('Disable, enable or removed address from the list') ?></h1>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('warnlist_disable'), ['field_only' => true, 'nobox' => true]); ?></p>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('warnlist_remove'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+
+            <?php echo $this->InputRow($this->form->getElement('enable_blacklists')); ?>
+
+            <tr id="blacklist_list" class="listinform<?php if (!$this->form->_blacklistenabled) { ?> hidden<?php } ?>">
+                <td colspan="2">
+                    <ul class="configlist shortconfiglist addselectbox">
+                        <?php foreach ($this->form->_blacklist as $element) { ?>
+                            <li class="listelement<?php if ($element->getStatus() < 1) { ?> listelementdisabled<?php } ?>"><?php echo $this->InputRow($this->form->getElement('blacklist_list_select_' . $element->getId()), ['field_only' => true, 'nobox' => true]); ?>
+                                <?php echo $element->getParam('sender') ?> <?php if ($element->getStatus() < 1) {
+                                                                                echo "(" . $this->t->_('disabled') . ")";
+                                                                            } ?>
+                                <?php if ($element->getComment()) { ?>
+                                    <p class="entrycomment"><?php if ($element->getStatus() <  1) { ?><img src="<?php echo $this->images_path ?>/attention_off.png" alt="" /> <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path ?>/attention.png" alt="" /> <?php } ?>
+                                        <?php echo $element->getComment(); ?></p>
+                                    <p class="hidden"><?php echo $element->getComment() ?></p>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="sublistelement addlistelement">
+                        <h1><?php echo $this->t->_('Add an address to the black list') ?></h1>
+
+                        <table>
+                            <tr>
+                                <td><?php echo $this->t->_('Address') ?> :</td>
+                                <?php echo $this->InputRow($this->form->getElement('blacklist_addelement'), ['field_only' => true, 'field_addclass' => 'fieldpanel']); ?>
+                            </tr>
+                            <tr>
+                                <td><?php echo $this->t->_('Comment') ?> :</td>
+                                <td class="fieldpanel"><img src="<?php echo $this->images_path ?>/attention.png" class="vertimg" alt="" /><?php echo $this->InputRow($this->form->getElement('blacklist_addcomment'), ['field_only' => true, 'nobox' => true]); ?></td>
+                            </tr>
+                        </table>
+                        <p><?php echo $this->SubmitRow($this->form->getElement('blacklist_add'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                    <div class="sublistelement editremelement">
+                        <h1><?php echo $this->t->_('Disable, enable or removed address from the list') ?></h1>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('blacklist_disable'), ['field_only' => true, 'nobox' => true]); ?></p>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('blacklist_remove'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                </td>
+            </tr>
+
+            <!---->
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr id="newslist_list" class="listinform">
+                <td colspan="2">
+                    <ul class="configlist shortconfiglist addselectbox">
+                        <?php foreach ($this->form->_newslist as $element) { ?>
+                            <li class="listelement<?php if ($element->getStatus() < 1) { ?> listelementdisabled<?php } ?>"><?php echo $this->InputRow($this->form->getElement('newslist_list_select_' . $element->getId()), ['field_only' => true, 'nobox' => true]); ?>
+                                <?php echo $element->getParam('sender') ?> <?php if ($element->getStatus() < 1) {
+                                                                                echo "(" . $this->t->_('disabled') . ")";
+                                                                            } ?>
+                                <?php if ($element->getComment()) { ?>
+                                    <p class="entrycomment"><?php if ($element->getStatus() <  1) { ?><img src="<?php echo $this->images_path ?>/attention_off.png" alt="" /> <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path ?>/attention.png" alt="" /> <?php } ?>
+                                        <?php echo $element->getComment(); ?></p>
+                                    <p class="hidden"><?php echo $element->getComment() ?></p>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="sublistelement addlistelement">
+                        <h1><?php echo $this->t->_('Add an address to the newsletters list') ?></h1>
+
+                        <table>
+                            <tr>
+                                <td><?php echo $this->t->_('Address') ?> :</td>
+                                <?php echo $this->InputRow($this->form->getElement('newslist_addelement'), ['field_only' => true, 'field_addclass' => 'fieldpanel']); ?>
+                            </tr>
+                            <tr>
+                                <td><?php echo $this->t->_('Comment') ?> :</td>
+                                <td class="fieldpanel"><img src="<?php echo $this->images_path ?>/attention.png" class="vertimg" alt="" /><?php echo $this->InputRow($this->form->getElement('newslist_addcomment'), ['field_only' => true, 'nobox' => true]); ?></td>
+                            </tr>
+                        </table>
+                        <p><?php echo $this->SubmitRow($this->form->getElement('newslist_add'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                    <div class="sublistelement editremelement">
+                        <h1><?php echo $this->t->_('Disable, enable or removed address from the list') ?></h1>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('newslist_disable'), ['field_only' => true, 'nobox' => true]); ?></p>
+                        <p class="submitlist"><?php echo $this->SubmitRow($this->form->getElement('newslist_remove'), ['field_only' => true, 'nobox' => true]); ?></p>
+                    </div>
+                </td>
+            </tr>
 
 
 
 
 
-	
-    <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
 
-</table>
-</fieldset>
+            <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+
+        </table>
+    </fieldset>
 </form>

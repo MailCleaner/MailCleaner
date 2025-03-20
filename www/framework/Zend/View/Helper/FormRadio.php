@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormRadio.php,v 1.1.2.3 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
@@ -76,7 +76,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         extract($info); // name, value, attribs, options, listsep, disable
 
         // retrieve attributes for labels (prefixed with 'label_' or 'label')
-        $label_attribs = array();
+        $label_attribs = [];
         foreach ($attribs as $key => $val) {
             $tmp    = false;
             $keyLen = strlen($key);
@@ -100,7 +100,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                 case 'placement':
                     unset($label_attribs[$key]);
                     $val = strtolower($val);
-                    if (in_array($val, array('prepend', 'append'))) {
+                    if (in_array($val, ['prepend', 'append'])) {
                         $labelPlacement = $val;
                     }
                     break;
@@ -112,7 +112,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
         // build the element
         $xhtml = '';
-        $list  = array();
+        $list  = [];
 
         // should the name affect an array collection?
         $name = $this->view->escape($name);
@@ -123,15 +123,14 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         // ensure value is an array to allow matching multiple times
         $value = (array) $value;
 
-        // XHTML or HTML end tag?
-        $endTag = ' />';
-        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
-        }
+        // Set up the filter - Alnum + hyphen + underscore
+        require_once 'Zend/Filter/PregReplace.php';
+        $pattern = @preg_match('/\pL/u', 'a')
+            ? '/[^\p{L}\p{N}\-\_]/u'    // Unicode
+            : '/[^a-zA-Z0-9\-\_]/';     // No Unicode
+        $filter = new Zend_Filter_PregReplace($pattern, "");
 
         // add radio buttons to the list.
-        require_once 'Zend/Filter/Alnum.php';
-        $filter = new Zend_Filter_Alnum();
         foreach ($options as $opt_value => $opt_label) {
 
             // Should the label be escaped?
@@ -158,7 +157,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
             // Wrap the radios in labels
             $radio = '<label'
-                    . $this->_htmlAttribs($label_attribs) . ' for="' . $optId . '">'
+                    . $this->_htmlAttribs($label_attribs) . '>'
                     . (('prepend' == $labelPlacement) ? $opt_label : '')
                     . '<input type="' . $this->_inputType . '"'
                     . ' name="' . $name . '"'
@@ -167,12 +166,17 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                     . $checked
                     . $disabled
                     . $this->_htmlAttribs($attribs)
-                    . $endTag
+                    . $this->getClosingBracket()
                     . (('append' == $labelPlacement) ? $opt_label : '')
                     . '</label>';
 
             // add to the array of radio buttons
             $list[] = $radio;
+        }
+
+        // XHTML or HTML for standard list separator?
+        if (!$this->_isXhtml() && false !== strpos($listsep, '<br />')) {
+            $listsep = str_replace('<br />', '<br>', $listsep);
         }
 
         // done!

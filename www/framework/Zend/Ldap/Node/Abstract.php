@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.1 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,16 +35,16 @@ require_once 'Zend/Ldap/Dn.php';
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
 {
-    protected static $_systemAttributes=array('createtimestamp', 'creatorsname',
+    protected static $_systemAttributes=['createtimestamp', 'creatorsname',
         'entrycsn', 'entrydn', 'entryuuid', 'hassubordinates', 'modifiersname',
         'modifytimestamp', 'structuralobjectclass', 'subschemasubentry',
         'distinguishedname', 'instancetype', 'name', 'objectcategory', 'objectguid',
-        'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
+        'usnchanged', 'usncreated', 'whenchanged', 'whencreated'];
 
     /**
      * Holds the node's DN.
@@ -95,13 +95,13 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      * This is an online method.
      *
      * @param  Zend_Ldap $ldap
-     * @return Zend_Ldap_Node_Abstract Provides a fluid interface
+     * @return $this
      * @throws Zend_Ldap_Exception
      */
     public function reload(Zend_Ldap $ldap = null)
     {
         if ($ldap !== null) {
-            $data = $ldap->getEntry($this->_getDn(), array('*', '+'), true);
+            $data = $ldap->getEntry($this->_getDn(), ['*', '+'], true);
             $this->_loadData($data, true);
         }
         return $this;
@@ -129,8 +129,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      */
     public function getDn()
     {
-        $dn = clone $this->_getDn();
-        return $dn;
+        return clone $this->_getDn();
     }
 
     /**
@@ -207,7 +206,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      */
     public function getAttributes($includeSystemAttributes = true)
     {
-        $data = array();
+        $data = [];
         foreach ($this->getData($includeSystemAttributes) as $name => $value) {
             $data[$name] = $this->getAttribute($name, null);
         }
@@ -243,7 +242,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     public function toArray($includeSystemAttributes = true)
     {
         $attributes = $this->getAttributes($includeSystemAttributes);
-        return array_merge(array('dn' => $this->getDnString()), $attributes);
+        return array_merge(['dn' => $this->getDnString()], $attributes);
     }
 
     /**
@@ -270,7 +269,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     public function getData($includeSystemAttributes = true)
     {
         if ($includeSystemAttributes === false) {
-            $data = array();
+            $data = [];
             foreach ($this->_currentData as $key => $value) {
                 if (!in_array($key, self::$_systemAttributes)) {
                     $data[$key] = $value;
@@ -421,7 +420,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      * @return null
      * @throws BadMethodCallException
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
         throw new BadMethodCallException();
     }
@@ -436,6 +435,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      * @return array
      * @throws Zend_Ldap_Exception
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->getAttribute($name, null);
@@ -453,7 +453,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      * @return null
      * @throws BadMethodCallException
      */
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         throw new BadMethodCallException();
     }
@@ -467,7 +467,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      * @param  string $name
      * @return boolean
      */
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return $this->existsAttribute($name, false);
     }
@@ -478,7 +478,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_currentData);
     }

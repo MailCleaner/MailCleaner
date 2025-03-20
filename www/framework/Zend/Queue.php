@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Queue
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Queue.php,v 1.1.2.1 2011-05-30 08:30:39 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Queue
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue implements Countable
@@ -54,7 +54,7 @@ class Zend_Queue implements Countable
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Zend_Queue_Message class
@@ -85,11 +85,11 @@ class Zend_Queue implements Countable
      * - or -
      * $queue = new Zend_Queue(null, $config); // Zend_Queue->createQueue();
      *
-     * @param  string|Zend_Queue_Adapter|array|Zend_Config|null String or adapter instance, or options array or Zend_Config instance
+     * @param  string|Zend_Queue_Adapter|array|Zend_Config|null $spec String or adapter instance, or options array or Zend_Config instance
      * @param  Zend_Config|array $options Zend_Config or a configuration array
      * @return void
      */
-    public function __construct($spec, $options = array())
+    public function __construct($spec, $options = [])
     {
         $adapter = null;
         if ($spec instanceof Zend_Queue_Adapter_AdapterInterface) {
@@ -114,7 +114,7 @@ class Zend_Queue implements Countable
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
-            $options = array();
+            $options = [];
         }
 
         // Make sure we have some defaults to work with
@@ -205,7 +205,7 @@ class Zend_Queue implements Countable
      * Set the adapter for this queue
      *
      * @param  string|Zend_Queue_Adapter_AdapterInterface $adapter
-     * @return Zend_Queue Provides a fluent interface
+     * @return $this
      */
     public function setAdapter($adapter)
     {
@@ -266,7 +266,7 @@ class Zend_Queue implements Countable
 
     /**
      * @param  string $className
-     * @return Zend_Queue Provides a fluent interface
+     * @return $this
      */
     public function setMessageClass($className)
     {
@@ -284,7 +284,7 @@ class Zend_Queue implements Countable
 
     /**
      * @param  string $className
-     * @return Zend_Queue Provides a fluent interface
+     * @return $this
      */
     public function setMessageSetClass($className)
     {
@@ -350,10 +350,10 @@ class Zend_Queue implements Countable
             }
         }
 
-        $options = array(
+        $options = [
             self::NAME  => $name,
             'timeout'   => $timeout
-        );
+        ];
 
         return new self($this->getAdapter(), $options);
     }
@@ -421,7 +421,7 @@ class Zend_Queue implements Countable
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         if ($this->getAdapter()->isSupported('count')) {
             return $this->getAdapter()->count();
@@ -483,10 +483,10 @@ class Zend_Queue implements Countable
      */
     public function isSupported($name)
     {
-        $translation = array(
+        $translation = [
             'deleteQueue' => 'delete',
             'createQueue' => 'create'
-        );
+        ];
 
         if (isset($translation[$name])) {
             $name = $translation[$name];
@@ -516,7 +516,7 @@ class Zend_Queue implements Countable
      * This is AN UNSUPPORTED FUNCTION
      *
      * @param  string           $name
-     * @return Zend_Queue|false Provides a fluent interface
+     * @return $this|false
      */
     protected function _setName($name)
     {
@@ -552,7 +552,7 @@ class Zend_Queue implements Countable
      */
     public function debugInfo()
     {
-        $info = array();
+        $info = [];
         $info['self']                     = get_class($this);
         $info['adapter']                  = get_class($this->getAdapter());
         foreach ($this->getAdapter()->getCapabilities() as $feature => $supported) {

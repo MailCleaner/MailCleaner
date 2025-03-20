@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage RetryPolicy
- * @version    $Id: RetryN.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,15 +26,10 @@
 require_once 'Zend/Service/WindowsAzure/RetryPolicy/RetryPolicyAbstract.php';
 
 /**
- * @see Zend_Service_WindowsAzure_RetryPolicy_Exception
- */
-require_once 'Zend/Service/WindowsAzure/RetryPolicy/Exception.php';
-
-/**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage RetryPolicy
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_RetryPolicy_RetryN extends Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
@@ -72,7 +67,7 @@ class Zend_Service_WindowsAzure_RetryPolicy_RetryN extends Zend_Service_WindowsA
      * @param array        $parameters     Parameters for function call
      * @return mixed
      */
-    public function execute($function, $parameters = array())
+    public function execute($function, $parameters = [])
     {
         $returnValue = null;
 
@@ -81,7 +76,8 @@ class Zend_Service_WindowsAzure_RetryPolicy_RetryN extends Zend_Service_WindowsA
                 $returnValue = call_user_func_array($function, $parameters);
                 return $returnValue;
             } catch (Exception $ex) {
-                if ($retriesLeft == 1) {
+                if ($retriesLeft === 1) {
+                    require_once 'Zend/Service/WindowsAzure/RetryPolicy/Exception.php';
                     throw new Zend_Service_WindowsAzure_RetryPolicy_Exception("Exceeded retry count of " . $this->_retryCount . ". " . $ex->getMessage());
                 }
 

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Exception.php';
  * @category   Zend
  * @package    Zend_Ldap
  * @uses       Zend_Exception
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Exception extends Zend_Exception
@@ -122,20 +122,21 @@ class Zend_Ldap_Exception extends Zend_Exception
      */
     public function __construct(Zend_Ldap $ldap = null, $str = null, $code = 0)
     {
-        $errorMessages = array();
+        $errorMessages = [];
         $message = '';
+
         if ($ldap !== null) {
             $oldCode = $code;
             $message = $ldap->getLastError($code, $errorMessages) . ': ';
+
             if ($code === 0) {
                 $message = '';
                 $code = $oldCode;
             }
         }
-        if (empty($message)) {
-            if ($code > 0) {
-                $message = '0x' . dechex($code) . ': ';
-            }
+
+        if (empty($message) && $code > 0) {
+            $message = '0x' . dechex($code) . ': ';
         }
 
         if (!empty($str)) {

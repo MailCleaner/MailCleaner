@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Plugin
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php,v 1.1.2.3 2011-05-30 08:30:49 root Exp $
+ * @version    $Id$
  */
 
 
@@ -28,7 +28,7 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Plugin
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Wildfire_Plugin_FirePhp_Message
@@ -73,10 +73,10 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      * Options for the object
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'traceOffset' => null, /* The offset in the trace which identifies the source of the message */
         'includeLineNumbers' => null /* Whether to include line and file info for this message */
-    );
+    ];
 
     /**
      * Creates a new message with the given style and message

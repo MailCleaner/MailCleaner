@@ -1,16 +1,17 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * AntiSpam generic module configuration mapper
  */
 
 class Default_Model_AntispamModuleMapper
 {
-	
+
     protected $_dbTable;
 
     public function setDbTable($dbTable)
@@ -32,7 +33,7 @@ class Default_Model_AntispamModuleMapper
         }
         return $this->_dbTable;
     }
-    
+
     public function find($id, Default_Model_AntispamModule $module)
     {
         $result = $this->getDbTable()->find($id);
@@ -42,22 +43,22 @@ class Default_Model_AntispamModuleMapper
         $row = $result->current();
         $module->setId($id);
         foreach ($module->getParamArray() as $key => $value) {
-        	$module->setParam($key, $row[$key]);
+            $module->setParam($key, $row[$key]);
         }
     }
-    
+
     public function findByName($name, Default_Model_AntispamModule $module)
     {
-    	$query = $this->getDbTable()->select();
+        $query = $this->getDbTable()->select();
         $query->where('name = ?', $name);
         $row = $this->getDbTable()->fetchRow($query);
         return $this->find($row['id'], $module);
     }
-    
+
     public function fetchAll($where)
     {
         $resultSet = $this->getDbTable()->fetchAll($where, 'position ASC');
-        $entries   = array();
+        $entries   = [];
         foreach ($resultSet as $row) {
             $entry = new Default_Model_AntispamModule();
             $entry->setId($row->id);
@@ -66,15 +67,16 @@ class Default_Model_AntispamModuleMapper
         }
         return $entries;
     }
-    
-    public function save(Default_Model_AntispamModule $module) {
-       $data = $module->getParamArray();
-       $res = '';
-       if (null === ($id = $module->getId())) {
+
+    public function save(Default_Model_AntispamModule $module)
+    {
+        $data = $module->getParamArray();
+        $res = '';
+        if (null === ($id = $module->getId())) {
             unset($data['id']);
             $res = $this->getDbTable()->insert($data);
         } else {
-            $res = $this->getDbTable()->update($data, array("id = ?" => $id));
+            $res = $this->getDbTable()->update($data, ["id = ?" => $id]);
         }
         return $res;
     }

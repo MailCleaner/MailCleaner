@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Tool.php,v 1.1.2.4 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Tool/Framework/Metadata/Basic.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Basic
@@ -82,7 +82,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getActionName()
      *
-     * @return string
+     * @return string|null
      */
     public function getActionName()
     {
@@ -104,7 +104,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getProviderName()
      *
-     * @return string
+     * @return string|null
      */
     public function getProviderName()
     {
@@ -126,7 +126,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getSpecialtyName()
      *
-     * @return string
+     * @return string|null
      */
     public function getSpecialtyName()
     {
@@ -148,7 +148,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getClientReference()
      *
-     * @return Zend_Tool_Framework_Client_Abstract
+     * @return string|null
      */
     public function getClientReference()
     {
@@ -170,7 +170,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getActionReference()
      *
-     * @return Zend_Tool_Framework_Action_Interface
+     * @return Zend_Tool_Framework_Action_Interface|null
      */
     public function getActionReference()
     {
@@ -192,7 +192,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getProviderReference()
      *
-     * @return Zend_Tool_Framework_Provider_Interface
+     * @return Zend_Tool_Framework_Provider_Interface|null
      */
     public function getProviderReference()
     {

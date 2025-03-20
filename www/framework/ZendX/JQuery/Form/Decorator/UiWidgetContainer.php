@@ -15,9 +15,9 @@
  * @category    ZendX
  * @package     ZendX_JQuery
  * @subpackage  View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: UiWidgetContainer.php,v 1.1.2.3 2011-05-30 08:30:33 root Exp $
+ * @version     $Id$
  */
 
 require_once "Zend/Form/Decorator/Abstract.php";
@@ -27,7 +27,7 @@ require_once "Zend/Form/Decorator/Abstract.php";
  *
  * @package    ZendX_JQuery
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_Decorator_Abstract
@@ -53,6 +53,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
     /**
      * Get view helper for rendering container
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return string
      */
     public function getHelper()
@@ -127,12 +128,23 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
             return $content;
         }
 
+        $placement = $this->getPlacement();
+        $separator = $this->getSeparator();
+
         $jQueryParams = $this->getJQueryParams();
-        $attribs     = $this->getOptions();
+        $attribs      = $this->getOptions();
 
         $helper      = $this->getHelper();
         $id          = $element->getId() . '-container';
 
-        return $view->$helper($id, $jQueryParams, $attribs);
+        $tabs = $view->$helper($id, $jQueryParams, $attribs);
+
+        switch ($placement) {
+            case self::PREPEND:
+                return $tabs . $separator . $content;
+
+            case self::APPEND:
+                return $content . $separator . $tabs;
+        }
     }
 }

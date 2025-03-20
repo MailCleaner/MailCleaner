@@ -18,12 +18,11 @@ prepare () {
 case "$1" in
   start)
     touch $VARDIR/run/firewall.start.rs
-    echo -n "  Starting firewall: "
+    echo -n "start firewall: ..."
     prepare
     $SRCDIR/etc/firewall/start >/dev/null 2>&1
     echo "1" > $LOCKFILE
-    echo -n "started."
-    echo "."
+    echo -e "\b\b\b\b\b\bactive"
     if [ -f $VARDIR/run/firewall.rn ]; then
       rm $VARDIR/run/firewall.rn
     fi
@@ -41,18 +40,17 @@ case "$1" in
     ;;
   stop)
     touch $VARDIR/run/firewall.stop.rs
-    echo -n "  Stopping firewall: "
+    echo -n "stop firewall: ..."
     $SRCDIR/etc/firewall/stop >/dev/null 2>&1
     if [ -f $LOCKFILE ]; then
       rm $LOCKFILE
     fi;
-    echo "stopped."
+    echo -e "\b\b\b\b\b\binactive"
     rm $VARDIR/run/firewall.stop.rs >/dev/null 2>&1
     touch $VARDIR/run/firewall.stopped
     ;;
   restart)
     touch $VARDIR/run/firewall.restart.rs
-  echo restarting...
     $0 stop
     sleep 2
     $0 start

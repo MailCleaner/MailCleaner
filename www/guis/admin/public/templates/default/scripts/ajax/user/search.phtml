@@ -1,54 +1,58 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="resultcount">
-<?php if ($this->domain == "") {?>
-  <span class="nostrong"><?php echo $this->t->_('Enter search criteria above...')?></span>
-<?php } else { ?>
-  Results: <?php echo $this->elementscount;?>
-<?php }?>
+    <?php if ($this->domain == "") { ?>
+        <span class="nostrong"><?php echo $this->t->_('Enter search criteria above...') ?></span>
+    <?php } else { ?>
+        Results: <?php echo $this->elementscount; ?>
+    <?php } ?>
 </div>
 <ul id="domainnavlist">
-<?php foreach ($this->elements as $element) {?>
-  <li<?php if ($this->username == $element->getParam($this->elementdatafield)) { echo " class=\"domainnavlistselected\""; } ?>
-        onclick="javascript:loadurl('<?php echo $this->editurl."/".$this->type."/".$element->getParam($this->elementdatafield)?>');">
-     <a href="<?php echo $this->editurl."/".$this->type."/".$element->getParam($this->elementdatafield)?>"><?php echo $element->getParam($this->elementdatafield)?></a></li>
-<?php }?>
+    <?php foreach ($this->elements as $element) { ?>
+        <li<?php if ($this->username == $element->getParam($this->elementdatafield)) {
+                echo " class=\"domainnavlistselected\"";
+            } ?> onclick="javascript:loadurl('<?php echo $this->editurl . "/" . $this->type . "/" . $element->getParam($this->elementdatafield) ?>');">
+            <a href="<?php echo $this->editurl . "/" . $this->type . "/" . $element->getParam($this->elementdatafield) ?>"><?php echo $element->getParam($this->elementdatafield) ?></a></li>
+        <?php } ?>
 </ul>
- 
-<div id="pagindomainlist">
-  <?php $nbprevnext = 2; if ($this->page > 99) {  $nbprevnext = 1; }?>
-  <?php if ($this->lastpage > 1) {?>
-    <?php if ($this->page > 1) {?>
-      <a href="javascript:loadsearch(1);"><img src="<?php echo $this->images_path;?>/pagefirst.png" alt="first" class="pagefirstimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagefirsthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagefirst.png';" /></a>
-      <a href="javascript:loadsearch(<?php echo $this->page-1?>);"><img src="<?php echo $this->images_path;?>/pageprevious.png" alt="previous" class="pagepreviousimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pageprevioushover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pageprevious.png';" /></a> 
-    <?php }?>
-     
-    <?php $i=$this->page-$nbprevnext; $c=0; while ($c++ < $nbprevnext) { if ($i > 0) { ?><a href="javascript:loadsearch(<?php echo $i?>);"><?php echo $i;?></a> |
-    <?php }$i++;}?>
-        
-    <?php echo $this->page?>
 
-    <?php $i=$this->page; $c=0; while ($i++ < $this->lastpage && $c++ < $nbprevnext) { ?>
-        | <a href="javascript:loadsearch(<?php echo $i?>);"><?php echo $i;?></a>
-    <?php }?>     
-      
-    <?php if ($this->page < $this->lastpage) {?>
-      <a href="javascript:loadsearch(<?php echo $this->page+1?>);"><img src="<?php echo $this->images_path;?>/pagenext.png" alt="next" class="pagepnextimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagenexthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagenext.png';" /></a>
-      <a href="javascript:loadsearch(<?php echo $this->lastpage?>);"><img src="<?php echo $this->images_path;?>/pagelast.png" alt="last" class="pagelastimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagelasthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagelast.png';" /></a> 
-    <?php }?>
-  <?php }?>
+<div id="pagindomainlist">
+    <?php $nbprevnext = 2;
+    if ($this->page > 99) {
+        $nbprevnext = 1;
+    } ?>
+    <?php if ($this->lastpage > 1) { ?>
+        <?php if ($this->page > 1) { ?>
+            <a href="javascript:loadsearch(1);"><img src="<?php echo $this->images_path; ?>/pagefirst.png" alt="first" class="pagefirstimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagefirsthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagefirst.png';" /></a>
+            <a href="javascript:loadsearch(<?php echo $this->page - 1 ?>);"><img src="<?php echo $this->images_path; ?>/pageprevious.png" alt="previous" class="pagepreviousimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pageprevioushover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pageprevious.png';" /></a>
+        <?php } ?>
+
+        <?php $i = $this->page - $nbprevnext;
+        $c = 0;
+        while ($c++ < $nbprevnext) {
+            if ($i > 0) { ?><a href="javascript:loadsearch(<?php echo $i ?>);"><?php echo $i; ?></a> |
+        <?php }
+            $i++;
+        } ?>
+
+        <?php echo $this->page ?>
+
+        <?php $i = $this->page;
+        $c = 0;
+        while ($i++ < $this->lastpage && $c++ < $nbprevnext) { ?>
+            | <a href="javascript:loadsearch(<?php echo $i ?>);"><?php echo $i; ?></a>
+        <?php } ?>
+
+        <?php if ($this->page < $this->lastpage) { ?>
+            <a href="javascript:loadsearch(<?php echo $this->page + 1 ?>);"><img src="<?php echo $this->images_path; ?>/pagenext.png" alt="next" class="pagepnextimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagenexthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagenext.png';" /></a>
+            <a href="javascript:loadsearch(<?php echo $this->lastpage ?>);"><img src="<?php echo $this->images_path; ?>/pagelast.png" alt="last" class="pagelastimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagelasthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagelast.png';" /></a>
+        <?php } ?>
+    <?php } ?>
 </div>

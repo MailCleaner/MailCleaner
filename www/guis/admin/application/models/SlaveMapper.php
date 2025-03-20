@@ -1,16 +1,17 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Slave host mapper
  */
 
 class Default_Model_SlaveMapper
 {
-	
+
     protected $_dbTable;
 
     public function setDbTable($dbTable)
@@ -32,7 +33,7 @@ class Default_Model_SlaveMapper
         }
         return $this->_dbTable;
     }
-    
+
     public function find($id, Default_Model_Slave $slave)
     {
         $result = $this->getDbTable()->find($id);
@@ -44,11 +45,11 @@ class Default_Model_SlaveMapper
         $slave->setHostname($row->hostname, $row->password);
         $slave->setPassword($row->password);
     }
-    
+
     public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll(null, "id ASC");
-        $entries   = array();
+        $entries   = [];
         foreach ($resultSet as $row) {
             $entry = new Default_Model_Slave();
             $entry->setId($row->id);

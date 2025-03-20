@@ -1,270 +1,322 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php 
-  $loadtext = 'Loading';
-  if (!$this->initial_loading) {
-     $status = $this->slave->getStatusValues();
-  $loadtext = 'Refreshing';
-  }
-  
+<?php
+$loadtext = 'Loading';
+if (!$this->initial_loading) {
+    $status = $this->slave->getStatusValues();
+    $loadtext = 'Refreshing';
+}
+
 ?>
-<table class="hoststatustable hoststatus_<?echo $this->slave->getId();?>">
-   
-  <tr class="hoststatushead">
-   <td colspan="<?php echo count($this->columns)?>">
-   <p></p>
-     <table class='host_status_head'>
-       <tr>
-         <td class="host_status_head_info"><?php echo $this->t->_('Host')?> : <?php echo $this->slave->getId()?> (<?php echo $this->slave->getHostname();?>) &ndash;</td>
-         <td  class="host_status_head_value">
-             <span class="okvalue hidden hoststatus_<?php echo $this->slave->getId()?>_up"><?php echo $this->t->_('Up')?></span>
-             <span class="stophoststatus hoststatus_<?php echo $this->slave->getId()?>_loading"><?php echo $this->t->_($loadtext)?>...<a href="javascript:stopHostReload(<?php echo $this->slave->getId();?>);"><img class="stophoststatusimg" src="<?php echo $this->images_path?>/stop_light.png" /></a></span>
-             <span class="error hidden hoststatus_<?php echo $this->slave->getId()?>_down"><?php echo $this->t->_('Unresponsive')?></span>
-             <span class="hidden hoststatus_<?php echo $this->slave->getId()?>_stopped"> (<?php echo $this->t->_('Refresh stopped')?><a href="javascript:restartHostReload(<?php echo $this->slave->getId();?>);" class="stophoststatus"><img class="stophoststatusimg" src="<?php echo $this->images_path?>/restart_light.png" /></a> )</span>
-         </td>
-       </tr>
-     </table>
-   </td>
-  </tr>
-<?php  if (!$this->initial_loading) { ?>
-  <tr class="hoststatuscolumnhead">
-   <?php foreach ($this->more_content as $cname => $c) {?>
-      <td class="c_<?php echo $cname?> c_title">
-          <?php 
-            echo $this->t->_($cname);
-            if ($cname == 'stats') {
-          	  echo " &ndash; ".$this->t->_($this->stats_type."_title");
-          	}?>
-      </td>
-   <?php }?>
-      <td class="c_status c_title">
-        <?php echo $this->t->_('status');?> <?php if (0) { ?>(<span class="version" ><?php echo $this->t->_('version');?>: <?php echo $this->slave->getHostVersion();?>, <?php echo $this->t->_('level'); ?>: <?php echo $this->slave->getHostPatchLevel();?>)</span><?php } ?>
-      </td>
-   </tr>
-   
-   <tr class="statusvaluesrow">
-    <td class="c_stats" >
-        <div class="hostpiegraphbox"><img class="hostpiegraph" src="<?php echo $this->pielink?>/gs/150" alt="statspie" /></div>
-        <div class='hostpiestatsbox'>
- <table class="hoststatstable">
- <?php foreach ($this->stats as $key => $value) {?>
-  <tr>
-    <td class="hoststatstablekey"><?php echo $this->t->_($key."_hostheader")?></td>
-    <td class='hoststatsbullet' style='background-color: <?php printf('#%02x%02x%02x',$this->colors[$key]['R'],$this->colors[$key]['G'],$this->colors[$key]['B'])?>'>&nbsp;</td>
-    <td class="hoststatstablevalue"><?php echo (int)$value?></td>
-  </tr>
- <?php }?>
-  <tr>
-    <td class="hoststatstablekey hostsumrow"><?php echo $this->t->_($this->stats_type."_hosttotal")?></td>
-    <td class='hoststatsbullet hostsumrow'>&nbsp;</td>
-    <td class="hoststatstablevalue hostsumrow"><?php echo (int)$this->stats_total?></td>
-  </tr>
- 
- </table>
- 
-        </div>
-    </td>
-   
-    <td class="c_load" ><br />
-        <span class="statusdescr"><?php echo $this->t->_('Last 5m')?>:</span><span class="statusvalue"><?php echo $status['loadavg05']?></span><br />
-        <span class="statusdescr"><?php echo $this->t->_('Last 10m')?>:</span><span class="statusvalue"><?php echo $status['loadavg10']?></span><br />
-        <span class="statusdescr"><?php echo $this->t->_('Last 15m')?>:</span><span class="statusvalue"><?php echo $status['loadavg15']?></span>
-   </td>
-   
-    <td class="c_disks" ><br /> <?php foreach ($status['disksusage'] as $disk) {?> 
-            <span class='statusdescr'>
-               <?php if ($disk['mount'] == '/') { echo $this->t->_('System'); }
-                else if ($disk['mount'] == '/var') { echo $this->t->_('Data'); }
-                else if ($disk['mount'] == $this->quarantinedir) { echo $this->t->_('Spams'); }
-                else { echo $disk['mount'];} ?> : 
-            </span>
-            <span class='statusvalue'><?php echo $disk['puse']."%"?></span>
-            <span class="statusvalue diskusagebar">
-                 <span class="diskused" style="width: <?php echo ceil($disk['puse'] / 2);?>px;background-image:url(<?php 
-                      echo $this->images_path."/";
-                      if ($disk['puse'] < 60) { 
-                         echo "clean.png"; 
-                      } else if ($disk['puse'] < 90) { 
-                         echo 'spam.png'; 
-                      } else { echo 'virus.png'; }?>)">
-                  </span>
-              </span>
-            <br />
-         <?php }?>
-    </td>
-    
-    
-    <td class="c_memory" ><br />
-     <?php $memusage =  round((100 / $status['memoryusage']['memtotal']) * ($status['memoryusage']['memused'] - $status['memoryusage']['memcached']))?>
-     <?php if (isset($status['memoryusage']['swaptotal']) && $status['memoryusage']['swaptotal'] != 0) { $swapusage =  sprintf('%.2d', (100 / $status['memoryusage']['swaptotal']) * ($status['memoryusage']['swapused'])); } ?>
-         
-       <span class='statusdescr'><?php echo $this->t->_('Physical memory')?>: </span>
-       <span class='statusvalue'><?php echo $memusage."%"?></span>
-       <span class="statusvalue diskusagebar">
-          <span class="diskused" style="width: <?php echo ceil($memusage / 2);?>px;background-image:url(<?php
-             echo $this->images_path."/";
-                      if ($memusage <= 60) { 
-                         echo 'clean.png'; }
-                         elseif ($memusage <= 90) {
-                         	echo 'spam.png';
-                         } else { echo 'virus.png'; }?>)">
-             </span>
-       </span>
-       <br />
-       <?php if (isset($swapusage)) { ?>
-       <span class='statusdescr'><?php echo $this->t->_('Swap')?>: </span>
-       <span class='statusvalue'><?php echo $swapusage."%"?></span>
-       <span class="statusvalue diskusagebar">
-          <span class="diskused" style="width: <?php echo ceil($swapusage / 2);?>px;background-image:url(<?php
-             echo $this->images_path."/";
-                      if ($swapusage < 10) { 
-                         echo "spam.png";
-                      } else { echo 'virus.png'; }?>)">
-             </span>
-       </span>
-       <?php } ?>
+<table class="hoststatustable hoststatus_<?php echo $this->slave->getId(); ?>">
 
-    </td>
-    
-    <td class="c_spools" ><br />
-       <span class='statusdescr'><?php echo $this->t->_('Incoming')?>: </span>
-       <span class='statusvalue<?php if ($status['spools'][1] > 10000) { echo " criticalvalue"; } else if ($status['spools'][1] > 1000) { echo " warningvalue"; }?>'>
-            <a href="javascript:showSpool(<?php echo $this->slave->getId();?>,1);" ><?php echo $status['spools'][1]?></a>
-       </span><br />
-       <span class='statusdescr'><?php echo $this->t->_('Filtering')?>: </span>
-       <span class='statusvalue<?php if ($status['spools'][2] > 10000) { echo " criticalvalue"; } else if ($status['spools'][2] > 1000) { echo " warningvalue"; }?>'>
-            <a href="javascript:showSpool(<?php echo $this->slave->getId();?>,2);" ><?php echo $status['spools'][2]?></a>
-       </span><br />
-       <span class='statusdescr'><?php echo $this->t->_('Outgoing')?>: </span>
-       <span class='statusvalue<?php if ($status['spools'][4] > 10000) { echo " criticalvalue"; } else if ($status['spools'][4] > 1000) { echo " warningvalue"; }?>'>
-            <a href="javascript:showSpool(<?php echo $this->slave->getId();?>,4);" ><?php echo $status['spools'][4]?></a>
-       </span>
-    </td>
-    <td class="c_processes" >
-<span class="procrow">
-  <span class='statusdescr'><?php echo $this->t->_('Version');?> : </span>
-  <span class='versionstatus'><?php echo $this->slave->getHostPatchLevel();?></span>
-</span>
-<span class="procrow finalprocrow">
-  <span class='statusdescr'><?php echo $this->t->_('Patch level');?> : </span>
-  <span class='versionstatus'><?php echo $this->slave->getHostVersion();?></span>
-</span>
+    <tr class="hoststatushead">
+        <td colspan="<?php echo count($this->columns) ?>">
+            <p></p>
+            <table class='host_status_head'>
+                <tr>
+                    <td class="host_status_head_info"><?php echo $this->t->_('Host') ?> : <?php echo $this->slave->getId() ?> (<?php echo $this->slave->getHostname(); ?>) &ndash;</td>
+                    <td class="host_status_head_value">
+                        <span class="okvalue hidden hoststatus_<?php echo $this->slave->getId() ?>_up"><?php echo $this->t->_('Up') ?></span>
+                        <span class="stophoststatus hoststatus_<?php echo $this->slave->getId() ?>_loading"><?php echo $this->t->_($loadtext) ?>...<a href="javascript:stopHostReload(<?php echo $this->slave->getId(); ?>);"><img class="stophoststatusimg" src="<?php echo $this->images_path ?>/stop_light.png" /></a></span>
+                        <span class="error hidden hoststatus_<?php echo $this->slave->getId() ?>_down"><?php echo $this->t->_('Unresponsive') ?></span>
+                        <span class="hidden hoststatus_<?php echo $this->slave->getId() ?>_stopped"> (<?php echo $this->t->_('Refresh stopped') ?><a href="javascript:restartHostReload(<?php echo $this->slave->getId(); ?>);" class="stophoststatus"><img class="stophoststatusimg" src="<?php echo $this->images_path ?>/restart_light.png" /></a> )</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <?php if (!$this->initial_loading) { ?>
+        <tr class="hoststatuscolumnhead">
+            <?php foreach ($this->more_content as $cname => $c) { ?>
+                <td class="c_<?php echo $cname ?> c_title">
+                    <?php
+                    echo $this->t->_($cname);
+                    if ($cname == 'stats') {
+                        echo " &ndash; " . $this->t->_($this->stats_type . "_title");
+                    } ?>
+                </td>
+            <?php } ?>
+            <td class="c_status c_title">
+                <?php echo $this->t->_('status'); ?> <?php if (0) { ?>(<span class="version"><?php echo $this->t->_('version'); ?>: <?php echo $this->slave->getHostVersion(); ?>, <?php echo $this->t->_('level'); ?>: <?php echo $this->slave->getHostPatchLevel(); ?>)</span><?php } ?>
+            </td>
+        </tr>
 
-     <?php $processes = array('exim_stage1' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'exim_stage2' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'exim_stage4' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'apache' => array('advanced' => 0, 'actions' => array('restart')), 
-                              'mailscanner'=> array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'mysql_master' => array('advanced' => 0, 'actions' => array('restart')), 
-                              'mysql_slave' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'snmpd' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'greylistd' => array('advanced' => 0, 'actions' => array('stop', 'start', 'restart')), 
-                              'cron' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'preftdaemon' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'spamd' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'clamd' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'clamspamd' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'spamhandler' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')), 
-                              'newsld' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart')),
-                              'firewall' => array('advanced' => 1, 'actions' => array('stop', 'start', 'restart'))); ?>
-     <?php foreach ($processes as $p => $option) {?>
-     <span class="procrow<?php if ($option['advanced']) { echo " procadvanced";}?>">
-       <span class='statusdescr'><?php echo $this->t->_('process_'.$p)?> : </span>
-       
-       <span class='statusvalue stopstartvalue'>
-         <?php foreach ($option['actions'] as $a) {?>
-           <a href="javascript:stopstart('<?php echo $a?>',<?php echo $this->slave->getId()?>,'<?php echo $p?>');"><img class="<?php echo $a?>button" src="<?php echo $this->images_path?>/<?php echo $a?>.gif" alt="<?php echo $a?>" /></a>
-         <?php }?>
-       </span>
-       
-        <?php echo $this->partial('ajax/monitorstatus/restartservice.phtml', array(
-                         'status' => $status['processes'][$p],
-                         'process' => $p,
-                         'slaveid' => $this->slave->getId(),
-                         't' => $this->t,
-                         'images_path' => $this->images_path
-        )); ?>
+        <tr class="statusvaluesrow">
+            <td class="c_stats">
+                <div class="hostpiegraphbox"><img class="hostpiegraph" src="<?php echo $this->pielink ?>/gs/150" alt="statspie" /></div>
+                <div class='hostpiestatsbox'>
+                    <table class="hoststatstable">
+                        <?php foreach ($this->stats as $key => $value) { ?>
+                            <tr>
+                                <td class="hoststatstablekey"><?php echo $this->t->_($key . "_hostheader") ?></td>
+                                <td class='hoststatsbullet' style='background-color: <?php printf('#%02x%02x%02x', $this->colors[$key]['R'], $this->colors[$key]['G'], $this->colors[$key]['B']) ?>'>&nbsp;</td>
+                                <td class="hoststatstablevalue"><?php echo (int)$value ?></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td class="hoststatstablekey hostsumrow"><?php echo $this->t->_($this->stats_type . "_hosttotal") ?></td>
+                            <td class='hoststatsbullet hostsumrow'>&nbsp;</td>
+                            <td class="hoststatstablevalue hostsumrow"><?php echo (int)$this->stats_total ?></td>
+                        </tr>
 
-       <br />
-      </span>
-     <?php }?>
-    </td>
-   </tr>
-  
-   
-   <tr class="showmorerow">
-     <?php foreach ($this->more_content as $type => $c) {?>
-     <td>
-         <a class="host_<?php echo $this->slave->getId()?>_graph_<?php echo $type?>_link <?php if ( in_array($type, $this->more_to_show) ) { echo ' hidden'; }?>" href="javascript:showGraph('host_<?php echo $this->slave->getId()?>_graph_<?php echo $type?>');"><?php echo $this->t->_('show more...')?></a>
-     </td>
-     <?php }?>
-     <td><a class="notprocadvanced" href="javascript:showAdvancedProcs();"><?php echo $this->t->_('show advanced...')?></a>
-         <a class="procadvanced" href="javascript:hideAdvancedProcs();"><?php echo $this->t->_('hide advanced...')?></a>
-     </td>
-   </tr>
-   
-   
-   <?php foreach ($this->more_content as $type => $c) { ?> 
-   <tr class="graphisrow <?php if ( !in_array($type, $this->more_to_show) ) { echo 'hidden '; }?> host_<?php echo $this->slave->getId();?>_graph_<?php echo $type; ?>">
-      <td class="graprowresc">
-         <p class="graprowrescp"><?php echo $this->t->_($type)?> : </p>
-        <?php ## graph type 
-         if (count($this->more_content[$type]['type']) > 1) { ?>
-         <p>
-           <?php $i=1; foreach ($this->more_content[$type]['type'] as $t) {?>
-             <?php if ($t != $this->more_content[$type]['selected_type']) {?>
-                 <a href="javascript:setMoreType(<?php echo $this->slave->getId()?>,'<?php echo $type;?>','<?php echo $t?>');"><?php echo $this->t->_($t) ?></a>
-             <?php } else {?>
-                 <?php echo $this->t->_($t) ?>
-             <?php }?>
-             <?php if ($i < count($this->more_content[$type]['type'])) { ?> | <?php }?>
-           <?php $i++; }?>
-          </p>
-        <?php }?>
-         
-        <?php ## graph mode
-         if (count($this->more_content[$type]['mode']) > 1) { ?>
-         <p>
-           <?php $i=1; foreach ($this->more_content[$type]['mode'] as $m) {?>
-             <?php if ($m != $this->more_content[$type]['selected_mode']) {?>
-                 <a href="javascript:setMoreMode(<?php echo $this->slave->getId()?>,'<?php echo $type;?>','<?php echo $m?>');"><?php echo $this->t->_($m) ?></a>
-             <?php } else {?>
-                 <?php echo $this->t->_($m) ?>
-             <?php }?>
-             <?php if ($i < count($this->more_content[$type]['mode'])) { ?> | <?php }?>
-           <?php $i++; }?>
-          </p>
+                    </table>
+
+                </div>
+            </td>
+
+            <td class="c_load"><br />
+                <span class="statusdescr"><?php echo $this->t->_('Last 5m') ?>:</span><span class="statusvalue"><?php echo $status['loadavg05'] ?></span><br />
+                <span class="statusdescr"><?php echo $this->t->_('Last 10m') ?>:</span><span class="statusvalue"><?php echo $status['loadavg10'] ?></span><br />
+                <span class="statusdescr"><?php echo $this->t->_('Last 15m') ?>:</span><span class="statusvalue"><?php echo $status['loadavg15'] ?></span>
+            </td>
+
+            <td class="c_disks"><br /> <?php foreach ($status['disksusage'] as $disk) { ?>
+                    <span class='statusdescr'>
+                        <?php if ($disk['mount'] == '/') {
+                                                echo $this->t->_('System');
+                                            } else if ($disk['mount'] == '/var') {
+                                                echo $this->t->_('Data');
+                                            } else if ($disk['mount'] == $this->quarantinedir) {
+                                                echo $this->t->_('Spams');
+                                            } else {
+                                                echo $disk['mount'];
+                                            } ?> :
+                    </span>
+                    <span class='statusvalue'><?php echo $disk['puse'] . "%" ?></span>
+                    <span class="statusvalue diskusagebar">
+                        <span class="diskused" style="width: <?php echo ceil($disk['puse'] / 2); ?>px;background-image:url(<?php
+                                                                                                                            echo $this->images_path . "/";
+                                                                                                                            if ($disk['puse'] < 60) {
+                                                                                                                                echo "clean.png";
+                                                                                                                            } else if ($disk['puse'] < 90) {
+                                                                                                                                echo 'spam.png';
+                                                                                                                            } else {
+                                                                                                                                echo 'virus.png';
+                                                                                                                            } ?>)">
+                        </span>
+                    </span>
+                    <br />
+                <?php } ?>
+            </td>
+
+
+            <td class="c_memory"><br />
+                <?php
+                $memusage = '0.0';
+                if (isset($status['memoryusage']['memtotal']) && $status['memoryusage']['memtotal'] > 0) {
+                    $memusage = sprintf('%.2d', (100 / $status['memoryusage']['memtotal']) * ($status['memoryusage']['memused'] - $status['memoryusage']['memcached']));
+                }
+                $swapusage = '0.0';
+                if (isset($status['memoryusage']['swaptotal']) && $status['memoryusage']['swaptotal'] > 0) {
+                    $swapusage =  sprintf('%.2d', (100 / $status['memoryusage']['swaptotal']) * ($status['memoryusage']['swapused']));
+                }
+                ?>
+
+                <span class='statusdescr'><?php echo $this->t->_('Physical memory') ?>: </span>
+                <span class='statusvalue'><?php echo $memusage . "%" ?></span>
+                <span class="statusvalue diskusagebar">
+                    <span class="diskused" style="width: <?php echo ceil($memusage / 2); ?>px;background-image:url(<?php
+                                                                                                                    echo $this->images_path . "/";
+                                                                                                                    if ($memusage <= 60) {
+                                                                                                                        echo 'clean.png';
+                                                                                                                    } elseif ($memusage <= 90) {
+                                                                                                                        echo 'spam.png';
+                                                                                                                    } else {
+                                                                                                                        echo 'virus.png';
+                                                                                                                    } ?>)">
+                    </span>
+                </span>
+                <br />
+                <?php if (isset($swapusage)) { ?>
+                    <span class='statusdescr'><?php echo $this->t->_('Swap') ?>: </span>
+                    <span class='statusvalue'><?php echo $swapusage . "%" ?></span>
+                    <span class="statusvalue diskusagebar">
+                        <span class="diskused" style="width: <?php echo ceil($swapusage / 2); ?>px;background-image:url(<?php
+                                                                                                                        echo $this->images_path . "/";
+                                                                                                                        if ($swapusage < 10) {
+                                                                                                                            echo "spam.png";
+                                                                                                                        } else {
+                                                                                                                            echo 'virus.png';
+                                                                                                                        } ?>)">
+                        </span>
+                    </span>
+                <?php } ?>
+
+            </td>
+
+            <td class="c_spools"><br />
+                <span class='statusdescr'><?php echo $this->t->_('Incoming') ?>: </span>
+                <span class='statusvalue<?php if ($status['spools'][1] > 10000) {
+                                            echo " criticalvalue";
+                                        } else if ($status['spools'][1] > 1000) {
+                                            echo " warningvalue";
+                                        } ?>'>
+                    <a href="javascript:showSpool(<?php echo $this->slave->getId(); ?>,1);"><?php echo $status['spools'][1] ?></a>
+                </span><br />
+                <span class='statusdescr'><?php echo $this->t->_('Filtering') ?>: </span>
+                <span class='statusvalue<?php if ($status['spools'][2] > 10000) {
+                                            echo " criticalvalue";
+                                        } else if ($status['spools'][2] > 1000) {
+                                            echo " warningvalue";
+                                        } ?>'>
+                    <a href="javascript:showSpool(<?php echo $this->slave->getId(); ?>,2);"><?php echo $status['spools'][2] ?></a>
+                </span><br />
+                <span class='statusdescr'><?php echo $this->t->_('Outgoing') ?>: </span>
+                <span class='statusvalue<?php if ($status['spools'][4] > 10000) {
+                                            echo " criticalvalue";
+                                        } else if ($status['spools'][4] > 1000) {
+                                            echo " warningvalue";
+                                        } ?>'>
+                    <a href="javascript:showSpool(<?php echo $this->slave->getId(); ?>,4);"><?php echo $status['spools'][4] ?></a>
+                </span>
+            </td>
+            <td class="c_processes">
+                <span class="procrow">
+                    <span class='statusdescr'><?php echo $this->t->_('Version'); ?> : </span>
+                    <span class='versionstatus'><?php echo $this->slave->getHostPatchLevel(); ?></span>
+                </span>
+                <span class="procrow finalprocrow">
+                    <span class='statusdescr'><?php echo $this->t->_('Patch level'); ?> : </span>
+                    <span class='versionstatus'><?php echo $this->slave->getHostVersion(); ?></span>
+                </span>
+
+                <?php $processes = [
+                    'exim_stage1' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'exim_stage2' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'exim_stage4' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'apache' => ['advanced' => 0, 'actions' => ['restart']],
+                    'mailscanner' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'mysql_master' => ['advanced' => 0, 'actions' => ['restart']],
+                    'mysql_slave' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'snmpd' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'greylistd' => ['advanced' => 0, 'actions' => ['stop', 'start', 'restart']],
+                    'cron' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'preftdaemon' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'spamd' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'clamd' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'clamspamd' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'spamhandler' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'newsld' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']],
+                    'firewall' => ['advanced' => 1, 'actions' => ['stop', 'start', 'restart']]
+                ];
+                ?>
+                <?php foreach ($processes as $p => $option) { ?>
+                    <span class="procrow<?php if ($option['advanced']) {
+                                            echo " procadvanced";
+                                        } ?>">
+                        <span class='statusdescr'><?php echo $this->t->_('process_' . $p) ?> : </span>
+
+                        <span class='statusvalue stopstartvalue'>
+                            <?php foreach ($option['actions'] as $a) { ?>
+                                <a href="javascript:stopstart('<?php echo $a ?>',<?php echo $this->slave->getId() ?>,'<?php echo $p ?>');"><img class="<?php echo $a ?>button" src="<?php echo $this->images_path ?>/<?php echo $a ?>.gif" alt="<?php echo $a ?>" /></a>
+                            <?php } ?>
+                        </span>
+
+                        <?php echo $this->partial(
+                            'ajax/monitorstatus/restartservice.phtml',
+                            [
+                                'status' => $status['processes'][$p],
+                                'process' => $p,
+                                'slaveid' => $this->slave->getId(),
+                                't' => $this->t,
+                                'images_path' => $this->images_path
+                            ]
+                        ); ?>
+
+                        <br />
+                    </span>
+                <?php } ?>
+            </td>
+        </tr>
+
+
+        <tr class="showmorerow">
+            <?php foreach ($this->more_content as $type => $c) { ?>
+                <td>
+                    <a class="host_<?php echo $this->slave->getId() ?>_graph_<?php echo $type ?>_link <?php if (in_array($type, $this->more_to_show)) {
+                                                                                                            echo ' hidden';
+                                                                                                        } ?>" href="javascript:showGraph('host_<?php echo $this->slave->getId() ?>_graph_<?php echo $type ?>');"><?php echo $this->t->_('show more...') ?></a>
+                </td>
+            <?php } ?>
+            <td><a class="notprocadvanced" href="javascript:showAdvancedProcs();"><?php echo $this->t->_('show advanced...') ?></a>
+                <a class="procadvanced" href="javascript:hideAdvancedProcs();"><?php echo $this->t->_('hide advanced...') ?></a>
+            </td>
+        </tr>
+
+
+        <?php foreach ($this->more_content as $type => $c) { ?>
+            <tr class="graphisrow <?php if (!in_array($type, $this->more_to_show)) {
+                                        echo 'hidden ';
+                                    } ?> host_<?php echo $this->slave->getId(); ?>_graph_<?php echo $type; ?>">
+                <td class="graprowresc">
+                    <p class="graprowrescp"><?php echo $this->t->_($type) ?> : </p>
+                    <?php ## graph type 
+                    if (isset($this->more_content[$type]['type']) && count($this->more_content[$type]['type']) > 1) { ?>
+                        <p>
+                            <?php $i = 1;
+                            foreach ($this->more_content[$type]['type'] as $t) { ?>
+                                <?php if ($t != $this->more_content[$type]['selected_type']) { ?>
+                                    <a href="javascript:setMoreType(<?php echo $this->slave->getId() ?>,'<?php echo $type; ?>','<?php echo $t ?>');"><?php echo $this->t->_($t) ?></a>
+                                <?php } else { ?>
+                                    <?php echo $this->t->_($t) ?>
+                                <?php } ?>
+                                <?php if ($i < count($this->more_content[$type]['type'])) { ?> | <?php } ?>
+                            <?php $i++;
+                            } ?>
+                        </p>
+                    <?php } ?>
+
+                    <?php ## graph mode
+                    if (isset($this->more_content[$type]['mode']) && count($this->more_content[$type]['mode']) > 1) { ?>
+                        <p>
+                            <?php $i = 1;
+                            foreach ($this->more_content[$type]['mode'] as $m) { ?>
+                                <?php if ($m != $this->more_content[$type]['selected_mode']) { ?>
+                                    <a href="javascript:setMoreMode(<?php echo $this->slave->getId() ?>,'<?php echo $type; ?>','<?php echo $m ?>');"><?php echo $this->t->_($m) ?></a>
+                                <?php } else { ?>
+                                    <?php echo $this->t->_($m) ?>
+                                <?php } ?>
+                                <?php if ($i < count($this->more_content[$type]['mode'])) { ?> | <?php } ?>
+                            <?php $i++;
+                            } ?>
+                        </p>
+                    <?php } ?>
+
+                    <?php ## graph period 
+                    ?>
+                    <p>
+                        <?php $i = 1;
+                        foreach ($this->periods as $p) { ?>
+                            <?php if ($p != $this->more_content[$type]['selected_period']) { ?>
+                                <a href="javascript:setMorePeriod(<?php echo $this->slave->getId() ?>,'<?php echo $type; ?>','<?php echo $p ?>');"><?php echo $this->t->_($p) ?></a>
+                            <?php } else { ?>
+                                <?php echo $this->t->_($p) ?>
+                            <?php } ?>
+                            <?php if ($i < count($this->periods)) { ?> | <?php } ?>
+                        <?php $i++;
+                        } ?>
+                    </p>
+
+                    <?php ## show/hide 
+                    ?>
+                    <p>(<a href="javascript:hideGraph('host_<?php echo $this->slave->getId() ?>_graph_<?php echo $type ?>')" ;><?php echo $this->t->_('hide'); ?></a>)</p>
+
+                </td>
+                <td colspan="<?php echo count($this->more_content) ?>" class="graph_place">
+                    <span class="hidden more_type"><?php echo $type . "_" . $this->more_content[$type]['selected_type']; ?></span>
+                    <span class="hidden more_mode"><?php echo $type . "_" . $this->more_content[$type]['selected_mode']; ?></span>
+                    <span class="hidden more_period"><?php echo $type . "_" . $this->more_content[$type]['selected_period']; ?></span>
+                    <img class="status_graph_img" src="<?php echo $this->graphBaseLink . "h/" . $this->slave->getId() . "/p/" . $this->more_content[$type]['selected_period'] . "/t/" . $this->more_content[$type]['selected_type'] . "/m/" . $this->more_content[$type]['selected_mode']; ?>" alt="" />
+                </td>
+            </tr>
         <?php } ?>
-        
-        <?php ## graph period ?>
-         <p>
-           <?php $i=1; foreach ($this->periods as $p) {?>
-             <?php if ($p != $this->more_content[$type]['selected_period']) {?>
-                 <a href="javascript:setMorePeriod(<?php echo $this->slave->getId()?>,'<?php echo $type;?>','<?php echo $p?>');"><?php echo $this->t->_($p) ?></a>
-             <?php } else {?>
-                 <?php echo $this->t->_($p) ?>
-             <?php }?>
-             <?php if ($i < count($this->periods)) { ?> | <?php }?>
-           <?php $i++; }?>
-         </p>
-         
-         <?php ## show/hide ?>
-         <p>(<a href="javascript:hideGraph('host_<?php echo $this->slave->getId()?>_graph_<?php echo $type?>')";><?php echo $this->t->_('hide');?></a>)</p>
-
-      </td>
-      <td colspan="<?php echo count($this->more_content) ?>" class="graph_place">
-        <span class="hidden more_type"><?php echo $type."_".$this->more_content[$type]['selected_type'];?></span>
-        <span class="hidden more_mode"><?php echo $type."_".$this->more_content[$type]['selected_mode'];?></span>
-        <span class="hidden more_period"><?php echo $type."_".$this->more_content[$type]['selected_period'];?></span>
-        <img class="status_graph_img" src="<?php echo $this->graphBaseLink."h/".$this->slave->getId()."/p/".$this->more_content[$type]['selected_period']."/t/".$this->more_content[$type]['selected_type']."/m/".$this->more_content[$type]['selected_mode'];?>" alt="" />
-      </td>
-   </tr>
-   <?php }?>
-<?php }?>   
+    <?php } ?>
 </table>

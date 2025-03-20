@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@ require_once 'Zend/Dojo/Form/Element/DateTextBox.php';
  * @uses       Zend_Dojo_Form_Element_DateTextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TimeTextBox.php,v 1.1.2.4 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateTextBox
 {
@@ -60,7 +60,7 @@ class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateText
      * Set time format pattern
      *
      * @param  string $pattern
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_TimeTextBox
      */
     public function setTimePattern($pattern)
     {
@@ -82,7 +82,7 @@ class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateText
      * Set clickableIncrement
      *
      * @param  string $format
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_TimeTextBox
      */
     public function setClickableIncrement($format)
     {
@@ -106,7 +106,7 @@ class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateText
      * Set visibleIncrement
      *
      * @param  string $format
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_TimeTextBox
      */
     public function setVisibleIncrement($format)
     {
@@ -130,7 +130,7 @@ class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateText
      * Set visibleRange
      *
      * @param  string $format
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_TimeTextBox
      */
     public function setVisibleRange($format)
     {

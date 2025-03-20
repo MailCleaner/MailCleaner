@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Atom.php,v 1.1.2.1 2011-05-30 08:31:11 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Feed/Reader/Extension/Atom/Feed.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
@@ -376,7 +376,7 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
 
         $categoryCollection = $this->getExtension('Atom')->getCategories();
 
-        if (count($categoryCollection) == 0) {
+        if (count($categoryCollection) === 0) {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();
         }
 
@@ -394,7 +394,7 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
     {
         if ($this->getType() == Zend_Feed_Reader::TYPE_ATOM_10 ||
             $this->getType() == Zend_Feed_Reader::TYPE_ATOM_03) {
-            $entries = array();
+            $entries = [];
             $entries = $this->_xpath->evaluate('//atom:entry');
 
             foreach($entries as $index=>$entry) {

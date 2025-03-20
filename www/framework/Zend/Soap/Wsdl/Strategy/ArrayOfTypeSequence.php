@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ArrayOfTypeSequence.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -30,7 +30,7 @@ require_once "Zend/Soap/Wsdl/Strategy/DefaultComplexType.php";
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Wsdl
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strategy_DefaultComplexType
@@ -107,8 +107,7 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
      */
     protected function _getSingularType($type)
     {
-        $singulartype = $this->getContext()->getType(str_replace("[]", "", $type));
-        return $singulartype;
+        return $this->getContext()->getType(str_replace("[]", "", $type));
     }
 
     /**

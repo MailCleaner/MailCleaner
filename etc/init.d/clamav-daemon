@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# clamav-daemon.service will be kept alive by clamav-daemon.socket
+
+SERVICE=$(echo $0 | sed -r 's/(.*\/)?([^\/]*)$/\2/')
+systemctl $@ $SERVICE.socket

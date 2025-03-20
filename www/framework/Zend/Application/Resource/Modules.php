@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Modules.php,v 1.1.2.4 2011-05-30 08:30:40 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Application/Resource/ResourceAbstract.php';
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Modules extends Zend_Application_Resource_ResourceAbstract
@@ -46,22 +46,22 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
      * Constructor
      *
      * @param  mixed $options
-     * @return void
      */
     public function __construct($options = null)
     {
-        $this->_bootstraps = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+        $this->_bootstraps = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
         parent::__construct($options);
     }
 
     /**
      * Initialize modules
      *
-     * @return array
+     * @return ArrayObject
      * @throws Zend_Application_Resource_Exception When bootstrap class was not found
      */
     public function init()
     {
+        $bootstraps = [];
         $bootstrap = $this->getBootstrap();
         $bootstrap->bootstrap('FrontController');
         $front = $bootstrap->getResource('FrontController');
@@ -72,23 +72,27 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
         foreach ($modules as $module => $moduleDirectory) {
             $bootstrapClass = $this->_formatModuleName($module) . '_Bootstrap';
             if (!class_exists($bootstrapClass, false)) {
-                $bootstrapPath  = dirname($moduleDirectory) . '/Bootstrap.php';
+                $bootstrapPath = dirname($moduleDirectory) . '/Bootstrap.php';
                 if (file_exists($bootstrapPath)) {
                     $eMsgTpl = 'Bootstrap file found for module "%s" but bootstrap class "%s" not found';
                     include_once $bootstrapPath;
                     if (($default != $module)
                         && !class_exists($bootstrapClass, false)
                     ) {
-                        throw new Zend_Application_Resource_Exception(sprintf(
-                            $eMsgTpl, $module, $bootstrapClass
-                        ));
+                        throw new Zend_Application_Resource_Exception(
+                            sprintf(
+                                $eMsgTpl, $module, $bootstrapClass
+                            )
+                        );
                     } elseif ($default == $module) {
                         if (!class_exists($bootstrapClass, false)) {
                             $bootstrapClass = 'Bootstrap';
                             if (!class_exists($bootstrapClass, false)) {
-                                throw new Zend_Application_Resource_Exception(sprintf(
-                                    $eMsgTpl, $module, $bootstrapClass
-                                ));
+                                throw new Zend_Application_Resource_Exception(
+                                    sprintf(
+                                        $eMsgTpl, $module, $bootstrapClass
+                                    )
+                                );
                             }
                         }
                     }
@@ -103,12 +107,28 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
                 continue;
             }
 
-            $moduleBootstrap = new $bootstrapClass($bootstrap);
-            $moduleBootstrap->bootstrap();
-            $this->_bootstraps[$module] = $moduleBootstrap;
+            $bootstraps[$module] = $bootstrapClass;
         }
 
-        return $this->_bootstraps;
+        return $this->_bootstraps = $this->bootstrapBootstraps($bootstraps);
+    }
+
+    /*
+     * Bootstraps the bootstraps found. Allows for easy extension.
+     * @param array $bootstraps Array containing the bootstraps to instantiate
+     */
+    protected function bootstrapBootstraps($bootstraps)
+    {
+        $bootstrap = $this->getBootstrap();
+        $out       = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+
+        foreach ($bootstraps as $module => $bootstrapClass) {
+            $moduleBootstrap = new $bootstrapClass($bootstrap);
+            $moduleBootstrap->bootstrap();
+            $out[$module] = $moduleBootstrap;
+        }
+
+        return $out;
     }
 
     /**
@@ -130,7 +150,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
     protected function _formatModuleName($name)
     {
         $name = strtolower($name);
-        $name = str_replace(array('-', '.'), ' ', $name);
+        $name = str_replace(['-', '.'], ' ', $name);
         $name = ucwords($name);
         $name = str_replace(' ', '', $name);
         return $name;

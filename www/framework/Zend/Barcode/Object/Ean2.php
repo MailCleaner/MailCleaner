@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ean2.php,v 1.1.2.1 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,18 +35,18 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Ean2 extends Zend_Barcode_Object_Ean5
 {
 
-    protected $_parities = array(
-        0 => array('A','A'),
-        1 => array('A','B'),
-        2 => array('B','A'),
-        3 => array('B','B')
-    );
+    protected $_parities = [
+        0 => ['A','A'],
+        1 => ['A','B'],
+        2 => ['B','A'],
+        3 => ['B','B']
+    ];
 
     /**
      * Default options for Ean2 barcode

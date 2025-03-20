@@ -1,122 +1,142 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
  
 /* local overrides */
 html, body {
-  background-color: #FCFCFC;
-  text-align: center;
-  font-size: 12px;
-  color: #000000;
+    background-color: #FCFCFC;
+    text-align: center;
+    font-size: 12px;
+    color: #000000;
 }
 
 img {
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
-}
-	
-/* main panel */
-#loginpanel {
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 10%;
-  padding: 0px;
-  width: 530px;
-  max-width: 530px;
-  border: 1px solid #D4D3D2;
-  white-space: nowrap;
-  background-position: 0px 75px;
-  background-repeat: repeat-x;
-  font-size: 12px;
-  color: #000000;
-  background-color: #F5F5F5;
-  text-align: left;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
+/* main panel */
+#loginpanel {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10%;
+    padding: 0px;
+    width: 530px;
+    max-width: 530px;
+    border: 1px solid #D4D3D2;
+    white-space: nowrap;
+    background-position: 0px 75px;
+    background-repeat: repeat-x;
+    font-size: 12px;
+    color: #000000;
+    background-color: #e8e8e8;
+    text-align: left;
+    border: solid 2px black;
+    border-radius: 20px;
+}
+
+#loginpanel td {
+    padding: 2px;
+    height: 24px;
+}
 #mclogo {
-  vertical-align: top;
-  background-color: #5C6D99; /*__MAINHEADERBG__*/
+    background-color: #e8e8e8; /*__MAINHEADERBG__*/
+    vertical-align: top;
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
 }
 
 /* footer */
+
+#loginfooter img {
+    padding-top: 10px;
+    height: 20px;
+}
+
+#loginfooter a {
+    color: #ffffff;
+}
+
 #loginfooter {
-   margin: 0px;
-   margin-top: 5px;
-   padding: 0px;
-   padding-top: 1px;
-   background-repeat: repeat-x;
-   color: #4A4A4A;
-   height: 22px;
+    margin: 0px;
+    margin-top: 5px;
+    padding: 0px;
+    padding-top: 1px;
+    background-repeat: repeat-x;
+    background-color: #022971;
+    border-bottom-left-radius: 19px;
+    border-bottom-right-radius: 19px;
+    height: 50px;
 }
 
 .copyright {
-   float: left;
-   margin-left: 7px;
-   color: #4A4A4A;
-   font-size: 11px;
-   display: inline;
-   line-height: 22px;
+    text-align: right;
+    position: relative;
+    margin-right: 15px;
+    margin-top: 5px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 12px;
 }
 
 .copyright a {
-   text-decoration: none;
-   color: #4A4A4A;
+    text-decoration: none;
+    color: #4A4A4A;
 }
 
 /* form */
 #username, #password {
-  font-size: 11px;
-  border: 1px solid #999999;
-  padding: 0px;
-  padding-left: 3px;
-  height: 20px;
-  width: 342px;
-  line-height: 20px;
-  vertical-align: top;
+    font-size: 11px;
+    padding: 0px;
+    padding-left: 3px;
+    height: 20px;
+    width: 342px;
+    line-height: 20px;
+    vertical-align: top;
+    border: solid 1px black;
+    border-radius: 10px;
 }
 
 .element {
-  padding-left: 10px;
-  text-align: left;
+    padding-left: 10px;
+    text-align: left;
 }
 
 #password-label, #username-label {
-  text-align: right;
-  width: 115px;
-  max-width: 115px;
-  overflow: hidden;	
+    text-align: right;
+    width: 115px;
+    max-width: 115px;
+    overflow: hidden;
 }
 
 #submit {
-   float: right;
-   margin-top: 13px;
-   margin-bottom: 5px;
-   width: 65px;
-   font-size: 11px;
-   vertical-align: bottom;
+    float: right;
+    margin-top: 13px;
+    margin-bottom: 5px;
+    width: 65px;
+    font-size: 11px;
+    line-height: 20px;
+    vertical-align: bottom;
+    border: solid 1px black;
+    border-radius: 10px;
 }
 
 /* interactive texts */
 #badlogin {
-	margin: 0px;
-	margin-top: 0px;
-	margin-left: 130px;
-	width: 300px;
-	height: 24px;
-	line-height: 24px;
-	white-space: normal;
-	text-align: left;
-	font-weight: bolder;
-	padding: 0px;
-	padding-top: 4px;
-	color: #FF0000;
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: 130px;
+    width: 300px;
+    height: 24px;
+    line-height: 24px;
+    white-space: normal;
+    text-align: left;
+    font-weight: bolder;
+    padding: 0px;
+    padding-top: 4px;
+    color: #FF0000;
 }
-
-.errors ul {
-	
-}
-

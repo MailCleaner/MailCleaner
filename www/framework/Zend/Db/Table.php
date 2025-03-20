@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Table.php,v 1.1.2.3 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/Db/Table/Definition.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Table extends Zend_Db_Table_Abstract
@@ -49,7 +49,7 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
      *                             OR it can reference the name of a table
      * @param array|Zend_Db_Table_Definition $definition
      */
-    public function __construct($config = array(), $definition = null)
+    public function __construct($config = [], $definition = null)
     {
         if ($definition !== null && is_array($definition)) {
             $definition = new Zend_Db_Table_Definition($definition);
@@ -61,7 +61,7 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
                     . 'try extending Zend_Db_Table_Abstract in your extending classes.',
                     E_USER_NOTICE
                     );
-                $config = array(self::ADAPTER => $config);
+                $config = [self::ADAPTER => $config];
             } else {
                 // process this as table with or without a definition
                 if ($definition instanceof Zend_Db_Table_Definition
@@ -69,7 +69,7 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
                     // this will have DEFINITION_CONFIG_NAME & DEFINITION
                     $config = $definition->getTableConfig($config);
                 } else {
-                    $config = array(self::NAME => $config);
+                    $config = [self::NAME => $config];
                 }
             }
         }

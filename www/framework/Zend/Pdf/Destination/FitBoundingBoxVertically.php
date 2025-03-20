@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Destination
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FitBoundingBoxVertically.php,v 1.1.2.1 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 /** Internally used classes */
@@ -41,7 +41,7 @@ require_once 'Zend/Pdf/Destination/Explicit.php';
  *
  * @package    Zend_Pdf
  * @subpackage Destination
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Destination_FitBoundingBoxVertically extends Zend_Pdf_Destination_Explicit
@@ -87,7 +87,7 @@ class Zend_Pdf_Destination_FitBoundingBoxVertically extends Zend_Pdf_Destination
      * Set left edge of the displayed page
      *
      * @param float $left
-     * @return Zend_Pdf_Action_FitBoundingBoxVertically
+     * @return Zend_Pdf_Destination_FitBoundingBoxVertically
      */
     public function setLeftEdge($left)
     {

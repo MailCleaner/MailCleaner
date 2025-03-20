@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Static.php,v 1.1.2.1 2011-05-30 08:30:59 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Cache/Backend.php';
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Static
@@ -46,18 +46,18 @@ class Zend_Cache_Backend_Static
      * Static backend options
      * @var array
      */
-    protected $_options = array(
-        'public_dir'            => null,
-        'sub_dir'               => 'html',
-        'file_extension'        => '.html',
-        'index_filename'        => 'index',
-        'file_locking'          => true,
-        'cache_file_umask'      => 0600,
-        'cache_directory_umask' => 0700,
-        'debug_header'          => false,
-        'tag_cache'             => null,
-        'disable_caching'       => false
-    );
+    protected $_options = [
+        'public_dir'           => null,
+        'sub_dir'              => 'html',
+        'file_extension'       => '.html',
+        'index_filename'       => 'index',
+        'file_locking'         => true,
+        'cache_file_perm'      => 0600,
+        'cache_directory_perm' => 0700,
+        'debug_header'         => false,
+        'tag_cache'            => null,
+        'disable_caching'      => false
+    ];
 
     /**
      * Cache for handling tags
@@ -85,6 +85,24 @@ class Zend_Cache_Backend_Static
         if ($name == 'tag_cache') {
             $this->setInnerCache($value);
         } else {
+            // See #ZF-12047 and #GH-91
+            if ($name == 'cache_file_umask') {
+                trigger_error(
+                    "'cache_file_umask' is deprecated -> please use 'cache_file_perm' instead",
+                    E_USER_NOTICE
+                );
+
+                $name = 'cache_file_perm';
+            }
+            if ($name == 'cache_directory_umask') {
+                trigger_error(
+                    "'cache_directory_umask' is deprecated -> please use 'cache_directory_perm' instead",
+                    E_USER_NOTICE
+                );
+
+                $name = 'cache_directory_perm';
+            }
+
             parent::setOption($name, $value);
         }
         return $this;
@@ -99,17 +117,13 @@ class Zend_Cache_Backend_Static
      */
     public function getOption($name)
     {
+        $name = strtolower($name);
+
         if ($name == 'tag_cache') {
             return $this->getInnerCache();
-        } else {
-            if (in_array($name, $this->_options)) {
-                return $this->_options[$name];
-            }
-            if ($name == 'lifetime') {
-                return parent::getLifetime();
-            }
-            return null;
         }
+
+        return parent::getOption($name);
     }
 
     /**
@@ -128,22 +142,26 @@ class Zend_Cache_Backend_Static
         } else {
             $id = $this->_decodeId($id);
         }
+
         if (!$this->_verifyPath($id)) {
             Zend_Cache::throwException('Invalid cache id: does not match expected public_dir path');
         }
+
         if ($doNotTestCacheValidity) {
             $this->_log("Zend_Cache_Backend_Static::load() : \$doNotTestCacheValidity=true is unsupported by the Static backend");
         }
 
         $fileName = basename($id);
+
         if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
+
         $pathName = $this->_options['public_dir'] . dirname($id);
         $file     = rtrim($pathName, '/') . '/' . $fileName . $this->_options['file_extension'];
+
         if (file_exists($file)) {
-            $content = file_get_contents($file);
-            return $content;
+            return file_get_contents($file);
         }
 
         return false;
@@ -198,7 +216,7 @@ class Zend_Cache_Backend_Static
      * @param  int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @return boolean true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if ($this->_options['disable_caching']) {
             return true;
@@ -225,7 +243,7 @@ class Zend_Cache_Backend_Static
         $pathName = realpath($this->_options['public_dir']) . dirname($id);
         $this->_createDirectoriesFor($pathName);
 
-        if ($id === null || strlen($id) == 0) {
+        if ($id === null || strlen($id) === 0) {
             $dataUnserialized = unserialize($data);
             $data = $dataUnserialized['data'];
         }
@@ -237,18 +255,18 @@ class Zend_Cache_Backend_Static
         } else {
             $result = file_put_contents($file, $data);
         }
-        @chmod($file, $this->_octdec($this->_options['cache_file_umask']));
+        @chmod($file, $this->_octdec($this->_options['cache_file_perm']));
 
         if ($this->_tagged === null && $tagged = $this->getInnerCache()->load(self::INNER_CACHE_NAME)) {
             $this->_tagged = $tagged;
         } elseif ($this->_tagged === null) {
-            $this->_tagged = array();
+            $this->_tagged = [];
         }
         if (!isset($this->_tagged[$id])) {
-            $this->_tagged[$id] = array();
+            $this->_tagged[$id] = [];
         }
         if (!isset($this->_tagged[$id]['tags'])) {
-            $this->_tagged[$id]['tags'] = array();
+            $this->_tagged[$id]['tags'] = [];
         }
         $this->_tagged[$id]['tags'] = array_unique(array_merge($this->_tagged[$id]['tags'], $tags));
         $this->_tagged[$id]['extension'] = $ext;
@@ -263,7 +281,7 @@ class Zend_Cache_Backend_Static
     {
         if (!is_dir($path)) {
             $oldUmask = umask(0);
-            if ( !@mkdir($path, $this->_octdec($this->_options['cache_directory_umask']), true)) {
+            if ( !@mkdir($path, $this->_octdec($this->_options['cache_directory_perm']), true)) {
                 $lastErr = error_get_last();
                 umask($oldUmask);
                 Zend_Cache::throwException("Can't create directory: {$lastErr['message']}");
@@ -346,7 +364,7 @@ class Zend_Cache_Backend_Static
             if (is_dir($directory)) {
                 foreach (new DirectoryIterator($directory) as $file) {
                     if (true === $file->isFile()) {
-                        if (false === unlink($file->getPathName())) {
+                        if (false === unlink($file->getPathname())) {
                             return false;
                         }
                     }
@@ -379,8 +397,9 @@ class Zend_Cache_Backend_Static
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @return boolean true if no problem
+     * @throws Zend_Exception
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         $result = false;
         switch ($mode) {
@@ -460,7 +479,7 @@ class Zend_Cache_Backend_Static
      * should be completely cleaned as the mapping of tags to caches will
      * have been irrevocably lost.
      *
-     * @param  Zend_Cache_Core
+     * @param  Zend_Cache_Core $cache
      * @return void
      */
     public function setInnerCache(Zend_Cache_Core $cache)

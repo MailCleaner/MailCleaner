@@ -1,0 +1,38 @@
+#! /bin/sh
+
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-bl src -j REJECT
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-bl src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-bl src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-bl src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-bl src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-bl src -j LOG
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1d src -j REJECT
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1d src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1d src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1d src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1d src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1d src -j LOG
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1w src -j REJECT
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1w src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1w src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1w src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1w src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1w src -j LOG
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1m src -j REJECT
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1m src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1m src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1m src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1m src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1m src -j LOG
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1y src -j REJECT
+/sbin/iptables -I INPUT -p tcp -m multiport --dports 80,443 -m set --match-set mc-webauth-1y src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1y src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 25 -m set --match-set mc-exim-1y src -j LOG
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1y src -j REJECT
+/sbin/iptables -I INPUT -p tcp --dport 22 -m set --match-set mc-ssh-1y src -j LOG
+/sbin/iptables -I INPUT -m set --match-set BLACKLISTIP src -j REJECT
+/sbin/iptables -I INPUT -m set --match-set BLACKLISTIP src -j LOG
+
+/sbin/iptables -I INPUT -m set --match-set BLACKLISTNET src -j REJECT
+/sbin/iptables -I INPUT -m set --match-set BLACKLISTNET src -j LOG
+

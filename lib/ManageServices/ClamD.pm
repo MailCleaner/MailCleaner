@@ -42,7 +42,7 @@ sub config
 	my $config = {
 		'name' 		=> 'clamd',
 		'cmndline'	=> 'clamav/clamd.conf',
-		'cmd'		=> '/opt/clamav/sbin/clamd',
+		'cmd'		=> '/usr/sbin/clamd',
 		'conffile'	=> $class->{'conf'}->getOption('SRCDIR').'/etc/clamav/clamd.conf',
 		'pidfile'	=> $class->{'conf'}->getOption('VARDIR').'/run/clamav/clamd.pid',
 		'logfile'	=> $class->{'conf'}->getOption('VARDIR').'/log/clamav/clamd.log',
@@ -103,8 +103,8 @@ sub mainLoop
 	my $cmd = $self->{'cmd'};
 	$cmd .= ' --config-file=' . $self->{'conffile'};
 	$self->doLog("Running $cmd", 'daemon');
-	system(split(/ /, $cmd));
-	
+	#IPC::Run::run([split(/ /, $cmd)], "2>&1", ">/dev/null") || $self->doLog("Result $?: $!", 'daemon');
+	$self->doLog("Result : ".IPC::Run::run([split(/ /, $cmd)]));
 	return 1;
 }
 

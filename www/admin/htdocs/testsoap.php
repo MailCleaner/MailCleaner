@@ -1,4 +1,5 @@
-<?
+<?php
+
 require_once('variables.php');
 require_once('admin_objects.php');
 
@@ -8,8 +9,8 @@ global $admin_;
 global $sysconf_;
 
 $soaper = new Soaper();
-if (! $soaper instanceof Soaper) {
-   die("cannot instantiate soaper !");
+if (!$soaper instanceof Soaper) {
+    die("cannot instantiate soaper !");
 }
 $ret = $soaper->load($sysconf_->getPref('hostid'));
 if ($ret != 'OK') {
@@ -30,10 +31,9 @@ echo "headers: ";
 var_dump($headers);
 echo "<br/>";
 
-$body = $soaper->client_->getBody($sid, '1FRBPw-0000q4-6G', 'olivier@cyco.ch' , 20);
+$body = $soaper->client_->getBody($sid, '1FRBPw-0000q4-6G', 'olivier@cyco.ch', 20);
 echo "body: ";
 var_dump($body);
 echo "<br/>";
 
 echo "<br/>OK, successful";
-?>

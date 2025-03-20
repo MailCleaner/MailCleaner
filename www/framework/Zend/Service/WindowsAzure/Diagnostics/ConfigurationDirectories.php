@@ -15,15 +15,10 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ConfigurationDirectories.php,v 1.1.2.1 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
-
-/**
- * @see Zend_Service_WindowsAzure_Diagnostics_Exception
- */
-require_once 'Zend/Service/WindowsAzure/Diagnostics/Exception.php';
 
 /**
  * @see Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
@@ -39,15 +34,15 @@ require_once 'Zend/Service/WindowsAzure/Diagnostics/DirectoryConfigurationSubscr
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
- * @property    int        BufferQuotaInMB                        Buffer quota in MB
- * @property    int        ScheduledTransferPeriodInMinutes    Scheduled transfer period in minutes
- * @property    array    Subscriptions                        Subscriptions
+ * @property	int		BufferQuotaInMB						Buffer quota in MB
+ * @property	int		ScheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
+ * @property	array	Subscriptions						Subscriptions
  */
 class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
-    extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
     /**
      * Constructor
@@ -56,12 +51,12 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
 	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
 	 */
     public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0)
-    {	
-        $this->_data = array(
-            'bufferquotainmb'                    => $bufferQuotaInMB,
-            'scheduledtransferperiodinminutes'     => $scheduledTransferPeriodInMinutes,
-            'subscriptions'                        => array()
-        );
+    {
+        $this->_data = [
+            'bufferquotainmb'        			=> $bufferQuotaInMB,
+            'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
+        	'subscriptions'						=> []
+        ];
     }
 
 	/**
@@ -73,7 +68,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
 	 */
     public function addSubscription($path, $container, $directoryQuotaInMB = 1024)
     {
-        $this->_data['subscriptions'][$path] = new Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription($path, $container, $directoryQuotaInMB);
+    	$this->_data['subscriptions'][$path] = new Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription($path, $container, $directoryQuotaInMB);
     }
 
 	/**
@@ -83,8 +78,8 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
 	 */
     public function removeSubscription($path)
     {
-        if (isset($this->_data['subscriptions'][$path])) {
-            unset($this->_data['subscriptions'][$path]);
-        }
+    	if (isset($this->_data['subscriptions'][$path])) {
+    		unset($this->_data['subscriptions'][$path]);
+    	}
     }
 }

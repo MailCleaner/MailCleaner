@@ -1,0 +1,10 @@
+[Unit]
+Description=Freshclam timer for MailCleaner
+After=network.service network-online.target
+
+[Timer]
+OnUnitActiveSec=1h
+
+[Install]
+#WantedBy=mailcleaner.target
+WantedBy=multi-user.target

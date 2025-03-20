@@ -15,12 +15,15 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** Zend_Form_Element_Xhtml */
 require_once 'Zend/Form/Element/Xhtml.php';
+
+/** @see Zend_Crypt_Math */
+require_once 'Zend/Crypt/Math.php';
 
 /**
  * CSRF form protection
@@ -28,9 +31,9 @@ require_once 'Zend/Form/Element/Xhtml.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Hash.php,v 1.1.2.4 2011-05-30 08:30:37 root Exp $
+ * @version    $Id$
  */
 class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
 {
@@ -128,7 +131,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
             $rightHash = null;
         }
 
-        $this->addValidator('Identical', true, array($rightHash));
+        $this->addValidator('Identical', true, [$rightHash]);
         return $this;
     }
 
@@ -249,10 +252,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
     protected function _generateHash()
     {
         $this->_hash = md5(
-            mt_rand(1,1000000)
-            .  $this->getSalt()
-            .  $this->getName()
-            .  mt_rand(1,1000000)
+            Zend_Crypt_Math::randBytes(32)
         );
         $this->setValue($this->_hash);
     }

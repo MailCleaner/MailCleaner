@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Error.php,v 1.1.2.3 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server_Error
@@ -38,14 +38,14 @@ class Zend_Json_Server_Error
      * Allowed error codes
      * @var array
      */
-    protected $_allowedCodes = array(
+    protected $_allowedCodes = [
         self::ERROR_PARSE,
         self::ERROR_INVALID_REQUEST,
         self::ERROR_INVALID_METHOD,
         self::ERROR_INVALID_PARAMS,
         self::ERROR_INTERNAL,
         self::ERROR_OTHER,
-    );
+    ];
 
     /**
      * Current code
@@ -167,11 +167,11 @@ class Zend_Json_Server_Error
      */
     public function toArray()
     {
-        return array(
+        return [
             'code'    => $this->getCode(),
             'message' => $this->getMessage(),
             'data'    => $this->getData(),
-        );
+        ];
     }
 
     /**

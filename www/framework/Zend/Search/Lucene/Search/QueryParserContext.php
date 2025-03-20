@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryParserContext.php,v 1.1.2.3 2011-05-30 08:30:31 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Search_Lucene_Search_QueryToken */
@@ -28,7 +28,7 @@ require_once 'Zend/Search/Lucene/Search/QueryToken.php';
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_QueryParserContext
@@ -79,7 +79,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
      *
      * @var arrays
      */
-    private $_signs = array();
+    private $_signs = [];
 
     /**
      * Query entries
@@ -88,7 +88,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
      *
      * @var array
      */
-    private $_entries = array();
+    private $_entries = [];
 
     /**
      * Query string encoding
@@ -347,10 +347,10 @@ class Zend_Search_Lucene_Search_QueryParserContext
         }
 
 
-        $subqueries = array();
+        $subqueries = [];
         foreach ($conjuctions as  $conjuction) {
             // Check, if it's a one term conjuction
-            if (count($conjuction) == 1) {
+            if (count($conjuction) === 1) {
                 $subqueries[] = $conjuction[0][0]->getQuery($this->_encoding);
             } else {
                 require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
@@ -364,12 +364,12 @@ class Zend_Search_Lucene_Search_QueryParserContext
             }
         }
 
-        if (count($subqueries) == 0) {
+        if (count($subqueries) === 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
             return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
-        if (count($subqueries) == 1) {
+        if (count($subqueries) === 1) {
             return $subqueries[0];
         }
 

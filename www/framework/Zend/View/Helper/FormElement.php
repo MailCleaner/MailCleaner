@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormElement.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,20 +31,20 @@ require_once 'Zend/View/Helper/HtmlElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
 {
     /**
-     * @var Zend_Translate
+     * @var Zend_Translate_Adapter|null
      */
     protected $_translator;
 
     /**
      * Get translator
      *
-     * @return Zend_Translate
+     * @return Zend_Translate_Adapter|null
      */
     public function getTranslator()
     {
@@ -54,7 +54,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
     /**
      * Set translator
      *
-     * @param  Zend_Translate $translator
+     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator
      * @return Zend_View_Helper_FormElement
      */
     public function setTranslator($translator = null)
@@ -95,7 +95,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
         // if an array, it's an element info array that will override
         // these baseline values.  as such, ignore it for the 'name'
         // if it's an array.
-        $info = array(
+        $info = [
             'name'    => is_array($name) ? '' : $name,
             'id'      => is_array($name) ? '' : $name,
             'value'   => $value,
@@ -104,7 +104,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
             'listsep' => $listsep,
             'disable' => false,
             'escape'  => true,
-        );
+        ];
 
         // override with named args
         if (is_array($name)) {
@@ -142,9 +142,19 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
         // Set ID for element
         if (array_key_exists('id', $attribs)) {
             $info['id'] = (string)$attribs['id'];
-        } else if ('' !== $info['name']) {
+        } else if (is_string($info['name']) && '' !== $info['name']) {
             $info['id'] = trim(strtr($info['name'],
-                                     array('[' => '-', ']' => '')), '-');
+                                     ['[' => '-', ']' => '']), '-');
+        }
+
+        // Remove NULL name attribute override
+        if (array_key_exists('name', $attribs) && is_null($attribs['name'])) {
+        	unset($attribs['name']);
+        }
+
+        // Override name in info if specified in attribs
+        if (array_key_exists('name', $attribs) && $attribs['name'] != $info['name']) {
+            $info['name'] = $attribs['name'];
         }
 
         // Determine escaping from attributes

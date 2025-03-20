@@ -1,23 +1,24 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <fieldset>
-  <table class="ftable">
-    <tr>
-      <td class="fsubmit" colspan="2"><a href="" onclick="javascript:window.open('<?php echo $this->url(array('controller'=>'manageuser','action'=>'autologuser'));?>');return false;"><?php echo $this->t->_('> Open user\'s interface')?></a></td>
-    </tr>
-    <tr>
-      <td class="fsubmit" colspan="2">
-        <?php echo $this->InputRow($this->form->getElement('addresses'),array('label_only'=>true,'nobox'=>true));?>
-        <?php echo $this->InputRow($this->form->getElement('addresses'),array('field_only'=>true,'nobox'=>true));?>
-        <?php echo $this->SubmitRow($this->form->getElement('submit'),array('field_only'=>true,'nobox'=>true));?>   
-      </td>
-      </tr>
-    <tr>
-   </table>
+    <table class="ftable">
+        <tr>
+            <td class="fsubmit" colspan="2"><a href="" onclick="javascript:window.open('<?php echo $this->url(['controller' => 'manageuser', 'action' => 'autologuser']); ?>'];return false;"><?php echo $this->t->_('> Open user\'s interface') ?></a></td>
+        </tr>
+        <tr>
+            <td class="fsubmit" colspan="2">
+                <?php echo $this->InputRow($this->form->getElement('addresses'), ['label_only' => true, 'nobox' => true]); ?>
+                <?php echo $this->InputRow($this->form->getElement('addresses'), ['field_only' => true, 'nobox' => true]); ?>
+                <?php echo $this->SubmitRow($this->form->getElement('submit'), ['field_only' => true, 'nobox' => true]); ?>
+            </td>
+        </tr>
+        <tr>
+    </table>
 </fieldset>

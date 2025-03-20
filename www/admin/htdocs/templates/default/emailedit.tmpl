@@ -1,118 +1,154 @@
 __FORM_BEGIN_EMAILEDIT__
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
- <tr class="infoBoxHeading">
-  <td width="40%" align="left" colspan="2">__LANG_EMAIL__: __EMAIL__&nbsp;&nbsp; __DOC_EMAILSETTINGS__</td>
- </tr>
- <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__SAVE_STATUS____EMAIL_STATUS__</font></td></tr>
- <!--<tr class="infoBoxContent"><td colspan="2"><b>__LANG_DELIVERY__</b></td></tr>-->
+    <tr class="infoBoxHeading">
+        <td width="40%" align="left" colspan="2">__LANG_EMAIL__: __EMAIL__&nbsp;&nbsp; __DOC_EMAILSETTINGS__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2" align="center">
+            <font color="red">__SAVE_STATUS____EMAIL_STATUS__</font>
+        </td>
+    </tr>
+    <!--<tr class="infoBoxContent"><td colspan="2"><b>__LANG_DELIVERY__</b></td></tr>-->
 
- <tr class="infoBoxContent" valign="top">
-  <td width="50%" align="right">__LANG_ACTIONONSPAM__:&nbsp;</td>
-  <td width="50%" align="left">__FORM_INPUTACTIONONSPAM__</td>
- </tr>
+    <tr class="infoBoxContent" valign="top">
+        <td width="50%" align="right">__LANG_ACTIONONSPAM__:&nbsp;</td>
+        <td width="50%" align="left">__FORM_INPUTACTIONONSPAM__</td>
+    </tr>
 
- <tr class="infoBoxContent">
-  <td width="50%" align="right">__LANG_TAG__:&nbsp;</td>
-  <td width="50%" align="left">__FORM_INPUTSPAMTAG__</td>
- </tr>
- <tr class="infoBoxContent">
-   <td width="50%" align="right">__LANG_QUARBOUNCES__:&nbsp;</td>
-   <td width="50%" align="left">__FORM_INPUTQUARBOUNCES__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td width="50%" align="right">__LANG_TAG__:&nbsp;</td>
+        <td width="50%" align="left">__FORM_INPUTSPAMTAG__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="50%" align="right">__LANG_QUARBOUNCES__:&nbsp;</td>
+        <td width="50%" align="left">__FORM_INPUTQUARBOUNCES__</td>
+    </tr>
 
-<script language="javascript">
+    <script language="javascript">
 __IF__ SEEWHITELISTEDIT
-    function openWhite() {
-        window.document.open('__LINK_EDITWHITELIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openWhite() {
+            window.document.open('__LINK_EDITWHITELIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEWHITELISTEDIT
 __IF__ SEEWARNLISTEDIT
-    function openWarn() {
-        window.document.open('__LINK_EDITWARNLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openWarn() {
+            window.document.open('__LINK_EDITWARNLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEWARNLISTEDIT
 __IF__ SEEBLACKLISTEDIT
-    function openBlack() {
-        window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
-    }
+        function openBlack() {
+            window.document.open('__LINK_EDITBLACKLIST__', '', 'width=750,height=400,toolbar=no,resizable=yes');
+        }
 __FI__ SEEBLACKLISTEDIT
-</script>
+    </script>
 
-__IF__ SEELISTS
-<tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-<tr class="infoBoxContent">
-  <td width="50%" align="right">
-__IF__ SEEWHITELISTENABLER
-  __LANG_ENABLEWHITELIST__:</td>
-  <td width="50%" align="left">__FORM_INPUTENABLEWHITE__
-__ELSE__ SEEWHITELISTENABLER
-   <td width="50%" align="left">
-__FI__ SEEWHITELISTENABLER
-__IF__ SEEWHITELISTEDIT
-&nbsp;<a href="javascript:openWhite();">__LANG_EDITWHITELIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
-__FI__ SEEWHITELISTEDIT
-  </td>
-</tr>
+    __IF__ SEELISTS
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="50%" align="right">
+            __IF__ SEEWHITELISTENABLER
+            __LANG_ENABLEWHITELIST__:</td>
+        <td width="50%" align="left">__FORM_INPUTENABLEWHITE__
+            __ELSE__ SEEWHITELISTENABLER
+        <td width="50%" align="left">
+            __FI__ SEEWHITELISTENABLER
+            __IF__ SEEWHITELISTEDIT
+            &nbsp;<a href="javascript:openWhite();">__LANG_EDITWHITELIST__&nbsp;<img
+                    src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
+            __FI__ SEEWHITELISTEDIT
+        </td>
+    </tr>
 
-__IF__ SEELISTS
-<tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-<tr class="infoBoxContent">
-  <td width="50%" align="right">
-__IF__ SEEBLACKLISTENABLER
-  __LANG_ENABLEBLACKLIST__:</td>
-  <td width="50%" align="left">__FORM_INPUTENABLEBLACK__
-__ELSE__ SEEBLACKLISTENABLER
-   <td width="50%" align="left">
-__FI__ SEEBLACKLISTENABLER
-__IF__ SEEBLACKLISTEDIT
-&nbsp;<a href="javascript:openBlack();">__LANG_EDITBLACKLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
-__FI__ SEEBLACKLISTEDIT
-  </td>
-</tr>
+    __IF__ SEELISTS
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td width="50%" align="right">
+            __IF__ SEEBLACKLISTENABLER
+            __LANG_ENABLEBLACKLIST__:</td>
+        <td width="50%" align="left">__FORM_INPUTENABLEBLACK__
+            __ELSE__ SEEBLACKLISTENABLER
+        <td width="50%" align="left">
+            __FI__ SEEBLACKLISTENABLER
+            __IF__ SEEBLACKLISTEDIT
+            &nbsp;<a href="javascript:openBlack();">__LANG_EDITBLACKLIST__&nbsp;<img
+                    src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
+            __FI__ SEEBLACKLISTEDIT
+        </td>
+    </tr>
 
-<tr class="infoBoxContent">
-  <td width="50%" align="right">
-__IF__ SEEWARNLISTENABLER
-  __LANG_ENABLEWARNLIST__:</td>
-  <td width="50%" align="left">__FORM_INPUTENABLEWARN__
-__ELSE__ SEEWARNLISTENABLER
-  <td width="50%" align="left">
-__FI__ SEEWARNLISTENABLER
-__IF__ SEEWARNLISTEDIT
-&nbsp;<a href="javascript:openWarn();">__LANG_EDITWARNLIST__&nbsp;<img src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
-__FI__ SEEWARNLISTEDIT
-  </td>
-</tr>
-__FI__ SEELISTS
+    <tr class="infoBoxContent">
+        <td width="50%" align="right">
+            __IF__ SEEWARNLISTENABLER
+            __LANG_ENABLEWARNLIST__:</td>
+        <td width="50%" align="left">__FORM_INPUTENABLEWARN__
+            __ELSE__ SEEWARNLISTENABLER
+        <td width="50%" align="left">
+            __FI__ SEEWARNLISTENABLER
+            __IF__ SEEWARNLISTEDIT
+            &nbsp;<a href="javascript:openWarn();">__LANG_EDITWARNLIST__&nbsp;<img
+                    src="templates/default/images/pencil.gif" border="0" align="abstop"></a>
+            __FI__ SEEWARNLISTEDIT
+        </td>
+    </tr>
+    __FI__ SEELISTS
 
-  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxContent" valign="top">
-  <td width="50%" align="right">__LANG_SUMFREQUENCY__:&nbsp;</td>
-  <td width="50%" align="left" class="infoBoxContent">__FORM_INPUTSUMFREQUENCY__</td>
- </tr>
-  <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top">
+        <td width="50%" align="right">__LANG_SUMFREQUENCY__:&nbsp;</td>
+        <td width="50%" align="left" class="infoBoxContent">__FORM_INPUTSUMFREQUENCY__</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
 
- <tr class="infoBoxContent" valign="top">
-   <td width="50%" align="right" valign="middle">__LANG_LANGUAGE__:&nbsp;</td>
-   <td width="50%" align="left" class="infoBoxContent" valign="middle">__FORM_INPUTLANGUAGE__</td>
- </tr>
+    <tr class="infoBoxContent" valign="top">
+        <td width="50%" align="right" valign="middle">__LANG_LANGUAGE__:&nbsp;</td>
+        <td width="50%" align="left" class="infoBoxContent" valign="middle">__FORM_INPUTLANGUAGE__</td>
+    </tr>
 
- <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxContent" valign="top">
-   <td width="50%" align="right" valign="top">__LANG_BELONGSTOUSER__: &nbsp;</td>
-   <td width="50%" align="left" class="infoBoxContent" valign="top">__BELONGTOUSERLINK__</td>
- </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent" valign="top">
+        <td width="50%" align="right" valign="top">__LANG_BELONGSTOUSER__: &nbsp;</td>
+        <td width="50%" align="left" class="infoBoxContent" valign="top">__BELONGTOUSERLINK__</td>
+    </tr>
 
- <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxContent"><td colspan="2" align="center"><b>&gt;&nbsp;<a href="__ACCESTOSPAMQUARANTINE_LINK__" target="_self">__LANG_ACCESSTOSPAMQUARANTINE__</a>&nbsp;&lt;</b></td></tr>
- <tr class="infoBoxContent"><td colspan="2" align="center"><b>&gt;&nbsp;<a href="__ACCESTOCONTENTQUARANTINE_LINK__" target="_self">__LANG_ACCESSTOCONTENTQUARANTINE__</a>&nbsp;&lt;</b></td></tr>
- 
-__IF__ HASPREF
- <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxContent"><td colspan="2" align="center" valign="middle"><a href="__RESETEMAIL_LINK__"><img src="templates/default/images/erase.gif" border="0" align="abs_middle">&nbsp;__LANG_RESETEMAIL__</a></td></tr>
-__FI__ HASPREF
- <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
- <tr class="infoBoxHeading"><td colspan="2" align="center">
-  <input type="image" name="submit" src="templates/default/images/apply.gif">&nbsp;</td></tr>
-__FORM_CLOSE_EMAILEDIT__
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2" align="center"><b>&gt;&nbsp;<a href="__ACCESTOSPAMQUARANTINE_LINK__"
+                    target="_self">__LANG_ACCESSTOSPAMQUARANTINE__</a>&nbsp;&lt;</b></td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2" align="center"><b>&gt;&nbsp;<a href="__ACCESTOCONTENTQUARANTINE_LINK__"
+                    target="_self">__LANG_ACCESSTOCONTENTQUARANTINE__</a>&nbsp;&lt;</b></td>
+    </tr>
+
+    __IF__ HASPREF
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxContent">
+        <td colspan="2" align="center" valign="middle"><a href="__RESETEMAIL_LINK__"><img
+                    src="templates/default/images/erase.gif" border="0" align="abs_middle">&nbsp;__LANG_RESETEMAIL__</a>
+        </td>
+    </tr>
+    __FI__ HASPREF
+    <tr class="infoBoxContent">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr class="infoBoxHeading">
+        <td colspan="2" align="center">
+            <input type="image" name="submit" src="templates/default/images/apply.gif">&nbsp;
+        </td>
+    </tr>
+    __FORM_CLOSE_EMAILEDIT__
 </table>

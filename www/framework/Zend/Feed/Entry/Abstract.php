@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 
@@ -31,6 +31,8 @@ require_once 'Zend/Feed.php';
  */
 require_once 'Zend/Feed/Element.php';
 
+/** @see Zend_Xml_Security */
+require_once 'Zend/Xml/Security.php';
 
 /**
  * Zend_Feed_Entry_Abstract represents a single entry in an Atom or RSS
@@ -38,7 +40,7 @@ require_once 'Zend/Feed/Element.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
@@ -78,18 +80,18 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
         if (!($element instanceof DOMElement)) {
             if ($element) {
                 // Load the feed as an XML DOMDocument object
-                @ini_set('track_errors', 1);
                 $doc = new DOMDocument();
-                $status = @$doc->loadXML($element);
-                @ini_restore('track_errors');
+                $doc = @Zend_Xml_Security::scan($element, $doc);
 
-                if (!$status) {
+                if (!$doc) {
+                    $err = error_get_last();
+                    $phpErrormsg = isset($err) ? $err['message'] : null;
                     // prevent the class to generate an undefined variable notice (ZF-2590)
-                    if (!isset($php_errormsg)) {
+                    if (!isset($phpErrormsg)) {
                         if (function_exists('xdebug_is_enabled')) {
-                            $php_errormsg = '(error message not available, when XDebug is running)';
+                            $phpErrormsg = '(error message not available, when XDebug is running)';
                         } else {
-                            $php_errormsg = '(error message not available)';
+                            $phpErrormsg = '(error message not available)';
                         }
                     }
 
@@ -97,7 +99,7 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
                      * @see Zend_Feed_Exception
                      */
                     require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $php_errormsg");
+                    throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $phpErrormsg");
                 }
 
                 $element = $doc->getElementsByTagName($this->_rootElement)->item(0);

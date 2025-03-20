@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Slider.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,7 +29,7 @@ require_once 'Zend/Dojo/View/Helper/Dijit.php';
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
@@ -44,7 +44,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
      * Required slider parameters
      * @var array
      */
-    protected $_requiredParams = array('minimum', 'maximum', 'discreteValues');
+    protected $_requiredParams = ['minimum', 'maximum', 'discreteValues'];
 
     /**
      * Slider type -- vertical or horizontal
@@ -61,7 +61,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function prepareSlider($id, $value = null, array $params = array(), array $attribs = array())
+    public function prepareSlider($id, $value = null, array $params = [], array $attribs = [])
     {
         $this->_sliderType = strtolower($this->_sliderType);
 
@@ -83,8 +83,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
             $attribs['onChange'] = "dojo.byId('" . $id . "').value = arguments[0];";
         }
 
-        $id  = str_replace('][', '-', $id);
-        $id  = str_replace(array('[', ']'), '-', $id);
+        $id  = str_replace(['][', '[', ']'], '-', $id);
         $id  = rtrim($id, '-');
         $id .= '-slider';
 
@@ -145,7 +144,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
      */
     protected function _prepareDecoration($position, $id, $decInfo)
     {
-        if (!in_array($position, array('topDecoration', 'bottomDecoration', 'leftDecoration', 'rightDecoration'))) {
+        if (!in_array($position, ['topDecoration', 'bottomDecoration', 'leftDecoration', 'rightDecoration'])) {
             return '';
         }
 
@@ -167,8 +166,8 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
             }
         }
 
-        $params  = array();
-        $attribs = array();
+        $params  = [];
+        $attribs = [];
         $labels  = $decInfo['labels'];
         if (array_key_exists('params', $decInfo)) {
             $params = $decInfo['params'];

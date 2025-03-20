@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,7 @@ require_once 'Zend/Http/UserAgent/AbstractDevice.php';
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_UserAgent_Spam extends Zend_Http_UserAgent_AbstractDevice
@@ -37,9 +37,9 @@ class Zend_Http_UserAgent_Spam extends Zend_Http_UserAgent_AbstractDevice
      *
      * @var array
      */
-    protected static $_uaSignatures = array(
+    protected static $_uaSignatures = [
         '',
-    );
+    ];
 
     /**
      * Comparison of the UserAgent chain and User Agent signatures
@@ -66,7 +66,7 @@ class Zend_Http_UserAgent_Spam extends Zend_Http_UserAgent_AbstractDevice
     /**
      * Look for features
      *
-     * @return string
+     * @return array|null
      */
     protected function _defineFeatures()
     {

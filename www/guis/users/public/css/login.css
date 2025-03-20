@@ -1,198 +1,198 @@
 /* local overrides */
 html, body {
-  background-color: #FFFFFF;
-  text-align: center;
-  font-size: 12px;
-  color: #000000;
+    background-color: #FFFFFF;
+    text-align: center;
+    font-size: 12px;
+    color: #000000;
 }
 
 img {
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
 }
-	
+
 /* main panel */
 #loginpanel {
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 10%;
-  padding: 0px;
-  width: 530px;
-  max-width: 530px;
-  border: 1px solid #BE7BB4;
-  white-space: nowrap;
-  background-image:url(/templates/default/images/login_mainbg.png);
-  background-position: 0px 75px;
-  background-repeat: repeat-x;
-  font-size: 12px;
-  color: #000000;
-  background-color: #DED9DF;
-  text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10%;
+    padding: 0px;
+    width: 530px;
+    max-width: 530px;
+    border: 1px solid #BE7BB4;
+    white-space: nowrap;
+    background-image:url(/templates/default/images/login_mainbg.png);
+    background-position: 0px 75px;
+    background-repeat: repeat-x;
+    font-size: 12px;
+    color: #000000;
+    background-color: #DED9DF;
+    text-align: left;
 }
 
 #mclogo {
-  vertical-align: top;
+    vertical-align: top;
 }
 
 /* form table */
 #loginpanel table {
-  text-align: center;
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
-  border: 0px;
-  white-space: nowrap;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  font-size: 12px;
-  color: #000000;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    border: 0px;
+    white-space: nowrap;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    font-size: 12px;
+    color: #000000;
 }
 
 #loginpanel td {
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
-  height: 24px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    height: 24px;
 }
 
 #loginpanel .tdfieldinput {
-  padding-left: 10px;
-  text-align: left;
+    padding-left: 10px;
+    text-align: left;
 }
-	
+
 #loginpanel .tdfieldtitle {
-  text-align: right;
-  width: 120px;
-  max-width: 120px;
-  overflow: hidden;
+    text-align: right;
+    width: 120px;
+    max-width: 120px;
+    overflow: hidden;
 }
 
 /* form fields and titles */
 .fieldinput {
-  font-size: 11px;
-  border: 1px solid #999999;
-  padding: 0px;
-  padding-left: 3px;
-  height: 20px;
-  line-height: 20px;
-  vertical-align: top;
+    font-size: 11px;
+    border: 1px solid #999999;
+    padding: 0px;
+    padding-left: 3px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: top;
 }
 
 #usernamefield {
-  width: 342px;
+    width: 342px;
 }
 
 #domainchooser {
-  font-size: 11px;
-  line-height: 20px;
-  width: 131px;
-  height: 20px;
-  border: 1px solid #999999;
+    font-size: 11px;
+    line-height: 20px;
+    width: 131px;
+    height: 20px;
+    border: 1px solid #999999;
 }
 
 #passwordfield {
-	width: 342px;
+    width: 342px;
 }
 
 #submitbutton {
-   float: right;
-   margin-right: 53px;
-   margin-top: 15px;
-   margin-bottom: 5px;
-   width: 65px;
-   font-size: 11px;
-   vertical-align: bottom;
+    float: right;
+    margin-right: 53px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 65px;
+    font-size: 11px;
+    vertical-align: bottom;
 }
 
 /* footer */
 #loginfooter {
-   margin: 0px;
-   margin-top: 5px;
-   padding: 0px;
-   padding-top: 1px;
-   border-top: 1px solid #C6ADC6;
-   background-image: url(/templates/default/images/loginfooter_bg.png); 
-   background-repeat: repeat-x;
-   color: #552056;
-   height: 22px;
+    margin: 0px;
+    margin-top: 5px;
+    padding: 0px;
+    padding-top: 1px;
+    border-top: 1px solid #C6ADC6;
+    background-image: url(/templates/default/images/loginfooter_bg.png); 
+    background-repeat: repeat-x;
+    color: #022971;
+    height: 22px;
 }
 
 .languageselector {
-   float: right;
-   padding: 0px;
-   margin: 0px;
-   margin-right: 7px;
-   display: inline;
-   line-height: 22px;
+    float: right;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 7px;
+    display: inline;
+    line-height: 22px;
 }
 .languageselector img {
-   margin: 0px;
-   margin-left: 2px;
-   margin-top: 5px;
-   border: 0px;
-   vertical-align: baseline;
+    margin: 0px;
+    margin-left: 2px;
+    margin-top: 5px;
+    border: 0px;
+    vertical-align: baseline;
 }
 
 .copyright {
-   float: left;
-   margin-left: 7px;
-   color: #A589A5;
-   font-size: 11px;
-   display: inline;
-   line-height: 22px;
+    float: left;
+    margin-left: 7px;
+    color: #A589A5;
+    font-size: 11px;
+    display: inline;
+    line-height: 22px;
 }
 
 .copyright a {
-   text-decoration: none;
-   color: #A589A5;
+    text-decoration: none;
+    color: #A589A5;
 }
 
 /* interactive texts */
 #badlogin {
-	margin: 0px;
-	margin-top: 0px;
-	margin-left: 130px;
-	width: 300px;
-	height: 24px;
-	line-height: 24px;
-	white-space: normal;
-	text-align: left;
-	font-weight: bolder;
-	padding: 0px;
-	padding-top: 4px;
-	color: #FF0000;
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: 130px;
+    width: 300px;
+    height: 24px;
+    line-height: 24px;
+    white-space: normal;
+    text-align: left;
+    font-weight: bolder;
+    padding: 0px;
+    padding-top: 4px;
+    color: #FF0000;
 }
 
 #reminder {
-	margin-top: 8px;
-	margin-bottom: 4px;
-	margin-left: 130px;
-	height: 39px;
-	width: 250px;
-	max-width: 250px;
-	white-space: normal;
-	text-align: left;
-	line-height: 15px;
-	padding: 0px;
-	color: #FF0000;
-	overflow: hidden;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    margin-left: 130px;
+    height: 39px;
+    width: 250px;
+    max-width: 250px;
+    white-space: normal;
+    text-align: left;
+    line-height: 15px;
+    padding: 0px;
+    color: #FF0000;
+    overflow: hidden;
 }
 
 #logoutinfo {
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	line-height: 16px;
-	margin-bottom: 40px;
-	white-space: normal;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 16px;
+    margin-bottom: 40px;
+    white-space: normal;
 }
 
 #sessioninfo {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
 }
 
 .minilink {

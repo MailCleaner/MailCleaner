@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @version    $Id: Interface.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Http_Client_Adapter_Interface
@@ -40,7 +40,7 @@ interface Zend_Http_Client_Adapter_Interface
      *
      * @param array $config
      */
-    public function setConfig($config = array());
+    public function setConfig($config = []);
 
     /**
      * Connect to the remote server
@@ -61,7 +61,7 @@ interface Zend_Http_Client_Adapter_Interface
      * @param string        $body
      * @return string Request as text
      */
-    public function write($method, $url, $http_ver = '1.1', $headers = array(), $body = '');
+    public function write($method, $url, $http_ver = '1.1', $headers = [], $body = '');
 
     /**
      * Read response from server

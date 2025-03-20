@@ -14,9 +14,9 @@
  *
  * @category  ZendX
  * @package   ZendX_Console
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Unix.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version   $Id$
  */
 
 
@@ -25,7 +25,7 @@
  *
  * @category  ZendX
  * @package   ZendX_Console
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class ZendX_Console_Process_Unix
@@ -401,12 +401,12 @@ abstract class ZendX_Console_Process_Unix
 
         // Now we need to differentiate a bit.
         switch ($this->_internalIpcData['_callType']) {
-            case VOID_METHOD:
+            case self::VOID_METHOD:
                 // Notify the child so it can process the request
                 $this->_sendSigUsr1();
                 break;
 
-            case RETURN_METHOD:
+            case self::RETURN_METHOD:
                 // Set the semaphorew
                 shmop_write($this->_internalSemKey, 1, 0);
 

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Console.php,v 1.1.2.4 2011-05-30 08:30:51 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -40,7 +40,7 @@ require_once 'Zend/Tool/Framework/Client/Interactive/OutputInterface.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @todo methods need more API documentation.
@@ -74,14 +74,14 @@ class Zend_Tool_Framework_Client_Console
     /**
      * @var array
      */
-    protected $_classesToLoad = array();
+    protected $_classesToLoad = [];
 
     /**
      * main() - This is typically called from zf.php. This method is a
      * self contained main() function.
      *
      */
-    public static function main($options = array())
+    public static function main($options = [])
     {
         $cliClient = new self($options);
         $cliClient->dispatch();
@@ -149,10 +149,10 @@ class Zend_Tool_Framework_Client_Console
         }
 
         // which classes are essential to initializing Zend_Tool_Framework_Client_Console
-        $classesToLoad = array(
+        $classesToLoad = [
             'Zend_Tool_Framework_Client_Console_Manifest',
             'Zend_Tool_Framework_System_Manifest'
-            );
+            ];
 
         if ($this->_classesToLoad) {
             if (is_string($this->_classesToLoad)) {
@@ -170,7 +170,7 @@ class Zend_Tool_Framework_Client_Console
         }
 
         $this->_registry->setLoader(
-            new Zend_Tool_Framework_Loader_BasicLoader(array('classesToLoad' => $classesToLoad))
+            new Zend_Tool_Framework_Loader_BasicLoader(['classesToLoad' => $classesToLoad])
             );
 
         return;
@@ -193,7 +193,7 @@ class Zend_Tool_Framework_Client_Console
         }
 
         $response->addContentDecorator(new Zend_Tool_Framework_Client_Response_ContentDecorator_Separator())
-            ->setDefaultDecoratorOptions(array('separator' => true));
+            ->setDefaultDecoratorOptions(['separator' => true]);
 
         $optParser = new Zend_Tool_Framework_Client_Console_ArgumentParser();
         $optParser->setArguments($_SERVER['argv'])

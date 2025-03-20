@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,9 +37,9 @@ require_once 'Zend/Form/Decorator/Abstract.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Description.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @version    $Id$
  */
 class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 {
@@ -159,7 +159,9 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
         }
 
         $description = $element->getDescription();
-        $description = trim($description);
+        if(is_string($description)) {
+            $description = trim($description);
+        }
 
         if (!empty($description) && (null !== ($translator = $element->getTranslator()))) {
             $description = $translator->translate($description);

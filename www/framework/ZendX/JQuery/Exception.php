@@ -15,9 +15,9 @@
  * @category    ZendX
  * @package     ZendX_JQuery
  * @subpackage  View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: Exception.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version     $Id$
  */
 
 require_once "Zend/Exception.php";
@@ -26,7 +26,7 @@ require_once "Zend/Exception.php";
  * jQuery Exception
  *
  * @package    ZendX_JQuery
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class ZendX_JQuery_Exception extends Zend_Exception { }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TestApplicationModuleDirectory.php,v 1.1.2.1 2011-05-30 08:30:33 root Exp $
+ * @version    $Id: TestApplicationControllerDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Project/Context/Filesystem/Directory.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_Tool_Project_Context_Filesystem_Directory
@@ -53,7 +53,7 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
     /**
      * init()
      *
-     * @return Zend_Tool_Project_Context_Zf_ControllerFile
+     * @return Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory
      */
     public function init()
     {
@@ -79,9 +79,9 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'forModuleName' => $this->getForModuleName()
-            );
+            ];
     }
 
     /**
@@ -93,6 +93,6 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
     {
         return $this->_forModuleName;
     }
-    
+
 
 }

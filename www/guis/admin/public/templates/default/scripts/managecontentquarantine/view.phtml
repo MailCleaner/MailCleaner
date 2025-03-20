@@ -1,82 +1,99 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <?php echo $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head>  
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <?php echo $this->headTitle() ?>
-  <?php echo $this->headLink() ?>
-<script type="text/javascript">
-  //<![CDATA[
-    var message = '<?php echo $this->message;?>';
-    var thisurl = '<?php echo $this->thisurl?>';
-    var baseurl ='<?php echo $this->baseurl?>';
-    var loadinghtml = '<img src="<?php echo $this->images_path;?>/loading.gif" alt="loading..." id="statusloadingimg" />';
-    var quickstatusurl = '<?php echo $this->statusUrl;?>';
-    var statusreload = 10000;
-    var statusrequest;
-   //]]>
-</script>
-  
-  <?php echo $this->jQuery(); ?>
-  
-  <?php echo $this->headScript() ?>
-  
-</head> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?php echo $this->headTitle() ?>
+    <?php echo $this->headLink() ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var message = '<?php echo $this->message; ?>';
+        var thisurl = '<?php echo $this->thisurl ?>';
+        var baseurl = '<?php echo $this->baseurl ?>';
+        var loadinghtml = '<img src="<?php echo $this->images_path; ?>/loading.gif" alt="loading..." id="statusloadingimg" />';
+        var quickstatusurl = '<?php echo $this->statusUrl; ?>';
+        var statusreload = 10000;
+        var statusrequest;
+        //]]>
+    </script>
+
+    <?php echo $this->jQuery(); ?>
+
+    <?php echo $this->headScript() ?>
+
+</head>
+
 <body>
-<div id="container">
+    <div id="container">
 
-<!-- flyover box for quarantine -->
-<div id="tooltip">
-</div>
-<!-- END flyover box -->
+        <!-- flyover box for quarantine -->
+        <div id="tooltip">
+        </div>
+        <!-- END flyover box -->
 
-<div id="viewheader">
-  <img src="<?php echo $this->images_path?>/message_info.png" alt="" />
-  <p><?php echo $this->t->_('Information about message')?>
-    (<?php echo $this->t->_('Id')?>: <?php echo $this->msgid?>)</p>
-</div>
+        <div id="viewheader">
+            <img src="<?php echo $this->images_path ?>/message_info.png" alt="" />
+            <p><?php echo $this->t->_('Information about message') ?>
+                (<?php echo $this->t->_('Id') ?>: <?php echo $this->msgid ?>)</p>
+        </div>
 
-<table id="generalinfostable">
-     <tr>
-      <td class="fieldname">&nbsp;</td>
-      <td class="fieldvalue">
-       <div id="actionpanel">
-          <a href="javascript:redimAndForce('<?php echo $this->umsgid?>', '<?php echo $this->msg->getParam('store_id')?>', '<?php echo $this->msg->getParam('is_newsletter')?>');" onmouseover="showHideToolTip(event, true, 'fm', 'R'); return true;" onmouseout="showHideToolTip(event, false, '', 'R'); return true;"><img src="<?php echo $this->images_path?>/release.png" alt="__LANG_FORCEMESSAGE__" /></a>
-          <a href="javascript:window.close();" onmouseover="showHideToolTip(event, true, 'cl', 'R'); return true;" onmouseout="showHideToolTip(event, false, '', 'R'); return true;"><img src="<?php echo $this->images_path?>/close.png" alt="close" /></a>
-       </div>
-      </td>
-     </tr>
- <?php foreach (array('Sender' => 'from_address', 'Destination' => 'to_address', 'Date' => 'date time','Subject' => 'subject', 'Size' => 'size', 'Storage' => 'store_id', 'Report' => 'report') as $key => $value) {?>
-     <tr>
-       <td class="fieldname"><?php echo $this->t->_($key)?>:</td>
-       <td class="fieldvalue"><?php foreach (split(' ',$value) as $e) { echo $this->msg->getCleanParam($e)." "; }?></td>
-     </tr>
- <?php }?>
-
-
-     <tr><td class="fieldname">&nbsp;</td><td class="fieldvalue"></td></tr>
-</table>
+        <table id="generalinfostable">
+            <tr>
+                <td class="fieldname">&nbsp;</td>
+                <td class="fieldvalue">
+                    <div id="actionpanel">
+                        <a href="javascript:redimAndForce('<?php echo $this->umsgid ?>', '<?php echo $this->msg->getParam('store_id') ?>', '<?php echo $this->msg->getParam('is_newsletter') ?>');" onmouseover="showHideToolTip(event, true, 'fm', 'R'); return true;" onmouseout="showHideToolTip(event, false, '', 'R'); return true;"><img src="<?php echo $this->images_path ?>/release.png" alt="__LANG_FORCEMESSAGE__" /></a>
+                        <a href="javascript:window.close();" onmouseover="showHideToolTip(event, true, 'cl', 'R'); return true;" onmouseout="showHideToolTip(event, false, '', 'R'); return true;"><img src="<?php echo $this->images_path ?>/close.png" alt="close" /></a>
+                    </div>
+                </td>
+            </tr>
+            <?php foreach (['Sender' => 'from_address', 'Destination' => 'to_address', 'Date' => 'date time', 'Subject' => 'subject', 'Size' => 'size', 'Storage' => 'store_id', 'Report' => 'report'] as $key => $value) { ?>
+                <tr>
+                    <td class="fieldname"><?php echo $this->t->_($key) ?>:</td>
+                    <td class="fieldvalue"><?php foreach (preg_split('/ /', $value) as $e) {
+                                                echo $this->msg->getCleanParam($e) . " ";
+                                            } ?></td>
+                </tr>
+            <?php } ?>
 
 
-<div id="msgheaderstitle" class="infotitle"><img id="msgheaders_expandimg" src="<?php echo $this->images_path?>/expand	.png" alt="expand" onclick="javascript:openclosepanel('msgheaders'); return true;" /><p><?php echo $this->t->_('Headers')?></p></div>
- 
- <table id="msgheaders">
-   <tr><td class="fieldname">&nbsp;</td><td class="fieldvalue"></td></tr>
-<?php foreach ($this->headers as $h) {?>
-   <tr>
-     <td class="fieldname"><?php echo $h[0]?>:</td>
-     <td class="fieldvalue"><?php echo $h[1]?></td>
-   </tr>
-<?php }?>
-   <tr><td class="fieldname">&nbsp;</td><td class="fieldvalue"></td></tr>
- </table>
+            <tr>
+                <td class="fieldname">&nbsp;</td>
+                <td class="fieldvalue"></td>
+            </tr>
+        </table>
+
+
+        <div id="msgheaderstitle" class="infotitle"><img id="msgheaders_expandimg" src="<?php echo $this->images_path ?>/expand.png" alt="expand" onclick="javascript:openclosepanel('msgheaders'); return true;" />
+            <p><?php echo $this->t->_('Headers') ?></p>
+        </div>
+
+        <table id="msgheaders">
+            <tr>
+                <td class="fieldname">&nbsp;</td>
+                <td class="fieldvalue"></td>
+            </tr>
+            <?php foreach ($this->headers as $h) { ?>
+                <tr>
+                    <td class="fieldname"><?php echo $h[0] ?>:</td>
+                    <td class="fieldvalue"><?php echo $h[1] ?></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <td class="fieldname">&nbsp;</td>
+                <td class="fieldvalue"></td>
+            </tr>
+        </table>
 
 </body>
+
 </html>

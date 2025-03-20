@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: XmlTm.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,21 +26,26 @@ require_once 'Zend/Locale.php';
 /** Zend_Translate_Adapter */
 require_once 'Zend/Translate/Adapter.php';
 
+/** @see Zend_Xml_Security */
+require_once 'Zend/Xml/Security.php';
+
+/** @See Zend_Xml_Exception */
+require_once 'Zend/Xml/Exception.php';
 
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     // Internal variables
     private $_file        = false;
-    private $_cleared     = array();
+    private $_cleared     = [];
     private $_lang        = null;
     private $_content     = null;
     private $_tag         = null;
-    private $_data        = array();
+    private $_data        = [];
 
     /**
      * Load translation data (XMLTM file reader)
@@ -52,9 +57,9 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         $this->_lang = $locale;
         if (!is_readable($filename)) {
             require_once 'Zend/Translate/Exception.php';
@@ -68,10 +73,20 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
         xml_set_element_handler($this->_file, "_startElement", "_endElement");
         xml_set_character_data_handler($this->_file, "_contentElement");
 
+        try {
+            Zend_Xml_Security::scanFile($filename);
+        } catch (Zend_Xml_Exception $e) {
+            require_once 'Zend/Translate/Exception.php';
+            throw new Zend_Translate_Exception(
+                $e->getMessage()
+            );
+        }
+
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            $ex = sprintf('XML error: %s at line %d',
+            $ex = sprintf('XML error: %s at line %d of file %s',
                           xml_error_string(xml_get_error_code($this->_file)),
-                          xml_get_current_line_number($this->_file));
+                          xml_get_current_line_number($this->_file),
+                          $filename);
             xml_parser_free($this->_file);
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
@@ -96,7 +111,7 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     {
         switch (strtolower($name)) {
             case 'tm:tu':
-                if (!empty($this->_tag) and !empty($this->_content) or
+                if (!empty($this->_tag) && !empty($this->_content) ||
                     (isset($this->_data[$this->_lang][$this->_tag]) === false)) {
                     $this->_data[$this->_lang][$this->_tag] = $this->_content;
                 }
@@ -118,7 +133,7 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
 
     private function _findEncoding($filename)
     {
-        $file = file_get_contents($filename, null, null, 0, 100);
+        $file = file_get_contents($filename, false, null, 0, 100);
         if (strpos($file, "encoding") !== false) {
             $encoding = substr($file, strpos($file, "encoding") + 9);
             $encoding = substr($encoding, 1, strpos($encoding, $encoding[0], 1) - 1);

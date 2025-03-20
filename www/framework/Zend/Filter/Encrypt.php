@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Encrypt.php,v 1.1.2.4 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Loader.php';
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Encrypt implements Zend_Filter_Interface
@@ -86,7 +86,7 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
         }
 
         if (!is_array($options)) {
-            $options = array();
+            $options = [];
         }
 
         if (Zend_Loader::isReadable('Zend/Filter/Encrypt/' . ucfirst($adapter). '.php')) {
@@ -115,12 +115,12 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
     public function __call($method, $options)
     {
         $part = substr($method, 0, 3);
-        if ((($part != 'get') and ($part != 'set')) or !method_exists($this->_adapter, $method)) {
+        if ((($part != 'get') && ($part != 'set')) || !method_exists($this->_adapter, $method)) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($this->_adapter, $method), $options);
+        return call_user_func_array([$this->_adapter, $method], $options);
     }
 
     /**

@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Array.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,12 +30,12 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
 {
-    private $_data = array();
+    private $_data = [];
 
     /**
      * Load translation data
@@ -46,9 +46,9 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
      * @param  array         $options OPTIONAL Options to use
      * @return array
      */
-    protected function _loadTranslationData($data, $locale, array $options = array())
+    protected function _loadTranslationData($data, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         if (!is_array($data)) {
             if (file_exists($data)) {
                 ob_start();
@@ -62,7 +62,7 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
         }
 
         if (!isset($this->_data[$locale])) {
-            $this->_data[$locale] = array();
+            $this->_data[$locale] = [];
         }
 
         $this->_data[$locale] = $data + $this->_data[$locale];

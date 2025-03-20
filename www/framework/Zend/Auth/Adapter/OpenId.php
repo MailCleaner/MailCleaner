@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OpenId.php,v 1.1.2.4 2011-05-30 08:30:35 root Exp $
+ * @version    $Id$
  */
 
 
@@ -40,7 +40,7 @@ require_once 'Zend/OpenId/Consumer.php';
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
@@ -113,7 +113,6 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * @param mixed $extensions extension object or array of extensions objects
      * @param Zend_Controller_Response_Abstract $response an optional response
      *        object to perform HTTP or HTML form redirection
-     * @return void
      */
     public function __construct($id = null,
                                 Zend_OpenId_Consumer_Storage $storage = null,
@@ -133,7 +132,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * Sets the value to be used as the identity
      *
      * @param  string $id the identity value
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setIdentity($id)
     {
@@ -145,7 +144,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * Sets the storage implementation which will be use by OpenId
      *
      * @param  Zend_OpenId_Consumer_Storage $storage
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setStorage(Zend_OpenId_Consumer_Storage $storage)
     {
@@ -157,7 +156,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * Sets the HTTP URL to redirect response from server to
      *
      * @param  string $returnTo
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setReturnTo($returnTo)
     {
@@ -169,7 +168,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * Sets HTTP URL to identify consumer on server
      *
      * @param  string $root
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setRoot($root)
     {
@@ -181,7 +180,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * Sets OpenID extension(s)
      *
      * @param  mixed $extensions
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setExtensions($extensions)
     {
@@ -192,8 +191,8 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
     /**
      * Sets an optional response object to perform HTTP or HTML form redirection
      *
-     * @param  string $root
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @param  string $response
+     * @return $this
      */
     public function setResponse($response)
     {
@@ -206,7 +205,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * OpenID provider.
      *
      * @param  bool $check_immediate
-     * @return Zend_Auth_Adapter_OpenId Provides a fluent interface
+     * @return $this
      */
     public function setCheckImmediate($check_immediate)
     {
@@ -245,7 +244,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                     return new Zend_Auth_Result(
                         Zend_Auth_Result::FAILURE,
                         $id,
-                        array("Authentication failed", $consumer->getError()));
+                        ["Authentication failed", $consumer->getError()]);
                 }
             } else {
                 if (!$consumer->check($id,
@@ -256,7 +255,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                     return new Zend_Auth_Result(
                         Zend_Auth_Result::FAILURE,
                         $id,
-                        array("Authentication failed", $consumer->getError()));
+                        ["Authentication failed", $consumer->getError()]);
                 }
             }
         } else {
@@ -271,12 +270,12 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                 return new Zend_Auth_Result(
                     Zend_Auth_Result::SUCCESS,
                     $id,
-                    array("Authentication successful"));
+                    ["Authentication successful"]);
             } else {
                 return new Zend_Auth_Result(
                     Zend_Auth_Result::FAILURE,
                     $id,
-                    array("Authentication failed", $consumer->getError()));
+                    ["Authentication failed", $consumer->getError()]);
             }
         }
     }

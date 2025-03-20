@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Statement.php,v 1.1.2.4 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/Db/Statement/Interface.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
@@ -64,35 +64,35 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      *
      * @var array
      */
-    protected $_attribute = array();
+    protected $_attribute = [];
 
     /**
      * Column result bindings.
      *
      * @var array
      */
-    protected $_bindColumn = array();
+    protected $_bindColumn = [];
 
     /**
      * Query parameter bindings; covers bindParam() and bindValue().
      *
      * @var array
      */
-    protected $_bindParam = array();
+    protected $_bindParam = [];
 
     /**
      * SQL string split into an array at placeholders.
      *
      * @var array
      */
-    protected $_sqlSplit = array();
+    protected $_sqlSplit = [];
 
     /**
      * Parameter placeholders in the SQL string by position in the split array.
      *
      * @var array
      */
-    protected $_sqlParam = array();
+    protected $_sqlParam = [];
 
     /**
      * @var Zend_Db_Profiler_Query
@@ -141,7 +141,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
             $sql, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
 
         // map params
-        $this->_sqlParam = array();
+        $this->_sqlParam = [];
         foreach ($this->_sqlSplit as $key => $val) {
             if ($val == '?') {
                 if ($this->_adapter->supportsParameters('positional') === false) {
@@ -164,7 +164,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         }
 
         // set up for binding
-        $this->_bindParam = array();
+        $this->_bindParam = [];
     }
 
     /**
@@ -176,37 +176,40 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     protected function _stripQuoted($sql)
     {
-        // get the character for delimited id quotes,
-        // this is usually " but in MySQL is `
-        $d = $this->_adapter->quoteIdentifier('a');
-        $d = $d[0];
-
-        // get the value used as an escaped delimited id quote,
-        // e.g. \" or "" or \`
-        $de = $this->_adapter->quoteIdentifier($d);
-        $de = substr($de, 1, 2);
-        $de = str_replace('\\', '\\\\', $de);
 
         // get the character for value quoting
         // this should be '
         $q = $this->_adapter->quote('a');
         $q = $q[0];
-
         // get the value used as an escaped quote,
         // e.g. \' or ''
         $qe = $this->_adapter->quote($q);
         $qe = substr($qe, 1, 2);
-        $qe = str_replace('\\', '\\\\', $qe);
+        $qe = preg_quote($qe);
+        $escapeChar = substr($qe,0,1);
+        // remove 'foo\'bar'
+        if (!empty($q)) {
+            $escapeChar = preg_quote($escapeChar);
+            // this segfaults only after 65,000 characters instead of 9,000
+            $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', (string) $sql);
+        }
 
         // get a version of the SQL statement with all quoted
         // values and delimited identifiers stripped out
         // remove "foo\"bar"
-        $sql = preg_replace("/$q($qe|\\\\{2}|[^$q])*$q/", '', $sql);
-        // remove 'foo\'bar'
-        if (!empty($q)) {
-            $sql = preg_replace("/$q($qe|[^$q])*$q/", '', $sql);
-        }
+        $sql = preg_replace("/\"(\\\\\"|[^\"])*\"/Us", '', (string) $sql);
 
+        // get the character for delimited id quotes,
+        // this is usually " but in MySQL is `
+        $d = $this->_adapter->quoteIdentifier('a');
+        $d = $d[0];
+        // get the value used as an escaped delimited id quote,
+        // e.g. \" or "" or \`
+        $de = $this->_adapter->quoteIdentifier($d);
+        $de = substr($de, 1, 2);
+        $de = preg_quote($de);
+        // Note: $de and $d where never used..., now they are:
+        $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', $sql);
         return $sql;
     }
 
@@ -333,7 +336,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     public function fetchAll($style = null, $col = null)
     {
-        $data = array();
+        $data = [];
         if ($style === Zend_Db::FETCH_COLUMN && $col === null) {
             $col = 0;
         }
@@ -357,7 +360,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     public function fetchColumn($col = 0)
     {
-        $data = array();
+        $data = [];
         $col = (int) $col;
         $row = $this->fetch(Zend_Db::FETCH_NUM);
         if (!is_array($row)) {
@@ -373,7 +376,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * @param array  $config OPTIONAL Constructor arguments for the class.
      * @return mixed One object instance of the specified class, or false.
      */
-    public function fetchObject($class = 'stdClass', array $config = array())
+    public function fetchObject($class = 'stdClass', array $config = [])
     {
         $obj = new $class($config);
         $row = $this->fetch(Zend_Db::FETCH_ASSOC);
@@ -476,7 +479,8 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     /**
      * Gets the resource or object setup by the
      * _parse
-     * @return unknown_type
+     *
+     * @return object|resource|null
      */
     public function getDriverStatement()
     {

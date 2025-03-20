@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormLabel.php,v 1.1.2.3 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_View_Helper_FormElement **/
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
@@ -62,11 +62,9 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
         }
 
         // enabled; display label
-        $xhtml = '<label'
+        return '<label'
                 . $for
                 . $this->_htmlAttribs($attribs)
                 . '>' . $value . '</label>';
-
-        return $xhtml;
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TrimmedTable.php,v 1.1.2.3 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Pdf_Cmap */
@@ -33,7 +33,7 @@ require_once 'Zend/Pdf/Cmap.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Cmap_TrimmedTable extends Zend_Pdf_Cmap
@@ -57,7 +57,7 @@ class Zend_Pdf_Cmap_TrimmedTable extends Zend_Pdf_Cmap
      * Glyph index array. Stores the actual glyph numbers.
      * @var array
      */
-    protected $_glyphIndexArray = array();
+    protected $_glyphIndexArray = [];
 
 
 
@@ -79,7 +79,7 @@ class Zend_Pdf_Cmap_TrimmedTable extends Zend_Pdf_Cmap
      */
     public function glyphNumbersForCharacters($characterCodes)
     {
-        $glyphNumbers = array();
+        $glyphNumbers = [];
         foreach ($characterCodes as $key => $characterCode) {
 
             if (($characterCode < $this->_startCode) || ($characterCode > $this->_endCode)) {
@@ -123,7 +123,7 @@ class Zend_Pdf_Cmap_TrimmedTable extends Zend_Pdf_Cmap
      */
     public function getCoveredCharacters()
     {
-        $characterCodes = array();
+        $characterCodes = [];
         for ($code = $this->_startCode; $code <= $this->_endCode; $code++) {
             $characterCodes[] = $code;
         }
@@ -144,7 +144,7 @@ class Zend_Pdf_Cmap_TrimmedTable extends Zend_Pdf_Cmap
      */
     public function getCoveredCharactersGlyphs()
     {
-        $glyphNumbers = array();
+        $glyphNumbers = [];
         for ($code = $this->_startCode; $code <= $this->_endCode; $code++) {
             $glyphNumbers[$code] = $this->_glyphIndexArray[$code - $this->_startCode];
         }

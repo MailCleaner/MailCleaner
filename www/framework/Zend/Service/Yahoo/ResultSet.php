@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResultSet.php,v 1.1.2.4 2011-05-30 08:30:31 root Exp $
+ * @version    $Id$
  */
 
 
@@ -26,11 +26,13 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Yahoo_ResultSet implements SeekableIterator
 {
+    protected $_namespace;
+
     /**
      * Total number of results available
      *
@@ -121,6 +123,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      * @throws Zend_Service_Exception
      * @return Zend_Service_Yahoo_Result
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         /**
@@ -137,6 +140,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentIndex;
@@ -148,7 +152,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->_currentIndex += 1;
     }
@@ -159,7 +163,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_currentIndex = 0;
     }
@@ -172,7 +176,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      * @return void
      * @throws OutOfBoundsException
      */
-    public function seek($index)
+    public function seek($index): void
     {
         $indexInt = (int) $index;
         if ($indexInt >= 0 && $indexInt < $this->_results->length) {
@@ -188,7 +192,7 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      *
      * @return boolean
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->_currentIndex < $this->_results->length;
     }

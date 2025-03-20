@@ -1,4 +1,27 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+#
+#   Mailcleaner - SMTP Antivirus/Antispam Gateway
+#   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2025 John Mertz <git@john.me.tz>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+use v5.36;
+use strict;
+use warnings;
+use utf8;
 
 ## pushed format must be
 ## address(,user)
@@ -18,72 +41,70 @@ my $conf = ReadConfig::getInstance();
 
 my $afile = $conf->getOption('VARDIR')."/spool/mailcleaner/addresses/".$domain.".addresslist";
 
-open AFILE, ">".$afile or die "Cannot open destination file: $afile";
+open(my $AFILE, '>', $afile) or die "Cannot open destination file: $afile";
 
 my $in_headers = 1;
 my $full_text = '';
 while (<>) {
-  if (/^\s*$/) {
-    $in_headers = 0;
-  }
-  next if $in_headers;
+    if (/^\s*$/) {
+        $in_headers = 0;
+    }
+    next if $in_headers;
 
-  $full_text .= $_;
+    $full_text .= $_;
 
-  if (/([^@,]+)\@$domain([,;])?(\S+)?/) {
-    print AFILE $1;
-#    if ($2 && $3) {
-#      print AFILE ",".$3;
-#    }
-    print AFILE "\n";
-  }
+    if (/([^@,]+)\@$domain([,;])?(\S+)?/) {
+        print $AFILE $1;
+        print $AFILE "\n";
+    }
 }  
-close AFILE;
+close $AFILE;
 
 print "OK ".$ret." - address list saved in $afile\n";
 
 if ($conf->getOption('ISMASTER') =~ m/^(Y|y|yes|YES)$/) {
-  my $slave_db = DB::connect('slave', 'mc_config');
-  my @masters = $slave_db->getListOfHash("SELECT hostname from master");
-  my @slaves = $slave_db->getListOfHash("SELECT hostname from slave");
-  foreach my $s (@slaves) {
-    my $do = 1;
-    foreach my $m (@masters) {
-      if ($m->{'hostname'} eq $s->{'hostname'}) {
-        $do = 0;
-      }
-      if ($do) {
-        sendToSlave($s->{'hostname'});
-      }
+    my $slave_db = DB::connect('slave', 'mc_config');
+    my @masters = $slave_db->getListOfHash("SELECT hostname from master");
+    my @slaves = $slave_db->getListOfHash("SELECT hostname from slave");
+    foreach my $s (@slaves) {
+        my $do = 1;
+        foreach my $m (@masters) {
+            if ($m->{'hostname'} eq $s->{'hostname'}) {
+                $do = 0;
+            }
+            if ($do) {
+                sendToSlave($s->{'hostname'});
+            }
+        }
     }
-  }
 }
 
 exit 0;
 
-sub sendToSlave {
-  my $slave = shift;
+sub sendToSlave
+{
+    my $slave = shift;
 
-  my $smtp = Net::SMTP->new($slave);
-  if (!$smtp) {
-    print STDERR "Cannot connect to $slave for propagating address list\n";
+    my $smtp = Net::SMTP->new($slave);
+    if (!$smtp) {
+        print STDERR "Cannot connect to $slave for propagating address list\n";
+        return 0;
+    }
+    $smtp->mail($sender);
+    $smtp->to($recipient);
+    my $err = $smtp->code();
+    if ($err > 299) {
+        print STDERR "Cannot send propagation message to $slave, error code: $err\n";
+        return 0;
+    }
+    $smtp->data();
+    $smtp->datasend($full_text);
+    $smtp->dataend();
+    $err = $smtp->code();
+    if ($err < 300) {
+        print "Porpagation done to $slave\n";
+        return 1;
+    }
+    print STDERR "Propagation failed to $slave\n";
     return 0;
-  }
-  $smtp->mail($sender);
-  $smtp->to($recipient);
-  my $err = $smtp->code();
-  if ($err > 299) {
-    print STDERR "Cannot send propagation message to $slave, error code: $err\n";
-    return 0;
-  }
-  $smtp->data();
-  $smtp->datasend($full_text);
-  $smtp->dataend();
-  $err = $smtp->code();
-  if ($err < 300) {
-    print "Porpagation done to $slave\n";
-    return 1;
-  }
-  print STDERR "Propagation failed to $slave\n";
-  return 0;
 }

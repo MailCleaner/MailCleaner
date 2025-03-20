@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Font.php,v 1.1.2.3 2011-05-30 08:30:43 root Exp $
+ * @version    $Id$
  */
 
 
@@ -33,7 +33,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Font
@@ -417,14 +417,14 @@ abstract class Zend_Pdf_Font
      * The values are the font objects themselves.
      * @var array
      */
-    private static $_fontNames = array();
+    private static $_fontNames = [];
 
     /**
      * Array whose keys are the md5 hash of the full paths on disk for parsed
      * fonts. The values are the font objects themselves.
      * @var array
      */
-    private static $_fontFilePaths = array();
+    private static $_fontFilePaths = [];
 
 
 
@@ -688,7 +688,7 @@ abstract class Zend_Pdf_Font
      *
      * @param Zend_Pdf_FileParserDataSource $dataSource
      * @param integer $embeddingOptions Options for font embedding.
-     * @return Zend_Pdf_Resource_Font_OpenType_TrueType May also return null if
+     * @return Zend_Pdf_Resource_Font_Simple_Parsed_TrueType|Zend_Pdf_Resource_Font_Type0|null May also return null if
      *   the data source does not appear to contain a TrueType font.
      * @throws Zend_Pdf_Exception
      */

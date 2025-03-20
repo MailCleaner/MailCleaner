@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Atom.php,v 1.1.2.1 2011-05-30 08:30:41 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -42,7 +42,7 @@ require_once 'Zend/Feed/Reader/Extension/Atom/Entry.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Entry_Atom extends Zend_Feed_Reader_EntryAbstract implements Zend_Feed_Reader_EntryInterface
@@ -358,7 +358,7 @@ class Zend_Feed_Reader_Entry_Atom extends Zend_Feed_Reader_EntryAbstract impleme
 
         $categoryCollection = $this->getExtension('Atom')->getCategories();
 
-        if (count($categoryCollection) == 0) {
+        if (count($categoryCollection) === 0) {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();
         }
 

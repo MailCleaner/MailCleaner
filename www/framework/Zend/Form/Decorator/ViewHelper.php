@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,9 +37,9 @@ require_once 'Zend/Form/Decorator/Abstract.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ViewHelper.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @version    $Id$
  */
 class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 {
@@ -47,11 +47,11 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
      * Element types that represent buttons
      * @var array
      */
-    protected $_buttonTypes = array(
+    protected $_buttonTypes = [
         'Zend_Form_Element_Button',
         'Zend_Form_Element_Reset',
         'Zend_Form_Element_Submit',
-    );
+    ];
 
     /**
      * View helper to use when rendering
@@ -63,7 +63,7 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
      * Set view helper to use when rendering
      *
      * @param  string $helper
-     * @return Zend_Form_Decorator_Element_ViewHelper
+     * @return Zend_Form_Decorator_ViewHelper
      */
     public function setHelper($helper)
     {
@@ -196,7 +196,8 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
             if ($element instanceof $type) {
                 if (stristr($type, 'button')) {
                     $element->content = $element->getLabel();
-                    return null;
+
+                    return $element->getValue();
                 }
                 return $element->getLabel();
             }
@@ -243,7 +244,18 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
             $helperObject->setTranslator($element->getTranslator());
         }
 
-        $elementContent = $view->$helper($name, $value, $attribs, $element->options);
+        // Check list separator
+        if (isset($attribs['listsep'])
+            && in_array($helper, ['formMultiCheckbox', 'formRadio', 'formSelect'])
+        ) {
+            $listsep = $attribs['listsep'];
+            unset($attribs['listsep']);
+
+            $elementContent = $view->$helper($name, $value, $attribs, $element->options, $listsep);
+        } else {
+            $elementContent = $view->$helper($name, $value, $attribs, $element->options);
+        }
+
         switch ($this->getPlacement()) {
             case self::APPEND:
                 return $content . $separator . $elementContent;

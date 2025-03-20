@@ -1,27 +1,32 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <td colspan="2">
-<table id="testingtable">
-<?php if (! $this->finished) { ?>
-<tr>
-  <td colspan="2"><img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading..."></td>
-</tr>
-<?php }?>
+    <table id="testingtable">
+        <?php if (!$this->finished) { ?>
+            <tr>
+                <td colspan="2"><img src="<?php echo $this->images_path ?>/loadingwhitebg.gif" alt="loading..."></td>
+            </tr>
+        <?php } ?>
 
-<?php foreach ($this->status as $host => $data) {?>
-<tr>
-  <td class="testingwhat"><?php echo $host?></td>
-  <td class="testingresult<?php 
-    if ($data['status'] == 'OK') { echo ' passedtest'; } elseif ($data['status'] == 'NOK') { echo ' failedtest'; }?>">
-    <?php echo $this->t->_($data['message'])?>
-  </td>
-</tr>
-<?php }?>
-</table>
+        <?php foreach ($this->status as $host => $data) { ?>
+            <tr>
+                <td class="testingwhat"><?php echo $host ?></td>
+                <td class="testingresult<?php
+                                        if ($data['status'] == 'OK') {
+                                            echo ' passedtest';
+                                        } elseif ($data['status'] == 'NOK') {
+                                            echo ' failedtest';
+                                        } ?>">
+                    <?php echo $this->t->_($data['message']) ?>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
 </td>

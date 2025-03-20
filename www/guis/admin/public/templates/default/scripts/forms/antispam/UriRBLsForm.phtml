@@ -1,32 +1,40 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <?php require_once('helpers/DataManager.php');
 $baseconf = DataManager::getFileConfig(SystemConfig::$CONFIGFILE_); ?>
-<?php echo $this->InputRow($this->form->getElement('listeduristobespam'));?>
+<?php echo $this->InputRow($this->form->getElement('listeduristobespam')); ?>
 
 <tr>
-    <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Using these RBLs')?> : </td>
+    <td class="flabel flabeltextarea flabelchecklist"><?php echo $this->t->_('Using these RBLs') ?> : </td>
     <td class="fvalue fvaluechecklist">
-    <?php foreach ($this->form->_rbl_checks as $check) {
-        if (preg_match('/^INACTIVE/',$check->getLabel())) {
-	  echo '<input type="checkbox" onclick="return false;" /><span>' . preg_replace('/^use_rbl_/','',$check->getName()) . "&nbsp;&nbsp;";
-	  if (isset($baseconf['REGISTERED']) && $baseconf['REGISTERED'] == '1') {
-            echo '<button onclick="window.open(\'https://www.mailcleaner.net/free-trial-options.html\', \'_blank\');">Free Trial</button></span><br />';
-          } else {
-            echo '<button onclick="window.open(\'https://www.mailcleaner.net/community-edition-add-ons.html\', \'_blank\');">Premium Add-On</button></span><br />';
-          }
-	} else {
-	  echo $this->InputRow($check, array('field_only'=>true,'nobox'=>'true','post_field_text'=>$check->getLabel()."<br />"));
-        }
-    } ?>
+        <?php foreach ($this->form->_rbl_checks as $check) {
+            if (preg_match('/^INACTIVE/', $check->getLabel())) {
+                echo '<input type="checkbox" onclick="return false;" /><span>' . preg_replace('/^use_rbl_/', '', $check->getName()) . "&nbsp;&nbsp;";
+                if (isset($baseconf['REGISTERED']) && $baseconf['REGISTERED'] == '1') {
+                    echo '<button onclick="window.open(\'https://www.mailcleaner.net/free-trial-options.html\', \'_blank\');">Free Trial</button></span><br />';
+                } else {
+                    echo '<button onclick="window.open(\'https://www.mailcleaner.net/community-edition-add-ons.html\', \'_blank\');">Premium Add-On</button></span><br />';
+                }
+            } else {
+                echo $this->InputRow(
+                    $check,
+                    [
+                        'field_only' => true,
+                        'nobox' => 'true',
+                        'post_field_text' => $check->getLabel() . "<br />"
+                    ]
+                );
+            }
+        } ?>
     </td>
-    <?php echo $this->InputRow($this->form->getElement('avoidhosts'),array('label_addclass'=>'flabeltextarea'));?>
+    <?php echo $this->InputRow($this->form->getElement('avoidhosts'), ['label_addclass' => 'flabeltextarea']); ?>
 </tr>
 
-<?php echo $this->InputRow($this->form->getElement('resolve_shorteners'));?>
+<?php echo $this->InputRow($this->form->getElement('resolve_shorteners')); ?>

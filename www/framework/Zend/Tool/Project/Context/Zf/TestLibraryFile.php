@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TestLibraryFile.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Project/Context/Filesystem/File.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -79,27 +79,27 @@ class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Con
 
         $className = $filter->filter($this->_forClassName) . 'Test';
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
-            'requiredFiles' => array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
+            'requiredFiles' => [
                 'PHPUnit/Framework/TestCase.php'
-                ),
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+                ],
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'PHPUnit_Framework_TestCase',
-                    'methods' => array(
-                        new Zend_CodeGenerator_Php_Method(array(
+                    'methods' => [
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'setUp',
                             'body' => '        /* Setup Routine */'
-                            )),
-                        new Zend_CodeGenerator_Php_Method(array(
+                            ]),
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'tearDown',
                             'body' => '        /* Tear Down Routine */'
-                            ))
-                        )
-                    ))
-                )
-            ));
+                            ])
+                        ]
+                    ])
+                ]
+            ]);
 
         return $codeGenFile->generate();
     }

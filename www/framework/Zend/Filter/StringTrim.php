@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringTrim.php,v 1.1.2.4 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Filter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_StringTrim implements Zend_Filter_Interface
@@ -77,7 +77,7 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
      * Sets the charList option
      *
      * @param  string|null $charList
-     * @return Zend_Filter_StringTrim Provides a fluent interface
+     * @return $this
      */
     public function setCharList($charList)
     {
@@ -113,8 +113,8 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     protected function _unicodeTrim($value, $charlist = '\\\\s')
     {
         $chars = preg_replace(
-            array( '/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'),
-            array( '\\\\\\0', '\\', '\/' ),
+            [ '/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'],
+            [ '\\\\\\0', '\\', '\/' ],
             $charlist
         );
 

@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Yaml.php,v 1.1.2.1 2011-05-30 08:30:57 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Config.php';
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Yaml extends Zend_Config
@@ -51,7 +51,7 @@ class Zend_Config_Yaml extends Zend_Config
      *
      * @var callable
      */
-    protected $_yamlDecoder = array(__CLASS__, 'decode');
+    protected $_yamlDecoder = [__CLASS__, 'decode'];
 
     /**
      * Whether or not to ignore constants in parsed YAML
@@ -124,9 +124,9 @@ class Zend_Config_Yaml extends Zend_Config
      * - skip_extends: whether or not to skip processing of parent configuration
      * - yaml_decoder: a callback to use to decode the Yaml source
      *
-     * @param  string  $yaml     YAML file to process
-     * @param  mixed   $section Section to process
-     * @param  boolean $options Whether modifiacations are allowed at runtime
+     * @param  string        $yaml     YAML file to process
+     * @param  mixed         $section  Section to process
+     * @param  array|boolean $options
      */
     public function __construct($yaml, $section = null, $options = false)
     {
@@ -165,7 +165,7 @@ class Zend_Config_Yaml extends Zend_Config
         }
 
         // Suppress warnings and errors while loading file
-        set_error_handler(array($this, '_loadFileErrorHandler'));
+        set_error_handler([$this, '_loadFileErrorHandler']);
         $yaml = file_get_contents($yaml);
         restore_error_handler();
 
@@ -191,17 +191,20 @@ class Zend_Config_Yaml extends Zend_Config
         }
 
         if (null === $section) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($config as $sectionName => $sectionData) {
                 $dataArray[$sectionName] = $this->_processExtends($config, $sectionName);
             }
             parent::__construct($dataArray, $allowModifications);
         } elseif (is_array($section)) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($section as $sectionName) {
                 if (!isset($config[$sectionName])) {
                     require_once 'Zend/Config/Exception.php';
-                    throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
+                    throw new Zend_Config_Exception(sprintf(
+                        'Section "%s" cannot be found',
+                        implode(' ', (array)$section)
+                    ));
                 }
 
                 $dataArray = array_merge($this->_processExtends($config, $sectionName), $dataArray);
@@ -210,13 +213,16 @@ class Zend_Config_Yaml extends Zend_Config
         } else {
             if (!isset($config[$section])) {
                 require_once 'Zend/Config/Exception.php';
-                throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
+                throw new Zend_Config_Exception(sprintf(
+                    'Section "%s" cannot be found',
+                    implode(' ', (array)$section)
+                ));
             }
 
             $dataArray = $this->_processExtends($config, $section);
             if (!is_array($dataArray)) {
                 // Section in the yaml data contains just one top level string
-                $dataArray = array($section => $dataArray);
+                $dataArray = [$section => $dataArray];
             }
             parent::__construct($dataArray, $allowModifications);
         }
@@ -234,7 +240,7 @@ class Zend_Config_Yaml extends Zend_Config
      * @return array
      * @throws Zend_Config_Exception When $section cannot be found
      */
-    protected function _processExtends(array $data, $section, array $config = array())
+    protected function _processExtends(array $data, $section, array $config = [])
     {
         if (!isset($data[$section])) {
             require_once 'Zend/Config/Exception.php';
@@ -268,7 +274,6 @@ class Zend_Config_Yaml extends Zend_Config
     public static function decode($yaml)
     {
         $lines = explode("\n", $yaml);
-        reset($lines);
         return self::_decodeYaml(0, $lines);
     }
 
@@ -277,32 +282,32 @@ class Zend_Config_Yaml extends Zend_Config
      *
      * @param  int $currentIndent Current indent level
      * @param  array $lines  YAML lines
-     * @return array|string
+     * @param int $pointer The current line being parsed
+     * @return array
      */
-    protected static function _decodeYaml($currentIndent, &$lines)
+    protected static function _decodeYaml($currentIndent, $lines, &$pointer = -1)
     {
-        $config   = array();
+        $config = [];
         $inIndent = false;
-        while (list($n, $line) = each($lines)) {
-            $lineno = $n + 1;
-            if (strlen($line) == 0) {
+        while (++$pointer < count($lines)) {
+            $lineno = $pointer + 1;
+
+            $lines[$pointer] = rtrim(preg_replace("/#.*$/", "", $lines[$pointer]));
+            if (strlen($lines[$pointer]) === 0) {
                 continue;
             }
-            if ($line[0] == '#') {
-                // comment
-                continue;
-            }
-            $indent = strspn($line, " ");
+
+            $indent = strspn($lines[$pointer], " ");
 
             // line without the spaces
-            $line = trim($line);
-            if (strlen($line) == 0) {
+            $lines[$pointer] = trim($lines[$pointer]);
+            if (strlen($lines[$pointer]) === 0) {
                 continue;
             }
 
             if ($indent < $currentIndent) {
                 // this level is done
-                prev($lines);
+                $pointer--;
                 return $config;
             }
 
@@ -311,45 +316,73 @@ class Zend_Config_Yaml extends Zend_Config
                 $inIndent      = true;
             }
 
-            if (preg_match("/(\w+):\s*(.*)/", $line, $m)) {
+            if (preg_match("/(?!-)([\w\-]+):\s*(.*)/", $lines[$pointer], $m)) {
                 // key: value
                 if (strlen($m[2])) {
                     // simple key: value
-                    $value = rtrim(preg_replace("/#.*$/", "", $m[2]));
-                    // Check for booleans and constants
-                    if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
-                        $value = true;
-                    } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
-                        $value = false;
-                    } elseif (!self::$_ignoreConstants) {
-                        // test for constants
-                        $value = self::_replaceConstants($value);
-                    }
+                    $value = preg_replace("/#.*$/", "", $m[2]);
+                    $value = self::_parseValue($value);
                 } else {
                     // key: and then values on new lines
-                    $value = self::_decodeYaml($currentIndent + 1, $lines);
+                    $value = self::_decodeYaml($currentIndent + 1, $lines, $pointer);
                     if (is_array($value) && !count($value)) {
                         $value = "";
                     }
                 }
                 $config[$m[1]] = $value;
-            } elseif ($line[0] == "-") {
+            } elseif ($lines[$pointer][0] == "-") {
                 // item in the list:
                 // - FOO
-                if (strlen($line) > 2) {
-                    $config[] = substr($line, 2);
+                if (strlen($lines[$pointer]) > 2) {
+                    $value = substr($lines[$pointer], 2);
+
+                    $config[] = self::_parseValue($value);
                 } else {
-                    $config[] = self::_decodeYaml($currentIndent + 1, $lines);
+                    $config[] = self::_decodeYaml($currentIndent + 1, $lines, $pointer);
                 }
             } else {
                 require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception(sprintf(
                     'Error parsing YAML at line %d - unsupported syntax: "%s"',
-                    $lineno, $line
+                    $lineno, $lines[$pointer]
                 ));
             }
         }
         return $config;
+    }
+
+    /**
+     * Parse values
+     *
+     * @param string $value
+     * @return string
+     */
+    protected static function _parseValue($value)
+    {
+        $value = trim($value);
+
+        // remove quotes from string.
+        if ('"' == substr($value, 0, 1)) {
+            if ('"' == substr($value, -1)) {
+                $value = substr($value, 1, -1);
+            }
+        } elseif ('\'' == substr($value, 0, 1) && '\'' == substr($value, -1)) {
+            $value = strtr($value, ["''" => "'", "'" => '']);
+        }
+
+        // Check for booleans and constants
+        if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
+            $value = true;
+        } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
+            $value = false;
+        } elseif (strcasecmp($value, 'null') === 0) {
+            $value = null;
+        } elseif (!self::$_ignoreConstants) {
+            // test for constants
+            $value = self::_replaceConstants($value);
+        }
+
+        return $value;
     }
 
     /**

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DijitContainer.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,7 +29,7 @@ require_once 'Zend/Dojo/View/Helper/Dijit.php';
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helper_Dijit
@@ -38,13 +38,13 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
      * Capture locks
      * @var array
      */
-    protected $_captureLock = array();
+    protected $_captureLock = [];
 
     /**
      * Metadata information to use with captured content
      * @var array
      */
-    protected $_captureInfo = array();
+    protected $_captureInfo = [];
 
     /**
      * Begin capturing content for layout container
@@ -54,7 +54,7 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
      * @param  array $attribs
      * @return void
      */
-    public function captureStart($id, array $params = array(), array $attribs = array())
+    public function captureStart($id, array $params = [], array $attribs = [])
     {
         if (array_key_exists($id, $this->_captureLock)) {
             require_once 'Zend/Dojo/View/Exception.php';
@@ -62,10 +62,10 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
         }
 
         $this->_captureLock[$id] = true;
-        $this->_captureInfo[$id] = array(
+        $this->_captureInfo[$id] = [
             'params'  => $params,
             'attribs' => $attribs,
-        );
+        ];
 
         ob_start();
         return;

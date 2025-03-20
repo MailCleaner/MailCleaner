@@ -1,50 +1,57 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="tooltip">
 </div>
 <div id="generalconfigpanel">
-<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
- <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel)?> : <?php echo $this->t->_($this->selectedConfigMenuLabel." Title")?></p>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel) ?> : <?php echo $this->t->_($this->selectedConfigMenuLabel . " Title") ?></p>
 
 
- <ul id="generalconfigmenu">
-   <?php foreach ($this->config_menu as $menu) {?>
-  <li id="confmenu_<?php echo $menu->id?>" <?php if ($menu->class) { ?>class="<?php echo $menu->class?>"<?php }?> onclick="javascript:goTo('<?php echo $menu->getHref()?>');"><a href="<?php echo $menu->getHref()?>"><?php echo $menu->label;?></a></li>
-   <?php }?>
- </ul>
-
- <div id="generalconfigcontent">
-   <form method="<?php echo $this->listform->getMethod() ?>" action="<?php echo $this->listform->getAction()?>" id="<?php echo $this->listform->getId()?>">
-   <?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
-   
-    <ul class="configlist">
-      <?php foreach ($this->filetypes as $f) {?>
-       <li class="listelement<?php if ($f->getStatus() < 1) {?> listelementdisabled<?php }?>"><?php echo $this->InputRow($this->listform->getElement('list_select_'.$f->getId()),array('field_only'=>true,'nobox'=>true,'post_field_text'=>$f->getParam('type')));?>
-         <?php if ($f->getStatus() < 1) { echo "(".$this->t->_('not blocked').")"; } ?>
-         <?php if ($f->getComment()) {?>
-         <p class="entrycomment">
-           <?php if ($f->getStatus() <  1) {?><img src="<?php echo $this->images_path?>/attention_off.png" alt="" />
-           <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path?>/attention.png" alt="" />
-           <?php }?>
-           <?php echo $f->getComment(); ?></p>
-             <p class="hidden"><?php echo $f->getComment()?></p>
-         <?php }?>
-       </li>
-      <?php }?>
+    <ul id="generalconfigmenu">
+        <?php foreach ($this->config_menu as $menu) { ?>
+            <li id="confmenu_<?php echo $menu->id ?>" <?php if ($menu->class) { ?>class="<?php echo $menu->class ?>" <?php } ?> onclick="javascript:goTo('<?php echo $menu->getHref() ?>');"><a href="<?php echo $menu->getHref() ?>"><?php echo $menu->label; ?></a></li>
+        <?php } ?>
     </ul>
- 
-    <div class="sublistelement editremelement">
-     <h1>Disable or enable file type blocking</h1>
-       <p class="submitlist"><?php echo $this->SubmitRow($this->listform->getElement('disable'),array('field_only'=>true,'nobox'=>true));?></p>
-   </div>
-   </form>
- 
- 
- </div>
+
+    <div id="generalconfigcontent">
+        <form method="<?php echo $this->listform->getMethod() ?>" action="<?php echo $this->listform->getAction() ?>" id="<?php echo $this->listform->getId() ?>">
+            <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+
+            <ul class="configlist">
+                <?php foreach ($this->filetypes as $f) { ?>
+                    <li class="listelement<?php if ($f->getStatus() < 1) { ?> listelementdisabled<?php } ?>"><?php echo $this->InputRow($this->listform->getElement('list_select_' . $f->getId()), [
+                                                                                                                    'field_only' => true,
+                                                                                                                    'nobox' => true,
+                                                                                                                    'post_field_text' => $f->getParam('type')
+                                                                                                                ]); ?>
+                        <?php if ($f->getStatus() < 1) {
+                            echo "(" . $this->t->_('not blocked') . ")";
+                        } ?>
+                        <?php if ($f->getComment()) { ?>
+                            <p class="entrycomment">
+                                <?php if ($f->getStatus() <  1) { ?><img src="<?php echo $this->images_path ?>/attention_off.png" alt="" />
+                                <?php } else { ?><img class="listhoverable" src="<?php echo $this->images_path ?>/attention.png" alt="" />
+                                <?php } ?>
+                                <?php echo $f->getComment(); ?></p>
+                            <p class="hidden"><?php echo $f->getComment() ?></p>
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+            </ul>
+
+            <div class="sublistelement editremelement">
+                <h1>Disable or enable file type blocking</h1>
+                <p class="submitlist"><?php echo $this->SubmitRow($this->listform->getElement('disable'), ['field_only' => true, 'nobox' => true]); ?></p>
+            </div>
+        </form>
+
+
+    </div>
 </div>

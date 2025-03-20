@@ -14,13 +14,14 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Translation.php,v 1.1.2.4 2011-05-30 08:33:42 root Exp $
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @version   $Id$
  */
 
 /**
  * Definition class for all Windows locales
+ *
  * Based on this two lists:
  * @link http://msdn.microsoft.com/en-us/library/39cwe7zf.aspx
  * @link http://msdn.microsoft.com/en-us/library/cdax410z.aspx
@@ -29,8 +30,8 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 class Zend_Locale_Data_Translation
 {
@@ -39,7 +40,7 @@ class Zend_Locale_Data_Translation
      *
      * @var array $localeTranslation
      */
-    public static $languageTranslation = array(
+    public static $languageTranslation = [
         'Afrikaans'         => 'af',
         'Albanian'          => 'sq',
         'Amharic'           => 'am',
@@ -73,7 +74,6 @@ class Zend_Locale_Data_Translation
         'Finnish'           => 'fi',
         'French'            => 'fr',
         'Frisian'           => 'fy',
-        'Macedonian'        => 'mk',
         'Gaelic'            => 'gd',
         'Galician'          => 'gl',
         'Georgian'          => 'ka',
@@ -173,9 +173,9 @@ class Zend_Locale_Data_Translation
         'Yiddish'           => 'yi',
         'Yoruba'            => 'yo',
         'Zulu'              => 'zu',
-    );
+    ];
 
-    public static $regionTranslation = array(
+    public static $regionTranslation = [
         'Albania'                    => 'AL',
         'Algeria'                    => 'DZ',
         'Argentina'                  => 'AR',
@@ -281,5 +281,5 @@ class Zend_Locale_Data_Translation
         'Venezuela'                  => 'VE',
         'Yemen'                      => 'YE',
         'Zimbabwe'                   => 'ZW',
-    );
+    ];
 }

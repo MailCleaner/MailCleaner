@@ -1,7 +1,7 @@
 [mysqld]
-tmpdir		= /tmp
-port		= 3306
-user		= mysql
+tmpdir = /tmp
+port = 3306
+user = mysql
 expire-logs-days = __BINARY_LOG_KEEP__
 
 skip-external-locking
@@ -14,8 +14,6 @@ read_rnd_buffer_size = 8M
 myisam_sort_buffer_size = 64M
 thread_cache_size = 8
 query_cache_size = 32M
-# Try number of CPU's*2 for thread_concurrency
-thread_concurrency = 4
 
 innodb_data_home_dir = __VARDIR__/spool/mysql_master/
 innodb_file_per_table

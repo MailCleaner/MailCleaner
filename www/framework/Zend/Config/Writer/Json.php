@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Json.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -47,7 +47,7 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
     /**
      * Get prettyPrint flag
      *
-     * @return the prettyPrint flag
+     * @return bool prettyPrint flag
      */
     public function prettyPrint()
     {
@@ -79,7 +79,7 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
         $extends     = $this->_config->getExtends();
 
         if (is_string($sectionName)) {
-            $data = array($sectionName => $data);
+            $data = [$sectionName => $data];
         }
 
         foreach ($extends as $section => $parentSection) {

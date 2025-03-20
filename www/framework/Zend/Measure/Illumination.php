@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Illumination.php,v 1.1.2.4 2011-05-30 08:30:59 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Illumination
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Illumination extends Zend_Measure_Abstract
@@ -55,18 +55,18 @@ class Zend_Measure_Illumination extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'FOOTCANDLE'              => array('10.7639104',   'fc'),
-        'KILOLUX'                 => array('1000',         'klx'),
-        'LUMEN_PER_SQUARE_CENTIMETER' => array('10000',    'lm/cm²'),
-        'LUMEN_PER_SQUARE_FOOT'   => array('10.7639104',   'lm/ft²'),
-        'LUMEN_PER_SQUARE_INCH'   => array('1550.0030976', 'lm/in²'),
-        'LUMEN_PER_SQUARE_METER'  => array('1',            'lm/m²'),
-        'LUX'                     => array('1',            'lx'),
-        'METERCANDLE'             => array('1',            'metercandle'),
-        'MILLIPHOT'               => array('10',           'mph'),
-        'NOX'                     => array('0.001',        'nox'),
-        'PHOT'                    => array('10000',        'ph'),
+    protected $_units = [
+        'FOOTCANDLE'              => ['10.7639104',   'fc'],
+        'KILOLUX'                 => ['1000',         'klx'],
+        'LUMEN_PER_SQUARE_CENTIMETER' => ['10000',    'lm/cm²'],
+        'LUMEN_PER_SQUARE_FOOT'   => ['10.7639104',   'lm/ft²'],
+        'LUMEN_PER_SQUARE_INCH'   => ['1550.0030976', 'lm/in²'],
+        'LUMEN_PER_SQUARE_METER'  => ['1',            'lm/m²'],
+        'LUX'                     => ['1',            'lx'],
+        'METERCANDLE'             => ['1',            'metercandle'],
+        'MILLIPHOT'               => ['10',           'mph'],
+        'NOX'                     => ['0.001',        'nox'],
+        'PHOT'                    => ['10000',        'ph'],
         'STANDARD'                => 'LUX'
-    );
+    ];
 }

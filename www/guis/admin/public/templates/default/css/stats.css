@@ -4,12 +4,12 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 img {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 #dataloading {
@@ -19,10 +19,10 @@ img {
 }
 
 #filter {
-  min-width: 925px;
-  width: 946px;
-  padding: 10px;
-  padding-top: 20px !important;
+    min-width: 925px;
+    width: 946px;
+    padding: 10px;
+    padding-top: 20px !important;
 }
 
 
@@ -34,197 +34,197 @@ img {
     max-width: 250px;
 }
 .stattable {
-  white-space: nowrap;
-  width: 925px;
-  padding: 0px;
-  margin: 0px;
-  margin-left: 15px;
-  margin-top: 16px;
-  margin-bottom: 0px;
-  background-color: #FFFFFF;
-  border-spacing: 0px;
-  border-collapse: collapse;
-	border-top: solid 1px #D4D3D2 !important;
-  border-bottom: 1px solid  #C6ADC6;
-  border-right: 1px solid  #C6ADC6;
-  color: #000000;
-	background-image: none;
-	background-color: #F5F5F5;
+    white-space: nowrap;
+    width: 925px;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+    margin-top: 16px;
+    margin-bottom: 0px;
+    background-color: #FFFFFF;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border-top: solid 1px #D4D3D2 !important;
+    border-bottom: 1px solid #C6ADC6;
+    border-right: 1px solid #C6ADC6;
+    color: #000000;
+    background-image: none;
+    background-color: #F5F5F5;
 }
 
 .stattablehead {
-  height: 48px;
-  line-height: 48px;
-  background-image:none;
-		background-color:#F5F5F5;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  margin: 0px;
-  padding: 0px;
-  color: #000000;
-  font-size: 12px;
+    height: 48px;
+    line-height: 48px;
+    background-image:none;
+    background-color:#F5F5F5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    color: #000000;
+    font-size: 12px;
 }
 
 .stattablehead td {
-  margin: 0px !important;
-  padding: 0px !important;
-  line-height: 48px;
-  color: #552056;
+    margin: 0px !important;
+    padding: 0px !important;
+    line-height: 48px;
+    color: #022971;
 }
 
 .stattablehead img {
-  vertical-align: top;
+    vertical-align: top;
 }
 
 .stattablehead p {
-  display: inline;
-  font-weight: normal;
-  margin: 0px !important;
-  padding: 0px !important;
+    display: inline;
+    font-weight: normal;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
 .globalstattablehead {
-  height: 48px;
-  line-height: 48px;
-  background-image: none;
-  background-color: #F5F5F5;
-  white-space: nowrap;
-  text-align: left;
-  font-weight: bold;
-  color: #000000;
-  font-size: 12px;
+    height: 48px;
+    line-height: 48px;
+    background-image: none;
+    background-color: #F5F5F5;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: #000000;
+    font-size: 12px;
 }
 
 .stattable td {
-  padding: 0px;
-  margin: 0px;
-  border-top: 1px solid  #D4D3D2;
-  border-left: 1px solid  #D4D3D2;
+    padding: 0px;
+    margin: 0px;
+    border-top: 1px solid #D4D3D2;
+    border-left: 1px solid #D4D3D2;
 }
 
 .stattable p {
-  display: inline;
-  padding: 0px;
-  margin: 0px;
-  margin-left: 5px;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 5px;
 }
 
 .graphpanel {
-  vertical-align: middle;
-  text-align: center;
-  width: 383px;
-  line-height: 26px;
-  border-right: 1px solid #C6ADC6;
+    vertical-align: middle;
+    text-align: center;
+    width: 383px;
+    line-height: 26px;
+    border-right: 1px solid #C6ADC6;
 }
 
 .bar {
-   margin-left: auto;
-   margin-right: auto;
-   width: 300px;
-   height: 11px;
-   min-height: 11px;
-   border: 1px solid  #C6ADC6;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 11px;
+    min-height: 11px;
+    border: 1px solid #C6ADC6;
 }
 
 .virus {
-   float: left;
-   height: 11px;
-   background-image:url(../images/virus.png);
+    float: left;
+    height: 11px;
+    background-image:url(../images/virus.png);
 }
 
 .spam {
-   float: left;
-   height: 11px;
-   background-image:url(../images/spam.png);
+    float: left;
+    height: 11px;
+    background-image:url(../images/spam.png);
 }
 
 .clean {
-   float: left;
-   height: 11px;
-   background-image:url(../images/clean.png);
+    float: left;
+    height: 11px;
+    background-image:url(../images/clean.png);
 }
 
 .countlegend {
-  width: 260px;
-  padding: 0px !important;
-  padding-right: 10px !important;
-  text-align: right;
-  line-height: 23px;
-  background-color: #F7F5F7;
-  border-right: 1px solid #C6ADC6;
+    width: 260px;
+    padding: 0px !important;
+    padding-right: 10px !important;
+    text-align: right;
+    line-height: 23px;
+    background-color: #F7F5F7;
+    border-right: 1px solid #C6ADC6;
 }
 
 .countvalue {
-   width: 134px;
+    width: 134px;
  }
 
 .countvalue img {
-  vertical-align: top;
-  margin-right: 4px;
+    vertical-align: top;
+    margin-right: 4px;
 }
 
 .countvalue p {
-  line-height: 23px;
+    line-height: 23px;
 }
 
 .msgslegend {
-  display: inline;
-  padding: 0px;
-  border: 0px;
-  height: 23px;
-  border-left: 5px solid #FFFFFF;
+    display: inline;
+    padding: 0px;
+    border: 0px;
+    height: 23px;
+    border-left: 5px solid #FFFFFF;
 }
 .piegraph {
-  visibility: hidden;
-  display: none;
+    visibility: hidden;
+    display: none;
 }
 
 .piegraph p {
-  display: block;
+    display: block;
 }
 .bargraph {
-  visibility: visible;
-  display: block;
+    visibility: visible;
+    display: block;
 }
 
 /* log panel */
 .logtablehead {
-   border-bottom: 1px solid  #D4D3D2 !important;
-   text-align: center !important;
+    border-bottom: 1px solid #D4D3D2 !important;
+    text-align: center !important;
 }
 .logrow td {
     border: 0px;
 }
 .loghostfield {
-   line-height: 20px;
-   font-size: 12px;
-   width: 50%;
-   padding-top: 10px !important;
-   text-align: right;
-   border-left: 1px solid  #C6ADC6 !important;
-   border-bottom: 1px solid  #C6ADC6 !important;
+    line-height: 20px;
+    font-size: 12px;
+    width: 50%;
+    padding-top: 10px !important;
+    text-align: right;
+    border-left: 1px solid #C6ADC6 !important;
+    border-bottom: 1px solid #C6ADC6 !important;
 }
 .lognamefield {
-   line-height: 20px;
-   width: 50%;
-   text-align: right;
-   padding-right: 5px !important;
-   font-weight: bold !important;
-   border-left: 1px solid  #D4D3D2 !important;
+    line-height: 20px;
+    width: 50%;
+    text-align: right;
+    padding-right: 5px !important;
+    font-weight: bold !important;
+    border-left: 1px solid #D4D3D2 !important;
 }
 .loglinksfield {
-   line-height: 20px;
-   text-align: left;
-   padding-left: 5px !important;
-   border-left: 1px solid  #D4D3D2 !important;
+    line-height: 20px;
+    text-align: left;
+    padding-left: 5px !important;
+    border-left: 1px solid #D4D3D2 !important;
 }
 
 #statsbloc {
-  min-width: 925px;
-  width: 946px;
+    min-width: 925px;
+    width: 946px;
 }
 
 #dataloading {
-	margin-top: 20px;
+    margin-top: 20px;
 }

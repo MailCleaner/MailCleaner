@@ -1,10 +1,11 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Validate a list of email addresses
  */
 
@@ -14,29 +15,29 @@ class Validate_EmailList extends Zend_Validate_Abstract
     const MSG_BADEMAIL = 'invalidEMail';
 
     public $email = '';
-    
-    protected $_messageTemplates = array(
+
+    protected $_messageTemplates = [
         self::MSG_EMAILLIST => "'%value%' is not a valid email address list",
         self::MSG_BADEMAIL => "'%mail%' is not a valid email address"
-    );
-    
-    protected $_messageVariables = array(
+    ];
+
+    protected $_messageVariables = [
         'mail' => 'email'
-    );
+    ];
 
     public function isValid($value)
     {
         $this->_setValue($value);
-        
+
         $validator = new Zend_Validate_EmailAddress(Zend_Validate_Hostname::ALLOW_LOCAL);
 
         $addresses = preg_split('/[,:\s]+/', $value);
         foreach ($addresses as $address) {
-          if (! $validator->isValid($address)) {
-          	  $this->email = $address;
-          	  $this->_error(self::MSG_BADEMAIL);
-              return false;
-          }
+            if (!$validator->isValid($address)) {
+                $this->email = $address;
+                $this->_error(self::MSG_BADEMAIL);
+                return false;
+            }
         }
         return true;
     }

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Docblock.php,v 1.1.2.4 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Reflection/Docblock/Tag.php';
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_Docblock implements Reflector
@@ -67,7 +67,7 @@ class Zend_Reflection_Docblock implements Reflector
     /**
      * @var array
      */
-    protected $_tags = array();
+    protected $_tags = [];
 
     /**
      * Export reflection
@@ -236,7 +236,7 @@ class Zend_Reflection_Docblock implements Reflector
             return $this->_tags;
         }
 
-        $returnTags = array();
+        $returnTags = [];
         foreach ($this->_tags as $tag) {
             if ($tag->getName() == $filter) {
                 $returnTags[] = $tag;
@@ -267,9 +267,11 @@ class Zend_Reflection_Docblock implements Reflector
             $lineNumber++;
             $line = substr($parsedDocComment, 0, $newlinePos);
 
-            $matches = array();
+            $matches = [];
 
-            if ((strpos($line, '@') === 0) && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment, $matches))) {
+            if ((strpos($line, '@') === 0)
+                && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment, $matches))
+            ) {
                 $this->_tags[] = Zend_Reflection_Docblock_Tag::factory($matches[1]);
                 $parsedDocComment = str_replace($matches[1] . $matches[2], '', $parsedDocComment);
             } else {
@@ -288,7 +290,7 @@ class Zend_Reflection_Docblock implements Reflector
 
         }
 
-        $this->_shortDescription = rtrim($this->_shortDescription);
-        $this->_longDescription  = rtrim($this->_longDescription);
+        $this->_shortDescription = rtrim((string) $this->_shortDescription);
+        $this->_longDescription  = rtrim((string) $this->_longDescription);
     }
 }

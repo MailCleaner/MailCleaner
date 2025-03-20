@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Books
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Embeddability.php,v 1.1.2.3 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Gdata/Extension.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Books
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Books_Extension_Embeddability extends Zend_Gdata_Extension
@@ -109,7 +109,7 @@ class Zend_Gdata_Books_Extension_Embeddability extends Zend_Gdata_Extension
      *
      * @param string|null $value Programmatic value that describes the
      *        embeddability of a volume in Google Book Search
-     * @return Zend_Gdata_Books_Extension_Embeddability Provides a fluent
+     * @return $this
      *     interface
      */
     public function setValue($value)

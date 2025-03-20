@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon_S3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: S3.php,v 1.1.2.4 2011-05-30 08:30:48 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/Crypt/Hmac.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon_S3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://docs.amazonwebservices.com/AmazonS3/2006-03-01/
  */
@@ -47,7 +47,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      *
      * @var array
      */
-    protected static $_wrapperClients = array();
+    protected static $_wrapperClients = [];
 
     /**
      * Endpoint for the service
@@ -157,14 +157,15 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     public function createBucket($bucket, $location = null)
     {
         $this->_validBucketName($bucket);
-
+        $headers=[];
         if($location) {
             $data = '<CreateBucketConfiguration><LocationConstraint>'.$location.'</LocationConstraint></CreateBucketConfiguration>';
-        }
-        else {
+            $headers[self::S3_CONTENT_TYPE_HEADER]= 'text/plain';
+            $headers['Content-size']= strlen($data);
+        } else {
             $data = null;
         }
-        $response = $this->_makeRequest('PUT', $bucket, null, array(), $data);
+        $response = $this->_makeRequest('PUT', $bucket, null, $headers, $data);
 
         return ($response->getStatus() == 200);
     }
@@ -177,7 +178,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      */
     public function isBucketAvailable($bucket)
     {
-        $response = $this->_makeRequest('HEAD', $bucket, array('max-keys'=>0));
+        $response = $this->_makeRequest('HEAD', $bucket, ['max-keys'=>0]);
 
         return ($response->getStatus() != 404);
     }
@@ -219,7 +220,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      */
     public function getInfo($object)
     {
-        $info = array();
+        $info = [];
 
         $object = $this->_fixupObjectName($object);
         $response = $this->_makeRequest('HEAD', $object);
@@ -252,7 +253,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
 
         $xml = new SimpleXMLElement($response->getBody());
 
-        $buckets = array();
+        $buckets = [];
         foreach ($xml->Buckets->Bucket as $bucket) {
             $buckets[] = (string)$bucket->Name;
         }
@@ -273,9 +274,16 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
             return false;
         }
 
-        foreach ($objects as $object) {
-            $this->removeObject("$bucket/$object");
+        while (!empty($objects)) {
+            foreach ($objects as $object) {
+                $this->removeObject("$bucket/$object");
+            }
+            $params= [
+                'marker' => $objects[count($objects)-1]
+            ];
+            $objects = $this->getObjectsByBucket($bucket,$params);
         }
+
         return true;
     }
 
@@ -292,7 +300,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      * @param array $params S3 GET Bucket Paramater
      * @return array|false
      */
-    public function getObjectsByBucket($bucket, $params = array())
+    public function getObjectsByBucket($bucket, $params = [])
     {
         $response = $this->_makeRequest('GET', $bucket, $params);
 
@@ -302,7 +310,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
 
         $xml = new SimpleXMLElement($response->getBody());
 
-        $objects = array();
+        $objects = [];
         if (isset($xml->Contents)) {
             foreach ($xml->Contents as $contents) {
                 foreach ($contents->Key as $object) {
@@ -313,7 +321,52 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
 
         return $objects;
     }
+     /**
+     * List the objects and common prefixes in a bucket.
+     *
+     * Provides the list of object keys and common prefixes that are contained in the bucket.  Valid params include the following.
+     * prefix - Limits the response to keys which begin with the indicated prefix. You can use prefixes to separate a bucket into different sets of keys in a way similar to how a file system uses folders.
+     * marker - Indicates where in the bucket to begin listing. The list will only include keys that occur lexicographically after marker. This is convenient for pagination: To get the next page of results use the last key of the current page as the marker.
+     * max-keys - The maximum number of keys you'd like to see in the response body. The server might return fewer than this many keys, but will not return more.
+     * delimiter - Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the response.
+     *
+     * @see ZF-11401
+     * @param  string $bucket
+     * @param array $params S3 GET Bucket Paramater
+     * @return array|false
+     */
+    public function getObjectsAndPrefixesByBucket($bucket, $params = [])
+    {
+        $response = $this->_makeRequest('GET', $bucket, $params);
 
+        if ($response->getStatus() != 200) {
+            return false;
+        }
+
+        $xml = new SimpleXMLElement($response->getBody());
+
+        $objects = [];
+        if (isset($xml->Contents)) {
+            foreach ($xml->Contents as $contents) {
+                foreach ($contents->Key as $object) {
+                    $objects[] = (string)$object;
+                }
+            }
+        }
+        $prefixes = [];
+        if (isset($xml->CommonPrefixes)) {
+            foreach ($xml->CommonPrefixes as $prefix) {
+                foreach ($prefix->Prefix as $object) {
+                    $prefixes[] = (string)$object;
+                }
+            }
+        }
+
+        return [
+            'objects'  => $objects,
+            'prefixes' => $prefixes
+        ];
+    }
     /**
      * Make sure the object name is valid
      *
@@ -327,7 +380,8 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $this->_validBucketName($nameparts[0]);
 
         $firstpart = array_shift($nameparts);
-        if (count($nameparts) == 0) {
+
+        if (count($nameparts) === 0) {
             return $firstpart;
         }
 
@@ -345,7 +399,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     {
         $object = $this->_fixupObjectName($object);
         if ($paidobject) {
-            $response = $this->_makeRequest('GET', $object, null, array(self::S3_REQUESTPAY_HEADER => 'requester'));
+            $response = $this->_makeRequest('GET', $object, null, [self::S3_REQUESTPAY_HEADER => 'requester']);
         }
         else {
             $response = $this->_makeRequest('GET', $object);
@@ -373,7 +427,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $object = $this->_fixupObjectName($object);
         self::getHttpClient()->setStream($streamfile?$streamfile:true);
         if ($paidobject) {
-            $response = $this->_makeRequest('GET', $object, null, array(self::S3_REQUESTPAY_HEADER => 'requester'));
+            $response = $this->_makeRequest('GET', $object, null, [self::S3_REQUESTPAY_HEADER => 'requester']);
         }
         else {
             $response = $this->_makeRequest('GET', $object);
@@ -398,7 +452,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     public function putObject($object, $data, $meta=null)
     {
         $object = $this->_fixupObjectName($object);
-        $headers = (is_array($meta)) ? $meta : array();
+        $headers = (is_array($meta)) ? $meta : [];
 
         if(!is_resource($data)) {
             $headers['Content-MD5'] = base64_encode(md5($data, true));
@@ -444,7 +498,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         }
 
         if (!is_array($meta)) {
-            $meta = array();
+            $meta = [];
         }
 
         if (!isset($meta[self::S3_CONTENT_TYPE_HEADER])) {
@@ -474,7 +528,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         }
 
         if (!is_array($meta)) {
-            $meta = array();
+            $meta = [];
         }
 
         if (!isset($meta[self::S3_CONTENT_TYPE_HEADER])) {
@@ -482,7 +536,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         }
 
         if(!isset($meta['Content-MD5'])) {
-            $headers['Content-MD5'] = base64_encode(md5_file($path, true));
+            $meta['Content-MD5'] = base64_encode(md5_file($path, true));
         }
 
         return $this->putObject($object, $data, $meta);
@@ -517,7 +571,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $sourceObject = $this->_fixupObjectName($sourceObject);
         $destObject   = $this->_fixupObjectName($destObject);
 
-        $headers = (is_array($meta)) ? $meta : array();
+        $headers = (is_array($meta)) ? $meta : [];
         $headers['x-amz-copy-source'] = $sourceObject;
         $headers['x-amz-metadata-directive'] = $meta === null ? 'COPY' : 'REPLACE';
 
@@ -564,12 +618,12 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      * @param  string|resource $data        Request data
      * @return Zend_Http_Response
      */
-    public function _makeRequest($method, $path='', $params=null, $headers=array(), $data=null)
+    public function _makeRequest($method, $path='', $params=null, $headers=[], $data=null)
     {
         $retry_count = 0;
 
         if (!is_array($headers)) {
-            $headers = array($headers);
+            $headers = [$headers];
         }
 
         $headers['Date'] = gmdate(DATE_RFC1123, time());
@@ -590,7 +644,11 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
             $endpoint->setHost($parts[0].'.'.$endpoint->getHost());
         }
         if (!empty($parts[1])) {
-            $endpoint->setPath('/'.$parts[1]);
+            // ZF-10218, ZF-10122
+            $pathparts = explode('?',$parts[1]);
+            $endpath = $pathparts[0];
+            $endpoint->setPath('/'.$endpath);
+
         }
         else {
             $endpoint->setPath('/');
@@ -598,16 +656,16 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
                 $path = $parts[0].'/';
             }
         }
-
         self::addSignature($method, $path, $headers);
 
         $client = self::getHttpClient();
 
-        $client->resetParameters();
+        $client->resetParameters(true);
         $client->setUri($endpoint);
         $client->setAuth(false);
         // Work around buglet in HTTP client - it doesn't clean headers
         // Remove when ZHC is fixed
+        /*
         $client->setHeaders(array('Content-MD5'              => null,
                                   'Content-Encoding'         => null,
                                   'Expect'                   => null,
@@ -615,7 +673,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
                                   'x-amz-acl'                => null,
                                   'x-amz-copy-source'        => null,
                                   'x-amz-metadata-directive' => null));
-
+        */
         $client->setHeaders($headers);
 
         if (is_array($params)) {
@@ -665,20 +723,20 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     protected function addSignature($method, $path, &$headers)
     {
         if (!is_array($headers)) {
-            $headers = array($headers);
+            $headers = [$headers];
         }
 
         $type = $md5 = $date = '';
 
         // Search for the Content-type, Content-MD5 and Date headers
         foreach ($headers as $key=>$val) {
-            if (strcasecmp($key, 'content-type') == 0) {
+            if (strcasecmp($key, 'content-type') === 0) {
                 $type = $val;
             }
-            else if (strcasecmp($key, 'content-md5') == 0) {
+            else if (strcasecmp($key, 'content-md5') === 0) {
                 $md5 = $val;
             }
-            else if (strcasecmp($key, 'date') == 0) {
+            else if (strcasecmp($key, 'date') === 0) {
                 $date = $val;
             }
         }
@@ -691,7 +749,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $sig_str = "$method\n$md5\n$type\n$date\n";
         // For x-amz- headers, combine like keys, lowercase them, sort them
         // alphabetically and remove excess spaces around values
-        $amz_headers = array();
+        $amz_headers = [];
         foreach ($headers as $key=>$val) {
             $key = strtolower($key);
             if (substr($key, 0, 6) == 'x-amz-') {
@@ -720,8 +778,11 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         else if (strpos($path, '?torrent') !== false) {
             $sig_str .= '?torrent';
         }
+        else if (strpos($path, '?versions') !== false) {
+            $sig_str .= '?versions';
+        }
 
-        $signature = base64_encode(Zend_Crypt_Hmac::compute($this->_getSecretKey(), 'sha1', utf8_encode($sig_str), Zend_Crypt_Hmac::BINARY));
+        $signature = base64_encode(Zend_Crypt_Hmac::compute($this->_getSecretKey(), 'sha1', mb_convert_encoding($sig_str, 'UTF-8', 'ISO-8859-1'), Zend_Crypt_Hmac::BINARY));
         $headers['Authorization'] = 'AWS '.$this->_getAccessKey().':'.$signature;
 
         return $sig_str;
@@ -928,7 +989,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      * Register this object as stream wrapper
      *
      * @param  string $name
-     * @return Zend_Service_Amazon_S3
+     * @return void
      */
     public function registerStreamWrapper($name='s3')
     {
@@ -945,7 +1006,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      * Unregister this object as stream wrapper
      *
      * @param  string $name
-     * @return Zend_Service_Amazon_S3
+     * @return void
      */
     public function unregisterStreamWrapper($name='s3')
     {

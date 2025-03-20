@@ -33,6 +33,7 @@ if ($0 =~ m/(\S*)\/\S+.pl$/) {
 	unshift (@INC, $path);
 }
 require GetDNS;
+use lib_utils qw( detect_ipv6 );
 our $dns = GetDNS->new();
 
 my $DEBUG = 1;
@@ -89,16 +90,7 @@ our $trusted = join(' ', keys(%trustedips));
 my $dnsres = Net::DNS::Resolver->new;
 
 # do we have ipv6 ?
-if (open(my $interfaces, '<', '/etc/network/interfaces')) {
-	while (<$interfaces>) {
-		if ($_ =~ m/iface \S+ inet6/) {
-			$has_ipv6 = 1;
-			last;
-		}
-	}
-	close($interfaces);
-}
-
+$has_ipv6 = detect_ipv6();
 
 my %rules;
 get_default_rules();

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ElementFactory.php,v 1.1.2.3 2011-05-30 08:30:46 root Exp $
+ * @version    $Id$
  */
 
 
@@ -28,7 +28,7 @@ require_once 'Zend/Pdf/ElementFactory/Interface.php';
  * Responsibility is to log PDF changes
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
@@ -41,7 +41,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_modifiedObjects = array();
+    private $_modifiedObjects = [];
 
     /**
      * List of the removed objects
@@ -60,7 +60,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_registeredObjects = array();
+    private $_registeredObjects = [];
 
     /**
      * PDF object counter.
@@ -77,7 +77,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_attachedFactories = array();
+    private $_attachedFactories = [];
 
 
     /**
@@ -100,7 +100,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_shiftCalculationCache = array();
+    private $_shiftCalculationCache = [];
 
 
     /**
@@ -263,7 +263,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function cleanEnumerationShiftCache()
     {
-        $this->_shiftCalculationCache = array();
+        $this->_shiftCalculationCache = [];
 
         foreach ($this->_attachedFactories as $attached) {
             $attached->cleanEnumerationShiftCache();
@@ -271,7 +271,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
     }
 
     /**
-     * Retrive object enumeration shift.
+     * Retrieve object enumeration shift.
      *
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
@@ -373,7 +373,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
 
         ksort($this->_modifiedObjects);
 
-        $result = array();
+        $result = [];
         require_once 'Zend/Pdf/UpdateInfoContainer.php';
         foreach ($this->_modifiedObjects as $objNum => $obj) {
             if ($this->_removedObjects->contains($obj)) {
@@ -430,7 +430,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function isModified()
     {
-        if (count($this->_modifiedObjects) != 0) {
+        if (count($this->_modifiedObjects) !== 0) {
             return true;
         }
 

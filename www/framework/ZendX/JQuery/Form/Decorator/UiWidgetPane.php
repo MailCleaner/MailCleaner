@@ -15,9 +15,9 @@
  * @category    ZendX
  * @package     ZendX_JQuery
  * @subpackage  View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: UiWidgetPane.php,v 1.1.2.3 2011-05-30 08:30:33 root Exp $
+ * @version     $Id$
  */
 
 require_once "Zend/Form/Decorator/Abstract.php";
@@ -27,7 +27,7 @@ require_once "Zend/Form/Decorator/Abstract.php";
  *
  * @package    ZendX_JQuery
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decorator_Abstract
@@ -59,6 +59,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     /**
      * Get view helper for rendering container
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return string
      */
     public function getHelper()
@@ -91,6 +92,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     /**
      * Get jQuery option parameters
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return array
      */
     public function getJQueryParams()

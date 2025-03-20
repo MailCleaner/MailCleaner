@@ -4,209 +4,165 @@ PATH=$PATH:/usr/sbin:/sbin
 
 SRCDIR=`grep 'SRCDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "SRCDIR" = "" ]; then
-  SRCDIR=/opt/mailcleaner
+  SRCDIR=/usr/mailcleaner
 fi
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
   VARDIR=/var/mailcleaner
 fi
 
-DAEMON=/opt/MailScanner/bin/check_mailscanner
+DAEMON=$SRCDIR/bin/check_mailscanner
 PIDFILE=$VARDIR/run/mailscanner.pid
 LOCKFILE=$VARDIR/run/mailscanner.lock
 NAME=mailscanner
 DESC=MailScanner
+MSDIR=/usr/sbin
 
-TIMEOUT=10
+CONFIG=$SRCDIR/etc/mailscanner/MailScanner.conf
+
+TIMEOUT=5
 
 test -f $DAEMON || exit 0
 
 mode=all
 if [ "$2" = "ms" ]; then
- mode=ms
+    mode=ms
 fi
 export $mode
 
 run_mailscanner=0
-HASCOMMTOUCH=0
-#PREFILTER_CT=`grep 'Pre Filters' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'Commtouch'`
-#if [ "$PREFILTER_CT" != "" ]; then
-#  HASCOMMTOUCH=1
-#fi
 HASMESSAGESNIFFER=0
-HASKASPERSKY=0
 
 prepare () {
-  chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/infolog >/dev/null 2>&1
-  chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/warnlog >/dev/null 2>&1
+    chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/infolog >/dev/null 2>&1
+    chown mailcleaner:mailcleaner $VARDIR/log/mailscanner/warnlog >/dev/null 2>&1
   
-  $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
-  $SRCDIR/bin/dump_html_controls_wl.pl >/dev/null 2>&1
-  $SRCDIR/bin/dump_domains.pl >/dev/null 2>&1
-  chown -R mailcleaner:mailcleaner $SRCDIR/etc/mailscanner >/dev/null 2>&1
+    $SRCDIR/bin/dump_mailscanner_config.pl >/dev/null 2>&1
+    $SRCDIR/bin/dump_html_controls_wl.pl >/dev/null 2>&1
+    $SRCDIR/bin/dump_domains.pl >/dev/null 2>&1
+    chown -R mailcleaner:mailcleaner $SRCDIR/etc/mailscanner >/dev/null 2>&1
 
-  if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
-    mkdir -p $VARDIR/spool/mailcleaner/counts
-  fi
-  USER=$(stat -c '%U' $VARDIR/spool/mailcleaner/counts)
-  if [[ "$USER" != 'mailcleaner' ]]; then
-     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
-  fi
+    if [ ! -d $VARDIR/spool/mailcleaner/counts ]; then
+        mkdir -p $VARDIR/spool/mailcleaner/counts
+    fi
+    USER=$(stat -c '%U' $VARDIR/spool/mailcleaner/counts)
+    if [[ "$USER" != 'mailcleaner' ]]; then
+         chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
+    fi
 
-  GROUP=$(stat -c '%G' $VARDIR/spool/mailcleaner/counts)
-  if [[ "$GROUP" != 'mailcleaner' ]]; then
-     chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
-  fi
+    GROUP=$(stat -c '%G' $VARDIR/spool/mailcleaner/counts)
+    if [[ "$GROUP" != 'mailcleaner' ]]; then
+         chown -R mailcleaner:mailcleaner $VARDIR/spool/mailcleaner/counts
+    fi
 
-  SRCDIR_SANE=`echo $SRCDIR | perl -p -e 's/\//\\\\\//g'`
-  if [ -f $SRCDIR/etc/mailscanner/sa_plugins.pre ]; then
-    perl -p -e "s/__SRCDIR__/$SRCDIR_SANE/g" $SRCDIR/etc/mailscanner/sa_plugins.pre > $SRCDIR/share/spamassassin/sa_plugins.pre
-  fi
+    SRCDIR_SANE=`echo $SRCDIR | perl -p -e 's/\//\\\\\//g'`
+    if [ -f $SRCDIR/etc/mailscanner/sa_plugins.pre ]; then
+        perl -p -e "s/__SRCDIR__/$SRCDIR_SANE/g" $SRCDIR/etc/mailscanner/sa_plugins.pre > $SRCDIR/share/spamd/sa_plugins.pre
+    fi
 
-  ## if no /dev/shm found, create it
-  SHM=`mount | grep '/dev/shm'`
-  if [ "$SHM" = "" ]; then
-    mount -t tmpfs tmpfs /dev/shm/ >/dev/null 2>&1
-    $SRCDIR/scripts/cron/update_antivirus.sh >/dev/null 2>&1
-  fi
+    ## if no /dev/shm found, create it
+    SHM=`mount | grep '/dev/shm'`
+    if [ "$SHM" = "" ]; then
+        mount -t tmpfs tmpfs /dev/shm/ >/dev/null 2>&1
+        $SRCDIR/scripts/cron/update_antivirus.sh >/dev/null 2>&1
+    fi
 
-  ## if no temp dir, then create it
-  if [ ! -d $VARDIR/spool/tmp/mailscanner ]; then
-    mkdir $VARDIR/spool/tmp/mailscanner
-    chown mailcleaner:mailcleaner $VARDIR/spool/tmp/mailscanner
-  fi
-  if [ ! -d $VARDIR/spool/tmp/mailscanner/incoming ]; then
-    mkdir $VARDIR/spool/tmp/mailscanner/incoming
-    chown mailcleaner:mailcleaner $VARDIR/spool/tmp/mailscanner/incoming
-  fi
+    ## if no temp dir, then create it
+    if [ ! -d $VARDIR/spool/tmp/mailscanner ]; then
+        mkdir $VARDIR/spool/tmp/mailscanner
+        chown mailcleaner:mailcleaner $VARDIR/spool/tmp/mailscanner
+    fi
+    if [ ! -d $VARDIR/spool/tmp/mailscanner/incoming ]; then
+        mkdir $VARDIR/spool/tmp/mailscanner/incoming
+        chown mailcleaner:mailcleaner $VARDIR/spool/tmp/mailscanner/incoming
+    fi
 
-  PREFILTER_CT=`grep 'Pre Filters' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'Commtouch'`
-  if [ "$PREFILTER_CT" != "" ]; then
-      HASCOMMTOUCH=1
-  fi
-  PREFILTER_MS=`grep 'Pre Filters' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'MessageSniffer'`
-  if [ "$PREFILTER_MS" != "" ]; then
-      HASMESSAGESNIFFER=1
-  fi
-  PREFILTER_KS=`grep 'Virus Scanners' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'kaspersky'`
-  if [ "$PREFILTER_KS" != "" ]; then
-      HASKASPERSKY=1
-  fi
+    PREFILTER_MS=`grep 'Pre Filters' $SRCDIR/etc/mailscanner/MailScanner.conf | grep 'MessageSniffer'`
+    if [ "$PREFILTER_MS" != "" ]; then
+        HASMESSAGESNIFFER=1
+    fi
 }
 
 case "$1" in
-  start)
-    touch $VARDIR/run/mailscanner.start.rs
-    prepare
-    if [ $mode = "all" ]; then
-      # starting pref daemon first
-      $SRCDIR/etc/init.d/preftdaemon start
-      # start dcc daemon
-      $SRCDIR/etc/init.d/dccifd start
-      # then start clamav and SpamAssassin daemons
-      $SRCDIR/etc/init.d/clamd start
-      $SRCDIR/etc/init.d/clamspamd start
-      $SRCDIR/etc/init.d/spamd start
-      $SRCDIR/etc/init.d/newsld start
-      if [ $HASCOMMTOUCH = 1 ]; then
-         $SRCDIR/etc/init.d/commtouch start
-      fi
-      if [ $HASMESSAGESNIFFER = 1 ]; then
-         $SRCDIR/etc/init.d/messagesniffer start
-      fi
-      if [ $HASKASPERSKY = 1 ]; then
-         $SRCDIR/etc/init.d/kaspersky start
-      fi
-    fi
-    # then MailScanner
-    echo -n "  Starting $DESC: "
-    if [ -e /usr/bin/screen ]; then
-      #screen -d -m /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
-          /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON
-	else
-	  /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON 
-	fi
-	RETVAL=$?
-	if [ $RETVAL -eq 0 ]; then
-	    touch $LOCKFILE
-	fi
-	if [ -f $VARDIR/run/mailscanner.rn ]; then
-      rm $VARDIR/run/mailscanner.rn
-	fi
-	echo "started."
-    rm $VARDIR/run/mailscanner.stopped >/dev/null 2>&1 
-    rm $VARDIR/run/mailscanner.*.rs >/dev/null 2>&1
-	;;
-  stop)
-    touch $VARDIR/run/mailscanner.stop.rs
-    if [ -d /opt/eset/efs ]; then
-      pkill -9 logd
-    fi
-	echo -n "  Stopping $DESC: "
-	/sbin/start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE 
-	RETVAL=$?
-	if [ $RETVAL -eq 0 ]; then
-	    rm -f $LOCKFILE
-	fi
-
-	i=0
-	while pgrep MailScanner >/dev/null; do
-        sleep 1
-        i=`expr $i + 1`
-        if [ "$i" = "$TIMEOUT" ]; then
-           # echo "timeout while killing mailscanner !!"
-			killall -q -TERM MailScanner >/dev/null 2>&1
-			sleep 1
-			killall -q -KILL MailScanner >/dev/null 2>&1 
-			echo "stopped."
-			if [ $mode = "all" ]; then
-              $SRCDIR/etc/init.d/newsld stop
-              $SRCDIR/etc/init.d/spamd stop
-              $SRCDIR/etc/init.d/clamd stop
-              $SRCDIR/etc/init.d/clamspamd stop
-              $SRCDIR/etc/init.d/dccifd stop
-              if [ $HASCOMMTOUCH = 1 ]; then
-                  $SRCDIR/etc/init.d/commtouch stop
-              fi
-	      if [ $HASMESSAGESNIFFER = 1 ]; then
-                  $SRCDIR/etc/init.d/messagesniffer stop
-	      fi
+    start)
+        touch $VARDIR/run/mailscanner.start.rs
+        prepare
+        if [ $mode = "all" ]; then
+            # starting pref daemon first
+            $SRCDIR/etc/init.d/preftdaemon start
+            # start dcc daemon
+            $SRCDIR/etc/init.d/dccifd start
+            # then start clamav and SpamAssassin daemons
+            $SRCDIR/etc/init.d/clamd start
+            $SRCDIR/etc/init.d/clamspamd start
+            $SRCDIR/etc/init.d/spamd start
+            $SRCDIR/etc/init.d/newsld start
+            if [ $HASMESSAGESNIFFER = 1 ]; then
+                $SRCDIR/etc/init.d/messagesniffer start
             fi
-            exit 1
-         fi
+        fi
+        # then MailScanner
+        echo -n "start $DESC: "
+        PERL5LIB=$SRCDIR/lib:$PERL5LIB /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $MSDIR/$DESC $CONFIG 2>/dev/null
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+            touch $LOCKFILE
+        fi
+        if [ -f $VARDIR/run/mailscanner.rn ]; then
+            rm $VARDIR/run/mailscanner.rn
+        fi
+        echo "active"
+        rm $VARDIR/run/mailscanner.stopped >/dev/null 2>&1 
+        rm $VARDIR/run/mailscanner.*.rs >/dev/null 2>&1
+        ;;
+    stop)
+        touch $VARDIR/run/mailscanner.stop.rs
+        if [ -d /opt/eset/efs ]; then
+            pkill -9 logd
+        fi
+        echo -n "stop $DESC: "
+        /sbin/start-stop-daemon --stop --quiet --oknodo --user $USER --pidfile $PIDFILE
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+            rm -f $LOCKFILE
+        fi
+
+        i=0
+        while pgrep MailScanner >/dev/null; do
+            sleep 1
+            i=`expr $i + 1`
+            if [ "$i" = "$TIMEOUT" ]; then
+                #echo "timeout while killing mailscanner !!"
+                pkill MailScanner >/dev/null 2>&1
+                sleep 1
+                pkill -9 MailScanner >/dev/null 2>&1 
+            fi
         done
-    
-	echo "stopped."
-	if [ $mode = "all" ]; then
-      $SRCDIR/etc/init.d/newsld stop
-      $SRCDIR/etc/init.d/spamd stop
-      $SRCDIR/etc/init.d/clamd stop
-      $SRCDIR/etc/init.d/clamspamd stop
-      $SRCDIR/etc/init.d/dccifd stop
-      if [ $HASCOMMTOUCH = 1 ]; then
-         $SRCDIR/etc/init.d/commtouch stop
-      fi
-      if [ $HASMESSAGESNIFFER = 1 ]; then
-         $SRCDIR/etc/init.d/messagesniffer stop
-      fi
-      if [ $HASKASPERSKY = 1 ]; then
-         $SRCDIR/etc/init.d/kaspersky stop
-      fi
-    fi
-    rm $VARDIR/run/mailscanner.stop.rs >/dev/null 2>&1
-    touch $VARDIR/run/mailscanner.stopped
-	;;
-  restart)
-    touch $VARDIR/run/mailscanner.restart.rs
-	$0 stop $mode
-	sleep 1
-	$0 start $mode
-	;;
-  *)
-	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart}" >&2
-	exit 1
-	;;
+        echo "stopped"
+        if [ $mode = "all" ]; then
+            $SRCDIR/etc/init.d/newsld stop
+            $SRCDIR/etc/init.d/spamd stop
+            $SRCDIR/etc/init.d/clamd stop
+            $SRCDIR/etc/init.d/clamspamd stop
+            $SRCDIR/etc/init.d/dccifd stop
+            if [ $HASMESSAGESNIFFER = 1 ]; then
+                $SRCDIR/etc/init.d/messagesniffer stop
+            fi
+        fi
+        rm $VARDIR/run/mailscanner.stop.rs >/dev/null 2>&1
+        touch $VARDIR/run/mailscanner.stopped
+        ;;
+    restart)
+        touch $VARDIR/run/mailscanner.restart.rs
+        $0 stop $mode
+        sleep 1
+        $0 start $mode
+        ;;
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart}" >&2
+        exit 1
+        ;;
 esac
 
 exit 0

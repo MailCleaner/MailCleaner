@@ -1,0 +1,5 @@
+[Unit]
+Description=Mailcleaner - SMTP Antivirus/Antispam Gateway
+Requires=sshd.service
+Conflicts=mailcleaner.target
+AllowIsolate=yes

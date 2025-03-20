@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Navigation.php,v 1.1.2.3 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,8 +31,12 @@ require_once 'Zend/View/Helper/Navigation/HelperAbstract.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @method Zend_View_Helper_Navigation_Breadcrumbs breadcrumbs
+ * @method Zend_View_Helper_Navigation_Links links
+ * @method Zend_View_Helper_Navigation_Menu menu
+ * @method Zend_View_Helper_Navigation_Sitemap sitemap
  */
 class Zend_View_Helper_Navigation
     extends Zend_View_Helper_Navigation_HelperAbstract
@@ -56,7 +60,7 @@ class Zend_View_Helper_Navigation
      *
      * @var array
      */
-    protected $_helpers = array();
+    protected $_helpers = [];
 
     /**
      * Whether container should be injected when proxying
@@ -84,7 +88,7 @@ class Zend_View_Helper_Navigation
      *
      * @param  Zend_Navigation_Container $container  [optional] container to
      *                                               operate on
-     * @return Zend_View_Helper_Navigation           fluent interface, returns
+     * @return $this
      *                                               self
      */
     public function navigation(Zend_Navigation_Container $container = null)
@@ -121,11 +125,11 @@ class Zend_View_Helper_Navigation
      *                                    {@link findHelper()}
      * @throws Zend_Navigation_Exception  if method does not exist in container
      */
-    public function __call($method, array $arguments = array())
+    public function __call($method, array $arguments = [])
     {
         // check if call should proxy to another helper
         if ($helper = $this->findHelper($method, false)) {
-            return call_user_func_array(array($helper, $method), $arguments);
+            return call_user_func_array([$helper, $method], $arguments);
         }
 
         // default behaviour: proxy call to container
@@ -157,9 +161,17 @@ class Zend_View_Helper_Navigation
         }
 
         if (!$this->view->getPluginLoader('helper')->getPaths(self::NS)) {
+            // Add navigation helper path at the beginning
+            $paths = $this->view->getHelperPaths();
+            $this->view->setHelperPath(null);
+
             $this->view->addHelperPath(
                     str_replace('_', '/', self::NS),
                     self::NS);
+
+            foreach ($paths as $ns => $path) {
+                $this->view->addHelperPath($path, $ns);
+            }
         }
 
         if ($strict) {
@@ -225,7 +237,7 @@ class Zend_View_Helper_Navigation
      * Sets the default proxy to use in {@link render()}
      *
      * @param  string $proxy                default proxy
-     * @return Zend_View_Helper_Navigation  fluent interface, returns self
+     * @return $this
      */
     public function setDefaultProxy($proxy)
     {
@@ -249,7 +261,7 @@ class Zend_View_Helper_Navigation
      * @param bool $injectContainer         [optional] whether container should
      *                                      be injected when proxying. Default
      *                                      is true.
-     * @return Zend_View_Helper_Navigation  fluent interface, returns self
+     * @return $this
      */
     public function setInjectContainer($injectContainer = true)
     {
@@ -273,7 +285,7 @@ class Zend_View_Helper_Navigation
      * @param  bool $injectAcl              [optional] whether ACL should be
      *                                      injected when proxying. Default is
      *                                      true.
-     * @return Zend_View_Helper_Navigation  fluent interface, returns self
+     * @return $this
      */
     public function setInjectAcl($injectAcl = true)
     {
@@ -297,7 +309,7 @@ class Zend_View_Helper_Navigation
      * @param  bool $injectTranslator       [optional] whether translator should
      *                                      be injected when proxying. Default
      *                                      is true.
-     * @return Zend_View_Helper_Navigation  fluent interface, returns self
+     * @return $this
      */
     public function setInjectTranslator($injectTranslator = true)
     {

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id:
  */
@@ -44,7 +44,7 @@ require_once 'Zend/Pdf/Element/String.php';
  * must not be shared between target documents.
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Extractor
@@ -69,7 +69,7 @@ class Zend_Pdf_Resource_Extractor
     public function __construct()
     {
         $this->_factory   = Zend_Pdf_ElementFactory::createFactory(1);
-        $this->_processed = array();
+        $this->_processed = [];
     }
 
     /**

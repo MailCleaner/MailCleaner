@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Ini.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,12 +28,12 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
 {
-    private $_data = array();
+    private $_data = [];
 
     /**
      * Load translation data
@@ -45,9 +45,9 @@ class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
      * @throws Zend_Translate_Exception Ini file not found
      * @return array
      */
-    protected function _loadTranslationData($data, $locale, array $options = array())
+    protected function _loadTranslationData($data, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         if (!file_exists($data)) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("Ini file '".$data."' not found");
@@ -55,7 +55,7 @@ class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
 
         $inidata = parse_ini_file($data, false);
         if (!isset($this->_data[$locale])) {
-            $this->_data[$locale] = array();
+            $this->_data[$locale] = [];
         }
 
         $this->_data[$locale] = array_merge($this->_data[$locale], $inidata);

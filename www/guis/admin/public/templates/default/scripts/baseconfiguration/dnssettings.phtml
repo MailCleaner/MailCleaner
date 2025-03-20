@@ -1,23 +1,24 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="generalconfigpanel">
-<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
- <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel)?> : <?php echo $this->t->_($this->selectedConfigMenuLabel." Title")?></p>
- 
- <?php echo $this->partial('layouts/configmenu.phtml', array('config_menu' => $this->config_menu)); ?>
- 
- <div id="generalconfigcontent">
- <div id="interfaceconfigpanel" class="configpanel">
- 
-    <div id="interfaceformcontent">
-     <?php echo $this->partial('forms/networkdnsForm.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message,'images_path' => $this->images_path)); ?>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenuLabel) ?> : <?php echo $this->t->_($this->selectedConfigMenuLabel . " Title") ?></p>
+
+    <?php echo $this->partial('layouts/configmenu.phtml', ['config_menu' => $this->config_menu]); ?>
+
+    <div id="generalconfigcontent">
+        <div id="interfaceconfigpanel" class="configpanel">
+
+            <div id="interfaceformcontent">
+                <?php echo $this->partial('forms/networkdnsForm.phtml', ['form' => $this->form, 't' => $this->t, 'message' => $this->message, 'images_path' => $this->images_path]); ?>
+            </div>
+        </div>
     </div>
- </div>
- </div>
 </div>

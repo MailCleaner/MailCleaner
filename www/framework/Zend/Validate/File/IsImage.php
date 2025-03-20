@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: IsImage.php,v 1.1.2.4 2011-05-30 08:31:03 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/File/MimeType.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_IsImage extends Zend_Validate_File_MimeType
@@ -44,28 +44,27 @@ class Zend_Validate_File_IsImage extends Zend_Validate_File_MimeType
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::FALSE_TYPE   => "File '%value%' is no image, '%type%' detected",
         self::NOT_DETECTED => "The mimetype of file '%value%' could not be detected",
         self::NOT_READABLE => "File '%value%' is not readable or does not exist",
-    );
+    ];
 
     /**
      * Sets validator options
      *
-     * @param  string|array|Zend_Config $mimetype
-     * @return void
+     * @param string|array|Zend_Config $mimetype
      */
-    public function __construct($mimetype = array())
+    public function __construct($mimetype = [])
     {
         if ($mimetype instanceof Zend_Config) {
             $mimetype = $mimetype->toArray();
         }
 
-        $temp    = array();
+        $temp    = [];
         // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
         // http://www.iana.org/assignments/media-types/image/
-        $default = array(
+        $default = [
             'application/cdf',
             'application/dicom',
             'application/fractals',
@@ -120,7 +119,7 @@ class Zend_Validate_File_IsImage extends Zend_Validate_File_MimeType
             'image/x-unknown',
             'image/x-windows-bmp',
             'image/x-xpmi',
-        );
+        ];
 
         if (is_array($mimetype)) {
             $temp = $mimetype;

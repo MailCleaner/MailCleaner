@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.3 2011-05-30 08:30:35 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Controller_Dispatcher_Interface */
@@ -27,7 +27,7 @@ require_once 'Zend/Controller/Dispatcher/Interface.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Dispatcher_Interface
@@ -61,7 +61,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      * controllers
      * @var array
      */
-    protected $_invokeParams = array();
+    protected $_invokeParams = [];
 
     /**
      * Path delimiter character
@@ -79,14 +79,14 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      * Word delimiter characters
      * @var array
      */
-    protected $_wordDelimiter = array('-', '.');
+    protected $_wordDelimiter = ['-', '.'];
 
     /**
      * Constructor
      *
      * @return void
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->setParams($params);
     }
@@ -187,7 +187,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      * Retrieve the path delimiter character(s) used in
      * controller names
      *
-     * @return array
+     * @return string
      */
     public function getPathDelimiter()
     {
@@ -231,7 +231,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     {
         // preserve directories
         if (!$isAction) {
-            $segments = explode($this->getPathDelimiter(), $unformatted);
+            $segments = explode($this->getPathDelimiter(), (string) $unformatted);
         } else {
             $segments = (array) $unformatted;
         }
@@ -330,13 +330,13 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      * only that parameter; if an array of parameter names is provided, clears
      * each.
      *
-     * @param null|string|array single key or array of keys for params to clear
+     * @param null|string|array $name single key or array of keys for params to clear
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function clearParams($name = null)
     {
         if (null === $name) {
-            $this->_invokeParams = array();
+            $this->_invokeParams = [];
         } elseif (is_string($name) && isset($this->_invokeParams[$name])) {
             unset($this->_invokeParams[$name]);
         } elseif (is_array($name)) {

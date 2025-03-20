@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Gettext.php,v 1.1.2.4 2011-05-30 08:31:01 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,15 +28,15 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     // Internal variables
     private $_bigEndian   = false;
     private $_file        = false;
-    private $_adapterInfo = array();
-    private $_data        = array();
+    private $_adapterInfo = [];
+    private $_data        = [];
 
     /**
      * Read values from the MO file
@@ -62,9 +62,9 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data      = array();
+        $this->_data      = [];
         $this->_bigEndian = false;
         $this->_file      = @fopen($filename, 'rb');
         if (!$this->_file) {
@@ -122,7 +122,7 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
                 fseek($this->_file, $transtemp[$count * 2 + 2]);
                 $translate = fread($this->_file, $transtemp[$count * 2 + 1]);
                 $translate = explode("\0", $translate);
-                if ((count($original) > 1) && (count($translate) > 1)) {
+                if ((count($original) > 1)) {
                     $this->_data[$locale][$original[0]] = $translate;
                     array_shift($original);
                     foreach ($original as $orig) {

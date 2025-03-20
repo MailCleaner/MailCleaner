@@ -1,0 +1,1 @@
+LoadModule socache_redis_module /usr/lib/apache2/modules/mod_socache_redis.so

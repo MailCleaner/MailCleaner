@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage RootDSE
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RootDse.php,v 1.1.2.1 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Ldap/Node/Abstract.php';
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage RootDSE
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
@@ -51,7 +51,7 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
     public static function create(Zend_Ldap $ldap)
     {
         $dn = Zend_Ldap_Dn::fromString('');
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         if (isset($data['domainfunctionality'])) {
             /**
              * @see Zend_Ldap_Node_RootDse_ActiveDirectory

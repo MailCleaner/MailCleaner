@@ -1,22 +1,23 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
- <fieldset id="taskssettings">
-       <table class="ftable">
-           <?php echo $this->InputRow($this->form->getElement('archiving_type'));?>
-          
-           <?php foreach (array('archiver_host') as $f) { ?>
-            <?php echo $this->InputRow($this->form->getElement($f),array('row_class'=>'archiver_type_field external_archiver_type_field'));?>
-           <?php } ?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+    <fieldset id="taskssettings">
+        <table class="ftable">
+            <?php echo $this->InputRow($this->form->getElement('archiving_type')); ?>
 
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-       </table>
-     </fieldset>
- </form>
+            <?php foreach (['archiver_host'] as $f) { ?>
+                <?php echo $this->InputRow($this->form->getElement($f), ['row_class' => 'archiver_type_field external_archiver_type_field']); ?>
+            <?php } ?>
+
+            <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+        </table>
+    </fieldset>
+</form>

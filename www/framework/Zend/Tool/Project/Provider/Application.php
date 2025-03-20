@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Application.php,v 1.1.2.1 2011-05-30 08:30:51 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Application
@@ -31,7 +31,7 @@ class Zend_Tool_Project_Provider_Application
     implements Zend_Tool_Framework_Provider_Pretendable
 {
 
-    protected $_specialties = array('ClassNamePrefix');
+    protected $_specialties = ['ClassNamePrefix'];
 
     /**
      *
@@ -72,12 +72,12 @@ class Zend_Tool_Project_Provider_Application
             $response->appendContent(
                 'Note: the name provided "' . $originalClassNamePrefix . '" was'
                     . ' altered to "' . $classNamePrefix . '" for correctness.',
-                array('color' => 'yellow')
+                ['color' => 'yellow']
                 );
         }
 
         // note to the user
-        $response->appendContent('Note: All existing models will need to be altered to this new namespace by hand', array('color' => 'yellow'));
+        $response->appendContent('Note: All existing models will need to be altered to this new namespace by hand', ['color' => 'yellow']);
         $response->appendContent('application.ini updated with new appnamespace ' . $classNamePrefix);
 
         // store profile

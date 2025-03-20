@@ -1,16 +1,17 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * File name mapper
  */
 
 class Default_Model_FileNameMapper
 {
-	
+
     protected $_dbTable;
 
     public function setDbTable($dbTable)
@@ -32,7 +33,7 @@ class Default_Model_FileNameMapper
         }
         return $this->_dbTable;
     }
-    
+
     public function find($id, Default_Model_FileName $f)
     {
         $result = $this->getDbTable()->find($id);
@@ -42,37 +43,39 @@ class Default_Model_FileNameMapper
         $row = $result->current();
         $f->setId($id);
         foreach ($f->getParamArray() as $key => $value) {
-        	$f->setParam($key, $row[$key]);
+            $f->setParam($key, $row[$key]);
         }
     }
-    
+
     public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll($this->getDbTable()->select()->order('rule ASC'));
-        $entries   = array();
+        $entries   = [];
         foreach ($resultSet as $row) {
             $entry = new Default_Model_FileName();
             $entry->find($row->id);
             $entries[] = $entry;
         }
         return $entries;
-     }
-        
-    public function save(Default_Model_FileName $f) {
-       $data = $f->getParamArray();
-       $res = '';
-       if (null === ($id = $f->getId())) {
+    }
+
+    public function save(Default_Model_FileName $f)
+    {
+        $data = $f->getParamArray();
+        $res = '';
+        if (null === ($id = $f->getId())) {
             unset($data['id']);
             $res = $this->getDbTable()->insert($data);
             $f->setId($res);
         } else {
-            $res = $this->getDbTable()->update($data, array('id = ?' => $id));
+            $res = $this->getDbTable()->update($data, ['id = ?' => $id]);
         }
         return $res;
     }
-    
-    public function delete(Default_Model_FileName $f) {
-    	$where = $this->getDbTable()->getAdapter()->quoteInto('id = ?', $f->getId());
-    	return $this->getDbTable()->delete($where);   	
+
+    public function delete(Default_Model_FileName $f)
+    {
+        $where = $this->getDbTable()->getAdapter()->quoteInto('id = ?', $f->getId());
+        return $this->getDbTable()->delete($where);
     }
 }

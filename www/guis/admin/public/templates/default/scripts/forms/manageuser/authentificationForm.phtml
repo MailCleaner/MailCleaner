@@ -1,28 +1,39 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>&nbsp;
 <fieldset>
-       <table class="ftable">
-          <?php echo $this->InputRow($this->form->getElement('realname'));?>
+    <table class="ftable">
+        <?php echo $this->InputRow($this->form->getElement('realname')); ?>
 
-          <tr><td colspan="2"><hr /></td></tr>
-           <?php foreach (array('password', 'confirm') as $f) {?>
-             <?php echo $this->InputRow($this->form->getElement($f));?>             
-          <?php }?>
-          <tr><td colspan="2" class="fieldnotice"><?php echo $this->t->_('Leaving the password fields empty will generate and send a new password to the user')?></td></tr>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+        <?php foreach (['password', 'confirm'] as $f) { ?>
+            <?php echo $this->InputRow($this->form->getElement($f)); ?>
+        <?php } ?>
+        <tr>
+            <td colspan="2" class="fieldnotice"><?php echo $this->t->_('Leaving the password fields empty will generate and send a new password to the user') ?></td>
+        </tr>
 
-          
-          <?php if ($this->form->getElement('email')) {?>
-            <tr><td colspan="2"><hr /></td></tr>
 
-            <?php echo $this->InputRow($this->form->getElement('email'));?>      
-          <?php }?>
-          
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-       </table>
+        <?php if ($this->form->getElement('email')) { ?>
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+
+            <?php echo $this->InputRow($this->form->getElement('email')); ?>
+        <?php } ?>
+
+        <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+    </table>
 </fieldset>

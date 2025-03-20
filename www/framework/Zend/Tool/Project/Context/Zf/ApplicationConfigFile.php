@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ApplicationConfigFile.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,11 +33,15 @@ require_once 'Zend/Tool/Project/Context/Filesystem/File.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Project_Context_Filesystem_File
 {
+    /**
+     * @var string | null
+     */
+    protected $_type;
 
     /**
      * @var string
@@ -78,7 +82,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
      */
     public function getPersistentAttributes()
     {
-        return array('type' => $this->_type);
+        return ['type' => $this->_type];
     }
 
     /**
@@ -127,7 +131,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
         $contentLines = preg_split('#[\n\r]#', $this->getContents());
 
-        $newLines = array();
+        $newLines = [];
         $insideSection = false;
 
         foreach ($contentLines as $contentLineIndex => $contentLine) {
@@ -139,7 +143,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
             $newLines[] = $contentLine;
             if ($insideSection) {
                 // if its blank, or a section heading
-                if (isset($contentLines[$contentLineIndex + 1]{0}) && $contentLines[$contentLineIndex + 1]{0} == '[') {
+                if (isset($contentLines[$contentLineIndex + 1][0]) && $contentLines[$contentLineIndex + 1][0] == '[') {
                     $newLines[] = $key . ' = ' . $value;
                     $insideSection = null;
                 } else if (!isset($contentLines[$contentLineIndex + 1])){
@@ -162,9 +166,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
      */
     public function addItem($item, $section = 'production', $quoteValue = true)
     {
-        $stringItems = array();
-        $stringValues = array();
-        $configKeyNames = array();
+        $stringItems = [];
+        $stringValues = [];
+        $configKeyNames = [];
 
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
@@ -196,7 +200,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
     {
         $contentLines = file($this->getPath());
 
-        $newLines = array();
+        $newLines = [];
         $insideSection = false;
 
         foreach ($contentLines as $contentLineIndex => $contentLine) {
@@ -222,9 +226,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
     public function removeItem($item, $section = 'production')
     {
-        $stringItems = array();
-        $stringValues = array();
-        $configKeyNames = array();
+        $stringItems = [];
+        $stringValues = [];
+        $configKeyNames = [];
 
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
@@ -254,7 +258,6 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
     protected function _getDefaultContents()
     {
-
         $contents =<<<EOS
 [production]
 phpSettings.display_startup_errors = 0

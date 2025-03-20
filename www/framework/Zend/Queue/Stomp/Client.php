@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Client.php,v 1.1.2.1 2011-05-30 08:31:11 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Stomp_Client
@@ -41,9 +41,9 @@ class Zend_Queue_Stomp_Client
     /**
      * Add a server to connections
      *
-     * @param string scheme
-     * @param string host
-     * @param integer port
+     * @param string $scheme scheme
+     * @param string $host host
+     * @param integer $port port
      */
     public function __construct(
         $scheme = null, $host = null, $port = null,
@@ -79,10 +79,10 @@ class Zend_Queue_Stomp_Client
      *
      * You cannot add more than 1 connection to the client at this time.
      *
-     * @param string  $scheme ['tcp', 'udp']
-     * @param string  host
-     * @param integer port
-     * @param string  class - create a connection with this class; class must support Zend_Queue_Stomp_Client_ConnectionInterface
+     * @param string $scheme ['tcp', 'udp']
+     * @param string $host host
+     * @param integer  $port port
+     * @param string $class class - create a connection with this class; class must support Zend_Queue_Stomp_Client_ConnectionInterface
      * @return boolean
      */
     public function addConnection($scheme, $host, $port, $class = 'Zend_Queue_Stomp_Client_Connection')
@@ -107,7 +107,7 @@ class Zend_Queue_Stomp_Client
      * Set client connection
      *
      * @param Zend_Queue_Stomp_Client_ConnectionInterface $connection
-     * @return void
+     * @return Zend_Queue_Stomp_Client
      */
     public function setConnection(Zend_Queue_Stomp_Client_ConnectionInterface $connection)
     {
@@ -118,7 +118,7 @@ class Zend_Queue_Stomp_Client
     /**
      * Get client connection
      *
-     * @return Zend_Queue_Stomp_Client_ConnectionInterface|null
+     * @return array
      */
     public function getConnection()
     {
@@ -131,7 +131,7 @@ class Zend_Queue_Stomp_Client
      * Returns true if the frame was successfully sent.
      *
      * @param Zend_Queue_Stomp_FrameInterface $frame
-     * @return boolean
+     * @return StompClientMock|Zend_Queue_Stomp_Client
      */
     public function send(Zend_Queue_Stomp_FrameInterface $frame)
     {

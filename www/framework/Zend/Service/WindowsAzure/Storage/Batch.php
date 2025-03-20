@@ -15,30 +15,21 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Batch.php,v 1.1.2.1 2011-05-30 08:31:09 root Exp $
+ * @version    $Id$
  */
 
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-require_once 'Zend/Service/WindowsAzure/Exception.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
- */
-require_once 'Zend/Service/WindowsAzure/Storage/BatchStorageAbstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Storage_Batch
-{    
+{
     /**
      * Storage client the batch is defined on
      *
@@ -63,9 +54,9 @@ class Zend_Service_WindowsAzure_Storage_Batch
     /**
      * Pending operations
      *
-     * @var unknown_type
+     * @var array
      */
-    protected $_operations = array();
+    protected $_operations = [];
 
     /**
      * Does the batch contain a single select?
@@ -114,7 +105,6 @@ class Zend_Service_WindowsAzure_Storage_Batch
         unset($this->_operations);
         $this->_storageClient->setCurrentBatch(null);
         $this->_storageClient = null;
-        unset($this);
     }
 
 	/**
@@ -128,43 +118,44 @@ class Zend_Service_WindowsAzure_Storage_Batch
 	 * @param mixed $rawData Optional RAW HTTP data to be sent over the wire
 	 * @throws Zend_Service_WindowsAzure_Exception
 	 */
-	public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = array(), $forTableStorage = false, $rawData = null)
+	public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = [], $forTableStorage = false, $rawData = null)
 	{
 	    // Set _forTableStorage
 	    if ($forTableStorage) {
 	        $this->_forTableStorage = true;
 	    }
-	
+
 	    // Set _isSingleSelect
 	    if ($httpVerb == Zend_Http_Client::GET) {
 	        if (count($this->_operations) > 0) {
+                    require_once 'Zend/Service/WindowsAzure/Exception.php';
 	            throw new Zend_Service_WindowsAzure_Exception("Select operations can only be performed in an empty batch transaction.");
 	        }
 	        $this->_isSingleSelect = true;
 	    }
-	
+
 	    // Clean path
 		if (strpos($path, '/') !== 0) {
 			$path = '/' . $path;
 		}
-			
+
 		// Clean headers
-		if ($headers === null) {
-		    $headers = array();
+		if (is_null($headers)) {
+		    $headers = [];
 		}
-		
+
 		// URL encoding
 		$path           = Zend_Service_WindowsAzure_Storage::urlencode($path);
 		$queryString    = Zend_Service_WindowsAzure_Storage::urlencode($queryString);
 
 		// Generate URL
 		$requestUrl     = $this->getBaseUrl() . $path . $queryString;
-		
+
 		// Generate $rawData
-		if ($rawData === null) {
+		if (is_null($rawData)) {
 		    $rawData = '';
 		}
-		
+
 		// Add headers
 		if ($httpVerb != Zend_Http_Client::GET) {
     		$headers['Content-ID'] = count($this->_operations) + 1;
@@ -173,7 +164,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
     		}
     		$headers['Content-Length'] = strlen($rawData);
 		}
-		
+
 		// Generate $operation
 		$operation = '';
 		$operation .= $httpVerb . ' ' . $requestUrl . ' HTTP/1.1' . "\n";
@@ -182,12 +173,12 @@ class Zend_Service_WindowsAzure_Storage_Batch
 		    $operation .= $key . ': ' . $value . "\n";
 		}
 		$operation .= "\n";
-		
+
 		// Add data
 		$operation .= $rawData;
 
 		// Store operation
-		$this->_operations[] = $operation;	
+		$this->_operations[] = $operation;
 	}
 
     /**
@@ -210,6 +201,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 
         // Error?
         if (count($errors[2]) > 0) {
+            require_once 'Zend/Service/WindowsAzure/Exception.php';
             throw new Zend_Service_WindowsAzure_Exception('An error has occured while committing a batch: ' . $errors[2][0]);
         }
 

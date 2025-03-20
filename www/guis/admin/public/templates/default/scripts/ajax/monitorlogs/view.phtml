@@ -1,86 +1,89 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 
 <ul id="loglines">
- <?php for ($i=$this->res['fromline']; $i <= $this->res['toline']; $i++) {?>
- <li><?php echo $i;?></li>
- <?php }?>
+    <?php for ($i = $this->res['fromline']; $i <= $this->res['toline']; $i++) { ?>
+        <li><?php echo $i; ?></li>
+    <?php } ?>
 </ul>
-<p id="logtext"><?php echo $this->logtext?></p>
+<p id="logtext"><?php echo $this->logtext ?></p>
 <div id="searchpanel">
-<div id="logtextsearch">
-<?php echo $this->t->_('Search string')?> : <input id="logtextsearch_value" type="text" value='<?php echo $this->params['search'];?>' />
-<?php if (count($this->otherHosts) > 1 && $this->params['search'] != '') {?>
-&nbsp;(<?php echo $this->t->_('Launch similar search on host')?> :
-  <?php $i=1; foreach ($this->otherHosts as $host) {?>
-      <a href="javascript:openLog('<?php echo $this->viewLink."f/".$host->getId()."-".$this->thisfile."/s/".urlencode($this->params['search'])?>');"><?php echo $host->getId();?></a><?php if ($i < count($this->otherHosts)) {?>&nbsp;|<?php } ?>
-  <?php $i++; } ?>
-)
-<?php } ?>
-<?php if ($this->params['search'] != '') {?>
-<div id="logtextsearch_matches">
-  <?php if ($this->res['search_results'] > 1) {?>
-    <?php echo $this->t->_('Match') ?>
-    <?php echo $this->res['position']?> 
-    <?php echo $this->t->_('on') ?>
-    <?php echo $this->res['search_results']?>
-    
-    <?php if ($this->res['position'] > 1 || $this->res['position'] < $this->res['search_results']) { ?>
-      &mdash;
-      <?php if ($this->res['position'] > 1) {?>
-        <?php if ($this->res['position'] > 2) {?>
-          <a href="javascript:goToMatch(1);"><?php echo $this->t->_('first');?></a> &lt;&lt;
-        <?php }?>
-        <a href="javascript:goToMatch(<?php echo $this->res['position'] - 1;?>);"><?php echo $this->t->_('previous');?></a>
-      <?php } ?>
-      <?php if ($this->res['position'] > 1 && $this->res['position'] < $this->res['search_results']) { ?>
-        |
-      <?php }?>
-      <?php if ($this->res['position'] < $this->res['search_results']) {?>
-        <a href="javascript:goToMatch(<?php echo $this->res['position'] + 1;?>);"><?php echo $this->t->_('next')?></a>
-        <?php if ($this->res['position'] < $this->res['search_results'] - 1) {?>
-          &gt;&gt; <a href="javascript:goToMatch(<?php echo $this->res['search_results']?>);"><?php echo $this->t->_('last');?></a>
-        <?php }?>
-      <?php }?>
-    <?php }?>
-  <?php } elseif ($this->res['search_results'] == 1) {?>
-    <?php echo $this->res['search_results']?> <?php echo $this->t->_('match found')?>
-  <?php } else { ?>
-    <?php echo $this->t->_('No match found')?>
-  <?php }?>
-  <?php if ($this->res['msgid'] != '') {?>
-     &mdash; <a href="javascript:openLog('<?php echo $this->viewLink."f/".$this->res['nextlog_link']?>');" ><?php echo $this->t->_('Trace message in next log')?></a>
-  <?php }?>
-</div>
-<?php }?>
-</div>
-<div id="linesshown">
-<?php echo $this->t->_('Line ')?>
- <input id="loglinefrom_value" type="text" value="<?php echo $this->res['fromline']?>" /> <?php echo $this->t->_('to')?> <?php echo $this->res['toline']?>
- <?php echo $this->t->_('on')?> <?php echo $this->res['nblines']?>
-  ( <input id="logpercent_value" type="text" value="<?php echo $this->res['percent']?>" />%)
-<div id="linesnavig">
- <?php if ($this->res['fromline'] - $this->params['maxlines'] > 2) {?>
-    <a href="javascript:goToLine(1);"><?php echo $this->t->_('Beginning of file');?></a> &lt;&lt;
- <?php }?>
- <?php if ($this->res['fromline'] > 1) {?>
-    <a href="javascript:goToLine(<?php echo $this->res['fromline'] - $this->params['maxlines'] - 1?>);"><?php echo $this->t->_('page up');?></a>
- <?php }?>
- <?php if ( ($this->res['fromline'] > 1) && ($this->res['toline'] < $this->res['nblines'])) {?>
-   | 
- <?php }?>
- <?php if ( $this->res['toline'] < $this->res['nblines'] ) {?>
-   <a href="javascript:goToLine(<?php echo $this->res['toline']+1?>);"><?php echo $this->t->_('page down');?></a>
- <?php }?>
- <?php if ( $this->res['toline'] < ($this->res['nblines'] - $this->params['maxlines'])) {?>
-   &gt;&gt; <a href="javascript:goToLine(<?php echo $this->res['nblines']?>);"><?php echo $this->t->_('End of file');?></a>
- <?php }?>
-</div>
-</div>
+    <div id="logtextsearch">
+        <?php echo $this->t->_('Search string') ?> : <input id="logtextsearch_value" type="text" value='<?php echo $this->params['search']; ?>' />
+        <?php if (count($this->otherHosts) > 1 && $this->params['search'] != '') { ?>
+            &nbsp;(<?php echo $this->t->_('Launch similar search on host') ?> :
+            <?php $i = 1;
+            foreach ($this->otherHosts as $host) { ?>
+                <a href="javascript:openLog('<?php echo $this->viewLink . "f/" . $host->getId() . "-" . $this->thisfile . "/s/" . urlencode($this->params['search']) ?>');"><?php echo $host->getId(); ?></a><?php if ($i < count($this->otherHosts)) { ?>&nbsp;|<?php } ?>
+            <?php $i++;
+            } ?>
+            )
+        <?php } ?>
+        <?php if ($this->params['search'] != '') { ?>
+            <div id="logtextsearch_matches">
+                <?php if ($this->res['search_results'] > 1) { ?>
+                    <?php echo $this->t->_('Match') ?>
+                    <?php echo $this->res['position'] ?>
+                    <?php echo $this->t->_('on') ?>
+                    <?php echo $this->res['search_results'] ?>
+
+                    <?php if ($this->res['position'] > 1 || $this->res['position'] < $this->res['search_results']) { ?>
+                        &mdash;
+                        <?php if ($this->res['position'] > 1) { ?>
+                            <?php if ($this->res['position'] > 2) { ?>
+                                <a href="javascript:goToMatch(1);"><?php echo $this->t->_('first'); ?></a> &lt;&lt;
+                            <?php } ?>
+                            <a href="javascript:goToMatch(<?php echo $this->res['position'] - 1; ?>);"><?php echo $this->t->_('previous'); ?></a>
+                        <?php } ?>
+                        <?php if ($this->res['position'] > 1 && $this->res['position'] < $this->res['search_results']) { ?>
+                            |
+                        <?php } ?>
+                        <?php if ($this->res['position'] < $this->res['search_results']) { ?>
+                            <a href="javascript:goToMatch(<?php echo $this->res['position'] + 1; ?>);"><?php echo $this->t->_('next') ?></a>
+                            <?php if ($this->res['position'] < $this->res['search_results'] - 1) { ?>
+                                &gt;&gt; <a href="javascript:goToMatch(<?php echo $this->res['search_results'] ?>);"><?php echo $this->t->_('last'); ?></a>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                <?php } elseif ($this->res['search_results'] == 1) { ?>
+                    <?php echo $this->res['search_results'] ?> <?php echo $this->t->_('match found') ?>
+                <?php } else { ?>
+                    <?php echo $this->t->_('No match found') ?>
+                <?php } ?>
+                <?php if ($this->res['msgid'] != '') { ?>
+                    &mdash; <a href="javascript:openLog('<?php echo $this->viewLink . "f/" . $this->res['nextlog_link'] ?>');"><?php echo $this->t->_('Trace message in next log') ?></a>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
+    <div id="linesshown">
+        <?php echo $this->t->_('Line ') ?>
+        <input id="loglinefrom_value" type="text" value="<?php echo $this->res['fromline'] ?>" /> <?php echo $this->t->_('to') ?> <?php echo $this->res['toline'] ?>
+        <?php echo $this->t->_('on') ?> <?php echo $this->res['nblines'] ?>
+        ( <input id="logpercent_value" type="text" value="<?php echo $this->res['percent'] ?>" />%)
+        <div id="linesnavig">
+            <?php if ($this->res['fromline'] - $this->params['maxlines'] > 2) { ?>
+                <a href="javascript:goToLine(1);"><?php echo $this->t->_('Beginning of file'); ?></a> &lt;&lt;
+            <?php } ?>
+            <?php if ($this->res['fromline'] > 1) { ?>
+                <a href="javascript:goToLine(<?php echo $this->res['fromline'] - $this->params['maxlines'] - 1 ?>);"><?php echo $this->t->_('page up'); ?></a>
+            <?php } ?>
+            <?php if (($this->res['fromline'] > 1) && ($this->res['toline'] < $this->res['nblines'])) { ?>
+                |
+            <?php } ?>
+            <?php if ($this->res['toline'] < $this->res['nblines']) { ?>
+                <a href="javascript:goToLine(<?php echo $this->res['toline'] + 1 ?>);"><?php echo $this->t->_('page down'); ?></a>
+            <?php } ?>
+            <?php if ($this->res['toline'] < ($this->res['nblines'] - $this->params['maxlines'])) { ?>
+                &gt;&gt; <a href="javascript:goToLine(<?php echo $this->res['nblines'] ?>);"><?php echo $this->t->_('End of file'); ?></a>
+            <?php } ?>
+        </div>
+    </div>
 </div>

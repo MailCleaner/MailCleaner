@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Model.php,v 1.1.2.4 2011-05-30 08:30:51 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstract
@@ -44,12 +44,10 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
             throw new Zend_Tool_Project_Provider_Exception($exceptionMessage);
         }
 
-        $newModel = $modelsDirectory->createResource(
+        return $modelsDirectory->createResource(
             'modelFile',
-            array('modelName' => $modelName, 'moduleName' => $moduleName)
-            );
-
-        return $newModel;
+            ['modelName' => $modelName, 'moduleName' => $moduleName]
+        );
     }
 
     /**
@@ -58,7 +56,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
      * @param Zend_Tool_Project_Profile $profile
      * @param string $modelName
      * @param string $moduleName
-     * @return Zend_Tool_Project_Profile_Resource
+     * @return bool
      */
     public static function hasResource(Zend_Tool_Project_Profile $profile, $modelName, $moduleName = null)
     {
@@ -67,7 +65,12 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         }
 
         $modelsDirectory = self::_getModelsDirectoryResource($profile, $moduleName);
-        return (($modelsDirectory->search(array('modelFile' => array('modelName' => $modelName)))) instanceof Zend_Tool_Project_Profile_Resource);
+
+        if (!$modelsDirectory instanceof Zend_Tool_Project_Profile_Resource) {
+            return false;
+        }
+
+        return (($modelsDirectory->search(['modelFile' => ['modelName' => $modelName]])) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
     /**
@@ -79,10 +82,10 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
      */
     protected static function _getModelsDirectoryResource(Zend_Tool_Project_Profile $profile, $moduleName = null)
     {
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName != null && is_string($moduleName)) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
         }
 
         $profileSearchParams[] = 'modelsDirectory';
@@ -129,7 +132,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
                 'Note: The canonical model name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
                     . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
+                ['color' => ['yellow']]
                 );
         }
 

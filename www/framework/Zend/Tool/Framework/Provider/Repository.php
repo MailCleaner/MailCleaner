@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Repository.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Provider_Repository
@@ -53,23 +53,23 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * @var Zend_Tool_Framework_Provider_Interface[]
      */
-    protected $_unprocessedProviders = array();
+    protected $_unprocessedProviders = [];
 
     /**
      * @var Zend_Tool_Framework_Provider_Signature[]
      */
-    protected $_providerSignatures = array();
+    protected $_providerSignatures = [];
 
     /**
      * @var array Array of Zend_Tool_Framework_Provider_Inteface
      */
-    protected $_providers = array();
+    protected $_providers = [];
 
     /**
      * setRegistry()
      *
      * @param Zend_Tool_Framework_Registry_Interface $registry
-     * @return unknown
+     * @return Zend_Tool_Framework_Provider_Repository
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
@@ -80,8 +80,8 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * Set the ProcessOnAdd flag
      *
-     * @param unknown_type $processOnAdd
-     * @return unknown
+     * @param bool $processOnAdd
+     * @return Zend_Tool_Framework_Provider_Repository
      */
     public function setProcessOnAdd($processOnAdd = true)
     {
@@ -238,7 +238,7 @@ class Zend_Tool_Framework_Provider_Repository
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_providers);
     }
@@ -248,7 +248,8 @@ class Zend_Tool_Framework_Provider_Repository
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    #[\ReturnTypeWillChange]
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getProviders());
     }

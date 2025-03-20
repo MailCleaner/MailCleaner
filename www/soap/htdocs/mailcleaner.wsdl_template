@@ -726,7 +726,7 @@
 
 <service name='MailcleanerService'>
   <port name='mcPort' binding='mcBinding'>
-    <soap:address location='http://__HOST__:5132/mailcleaner.php'/>
+    <soap:address location='__PROTOCOL__://__HOST__:5132/mailcleaner.php'/>
   </port>
 </service>
 </definitions>

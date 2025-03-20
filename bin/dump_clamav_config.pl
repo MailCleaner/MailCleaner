@@ -1,7 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2025 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -24,129 +25,130 @@
 #   Usage:
 #           dump_clamav_config.pl
 
-
+use v5.36;
 use strict;
-use DBI();
+use warnings;
+use utf8;
+use Carp qw( confess );
 
-my $DEBUG = 1;
+our ($SRCDIR, $VARDIR, $HTTPPROXY);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    my $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR');
+    $VARDIR = $conf->getOption('VARDIR');
+    $HTTPPROXY = $conf->getOption('HTTPPROXY');
+    unshift(@INC, $SRCDIR."/lib");
+}
+
+use lib_utils qw( open_as rmrf );
 
 my $lasterror;
 
-my %config = readConfig("/etc/mailcleaner.conf");
+my $uid = getpwnam( 'clamav' );
+my $gid = getgrnam( 'mailcleaner' );
+my $conf = '/etc/clamav';
 
+if (-e $conf && ! -l $conf) {
+	unlink(glob("$conf/*"), $conf);
+}
+symlink($SRCDIR."/".$conf, $conf) unless (-l $conf);
+unless (-l "/var/lib/clamav") {
+	rmrf("/var/lib/clamav/") if (-e "/var/lib/clamav");
+	symlink($VARDIR."/spool/clamav", "/var/lib/clamav");
+}
+
+foreach my $dir (
+    "/etc/clamav",
+    $SRCDIR."/etc/clamav",
+    $VARDIR."/log/clamav",
+    $VARDIR."/run/clamav",
+    $VARDIR."/spool/clamav",
+) {
+    mkdir($dir) unless (-d $dir);
+    chown($uid, $gid, $dir);
+}
+
+foreach my $file (
+    glob($SRCDIR."/etc/clamav/*"),
+    glob($VARDIR."/log/clamav/*"),
+    glob($VARDIR."/run/clamav/*"),
+    glob($VARDIR."/spool/clamav/*"),
+) {
+    chown($uid, $gid, $file);
+}
+
+# Configure sudoer permissions if they are not already
+mkdir '/etc/sudoers.d' unless (-d '/etc/sudoers.d');
+if (open(my $fh, '>', '/etc/sudoers.d/clamav')) {
+    print $fh "
+User_Alias  CLAMAV = clamav
+Cmnd_Alias  CLAMBIN = /usr/sbin/clamd
+
+CLAMAV      * = (ROOT) NOPASSWD: CLAMBIN
+";
+}
+
+# Add to mailcleaner group if not already a member
+`usermod -a -G mailcleaner clamav` unless (grep(/\bmailcleaner\b/, `groups clamav`));
+
+# SystemD auth causes timeouts
+`sed -iP '/^session.*pam_systemd.so/d' /etc/pam.d/common-session`;
+
+# Remove default AppArmor rules and reload with ours
+if (-e "/etc/apparmor.d/usr.sbin.clamd") {
+    `apparmor_parser -R /etc/apparmor.d/usr.sbin.clamd`;
+    unlink("/etc/apparmor.d/usr.sbin.clamd");
+}
+`apparmor_parser -r ${SRCDIR}/etc/apparmor.d/usr.sbin.clamd` if ( -d '/sys/kernel/security/apparmor' );
+
+# Dump configuration
 dump_file("clamav.conf");
-dump_file("freshclam.conf");
 dump_file("clamd.conf");
-dump_file("clamspamd.conf");
-
-# recreate links
-my $cmd = "rm /opt/clamav/etc/*.conf >/dev/null 2>&1";
-`$cmd`;
-$cmd = "ln -s $config{'SRCDIR'}/etc/clamav/*.conf /opt/clamav/etc/ >/dev/null 2>&1";
-`$cmd`;
-
-$cmd = "rm /opt/clamav/share/clamav/* >/dev/null 2>&1";
-`$cmd`;
-$cmd = "ln -s $config{'VARDIR'}/spool/clamav/* /opt/clamav/share/clamav/ >/dev/null 2>&1";
-`$cmd`;
-$cmd = "chown clamav:clamav -R $config{'VARDIR'}/spool/clamav $config{'VARDIR'}/log/clamav/ >/dev/null 2>&1";
-`$cmd`;
-
-if (-e "$config{'VARDIR'}/spool/mailcleaner/clamav-unofficial-sigs") {
-	if (-e "$config{'VARDIR'}/spool/clamav/unofficial-sigs") {
-		my @src = glob("$config{'VARDIR'}/spool/clamav/unofficial-sigs/*");
-		foreach my $s (@src) {
-			my $d = $s;
-			$d =~ s/unofficial-sigs\///;
- 			unless (-e $d) {
-				symlink($s, $d);
-			}
-		}
-	} else {
-		print "$config{'VARDIR'}/spool/clamav/unofficial-sigs does not exist. Run $config{'SRCDIR'}/scripts/cron/update_antivirus.sh then try again\n";
-	}
-} else {
-	my @dest = glob("$config{'VARDIR'}/spool/clamav/*");
-	foreach my $d (@dest) {
-		my $s = $d;
-		$s =~ s/clamav/clamav\/unofficial-sigs/;
-		if (-l $d && $s eq readlink($d)) {
-			unlink($d);
-		}
-	}
-}
-
-print "DUMPSUCCESSFUL\n";
+dump_file("freshclam.conf");
 
 #############################
-sub dump_file
+sub dump_file($file)
 {
-	my $file = shift;
+    my $template_file = $SRCDIR."/etc/clamav/".$file."_template";
+    my $target_file = $SRCDIR."/etc/clamav/".$file;
 
-	my $template_file = "$config{'SRCDIR'}/etc/clamav/".$file."_template";
-	my $target_file = "$config{'SRCDIR'}/etc/clamav/".$file;
+    my ($TEMPLATE, $TARGET);
+    confess "Cannot open $template_file" unless ( $TEMPLATE = ${open_as($template_file,'<',0664,'clamav:clamav')} );
+    confess "Cannot open $template_file" unless ( $TARGET = ${open_as($target_file,'>',0664,'clamav:clamav')} );
 
-	if ( !open(TEMPLATE, $template_file) ) {
-		$lasterror = "Cannot open template file: $template_file";
-		return 0;
-	}
-	if ( !open(TARGET, ">$target_file") ) {
-                $lasterror = "Cannot open target file: $target_file";
-		close $template_file;
-                return 0;
+    my $proxy_server = "";
+    my $proxy_port = "";
+    if ($HTTPPROXY) {
+        if ($HTTPPROXY =~ m/http\:\/\/(\S+)\:(\d+)/) {
+            $proxy_server = $1;
+            $proxy_port = $2;
+        }
+    }
+
+    while(<$TEMPLATE>) {
+        my $line = $_;
+
+        $line =~ s/__VARDIR__/${VARDIR}/g;
+        $line =~ s/__SRCDIR__/${SRCDIR}/g;
+        if ($proxy_server =~ m/\S+/) {
+            $line =~ s/\#HTTPProxyServer __HTTPPROXY__/HTTPProxyServer $proxy_server/g;
+            $line =~ s/\#HTTPProxyPort __HTTPPROXYPORT__/HTTPProxyPort $proxy_port/g;
         }
 
-	my $proxy_server = "";
-	my $proxy_port = "";
-	if (defined($config{'HTTPPROXY'})) {
-		if ($config{'HTTPPROXY'} =~ m/http\:\/\/(\S+)\:(\d+)/) {
-			$proxy_server = $1;
-			$proxy_port = $2;
-		} 
-	}
+        print $TARGET $line;
+    }
 
-	while(<TEMPLATE>) {
-		my $line = $_;
+    if (($file eq "clamd.conf") && ( -e "/var/mailcleaner/spool/mailcleaner/mc-experimental-macros")) {
+        print $TARGET "OLE2BlockMacros yes";
+    }
 
-		$line =~ s/__VARDIR__/$config{'VARDIR'}/g;
-		$line =~ s/__SRCDIR__/$config{'SRCDIR'}/g;
-		if ($proxy_server =~ m/\S+/) {
-			$line =~ s/\#HTTPProxyServer __HTTPPROXY__/HTTPProxyServer $proxy_server/g;
-			$line =~ s/\#HTTPProxyPort __HTTPPROXYPORT__/HTTPProxyPort $proxy_port/g;
-		}
+    close $TEMPLATE;
+    close $TARGET;
 
-		print TARGET $line;
-	}
-
-	if (($file eq "clamd.conf") && ( -e "/var/mailcleaner/spool/mailcleaner/mc-experimental-macros")) {
-            print TARGET "OLE2BlockMacros yes";
-        }
-
-	close TEMPLATE;
-	close TARGET;
-	
-	return 1;
-}
-
-#############################
-sub readConfig
-{
-	my $configfile = shift;
-	my %config;
-        my ($var, $value);
-
-	open CONFIG, $configfile or die "Cannot open $configfile: $!\n";
-        while (<CONFIG>) {
-                chomp;                  # no newline
-                s/#.*$//;                # no comments
-                s/^\*.*$//;             # no comments
-                s/;.*$//;                # no comments
-                s/^\s+//;               # no leading white
-                s/\s+$//;               # no trailing white
-                next unless length;     # anything left?
-                my ($var, $value) = split(/\s*=\s*/, $_, 2);
-                $config{$var} = $value;
-        }
-        close CONFIG;
-	return %config;
+    return 1;
 }

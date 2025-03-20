@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: NotExists.php,v 1.1.2.4 2011-05-30 08:31:03 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/File/Exists.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_NotExists extends Zend_Validate_File_Exists
@@ -42,9 +42,9 @@ class Zend_Validate_File_NotExists extends Zend_Validate_File_Exists
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::DOES_EXIST => "File '%value%' exists",
-    );
+    ];
 
     /**
      * Defined by Zend_Validate_Interface
@@ -58,7 +58,7 @@ class Zend_Validate_File_NotExists extends Zend_Validate_File_Exists
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) and (!empty($file['destination']))) {
+        if (($file !== null) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } else if (!isset($file['name'])) {
             $file['name'] = $value;

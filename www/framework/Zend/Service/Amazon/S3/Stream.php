@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon_S3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Stream.php,v 1.1.2.4 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Service/Amazon/S3.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon_S3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_S3_Stream
@@ -64,7 +64,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * @var array Available buckets
      */
-    private $_bucketList = array();
+    private $_bucketList = [];
 
     /**
      * @var Zend_Service_Amazon_S3
@@ -199,9 +199,9 @@ class Zend_Service_Amazon_S3_Stream
         // OR, the range end position plus 1 is greater than the size of the current
         // object buffer
         if ($this->_objectBuffer === null  ||  $range_end >= strlen($this->_objectBuffer)) {
-            $headers = array(
+            $headers = [
                 'Range' => "bytes=$range_start-$range_end"
-            );
+            ];
 
             $response = $this->_s3->_makeRequest('GET', $this->_objectName, null, $headers);
 
@@ -322,7 +322,7 @@ class Zend_Service_Amazon_S3_Stream
             return false;
         }
 
-        $stat = array();
+        $stat = [];
         $stat['dev'] = 0;
         $stat['ino'] = 0;
         $stat['mode'] = 0777;
@@ -432,7 +432,7 @@ class Zend_Service_Amazon_S3_Stream
      */
     public function url_stat($path, $flags)
     {
-        $stat = array();
+        $stat = [];
         $stat['dev'] = 0;
         $stat['ino'] = 0;
         $stat['mode'] = 0777;
@@ -497,7 +497,7 @@ class Zend_Service_Amazon_S3_Stream
      */
     public function dir_closedir()
     {
-        $this->_bucketList = array();
+        $this->_bucketList = [];
         return true;
     }
 }

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Pending alias request mapper
  */
 
@@ -38,13 +39,13 @@ class Default_Model_RRDGraphicMapper
         $query = $this->getDbTable()->select();
         if (is_numeric($id)) {
             $query->where('id = ?', $id);
-        $result = $this->getDbTable()->fetchAll($query);
+            $result = $this->getDbTable()->fetchAll($query);
         } else {
             if (preg_match('/^([a-z0-9]+)_([a-z0-9]+)$/', $id, $matches)) {
-            	$query->where('name = ?', $matches[1]);
+                $query->where('name = ?', $matches[1]);
                 $result = $this->getDbTable()->fetchAll($query);
                 if (count($result) > 1) {
-            	    $query->where('type = ?', $matches[2]);
+                    $query->where('type = ?', $matches[2]);
                     $result = $this->getDbTable()->fetchAll($query);
                 }
             }
@@ -60,22 +61,24 @@ class Default_Model_RRDGraphicMapper
         $graphic->setBase($row->base);
         $graphic->setYValue($row->min_yvalue);
         $elements = new Default_Model_RRDGraphicElement();
-        $graphic->addElements($elements->fetchAll(array('graphicid' => $graphic->getID())));
+        $graphic->addElements($elements->fetchAll([
+            'graphicid' => $graphic->getID()
+        ]));
     }
-    
+
     public function fetchAll($params)
     {
-        $elements = array();
-        
+        $elements = [];
+
         $query = $this->getDbTable()->select();
         foreach ($params as $key => $value) {
-        	if ($value) {
-            	$query->where($key.' = ?', $value);
-        	}
+            if ($value) {
+                $query->where($key . ' = ?', $value);
+            }
         }
         $resultSet = $this->getDbTable()->fetchAll($query);
         foreach ($resultSet as $row) {
-        	$element = new Default_Model_RRDGraphic();
+            $element = new Default_Model_RRDGraphic();
             $element->find($row->id);
             $elements[] = $element;
         }

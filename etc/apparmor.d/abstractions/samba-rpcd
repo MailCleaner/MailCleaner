@@ -1,0 +1,30 @@
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2022 SUSE LLC
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+# vim:syntax=apparmor
+
+# This file contains basic permissions for samba rpcd_xyz services
+
+  abi <abi/3.0>,
+
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/samba>
+
+  capability setgid,
+  capability setuid,
+
+  signal receive set=term peer=smbd,
+
+  @{PROC}/sys/kernel/core_pattern r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  # Include additions to the abstraction
+  include if exists <abstractions/samba-rpcd.d>
+

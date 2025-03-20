@@ -1,0 +1,24 @@
+# This directory is intended to contain profile additions and overrides for
+# inclusion by distributed profiles to aid in packaging AppArmor for
+# distributions.
+#
+# The shipped profiles in /etc/apparmor.d can still be modified by an
+# administrator and people should modify the shipped profile when making
+# large policy changes, rather than trying to make those adjustments here.
+#
+# For simple access additions or the occasional deny override, adjusting them
+# here can prevent the package manager of the distribution from interfering
+# with local modifications. As always, new policy should be reviewed to ensure
+# it is appropriate for your site.
+#
+# For example, if the shipped /etc/apparmor.d/usr.sbin.smbd profile has:
+#   include <local/usr.sbin.smbd>
+#
+# then an administrator can adjust /etc/apparmor.d/local/usr.sbin.smbd to
+# contain any additional paths to be allowed, such as:
+#
+#   /var/exports/** lrwk,
+#
+# Keep in mind that 'deny' rules are evaluated after allow rules, so you won't
+# be able to allow access to files that are explicitly denied by the shipped
+# profile using this mechanism.

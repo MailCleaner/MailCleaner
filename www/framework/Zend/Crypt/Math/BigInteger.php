@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Math
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BigInteger.php,v 1.1.2.4 2011-05-30 08:31:09 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -38,7 +38,7 @@
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_Math_BigInteger
@@ -61,7 +61,7 @@ class Zend_Crypt_Math_BigInteger
      */
     public function __construct($extension = null)
     {
-        if ($extension !== null && !in_array($extension, array('bcmath', 'gmp', 'bigint'))) {
+        if ($extension !== null && !in_array($extension, ['bcmath', 'gmp', 'bigint'])) {
             require_once('Zend/Crypt/Math/BigInteger/Exception.php');
             throw new Zend_Crypt_Math_BigInteger_Exception('Invalid extension type; please use one of bcmath, gmp or bigint');
         }
@@ -71,9 +71,10 @@ class Zend_Crypt_Math_BigInteger
     /**
      * Redirect all public method calls to the wrapped extension object.
      *
-     * @param   string $methodName
-     * @param   array $args
-     * @throws  Zend_Crypt_Math_BigInteger_Exception
+     * @param  string $methodName
+     * @param  array  $args
+     * @return mixed
+     * @throws Zend_Crypt_Math_BigInteger_Exception
      */
     public function __call($methodName, $args)
     {
@@ -81,7 +82,7 @@ class Zend_Crypt_Math_BigInteger
             require_once 'Zend/Crypt/Math/BigInteger/Exception.php';
             throw new Zend_Crypt_Math_BigInteger_Exception('invalid method call: ' . get_class($this->_math) . '::' . $methodName . '() does not exist');
         }
-        return call_user_func_array(array($this->_math, $methodName), $args);
+        return call_user_func_array([$this->_math, $methodName], $args);
     }
 
     /**

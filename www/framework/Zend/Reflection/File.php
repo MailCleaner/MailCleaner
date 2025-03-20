@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php,v 1.1.2.4 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,11 +32,16 @@ require_once 'Zend/Reflection/Function.php';
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_File implements Reflector
 {
+    /**
+     * @var string
+     */
+    protected $_fileName         = null;
+
     /**
      * @var string
      */
@@ -60,17 +65,17 @@ class Zend_Reflection_File implements Reflector
     /**
      * @var string[]
      */
-    protected $_requiredFiles   = array();
+    protected $_requiredFiles   = [];
 
     /**
      * @var Zend_Reflection_Class[]
      */
-    protected $_classes         = array();
+    protected $_classes         = [];
 
     /**
      * @var Zend_Reflection_Function[]
      */
-    protected $_functions       = array();
+    protected $_functions       = [];
 
     /**
      * @var string
@@ -87,7 +92,16 @@ class Zend_Reflection_File implements Reflector
     {
         $fileName = $file;
 
-        if (($fileRealpath = realpath($fileName)) === false) {
+        $fileRealpath = realpath($fileName);
+        if ($fileRealpath) {
+            // realpath() doesn't return false if Suhosin is included
+            // see http://uk3.php.net/manual/en/function.realpath.php#82770
+            if (!file_exists($fileRealpath)) {
+                $fileRealpath = false;
+            }
+        }
+
+        if ($fileRealpath === false) {
             $fileRealpath = self::findRealpathInIncludePath($file);
         }
 
@@ -199,7 +213,7 @@ class Zend_Reflection_File implements Reflector
      */
     public function getClasses($reflectionClass = 'Zend_Reflection_Class')
     {
-        $classes = array();
+        $classes = [];
         foreach ($this->_classes as $class) {
             $instance = new $reflectionClass($class);
             if (!$instance instanceof Zend_Reflection_Class) {
@@ -219,7 +233,7 @@ class Zend_Reflection_File implements Reflector
      */
     public function getFunctions($reflectionClass = 'Zend_Reflection_Function')
     {
-        $functions = array();
+        $functions = [];
         foreach ($this->_functions as $function) {
             $instance = new $reflectionClass($function);
             if (!$instance instanceof Zend_Reflection_Function) {
@@ -300,10 +314,11 @@ class Zend_Reflection_File implements Reflector
         $contents = $this->_contents;
         $tokens   = token_get_all($contents);
 
-        $functionTrapped = false;
-        $classTrapped    = false;
-        $requireTrapped  = false;
-        $openBraces      = 0;
+        $functionTrapped           = false;
+        $classTrapped              = false;
+        $requireTrapped            = false;
+        $embeddedVariableTrapped   = false;
+        $openBraces                = 0;
 
         $this->_checkFileDocBlock($tokens);
 
@@ -330,13 +345,23 @@ class Zend_Reflection_File implements Reflector
                 if ($token == '{') {
                     $openBraces++;
                 } else if ($token == '}') {
-                    $openBraces--;
+                    if ( $embeddedVariableTrapped ) {
+                        $embeddedVariableTrapped = false;
+                    } else {
+                        $openBraces--;
+                    }
                 }
 
                 continue;
             }
 
             switch ($type) {
+                case T_STRING_VARNAME:
+                case T_DOLLAR_OPEN_CURLY_BRACES:
+                case T_CURLY_OPEN:
+                    $embeddedVariableTrapped = true;
+                    break;
+
                 // Name of something
                 case T_STRING:
                     if ($functionTrapped) {
@@ -346,7 +371,7 @@ class Zend_Reflection_File implements Reflector
                         $this->_classes[] = $value;
                         $classTrapped = false;
                     }
-                    continue;
+                    break;
 
                 // Required file names are T_CONSTANT_ENCAPSED_STRING
                 case T_CONSTANT_ENCAPSED_STRING:
@@ -354,7 +379,7 @@ class Zend_Reflection_File implements Reflector
                         $this->_requiredFiles[] = $value ."\n";
                         $requireTrapped = false;
                     }
-                    continue;
+                    break;
 
                 // Functions
                 case T_FUNCTION:

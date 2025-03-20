@@ -1,95 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
+<html>
 
-<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <title>MailCleaner</title>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <meta name="Author" content="Olivier Diserens" />
-  <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html" />
-  <meta name="robots" content="noindex" />
-  <link rel="shortcut icon" type="image/x-icon" href="__TEMPLATE_PATH__/images/favicon.ico"/>
-  <link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="css/login.css" media="screen" />
-  <script type="text/javascript" charset="utf-8">
-    var popup_width = 500;
-    var popup_height = 251;
-    var lang = '__LANG__';
+<head>
+    <title>MailCleaner</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="Author" content="Olivier Diserens" />
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html" />
+    <meta name="robots" content="noindex" />
+    <link rel="shortcut icon" type="image/x-icon" href="__TEMPLATE_PATH__/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" media="screen" />
+    <script type="text/javascript" charset="utf-8">
+        var popup_width = 500;
+        var popup_height = 251;
+        var lang = '__LANG__';
 
-    function resetPassword(username) {
-        window.open('reset_password.php?u='+username+'&lang='+lang, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
-    }
-  </script>
-__IF__ DOMAINCHOOSER
-  <style type="text/css" media="screen">
-    #usernamefield {
-      width: 208px;
-    }
-__IF__ BADCREDENTIALS
-    .fieldinput {
-      border: 1px solid #FF0000;
-    }
-__FI__ BADCREDENTIALS
-  </style>
-__FI__ DOMAINCHOOSER
+        function resetPassword(username) {
+            window.open('reset_password.php?u=' + username + '&lang=' + lang, '', 'width=' + popup_width + ',height=' + popup_height + ',toolbar=0,resizable=1,scrollbars=0,status=0');
+        }
+    </script>
+    __IF__ DOMAINCHOOSER
+    <style type="text/css" media="screen">
+        #usernamefield {
+            width: 208px;
+        }
 
-<!--[if gt IE 5]>
-<link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" />
-<![endif]-->
-<!--[if lt IE 7]>
-<link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" />
-<![endif]-->
+        __IF__ BADCREDENTIALS .fieldinput {
+            border: 1px solid #FF0000;
+        }
 
- </head>
-<body  onload="document.forms['login'].username.focus();">
+        __FI__ BADCREDENTIALS
+    </style>
+    __FI__ DOMAINCHOOSER
+</head>
 
-<div id="loginpanel">
- <img id="mclogo" src="images/login_header.png" alt="" />
- <p id="badlogin">__PRINT_STATUS__</p>
- __BEGIN_LOGIN_FORM__ 
- <table>
-   <tr>
-     <td class="tdfieldtitle">__LANG_USERNAME__:</td>
-     <td class="tdfieldinput">__LOGIN_FIELD__
-<!-- __IF__ DOMAINCHOOSER
+<body onload="document.forms['login'].username.focus();">
+
+    <div id="loginpanel">
+        <img id="mclogo" src="images/logo_name.png" alt="" />
+        <p id="badlogin">__PRINT_STATUS__</p>
+        __BEGIN_LOGIN_FORM__
+        <table>
+            <tr>
+                <td class="tdfieldtitle">__LANG_USERNAME__:</td>
+                <td class="tdfieldinput">__LOGIN_FIELD__
+                    <!-- __IF__ DOMAINCHOOSER
         __DOMAIN_CHOOSER__
 __FI__ DOMAINCHOOSER -->
-     </td>
-   </tr>
- 
-   <tr>
-     <td class="tdfieldtitle">__LANG_PASSWORD__:</td>
-     <td class="tdfieldinput">__PASSWORD_FIELD__</td>
-   </tr>
+                </td>
+            </tr>
 
-   <tr>
-     <td class="tdfieldtitle">__LANG_LANGUAGE__:</td>
-     <td class="tdfieldinput">
-          __LANGUAGE_CHOOSER__
-     </td>
-   </tr>
- </table>
-  <div class="fieldsubmit">__SUBMIT_BUTTON__</div>
-__END_LOGIN_FORM__
+            <tr>
+                <td class="tdfieldtitle">__LANG_PASSWORD__:</td>
+                <td class="tdfieldinput">__PASSWORD_FIELD__</td>
+            </tr>
 
-<p id="reminder">
-__IF__ LOCALAUTH
-<a class="minilink" href="javascript:resetPassword('__USERNAME__')">__LANG_FORGOTPASSWORD__</a>
-__ELSE__
-__PRINT_LOGININFO__
-__FI__ LOCALAUTH
-</p>
- 
-  <div id="loginfooter">
-    <div class="copyright">&copy; <a href="__MCLINK__">__MCLINKLABEL__</a></div>
-  </div>
+            <tr>
+                <td class="tdfieldtitle">__LANG_LANGUAGE__:</td>
+                <td class="tdfieldinput">
+                    __LANGUAGE_CHOOSER__
+                </td>
+            </tr>
+        </table>
+        <div class="fieldsubmit">__SUBMIT_BUTTON__</div>
+        __END_LOGIN_FORM__
 
-</div>
-<script>
-     document.getElementById("language").onchange = function(event) {
-        window.location = 'login.php?lang=' + event.target.value;
-        console.log("HERE" + event.target.value);
-     }
-</script>
+        <p id="reminder">
+            __IF__ LOCALAUTH
+            <a class="minilink" href="javascript:resetPassword('__USERNAME__')">__LANG_FORGOTPASSWORD__</a>
+            __ELSE__
+            __PRINT_LOGININFO__
+            __FI__ LOCALAUTH
+        </p>
+
+        <div id="loginfooter">
+            <div class="copyright"><a href="https://__COPYRIGHTLINK__" target="_blank">__COPYRIGHTTEXT__</a></p>
+        </div>
+
+    </div>
+    <script>
+        document.getElementById("language").onchange = function (event) {
+            window.location = 'login.php?lang=' + event.target.value;
+            console.log("HERE" + event.target.value);
+        }
+    </script>
 </body>
+
 </html>

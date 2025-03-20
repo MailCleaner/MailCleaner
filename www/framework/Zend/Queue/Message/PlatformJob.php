@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Message
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PlatformJob.php,v 1.1.2.1 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Queue/Message.php';
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Message
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
@@ -64,10 +64,10 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      * @return void
      * @throws Zend_Queue_Exception
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (isset($options['data'])) {
-            if (!($options['data'] instanceof ZendApi_Job)) {
+            if (!($options['data'] instanceof ZendAPI_Job)) {
                 require_once 'Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception('Data must be an instance of ZendApi_Job');
             }
@@ -123,7 +123,7 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     /**
      * Store queue and data in serialized object
      *
-     * @return array
+     * @return string
      */
     public function __sleep()
     {

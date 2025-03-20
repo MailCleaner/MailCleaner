@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@ require_once 'Zend/Cloud/AbstractFactory.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
@@ -50,9 +50,9 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
      * Retrieve StorageService adapter
      *
      * @param  array $options
-     * @return void
+     * @return Zend_Cloud_StorageService_Adapter
      */
-    public static function getAdapter($options = array())
+    public static function getAdapter($options = [])
     {
         $adapter = parent::_getAdapter(self::STORAGE_ADAPTER_KEY, $options);
         if (!$adapter) {

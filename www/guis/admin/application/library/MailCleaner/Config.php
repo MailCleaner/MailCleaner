@@ -1,55 +1,63 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * MailCleaner configuration fetcher
  */
 
 class MailCleaner_Config
 {
-	private static $instance;
-	private $_configFile = '/etc/mailcleaner.conf';
-	
-	private $_options = array();
+    private static $instance;
+    private $_configFile = '/etc/mailcleaner.conf';
 
-	public static function getInstance() {
-		if (empty (self :: $instance)) {
-			self :: $instance = new MailCleaner_Config();
-		}
-		return self :: $instance;
-	}
+    private $_options = [];
 
-	public function __construct() {
-	    $this->getFileConfig();
-	}
+    public static function getInstance()
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new MailCleaner_Config();
+        }
+        return self::$instance;
+    }
 
-	private function getFileConfig() {
-		$val = array ();
-		$ret = array ();
+    public function __construct()
+    {
+        $this->getFileConfig();
+    }
 
-		$lines = file($this->_configFile);
-		if (!$lines) { return; }
+    private function getFileConfig()
+    {
+        $val = [];
+        $ret = [];
 
-		foreach ($lines as $line_num => $line) {
-			if (preg_match('/^([A-Z0-9]+)\s*=\s*(.*)/', $line, $val)) {
-				$this->_options[$val[1]] = $val[2];
-			}
-		}
-	}
-	
-	public function getOption($option) {
-	    if (isset($this->_options[$option])) {
-	        return  $this->_options[$option];
-	    }
-	    return null;
-	}
-	 
-	public function getUserGUIAvailableLanguages() {
-		require_once($this->_options["SRCDIR"]."/www/classes/view/Language.php");
-		$lang = Language::getInstance('user');
-		return $lang->getLanguages(); 
-	}
+        $lines = file($this->_configFile);
+        if (!$lines) {
+            return;
+        }
+
+        foreach ($lines as $line_num => $line) {
+            if (preg_match('/^([A-Z0-9]+)\s*=\s*(.*)/', $line, $val)) {
+                $this->_options[$val[1]] = $val[2];
+            }
+        }
+    }
+
+    public function getOption($option)
+    {
+        if (isset($this->_options[$option])) {
+            return  $this->_options[$option];
+        }
+        return null;
+    }
+
+    public function getUserGUIAvailableLanguages()
+    {
+        require_once($this->_options["SRCDIR"] . "/www/classes/view/Language.php");
+        $lang = Language::getInstance('user');
+        return $lang->getLanguages();
+    }
 }

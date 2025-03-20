@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Dom
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,9 +24,9 @@
  * @package    Zend_Dom
  * @subpackage Query
  * @uses       Iterator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Result.php,v 1.1.2.4 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 class Zend_Dom_Query_Result implements Iterator,Countable
 {
@@ -76,7 +76,6 @@ class Zend_Dom_Query_Result implements Iterator,Countable
      * @param  string|array $xpathQuery
      * @param  DOMDocument $document
      * @param  DOMNodeList $nodeList
-     * @return void
      */
     public function  __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
     {
@@ -119,8 +118,9 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     /**
      * Iterator: rewind to first element
      *
-     * @return void
+     * @return DOMNode|null
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->_position = 0;
@@ -132,7 +132,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         if (in_array($this->_position, range(0, $this->_nodeList->length - 1)) && $this->_nodeList->length > 0) {
             return true;
@@ -143,8 +143,9 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     /**
      * Iterator: return current element
      *
-     * @return DOMElement
+     * @return DOMNode|null
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_nodeList->item($this->_position);
@@ -155,6 +156,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_position;
@@ -163,8 +165,9 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     /**
      * Iterator: move to next element
      *
-     * @return void
+     * @return DOMNode|null
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         ++$this->_position;
@@ -176,7 +179,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return $this->_nodeList->length;
     }

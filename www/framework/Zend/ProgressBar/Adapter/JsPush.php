@@ -12,9 +12,9 @@
  *
  * @category   Zend
  * @package    Zend_ProgressBar
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: JsPush.php,v 1.1.2.4 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/ProgressBar/Adapter.php';
  * @category  Zend
  * @package   Zend_ProgressBar
  * @uses      Zend_ProgressBar_Adapter_Interface
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
@@ -92,14 +92,14 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
      */
     public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text)
     {
-        $arguments = array(
+        $arguments = [
             'current'       => $current,
             'max'           => $max,
             'percent'       => ($percent * 100),
             'timeTaken'     => $timeTaken,
             'timeRemaining' => $timeRemaining,
             'text'          => $text
-        );
+        ];
 
         $data = '<script type="text/javascript">'
               . 'parent.' . $this->_updateMethodName . '(' . Zend_Json::encode($arguments) . ');'

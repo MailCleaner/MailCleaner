@@ -1,32 +1,49 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
- <fieldset id="defaultssettings">
-       <table class="ftable">
-         <?php $options = array(
-            'allow_iframe' => 'silent_iframe',
-            'allow_form' => 'silent_form',
-            'allow_script' => 'silent_script',
-            'allow_codebase' => 'silent_codebase',
-            'allow_webbugs' => 'silent_webbugs'
-         )?>
-          <?php foreach ($options as $a => $s) {?>
-           <?php echo $this->InputRow($this->form->getElement($a),array(
-                   'post_field_text' => $this->InputRow($this->form->getElement($s), array('field_only'=>true,'nobox'=>true)) .
-                                        $this->InputRow($this->form->getElement($s), array('label_only'=>true,'nobox'=>true))
-            ));?>
-          <?php }?>
-          <?php echo $this->InputRow($this->form->getElement('html_wl_ips'),array('label_addclass'=>'flabeltextarea'));?>
-       
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-          
-       </table>
-     </fieldset>
- </form>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]) ?>
+    <fieldset id="defaultssettings">
+        <table class="ftable">
+            <?php $options = [
+                'allow_iframe' => 'silent_iframe',
+                'allow_form' => 'silent_form',
+                'allow_script' => 'silent_script',
+                'allow_codebase' => 'silent_codebase',
+                'allow_webbugs' => 'silent_webbugs'
+            ] ?>
+            <?php foreach ($options as $a => $s) { ?>
+                <?php echo $this->InputRow(
+                    $this->form->getElement($a),
+                    [
+                        'post_field_text' =>
+                        $this->InputRow(
+                            $this->form->getElement($s),
+                            [
+                                'field_only' => true,
+                                'nobox' => true
+                            ]
+                        ) .
+                            $this->InputRow(
+                                $this->form->getElement($s),
+                                [
+                                    'label_only' => true,
+                                    'nobox' => true
+                                ]
+                            )
+                    ]
+                ); ?>
+            <?php } ?>
+            <?php echo $this->InputRow($this->form->getElement('html_wl_ips'), ['label_addclass' => 'flabeltextarea']); ?>
+
+            <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+
+        </table>
+    </fieldset>
+</form>

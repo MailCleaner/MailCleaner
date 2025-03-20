@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Encrypt.php,v 1.1.2.4 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Filter/Encrypt.php';
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
@@ -55,7 +55,7 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
      * Sets the new filename where the content will be stored
      *
      * @param  string $filename (Optional) New filename to set
-     * @return Zend_Filter_File_Encryt
+     * @return Zend_Filter_File_Encrypt
      */
     public function setFilename($filename = null)
     {
@@ -82,7 +82,7 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
             $this->_filename = $value;
         }
 
-        if (file_exists($this->_filename) and !is_writable($this->_filename)) {
+        if (file_exists($this->_filename) && !is_writable($this->_filename)) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception("File '{$this->_filename}' is not writable");
         }

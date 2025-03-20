@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Repository.php,v 1.1.2.4 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Action_Repository
@@ -43,7 +43,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * setRegistry()
@@ -83,7 +83,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * process() - this is called when the client is done constructing (after init())
      *
-     * @return unknown
+     * @return unknown|null
      */
     public function process()
     {
@@ -120,7 +120,7 @@ class Zend_Tool_Framework_Action_Repository
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_actions);
     }
@@ -128,9 +128,10 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * getIterator() - get all actions, this supports the IteratorAggregate interface
      *
-     * @return array
+     * @return ArrayIterator
      */
-    public function getIterator()
+    #[\ReturnTypeWillChange]
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_actions);
     }

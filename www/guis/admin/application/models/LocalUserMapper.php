@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Local user mapper
  */
 
@@ -44,8 +45,8 @@ class Default_Model_LocalUserMapper
         $query->where('domain = ?', $domain);
         $result = $this->getDbTable()->fetchAll($query);
         if (0 == count($result)) {
-        	$user->setParam('username', $username);
-        	$user->setParam('domain', $domain);
+            $user->setParam('username', $username);
+            $user->setParam('domain', $domain);
             return;
         }
         $row = $result->current();
@@ -56,8 +57,9 @@ class Default_Model_LocalUserMapper
         $user->setParam('realname', $row->realname);
         $user->setParam('email', $row->email);
     }
-     
-    public function save(Default_Model_LocalUser $user) {
+
+    public function save(Default_Model_LocalUser $user)
+    {
         $data = $user->getParamArray();
         $res = '';
         if (null === ($id = $user->getId())) {
@@ -65,12 +67,13 @@ class Default_Model_LocalUserMapper
             $res = $this->getDbTable()->insert($data);
             $user->setId($res);
         } else {
-            $res = $this->getDbTable()->update($data, array('id = ?' => $id));
+            $res = $this->getDbTable()->update($data, ['id = ?' => $id]);
         }
         return $res;
     }
 
-    public function delete(Default_Model_LocalUser $user) {
+    public function delete(Default_Model_LocalUser $user)
+    {
         $where = $this->getDbTable()->getAdapter()->quoteInto('id = ?', $user->getId());
         return $this->getDbTable()->delete($where);
     }

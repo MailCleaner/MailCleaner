@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php,v 1.1.2.4 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 
@@ -46,7 +46,7 @@ require_once 'Zend/Db/Statement/Mysqli.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
@@ -63,7 +63,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      *
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
-    protected $_numericDataTypes = array(
+    protected $_numericDataTypes = [
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
         Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
@@ -80,7 +80,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
         'FIXED'              => Zend_Db::FLOAT_TYPE,
         'FLOAT'              => Zend_Db::FLOAT_TYPE
-    );
+    ];
 
     /**
      * @var Zend_Db_Statement_Mysqli
@@ -127,7 +127,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     public function listTables()
     {
-        $result = array();
+        $result = [];
         // Use mysqli extension API, because SHOW doesn't work
         // well as a prepared statement on MySQL 4.1.
         $sql = 'SHOW TABLES';
@@ -204,9 +204,9 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Mysqli_Exception($this->getConnection()->error);
         }
 
-        $desc = array();
+        $desc = [];
 
-        $row_defaults = array(
+        $row_defaults = [
             'Length'          => null,
             'Scale'           => null,
             'Precision'       => null,
@@ -214,7 +214,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             'Primary'         => false,
             'PrimaryPosition' => null,
             'Identity'        => false
-        );
+        ];
         $i = 1;
         $p = 1;
         foreach ($result as $key => $row) {
@@ -250,7 +250,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 }
                 ++$p;
             }
-            $desc[$this->foldCase($row['Field'])] = array(
+            $desc[$this->foldCase($row['Field'])] = [
                 'SCHEMA_NAME'      => null, // @todo
                 'TABLE_NAME'       => $this->foldCase($tableName),
                 'COLUMN_NAME'      => $this->foldCase($row['Field']),
@@ -265,7 +265,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 'PRIMARY'          => $row['Primary'],
                 'PRIMARY_POSITION' => $row['PrimaryPosition'],
                 'IDENTITY'         => $row['Identity']
-            );
+            ];
             ++$i;
         }
         return $desc;
@@ -297,11 +297,20 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $port = null;
         }
 
+        if (isset($this->_config['socket'])) {
+            $socket = $this->_config['socket'];
+        } else {
+            $socket = null;
+        }
+
         $this->_connection = mysqli_init();
 
         if(!empty($this->_config['driver_options'])) {
             foreach($this->_config['driver_options'] as $option=>$value) {
                 if(is_string($option)) {
+                    if ($option === 'flags') {
+                        continue;
+                    }
                     // Suppress warnings here
                     // Ignore it if it's not a valid constant
                     $option = @constant(strtoupper($option));
@@ -320,7 +329,11 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $this->_config['username'],
             $this->_config['password'],
             $this->_config['dbname'],
-            $port
+            $port,
+            $socket,
+            isset($this->_config['driver_options'], $this->_config['driver_options']['flags'])
+                ? (int)$this->_config['driver_options']['flags']
+                : 0
         );
 
         if ($_isConnected === false || mysqli_connect_errno()) {
@@ -489,7 +502,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     public function limit($sql, $count, $offset = 0)
     {
-        $count = intval($count);
+        $count = (int)$count;
         if ($count <= 0) {
             /**
              * @see Zend_Db_Adapter_Mysqli_Exception
@@ -498,7 +511,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Mysqli_Exception("LIMIT argument count=$count is not valid");
         }
 
-        $offset = intval($offset);
+        $offset = (int)$offset;
         if ($offset < 0) {
             /**
              * @see Zend_Db_Adapter_Mysqli_Exception
@@ -535,7 +548,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     /**
      * Retrieve server version in PHP style
      *
-     *@return string
+     * @return string
      */
     public function getServerVersion()
     {

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AcknowledgeMessage.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Amf_Value_Messaging_AsyncMessage */
@@ -32,24 +32,22 @@ require_once 'Zend/Amf/Value/Messaging/AsyncMessage.php';
  *
  * @package    Zend_Amf
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Value_Messaging_AcknowledgeMessage extends Zend_Amf_Value_Messaging_AsyncMessage
 {
     /**
      * Create a new Acknowledge Message
-     *
-     * @param unknown_type $message
      */
-    public function __construct($message)
+    public function __construct(?\Zend_Amf_Value_Messaging_AbstractMessage $message)
     {
         $this->clientId    = $this->generateId();
         $this->destination = null;
         $this->messageId   = $this->generateId();
         $this->timestamp   = time().'00';
         $this->timeToLive  = 0;
-        $this->headers     = new STDClass();
+        $this->headers     = new stdClass();
         $this->body        = null;
 
         // correleate the two messages

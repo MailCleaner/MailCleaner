@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Select
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php,v 1.1.2.4 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 
@@ -40,7 +40,7 @@ require_once 'Zend/Db/Table/Abstract.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Table_Select extends Zend_Db_Select
@@ -92,7 +92,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * Sets the primary table name and retrieves the table schema.
      *
      * @param Zend_Db_Table_Abstract $adapter
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @return $this This Zend_Db_Select object.
      */
     public function setTable(Zend_Db_Table_Abstract $table)
     {
@@ -110,7 +110,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * 'hybrid' table rows to be created.
      *
      * @param Zend_Db_Table_Abstract $adapter
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @return $this This Zend_Db_Select object.
      */
     public function setIntegrityCheck($flag = true)
     {
@@ -166,7 +166,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                                                                       name.
      * @param  array|string|Zend_Db_Expr $cols The columns to select from this table.
      * @param  string $schema The schema name to specify, if any.
-     * @return Zend_Db_Table_Select This Zend_Db_Table_Select object.
+     * @return $this This Zend_Db_Table_Select object.
      */
     public function from($name, $cols = self::SQL_WILDCARD, $schema = null)
     {
@@ -194,7 +194,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $schema  = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
 
 
-        if (count($this->_parts[self::UNION]) == 0) {
+        if (count($this->_parts[self::UNION]) === 0) {
 
             // If no fields are specified we assume all fields from primary table
             if (!count($fields)) {

@@ -1,53 +1,61 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Administrator
  */
 
 class Default_Model_InformationalMessage
 {
-	protected $_title = 'Unknown message';
-	protected $_description = '';
-	protected $_slaves = array();
-	protected $_toshow = false;
-	protected $_link = array();
-	
-	public function getTitle() {
-		$t = Zend_Registry::get('translate');
-		return $t->_($this->_title);
-	}
-	
-	public function getDescription() {
-		$t = Zend_Registry::get('translate');
-		return $t->_($this->_description);
-	}
-	
-	public function fetchAll() {
-		return array();
-	}
-	
-	public function shouldShow() {
-		return $this->_toshow;
-	}
-	
-	public function getLink() {
-                if (isset($this->_link['controller'])) {
-		  return $this->_link;
-                }
-                return null;
-	}
-	
-	public function getSlavesList() {
-		return implode(', ',$this->_slaves);
-	}
+    protected $_title = 'Unknown message';
+    protected $_description = '';
+    protected $_slaves = [];
+    protected $_toshow = false;
+    protected $_link = [];
 
-	public function addSlave($slave) {
-           if (!in_array($slave, $this->_slaves)) {
-    		array_push($this->_slaves, $slave);
-	   }
+    public function getTitle()
+    {
+        $t = Zend_Registry::get('translate');
+        return $t->_($this->_title);
+    }
+
+    public function getDescription()
+    {
+        $t = Zend_Registry::get('translate');
+        return $t->_($this->_description);
+    }
+
+    public function fetchAll()
+    {
+        return [];
+    }
+
+    public function shouldShow()
+    {
+        return $this->_toshow;
+    }
+
+    public function getLink()
+    {
+        if (isset($this->_link['controller'])) {
+            return $this->_link;
         }
+        return null;
+    }
+
+    public function getSlavesList()
+    {
+        return implode(', ', $this->_slaves);
+    }
+
+    public function addSlave($slave)
+    {
+        if (!in_array($slave, $this->_slaves)) {
+            array_push($this->_slaves, $slave);
+        }
+    }
 }

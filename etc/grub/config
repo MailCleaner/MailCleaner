@@ -1,0 +1,14 @@
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="MailCleaner - Debian"
+#GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Debian} ) 2>/dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="splash=verbose,fadein,theme:default quiet console=tty0 console=ttyS0,115200n8"
+GRUB_CMDLINE_LINUX=""
+GRUB_TERMINAL="gfxterm"
+GRUB_GFXMODE=800x600
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_FONT="/usr/mailcleaner/etc/grub/terminus.pf2"
+GRUB_BACKGROUND="/usr/mailcleaner/etc/grub/mailcleaner.jpg"
+GRUB_DISABLE_OS_PROBER=true
+GRUB_COLOR_NORMAL="light-gray/dark-gray"
+GRUB_COLOR_HIGHLIGHT="blue/dark-gray"

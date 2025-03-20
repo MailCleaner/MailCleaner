@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Exif
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exif.php,v 1.1.2.3 2011-05-30 08:30:34 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Gdata.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Exif
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Exif extends Zend_Gdata
@@ -44,9 +44,9 @@ class Zend_Gdata_Exif extends Zend_Gdata
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('exif', 'http://schemas.google.com/photos/exif/2007', 1, 0)
-    );
+    public static $namespaces = [
+        ['exif', 'http://schemas.google.com/photos/exif/2007', 1, 0]
+    ];
 
     /**
      * Create Zend_Gdata_Exif object

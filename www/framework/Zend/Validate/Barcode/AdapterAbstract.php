@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AdapterAbstract.php,v 1.1.2.1 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Validate/Barcode/AdapterInterface.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Validate_Barcode_AdapterAbstract
@@ -88,10 +88,10 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
             $found = true;
         } elseif ($length == 'even') {
             $count = $fixum % 2;
-            $found = ($count == 0) ? true : false;
+            $found = $count == 0;
         } elseif ($length == 'odd') {
             $count = $fixum % 2;
-            $found = ($count == 1) ? true : false;
+            $found = $count == 1;
         }
 
         return $found;
@@ -139,7 +139,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         $checksum = $this->getChecksum();
         if (!empty($checksum)) {
             if (method_exists($this, $checksum)) {
-                return call_user_func(array($this, $checksum), $value);
+                return call_user_func([$this, $checksum], $value);
             }
         }
 
@@ -159,7 +159,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     /**
      * Returns the allowed characters
      *
-     * @return integer|string
+     * @return string
      */
     public function getCharacters()
     {
@@ -220,6 +220,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
 
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
+
         if ($value[$length + 1] != $checksum) {
             return false;
         }
@@ -250,6 +251,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
 
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
+
         if ($value[$length + 1] != $checksum) {
             return false;
         }
@@ -280,6 +282,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
 
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
+
         if ($value[$length + 1] != $checksum) {
             return false;
         }

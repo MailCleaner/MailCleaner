@@ -15,20 +15,10 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SimpleTester.php,v 1.1.2.1 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
-
-/**
- * @see PHPUnit_Extensions_Database_DefaultTester
- */
-require_once "PHPUnit/Extensions/Database/DefaultTester.php";
-
-/**
- * @see PHPUnit_Extensions_Database_DB_IDatabaseConnection
- */
-require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
 
 /**
  * @see Zend_Test_PHPUnit_Db_Operation_Truncate
@@ -41,23 +31,13 @@ require_once "Zend/Test/PHPUnit/Db/Operation/Truncate.php";
 require_once "Zend/Test/PHPUnit/Db/Operation/Insert.php";
 
 /**
- * @see PHPUnit_Extensions_Database_Operation_Factory
- */
-require_once "PHPUnit/Extensions/Database/Operation/Factory.php";
-
-/**
- * @see PHPUnit_Extensions_Database_DataSet_IDataSet
- */
-require_once "PHPUnit/Extensions/Database/DataSet/IDataSet.php";
-
-/**
  * Simple Tester for Database Tests when the Abstract Test Case cannot be used.
  *
  * @uses       PHPUnit_Extensions_Database_DefaultTester
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_SimpleTester extends PHPUnit_Extensions_Database_DefaultTester
@@ -75,10 +55,10 @@ class Zend_Test_PHPUnit_Db_SimpleTester extends PHPUnit_Extensions_Database_Defa
         }
 
         $this->connection = $connection;
-        $this->setUpOperation = new PHPUnit_Extensions_Database_Operation_Composite(array(
+        $this->setUpOperation = new PHPUnit_Extensions_Database_Operation_Composite([
             new Zend_Test_PHPUnit_Db_Operation_Truncate(),
             new Zend_Test_PHPUnit_Db_Operation_Insert(),
-        ));
+        ]);
         $this->tearDownOperation = PHPUnit_Extensions_Database_Operation_Factory::NONE();
     }
 

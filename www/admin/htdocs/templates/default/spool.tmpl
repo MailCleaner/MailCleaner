@@ -1,75 +1,96 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>mailcleaner</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-  </head>
+</head>
+
 <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
-<center>
-<br/>
-<table  border="0" cellpadding="1" cellspacing="0" bgcolor="#333333"><tr><td>
-<table width="100%" border="0" cellpadding="1" cellspacing="2" class="blocktitle" bgcolor="#FFFFFF">
-<tr>
- <td align="right">__LANG_HOST__:</td>
- <td align="left" bgcolor="#FFFFFF">__HOSTNAME__</td>
-</tr>
-<tr>
- <td align="right">__LANG_SPOOL__:</td>
- <td align="left" bgcolor="#FFFFFF">__SPOOL__<td>
-</tr>
-<tr>
- <td align="right">__LANG_COUNT__:</td>
- <td align="left" bgcolor="#FFFFFF">__COUNT__ __LANG_MESSAGESS__<td>
-</tr>
-<tr>
- <td colspan="2" align="center" bgcolor="#FFFFFF"><a href="__LINK_REFRESH__" target="_self">__LANG_REFRESH__</a>
-__IF__ CANFORCE
-  | <a href="__LINK_FORCEALL__" target="_self">__LANG_FORCEALL__</a></td>
-__FI__ CANFORCE
-</tr>
-</table></td></tr></table>
-<font color="red">__ERROR__</font><br/><font color="red">__MESSAGE__</font><br/>
-<table width="90%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333" id="bigblock"><tr><td> 
-<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="blocktitle">
-<tr>
-  <td align="center">
+    <center>
+        <br />
+        <table border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="1" cellspacing="2" class="blocktitle" bgcolor="#FFFFFF">
+                        <tr>
+                            <td align="right">__LANG_HOST__:</td>
+                            <td align="left" bgcolor="#FFFFFF">__HOSTNAME__</td>
+                        </tr>
+                        <tr>
+                            <td align="right">__LANG_SPOOL__:</td>
+                            <td align="left" bgcolor="#FFFFFF">__SPOOL__
+                            <td>
+                        </tr>
+                        <tr>
+                            <td align="right">__LANG_COUNT__:</td>
+                            <td align="left" bgcolor="#FFFFFF">__COUNT__ __LANG_MESSAGESS__
+                            <td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center" bgcolor="#FFFFFF"><a href="__LINK_REFRESH__"
+                                    target="_self">__LANG_REFRESH__</a>
+                                __IF__ CANFORCE
+                                | <a href="__LINK_FORCEALL__" target="_self">__LANG_FORCEALL__</a></td>
+                            __FI__ CANFORCE
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <font color="red">__ERROR__</font><br />
+        <font color="red">__MESSAGE__</font><br />
+        <table width="90%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333" id="bigblock">
+            <tr>
+                <td>
+                    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"
+                        class="blocktitle">
+                        <tr>
+                            <td align="center">
 
-  <table width="100%" border="0" cellpadding="2" cellspacing="2" class="blocktext">
-    <tr bgcolor="#CCCCCC" class="blocktitle" align="center">
-      <td>__LANG_TIME__</td>
-      <td>__LANG_SIZE__</td>
-      <td>__LANG_ID__</td>
-      <td>__LANG_FROM__</td>
-      <td>__LANG_TO__</td>
-      <td>__LANG_STATUS__</td>
-      <td>__LANG_ACTION__</td>
-    </tr>
-__DEFAULT__ FORCEMSG_IMG = templates/default/images/force.gif
-__TMPL_MESSAGE_START__
-<tr bgcolor="__COLOR1__#ededed__COLOR2__#fCfCfC" valign="top" align="center" align="left">
-  <td>&nbsp;__TIME__</td>
-  <td>&nbsp;__SIZE__</td>
-  <td align="center"><nobr>__ID__</nobr></td>
-  <td align="left">&nbsp;__FROM__</td>
-  <td align="left">&nbsp;__TO__</td>
-  <td>__STATUS__</td>
-  <td>&nbsp;__ACTION__</td>
-</tr>
-__TMPL_MESSAGE_STOP__
+                                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="blocktext">
+                                    <tr bgcolor="#CCCCCC" class="blocktitle" align="center">
+                                        <td>__LANG_TIME__</td>
+                                        <td>__LANG_SIZE__</td>
+                                        <td>__LANG_ID__</td>
+                                        <td>__LANG_FROM__</td>
+                                        <td>__LANG_TO__</td>
+                                        <td>__LANG_STATUS__</td>
+                                        <td>__LANG_ACTION__</td>
+                                    </tr>
+                                    __DEFAULT__ FORCEMSG_IMG = templates/default/images/force.gif
+                                    __TMPL_MESSAGE_START__
+                                    <tr bgcolor="__COLOR1__#ededed__COLOR2__#fCfCfC" valign="top" align="center"
+                                        align="left">
+                                        <td>&nbsp;__TIME__</td>
+                                        <td>&nbsp;__SIZE__</td>
+                                        <td align="center">
+                                            <nobr>__ID__</nobr>
+                                        </td>
+                                        <td align="left">&nbsp;__FROM__</td>
+                                        <td align="left">&nbsp;__TO__</td>
+                                        <td>__STATUS__</td>
+                                        <td>&nbsp;__ACTION__</td>
+                                    </tr>
+                                    __TMPL_MESSAGE_STOP__
 
-__DRAW_SPOOL__
+                                    __DRAW_SPOOL__
 
-  </table>
-  
-  </td>
-</tr>
-</table></td></tr>
-</table><br/>
-<form><input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__"></form>
-<br/>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table><br />
+        <form><input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__"></form>
+        <br />
 
 </body>
+
 </html>

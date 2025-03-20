@@ -86,7 +86,7 @@ function purge_all() {
     all += 'a['+i+']='+encodeURIComponent(a)+'&';
     i++;
   });
-  window.open('purge.php?'+all+'days='+nb_days+'&mask_forced='+mask_forced, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbars=0,status=0');
+  window.open('purge.php?'+all+'days='+nb_days+'&mask_forced='+mask_forced, '', 'width='+popup_width+',height='+popup_height+',toolbar=0,resizable=1,scrollbar=0,status=0');
 }
 
 function analyse(msgid, storeid, to) {

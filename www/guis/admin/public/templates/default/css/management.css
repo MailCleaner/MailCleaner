@@ -4,145 +4,143 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 #searchpanel {
-  margin-top: 42px;
-  width: 171px;
-  background-image: none;
-  height: 120px;
+    margin-top: 42px;
+    width: 171px;
+    background-image: none;
+    height: 120px;
 }
 
 .noaddbutton {
-  height: 120px !important;
+    height: 120px !important;
 }
 
 #searchpanel p {
-  margin: 0px;
-  padding: 3px;
+    margin: 0px;
+    padding: 3px;
 }
 
 .useraddsubmit {
-  border: 1px solid #d0c2ca;
-  background-color: white;
-  float: right;
-  margin-right: 38px;
-  height: 20px;
-  display: none;
+    border: 1px solid #d0c2ca;
+    background-color: white;
+    float: right;
+    margin-right: 38px;
+    height: 20px;
+    display: none;
 }
 
 #domain {
-  max-width: 108px;
+    max-width: 108px;
 }
 
 #searchlabel {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
 }
 
 #search {
-	width: 120px !important;
-	border: 1px solid #d0c2ca;
+    width: 120px !important;
+    border: 1px solid #d0c2ca;
 }
 
 /* pagination */
 #pagindomainlist {
-  background-image:url(../images/domainpagebg_large.png);
-  width: 295px;
+    background-image:url(../images/domainpagebg_large.png);
 }
 
 #resultpanel {
-  float: left;
-  background-image:none;
-  width: 295px;
+    float: left;
+    background-image:none;
+    width: 295px;
 }
 
 #resultcount {
-  width: 171px;
+    width: 171px;
 }
 
 .contentheadicon {
-  width: 280px;
+    width: 280px;
 }
 
 #usersearchlabel {
-  /* display: none;*/
+    /* display: none;*/
 }
 
 #emailsearchlabel {
-  display: none;
+    display: none;
 }
 
 #domainnavlist {
-  width: 295px;
-  overflow: hidden;
-  height: 1000px;
+    width: 295px;
+    overflow: hidden;
 }
 
 #domainnavlist li {
-  width: 295px;
+    width: 295px;
 }
 
 .domainnavlistselected {
-  background-image:url(../images/domainlistselectedbg_large.png) !important;
-  width: 295px !important;
+    background-image:url(../images/domainlistselectedbg_large.png) !important;
+    width: 295px !important;
 }
 
 #domainnavoptions li {
-  background-image:url(../images/domainnavoptionsbg_large.png);
+    background-image:url(../images/domainnavoptionsbg_large.png);
 }
 
 .domainoptiontop {
-  background-image:url(../images/domainnavoptionstopbg_large.png) !important;
+    background-image:url(../images/domainnavoptionstopbg_large.png) !important;
 }
 
 #domainnavoptions li:hover {
-  background-image:url(../images/domainnavoptionshoverbg_large.png);
+    background-image:url(../images/domainnavoptionshoverbg_large.png);
 }
 
 .globalsettingsselected {
-   background-image:url(../images/domainlistselectedbg_large.png) !important;
+     background-image:url(../images/domainlistselectedbg_large.png) !important;
 }
 
 .domainoptiontop:hover {
-  background-image:url(../images/domainnavoptionstophoverbg_large.png) !important;
+    background-image:url(../images/domainnavoptionstophoverbg_large.png) !important;
 }
 .globalsettingsselected:hover {
-   background-image:url(../images/domainlistselectedbg_large.png) !important;
+     background-image:url(../images/domainlistselectedbg_large.png) !important;
 }
 
 #userconfigpanel {
-    width: 626px;
-    margin-left: 80px !important;
+      width: 626px;
+      margin-left: 80px !important;
 }
 
 .fleft {
-  float: left;
-  border: 1px solid blue;
-  line-height: 14px;
+    float: left;
+    border: 1px solid blue;
+    line-height: 14px;
 }
 
 .fright {
-  float: right;
-  border: 1px solid red;
-  line-height: 14px;
+    float: right;
+    border: 1px solid red;
+    line-height: 14px;
 }
 
 .listinform {
-	padding-top: 15px !important;
-	padding-bottom: 15px;
-	padding-left: 1px;
-	padding-right: 5px;
+    padding-top: 15px !important;
+    padding-bottom: 15px;
+    padding-left: 1px;
+    padding-right: 5px;
 }
 
 .shortconfiglist {
-  max-width: 233px;
+    max-width: 233px;
 }
 
 .fieldnotice {
-  text-align:center;
-  font-size: 11px;
-  color: #999999;
+    text-align:center;
+    font-size: 11px;
+    color: #999999;
 }

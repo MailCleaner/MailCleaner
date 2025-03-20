@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Deleted.php,v 1.1.2.1 2011-05-30 08:30:49 root Exp $
+ * @version    $Id$
  */
 
 require_once 'Zend/Feed/Writer/Feed/FeedAbstract.php';
@@ -24,7 +24,7 @@ require_once 'Zend/Feed/Writer/Feed/FeedAbstract.php';
  /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Deleted
@@ -35,7 +35,7 @@ class Zend_Feed_Writer_Deleted
      *
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -48,7 +48,7 @@ class Zend_Feed_Writer_Deleted
     /**
      * Set the feed character encoding
      *
-     * @return string|null
+     * @return void
      */
     public function setEncoding($encoding)
     {
@@ -128,10 +128,10 @@ class Zend_Feed_Writer_Deleted
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -149,7 +149,7 @@ class Zend_Feed_Writer_Deleted
 
     public function setBy(array $by)
     {
-        $author = array();
+        $author = [];
         if (!array_key_exists('name', $by)
             || empty($by['name'])
             || !is_string($by['name'])

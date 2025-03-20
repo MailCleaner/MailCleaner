@@ -1,148 +1,235 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>System status</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-  </head>
+</head>
 <script language="javascript">
-function open_popup(link, width, height) {
-  window.open(link, '', 'width='+width+',height='+height+',toolbar=0,scrollbars=yes,resizable=yes');
-}
+    function open_popup(link, width, height) {
+        window.open(link, '', 'width=' + width + ',height=' + height + ',toolbar=0,scrollbars=yes,resizable=yes');
+    }
 
 </script>
+
 <body onLoad="javascript:__RELOAD_NAV_JS__">
-<table width="100%" border="0" cellpadding="0" cellspacing="10">
-<!-- MAIN ROW -->
-  <tr><td>
-   <!-- HOSTLIST BLOCK -->
-   <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333"><tr><td>
-   <table width="100%" border="0" cellpadding="4" cellspacing="2" bgcolor="#FFFFFF" class="blocktext">
-    <tr bgcolor="#CCCCCC" class="blocktitle" align="center">
-      <td><nobr>__LANG_HOSTID__&nbsp;__DOC_MONGLOBALHOSTID__</nobr></td>
-      <td><nobr>__LANG_HOST__&nbsp;__DOC_MONGLOBALHOST__</nobr></td>
-      <td><nobr>__LANG_PROCESSES__&nbsp;__DOC_MONGLOBALPROCESSES__</nobr></td>
-      <td><nobr>__LANG_SPOOLS__&nbsp;__DOC_MONGLOBALSPOOLS__</nobr></td>
-      <td><nobr>__LANG_LOAD__&nbsp;__DOC_MONGLOBALLOAD__</nobr></td>
-      <td><nobr>__LANG_DISKUSAGE__&nbsp;__DOC_MONGLOBALDISKUSAGE__</nobr></td>
-      <td><nobr>__LANG_MEMORYUSAGE__&nbsp;__DOC_MONGLOBALMEMORYUSAGE__</nobr></td>
-      <td><nobr>__LANG_LASTPATCH__&nbsp;__DOC_MONGLOBALLASTPATCH__</nobr></td>
-      <td><nobr>__LANG_TODAYSCOUNTS__&nbsp;__DOC_MONGLOBALTODAYSCOUNTS__</nobr></td>
-    </tr>
+    <table width="100%" border="0" cellpadding="0" cellspacing="10">
+        <!-- MAIN ROW -->
+        <tr>
+            <td>
+                <!-- HOSTLIST BLOCK -->
+                <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#333333">
+                    <tr>
+                        <td>
+                            <table width="100%" border="0" cellpadding="4" cellspacing="2" bgcolor="#FFFFFF"
+                                class="blocktext">
+                                <tr bgcolor="#CCCCCC" class="blocktitle" align="center">
+                                    <td>
+                                        <nobr>__LANG_HOSTID__&nbsp;__DOC_MONGLOBALHOSTID__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_HOST__&nbsp;__DOC_MONGLOBALHOST__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_PROCESSES__&nbsp;__DOC_MONGLOBALPROCESSES__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_SPOOLS__&nbsp;__DOC_MONGLOBALSPOOLS__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_LOAD__&nbsp;__DOC_MONGLOBALLOAD__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_DISKUSAGE__&nbsp;__DOC_MONGLOBALDISKUSAGE__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_MEMORYUSAGE__&nbsp;__DOC_MONGLOBALMEMORYUSAGE__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_LASTPATCH__&nbsp;__DOC_MONGLOBALLASTPATCH__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__LANG_TODAYSCOUNTS__&nbsp;__DOC_MONGLOBALTODAYSCOUNTS__</nobr>
+                                    </td>
+                                </tr>
 
-__DEFAULT__ ASC_IMG = <img src="templates/default/images/asc.gif" border="0">
-__DEFAULT__ DESC_IMG = <img src="templates/default/images/desc.gif" border="0">
-__DEFAULT__ VIRUS_IMG = <img src="templates/default/images/virus.gif" border="0" alt="__LANG_VIRUSFOUND__">&nbsp;
-__DEFAULT__ NAME_IMG = <img src="templates/default/images/name.gif" border="0" alt="__LANG_FILENAMEFOUND__">&nbsp;
-__DEFAULT__ OTHER_IMG = <img src="templates/default/images/other.gif" border="0" alt="__LANG_OTHERFOUND__">&nbsp;
-__DEFAULT__ SPAM_IMG = <img src="templates/default/images/isspam.gif" border="0" alt="__LANG_SPAMFOUND__">&nbsp;
+                                __DEFAULT__ ASC_IMG = <img src="templates/default/images/asc.gif" border="0">
+                                __DEFAULT__ DESC_IMG = <img src="templates/default/images/desc.gif" border="0">
+                                __DEFAULT__ VIRUS_IMG = <img src="templates/default/images/virus.gif" border="0"
+                                    alt="__LANG_VIRUSFOUND__">&nbsp;
+                                __DEFAULT__ NAME_IMG = <img src="templates/default/images/name.gif" border="0"
+                                    alt="__LANG_FILENAMEFOUND__">&nbsp;
+                                __DEFAULT__ OTHER_IMG = <img src="templates/default/images/other.gif" border="0"
+                                    alt="__LANG_OTHERFOUND__">&nbsp;
+                                __DEFAULT__ SPAM_IMG = <img src="templates/default/images/isspam.gif" border="0"
+                                    alt="__LANG_SPAMFOUND__">&nbsp;
 
-__TMPL_HOSTLIST_START__
-<tr bgcolor="__COLOR1__#ededed__COLOR2__#f8f8f8" valign="top">
- <td><nobr>__HOSTID__</nobr></td>
- <td><nobr>__HOST__</nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__PROCESSES__</table>
- </nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__SPOOLS__</table>
- </nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__LOAD__</table>
- </nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__DISKUSAGE__</table>
- </nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__MEMORYUSAGE__</table>
- </nobr></td>
- <td align="center"><nobr>__LASTPATCH__ <a href="__LINK_LASTPATCH__"><img src="templates/default/images/eye.gif" border="0"></a></nobr></td>
- <td><nobr>
-   <table width="98%" cellpadding="1" cellspacing="0" border="0" class="blocktext">__TODAYSCOUNTS__</table>
- </nobr></td>
-</tr>
-__TMPL_HOSTLIST_STOP__
+                                __TMPL_HOSTLIST_START__
+                                <tr bgcolor="__COLOR1__#ededed__COLOR2__#f8f8f8" valign="top">
+                                    <td>
+                                        <nobr>__HOSTID__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>__HOST__</nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__PROCESSES__</table>
+                                        </nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__SPOOLS__</table>
+                                        </nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__LOAD__</table>
+                                        </nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__DISKUSAGE__</table>
+                                        </nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__MEMORYUSAGE__</table>
+                                        </nobr>
+                                    </td>
+                                    <td align="center">
+                                        <nobr>__LASTPATCH__ <a href="__LINK_LASTPATCH__"><img
+                                                    src="templates/default/images/eye.gif" border="0"></a></nobr>
+                                    </td>
+                                    <td>
+                                        <nobr>
+                                            <table width="98%" cellpadding="1" cellspacing="0" border="0"
+                                                class="blocktext">__TODAYSCOUNTS__</table>
+                                        </nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_HOSTLIST_STOP__
 
-__DEFAULT__ COLOR_OK = green
-__DEFAULT__ COLOR_CRITICAL = red
-__DEFAULT__ COLOR_INACTIVE = black
+                                __DEFAULT__ COLOR_OK = green
+                                __DEFAULT__ COLOR_CRITICAL = red
+                                __DEFAULT__ COLOR_INACTIVE = black
 
-__DEFAULT__ RESTARTERWIDTH = 400
-__DEFAULT__ RESTARTERHEIGHT = 200
+                                __DEFAULT__ RESTARTERWIDTH = 400
+                                __DEFAULT__ RESTARTERHEIGHT = 200
 
-__DEFAULT__ PATCHESWIDTH = 500
-__DEFAULT__ PATCHESHEIGHT = 350
+                                __DEFAULT__ PATCHESWIDTH = 500
+                                __DEFAULT__ PATCHESHEIGHT = 350
 
-__DEFAULT__ NEEDRESTART = <font color="red">*</font>
+                                __DEFAULT__ NEEDRESTART = <font color="red">*</font>
 
-__TMPL_PROCESSESOPEN_START__
- <tr>
-   <td align="left"><nobr>__NEEDRESTART__ __NAME__: </nobr></td>
-   <td align="left" width="50px"><nobr>__STATUS__</td> 
-     <td align="right">
-      __IF_STOP__ <a href="__LINK_STOP__"><img src="templates/default/images/stop.gif" border="0"  align="abstop"></a> __ENDIF_STOP__
-      __IF_START__ <a href="__LINK_START__"><img src="templates/default/images/start.gif" border="0"  align="abstop"></a> __ENDIF_START__
-      __IF_RESTART__ <a href="__LINK_RESTART__"><img src="templates/default/images/restart.gif" border="0"  align="abstop"></a> __ENDIF_RESTART__
-   </nobr></td>
- </tr>
-__TMPL_PROCESSESOPEN_STOP__
+                                __TMPL_PROCESSESOPEN_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NEEDRESTART__ __NAME__: </nobr>
+                                    </td>
+                                    <td align="left" width="50px">
+                                        <nobr>__STATUS__
+                                    </td>
+                                    <td align="right">
+                                        __IF_STOP__ <a href="__LINK_STOP__"><img src="templates/default/images/stop.gif"
+                                                border="0" align="abstop"></a> __ENDIF_STOP__
+                                        __IF_START__ <a href="__LINK_START__"><img
+                                                src="templates/default/images/start.gif" border="0" align="abstop"></a>
+                                        __ENDIF_START__
+                                        __IF_RESTART__ <a href="__LINK_RESTART__"><img
+                                                src="templates/default/images/restart.gif" border="0"
+                                                align="abstop"></a> __ENDIF_RESTART__
+                                        </nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_PROCESSESOPEN_STOP__
 
-__DEFAULT__ SPOOLVIEWWIDTH = 800
-__DEFAULT__ SPOOLVIEWHEIGHT = 600
-__TMPL_SPOOLS_START__
- <tr>
-   <td align="left"><nobr>__NAME__: </nobr></td>
-   <td align="right"><nobr>__SPOOL__ <a href="__LINK__"><img src="templates/default/images/eye.gif" border="0"></a></nobr></td>
- </tr>
-__TMPL_SPOOLS_STOP__
+                                __DEFAULT__ SPOOLVIEWWIDTH = 800
+                                __DEFAULT__ SPOOLVIEWHEIGHT = 600
+                                __TMPL_SPOOLS_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NAME__: </nobr>
+                                    </td>
+                                    <td align="right">
+                                        <nobr>__SPOOL__ <a href="__LINK__"><img src="templates/default/images/eye.gif"
+                                                    border="0"></a></nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_SPOOLS_STOP__
 
-__TMPL_LOAD_START__
- <tr>
-   <td align="left"><nobr>__NAME__: </nobr></td>
-   <td align="right"><nobr>__VALUE__</nobr></td>
- </tr>
-__TMPL_LOAD_STOP__
+                                __TMPL_LOAD_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NAME__: </nobr>
+                                    </td>
+                                    <td align="right">
+                                        <nobr>__VALUE__</nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_LOAD_STOP__
 
-__TMPL_DISK_START__
- <tr>
-   <td align="left"><nobr>__NAME__: </nobr></td>
-   <td align="right"><nobr>__VALUE__%</nobr></td>
- </tr>
-__TMPL_DISK_STOP__
+                                __TMPL_DISK_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NAME__: </nobr>
+                                    </td>
+                                    <td align="right">
+                                        <nobr>__VALUE__%</nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_DISK_STOP__
 
-__TMPL_MEMORY_START__
- <tr>
-   <td align="left"><nobr>__NAME__: </nobr></td>
-   <td align="right"><nobr>__VALUE__</nobr></td>
- </tr> 
-__TMPL_MEMORY_STOP__
+                                __TMPL_MEMORY_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NAME__: </nobr>
+                                    </td>
+                                    <td align="right">
+                                        <nobr>__VALUE__</nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_MEMORY_STOP__
 
-__DEFAULT__ COLOR_MESSAGES = black
-__DEFAULT__ COLOR_SPAMS = blue
-__DEFAULT__ COLOR_VIRUSES = red
-__DEFAULT__ COLOR_CONTENT = orange
+                                __DEFAULT__ COLOR_MESSAGES = black
+                                __DEFAULT__ COLOR_SPAMS = blue
+                                __DEFAULT__ COLOR_VIRUSES = red
+                                __DEFAULT__ COLOR_CONTENT = orange
 
-__TMPL_COUNTS_START__ 
- <tr>
-   <td align="left"><nobr>__NAME__: </nobr></td>
-   <td align="right"><nobr>__VALUE__</nobr></td>
- </tr>
-__TMPL_COUNTS_STOP__ 
+                                __TMPL_COUNTS_START__
+                                <tr>
+                                    <td align="left">
+                                        <nobr>__NAME__: </nobr>
+                                    </td>
+                                    <td align="right">
+                                        <nobr>__VALUE__</nobr>
+                                    </td>
+                                </tr>
+                                __TMPL_COUNTS_STOP__
 
-__TMPL_TIMEINQUEUE_START__
-__TIMEINQUEUE__
-__TMPL_TIMEINQUEUE_STOP__
+                                __TMPL_TIMEINQUEUE_START__
+                                __TIMEINQUEUE__
+                                __TMPL_TIMEINQUEUE_STOP__
 
-__HOSTLIST__
+                                __HOSTLIST__
 
-        </table>
-       </td></tr>
-      </table>
-   </td>
-  </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-</table>
+    </table>
 </body>
+
 </html>

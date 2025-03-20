@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ViewScriptFile.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -49,7 +49,7 @@ require_once 'Zend/Filter/StringToLower.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -104,11 +104,11 @@ class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Cont
     /**
      * getPersistentAttributes()
      *
-     * @return unknown
+     * @return array
      */
     public function getPersistentAttributes()
     {
-        $attributes = array();
+        $attributes = [];
 
         if ($this->_forActionName) {
             $attributes['forActionName'] = $this->_forActionName;
@@ -131,7 +131,7 @@ class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Cont
         $contents = '';
 
         $controllerName = $this->_resource->getParentResource()->getAttribute('forControllerName');
-        
+
         $viewsDirectoryResource = $this->_resource
             ->getParentResource() // view script
             ->getParentResource() // view controller dir
@@ -141,7 +141,7 @@ class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Cont
         } else {
             $moduleName = 'default';
         }
-        
+
         if ($this->_filesystemName == 'error.phtml') {  // should also check that the above directory is forController=error
             $contents .= <<<EOS
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -155,7 +155,7 @@ class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Cont
   <h2><?php echo \$this->message ?></h2>
 
   <?php if (isset(\$this->exception)): ?>
-  
+
   <h3>Exception information:</h3>
   <p>
       <b>Message:</b> <?php echo \$this->exception->getMessage() ?>

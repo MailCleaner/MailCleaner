@@ -15,26 +15,17 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BlobContainer.php,v 1.1.2.1 2011-05-30 08:31:09 root Exp $
+ * @version    $Id$
  */
 
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-require_once 'Zend/Service/WindowsAzure/Exception.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
- */
-require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @property string $Name          Name of the container
@@ -59,14 +50,14 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
      * @param string $lastModified  Last modified date
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $etag, $lastModified, $metadata = array())
+    public function __construct($name, $etag, $lastModified, $metadata = [])
     {
-        $this->_data = array(
+        $this->_data = [
             'name'         => $name,
             'etag'         => $etag,
             'lastmodified' => $lastModified,
             'metadata'     => $metadata
-        );
+        ];
     }
 
     /**

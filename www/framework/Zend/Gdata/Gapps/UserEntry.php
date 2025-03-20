@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: UserEntry.php,v 1.1.2.3 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -61,7 +61,7 @@ require_once 'Zend/Gdata/Gapps/Extension/Quota.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
@@ -98,7 +98,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
      *
      * @var Zend_Gdata_Extension_FeedLink
      */
-    protected $_feedLink = array();
+    protected $_feedLink = [];
 
     /**
      * Create a new instance.
@@ -193,7 +193,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Gapps_Extension_Login $value The desired value for
      *          this instance's login property.
-     * @return Zend_Gdata_Gapps_UserEntry Provides a fluent interface.
+     * @return $this
      */
     public function setLogin($value)
     {
@@ -218,7 +218,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Gapps_Extension_Name $value The desired value for
      *          this instance's name property.
-     * @return Zend_Gdata_Gapps_UserEntry Provides a fluent interface.
+     * @return $this
      */
     public function setName($value)
     {
@@ -244,7 +244,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Gapps_Extension_Quota $value The desired value for
      *          this instance's quota property.
-     * @return Zend_Gdata_Gapps_UserEntry Provides a fluent interface.
+     * @return $this
      */
     public function setQuota($value)
     {
@@ -284,7 +284,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
      *
      * @param array $value A collection of
      *          Zend_Gdata_Gapps_Extension_FeedLink objects.
-     * @return Zend_Gdata_Gapps_EventEntry Provides a fluent interface.
+     * @return $this
      */
     public function setFeedLink($value)
     {

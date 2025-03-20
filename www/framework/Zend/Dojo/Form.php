@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@ require_once 'Zend/Form.php';
  * @uses       Zend_Form
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php,v 1.1.2.4 2011-05-30 08:30:49 root Exp $
+ * @version    $Id$
  */
 class Zend_Dojo_Form extends Zend_Form
 {
@@ -64,7 +64,7 @@ class Zend_Dojo_Form extends Zend_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-                 ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form_dojo'))
+                 ->addDecorator('HtmlTag', ['tag' => 'dl', 'class' => 'zend_form_dojo'])
                  ->addDecorator('DijitForm');
         }
     }
@@ -75,7 +75,7 @@ class Zend_Dojo_Form extends Zend_Form
      * Ensures that the view object has the dojo view helper path set.
      *
      * @param  Zend_View_Interface $view
-     * @return Zend_Dojo_Form_Element_Dijit
+     * @return Zend_Dojo_Form
      */
     public function setView(Zend_View_Interface $view = null)
     {

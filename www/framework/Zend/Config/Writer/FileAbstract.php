@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Config
  * @package    Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,9 +26,9 @@ require_once "Zend/Config/Writer.php";
  *
  * @category   Zend
  * @package    Zend_package
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FileAbstract.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 class Zend_Config_Writer_FileAbstract extends Zend_Config_Writer
 {
@@ -50,7 +50,7 @@ class Zend_Config_Writer_FileAbstract extends Zend_Config_Writer
      * Set the target filename
      *
      * @param  string $filename
-     * @return Zend_Config_Writer_Array
+     * @return Zend_Config_Writer_FileAbstract
      */
     public function setFilename($filename)
     {
@@ -63,7 +63,7 @@ class Zend_Config_Writer_FileAbstract extends Zend_Config_Writer
      * Set wether to exclusively lock the file or not
      *
      * @param  boolean     $exclusiveLock
-     * @return Zend_Config_Writer_Array
+     * @return Zend_Config_Writer_FileAbstract
      */
     public function setExclusiveLock($exclusiveLock)
     {

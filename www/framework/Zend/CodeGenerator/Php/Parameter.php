@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Parameter.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/CodeGenerator/Php/Parameter/DefaultValue.php';
 /**
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_CodeGenerator_Php_Parameter extends Zend_CodeGenerator_Php_Abstract
@@ -74,7 +74,9 @@ class Zend_CodeGenerator_Php_Parameter extends Zend_CodeGenerator_Php_Abstract
         $param = new Zend_CodeGenerator_Php_Parameter();
         $param->setName($reflectionParameter->getName());
 
-        if($reflectionParameter->isArray()) {
+        if (PHP_VERSION_ID >= 80000) {
+            $param->setType($reflectionParameter->getType());
+        } elseif ($reflectionParameter->isArray()) {
             $param->setType('array');
         } else {
             $typeClass = $reflectionParameter->getClass();
@@ -150,7 +152,7 @@ class Zend_CodeGenerator_Php_Parameter extends Zend_CodeGenerator_Php_Abstract
         if($defaultValue === null) {
             $this->_defaultValue = new Zend_CodeGenerator_Php_Parameter_DefaultValue("null");
         } else if(is_array($defaultValue)) {
-            $defaultValue = str_replace(array("\r", "\n"), "", var_export($defaultValue, true));
+            $defaultValue = str_replace(["\r", "\n"], "", var_export($defaultValue, true));
             $this->_defaultValue = new Zend_CodeGenerator_Php_Parameter_DefaultValue($defaultValue);
         } else if(is_bool($defaultValue)) {
             if($defaultValue == true) {

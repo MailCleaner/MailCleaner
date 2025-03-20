@@ -1,36 +1,41 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <?php echo $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head>  
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <?php echo $this->headTitle() ?>
-  <?php echo $this->headLink() ?>
-    
-  <?php echo $this->jQuery(); ?>
-  
-  <?php echo $this->headScript() ?>
-</head> 
-<body>
-<div id="container">
-<div id="popupheader">
-  <img src="<?php echo $this->images_path?>/release.png" alt="" /> <p><?php echo $this->t->_('Quarantined message release')?></p>
-</div>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
- <div id="text">
-  <p><?php echo $this->release_status?></p>  
- </div>
- 
- <div id="buttons">
-   <input type="button" class="button" id="close" onclick="javascript:window.close();" value="<?php echo $this->t->_('close')?>" />
- </div>
- 
-</div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?php echo $this->headTitle() ?>
+    <?php echo $this->headLink() ?>
+
+    <?php echo $this->jQuery(); ?>
+
+    <?php echo $this->headScript() ?>
+</head>
+
+<body>
+    <div id="container">
+        <div id="popupheader">
+            <img src="<?php echo $this->images_path ?>/release.png" alt="" />
+            <p><?php echo $this->t->_('Quarantined message release') ?></p>
+        </div>
+
+        <div id="text">
+            <p><?php echo $this->release_status ?></p>
+        </div>
+
+        <div id="buttons">
+            <input type="button" class="button" id="close" onclick="javascript:window.close();" value="<?php echo $this->t->_('close') ?>" />
+        </div>
+
+    </div>
 </body>
+
 </html>

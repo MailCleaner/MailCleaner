@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: LogLevel.php,v 1.1.2.1 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 
@@ -25,15 +25,15 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Diagnostics_LogLevel
 {
-    const UNDEFINED     = 'Undefined';
-    const CRITICAL         = 'Critical';
-    const ERROR         = 'Error';
-    const WARNING         = 'Warning';
-    const INFORMATION     = 'Information';
-    const VERBOSE         = 'Verbose';
+	const UNDEFINED 	= 'Undefined';
+	const CRITICAL 		= 'Critical';
+	const ERROR 		= 'Error';
+	const WARNING 		= 'Warning';
+	const INFORMATION 	= 'Information';
+	const VERBOSE 		= 'Verbose';
 }

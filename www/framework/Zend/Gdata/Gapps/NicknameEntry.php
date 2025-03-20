@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NicknameEntry.php,v 1.1.2.3 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -53,7 +53,7 @@ require_once 'Zend/Gdata/Gapps/Extension/Nickname.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_NicknameEntry extends Zend_Gdata_Entry
@@ -153,7 +153,7 @@ class Zend_Gdata_Gapps_NicknameEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Gapps_Extension_Login $value The desired value for
      *          this instance's login property.
-     * @return Zend_Gdata_Gapps_NicknameEntry Provides a fluent interface.
+     * @return $this
      */
     public function setLogin($value)
     {
@@ -178,7 +178,7 @@ class Zend_Gdata_Gapps_NicknameEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Gapps_Extension_Nickname $value The desired value for
      *          this instance's nickname property.
-     * @return Zend_Gdata_Gapps_NicknameEntry Provides a fluent interface.
+     * @return $this
      */
     public function setNickname($value)
     {

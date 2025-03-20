@@ -1,29 +1,30 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="generalconfigpanel">
-<p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
- <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_($this->selectedConfigMenuLabel." Title")?></p>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu) ?> : <?php echo $this->t->_($this->selectedConfigMenuLabel . " Title") ?></p>
 
 
- <ul id="generalconfigmenu">
-   <?php foreach ($this->config_menu as $menu) {?>
-  <li id="confmenu_<?php echo $menu->id?>" <?php if ($menu->class) { ?>class="<?php echo $menu->class?>"<?php }?> onclick="javascript:goTo('<?php echo $menu->getHref()?>');"><a href="<?php echo $menu->getHref()?>"><?php echo $menu->label;?></a></li>
-   <?php }?>
- </ul>
+    <ul id="generalconfigmenu">
+        <?php foreach ($this->config_menu as $menu) { ?>
+            <li id="confmenu_<?php echo $menu->id ?>" <?php if ($menu->class) { ?>class="<?php echo $menu->class ?>" <?php } ?> onclick="javascript:goTo('<?php echo $menu->getHref() ?>');"><a href="<?php echo $menu->getHref() ?>"><?php echo $menu->label; ?></a></li>
+        <?php } ?>
+    </ul>
 
- <div id="generalconfigcontent">
-   <div id="quarantinesconfigpanel" class="configpanel">
-    <div id="quarantinesformcontent">
-     <?php echo $this->partial('forms/quarantinesForm.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'images_path' => $this->images_path)); ?>
+    <div id="generalconfigcontent">
+        <div id="quarantinesconfigpanel" class="configpanel">
+            <div id="quarantinesformcontent">
+                <?php echo $this->partial('forms/quarantinesForm.phtml', ['form' => $this->form, 't' => $this->t, 'message' => $this->message, 'images_path' => $this->images_path]); ?>
+            </div>
+
+        </div>
+
     </div>
-
-   </div>
- 
- </div>
 </div>

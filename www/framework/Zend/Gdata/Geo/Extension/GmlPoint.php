@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Geo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: GmlPoint.php,v 1.1.2.3 2011-05-30 08:31:08 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -43,7 +43,7 @@ require_once 'Zend/Gdata/Geo/Extension/GmlPos.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Geo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Geo_Extension_GmlPoint extends Zend_Gdata_Extension
@@ -124,7 +124,7 @@ class Zend_Gdata_Geo_Extension_GmlPoint extends Zend_Gdata_Extension
      * Set the value for this element's distance attribute.
      *
      * @param Zend_Gdata_Geo_Extension_GmlPos $value The desired value for this attribute
-     * @return Zend_Gdata_Geo_Extension_GmlPoint Provides a fluent interface
+     * @return $this
      */
     public function setPos($value)
     {

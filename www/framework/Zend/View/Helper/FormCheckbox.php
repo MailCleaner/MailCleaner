@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormCheckbox.php,v 1.1.2.3 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
@@ -42,10 +42,10 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
      * Default checked/unchecked options
      * @var array
      */
-    protected static $_defaultCheckedOptions = array(
+    protected static $_defaultCheckedOptions = [
         'checkedValue'   => '1',
         'uncheckedValue' => '0'
-    );
+    ];
 
     /**
      * Generates a 'checkbox' element.
@@ -81,17 +81,18 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
             $disabled = ' disabled="disabled"';
         }
 
-        // XHTML or HTML end tag?
-        $endTag = ' />';
-        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
-        }
-
         // build the element
         $xhtml = '';
-        if (!$disable && !strstr($name, '[]')) {
+        if ((!$disable && !strstr($name, '[]'))
+            && (empty($attribs['disableHidden']) || !$attribs['disableHidden'])
+        ) {
             $xhtml = $this->_hidden($name, $checkedOptions['uncheckedValue']);
         }
+
+        if (array_key_exists('disableHidden', $attribs)) {
+            unset($attribs['disableHidden']);
+        }
+
         $xhtml .= '<input type="checkbox"'
                 . ' name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
@@ -99,7 +100,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
                 . $checkedOptions['checkedString']
                 . $disabled
                 . $this->_htmlAttribs($attribs)
-                . $endTag;
+                . $this->getClosingBracket();
 
         return $xhtml;
     }
@@ -153,11 +154,11 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
             $checkedValue = $value;
         }
 
-        return array(
+        return [
             'checked'        => $checked,
             'checkedString'  => $checkedString,
             'checkedValue'   => $checkedValue,
             'uncheckedValue' => $uncheckedValue,
-        );
+        ];
     }
 }

@@ -1,0 +1,20 @@
+[req]
+default_bits = 4096
+prompt = no
+encrypt_key = no
+default_md = sha256
+distinguished_name = dn
+req_extensions = v3_req
+
+[dn]
+CN = __HOSTNAME__
+emailAddress = __CLIENTTECHMAIL__
+O = __ORGANIZATION__
+
+[v3_req]
+subjectAltName = @alt_names
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+
+[alt_names]
+DNS.1 = __HOSTNAME__

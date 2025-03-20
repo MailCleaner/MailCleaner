@@ -2,109 +2,84 @@
 
 /*** https://user.mailcleaner.net/templates/default/css/navigation.css ***/
 
-
 /* "commercial" header */
 #mainheader {
-  width: 100%;
-  height: 75px;
-  margin: 0px;
-  background-image:none;
-  background-color: #5C6D99; /*__MAINHEADERBG__*/
-  background-repeat: repeat-x;
-  color: white; 
-  text-align: left;
-  vertical-align: top;
-  white-space: nowrap;
-  overflow: auto;
+    width: 100%;
+    height: 75px;
+    margin: 0px;
+    background-image:none;
+    background-color: #e8e8e8; /*__MAINHEADERBG__*/
+    background-repeat: repeat-x;
+    color: white; 
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 /* navigation bar */
 #navigation {
-  width: 100%;
-  height: 37px;
-  min-height: 33px;
-  margin: 0;
-  padding: 0;
-  line-height: 33px;
-  background-image:none; 
-  background-color: #000000;
-  background-repeat: repeat-x;
-  color: #FFFFFF;
-  text-indent: 0.5em; 
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
+    width: 100%;
+    height: 37px;
+    min-height: 33px;
+    margin: 0;
+    padding: 0;
+    background-image:none; 
+    background-color: #000000;
+    background-repeat: repeat-x;
+    text-indent: 0.5em; 
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #mclogo {
-  float: left;
+    float: left;
 }
 #mcheadpicture {
-  float: right;
-	display: none;
+    float: right;
+    display: none;
 }
 
 /* navigation menu */
-#buttonmenu {
-  text-align: center;
-  list-style: none; 
-  margin: 0; 
-  padding: 0;
+#buttonmenu, #logoutbutton, #username {
+    text-align: center;
+    list-style: none; 
+    margin: 0; 
+    padding: 0;
 }
 
-#buttonmenu li {
-  display: inline;
+#buttonmenu li, #logoutbutton, #username {
+    display: inline;
+    line-height: 33px;
+    font-size: 1.30em;
 }
 
-#buttonmenu li .menubutton {
-  display: inline;
-  float: left;
-  background-image:none;
-  width: 100px;
-  line-height: 33px;
-  text-align: center;
-  display: inline;
-  font-size: 1.05em;
-  padding:3px;
+#buttonmenu li .menubutton, #buttonmenu li .menuselected {
+    float: left;
+    width: 150px;
+    padding:3px;
 }
+
 #buttonmenu li .menuselected {
-  display: inline;
-  float: left;
-  background-image: none !important;
-    background-color: #E93A00 !important;
-  width: 100px;
-  line-height: 33px;
-  text-align: center;
-  display: inline;
+    background-color: #ED7B00;
 }
 
-#navigation a {
-  color: white;
-  text-decoration: none;
-}
-#navigation a:hover {
-  #color: #FF1500;
-  text-decoration: none;
+#navigation a, #logoutbutton a {
+    color: white;
+    text-decoration: none;
 }
 
-/* username informational field */
-#username {
-  display: inline;
-  margin: 0px;
-  margin-right: 20px;
-  padding: 0px;
-  float: right;
-  line-height: 33px;
-  color: #FFFFFF;
+#logoutbutton, #username {
+    float: right;
+    color: #FFFFFF;
 }
 
-/* logout button */
-#logoutbutton {
-  float: right;
-  width: 100px;
-  height: 39px;
+#username, #fullheight {
+    line-height: 37px;
+    height: 37px;
+    padding: 0px 10px;
 }
 
-#logoutbutton:hover {
-  background-color: #E93A00;
+#fullheight:hover {
+    background-color: #ED7B00;
 }

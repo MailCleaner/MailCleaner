@@ -1,0 +1,12 @@
+[Unit]
+Requires=mariadb@slave.socket
+After=network.target mariadb@slave.socket
+Conflicts=sendmail.service postfix.service
+PartOf=mailcleaner.target
+
+[Service]
+User=mailcleaner
+Group=mailcleaner
+PrivateTmp=false
+EnvironmentFile=-/etc/sysconfig/exim
+ExecStartPre=+/usr/mailcleaner/bin/dump_exim_config.pl %I

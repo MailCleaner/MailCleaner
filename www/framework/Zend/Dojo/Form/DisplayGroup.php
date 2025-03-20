@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@ require_once 'Zend/Form/DisplayGroup.php';
  * @uses       Zend_Form_DisplayGroup
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DisplayGroup.php,v 1.1.2.4 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
 {
@@ -54,7 +54,7 @@ class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
      * Ensures that the view object has the dojo view helper path set.
      *
      * @param  Zend_View_Interface $view
-     * @return Zend_Dojo_Form_Element_Dijit
+     * @return Zend_Dojo_Form_DisplayGroup
      */
     public function setView(Zend_View_Interface $view = null)
     {

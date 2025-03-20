@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Provider
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php,v 1.1.2.4 2011-05-30 08:31:07 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once "Zend/OpenId/Provider/Storage.php";
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Provider
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_OpenId_Provider_Storage_File extends Zend_OpenId_Provider_Storage
@@ -115,7 +115,7 @@ class Zend_OpenId_Provider_Storage_File extends Zend_OpenId_Provider_Storage
                 fclose($lock);
                 return false;
             }
-            $data = serialize(array($handle, $macFunc, $secret, $expires));
+            $data = serialize([$handle, $macFunc, $secret, $expires]);
             fwrite($f, $data);
             fclose($f);
             fclose($lock);
@@ -229,7 +229,7 @@ class Zend_OpenId_Provider_Storage_File extends Zend_OpenId_Provider_Storage
                 fclose($lock);
                 return false;
             }
-            $data = serialize(array($id, $password, array()));
+            $data = serialize([$id, $password, []]);
             fwrite($f, $data);
             fclose($f);
             fclose($lock);
@@ -426,7 +426,7 @@ class Zend_OpenId_Provider_Storage_File extends Zend_OpenId_Provider_Storage
                     }
                     rewind($f);
                     ftruncate($f, 0);
-                    $data = serialize(array($id, $storedPassword, $sites));
+                    $data = serialize([$id, $storedPassword, $sites]);
                     fwrite($f, $data);
                     $ret = true;
                 }

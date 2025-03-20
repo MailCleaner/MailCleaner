@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Spreadsheets
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ListQuery.php,v 1.1.2.3 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -39,7 +39,7 @@ require_once('Zend/Gdata/Query.php');
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Spreadsheets
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
@@ -64,8 +64,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the spreadsheet key for the query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
+     * @return $this
      */
     public function setSpreadsheetKey($value)
     {
@@ -75,7 +76,8 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Gets the spreadsheet key for the query.
-     * @return string spreadsheet key
+     *
+     * @return string|null spreadsheet key
      */
     public function getSpreadsheetKey()
     {
@@ -84,8 +86,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the worksheet id for the query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
+     * @return $this
      */
     public function setWorksheetId($value)
     {
@@ -104,8 +107,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the row id for the query.
+     *
      * @param string $value row id
-     * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
+     * @return $this
      */
     public function setRowId($value)
     {
@@ -115,7 +119,8 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Gets the row id for the query.
-     * @return string row id
+     *
+     * @return string|null row id
      */
     public function getRowId()
     {
@@ -125,7 +130,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     /**
      * Sets the projection for the query.
      * @param string $value Projection
-     * @return Zend_Gdata_Spreadsheets_ListQuery Provides a fluent interface
+     * @return $this
      */
     public function setProjection($value)
     {
@@ -136,7 +141,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     /**
      * Sets the visibility for this query.
      * @param string $value visibility
-     * @return Zend_Gdata_Spreadsheets_ListQuery Provides a fluent interface
+     * @return $this
      */
     public function setVisibility($value)
     {
@@ -164,8 +169,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the spreadsheet key for this query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
+     * @return $this
      */
     public function setSpreadsheetQuery($value)
     {
@@ -192,8 +198,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the orderby attribute for this query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
+     * @return $this
      */
     public function setOrderBy($value)
     {
@@ -220,8 +227,9 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the reverse attribute for this query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
+     * @return $this
      */
     public function setReverse($value)
     {

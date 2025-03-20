@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ActiveDirectory.php,v 1.1.2.1 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/Ldap/Node/Schema/ObjectClass/Interface.php';
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_Schema_Item
@@ -55,7 +55,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
     /**
      * Gets the objectClass OID
      *
-     * @return string
+     * @return void
      */
     public function getOid()
     {
@@ -65,7 +65,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
     /**
      * Gets the attributes that this objectClass must contain
      *
-     * @return array
+     * @return void
      */
     public function getMustContain()
     {
@@ -75,7 +75,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
     /**
      * Gets the attributes that this objectClass may contain
      *
-     * @return array
+     * @return void
      */
     public function getMayContain()
     {
@@ -85,7 +85,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
     /**
      * Gets the objectClass description
      *
-     * @return string
+     * @return void
      */
     public function getDescription()
     {
@@ -95,7 +95,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
     /**
      * Gets the objectClass type
      *
-     * @return integer
+     * @return void
      */
     public function getType()
     {
@@ -106,7 +106,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      * Returns the parent objectClasses of this class.
      * This includes structural, abstract and auxiliary objectClasses
      *
-     * @return array
+     * @return void
      */
     public function getParentClasses()
     {

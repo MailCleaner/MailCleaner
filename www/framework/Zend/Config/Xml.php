@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Xml.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -24,12 +24,18 @@
  */
 require_once 'Zend/Config.php';
 
+/** @see Zend_Xml_Security */
+require_once 'Zend/Xml/Security.php';
+
+/** @see Zend_Xml_Exception */
+require_once 'Zend/Xml/Exception.php';
+
 /**
  * XML Adapter for Zend_Config
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Xml extends Zend_Config
@@ -59,9 +65,19 @@ class Zend_Config_Xml extends Zend_Config
      * Note that the keys in $section will override any keys of the same
      * name in the sections that have been included via "extends".
      *
-     * @param  string  $xml     XML file or string to process
-     * @param  mixed   $section Section to process
-     * @param  boolean $options Whether modifications are allowed at runtime
+     * The $options parameter may be provided as either a boolean or an array.
+     * If provided as a boolean, this sets the $allowModifications option of
+     * Zend_Config. If provided as an array, there are two configuration
+     * directives that may be set. For example:
+     *
+     * $options = array(
+     *     'allowModifications' => false,
+     *     'skipExtends'        => false
+     *      );
+     *
+     * @param  string        $xml     XML file or string to process
+     * @param  mixed         $section Section to process
+     * @param  array|boolean $options
      * @throws Zend_Config_Exception When xml is not set or cannot be loaded
      * @throws Zend_Config_Exception When section $sectionName cannot be found in $xml
      */
@@ -84,11 +100,23 @@ class Zend_Config_Xml extends Zend_Config
             }
         }
 
-        set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
+        set_error_handler([$this, '_loadFileErrorHandler']); // Warnings and errors are suppressed
         if (strstr($xml, '<?xml')) {
-            $config = simplexml_load_string($xml);
+            $config = Zend_Xml_Security::scan($xml);
         } else {
-            $config = simplexml_load_file($xml);
+            try {
+                if (!$config = Zend_Xml_Security::scanFile($xml)) {
+                    require_once 'Zend/Config/Exception.php';
+                    throw new Zend_Config_Exception(
+                        "Error failed to load $xml file"
+                    );
+                }
+            } catch (Zend_Xml_Exception $e) {
+                require_once 'Zend/Config/Exception.php';
+                throw new Zend_Config_Exception(
+                    $e->getMessage()
+                );
+            }
         }
 
         restore_error_handler();
@@ -99,14 +127,14 @@ class Zend_Config_Xml extends Zend_Config
         }
 
         if ($section === null) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($config as $sectionName => $sectionData) {
                 $dataArray[$sectionName] = $this->_processExtends($config, $sectionName);
             }
 
             parent::__construct($dataArray, $allowModifications);
         } else if (is_array($section)) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($section as $sectionName) {
                 if (!isset($config->$sectionName)) {
                     require_once 'Zend/Config/Exception.php';
@@ -126,7 +154,7 @@ class Zend_Config_Xml extends Zend_Config
             $dataArray = $this->_processExtends($config, $section);
             if (!is_array($dataArray)) {
                 // Section in the XML file contains just one top level string
-                $dataArray = array($section => $dataArray);
+                $dataArray = [$section => $dataArray];
             }
 
             parent::__construct($dataArray, $allowModifications);
@@ -145,7 +173,7 @@ class Zend_Config_Xml extends Zend_Config
      * @throws Zend_Config_Exception When $section cannot be found
      * @return array
      */
-    protected function _processExtends(SimpleXMLElement $element, $section, array $config = array())
+    protected function _processExtends(SimpleXMLElement $element, $section, array $config = [])
     {
         if (!isset($element->$section)) {
             require_once 'Zend/Config/Exception.php';
@@ -178,7 +206,7 @@ class Zend_Config_Xml extends Zend_Config
      */
     protected function _toArray(SimpleXMLElement $xmlObject)
     {
-        $config       = array();
+        $config       = [];
         $nsAttributes = $xmlObject->attributes(self::XML_NAMESPACE);
 
         // Search for parent node values
@@ -192,7 +220,7 @@ class Zend_Config_Xml extends Zend_Config
 
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
 
                     $config[$key][] = $value;
@@ -210,7 +238,7 @@ class Zend_Config_Xml extends Zend_Config
             }
 
             $dom                 = dom_import_simplexml($xmlObject);
-            $namespaceChildNodes = array();
+            $namespaceChildNodes = [];
 
             // We have to store them in an array, as replacing nodes will
             // confuse the DOMNodeList later
@@ -267,7 +295,7 @@ class Zend_Config_Xml extends Zend_Config
 
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key]) || !array_key_exists(0, $config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
 
                     $config[$key][] = $value;

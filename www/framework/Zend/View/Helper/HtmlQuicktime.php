@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlQuicktime.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/HtmlObject.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
@@ -57,8 +57,8 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
      *
      * @var array
      */
-    protected $_attribs = array('classid'  => self::ATTRIB_CLASSID,
-                                'codebase' => self::ATTRIB_CODEBASE);
+    protected $_attribs = ['classid'  => self::ATTRIB_CLASSID,
+                                'codebase' => self::ATTRIB_CODEBASE];
 
     /**
      * Output a quicktime movie object tag
@@ -69,13 +69,13 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
      * @param string $content Alternative content
      * @return string
      */
-    public function htmlQuicktime($data, array $attribs = array(), array $params = array(), $content = null)
+    public function htmlQuicktime($data, array $attribs = [], array $params = [], $content = null)
     {
         // Attrs
         $attribs = array_merge($this->_attribs, $attribs);
 
         // Params
-        $params = array_merge(array('src' => $data), $params);
+        $params = array_merge(['src' => $data], $params);
 
         return $this->htmlObject($data, self::TYPE, $attribs, $params, $content);
     }

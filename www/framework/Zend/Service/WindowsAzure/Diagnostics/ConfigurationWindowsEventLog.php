@@ -15,40 +15,25 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ConfigurationWindowsEventLog.php,v 1.1.2.1 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
-
-/**
- * @see Zend_Service_WindowsAzure_Diagnostics_Exception
- */
-require_once 'Zend/Service/WindowsAzure/Diagnostics/Exception.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
- */
-require_once 'Zend/Service/WindowsAzure/Diagnostics/ConfigurationObjectBaseAbstract.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Diagnostics_LogLevel
- */
-require_once 'Zend/Service/WindowsAzure/Diagnostics/LogLevel.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
- * @property    int        BufferQuotaInMB                        Buffer quota in MB
- * @property    int        ScheduledTransferPeriodInMinutes    Scheduled transfer period in minutes
- * @property    string    ScheduledTransferLogLevelFilter        Scheduled transfer log level filter
- * @property    array    Subscriptions                        Subscriptions
+ * @property	int		BufferQuotaInMB						Buffer quota in MB
+ * @property	int		ScheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
+ * @property	string	ScheduledTransferLogLevelFilter		Scheduled transfer log level filter
+ * @property	array	Subscriptions						Subscriptions
  */
 class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
-    extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
     /**
      * Constructor
@@ -58,13 +43,13 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
 	 * @param	string	$scheduledTransferLogLevelFilter	Scheduled transfer log level filter
 	 */
     public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED)
-    {	
-        $this->_data = array(
-            'bufferquotainmb'                    => $bufferQuotaInMB,
-            'scheduledtransferperiodinminutes'     => $scheduledTransferPeriodInMinutes,
-            'scheduledtransferloglevelfilter'    => $scheduledTransferLogLevelFilter,
-            'subscriptions'                        => array()
-        );
+    {
+        $this->_data = [
+            'bufferquotainmb'        			=> $bufferQuotaInMB,
+            'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
+            'scheduledtransferloglevelfilter'	=> $scheduledTransferLogLevelFilter,
+        	'subscriptions'						=> []
+        ];
     }
 
 	/**
@@ -74,7 +59,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
 	 */
     public function addSubscription($filter)
     {
-        $this->_data['subscriptions'][$filter] = $filter;
+    	$this->_data['subscriptions'][$filter] = $filter;
     }
 
 	/**
@@ -84,8 +69,8 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
 	 */
     public function removeSubscription($filter)
     {
-        if (isset($this->_data['subscriptions'][$filter])) {
-            unset($this->_data['subscriptions'][$filter]);
-        }
+    	if (isset($this->_data['subscriptions'][$filter])) {
+    		unset($this->_data['subscriptions'][$filter]);
+    	}
     }
 }

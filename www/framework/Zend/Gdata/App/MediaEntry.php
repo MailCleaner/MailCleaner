@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: MediaEntry.php,v 1.1.2.3 2011-05-30 08:30:48 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -42,7 +42,7 @@ require_once 'Zend/Gdata/MediaMimeStream.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
@@ -102,7 +102,7 @@ class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
      * Set the MediaSource object (file) for this MediaEntry
      *
      * @param Zend_Gdata_App_MediaSource $value The attached MediaSource/file
-     * @return Zend_Gdata_App_MediaEntry Provides a fluent interface
+     * @return $this
      */
     public function setMediaSource($value)
     {

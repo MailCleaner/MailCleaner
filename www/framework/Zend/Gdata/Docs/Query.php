@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Docs
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Query.php,v 1.1.2.3 2011-05-30 08:31:11 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -34,7 +34,7 @@ require_once('Zend/Gdata/Query.php');
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Docs
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
@@ -85,7 +85,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * include 'full'.
      *
      * @param string $value
-     * @return Zend_Gdata_Docs_Query Provides a fluent interface
+     * @return $this
      */
     public function setProjection($value)
     {
@@ -97,7 +97,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * Sets the visibility for this query. Common values for visibility
      * include 'private'.
      *
-     * @return Zend_Gdata_Docs_Query Provides a fluent interface
+     * @return $this
      */
     public function setVisibility($value)
     {
@@ -131,7 +131,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * completely match the title.
      *
      * @param string $value
-     * @return Zend_Gdata_Docs_Query Provides a fluent interface
+     * @return $this
      */
     public function setTitle($value)
     {
@@ -164,7 +164,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * title parameter will be returned.
      *
      * @param boolean $value Use either true or false
-     * @return Zend_Gdata_Docs_Query Provides a fluent interface
+     * @return $this
      */
     public function setTitleExact($value)
     {

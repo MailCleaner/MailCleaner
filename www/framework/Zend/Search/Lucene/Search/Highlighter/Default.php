@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Default.php,v 1.1.2.3 2011-05-30 08:31:11 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Search_Lucene_Search_Highlighter_Interface */
@@ -26,7 +26,7 @@ require_once 'Zend/Search/Lucene/Search/Highlighter/Interface.php';
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucene_Search_Highlighter_Interface
@@ -36,11 +36,11 @@ class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucen
      *
      * @var array
      */
-    protected $_highlightColors = array('#66ffff', '#ff66ff', '#ffff66',
+    protected $_highlightColors = ['#66ffff', '#ff66ff', '#ffff66',
                                         '#ff8888', '#88ff88', '#8888ff',
                                         '#88dddd', '#dd88dd', '#dddd88',
                                         '#aaddff', '#aaffdd', '#ddaaff',
-                                        '#ddffaa', '#ffaadd', '#ffddaa');
+                                        '#ddffaa', '#ffaadd', '#ffddaa'];
 
     /**
      * Index of current color for highlighting

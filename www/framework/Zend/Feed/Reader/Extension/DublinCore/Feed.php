@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php,v 1.1.2.1 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -37,7 +37,7 @@ require_once 'Zend/Feed/Reader/Collection/Author.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Extension_DublinCore_Feed
@@ -71,7 +71,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
             return $this->_data['authors'];
         }
 
-        $authors = array();
+        $authors = [];
         $list    = $this->_xpath->query('//dc11:creator');
 
         if (!$list->length) {
@@ -87,9 +87,9 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
 
         if ($list->length) {
             foreach ($list as $author) {
-                $authors[] = array(
+                $authors[] = [
                     'name' => $author->nodeValue
-                );
+                ];
             }
             $authors = new Zend_Feed_Reader_Collection_Author(
                 Zend_Feed_Reader::arrayUnique($authors)
@@ -282,11 +282,11 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
         if ($list->length) {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->nodeValue,
                     'scheme' => null,
                     'label' => $category->nodeValue,
-                );
+                ];
             }
         } else {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;

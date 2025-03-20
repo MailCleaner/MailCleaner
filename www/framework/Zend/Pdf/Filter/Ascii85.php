@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ascii85.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 
@@ -27,7 +27,7 @@ require_once 'Zend/Pdf/Filter/Interface.php';
  * ASCII85 stream filter
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
@@ -116,7 +116,7 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
         $output = '';
 
         //get rid of the whitespaces
-        $whiteSpace = array("\x00", "\x09", "\x0A", "\x0C", "\x0D", "\x20");
+        $whiteSpace = ["\x00", "\x09", "\x0A", "\x0C", "\x0D", "\x20"];
         $data = str_replace($whiteSpace, '', $data);
 
         if (substr($data, -2) != '~>') {

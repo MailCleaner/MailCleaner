@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Writer.php,v 1.1.2.1 2011-05-30 08:30:59 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer
@@ -66,7 +66,7 @@ class Zend_Feed_Writer
      *
      * @var array
      */
-    protected static $_prefixPaths = array();
+    protected static $_prefixPaths = [];
 
     /**
      * Array of registered extensions by class postfix (after the base class
@@ -75,17 +75,17 @@ class Zend_Feed_Writer
      *
      * @var array
      */
-    protected static $_extensions = array(
-        'entry'         => array(),
-        'feed'          => array(),
-        'entryRenderer' => array(),
-        'feedRenderer'  => array(),
-    );
+    protected static $_extensions = [
+        'entry'         => [],
+        'feed'          => [],
+        'entryRenderer' => [],
+        'feedRenderer'  => [],
+    ];
 
     /**
      * Set plugin loader for use with Extensions
      *
-     * @param  Zend_Loader_PluginLoader_Interface
+     * @param  Zend_Loader_PluginLoader_Interface $loader
      */
     public static function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader)
     {
@@ -101,9 +101,9 @@ class Zend_Feed_Writer
     {
         if (!isset(self::$_pluginLoader)) {
             require_once 'Zend/Loader/PluginLoader.php';
-            self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
+            self::$_pluginLoader = new Zend_Loader_PluginLoader([
                 'Zend_Feed_Writer_Extension_' => 'Zend/Feed/Writer/Extension/',
-            ));
+            ]);
         }
         return self::$_pluginLoader;
     }
@@ -233,13 +233,13 @@ class Zend_Feed_Writer
     public static function reset()
     {
         self::$_pluginLoader = null;
-        self::$_prefixPaths  = array();
-        self::$_extensions   = array(
-            'entry'         => array(),
-            'feed'          => array(),
-            'entryRenderer' => array(),
-            'feedRenderer'  => array(),
-        );
+        self::$_prefixPaths  = [];
+        self::$_extensions   = [
+            'entry'         => [],
+            'feed'          => [],
+            'entryRenderer' => [],
+            'feedRenderer'  => [],
+        ];
     }
 
     /**

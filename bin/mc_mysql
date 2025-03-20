@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
@@ -29,42 +29,40 @@
 
 VARDIR=`grep 'VARDIR' /etc/mailcleaner.conf | cut -d ' ' -f3`
 if [ "VARDIR" = "" ]; then
-  VARDIR=/var/mailcleaner
+    VARDIR=/var/mailcleaner
 fi
 
 case $1 in
-
-"-s" | "-slave")
-	SOCKET=$VARDIR/run/mysql_slave/mysqld.sock
-	;;
-"-m" | "-master")
-	SOCKET=$VARDIR/run/mysql_master/mysqld.sock
-	;;
-*)
-	echo "bad usage: use -s or -m flag to connect to slave or master database"
-	exit
-	;;
+    "-s" | "-slave")
+        SOCKET=$VARDIR/run/mysql_slave/mysqld.sock
+        ;;
+    "-m" | "-master")
+        SOCKET=$VARDIR/run/mysql_master/mysqld.sock
+        ;;
+    *)
+        echo "bad usage: use -s or -m flag to connect to slave or master database"
+        exit
+        ;;
 esac
 
 MYMAILCLEANERPWD=`grep '^MYMAILCLEANERPWD' /etc/mailcleaner.conf | cut -d ' ' -f3`
 
-COMMAND=/opt/mysql5/bin/mysql
+COMMAND=/usr/bin/mariadb
 
 case $2 in
-
-"upgrade")
-   COMMAND=/opt/mysql5/bin/mysql_upgrade
-   ;;
-*)
-   ;;
+    "upgrade")
+        COMMAND=/usr/bin/mariadb_upgrade
+        ;;
+    *)
+        ;;
 esac
 
 if [ "$2" = "" ]; then
-  $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD
+    $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD
 else
-  if [ "$3" = "-t" ]; then
-    $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2 $3
-  else
-    $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2
-  fi
+    if [ "$3" = "-t" ]; then
+        $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2 $3
+    else
+        $COMMAND -S $SOCKET -umailcleaner -p$MYMAILCLEANERPWD $2
+    fi
 fi

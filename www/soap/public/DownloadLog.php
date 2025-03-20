@@ -1,9 +1,10 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 error_reporting('E_ALL');
@@ -24,12 +25,12 @@ if (preg_match('/(\.\.|[\/\{\}$\*\?\[\]])/', $fileparam, $illegal)) {
     exit();
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/../../guis/admin/application/library/MailCleaner/Config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/../../guis/admin/application/library/MailCleaner/Config.php');
 $mcconfig = MailCleaner_Config::getInstance();
 
 $file = preg_replace('/\-/', '/', $fileparam);
 
-$file = $mcconfig->getOption('VARDIR')."/log/".$file;
+$file = $mcconfig->getOption('VARDIR') . "/log/" . $file;
 if (!file_exists($file)) {
     header("HTTP/1.0 404 Not Found");
     echo "File not found ($file)";
@@ -38,17 +39,17 @@ if (!file_exists($file)) {
 
 $handle = fopen($file, "r");
 
-header("Content-Type: application/octet-stream; "); 
-header("Content-Transfer-Encoding: binary"); 
-header("Content-Length: " . filesize($file) ."; "); 
-header("filename=\"".$fileparam."\"; "); 
+header("Content-Type: application/octet-stream; ");
+header("Content-Transfer-Encoding: binary");
+header("Content-Length: " . filesize($file) . "; ");
+header("filename=\"" . $fileparam . "\"; ");
 flush();
 
-while(!feof($handle)) {
-	$data = fread($handle, 8192);
-	
-	echo $data;
-	flush();
+while (!feof($handle)) {
+    $data = fread($handle, 8192);
+
+    echo $data;
+    flush();
 }
 fclose($handle);
-?>
+

@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbTable.php,v 1.1.2.1 2011-05-30 08:30:51 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_DbTable
@@ -31,7 +31,7 @@ class Zend_Tool_Project_Provider_DbTable
     implements Zend_Tool_Framework_Provider_Pretendable
 {
 
-    protected $_specialties = array('FromDatabase');
+    protected $_specialties = ['FromDatabase'];
 
     /**
      * @var Zend_Filter
@@ -40,10 +40,10 @@ class Zend_Tool_Project_Provider_DbTable
 
     public static function createResource(Zend_Tool_Project_Profile $profile, $dbTableName, $actualTableName, $moduleName = null)
     {
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName != null && is_string($moduleName)) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
         }
 
         $profileSearchParams[] = 'modelsDirectory';
@@ -61,17 +61,18 @@ class Zend_Tool_Project_Provider_DbTable
             $dbTableDirectory = $modelsDirectory->createResource('DbTableDirectory');
         }
 
-        $dbTableFile = $dbTableDirectory->createResource('DbTableFile', array('dbTableName' => $dbTableName, 'actualTableName' => $actualTableName));
-
-        return $dbTableFile;
+        return $dbTableDirectory->createResource(
+            'DbTableFile',
+            ['dbTableName' => $dbTableName, 'actualTableName' => $actualTableName]
+        );
     }
 
     public static function hasResource(Zend_Tool_Project_Profile $profile, $dbTableName, $moduleName = null)
     {
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName != null && is_string($moduleName)) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
         }
 
         $profileSearchParams[] = 'modelsDirectory';
@@ -83,7 +84,7 @@ class Zend_Tool_Project_Provider_DbTable
             return false;
         }
 
-        $dbTableFile = $dbTableDirectory->search(array('DbTableFile' => array('dbTableName' => $dbTableName)));
+        $dbTableFile = $dbTableDirectory->search(['DbTableFile' => ['dbTableName' => $dbTableName]]);
 
         return ($dbTableFile instanceof Zend_Tool_Project_Profile_Resource) ? true : false;
     }
@@ -121,7 +122,7 @@ class Zend_Tool_Project_Provider_DbTable
                 'Note: The canonical model name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
                     . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
+                ['color' => ['yellow']]
                 );
         }
 
@@ -143,13 +144,18 @@ class Zend_Tool_Project_Provider_DbTable
         }
     }
 
+    /**
+     * @param string $module        Module name action should be applied to.
+     * @param bool $forceOverwrite  Whether should force overwriting previous classes generated
+     * @return void
+     */
     public function createFromDatabase($module = null, $forceOverwrite = false)
     {
         $this->_loadProfile(self::NO_PROFILE_THROW_EXCEPTION);
 
         $bootstrapResource = $this->_loadedProfile->search('BootstrapFile');
 
-        /* @var $zendApp Zend_Application */
+        /* @var Zend_Application $zendApp */
         $zendApp = $bootstrapResource->getApplicationInstance();
 
         try {
@@ -159,10 +165,10 @@ class Zend_Tool_Project_Provider_DbTable
             return;
         }
 
-        /* @var $db Zend_Db_Adapter_Abstract */
+        /* @var Zend_Db_Adapter_Abstract $db */
         $db = $zendApp->getBootstrap()->getResource('db');
 
-        $tableResources = array();
+        $tableResources = [];
         foreach ($db->listTables() as $actualTableName) {
 
             $dbTableName = $this->_convertTableNameToClassName($actualTableName);
@@ -182,7 +188,7 @@ class Zend_Tool_Project_Provider_DbTable
                 );
         }
 
-        if (count($tableResources) == 0) {
+        if (count($tableResources) === 0) {
             $this->_registry->getResponse()->appendContent('There are no tables in the selected database to write.');
         }
 

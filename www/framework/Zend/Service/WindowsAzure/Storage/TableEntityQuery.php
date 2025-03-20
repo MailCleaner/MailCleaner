@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TableEntityQuery.php,v 1.1.2.1 2011-05-30 08:31:08 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Storage_TableEntityQuery
@@ -35,28 +35,28 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
      * @var string
      */
 	protected $_from  = '';
-	
+
 	/**
 	 * Where
 	 *
 	 * @var array
 	 */
-	protected $_where = array();
-	
+	protected $_where = [];
+
 	/**
 	 * Order by
 	 *
 	 * @var array
 	 */
-	protected $_orderBy = array();
-	
+	protected $_orderBy = [];
+
 	/**
 	 * Top
 	 *
 	 * @var int
 	 */
 	protected $_top = null;
-	
+
 	/**
 	 * Partition key
 	 *
@@ -70,7 +70,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 * @var string
 	 */
 	protected $_rowKey = null;
-	
+
 	/**
 	 * Select clause
 	 *
@@ -80,7 +80,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	{
 		return $this;
 	}
-	
+
 	/**
 	 * From clause
 	 *
@@ -92,7 +92,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 		$this->_from = $name;
 		return $this;
 	}
-	
+
 	/**
 	 * Specify partition key
 	 *
@@ -104,7 +104,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	    $this->_partitionKey = $value;
 	    return $this;
 	}
-	
+
 	/**
 	 * Specify row key
 	 *
@@ -116,7 +116,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	    $this->_rowKey = $value;
 	    return $this;
 	}
-	
+
 	/**
 	 * Add where clause
 	 *
@@ -128,17 +128,17 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	public function where($condition, $value = null, $cond = '')
 	{
 	    $condition = $this->_replaceOperators($condition);
-	
-	    if ($value !== null) {
+
+	    if (!is_null($value)) {
 	        $condition = $this->_quoteInto($condition, $value);
 	    }
-	
-		if (count($this->_where) == 0) {
+
+		if (count($this->_where) === 0) {
 			$cond = '';
 		} else if ($cond !== '') {
 			$cond = ' ' . strtolower(trim($cond)) . ' ';
 		}
-		
+
 		$this->_where[] = $cond . $condition;
 		return $this;
 	}
@@ -154,7 +154,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	{
 		return $this->where($condition, $value, 'and');
 	}
-	
+
 	/**
 	 * Add where clause with OR condition
 	 *
@@ -166,7 +166,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	{
 		return $this->where($condition, $value, 'or');
 	}
-	
+
 	/**
 	 * OrderBy clause
 	 *
@@ -191,7 +191,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
         $this->_top  = (int)$top;
         return $this;
     }
-    
+
     /**
      * Assembles the query string
      *
@@ -200,28 +200,28 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
      */
 	public function assembleQueryString($urlEncode = false)
 	{
-		$query = array();
+		$query = [];
 		if (count($this->_where) != 0) {
 		    $filter = implode('', $this->_where);
 			$query[] = '$filter=' . ($urlEncode ? self::encodeQuery($filter) : $filter);
 		}
-		
+
 		if (count($this->_orderBy) != 0) {
 		    $orderBy = implode(',', $this->_orderBy);
 			$query[] = '$orderby=' . ($urlEncode ? self::encodeQuery($orderBy) : $orderBy);
 		}
-		
-		if ($this->_top !== null) {
+
+		if (!is_null($this->_top)) {
 			$query[] = '$top=' . $this->_top;
 		}
-		
+
 		if (count($query) != 0) {
 			return '?' . implode('&', $query);
 		}
-		
+
 		return '';
 	}
-	
+
 	/**
 	 * Assemble from
 	 *
@@ -233,24 +233,24 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	    $identifier = '';
 	    if ($includeParentheses) {
 	        $identifier .= '(';
-	
-	        if ($this->_partitionKey !== null) {
-	            $identifier .= 'PartitionKey=\'' . $this->_partitionKey . '\'';
+
+	        if (!is_null($this->_partitionKey)) {
+	            $identifier .= 'PartitionKey=\'' . self::encodeQuery($this->_partitionKey) . '\'';
 	        }
-	
-	        if ($this->_partitionKey !== null && $this->_rowKey !== null) {
+
+	        if (!is_null($this->_partitionKey) && !is_null($this->_rowKey)) {
 	            $identifier .= ', ';
 	        }
-	
-	        if ($this->_rowKey !== null) {
-	            $identifier .= 'RowKey=\'' . $this->_rowKey . '\'';
+
+	        if (!is_null($this->_rowKey)) {
+	            $identifier .= 'RowKey=\'' . self::encodeQuery($this->_rowKey) . '\'';
 	        }
-	
+
 	        $identifier .= ')';
 	    }
 		return $this->_from . $identifier;
 	}
-	
+
 	/**
 	 * Assemble full query
 	 *
@@ -259,15 +259,15 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	public function assembleQuery()
 	{
 		$assembledQuery = $this->assembleFrom();
-		
+
 		$queryString = $this->assembleQueryString();
 		if ($queryString !== '') {
 			$assembledQuery .= $queryString;
 		}
-		
+
 		return $assembledQuery;
 	}
-	
+
 	/**
 	 * Quotes a variable into a condition
 	 *
@@ -291,7 +291,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	    }
 	    return $text;
 	}
-	
+
 	/**
 	 * Replace operators
 	 *
@@ -300,20 +300,12 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 */
 	protected function _replaceOperators($text)
 	{
-	    $text = str_replace('==', 'eq',  $text);
-	    $text = str_replace('>',  'gt',  $text);
-	    $text = str_replace('<',  'lt',  $text);
-	    $text = str_replace('>=', 'ge',  $text);
-	    $text = str_replace('<=', 'le',  $text);
-	    $text = str_replace('!=', 'ne',  $text);
-	
-	    $text = str_replace('&&', 'and', $text);
-	    $text = str_replace('||', 'or',  $text);
-	    $text = str_replace('!',  'not', $text);
-	
-	    return $text;
+        return str_replace(
+            ['==', '>', '<', '>=', '<=', '!=', '&&', '||', '!'],
+            ['eq', 'gt', 'lt', 'ge', 'le', 'ne', 'and', 'or', 'not'],
+            $text);
 	}
-	
+
 	/**
 	 * urlencode a query
 	 *
@@ -322,22 +314,12 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 */
 	public static function encodeQuery($query)
 	{
-		$query = str_replace('/', '%2F', $query);
-		$query = str_replace('?', '%3F', $query);
-		$query = str_replace(':', '%3A', $query);
-		$query = str_replace('@', '%40', $query);
-		$query = str_replace('&', '%26', $query);
-		$query = str_replace('=', '%3D', $query);
-		$query = str_replace('+', '%2B', $query);
-		$query = str_replace(',', '%2C', $query);
-		$query = str_replace('$', '%24', $query);
-		
-		
-		$query = str_replace(' ', '%20', $query);
-		
-		return $query;
+        return str_replace(
+            ['/', '?', ':', '@', '&', '=', '+', ',', '$', '{', '}', ' '],
+            ['%2F', '%3F', '%3A', '%40', '%26', '%3D', '%2B', '%2C', '%24', '%7B', '%7D', '%20'],
+            $query);
 	}
-	
+
 	/**
 	 * __toString overload
 	 *

@@ -1,15 +1,16 @@
-<?
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Marin Gilles
- * @copyright 20018, MailCleaner
+ * @author Marin Gilles, John Mertz
+ * @copyright 20018, MailCleaner; 2023, John Mertz
  *
  * This is the controller for the newsletter release page
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "HEAD") {
-  return 200;
+    return 200;
 }
 
 /**
@@ -28,11 +29,12 @@ require_once('system/Soaper.php');
  * @param Spam object $spam_mail The mail concerned
  * @return string The from email address of the sender of the email
  */
-function get_sender_address_body($spam_mail) {
+function get_sender_address_body($spam_mail)
+{
     // Get the mail sender
     $headers = $spam_mail->getHeadersArray();
 
-    $sender = array();
+    $sender = [];
     preg_match('/[<]?([-0-9a-zA-Z.+_\']+@[-0-9a-zA-Z.+_\']+\.[a-zA-Z-0-9]+)[>]?/', trim($headers['From']), $sender);
 
     if (!empty($sender[1])) {
@@ -46,7 +48,8 @@ function get_sender_address_body($spam_mail) {
  * @param Spam object $spam_mail The mail concerned
  * @return string The email address of the sender of the email
  */
-function get_sender_address($spam_mail) {
+function get_sender_address($spam_mail)
+{
     return $spam_mail->getData("sender");
 }
 
@@ -56,7 +59,8 @@ function get_sender_address($spam_mail) {
  * @param string $dest The email address of the recipient
  * @return string $soap_host The IP of the machine
  */
-function get_soap_host($exim_id, $dest) {
+function get_soap_host($exim_id, $dest)
+{
     $sysconf_ = SystemConfig::getInstance();
     $spam_mail = new Spam();
     $spam_mail->loadDatas($exim_id, $dest);
@@ -68,9 +72,10 @@ function get_soap_host($exim_id, $dest) {
  * Get the IP of the master machine for SOAP requests
  * @return string $soap_host The IP of the machine
  */
-function get_master_soap_host() {
+function get_master_soap_host()
+{
     $sysconf_ = SystemConfig::getInstance();
-    foreach ($sysconf_->getMastersName() as $master){
+    foreach ($sysconf_->getMastersName() as $master) {
         return $master;
     }
 }
@@ -83,14 +88,15 @@ function get_master_soap_host() {
  * @param array $allowed_response Authorized responses
  * @return bool Status of the request. If True, everything went well
  */
-function send_SOAP_request($host, $request, $params, $allowed_response) {
+function send_SOAP_request($host, $request, $params, $allowed_response)
+{
     $soaper = new Soaper();
     $ret = @$soaper->load($host);
     if ($ret != "OK") {
         return False;
     } else {
         $res = $soaper->queryParam($request, $params);
-        if (! in_array($res, $allowed_response)) {
+        if (!in_array($res, $allowed_response)) {
             return False;
         }
         return True;
@@ -104,19 +110,19 @@ $bad_arg = False;
 
 // set the language from what is passed in url
 if (isset($_GET['lang'])) {
-  $lang_->setLanguage($_GET['lang']);
-  $lang_->reload();
+    $lang_->setLanguage($_GET['lang']);
+    $lang_->reload();
 }
 if (isset($_GET['l'])) {
-  $lang_->setLanguage($_GET['l']);
-  $lang_->reload();
+    $lang_->setLanguage($_GET['l']);
+    $lang_->reload();
 }
 
 
 // Checking if the necessary arguments are here
-$in_args = array($_GET['id'], $_GET['a']);
+$in_args = [$_GET['id'], $_GET['a']];
 foreach ($in_args as $arg) {
-    if (! isset($arg)){
+    if (!isset($arg)) {
         $bad_arg = True;
     }
 }
@@ -144,24 +150,23 @@ if (!$bad_arg) {
     $is_released = send_SOAP_request(
         $slave,
         'forceSpam',
-        array($exim_id, $dest),
-        array("MSGFORCED")
+        [$exim_id, $dest],
+        ["MSGFORCED"]
     );
 
     $is_sender_body_added_to_wl = send_SOAP_request(
         $master,
         "addNewsletterToWhitelist",
-        array($dest, $sender_body),
-        array("OK", "DUPLICATEENTRY")
+        [$dest, $sender_body],
+        ["OK", "DUPLICATEENTRY"]
     );
 
     $is_sender_added_to_wl = send_SOAP_request(
         $master,
         "addNewsletterToWhitelist",
-        array($dest, $sender),
-        array("OK", "DUPLICATEENTRY")
+        [$dest, $sender],
+        ["OK", "DUPLICATEENTRY"]
     );
-
 } else {
     $is_released = False;
     $is_sender_added_to_wl = False;
@@ -177,12 +182,22 @@ if ($is_released && $is_sender_body_added_to_wl && $is_sender_added_to_wl) {
     $message = "NLNOTRELEASEDBODY";
 }
 
+// Registered?
+require_once('helpers/DataManager.php');
+$file_conf = DataManager::getFileConfig($sysconf_::$CONFIGFILE_);
+$is_enterprise = 0;
+if (isset($file_conf['REGISTERED']) && $file_conf['REGISTERED'] == '1') {
+    $is_enterprise = 1;
+}
+
 // Parse the template
 $template_ = new Template('newsletters.tmpl');
-$replace = array(
+$replace = [
     '__LANG_FORCEMESSAGE__' => $lang_->print_txt($message_head),
     '__MESSAGE__' => $lang_->print_txt($message),
-);
+    '__COPYRIGHTLINK__' => $is_enterprise ? "www.mailcleaner.net" : "www.mailcleaner.org",
+    '__COPYRIGHTTEXT__' => $is_enterprise ? $lang_->print_txt('COPYRIGHTEE') : $lang_->print_txt('COPYRIGHTCE'),
+];
 
 // display page
 $template_->output($replace);

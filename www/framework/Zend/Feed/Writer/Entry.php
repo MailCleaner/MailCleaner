@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php,v 1.1.2.1 2011-05-30 08:30:49 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Feed/Writer/Source.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Entry
@@ -45,14 +45,14 @@ class Zend_Feed_Writer_Entry
      *
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Registered extensions
      *
      * @var array
      */
-    protected $_extensions = array();
+    protected $_extensions = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -78,11 +78,11 @@ class Zend_Feed_Writer_Entry
      * Set a single author
      *
      * @param  int $index
-     * @return string|null
+     * @return void
      */
     public function addAuthor($name, $email = null, $uri = null)
     {
-        $author = array();
+        $author = [];
         if (is_array($name)) {
             if (!array_key_exists('name', $name)
                 || empty($name['name'])
@@ -114,7 +114,7 @@ class Zend_Feed_Writer_Entry
          * Array notation (above) is preferred and will be the sole supported input from ZF 2.0
          */
         } else {
-            if (empty($name['name']) || !is_string($name['name'])) {
+            if (empty($name) || !is_string($name)) {
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string value');
             }
@@ -140,7 +140,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set an array with feed authors
      *
-     * @return array
+     * @return void
      */
     public function addAuthors(array $authors)
     {
@@ -152,7 +152,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed character encoding
      *
-     * @return string|null
+     * @return void
      */
     public function setEncoding($encoding)
     {
@@ -179,7 +179,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the copyright entry
      *
-     * @return string|null
+     * @return void
      */
     public function setCopyright($copyright)
     {
@@ -193,7 +193,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the entry's content
      *
-     * @return string|null
+     * @return void
      */
     public function setContent($content)
     {
@@ -207,17 +207,17 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed creation date
      *
-     * @return string|null
+     * @return void
      */
     public function setDateCreated($date = null)
     {
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -228,17 +228,17 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed modification date
      *
-     * @return string|null
+     * @return void
      */
     public function setDateModified($date = null)
     {
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -249,7 +249,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed description
      *
-     * @return string|null
+     * @return void
      */
     public function setDescription($description)
     {
@@ -263,7 +263,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed ID
      *
-     * @return string|null
+     * @return void
      */
     public function setId($id)
     {
@@ -277,7 +277,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set a link to the HTML source of this entry
      *
-     * @return string|null
+     * @return void
      */
     public function setLink($link)
     {
@@ -291,7 +291,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the number of comments associated with this entry
      *
-     * @return string|null
+     * @return void
      */
     public function setCommentCount($count)
     {
@@ -305,7 +305,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set a link to a HTML page containing comments associated with this entry
      *
-     * @return string|null
+     * @return void
      */
     public function setCommentLink($link)
     {
@@ -319,7 +319,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set a link to an XML feed for any comments associated with this entry
      *
-     * @return string|null
+     * @return void
      */
     public function setCommentFeedLink(array $link)
     {
@@ -327,13 +327,13 @@ class Zend_Feed_Writer_Entry
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
-        if (!isset($link['type']) || !in_array($link['type'], array('atom', 'rss', 'rdf'))) {
+        if (!isset($link['type']) || !in_array($link['type'], ['atom', 'rss', 'rdf'])) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "type" must be one'
             . ' of "atom", "rss" or "rdf"');
         }
         if (!isset($this->_data['commentFeedLinks'])) {
-            $this->_data['commentFeedLinks'] = array();
+            $this->_data['commentFeedLinks'] = [];
         }
         $this->_data['commentFeedLinks'][] = $link;
     }
@@ -343,7 +343,7 @@ class Zend_Feed_Writer_Entry
      * Each link is an array with keys "uri" and "type", where type is one of:
      * "atom", "rss" or "rdf".
      *
-     * @return string|null
+     * @return void
      */
     public function setCommentFeedLinks(array $links)
     {
@@ -355,7 +355,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set the feed title
      *
-     * @return string|null
+     * @return void
      */
     public function setTitle($title)
     {
@@ -561,7 +561,7 @@ class Zend_Feed_Writer_Entry
             }
         }
         if (!isset($this->_data['categories'])) {
-            $this->_data['categories'] = array();
+            $this->_data['categories'] = [];
         }
         $this->_data['categories'][] = $category;
     }
@@ -695,7 +695,7 @@ class Zend_Feed_Writer_Entry
     {
         foreach ($this->_extensions as $extension) {
             try {
-                return call_user_func_array(array($extension, $method), $args);
+                return call_user_func_array([$extension, $method], $args);
             } catch (Zend_Feed_Writer_Exception_InvalidMethodException $e) {
             }
         }

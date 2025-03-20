@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ require_once 'Zend/Cloud/QueueService/Message.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_QueueService_Adapter_Sqs
@@ -57,7 +57,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -118,7 +118,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
         try {
             return $this->_sqs->delete($queueId);
         } catch(Zend_Service_Amazon_Exception $e) {
-            throw Zend_Cloud_QueueService_Exception('Error on queue deletion: '.$e->getMessage(), $e->getCode(), $e);
+            throw new Zend_Cloud_QueueService_Exception('Error on queue deletion: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -152,7 +152,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
             if(is_array($attributes)) {
                 return $attributes;
             } else {
-                return array('All' => $this->_sqs->getAttribute($queueId, 'All'));
+                return ['All' => $this->_sqs->getAttribute($queueId, 'All')];
             }
         } catch(Zend_Service_Amazon_Exception $e) {
             throw new Zend_Cloud_QueueService_Exception('Error on fetching queue metadata: '.$e->getMessage(), $e->getCode(), $e);
@@ -222,7 +222,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
     {
         $messageClass = $this->getMessageClass();
         $setClass     = $this->getMessageSetClass();
-        $result = array();
+        $result = [];
         foreach($messages as $message) {
             $result[] = new $messageClass($message['body'], $message);
         }
@@ -235,7 +235,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  string $queueId
      * @param  Zend_Cloud_QueueService_Message $message
      * @param  array  $options
-     * @return void
+     * @return bool
      */
     public function deleteMessage($queueId, $message, $options = null)
     {

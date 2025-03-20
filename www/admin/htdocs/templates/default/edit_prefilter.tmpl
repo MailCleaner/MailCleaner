@@ -1,62 +1,76 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>__NAME__ Prefilter Configuration</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-  </head>
+</head>
 
 <body>
-<center>
-<br/>
-<table width="95%" border="0" cellpadding="2" cellspacing="0">
-<tr valign="top" align="center">
- <td width="100%">
-  <!-- NETWORK CONFIGRATION -->
+    <center>
+        <br />
+        <table width="95%" border="0" cellpadding="2" cellspacing="0">
+            <tr valign="top" align="center">
+                <td width="100%">
+                    <!-- NETWORK CONFIGRATION -->
 
-__FORM_BEGIN_CONFIG__
-   <table width="90%" border="0" cellpadding="2" cellspacing="0">
-    <tr class="infoBoxHeading">
-     <td width="40%" align="left" colspan="2">__LANG_CONFIGURATION__: __NAME__&nbsp;&nbsp;</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__CONFIG_SAVE_STATUS__</font></td></tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-   
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_PREFILTERTIMEOUT__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTTIMEOUT__ __LANG_SECONDS__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_PREFILTERMAXSIZE__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTMAXSIZE__ __LANG_BYTES__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_XHEADER__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTXHEADER__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_PUTSPAMHEADER__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTPUTSPAMHEADER__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_PUTHAMHEADER__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTPUTHAMHEADER__</td>
-    </tr>
- 
-     __DINCLUDE_SPECIFIC__
-     
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif" onclick="__NETSUBMITACTION__"></td></tr>
+                    __FORM_BEGIN_CONFIG__
+                    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+                        <tr class="infoBoxHeading">
+                            <td width="40%" align="left" colspan="2">__LANG_CONFIGURATION__: __NAME__&nbsp;&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2" align="center">
+                                <font color="red">__CONFIG_SAVE_STATUS__</font>
+                            </td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
 
-   </table>
-__FORM_CLOSE_CONFIG__
- </td>
- 
- </td>
-</tr>
-</table><br>
-<input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__">
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_PREFILTERTIMEOUT__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTTIMEOUT__ __LANG_SECONDS__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_PREFILTERMAXSIZE__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTMAXSIZE__ __LANG_BYTES__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_XHEADER__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTXHEADER__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_PUTSPAMHEADER__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTPUTSPAMHEADER__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_PUTHAMHEADER__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTPUTHAMHEADER__</td>
+                        </tr>
+
+                        __DINCLUDE_SPECIFIC__
+
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="2" align="center"><input type="image" name="submit"
+                                    src="templates/default/images/apply.gif" onclick="__NETSUBMITACTION__"></td>
+                        </tr>
+
+                    </table>
+                    __FORM_CLOSE_CONFIG__
+                </td>
+
+                </td>
+            </tr>
+        </table><br>
+        <input type="button" name="close" onclick="javascript:window.close();" value="__LANG_CLOSE__">
 </body>
+
 </html>

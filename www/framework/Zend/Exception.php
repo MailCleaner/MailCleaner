@@ -14,24 +14,19 @@
  *
  * @category   Zend
  * @package    Zend
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php,v 1.1.2.3 2011-05-30 08:30:39 root Exp $
+ * @version    $Id$
  */
 
 /**
 * @category   Zend
 * @package    Zend
-* @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+* @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
 * @license    http://framework.zend.com/license/new-bsd     New BSD License
 */
 class Zend_Exception extends Exception
 {
-    /**
-     * @var null|Exception
-     */
-    private $_previous = null;
-
     /**
      * Construct the exception
      *
@@ -40,57 +35,8 @@ class Zend_Exception extends Exception
      * @param  Exception $previous
      * @return void
      */
-    public function __construct($msg = '', $code = 0, Exception $previous = null)
+    public function __construct($msg = '', $code = 0, \Throwable $previous = null)
     {
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-            parent::__construct($msg, (int) $code);
-            $this->_previous = $previous;
-        } else {
-            parent::__construct($msg, (int) $code, $previous);
-        }
-    }
-
-    /**
-     * Overloading
-     *
-     * For PHP < 5.3.0, provides access to the getPrevious() method.
-     *
-     * @param  string $method
-     * @param  array $args
-     * @return mixed
-     */
-    public function __call($method, array $args)
-    {
-        if ('getprevious' == strtolower($method)) {
-            return $this->_getPrevious();
-        }
-        return null;
-    }
-
-    /**
-     * String representation of the exception
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-            if (null !== ($e = $this->getPrevious())) {
-                return $e->__toString()
-                       . "\n\nNext "
-                       . parent::__toString();
-            }
-        }
-        return parent::__toString();
-    }
-
-    /**
-     * Returns previous Exception
-     *
-     * @return Exception|null
-     */
-    protected function _getPrevious()
-    {
-        return $this->_previous;
+        parent::__construct($msg, (int) $code, $previous);
     }
 }

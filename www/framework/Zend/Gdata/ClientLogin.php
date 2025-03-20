@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ClientLogin.php,v 1.1.2.3 2011-05-30 08:30:34 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -39,7 +39,7 @@ require_once 'Zend/Version.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_ClientLogin
@@ -105,11 +105,11 @@ class Zend_Gdata_ClientLogin
         // Build the HTTP client for authentication
         $client->setUri($loginUri);
         $useragent = $source . ' Zend_Framework_Gdata/' . Zend_Version::VERSION;
-        $client->setConfig(array(
+        $client->setConfig([
                 'maxredirects'    => 0,
                 'strictredirects' => true,
                 'useragent' => $useragent
-            )
+            ]
         );
         $client->setParameterPost('accountType', $accountType);
         $client->setParameterPost('Email', (string) $email);
@@ -143,7 +143,7 @@ class Zend_Gdata_ClientLogin
         ob_end_clean();
 
         // Parse Google's response
-        $goog_resp = array();
+        $goog_resp = [];
         foreach (explode("\n", $response->getBody()) as $l) {
             $l = chop($l);
             if ($l) {
@@ -155,10 +155,10 @@ class Zend_Gdata_ClientLogin
         if ($response->getStatus() == 200) {
             $client->setClientLoginToken($goog_resp['Auth']);
             $useragent = $source . ' Zend_Framework_Gdata/' . Zend_Version::VERSION;
-            $client->setConfig(array(
+            $client->setConfig([
                     'strictredirects' => true,
                     'useragent' => $useragent
-                )
+                ]
             );
             return $client;
 

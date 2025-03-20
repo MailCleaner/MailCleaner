@@ -1,84 +1,100 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Administrator list</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-   
+
     <script language="javascript">
 
-    function rowOverEffect(object) {
-      if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
-    }
+        function rowOverEffect(object) {
+            if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
+        }
 
-    function rowOutEffect(object) {
-      if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
-    }
+        function rowOutEffect(object) {
+            if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
+        }
 
-     function delete_confirm(name) {
-       if (confirm("__LANG_ADMINISTRATOR__: "+ name + 
-             "\n__LANG_CONFIRMADMINDELETE__ ")) {
-         str = "__REMOVE_FULLLINK__"+name;
-         window.location.href=str;
-       }
-    }
+        function delete_confirm(name) {
+            if (confirm("__LANG_ADMINISTRATOR__: " + name +
+                "\n__LANG_CONFIRMADMINDELETE__ ")) {
+                str = "__REMOVE_FULLLINK__" + name;
+                window.location.href = str;
+            }
+        }
 
-	__PAGE_JS__
+        __PAGE_JS__
     </script>
-  </head>
+</head>
 
 <body>
-<center>
-<br/>
-<table width="99%" border="0" cellpadding="0" cellspacing="0">
- <tr>
-  <td width="40%" valign="top">
-  <!-- ADMIN LIST -->
-  __FORM_BEGIN_ADMINSEARCH__
-    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
-      <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
-        <td class="dataTableHeadingContent" align="left">__LANG_ADMINISTRATORS__&nbsp;&nbsp; __DOC_ADMINTITLE__</td>
-        <td class="dataTableHeadingContent" align="right"><a href="__LINK_ADDADMIN__">__LANG_ADDADMIN__</a></td>
-        <td class="dataTableHeadingContent" align="center"><a href="__LINK_ADDADMIN__"><img src="templates/default/images/add.gif" border="0" align="absmiddle"></a></td>
-      </tr>
-      <tr bgcolor="#CCCCCC" class="dataTableRow">
-          <td class="dataTableContent" colspan="4" align="center"><font color="red">__DELETE_STATUS____ADD_STATUS__</font></td>
-      </tr>
-__TMPL_ADMINLIST_START__
-<tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >
- <td class="dataTableContent" onclick="document.location.href='__SETTINGSTARGET__'">__ADMIN__</td>
- <td class="dataTableContent" align="right" width="20px" onclick="document.location.href='__SETTINGSTARGET__'"> 
-   <a href="__SETTINGSTARGET__"><img src="templates/default/images/pencil.gif" border="0"></a>&nbsp;
- </td>
- <td class="dataTableContent" align="right" width="20px">  
-   <a href="__REMTARGET__"><img src="templates/default/images/erase.gif" border="0"></a>&nbsp;
- </td>
-</tr>
-__TMPL_ADMINLIST_STOP__ 
+    <center>
+        <br />
+        <table width="99%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40%" valign="top">
+                    <!-- ADMIN LIST -->
+                    __FORM_BEGIN_ADMINSEARCH__
+                    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                            <td class="dataTableHeadingContent" align="left">__LANG_ADMINISTRATORS__&nbsp;&nbsp;
+                                __DOC_ADMINTITLE__</td>
+                            <td class="dataTableHeadingContent" align="right"><a
+                                    href="__LINK_ADDADMIN__">__LANG_ADDADMIN__</a></td>
+                            <td class="dataTableHeadingContent" align="center"><a href="__LINK_ADDADMIN__"><img
+                                        src="templates/default/images/add.gif" border="0" align="absmiddle"></a></td>
+                        </tr>
+                        <tr bgcolor="#CCCCCC" class="dataTableRow">
+                            <td class="dataTableContent" colspan="4" align="center">
+                                <font color="red">__DELETE_STATUS____ADD_STATUS__</font>
+                            </td>
+                        </tr>
+                        __TMPL_ADMINLIST_START__
+                        <tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+                            <td class="dataTableContent" onclick="document.location.href='__SETTINGSTARGET__'">__ADMIN__
+                            </td>
+                            <td class="dataTableContent" align="right" width="20px"
+                                onclick="document.location.href='__SETTINGSTARGET__'">
+                                <a href="__SETTINGSTARGET__"><img src="templates/default/images/pencil.gif"
+                                        border="0"></a>&nbsp;
+                            </td>
+                            <td class="dataTableContent" align="right" width="20px">
+                                <a href="__REMTARGET__"><img src="templates/default/images/erase.gif"
+                                        border="0"></a>&nbsp;
+                            </td>
+                        </tr>
+                        __TMPL_ADMINLIST_STOP__
 
-__ADMINLIST_DRAW__
+                        __ADMINLIST_DRAW__
 
-__DEFAULT__ sep = |
-         <tr bgcolor="#CCCCCC" class="dataTableHeadingRow" valign="absmiddle">
-	   <td class="dataTableHeadingContent" align="left">__LANG_TOTAL__: __NBADMINS__</td>
-	   <td class="dataTableHeadingContent" align="right" colspan="2">__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__</td>
-	 </tr>
+                        __DEFAULT__ sep = |
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow" valign="absmiddle">
+                            <td class="dataTableHeadingContent" align="left">__LANG_TOTAL__: __NBADMINS__</td>
+                            <td class="dataTableHeadingContent" align="right" colspan="2">
+                                __LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__
+                                __NEXT_PAGE__</td>
+                        </tr>
 
-    </table>
-    __FORM_CLOSE_ADMINSEARCH__
-  </td>
-  <td width="60%" valign="top">
-  <!-- ADMIN EDIT -->
+                    </table>
+                    __FORM_CLOSE_ADMINSEARCH__
+                </td>
+                <td width="60%" valign="top">
+                    <!-- ADMIN EDIT -->
 
-__IF__ ADMINSELECTED
-__INCLUDE__(adminedit.tmpl)
-__ELSE__ ADMINSELECTED
- <center><div class="dataTableContent">__LANG_PLEASECHOOSEADMIN__</div></center>
-__FI__ ADMINSELECTED
-  </td>
- </tr>
-</table>
+                    __IF__ ADMINSELECTED
+                    __INCLUDE__(adminedit.tmpl)
+                    __ELSE__ ADMINSELECTED
+                    <center>
+                        <div class="dataTableContent">__LANG_PLEASECHOOSEADMIN__</div>
+                    </center>
+                    __FI__ ADMINSELECTED
+                </td>
+            </tr>
+        </table>
 </body>
+
 </html>

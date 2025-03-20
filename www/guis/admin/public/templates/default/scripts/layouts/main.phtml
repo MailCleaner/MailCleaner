@@ -1,120 +1,139 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <?php echo $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head>  
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <?php echo $this->headTitle() ?>
-  <?php echo $this->headLink() ?>
+<html lang="en-US">
 
-  <script type="text/javascript">
-  //<![CDATA[
-    var selectedMenu = '<?php echo $this->selectedMenu; ?>';
-    var selectedSubMenu = '<?php echo $this->selectedSubMenu; ?>';
-    var loadinghtml = '<img src="<?php echo $this->images_path;?>/loading.gif" alt="loading..." id="statusloadingimg" />';
-    var statusreload = 10000;
-    var quickstatusurl = '<?php echo $this->statusUrl;?>';
-    var statusrequest;
-    var message = '<?php echo $this->message;?>';
-    var thisurl = '<?php echo $this->thisurl?>';
-    var loadingimg = '<img src="<?php echo $this->images_path;?>/loadingwhitebg.gif" alt="loading..." />';
-    var waitloadingimg = '<img src="<?php echo $this->images_path;?>/loadingyellowbg.gif" alt="loading..." id="waitloading" />';
-    var waiturl = '<?php echo $this->waiturl?>';
-    var finishedwait = '<?php echo $this->finishedwait ?>';
-    var loadingdomain = '<img src="<?php echo $this->images_path;?>/loadingdomainslist.gif" alt="loading..." />';
-    var domainsearchurl = '<?php echo $this->searchdomainurl ?>';
-    var domainpanellinkurl =  '<?php echo $this->panellinkurl ?>';
-    var domainaddurl = '<?php echo $this->addurl?>';
-    var testdestinatiosmtpURL = '<?php echo $this->testdestinationsmtpurl ?>';
-    var calloutconnectorurl = '<?php echo $this->calloutconnectorurl?>';
-    var authconnectorurl = '<?php echo $this->authconnectorurl?>';
-    var testcalloutURL = '<?php echo $this->testcalloutURL ?>';
-    var testuserauthurl = '<?php echo $this->testuserauthURL ?>';
-    var defaultsearchstring = '<?php echo $this->defaultsearchstring ?>';
-    var baseurl ='<?php echo $this->baseurl?>';
-    var images_path = '<?php echo $this->images_path?>';
-    var reloading_text = '<?php echo $this->t->_('Reloading...');?>';
-    var slave = <?php if ($this->is_slave) { echo '1'; } else { echo '0'; }?>;
-   //]]>
-  </script>
-  <?php echo $this->jQuery(); ?>
-  
-  <?php echo $this->headScript() ?>
-</head> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel="stylesheet" id='et-gf-opensans-css' href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+    <?php echo $this->headTitle() ?>
+    <?php echo $this->headLink() ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var selectedMenu = '<?php echo $this->selectedMenu; ?>';
+        var selectedSubMenu = '<?php echo $this->selectedSubMenu; ?>';
+        var loadinghtml = '<img src="<?php echo $this->images_path; ?>/loading.gif" alt="loading..." id="statusloadingimg" />';
+        var statusreload = 10000;
+        var quickstatusurl = '<?php echo $this->statusUrl; ?>';
+        var statusrequest;
+        var message = '<?php echo $this->message; ?>';
+        var thisurl = '<?php echo $this->thisurl ?>';
+        var loadingimg = '<img src="<?php echo $this->images_path; ?>/loadingwhitebg.gif" alt="loading..." />';
+        var waitloadingimg = '<img src="<?php echo $this->images_path; ?>/loadingyellowbg.gif" alt="loading..." id="waitloading" />';
+        var waiturl = '<?php echo $this->waiturl ?>';
+        var finishedwait = '<?php echo $this->finishedwait ?>';
+        var loadingdomain = '<img src="<?php echo $this->images_path; ?>/loadingdomainslist.gif" alt="loading..." />';
+        var domainsearchurl = '<?php echo $this->searchdomainurl ?>';
+        var domainpanellinkurl = '<?php echo $this->panellinkurl ?>';
+        var domainaddurl = '<?php echo $this->addurl ?>';
+        var testdestinatiosmtpURL = '<?php echo $this->testdestinationsmtpurl ?>';
+        var calloutconnectorurl = '<?php echo $this->calloutconnectorurl ?>';
+        var authconnectorurl = '<?php echo $this->authconnectorurl ?>';
+        var testcalloutURL = '<?php echo $this->testcalloutURL ?>';
+        var testuserauthurl = '<?php echo $this->testuserauthURL ?>';
+        var defaultsearchstring = '<?php echo $this->defaultsearchstring ?>';
+        var baseurl = '<?php echo $this->baseurl ?>';
+        var images_path = '<?php echo $this->images_path ?>';
+        var reloading_text = '<?php echo $this->t->_('Reloading...'); ?>';
+        var slave = <?php if ($this->is_slave) {
+                        echo '1';
+                    } else {
+                        echo '0';
+                    } ?>;
+        //]]>
+    </script>
+    <?php echo $this->jQuery(); ?>
+
+    <?php echo $this->headScript() ?>
+</head>
+
 <body>
-<!-- flyover box -->
-<div id="tooltip">
-</div>
-<!-- END flyover box -->
-<div id="container">
+    <!-- flyover box -->
+    <div id="tooltip">
+    </div>
+    <!-- END flyover box -->
+    <div id="container">
 
-<!-- HEADER -->
-<div id="pagehead">
+        <!-- HEADER -->
+        <div id="pagehead">
 
- <div id="informational">
- </div>
- 
- <div id="mainheader">
-  <a href="<?php echo $this->indexurl?>"><img id="mclogo" src="<?php echo $this->images_path; ?>/logo_name.png" alt="MailCleaner, antispam and antivirus" /></a>
-  <?php if (!$this->is_slave) { ?>
-  <div id="statuspanel">
-  </div>
-  <a href="#"><img id="statusreloadimg" src="<?php echo $this->images_path;?>/reload.gif" alt="reload" /></a>
-  <?php } ?>
- </div>
- 
-<div id="main_navigation">
- <div id="navigation">
-   <ul id="buttonmenu">
-   <?php foreach ($this->main_menu as $page) {?>
-       <li id="menu_<?php echo $page->id;?>" class="menubutton"><a href="<?php echo $page->getHref()?>" class="<?php echo $page->class?>" id="linkmenu_<?php echo $page->id;?>"><?php echo $page->label?></a></li>
-   <?php }?>
-   </ul>
+            <div id="informational">
+            </div>
 
-    <div id="logoutbutton"><a href="<?php echo $this->logoutLink?>"><?php echo $this->t->_('logout')?></a></div>
-    <p id="logged_username"><?php echo $this->loggedusername;?></p>
- </div>
- <div id="subnavigation">
-  <?php foreach ($this->main_menu as $submenu) {?>
-  <div id="submenu_<?php echo $submenu->label;?>" class="submenu<?php if ($submenu->label != $this->selectedMenu) { echo " submenuhidden"; }?>">
-    <?php $i=0; foreach ($submenu as $page) { 
-      if ($i) { echo " | "; }?>
-      <span class="submenuel <?php echo $page->class?>"><a href="<?php echo $page->getHref()?>" id="submenu_<?php echo $page->id?>"><?php echo $page->label;?></a></span>
-    <?php $i++; }?>
-  </div>
-  <?php }?>
- </div>
-</div>
-</div>
-<!-- END HEADER -->
+            <div id="mainheader">
+                <a href="<?php echo $this->indexurl ?>"><img id="mclogo" src="<?php echo $this->images_path; ?>/logo_name.png" alt="MailCleaner, antispam and antivirus" /></a>
+                <?php if (!$this->is_slave) { ?>
+                    <div id="statuspanel">
+                    </div>
+                    <a href="#"><img id="statusreloadimg" src="<?php echo $this->images_path; ?>/reload.gif" alt="reload" /></a>
+                <?php } ?>
+            </div>
 
-<div id="pagecontent">
-<?php echo $this->layout()->content ?>
-</div>
+            <div id="main_navigation">
+                <div id="navigation">
+                    <ul id="buttonmenu">
+                        <?php foreach ($this->main_menu as $page) { ?>
+                            <li id="menu_<?php echo $page->id; ?>" class="menubutton"><a href="<?php echo $page->getHref() ?>" class="<?php echo $page->class ?>" id="linkmenu_<?php echo $page->id; ?>"><?php echo $page->label ?></a></li>
+                        <?php } ?>
+                    </ul>
 
-<div id="pagefoot">
-<div id="legalpanel">
-  <?php
-        $sysconf = MailCleaner_Config::getInstance();
-        if ($sysconf->getOption('REGISTERED') == "1") {
-                echo '<p id="copyright"><a href="http://www.mailcleaner.net" target="_blank">&copy; www.mailcleaner.net</a></p>';
-                echo '<p id="company"><a href="https://support.mailcleaner.net/" target="_blank">Support provided by MailCleaner</a></p>';
-        } else {
-                echo '<p id="copyright"><a href="http://www.mailcleaner.org" target="_blank">&copy; www.mailcleaner.org</a></p>';
-                echo '<p id="company"><a href="http://forum.mailcleaner.org/" target="_blank">Support provided by Community</a></p>';
-        }
+                    <div id="logoutbutton"><a href="<?php echo $this->logoutLink ?>"><?php echo $this->t->_('logout') ?></a></div>
+                    <p id="logged_username"><?php echo $this->loggedusername; ?></p>
+                </div>
+                <div id="subnavigation">
+                    <?php foreach ($this->main_menu as $submenu) { ?>
+                        <div id="submenu_<?php echo $submenu->label; ?>" class="submenu<?php if ($submenu->label != $this->selectedMenu) {
+                                                                                            echo " submenuhidden";
+                                                                                        } ?>">
+                            <?php $i = 0;
+                            foreach ($submenu as $page) {
+                                if ($i) {
+                                    echo " | ";
+                                } ?>
+                                <span class="submenuel <?php echo $page->class ?>"><a href="<?php echo $page->getHref() ?>" id="submenu_<?php echo $page->id ?>"><?php echo $page->label; ?></a></span>
+                            <?php $i++;
+                            } ?>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <!-- END HEADER -->
 
- ?>
-</div>
-</div>
+        <div id="pagecontent">
+            <?php echo $this->layout()->content ?>
+        </div>
 
-</div>
+        <div id="pagefoot">
+            <div id="legalpanel">
+                <?php
+                $sysconf = MailCleaner_Config::getInstance();
+                if ($sysconf->getOption('REGISTERED') == "1") {
+                    echo '<p id="copyright"><a href="http://www.mailcleaner.net" target="_blank">&copy; MailCleaner, an <img src="/templates/default/images/alinto.png"> company</a></p>';
+                    echo '<p id="company"><a href="https://support.mailcleaner.net/" target="_blank">Support provided by MailCleaner</a></p>';
+                } else {
+                    echo '<p id="copyright"><a href="http://www.mailcleaner.org" target="_blank">&copy; MailCleaner, the Open Source email filter from <img src="/templates/default/images/alinto.png"></a></p>';
+                    echo '<p id="company"><a href="http://forum.mailcleaner.org/" target="_blank">Support provided by Community</a></p>';
+                }
 
+                ?>
+            </div>
+        </div>
+
+    </div>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300:600:700:800" rel="stylesheet">
 </body>
+
 </html>

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Repository.php,v 1.1.2.4 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 require_once 'Zend/Tool/Project/Context/System/Interface.php';
@@ -26,7 +26,7 @@ require_once 'Zend/Tool/Project/Context/System/NotOverwritable.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Repository implements Countable
@@ -35,8 +35,8 @@ class Zend_Tool_Project_Context_Repository implements Countable
     protected static $_instance = null;
     protected static $_isInitialized = false;
 
-    protected $_shortContextNames = array();
-    protected $_contexts          = array();
+    protected $_shortContextNames = [];
+    protected $_contexts          = [];
 
     /**
      * Enter description here...
@@ -117,13 +117,13 @@ class Zend_Tool_Project_Context_Repository implements Countable
         }
 
         $this->_shortContextNames[$normalName] = $index;
-        $this->_contexts[$index] = array(
+        $this->_contexts[$index] = [
             'isTopLevel'     => $isTopLevel,
             'isSystem'       => $isSystem,
             'isOverwritable' => $isOverwritable,
             'normalName'     => $normalName,
             'context'        => $context
-            );
+            ];
 
         return $this;
     }
@@ -176,7 +176,7 @@ class Zend_Tool_Project_Context_Repository implements Countable
         return $this->_contexts[$index]['isOverwritable'];
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->_contexts);
     }

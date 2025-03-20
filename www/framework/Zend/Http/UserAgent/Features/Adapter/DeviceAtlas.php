@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ require_once 'Zend/Http/UserAgent/Features/Adapter.php';
  *
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_UserAgent_Features_Adapter_DeviceAtlas implements Zend_Http_UserAgent_Features_Adapter
@@ -71,8 +71,6 @@ class Zend_Http_UserAgent_Features_Adapter_DeviceAtlas implements Zend_Http_User
         //load the device data-tree : e.g. 'json/DeviceAtlas.json
         $tree = Mobi_Mtld_DA_Api::getTreeFromFile($config['deviceatlas_data']);
 
-        $properties = Mobi_Mtld_DA_Api::getProperties($tree, $request['http_user_agent']);
-
-        return $properties;
+        return Mobi_Mtld_DA_Api::getProperties($tree, $request['http_user_agent']);
     }
 }

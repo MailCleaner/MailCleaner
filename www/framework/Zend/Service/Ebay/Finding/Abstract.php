@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.1 2011-05-30 08:31:05 root Exp $
+ * @version    $Id: Abstract.php 22791 2010-08-04 16:11:47Z renanbr $
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Service/Ebay/Finding.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Ebay_Finding_Abstract
@@ -52,7 +52,7 @@ abstract class Zend_Service_Ebay_Finding_Abstract
     /**
      * @var array
      */
-    protected $_attributes = array();
+    protected $_attributes = [];
 
     /**
      * @param  DOMElement $dom
@@ -77,7 +77,7 @@ abstract class Zend_Service_Ebay_Finding_Abstract
             if (array_key_exists($tag, $this->_attributes)) {
                 return $this->_attributes[$tag];
             }
-            return array();
+            return [];
         }
 
         // a specific attribute
@@ -143,7 +143,7 @@ abstract class Zend_Service_Ebay_Finding_Abstract
     protected function _query($path, $type, $array = false)
     {
         // find values
-        $values = array();
+        $values = [];
         $nodes  = $this->_xPath->query($path, $this->_dom);
         foreach ($nodes as $node) {
             $value    = (string) $node->nodeValue;

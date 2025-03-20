@@ -1,52 +1,53 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <ul id="statuslist">
-     <li>
-     <?php if ($this->hardware_status != 'healthy') {
-         preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->hardware_status, $matches);
-         $short = $matches[1];
-         $status = $matches[2];
-         $title = $matches[3];
-     ?>
-         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
-         <a id="statuslink_<?php echo $status; ?>" title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
-       <?php } else { ?>
-          <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Hardware')?> :</strong>
-         <?php echo $this->t->_($this->hardware_status)?>
-       <?php } ?>
-     </li>
-     <li>
-     <?php if ($this->spools_status != 'spoolslow') {
-         preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->spools_status, $matches);
-         $short = $matches[1];
-         $status = $matches[2];
-         $title = $matches[3];
-     ?>
-         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Spools')?> :</strong> 
-         <a title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
-       <?php } else { ?>
-         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Spools')?> :</strong> 
-         <?php echo $this->t->_($this->spools_status)?>
-       <?php } ?>
-     </li>
-     <li>
-     <?php if ($this->load_status != 'loadlow') {
-         preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->load_status, $matches);
-         $short = $matches[1];
-         $status = $matches[2];
-         $title = $matches[3];
-     ?>
-         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Load')?> :</strong>
-         <a title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
-       <?php } else { ?>
-         <img class="statusbullet" src="<?php echo $this->images_path;?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Load')?> :</strong>
-         <?php echo $this->t->_($this->load_status)?>
-       <?php } ?>
-     </li>
+    <li>
+        <?php if ($this->hardware_status != 'healthy') {
+            preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->hardware_status, $matches);
+            $short = $matches[1];
+            $status = $matches[2];
+            $title = $matches[3];
+        ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Hardware') ?> :</strong>
+            <a title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
+        <?php } else { ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Hardware') ?> :</strong>
+            <?php echo $this->t->_($this->hardware_status) ?>
+        <?php } ?>
+    </li>
+    <li>
+        <?php if ($this->spools_status != 'spoolslow') {
+            preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->spools_status, $matches);
+            $short = $matches[1];
+            $status = $matches[2];
+            $title = $matches[3];
+        ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Spools') ?> :</strong>
+            <a id="statuslink_<?php echo $status; ?>" title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
+        <?php } else { ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Spools') ?> :</strong>
+            <?php echo $this->t->_($this->spools_status) ?>
+        <?php } ?>
+    </li>
+    <li>
+        <?php if ($this->load_status != 'loadlow') {
+            preg_match('/^([^#]*)#([^#]*)#(.*)$/', $this->load_status, $matches);
+            $short = $matches[1];
+            $status = $matches[2];
+            $title = $matches[3];
+        ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_<?php echo ($status == 'critical' ? 'red' : 'orange'); ?>.png" alt="" /><strong><?php echo $this->t->_('Load') ?> :</strong>
+            <a title="<?php echo $title; ?>" href="/admin/monitorstatus"><?php echo $short; ?></a>
+        <?php } else { ?>
+            <img class="statusbullet" src="<?php echo $this->images_path; ?>/status_green.png" alt="" /><strong><?php echo $this->t->_('Load') ?> :</strong>
+            <?php echo $this->t->_($this->load_status) ?>
+        <?php } ?>
+    </li>
 </ul>

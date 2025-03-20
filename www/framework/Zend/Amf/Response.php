@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Response.php,v 1.1.2.3 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Amf_Constants */
@@ -32,7 +32,7 @@ require_once 'Zend/Amf/Parse/Amf0/Serializer.php';
  * Handles converting the PHP object ready for response back into AMF
  *
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Response
@@ -46,13 +46,13 @@ class Zend_Amf_Response
      * Array of Zend_Amf_Value_MessageBody objects
      * @var array
      */
-    protected $_bodies = array();
+    protected $_bodies = [];
 
     /**
      * Array of Zend_Amf_Value_MessageHeader objects
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * @var Zend_Amf_Parse_OutputStream
@@ -91,7 +91,7 @@ class Zend_Amf_Response
         $stream->writeInt($headerCount);
         foreach ($this->getAmfHeaders() as $header) {
             $serializer = new Zend_Amf_Parse_Amf0_Serializer($stream);
-            $stream->writeUTF($header->name);
+            $stream->writeUtf($header->name);
             $stream->writeByte($header->mustRead);
             $stream->writeLong(Zend_Amf_Constants::UNKNOWN_CONTENT_LENGTH);
             if (is_object($header->data)) {
@@ -109,8 +109,8 @@ class Zend_Amf_Response
         $stream->writeInt($bodyCount);
         foreach ($this->_bodies as $body) {
             $serializer = new Zend_Amf_Parse_Amf0_Serializer($stream);
-            $stream->writeUTF($body->getTargetURI());
-            $stream->writeUTF($body->getResponseURI());
+            $stream->writeUtf($body->getTargetURI());
+            $stream->writeUtf($body->getResponseURI());
             $stream->writeLong(Zend_Amf_Constants::UNKNOWN_CONTENT_LENGTH);
             $bodyData = $body->getData();
             $markerType = ($this->_objectEncoding == Zend_Amf_Constants::AMF0_OBJECT_ENCODING) ? null : Zend_Amf_Constants::AMF0_AMF3;

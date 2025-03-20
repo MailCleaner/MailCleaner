@@ -109,11 +109,11 @@ Sophos IDE Dir = /usr/local/Sophos/ide
 Sophos Lib Dir = /usr/local/Sophos/lib
 Monitors For Sophos Updates = /usr/local/Sophos/ide/*ides.zip
 
-Monitors for ClamAV Updates = __VARDIR__/spool/clamav/daily.inc/ __VARDIR__/spool/clamav/*.cvd
-ClamAVmodule Maximum Recursion Level = 8
-ClamAVmodule Maximum Files = 1000
-ClamAVmodule Maximum File Size = 10000000 # (10 Mbytes)
-ClamAVmodule Maximum Compression Ratio = 250
+#Monitors for ClamAV Updates = __VARDIR__/spool/clamav/daily.inc/ __VARDIR__/spool/clamav/*.cvd
+#ClamAVmodule Maximum Recursion Level = 8
+#ClamAVmodule Maximum Files = 1000
+#ClamAVmodule Maximum File Size = 10000000 # (10 Mbytes)
+#ClamAVmodule Maximum Compression Ratio = 250
 
 Clamd Port = 3310
 Clamd Socket = __VARDIR__/run/clamav/clamd.sock
@@ -420,7 +420,7 @@ Deliver In Background = yes
 Delivery Method = batch
 Split Exim Spool = no
 Lockfile Dir = __VARDIR__/spool/tmp/mailscanner/incoming/Locks
-Custom Functions Dir = /opt/MailScanner/lib/MailScanner/CustomFunctions
+Custom Functions Dir = /usr/mailcleaner/lib/MailScanner/PreFilters
 Lock Type =
 Minimum Code Status = supported
 Automatic Syntax Check = yes

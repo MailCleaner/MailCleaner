@@ -102,9 +102,11 @@ if [ "SRCDIR" = "" ]; then
   SRCDIR=/var/mailcleaner
 fi
 
-echo "starting slave db..."
-$SRCDIR/etc/init.d/mysql_slave start
-sleep 5
+MYSTATUS=$(systemctl is-active --quiet mariadb@slave);
+if [[ $MYSATUS != 'active' ]]; then
+  $SRCDIR/etc/init.d/mariadb@slave start
+  sleep 5
+fi
 
 check_status
 if [[ $RUN != 1 ]]; then
@@ -132,15 +134,15 @@ else
   export MPASS=`cat /var/tmp/master.conf | cut -d':' -f2`
 fi
 
-/opt/mysql5/bin/mysqldump -S$VARDIR/run/mysql_slave/mysqld.sock -umailcleaner -p$MYMAILCLEANERPWD mc_config update_patch > /var/tmp/updates.sql
+/usr/bin/mysqldump -S$VARDIR/run/mysql_slave/mysqld.sock -umailcleaner -p$MYMAILCLEANERPWD mc_config update_patch > /var/tmp/updates.sql
 
-/opt/mysql5/bin/mysqldump -h $MHOST -umailcleaner -p$MPASS --master-data mc_config > /var/tmp/master.sql
-$SRCDIR/etc/init.d/mysql_slave stop 
+/usr/bin/mysqldump -h $MHOST -umailcleaner -p$MPASS --master-data mc_config > /var/tmp/master.sql
+$SRCDIR/etc/init.d/mariadb@slave stop
 sleep 2
 rm $VARDIR/spool/mysql_slave/master.info  >/dev/null 2>&1
 rm $VARDIR/spool/mysql_slave/mysqld-relay*  >/dev/null 2>&1
 rm $VARDIR/spool/mysql_slave/relay-log.info >/dev/null 2>&1
-$SRCDIR/etc/init.d/mysql_slave start nopass
+$SRCDIR/etc/init.d/mariadb@slave-nopass start
 sleep 5
 echo "STOP SLAVE;" | $SRCDIR/bin/mc_mysql -s 
 sleep 2
@@ -158,7 +160,8 @@ RUN=$?
 echo "START SLAVE;" | $SRCDIR/bin/mc_mysql -s 
 sleep 5
 
-$SRCDIR/etc/init.d/mysql_slave restart
+$SRCDIR/etc/init.d/mariadb@slave-nopass stop
+$SRCDIR/etc/init.d/mariadb@slave start
 sleep 5
 $SRCDIR/bin/mc_mysql -s mc_config < /var/tmp/updates.sql
 

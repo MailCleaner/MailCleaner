@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlFlash.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/HtmlObject.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
@@ -49,11 +49,11 @@ class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
      * @param string $content Alternative content
      * @return string
      */
-    public function htmlFlash($data, array $attribs = array(), array $params = array(), $content = null)
+    public function htmlFlash($data, array $attribs = [], array $params = [], $content = null)
     {
         // Params
-        $params = array_merge(array('movie'   => $data,
-                                    'quality' => 'high'), $params);
+        $params = array_merge(['movie'   => $data,
+                                    'quality' => 'high'], $params);
 
         return $this->htmlObject($data, self::TYPE, $attribs, $params, $content);
     }

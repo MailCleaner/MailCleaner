@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php,v 1.1.2.4 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Captcha_Word */
@@ -31,7 +31,7 @@ require_once 'Zend/Captcha/Word.php';
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Captcha_Image extends Zend_Captcha_Word
@@ -240,24 +240,36 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
     {
         return $this->_width;
     }
+
     /**
+     * Set start image
+     *
      * @param string $startImage
+     * @return Zend_Captcha_Image
      */
     public function setStartImage ($startImage)
     {
         $this->_startImage = $startImage;
         return $this;
     }
+
     /**
+     * Set dot noise level
+     *
      * @param int $dotNoiseLevel
+     * @return Zend_Captcha_Image
      */
     public function setDotNoiseLevel ($dotNoiseLevel)
     {
         $this->_dotNoiseLevel = $dotNoiseLevel;
         return $this;
     }
-   /**
+
+    /**
+     * Set line noise level
+     *
      * @param int $lineNoiseLevel
+     * @return Zend_Captcha_Image
      */
     public function setLineNoiseLevel ($lineNoiseLevel)
     {
@@ -348,8 +360,12 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
         $this->_imgUrl = rtrim($imgUrl, "/\\") . '/';
         return $this;
     }
+
     /**
+     * Set image alternative text
+     *
      * @param string $imgAlt
+     * @return Zend_Captcha_Image
      */
     public function setImgAlt ($imgAlt)
     {
@@ -426,11 +442,13 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
             $id = $this->_generateRandomId();
             $this->_setId($id);
         }
+
         $this->_generateImage($id, $this->getWord());
 
-        if (mt_rand(1, $this->getGcFreq()) == 1) {
+        if (mt_rand(1, $this->getGcFreq()) === 1) {
             $this->_gc();
         }
+
         return $id;
     }
 
@@ -440,8 +458,9 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
      * Override this function if you want different image generator
      * Wave transform from http://www.captcha.ru/captchas/multiwave/
      *
-     * @param string $id Captcha ID
+     * @param string $id   Captcha ID
      * @param string $word Captcha word
+     * @throws Zend_Captcha_Exception
      */
     protected function _generateImage($id, $word)
     {
@@ -489,7 +508,7 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
         $textbox = imageftbbox($fsize, 0, $font, $word);
         $x = ($w - ($textbox[2] - $textbox[0])) / 2;
         $y = ($h - ($textbox[7] - $textbox[1])) / 2;
-        imagefttext($img, $fsize, 0, $x, $y, $text_color, $font, $word);
+        imagefttext($img, $fsize, 0, (int) $x, (int) $y, $text_color, $font, $word);
 
        // generate noise
         for ($i=0; $i<$this->_dotNoiseLevel; $i++) {
@@ -524,16 +543,19 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
 
                 if ($sx < 0 || $sy < 0 || $sx >= $w - 1 || $sy >= $h - 1) {
                     continue;
-                } else {
-                    $color    = (imagecolorat($img, $sx, $sy) >> 16)         & 0xFF;
-                    $color_x  = (imagecolorat($img, $sx + 1, $sy) >> 16)     & 0xFF;
-                    $color_y  = (imagecolorat($img, $sx, $sy + 1) >> 16)     & 0xFF;
-                    $color_xy = (imagecolorat($img, $sx + 1, $sy + 1) >> 16) & 0xFF;
                 }
+
+                $color    = (imagecolorat($img, (int)$sx, (int)$sy) >> 16)         & 0xFF;
+                $color_x  = (imagecolorat($img, (int)$sx + 1, (int)$sy) >> 16)     & 0xFF;
+                $color_y  = (imagecolorat($img, (int)$sx, (int)$sy + 1) >> 16)     & 0xFF;
+                $color_xy = (imagecolorat($img, (int)$sx + 1, (int)$sy + 1) >> 16) & 0xFF;
+
                 if ($color == 255 && $color_x == 255 && $color_y == 255 && $color_xy == 255) {
                     // ignore background
                     continue;
-                } elseif ($color == 0 && $color_x == 0 && $color_y == 0 && $color_xy == 0) {
+                }
+
+                if ($color == 0 && $color_x == 0 && $color_y == 0 && $color_xy == 0) {
                     // transfer inside of the image as-is
                     $newcolor = 0;
                 } else {
@@ -548,7 +570,7 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
                               + $color_y  * $frac_x1 * $frac_y
                               + $color_xy * $frac_x  * $frac_y;
                 }
-                imagesetpixel($img2, $x, $y, imagecolorallocate($img2, $newcolor, $newcolor, $newcolor));
+                imagesetpixel($img2, $x, $y, imagecolorallocate($img2, (int)$newcolor, (int)$newcolor, (int)$newcolor));
             }
         }
 
@@ -567,7 +589,6 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
 
     /**
      * Remove old files from image directory
-     *
      */
     protected function _gc()
     {
@@ -580,7 +601,7 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
         $suffixLength = strlen($this->_suffix);
         foreach (new DirectoryIterator($imgdir) as $file) {
             if (!$file->isDot() && !$file->isDir()) {
-                if ($file->getMTime() < $expire) {
+                if (file_exists($file->getPathname()) && $file->getMTime() < $expire) {
                     // only deletes files ending with $this->_suffix
                     if (substr($file->getFilename(), -($suffixLength)) == $this->_suffix) {
                         unlink($file->getPathname());
@@ -599,7 +620,11 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
      */
     public function render(Zend_View_Interface $view = null, $element = null)
     {
+        $endTag = ' />';
+        if (($view instanceof Zend_View_Abstract) && !$view->doctype()->isXhtml()) {
+            $endTag = '>';
+        }
         return '<img width="' . $this->getWidth() . '" height="' . $this->getHeight() . '" alt="' . $this->getImgAlt()
-             . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '" />';
+             . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '"' . $endTag;
     }
 }

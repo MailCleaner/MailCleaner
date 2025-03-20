@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Books
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Review.php,v 1.1.2.3 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Gdata/Extension.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Books
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Books_Extension_Review extends Zend_Gdata_Extension
@@ -127,7 +127,7 @@ class Zend_Gdata_Books_Extension_Review extends Zend_Gdata_Extension
      * Sets the language of link title
      *
      * @param string $lang language of link title
-     * @return Zend_Gdata_Books_Extension_Review Provides a fluent interface
+     * @return $this
      */
     public function setLang($lang)
     {
@@ -139,7 +139,7 @@ class Zend_Gdata_Books_Extension_Review extends Zend_Gdata_Extension
      * Sets the type of text construct (typically 'text', 'html' or 'xhtml')
      *
      * @param string $type type of text construct (typically 'text', 'html' or 'xhtml')
-     * @return Zend_Gdata_Books_Extension_Review Provides a fluent interface
+     * @return $this
      */
     public function setType($type)
     {

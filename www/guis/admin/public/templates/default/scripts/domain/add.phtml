@@ -1,64 +1,68 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="generalconfigpanel">
-  <p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
-  <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Domains')?></p>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu) ?> : <?php echo $this->t->_('Domains') ?></p>
 
-  <div id="domainnavigpanel">
-  <?php $user = Zend_Registry::get('user'); ?>
-  <?php if ($user && $user->getUserType() == 'administrator') {?>
-    <ul id="domainnavoptions">
-        <li id="domainoptiontop" class="domainoptiontop" onclick="javascript:loadurl('<?php echo $this->globalurl?>')"><a href="<?php echo $this->globalurl?>"><?php echo $this->t->_('Domain default settings');?></a></li>
-        <li class="newdomain newdomainselected" onclick="javascript:loadurl('<?php echo $this->addurl?>')"><span><a href="<?php echo $this->addurl?>"><?php echo $this->t->_('New domain');?></a></span><img src="<?php echo $this->images_path?>/domainaddbuttonselected.png" alt="add" /></li>
-    </ul>
-  <?php } elseif ($user && $user->getRight('allow_subdomains')) {?>
-    <ul id="domainnavoptions">
-        <li class="newdomain newdomaintop newdomainselected" onclick="javascript:loadurl('<?php echo $this->addurl?>')"><span><a href="<?php echo $this->addurl?>"><?php echo $this->t->_('New domain');?></a></span><img src="<?php echo $this->images_path?>/domainaddbuttonselected.png" alt="add" /></li>
-    </ul> 
-   <?php }?>
- 
-    <div id="searchpanel">
-      <form id="searchform" action="">
-        <p id="searchlabel"><?php echo $this->t->_('Domain specific settings')?></p>
-        <div><input type="text" id="sname" value="<?php echo $this->sname?>" /></div>
-      </form>
-    </div>
-    <div id="resultpanel">
+    <div id="domainnavigpanel">
+        <?php $user = Zend_Registry::get('user'); ?>
+        <?php if ($user && $user->getUserType() == 'administrator') { ?>
+            <ul id="domainnavoptions">
+                <li id="domainoptiontop" class="domainoptiontop" onclick="javascript:loadurl('<?php echo $this->globalurl ?>')"><a href="<?php echo $this->globalurl ?>"><?php echo $this->t->_('Domain default settings'); ?></a></li>
+                <li class="newdomain newdomainselected" onclick="javascript:loadurl('<?php echo $this->addurl ?>')"><span><a href="<?php echo $this->addurl ?>"><?php echo $this->t->_('New domain'); ?></a></span><img src="<?php echo $this->images_path ?>/domainaddbuttonselected.png" alt="add" /></li>
+            </ul>
+        <?php } elseif ($user && $user->getRight('allow_subdomains')) { ?>
+            <ul id="domainnavoptions">
+                <li class="newdomain newdomaintop newdomainselected" onclick="javascript:loadurl('<?php echo $this->addurl ?>')"><span><a href="<?php echo $this->addurl ?>"><?php echo $this->t->_('New domain'); ?></a></span><img src="<?php echo $this->images_path ?>/domainaddbuttonselected.png" alt="add" /></li>
+            </ul>
+        <?php } ?>
 
-<?php echo $this->partial('ajax/domain/search.phtml', array(
-                         'domains' => $this->domains,
-                         'domainscount' => $this->domainscount,
-                         'page' => $this->page,
-                         'lastpage' => $this->lastpage,
-                         'images_path' => $this->images_path,
-                         'sname' => $this->sname,
-                         'name' => $this->name,
-                         'searchurl' => $this->searchurl,
-                         't' => $this->t,
-)); ?>
-   
-    </div>
-  </div>
- 
-  <div id="domaincontentpanel">
-    <div id="tasksconfigpanel" class="domainconfigpanel">
-      <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-   
-        <h1 class="adddomaincontentpaneltitle">
-        <span><?php echo $this->t->_('Domain name')?> : </span><?php echo $this->InputRow($this->form->getElement('domainname'),array('nobox'=>true,'field_only'=>true));?><?php echo $this->InputRow($this->form->getElement('mdomainname'),array('nobox'=>true,'field_only'=>true));?> <a href="javascript:goMultipleDomains()">+</a>
-        <?php if ($user->getUserType() != 'administrator' && $user->getRight('allow_subdomains')) {?><?php echo $this->InputRow($this->form->getElement('topdomains'),array('nobox'=>true,'field_only'=>true)); ?><?php }?>
-        </h1>
+        <div id="searchpanel">
+            <form id="searchform" action="">
+                <p id="searchlabel"><?php echo $this->t->_('Domain specific settings') ?></p>
+                <div><input type="text" id="sname" value="<?php echo $this->sname ?>" /></div>
+            </form>
+        </div>
+        <div id="resultpanel">
 
-        <div id="domainformcontent" class="adddomainformcontent">
-             <?php echo $this->partial('forms/domainaddForm.phtml', array('form' => $this->form,'t' => $this->t, 'message' => $this->message, 'domain' => $this->domain)); ?>
-         </div>
-      </form>
+            <?php echo $this->partial(
+                'ajax/domain/search.phtml',
+                [
+                    'domains' => $this->domains,
+                    'domainscount' => $this->domainscount,
+                    'page' => $this->page,
+                    'lastpage' => $this->lastpage,
+                    'images_path' => $this->images_path,
+                    'sname' => $this->sname,
+                    'name' => $this->name,
+                    'searchurl' => $this->searchurl,
+                    't' => $this->t,
+                ]
+            ); ?>
+
+        </div>
     </div>
-  </div>
+
+    <div id="domaincontentpanel">
+        <div id="tasksconfigpanel" class="domainconfigpanel">
+            <form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+
+                <h1 class="adddomaincontentpaneltitle">
+                    <span><?php echo $this->t->_('Domain name') ?> : </span><?php echo $this->InputRow($this->form->getElement('domainname'), ['nobox' => true, 'field_only' => true]); ?><?php echo $this->InputRow($this->form->getElement('mdomainname'), ['nobox' => true, 'field_only' => true]); ?> <a href="javascript:goMultipleDomains()">+</a>
+                    <?php if ($user->getUserType() != 'administrator' && $user->getRight('allow_subdomains')) { ?><?php echo $this->InputRow($this->form->getElement('topdomains'), ['nobox' => true, 'field_only' => true]); ?><?php } ?>
+                </h1>
+
+                <div id="domainformcontent" class="adddomainformcontent">
+                    <?php echo $this->partial('forms/domainaddForm.phtml', ['form' => $this->form, 't' => $this->t, 'message' => $this->message, 'domain' => $this->domain]); ?>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

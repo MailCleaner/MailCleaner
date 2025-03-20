@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Binary.php,v 1.1.2.3 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 
@@ -29,7 +29,7 @@ require_once 'Zend/Pdf/Element/String.php';
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_String_Binary extends Zend_Pdf_Element_String
@@ -62,7 +62,7 @@ class Zend_Pdf_Element_String_Binary extends Zend_Pdf_Element_String
      */
     public static function unescape($inStr)
     {
-        $chunks = array();
+        $chunks = [];
         $offset = 0;
         $length = 0;
         while ($offset < strlen($inStr)) {

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mcrypt.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -24,12 +24,15 @@
  */
 require_once 'Zend/Filter/Encrypt/Interface.php';
 
+/** @see Zend_Crypt_Math */
+require_once 'Zend/Crypt/Math.php';
+
 /**
  * Encryption adapter for mcrypt
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
@@ -44,7 +47,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
      *     'modedirectory' => directory where to find the mode
      * )
      */
-    protected $_encryption = array(
+    protected $_encryption = [
         'key'                 => 'ZendFramework',
         'algorithm'           => 'blowfish',
         'algorithm_directory' => '',
@@ -52,7 +55,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         'mode_directory'      => '',
         'vector'              => null,
         'salt'                => false
-    );
+    ];
 
     /**
      * Internal compression
@@ -78,7 +81,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (is_string($options)) {
-            $options = array('key' => $options);
+            $options = ['key' => $options];
         } elseif (!is_array($options)) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('Invalid options argument provided to filter');
@@ -106,12 +109,12 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
      * Sets new encryption options
      *
      * @param  string|array $options Encryption options
-     * @return Zend_Filter_File_Encryption
+     * @return Zend_Filter_Encrypt_Mcrypt
      */
     public function setEncryption($options)
     {
         if (is_string($options)) {
-            $options = array('key' => $options);
+            $options = ['key' => $options];
         }
 
         if (!is_array($options)) {
@@ -168,17 +171,12 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         $cipher = $this->_openCipher();
         $size   = mcrypt_enc_get_iv_size($cipher);
         if (empty($vector)) {
-            $this->_srand();
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && version_compare(PHP_VERSION, '5.3.0', '<')) {
-                $method = MCRYPT_RAND;
+            if (file_exists('/dev/urandom') || (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')) {
+                $method = MCRYPT_DEV_URANDOM;
+            } elseif (file_exists('/dev/random')) {
+                $method = MCRYPT_DEV_RANDOM;
             } else {
-                if (file_exists('/dev/urandom') || (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')) {
-                    $method = MCRYPT_DEV_URANDOM;
-                } elseif (file_exists('/dev/random')) {
-                    $method = MCRYPT_DEV_RANDOM;
-                } else {
-                    $method = MCRYPT_RAND;
-                }
+                $method = MCRYPT_RAND;
             }
             $vector = mcrypt_create_iv($size, $method);
         } else if (strlen($vector) != $size) {
@@ -211,7 +209,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     public function setCompression($compression)
     {
         if (is_string($this->_compression)) {
-            $compression = array('adapter' => $compression);
+            $compression = ['adapter' => $compression];
         }
 
         $this->_compression = $compression;
@@ -319,8 +317,8 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
      * Initialises the cipher with the set key
      *
      * @param  resource $cipher
+     * @return Zend_Filter_Encrypt_Mcrypt
      * @throws
-     * @return resource
      */
     protected function _initCipher($cipher)
     {
@@ -328,7 +326,6 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
 
         $keysizes = mcrypt_enc_get_supported_key_sizes($cipher);
         if (empty($keysizes) || ($this->_encryption['salt'] == true)) {
-            $this->_srand();
             $keysize = mcrypt_enc_get_key_size($cipher);
             $key     = substr(md5($key), 0, $keysize);
         } else if (!in_array(strlen($key), $keysizes)) {
@@ -343,22 +340,5 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         }
 
         return $this;
-    }
-
-    /**
-     * _srand() interception
-     *
-     * @see ZF-8742
-     */
-    protected function _srand()
-    {
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            return;
-        }
-
-        if (!self::$_srandCalled) {
-            srand((double) microtime() * 1000000);
-            self::$_srandCalled = true;
-        }
     }
 }

@@ -1,26 +1,33 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Mentor Reka
- * @copyright 2017, Mentor Reka
+ * @author Mentor Reka, John Mertz
+ * @copyright 2017, Mentor Reka; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
- <fieldset id="localesettings">
-       <table class="ftable">
-       	   <tr><td colspan="2" align="center">Please read the following important information before enabling this feature : <a href="https://support.mailcleaner.net/boards/3/topics/53-auto-configuration" target="_blank">Auto-configuration</a></td></tr>
-       </table>
-       <hr/>
-       <table class="ftable">
-	  <tr><td colspan="2" align="center">Download and set reference configuration : <input name="download" id="download" value="Download" type="submit"></td></tr>
-       </table>
-       <hr/>
-       <table class="ftable">
-          <tr><td colspan="2">By enabling the auto-configuration, a part of your MailCleaner configuration will be synchronized every day with the recommended MailCleaner configuration.</td></tr>
-          <?php echo $this->InputRow($this->form->getElement('autoconfiguration'));?>          
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?> 
-       </table>
-     </fieldset>
- </form>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+    <fieldset id="localesettings">
+        <table class="ftable">
+            <tr>
+                <td colspan="2" align="center">Please read the following important information before enabling this feature : <a href="https://support.mailcleaner.net/boards/3/topics/53-auto-configuration" target="_blank">Auto-configuration</a></td>
+            </tr>
+        </table>
+        <hr />
+        <table class="ftable">
+            <tr>
+                <td colspan="2" align="center">Download and set reference configuration : <input name="download" id="download" value="Download" type="submit"></td>
+            </tr>
+        </table>
+        <hr />
+        <table class="ftable">
+            <tr>
+                <td colspan="2">By enabling the auto-configuration, a part of your MailCleaner configuration will be synchronized every day with the recommended MailCleaner configuration.</td>
+            </tr>
+            <?php echo $this->InputRow($this->form->getElement('autoconfiguration')); ?>
+            <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+        </table>
+    </fieldset>
+</form>

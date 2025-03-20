@@ -1,48 +1,48 @@
 html,body {
-  background-color: #DDD6DD;
+    background-color: #DDD6DD;
 }
 
 #container {
-   background-color: #DDD6DD;
-   min-width: 600px;
+    background-color: #DDD6DD;
+    min-width: 600px;
 }
 
 #mainheader {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 #unloggedmessagebox {
-  width: 500px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:40px;
-  border: 1px solid #C6ADC6;
-  padding-bottom: 24px;
-  background-color: #FFFFFF;
+    width: 500px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:40px;
+    border: 1px solid #C6ADC6;
+    padding-bottom: 24px;
+    background-color: #FFFFFF;
 }
 
 #popupheader {
-  margin: 0px;
-  padding: 0px;
-  height: 43px;
-  background-image:url(../images/popup_bg.png);
-  border-bottom: solid 1px #C6ADC6;
-  line-height: 43px;
+    margin: 0px;
+    padding: 0px;
+    height: 43px;
+    background-image:url(../images/popup_bg.png);
+    border-bottom: solid 1px #C6ADC6;
+    line-height: 43px;
 }
 
 #popupheader img {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 #text {
-  position: static;
-  padding-left: 70px;
-  overflow: auto;
-  margin-bottom: 10px;
+    position: static;
+    padding-left: 70px;
+    overflow: auto;
+    margin-bottom: 10px;
 }
 
 #buttons {
-  position: static;
-  margin-right: 20px;
+    position: static;
+    margin-right: 20px;
 }

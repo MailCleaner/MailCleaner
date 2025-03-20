@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Link.php,v 1.1.2.3 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Gdata/Extension.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
@@ -118,7 +118,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setHref($value)
     {
@@ -136,7 +136,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setRel($value)
     {
@@ -154,7 +154,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setType($value)
     {
@@ -172,7 +172,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setHrefLang($value)
     {
@@ -190,7 +190,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setTitle($value)
     {
@@ -208,7 +208,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
 
     /**
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setLength($value)
     {

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Annotation
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Markup.php,v 1.1.2.1 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /** Internally used classes */
@@ -37,7 +37,7 @@ require_once 'Zend/Pdf/Annotation.php';
  *
  * @package    Zend_Pdf
  * @subpackage Annotation
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Annotation_Markup extends Zend_Pdf_Annotation
@@ -65,10 +65,10 @@ class Zend_Pdf_Annotation_Markup extends Zend_Pdf_Annotation
         if ($annotationDictionary->Subtype === null  ||
             $annotationDictionary->Subtype->getType() != Zend_Pdf_Element::TYPE_NAME  ||
             !in_array( $annotationDictionary->Subtype->value,
-                       array(self::SUBTYPE_HIGHLIGHT,
+                       [self::SUBTYPE_HIGHLIGHT,
                              self::SUBTYPE_UNDERLINE,
                              self::SUBTYPE_SQUIGGLY,
-                             self::SUBTYPE_STRIKEOUT) )) {
+                             self::SUBTYPE_STRIKEOUT] )) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Subtype => Markup entry is omitted or has wrong value.');
         }
@@ -127,7 +127,7 @@ class Zend_Pdf_Annotation_Markup extends Zend_Pdf_Annotation
 
         $annotationDictionary->Contents = new Zend_Pdf_Element_String($text);
 
-        if (!is_array($quadPoints)  ||  count($quadPoints) == 0  ||  count($quadPoints) % 8 != 0) {
+        if (!is_array($quadPoints) || count($quadPoints) === 0 || count($quadPoints) % 8 != 0) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('$quadPoints parameter must be an array of 8xN numbers');
         }

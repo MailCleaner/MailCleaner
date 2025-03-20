@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Availabilityzones.php,v 1.1.2.4 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Service/Amazon/Ec2/Abstract.php';
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_Ec2_Availabilityzones extends Zend_Service_Amazon_Ec2_Abstract
@@ -45,7 +45,7 @@ class Zend_Service_Amazon_Ec2_Availabilityzones extends Zend_Service_Amazon_Ec2_
      */
     public function describe($zoneName = null)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeAvailabilityZones';
 
         if(is_array($zoneName) && !empty($zoneName)) {
@@ -61,9 +61,9 @@ class Zend_Service_Amazon_Ec2_Availabilityzones extends Zend_Service_Amazon_Ec2_
         $xpath  = $response->getXPath();
         $nodes  = $xpath->query('//ec2:item');
 
-        $return = array();
+        $return = [];
         foreach ($nodes as $k => $node) {
-            $item = array();
+            $item = [];
             $item['zoneName']   = $xpath->evaluate('string(ec2:zoneName/text())', $node);
             $item['zoneState']  = $xpath->evaluate('string(ec2:zoneState/text())', $node);
 

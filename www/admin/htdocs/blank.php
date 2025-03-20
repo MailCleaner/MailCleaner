@@ -1,10 +1,11 @@
-<?
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2006, Olivier Diserens; 2023, John Mertz
+ *
  * This is the controller for a blank page
  */
 
@@ -18,10 +19,7 @@ require_once('view/Template.php');
 $template_ = new Template('blank.tmpl');
 
 // prepare replacements
-$replace = array(
-    '__LANG__' => $lang_->getLanguage()
-);
+$replace = ['__LANG__' => $lang_->getLanguage()];
 
 // output page
 $template_->output($replace);
-?>

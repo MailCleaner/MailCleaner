@@ -1,0 +1,17 @@
+[Unit]
+Description=SpamHandler daemon for MailCleaner
+After=mariadb@slave.service
+Requires=mariadb@slave.service
+Binds=exim4@4.service
+#PartOf=mailscanner.service mailcleaner.target
+
+[Service]
+User=mailcleaner
+Group=mailcleaner
+PrivateTmp=false
+Type=forking
+#ExecStartPre=+/usr/mailcleaner/bin/dump_stats_daemon.pl %I
+ExecStart=/usr/mailcleaner/bin/daemon_starter.pl SpamHandler -d start
+
+[Install]
+WantedBy=mailcleaner.target

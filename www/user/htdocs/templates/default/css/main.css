@@ -1,27 +1,27 @@
 /* main.css */
 /*** https://user.mailcleaner.net/templates/default/css/main.css ***/
 html, body {
-   margin: 0;
-   padding: 0;
-   border: 0;
-   font-family:  Arial;
-   font-weight: normal;
-   font-size: 11px;
-   background-color: #FCFCFC;
-   color: #363636;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family:  Arial;
+    font-weight: normal;
+    font-size: 1em;
+    background-color: #FCFCFC;
+    color: #363636;
 }
 
 a {
-  color: #4a4a4a;
-  text-decoration: underline;
+    color: #4a4a4a;
+    text-decoration: underline;
 }
 a:hover {
-  color: #4a4a4a;
-  text-decoration: underline;
+    color: #4a4a4a;
+    text-decoration: underline;
 }
 
 img {
-  border: 0px;
+    border: 0px;
 }
 
 select {
@@ -29,235 +29,245 @@ select {
 }
 
 form {
-  margin: 0px !important;
-  padding: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 input {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 /** main divs **/
 
 
 #container {
-   position:relative;
-   margin:0 auto;
-   height:auto !important;
-   height: 100%;
-   min-height: 100%;
-   width: 100%;
-   min-width: 955px;
+    position:relative;
+    margin:0 auto;
+    height:auto !important;
+    min-height: 100%;
+    width: 100%;
+    min-width: 955px;
 }
 
 #pagehead {
-  overflow: auto;
+    overflow: auto;
 }
 
 #pagecontent {
-  padding-bottom: 30px;
-  overflow: auto;
+    padding-bottom: 45px;
+    overflow: auto;
 }
 
 #pagefoot {
-  position: fixed;
-  bottom: 0px;
-  height: 24px;
-  width: 100%;
-  overflow: hidden;
-  background-color: #F5F5F5;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #022971;
 }
 
+#pagefoot a {
+    font-weight: bold;
+    text-decoration: none;
+}
 
 /* legal panel */
 #legalpanel {
-   border-top: 1px solid #CBC1C8;
-   color: #552056;
-   width: 100%;
-   line-height: 22px;
+    width: 100%;
+    line-height: 22px;
 }
 #legalpanel p {
-  margin: 0px;
-  padding: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
-   line-height: 22px;
+    padding: 5px;
+    margin: 0px;
+    line-height: 22px;
 }
 
 #copyright {
-  float: left;
-  color: #4A4A4A;
-  font-size: 11px;
-  display: inline;
-  line-height: 23px;
+    float: left;
 }
 
 #company {
-  display: inline;
-  float:right;
-  font-size: 9px;
-  color: #AA2056;
-  line-height: 23px;
+    float:right;
+    margin-right: 5px;
+}
+
+#company, #copyright {
+    display: inline;
+}
+
+#company a, #copyright a {
+    color: #FFFFFF;
+    line-height: 30px;
+    vertical-align: bottom;
+    font-size: 14px;
+}
+
+#copyright img {
+    height: 20px;
+    padding-bottom: 5px;
+    vertical-align: bottom;
 }
 
 #company img {
-  border: 0px;
-  margin-right: 1px;
-  margin-top: 8px;
-  vertical-align: baseline;
+    border: 0px;
+    margin-right: 1px;
+    margin-top: 8px;
+    vertical-align: baseline;
 }
 
 #generalconfigpanel {
-  margin-top: 16px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 10px;
-  height: 100%;
-  border: 1px solid #D4D3D2;
-  background: #FFFFFF;
-  overflow: auto;
+    margin-top: 16px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 100%;
+    border: 1px solid #D4D3D2;
+    background: #FFFFFF;
+    overflow: auto;
 }
 
 .contentheadicon {
-  float: left;
-  margin: 0px;
-  padding: 0px;
-  height: 48px;
-  line-height: 48px;
-  width: 184px;
-  background-image: none;
-    background-color: #F5F5F5;
-  border-bottom: 1px solid #D4D3D2;
-  border-right: 1px solid #D4D3D2;
-  overflow: hidden;
-  white-space: nowrap;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    height: 48px;
+    line-height: 48px;
+    width: 184px;
+    background-image: none;
+    background-color: #E8E8E8;
+    border-bottom: 1px solid #D4D3D2;
+    border-right: 1px solid #D4D3D2;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .contentheadicon img {
-  margin-left: 13px;
-  display: inline;
-  border: 0px;
-  vertical-align: middle;
+    margin-left: 13px;
+    display: inline;
+    border: 0px;
+    vertical-align: middle;
 }
 .contentheadtitle {
-  margin: 0px;
-  padding: 0px;
-  padding-left: 54px;
-  height: 48px;
-  line-height: 52px;
-  background-image:none;
-  background-color: #F5F5F5;
-  border-bottom: 1px solid #D4D3D2;
-  overflow: hidden;
-  white-space: nowrap;
-  font-weight: bold;
-  color: #E93A00;
-  font-size: 13px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 54px;
+    height: 48px;
+    line-height: 52px;
+    background-image:none;
+    background-color: #E8E8E8;
+    border-bottom: 1px solid #D4D3D2;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #ED7B00;
+    font-size: 13px;
 }
 
 #generalconfigmenu {
-  float: left;
-  list-style:none;
-  margin: 0px;
-  padding: 0px;
-  margin-top: 54px;
-  width: 184px;
-  border-top: 1px solid #D4D3D2;
-  line-height: 18px;
-  overflow: hidden;
-  font-size: 12px;
+    float: left;
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 54px;
+    width: 184px;
+    border-top: 1px solid #D4D3D2;
+    line-height: 18px;
+    overflow: hidden;
+    font-size: 12px;
 }
 
 #generalconfigmenu li {
-  margin: 0px;
-  padding: 0px;
-  border-bottom:1px solid #D4D3D2;
-  line-height: 24px;
-  padding-left: 13px;
+    margin: 0px;
+    padding: 0px;
+    border-bottom:1px solid #D4D3D2;
+    line-height: 24px;
+    padding-left: 13px;
 }
 
 #generalconfigmenu li a {
-  color: #666666;
-  text-decoration: none;
+    color: #666666;
+    text-decoration: none;
 }
 #generalconfigmenu li:hover {
-  cursor: pointer;
-  background-image:none;
-  background-color: #F5F5F5;
+    cursor: pointer;
+    background-image:none;
+    font-weight: bold;
+    color: #000000;
 }
 
 #generalconfigcontent {
-  float: left;
-  padding: 0px;
-  margin: 0px;
-  min-height: 450px;
-  margin-top: 54px;
-  padding-bottom: 20px;
-  padding-left: 54px;
-  font-size: 12px;
-  color: #666666;
-  overflow: visible;
-  white-space: normal;
-  max-width: 628px;
-  border-left: 1px solid #D4D3D2;
+    float: left;
+    padding: 0px;
+    margin: 0px;
+    min-height: 450px;
+    margin-top: 54px;
+    padding-bottom: 20px;
+    padding-left: 54px;
+    font-size: 12px;
+    color: #666666;
+    overflow: visible;
+    white-space: normal;
+    max-width: 628px;
+    border-left: 1px solid #D4D3D2;
 }
 
 #generalconfigcontent h1,h2 {
-  color: #000000;
-  text-decoration: underline;
-  font-weight: bold;
-  margin: 0px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0px;
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 0px;
 }
 
 #generalconfigcontent h2 {
-  text-decoration: none;
+    text-decoration: none;
 }
 #generalconfigcontent h4 {
-  display: inline;
-  font-weight: bold;
-  text-decoration: none;
+    display: inline;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #generalconfigcontent p {
-  margin: 0px;
-  margin-top: 2px;
-  text-align: left;
-  padding: 0px;
-  line-height: 16px;
+    margin: 0px;
+    margin-top: 2px;
+    text-align: left;
+    padding: 0px;
+    line-height: 16px;
 }
 
 #generalconfigcontent li {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 #generalconfigcontent img {
-  border: 0px;
-  margin: 0px;
-  padding: 0px;
-  vertical-align: top;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
 }
 
 .actionslist {
-  margin-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 .actions {
-  line-height: 16px;
-  margin-top: 5px !important;
+    line-height: 16px;
+    margin-top: 5px !important;
 }
 
 /* tooltip */
 #tooltip {
-  position: absolute;
-  visibility:hidden;
-  padding-left:6px;
-  padding-right: 6px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  background-color: #F5F5F5;
-  border:1px solid #D4D3D2;
-  z-index: 10;
+    position: absolute;
+    visibility:hidden;
+    padding-left:6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #e8e8e8;
+    color: #022971;
+    border:1px solid #D4D3D2;
+    z-index: 10;
 }
 
 
@@ -266,25 +276,25 @@ input {
 #quarantinebutton:hover{
     color: #FFFFFF !important;
     background-image: none !important;
-    background-color: #E93A00 !important;
+    background-color: #ED7B00 !important;
 }
 
 #configbutton:hover{
     color: #FFFFFF !important;
     background-image: none !important;
-    background-color: #E93A00 !important;
+    background-color: #ED7B00 !important;
 }
 
 #helpbutton:hover{
     color: #FFFFFF !important;
     background-image: none !important;
-    background-color: #E93A00 !important;
+    background-color: #ED7B00 !important;
 }
 
 #statsbutton:hover{
     color: #FFFFFF !important;
     background-image: none !important;
-    background-color: #E93A00 !important;
+    background-color: #ED7B00 !important;
 }
 
 /*** ---- ***/

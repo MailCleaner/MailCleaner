@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Log_Filter_Priority */
@@ -27,16 +27,16 @@ require_once 'Zend/Log/Filter/Priority.php';
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
 {
     /**
      * @var array of Zend_Log_Filter_Interface
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * Formats the log message before writing.
@@ -48,8 +48,10 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Add a filter specific to this writer.
      *
-     * @param  Zend_Log_Filter_Interface  $filter
+     * @param  Zend_Log_Filter_Interface|int $filter Filter class or filter
+     *                                               priority
      * @return Zend_Log_Writer_Abstract
+     * @throws Zend_Log_Exception
      */
     public function addFilter($filter)
     {
@@ -75,8 +77,9 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
      */
     public function write($event)
     {
+        /** @var Zend_Log_Filter_Interface $filter */
         foreach ($this->_filters as $filter) {
-            if (! $filter->accept($event)) {
+            if (!$filter->accept($event)) {
                 return;
             }
         }
@@ -108,7 +111,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Write a message to the log.
      *
-     * @param  array  $event  log data event
+     * @param  array $event log data event
      * @return void
      */
     abstract protected function _write($event);

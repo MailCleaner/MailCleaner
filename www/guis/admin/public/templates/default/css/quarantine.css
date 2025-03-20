@@ -4,358 +4,358 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 img {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 #filter {
-  margin: 0px;
-  margin-top: 17px !important;
-  padding: 0px;
-  overflow: auto;
-  min-width: 1090px;
+    margin: 0px;
+    margin-top: 17px !important;
+    padding: 0px;
+    overflow: auto;
+    min-width: 1090px;
 }
 
 .pagelink {
-  text-decoration: underline;
-  color: #552056;
+    text-decoration: underline;
+    color: #022971;
 }
 
 /* address selector */
 .addressselectpanel {
-  float: left;
-  margin: 0px;
-  margin-left: 16px;
-  font-size: 12px;
-  line-height: 24px;
+    float: left;
+    margin: 0px;
+    margin-left: 16px;
+    font-size: 12px;
+    line-height: 24px;
 }
 
 .addressselectpanel p {
-   margin: 0px;
-   margin-bottom: 7px;
-   padding: 0px;
-   color: #000000;
+    margin: 0px;
+    margin-bottom: 7px;
+    padding: 0px;
+    color: #000000;
 }
 
 /* search and filter panel */
 
 .searchpanel {
-  float: right;
-  margin: 0px;
-  margin-right: 15px;
-  padding-right: 0px;
-  margin-top: 17px;
-  font-size: 12px;
+    float: right;
+    margin: 0px;
+    margin-right: 15px;
+    padding-right: 0px;
+    margin-top: 17px;
+    font-size: 12px;
 }
 
 .contentsearchpanel {
-  margin-top: -3px;
+    margin-top: -3px;
 }
 
 .searchpanel img {
-  margin-right: 6px;
+    margin-right: 6px;
 }
 
 .searchfields {
-  float: right;
-  max-width: 500px;
-  line-height: 30px;
+    float: right;
+    max-width: 500px;
+    line-height: 30px;
 }
 
 .searchfields select {
-  margin-left: 3px !important;
-  margin-right: 3px !important;
+    margin-left: 3px !important;
+    margin-right: 3px !important;
 }
 
 .searchsubmit {
-	padding-top: 30px;
-	margin-left: 10px;
+    padding-top: 30px;
+    margin-left: 10px;
 }
 
 .subsearch {
-  float: right;
+    float: right;
 }
 
 .subadvsearch div {
-   float: left;
+    float: left;
 }
 .searchcheckfield {
-  padding-top: 5px;
+    padding-top: 5px;
 }
 
 .searchcheckfield div {
-  float: none;
-  margin: 0px !important;
-  padding: 0px !important;
-  margin-top: 5px;
-  line-height: 20px !important;
+    float: none;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-top: 5px;
+    line-height: 20px !important;
 }
 
 .subadvsearch {
-  line-height: 30px;
-  margin-top: 3px;
+    line-height: 30px;
+    margin-top: 3px;
 }
 
 #sender {
-   margin-right: 10px;
+    margin-right: 10px;
 }
 
 #mpp {
-	margin-right: 20px;
+    margin-right: 20px;
 }
 
 #referencefield {
-  padding-bottom: 7px;
-  margin-left: 16px;
-  font-size: 12px;
+    padding-bottom: 7px;
+    margin-left: 16px;
+    font-size: 12px;
 }
 
 .orhr {
-	margin-bottom: 13px;
+    margin-bottom: 13px;
     width: 90%;
 }
 
 /* quarantine panel */
 
 #quarantine,#contentquarantine,#tracinglog {
-  margin-left: 16px;
-  margin-right: 16px;
-  min-width: 1058px;
+    margin-left: 16px;
+    margin-right: 16px;
+    min-width: 1058px;
 }
 
 #quarantinetable {
-  width: 100%;
-  border-top: solid 1px #C6ADC6;
-  border-left: solid 1px #C6ADC6;
-  padding: 0px;
-  white-space: nowrap;
-  border-spacing: 0px;
-  margin: 0px;
-  margin-bottom: 7px;
-  margin-top: 15px;
-  border-collapse: collapse;
-  background-color: #FFFFFF;
+    width: 100%;
+    border-top: solid 1px #C6ADC6;
+    border-left: solid 1px #C6ADC6;
+    padding: 0px;
+    white-space: nowrap;
+    border-spacing: 0px;
+    margin: 0px;
+    margin-bottom: 7px;
+    margin-top: 15px;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
 }
 
 #quarantinetable td {
-  padding: 0px;
-  white-space: nowrap;
-  border-bottom: solid 1px #D4D3D2;
-	border-top: solid 1px #D4D3D2;
-  border-left: solid 1px #D4D3D2;
-  border-right: solid 1px #D4D3D2;
-  border-spacing: 0px;
-  margin: 0px;
-  padding-left: 9px;
-  padding-right: 9px;
-  font-size: 11px;
-  font-weight: normal;
-  height: 23px;
-  line-height: 23px;
-  color: #000000;
+    padding: 0px;
+    white-space: nowrap;
+    border-bottom: solid 1px #D4D3D2;
+    border-top: solid 1px #D4D3D2;
+    border-left: solid 1px #D4D3D2;
+    border-right: solid 1px #D4D3D2;
+    border-spacing: 0px;
+    margin: 0px;
+    padding-left: 9px;
+    padding-right: 9px;
+    font-size: 11px;
+    font-weight: normal;
+    height: 23px;
+    line-height: 23px;
+    color: #000000;
 }
 
 #quarantinetable a {
-  text-decoration: none;
-  color: #535353;
+    text-decoration: none;
+    color: #535353;
 }
 
 #quarantinetable img {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .loadingrow {
-  margin: 0px !important;
-  padding: 0px !important;
-  padding-top: 10px !important;
-  line-height: 16px !important;
-  height: 30px !important;
-  text-align: center !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    padding-top: 10px !important;
+    line-height: 16px !important;
+    height: 30px !important;
+    text-align: center !important;
 }
 .loadingrow img {
-  margin: 0px !important;
-  padding: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
 /* table banner */
 #quarantinebanner {
-  height: 48px;
-  background-image:none;
-	background-color: #F5F5F5;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  margin: 0px;
-  padding: 0px;
+    height: 48px;
+    background-image:none;
+    background-color: #F5F5F5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
 }
 
 #quarantinebanner td {
-  margin: 0px !important;
-  padding: 0px !important;
-  line-height: 48px;
-  color: #535353;
-  font-size: 12px;
+    margin: 0px !important;
+    padding: 0px !important;
+    line-height: 48px;
+    color: #535353;
+    font-size: 12px;
 }
 
 #quarantinebanner p {
-  display: inline;
-  font-weight: normal;
-  line-height: 48px;
+    display: inline;
+    font-weight: normal;
+    line-height: 48px;
 }
 
 #quarantinebanner strong {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 #quarantinebanner img {
-   vertical-align: top;
+    vertical-align: top;
 }
 
 /* table headers */
 #quarantineheader {
-  text-align:left;
-  line-height: 20px;
-  font-size: 11px;
-  font-weight: normal;
-  background-color: #FCF5EA;
+    text-align:left;
+    line-height: 20px;
+    font-size: 11px;
+    font-weight: normal;
+    background-color: #FCF5EA;
 }
 
 #quarantineheader td {
-  color: #552056;
-	background-color: #F5F5F5;
+    color: #022971;
+    background-color: #F5F5F5;
 }
 
 #quarantineheader img {
-  margin-left: 4px;
+    margin-left: 4px;
 }
 
 #quarantinetable tr:hover a {
-  text-decoration: underline;
-  color: #001391;
+    text-decoration: underline;
+    color: #001391;
 }
 
 /* yeah raf ! thanks for this one ! */
 #quarantineheader a {
-  text-decoration: none!important;
-  color: #552056!important;
+    text-decoration: none!important;
+    color: #022971!important;
 }
 
 #quarantinebanner a {
-  text-decoration: underline!important;
-  color: #001391!important;
+    text-decoration: underline!important;
+    color: #001391!important;
 }
 
 
 .hiddenscore {
-  display: inline;
-  margin: 0px;
-  padding: 0px;
-  visibility: hidden;
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    visibility: hidden;
 }
 .c_action { width: 74px; padding-left: 10px !important; padding-right: 0px !important;}
 .c_caction { width: 49px; padding-left: 10px !important; padding-right: 0px !important;}
 .c_taction { width: 59px; padding-left: 7px !important; padding-right: 2px !important;}
 .c_date { width: 112px; }
 .c_globalscore {
-	 width: 45px;
-	 padding: 0px !important;
-	 margin: 0px !important;
-	 line-height: 23px !important;
-	 text-align: center;
-	 padding-left: 9px !important;
-	 padding-right: 0px !important;
+    width: 45px;
+    padding: 0px !important;
+    margin: 0px !important;
+    line-height: 23px !important;
+    text-align: center;
+    padding-left: 9px !important;
+    padding-right: 0px !important;
 }
 .c_content {
-	width: 60px;
-	text-align: center !important;
+    width: 60px;
+    text-align: center !important;
 }
 .c_content img {
-	margin-top: 0px;
-	margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 .c_from { width: 200px; }
 .c_to { width: 200px; }
 
-.c_in_date {  width: 112px; }
-.c_out_date {  width: 112px; }
+.c_in_date {    width: 112px; }
+.c_out_date {    width: 112px; }
 .c_in_status { width: 75px; text-align: center; }
 .c_out_status { width: 75px; text-align: center; }
 .c_spam { width: 70px; text-align: center; }
 .c_content { width: 70px; text-align: center; }
 
 .c_action img {
-  margin-right: 4px !important;
-  margin-bottom: 3px !important;
+    margin-right: 4px !important;
+    margin-bottom: 3px !important;
 }
 .c_caction img {
-  margin-right: 4px !important;
-  margin-bottom: 3px !important;
+    margin-right: 4px !important;
+    margin-bottom: 3px !important;
 }
 
 .c_globalscore img {
-   margin-right: 2px !important;
-   padding-bottom: 1px !important;
+    margin-right: 2px !important;
+    padding-bottom: 1px !important;
 }
 
 .c_title {
-   padding-left: 9px;
-   text-align: left;
+    padding-left: 9px;
+    text-align: left;
 }
 
 .c_selected {
-  font-weight: bold !important;
+    font-weight: bold !important;
 }
 
 .resetsearch {
-   margin-left: 32px !important;
+    margin-left: 32px !important;
 }
 .resetsearch {
-   font-weight: bold;
+    font-weight: bold;
 }
 
 .m_accepted {
-	color: #00CC00;
+    color: #00CC00;
 }
 .m_rejected {
-	color: #FF0000;
+    color: #FF0000;
 }
 .m_relayed {
-        color: #0000FF;
+    color: #0000FF;
 }
 .m_warning {
-	color: #FFA500;
+    color: #FFA500;
 }
 .m_failed {
-	color: #FF0000;
+    color: #FF0000;
 }
 
 #tracinglog .descmessage {
-  margin-top: 50px !important;
+    margin-top: 50px !important;
 }
 
 /* quarantine content */
 .quarantine_content:hover {
-   background-image: url(../images/quarantine_bg.png);
-   cursor: pointer;
+    background-image: url(../images/quarantine_bg.png);
+    cursor: pointer;
 }
 
 .msgforced td {
-  font-style: italic;
+    font-style: italic;
 }
 
 .middleactionincon {
-  margin-right: 5px;
-  margin-left: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .bullet_off,.bullet_on img {
-  margin-right: 2px;
+    margin-right: 2px;
 }
 
 /* pagination */
@@ -364,122 +364,122 @@ img {
 }
 
 #pagination strong {
-  color: #000000 !important;
+    color: #000000 !important;
 }
 
 #pagination a {
-  color: #000000;
-  padding: 5px 10px;
+    color: #000000;
+    padding: 5px 10px;
 }
 #pagination a:hover {
     background-color:#D4D3D2;
 }
 
 #pagination td {
-  height: 48px;
-  line-height: 48px;
-  color: #E93A00;
-  font-size: 12px;
-  text-decoration: none;
+    height: 48px;
+    line-height: 48px;
+    color: #ED7B00;
+    font-size: 12px;
+    text-decoration: none;
 }
 
 #actual_page {
-  text-align: left;
-  border-right: 0px !important;
+    text-align: left;
+    border-right: 0px !important;
 }
 
 #pages_navigation {
-  text-align: right !important;
-  padding-right: 10px !important;
+    text-align: right !important;
+    padding-right: 10px !important;
 }
 
 .spoolpagination {
-  text-align:left;
-  height: 24px;
-  font-size: 11px;
-  font-weight: normal;
-  background-color: #F4F0F2;
+    text-align:left;
+    height: 24px;
+    font-size: 11px;
+    font-weight: normal;
+    background-color: #F4F0F2;
 }
 .spoolpagination td {
-  line-height: 24px !important;
+    line-height: 24px !important;
 }
 
 .pagenb {
-  border-right: 0px !important;
-  text-align:   left;
+    border-right: 0px !important;
+    text-align:   left;
 }
 
 .pagination {
-  text-align: right;
+    text-align: right;
 }
 
 #reloading {
-   margin-left: 10px;
+    margin-left: 10px;
 }
 
 .logextracttable td {
-  padding: 3px !important;
-  white-space: wrap;
-  overflow: hidden;
-  border: 0px !important;
-  margin: 0px !important;
-  font-size: 10px;
-  font-weight: normal;
-  line-height: 12px !important;
-  color: #535353;
-  vertical-align: top !important;
+    padding: 3px !important;
+    white-space: wrap;
+    overflow: hidden;
+    border: 0px !important;
+    margin: 0px !important;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 12px !important;
+    color: #535353;
+    vertical-align: top !important;
 }
 
 .logextracttitle {
-  min-width: 100px;
-  text-align: right;
+    min-width: 100px;
+    text-align: right;
 }
 
 .logextractlog {
-  font-family: "Courier New";
-  border-left: 1px solid #C6ADC6 !important;
-  white-space: normal !important;
+    font-family: "Courier New";
+    border-left: 1px solid #C6ADC6 !important;
+    white-space: normal !important;
 }
 
 .checklog_box {
-  margin: 0px !important;
-  padding: 0px !important;
-  margin-right: 3px !important;
-  margin-bottom: 3px !important;
-  margin-left: 2px !important;
-  vertical-align: bottom;
-  position: relative;
-  top: -1px;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-right: 3px !important;
+    margin-bottom: 3px !important;
+    margin-left: 2px !important;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
 }
 
 .c_taction img {
-  margin-left: 5px !important;
+    margin-left: 5px !important;
 }
 
 .download_link {
-  border-bottom: 0px !important;
+    border-bottom: 0px !important;
 }
 .download_link a {
-  text-decoration: underline!important;
-  color: #001391!important;
+    text-decoration: underline!important;
+    color: #001391!important;
 }
 
 .download_link_img {
-   margin-left: 3px !important;
-   margin-right: 4px !important;
-   margin-top: 2px !important;
-   vertical-align: top;
+    margin-left: 3px !important;
+    margin-right: 4px !important;
+    margin-top: 2px !important;
+    vertical-align: top;
 }
 
 .tracepagination td {
-   height: 36px !important;
-   line-height: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
 }
 
 
 /* bouton Newsletter*/
 .newsletter{
-	border: solid 1px #E93A00;
-    color: #E93A00;
+    border: solid 1px #ED7B00;
+    color: #ED7B00;
     padding: 0px 20px 0px 20px;
 }

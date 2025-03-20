@@ -1,29 +1,32 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <fieldset>
-  <table class="ftable">
-    <tr>
-      <td class="fsubmit" colspan="2"><a href="<?php echo $this->urls['spamquarantine'];?>"><?php echo $this->t->_('> Go to spam quarantine')?></a></td>
-    </tr>
-    <?php if ($this->form->_email->getLinkedUser() ) {?>
-    <tr>
-      <td colspan="2"><hr /></td>
-    </tr>
-    <tr>
-      <td class="fsubmit" colspan="2"><?php echo $this->t->_('This email is linked to user')?> : <strong><?php echo $this->email->getLinkedUser()->getParam('username')?></strong> </td>
-    </tr>
-    <tr>
-      <td class="fsubmit shortline" colspan="2"><a href="<?php echo $this->urls['usersettings'];?>"><?php echo $this->t->_('> Go to user\'s settings')?></a></td>
-    </tr>
-    <tr>
-      <td class="fsubmit shortline" colspan="2"><a href="" onclick="javascript:window.open('<?php echo $this->urls['usergui'];?>';return false;);"><?php echo $this->t->_('> Open user\'s interface')?></a></td>
-    </tr>
-    <?php }?>
-  </table>
+    <table class="ftable">
+        <tr>
+            <td class="fsubmit" colspan="2"><a href="<?php echo $this->urls['spamquarantine']; ?>"><?php echo $this->t->_('> Go to spam quarantine') ?></a></td>
+        </tr>
+        <?php if ($this->form->_email->getLinkedUser()) { ?>
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td class="fsubmit" colspan="2"><?php echo $this->t->_('This email is linked to user') ?> : <strong><?php echo $this->email->getLinkedUser()->getParam('username') ?></strong> </td>
+            </tr>
+            <tr>
+                <td class="fsubmit shortline" colspan="2"><a href="<?php echo $this->urls['usersettings']; ?>"><?php echo $this->t->_('> Go to user\'s settings') ?></a></td>
+            </tr>
+            <tr>
+                <td class="fsubmit shortline" colspan="2"><a href="" onclick="javascript:window.open('<?php echo $this->urls['usergui']; ?>';return false;);"><?php echo $this->t->_('> Open user\'s interface') ?></a></td>
+            </tr>
+        <?php } ?>
+    </table>
 </fieldset>

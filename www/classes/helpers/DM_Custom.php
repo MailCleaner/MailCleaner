@@ -1,26 +1,29 @@
-<?
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2006, Olivier Diserens; 2023, John Mertz
  */
- 
+
 /**
  * this is a DataManager instance
  */
-require_once ('helpers/DataManager.php');
+require_once('helpers/DataManager.php');
 
 /**
  * connect to a database with customs parameters
  */
-class DM_Custom extends DataManager {
+class DM_Custom extends DataManager
+{
 
     private static $instance;
 
-    public function __construct($host, $port, $username, $password, $database) {
-        parent :: __construct();
-        
+    public function __construct($host, $port, $username, $password, $database)
+    {
+        parent::__construct();
+
         $this->setOption('HOST', $host);
         $this->setOption('PORT', $port);
         $this->setOption('USER', $username);
@@ -28,10 +31,9 @@ class DM_Custom extends DataManager {
         $this->setOption('DATABASE', $database);
     }
 
-    public static function getInstance($host, $port, $username, $password, $database) {
-        self :: $instance = new DM_Custom($host, $port, $username, $password, $database);
-        return self :: $instance;
+    public static function getInstance($host, $port, $username, $password, $database)
+    {
+        self::$instance = new DM_Custom($host, $port, $username, $password, $database);
+        return self::$instance;
     }
-
 }
-?>

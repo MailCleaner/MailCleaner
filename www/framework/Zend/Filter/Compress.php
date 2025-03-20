@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Compress.php,v 1.1.2.1 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Filter/Interface.php';
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Compress implements Zend_Filter_Interface
@@ -42,7 +42,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
     /**
      * Compression adapter constructor options
      */
-    protected $_adapterOptions = array();
+    protected $_adapterOptions = [];
 
     /**
      * Class constructor
@@ -157,7 +157,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
      * Set adapter options
      *
      * @param  array $options
-     * @return void
+     * @return Zend_Filter_Compress
      */
     public function setAdapterOptions(array $options)
     {
@@ -179,7 +179,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
             throw new Zend_Filter_Exception("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($adapter, $method), $options);
+        return call_user_func_array([$adapter, $method], $options);
     }
 
     /**

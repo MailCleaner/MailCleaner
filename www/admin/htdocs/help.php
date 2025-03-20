@@ -1,12 +1,13 @@
-<?
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2006, Olivier Diserens; 2023, John Mertz
  * @abstract This is the documentation window controller
  */
- 
+
 /**
  * requires admin session, and documentation stuff
  */
@@ -19,12 +20,11 @@ require_once('view/Template.php');
 $doc = new Documentor();
 // create view
 $template = new Template('help.tmpl');
- 
-// prepare replacements 
-$replace = array(
-        '__DOC_TEXT__' => $template->processText($doc->getHelpText($_GET['s']), array())
-);
+
+// prepare replacements
+$replace = [
+    '__DOC_TEXT__' => $template->processText($doc->getHelpText($_GET['s']), [])
+];
 
 // output page
 $template->output($replace);
-?>

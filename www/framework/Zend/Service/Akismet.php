@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Akismet.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version    $Id$
  */
 
 
@@ -39,7 +39,7 @@ require_once 'Zend/Service/Abstract.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Akismet extends Zend_Service_Abstract
@@ -227,21 +227,21 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      * @param string $host
      * @param string $path
      * @param array  $params
-     * @return mixed
+     * @return Zend_Http_Response
      */
     protected function _post($host, $path, array $params)
     {
         $uri    = 'http://' . $host . ':' . $this->getPort() . $path;
         $client = self::getHttpClient();
         $client->setUri($uri);
-        $client->setConfig(array(
+        $client->setConfig([
             'useragent'    => $this->getUserAgent(),
-        ));
+        ]);
 
-        $client->setHeaders(array(
+        $client->setHeaders([
             'Host'         => $host,
             'Content-Type' => 'application/x-www-form-urlencoded; charset=' . $this->getCharset()
-        ));
+        ]);
         $client->setParameterPost($params);
 
         $client->setMethod(Zend_Http_Client::POST);
@@ -265,10 +265,10 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
             $blog = $this->getBlogUrl();
         }
 
-        $response = $this->_post('rest.akismet.com', '/1.1/verify-key', array(
+        $response = $this->_post('rest.akismet.com', '/1.1/verify-key', [
             'key'  => $key,
             'blog' => $blog
-        ));
+        ]);
 
         return ('valid' == $response->getBody());
     }

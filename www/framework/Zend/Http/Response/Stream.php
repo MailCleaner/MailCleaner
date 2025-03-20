@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Stream.php,v 1.1.2.1 2011-05-30 08:31:13 root Exp $
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    Zend_Http
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Response_Stream extends Zend_Http_Response
@@ -59,7 +59,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
     /**
      * Get the response as stream
      *
-     * @return resourse
+     * @return resource
      */
     public function getStream()
     {
@@ -227,7 +227,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
             fclose($this->stream);
             $this->stream = null;
         }
-        if($this->_cleanup) {
+        if($this->_cleanup && is_string($this->stream_name) && file_exists($this->stream_name)) {
             @unlink($this->stream_name);
         }
     }

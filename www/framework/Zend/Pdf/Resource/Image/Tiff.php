@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Tiff.php,v 1.1.2.3 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /** Internally used classes */
@@ -32,7 +32,7 @@ require_once 'Zend/Pdf/Resource/Image.php';
  * TIFF image
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Image_Tiff extends Zend_Pdf_Resource_Image
@@ -391,7 +391,7 @@ class Zend_Pdf_Resource_Image_Tiff extends Zend_Pdf_Resource_Image
             throw new Zend_Pdf_Exception("Problem reading tiff file. Tiff is probably corrupt.");
         }
 
-        $this->_imageProperties = array();
+        $this->_imageProperties = [];
         $this->_imageProperties['bitDepth'] = $this->_bitsPerSample;
         $this->_imageProperties['fileSize'] = $this->_fileSize;
         $this->_imageProperties['TIFFendianType'] = $this->_endianType;
@@ -406,7 +406,7 @@ class Zend_Pdf_Resource_Image_Tiff extends Zend_Pdf_Resource_Image
 
         $imageDictionary->Width            = new Zend_Pdf_Element_Numeric($this->_width);
         if($this->_whiteIsZero === true) {
-            $imageDictionary->Decode       = new Zend_Pdf_Element_Array(array(new Zend_Pdf_Element_Numeric(1), new Zend_Pdf_Element_Numeric(0)));
+            $imageDictionary->Decode       = new Zend_Pdf_Element_Array([new Zend_Pdf_Element_Numeric(1), new Zend_Pdf_Element_Numeric(0)]);
         }
         $imageDictionary->Height           = new Zend_Pdf_Element_Numeric($this->_height);
         $imageDictionary->ColorSpace       = new Zend_Pdf_Element_Name($this->_colorSpace);

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Hmac
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Hmac.php,v 1.1.2.4 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Crypt.php';
  * @todo       Check if mhash() is a required alternative (will be PECL-only soon)
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_Hmac extends Zend_Crypt
@@ -66,9 +66,9 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      *
      * @var array
      */
-    protected static $_supportedMhashAlgorithms = array('adler32',' crc32', 'crc32b', 'gost',
+    protected static $_supportedMhashAlgorithms = ['adler32',' crc32', 'crc32b', 'gost',
             'haval128', 'haval160', 'haval192', 'haval256', 'md4', 'md5', 'ripemd160',
-            'sha1', 'sha256', 'tiger', 'tiger128', 'tiger160');
+            'sha1', 'sha256', 'tiger', 'tiger128', 'tiger160'];
 
     /**
      * Constants representing the output mode of the hash algorithm
@@ -85,7 +85,7 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      * @param string $hash
      * @param string $data
      * @param string $output
-     * @param boolean $internal
+     * @throws Zend_Crypt_Hmac_Exception
      * @return string
      */
     public static function compute($key, $hash, $data, $output = self::STRING)
@@ -108,7 +108,8 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      * Setter for the hash method.
      *
      * @param string $hash
-     * @return Zend_Crypt_Hmac
+     * @return void
+     * @throws Zend_Crypt_Hmac_Exception
      */
     protected static function _setHashAlgorithm($hash)
     {
@@ -147,7 +148,7 @@ class Zend_Crypt_Hmac extends Zend_Crypt
     {
         if (function_exists('hash_hmac')) {
             if ($output == self::BINARY) {
-                return hash_hmac(self::$_hashAlgorithm, $data, self::$_key, 1);
+                return hash_hmac(self::$_hashAlgorithm, $data, self::$_key, true);
             }
             return hash_hmac(self::$_hashAlgorithm, $data, self::$_key);
         }

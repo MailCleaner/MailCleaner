@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlObject.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/HtmlElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
@@ -44,22 +44,22 @@ class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
      * @param string $content Alternative content for object
      * @return string
      */
-    public function htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)
+    public function htmlObject($data, $type, array $attribs = [], array $params = [], $content = null)
     {
         // Merge data and type
-        $attribs = array_merge(array('data' => $data,
-                                     'type' => $type), $attribs);
+        $attribs = array_merge(['data' => $data,
+                                     'type' => $type], $attribs);
 
         // Params
-        $paramHtml = array();
+        $paramHtml = [];
         $closingBracket = $this->getClosingBracket();
 
         foreach ($params as $param => $options) {
             if (is_string($options)) {
-                $options = array('value' => $options);
+                $options = ['value' => $options];
             }
 
-            $options = array_merge(array('name' => $param), $options);
+            $options = array_merge(['name' => $param], $options);
 
             $paramHtml[] = '<param' . $this->_htmlAttribs($options) . $closingBracket;
         }
@@ -70,11 +70,9 @@ class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
         }
 
         // Object header
-        $xhtml = '<object' . $this->_htmlAttribs($attribs) . '>' . self::EOL
+        return '<object' . $this->_htmlAttribs($attribs) . '>' . self::EOL
                  . implode(self::EOL, $paramHtml) . self::EOL
                  . ($content ? $content . self::EOL : '')
                  . '</object>';
-
-        return $xhtml;
     }
 }

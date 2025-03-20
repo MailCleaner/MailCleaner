@@ -1,0 +1,67 @@
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2009 Novell/SUSE
+#    Copyright (C) 2009 Canonical Ltd.
+#    Copyright (C) 2023 SUSE LLC
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+  # Note: executing groff and nroff themself is not included in this abstraction
+  # so that you can choose to ix, Px or Cx them in your profile
+
+  # groff/nroff helpers, preprocessors, and postprocessors
+  /usr/bin/addftinfo mrix,
+  /usr/bin/afmtodit mrix,
+  /usr/bin/chem mrix,
+  /usr/bin/eqn mrix,
+  /usr/bin/eqn2graph mrix,
+  /usr/bin/gdiffmk mrix,
+  /usr/bin/geqn mrix,
+  /usr/bin/grap2graph mrix,
+  /usr/bin/grn mrix,
+  /usr/bin/grodvi mrix,
+  /usr/bin/groffer mrix,
+  /usr/bin/grog mrix,
+  /usr/bin/grolbp mrix,
+  /usr/bin/grolj4 mrix,
+  /usr/bin/gropdf mrix,
+  /usr/bin/grops mrix,
+  /usr/bin/grotty mrix,
+  /usr/bin/gtbl mrix,
+  /usr/bin/hpftodit mrix,
+  /usr/bin/indxbib mrix,
+  /usr/bin/lkbib mrix,
+  /usr/bin/lookbib mrix,
+  /usr/bin/mmroff mrix,
+  /usr/bin/neqn mrix,
+  /usr/bin/pdfmom mrix,
+  /usr/bin/pdfroff mrix,
+  /usr/bin/pfbtops mrix,
+  /usr/bin/pic mrix,
+  /usr/bin/pic2graph mrix,
+  /usr/bin/post-grohtml mrix,
+  /usr/bin/pre-grohtml mrix,
+  /usr/bin/preconv mrix,
+  /usr/bin/refer mrix,
+  /usr/bin/roff2dvi mrix,
+  /usr/bin/roff2html mrix,
+  /usr/bin/roff2pdf mrix,
+  /usr/bin/roff2ps mrix,
+  /usr/bin/roff2text mrix,
+  /usr/bin/roff2x mrix,
+  /usr/bin/soelim mrix,
+  /usr/bin/tbl mrix,
+  /usr/bin/tfmtodit mrix,
+  /usr/bin/troff mrix,
+  /usr/bin/xtotroff mrix,
+
+  # at least its macros and fonts
+  /usr/libexec/groff/** r,
+  /usr/share/groff/** r,
+
+  # Include additions to the abstraction
+  include if exists <abstractions/groff.d>

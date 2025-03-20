@@ -1,24 +1,29 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <fieldset>
-       <table class="ftable">
-       
-          <?php echo $this->InputRow($this->form->getElement('gui_default_address'));?>
-        
-          <?php foreach (array('gui_displayed_spams', 'gui_displayed_days') as $f) {?>
-             <?php echo $this->InputRow($this->form->getElement($f));?>
-          <?php }?>
-         
-          <tr><td colspan="2"><hr /></td></tr>
-          
-          <?php echo $this->InputRow($this->form->getElement('gui_mask_forced'));?>
-          
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-       </table>
+    <table class="ftable">
+
+        <?php echo $this->InputRow($this->form->getElement('gui_default_address')); ?>
+
+        <?php foreach (['gui_displayed_spams', 'gui_displayed_days'] as $f) { ?>
+            <?php echo $this->InputRow($this->form->getElement($f)); ?>
+        <?php } ?>
+
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+
+        <?php echo $this->InputRow($this->form->getElement('gui_mask_forced')); ?>
+
+        <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+    </table>
 </fieldset>

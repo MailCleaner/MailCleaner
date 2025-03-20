@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multidb.php,v 1.1.2.1 2011-05-30 08:30:40 root Exp $
+ * @version    $Id$
  */
 
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
@@ -51,7 +51,7 @@ require_once 'Zend/Db/Table.php';
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Multidb extends Zend_Application_Resource_ResourceAbstract
@@ -61,7 +61,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
      *
      * @var array
      */
-    protected $_dbs = array();
+    protected $_dbs = [];
 
     /**
      * An instance of the default db, if set
@@ -114,7 +114,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
      */
     public function isDefault($db)
     {
-        if(!$db instanceof Zend_Db_Adapter_Abstract) {
+        if (!$db instanceof Zend_Db_Adapter_Abstract) {
             $db = $this->getDb($db);
         }
 

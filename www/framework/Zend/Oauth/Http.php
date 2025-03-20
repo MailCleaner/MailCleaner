@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php,v 1.1.2.1 2011-05-30 08:30:39 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Oauth_Http_Utility */
@@ -28,7 +28,7 @@ require_once 'Zend/Uri/Http.php';
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Oauth_Http
@@ -39,7 +39,7 @@ class Zend_Oauth_Http
      *
      * @var array
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * Reference to the Zend_Oauth_Consumer instance in use.
@@ -104,7 +104,7 @@ class Zend_Oauth_Http
      */
     public function setMethod($method)
     {
-        if (!in_array($method, array(Zend_Oauth::POST, Zend_Oauth::GET))) {
+        if (!in_array($method, [Zend_Oauth::POST, Zend_Oauth::GET])) {
             require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception('invalid HTTP method: ' . $method);
         }
@@ -216,7 +216,7 @@ class Zend_Oauth_Http
      * Manages the switch from OAuth request scheme to another lower preference
      * scheme during a request cycle.
      *
-     * @param  Zend_Http_Response
+     * @param  Zend_Http_Response $response
      * @return void
      * @throws Zend_Oauth_Exception if unable to retrieve valid token response
      */
@@ -250,7 +250,7 @@ class Zend_Oauth_Http
      */
     protected function _toAuthorizationHeader(array $params, $realm = null)
     {
-        $headerValue = array();
+        $headerValue = [];
         $headerValue[] = 'OAuth realm="' . $realm . '"';
         foreach ($params as $key => $value) {
             if (!preg_match("/^oauth_/", $key)) {

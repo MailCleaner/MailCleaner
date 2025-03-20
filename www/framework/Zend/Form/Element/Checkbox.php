@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@ require_once 'Zend/Form/Element/Xhtml.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Checkbox.php,v 1.1.2.4 2011-05-30 08:30:37 root Exp $
+ * @version    $Id$
  */
 class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
 {
@@ -50,10 +50,10 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
      * Options that will be passed to the view helper
      * @var array
      */
-    public $options = array(
+    public $options = [
         'checkedValue'   => '1',
         'uncheckedValue' => '0',
-    );
+    ];
 
     /**
      * Value when checked
@@ -95,7 +95,7 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
         parent::setOptions($options);
 
         $curValue = $this->getValue();
-        $test     = array($this->getCheckedValue(), $this->getUncheckedValue());
+        $test     = [$this->getCheckedValue(), $this->getUncheckedValue()];
         if (!in_array($curValue, $test)) {
             $this->setValue($curValue);
         }

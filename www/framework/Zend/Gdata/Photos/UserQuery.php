@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Photos
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: UserQuery.php,v 1.1.2.3 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -37,7 +37,7 @@ require_once('Zend/Gdata/Gapps/Query.php');
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Photos
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
@@ -81,7 +81,7 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
      * 'api' or 'base'. Normally, 'api' will be desired. Default is 'api'.
      *
      * @param string $value
-     * @return Zend_Gdata_Photos_UserQuery Provides a fluent interface
+     * @return $this
      */
     public function setProjection($value)
     {
@@ -105,7 +105,7 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
      * 'feed' or 'entry'. Normally, 'feed' will be desired. Default is 'feed'.
      *
      * @param string $value
-     * @return Zend_Gdata_Photos_UserQuery Provides a fluent interface
+     * @return $this
      */
     public function setType($value)
     {

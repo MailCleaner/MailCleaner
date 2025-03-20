@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Frequency.php,v 1.1.2.4 2011-05-30 08:30:59 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Frequency
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Frequency extends Zend_Measure_Abstract
@@ -62,25 +62,25 @@ class Zend_Measure_Frequency extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'ONE_PER_SECOND'        => array('1',             '1/s'),
-        'CYCLE_PER_SECOND'      => array('1',             'cps'),
-        'DEGREE_PER_HOUR'       => array(array('' => '1', '/' => '1296000'), '°/h'),
-        'DEGREE_PER_MINUTE'     => array(array('' => '1', '/' => '21600'),   '°/m'),
-        'DEGREE_PER_SECOND'     => array(array('' => '1', '/' => '360'),     '°/s'),
-        'GIGAHERTZ'             => array('1000000000',    'GHz'),
-        'HERTZ'                 => array('1',             'Hz'),
-        'KILOHERTZ'             => array('1000',          'kHz'),
-        'MEGAHERTZ'             => array('1000000',       'MHz'),
-        'MILLIHERTZ'            => array('0.001',         'mHz'),
-        'RADIAN_PER_HOUR'       => array(array('' => '1', '/' => '22619.467'), 'rad/h'),
-        'RADIAN_PER_MINUTE'     => array(array('' => '1', '/' => '376.99112'), 'rad/m'),
-        'RADIAN_PER_SECOND'     => array(array('' => '1', '/' => '6.2831853'), 'rad/s'),
-        'REVOLUTION_PER_HOUR'   => array(array('' => '1', '/' => '3600'), 'rph'),
-        'REVOLUTION_PER_MINUTE' => array(array('' => '1', '/' => '60'),   'rpm'),
-        'REVOLUTION_PER_SECOND' => array('1',             'rps'),
-        'RPM'                   => array(array('' => '1', '/' => '60'), 'rpm'),
-        'TERRAHERTZ'            => array('1000000000000', 'THz'),
+    protected $_units = [
+        'ONE_PER_SECOND'        => ['1',             '1/s'],
+        'CYCLE_PER_SECOND'      => ['1',             'cps'],
+        'DEGREE_PER_HOUR'       => [['' => '1', '/' => '1296000'], '°/h'],
+        'DEGREE_PER_MINUTE'     => [['' => '1', '/' => '21600'],   '°/m'],
+        'DEGREE_PER_SECOND'     => [['' => '1', '/' => '360'],     '°/s'],
+        'GIGAHERTZ'             => ['1000000000',    'GHz'],
+        'HERTZ'                 => ['1',             'Hz'],
+        'KILOHERTZ'             => ['1000',          'kHz'],
+        'MEGAHERTZ'             => ['1000000',       'MHz'],
+        'MILLIHERTZ'            => ['0.001',         'mHz'],
+        'RADIAN_PER_HOUR'       => [['' => '1', '/' => '22619.467'], 'rad/h'],
+        'RADIAN_PER_MINUTE'     => [['' => '1', '/' => '376.99112'], 'rad/m'],
+        'RADIAN_PER_SECOND'     => [['' => '1', '/' => '6.2831853'], 'rad/s'],
+        'REVOLUTION_PER_HOUR'   => [['' => '1', '/' => '3600'], 'rph'],
+        'REVOLUTION_PER_MINUTE' => [['' => '1', '/' => '60'],   'rpm'],
+        'REVOLUTION_PER_SECOND' => ['1',             'rps'],
+        'RPM'                   => [['' => '1', '/' => '60'], 'rpm'],
+        'TERRAHERTZ'            => ['1000000000000', 'THz'],
         'STANDARD'              =>'HERTZ'
-    );
+    ];
 }

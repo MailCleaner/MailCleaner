@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RadioButton.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,7 +29,7 @@ require_once 'Zend/Dojo/View/Helper/Dijit.php';
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_RadioButton extends Zend_Dojo_View_Helper_Dijit
@@ -60,8 +60,8 @@ class Zend_Dojo_View_Helper_RadioButton extends Zend_Dojo_View_Helper_Dijit
     public function radioButton(
         $id,
         $value = null,
-        array $params = array(),
-        array $attribs = array(),
+        array $params = [],
+        array $attribs = [],
         array $options = null,
         $listsep = "<br />\n"
     ) {
@@ -80,7 +80,7 @@ class Zend_Dojo_View_Helper_RadioButton extends Zend_Dojo_View_Helper_Dijit
             $filter = new Zend_Filter_Alnum();
             foreach (array_keys($options) as $key) {
                 $optId = $baseId . '-' . $filter->filter($key);
-                $this->_createDijit($this->_dijit, $optId, array());
+                $this->_createDijit($this->_dijit, $optId, []);
             }
         }
 

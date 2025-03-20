@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Utility.php,v 1.1.2.1 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Oauth */
@@ -28,7 +28,7 @@ require_once 'Zend/Oauth/Http.php';
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Oauth_Http_Utility
@@ -47,13 +47,13 @@ class Zend_Oauth_Http_Utility
         Zend_Oauth_Config_ConfigInterface $config,
         array $serviceProviderParams = null
     ) {
-        $params = array(
+        $params = [
             'oauth_consumer_key'     => $config->getConsumerKey(),
             'oauth_nonce'            => $this->generateNonce(),
             'oauth_signature_method' => $config->getSignatureMethod(),
             'oauth_timestamp'        => $this->generateTimestamp(),
             'oauth_version'          => $config->getVersion(),
-        );
+        ];
 
         if ($config->getToken()->getToken() != null) {
             $params['oauth_token'] = $config->getToken()->getToken();
@@ -94,7 +94,7 @@ class Zend_Oauth_Http_Utility
                 }
             }
         }
-        $encodedParams = array();
+        $encodedParams = [];
         foreach ($params as $key => $value) {
             $encodedParams[] = self::urlEncode($key)
                              . '='
@@ -109,13 +109,13 @@ class Zend_Oauth_Http_Utility
      * @param  array $params
      * @param  null|string $realm
      * @param  bool $excludeCustomParams
-     * @return void
+     * @return string
      */
     public function toAuthorizationHeader(array $params, $realm = null, $excludeCustomParams = true)
     {
-        $headerValue = array(
+        $headerValue = [
             'OAuth realm="' . $realm . '"',
-        );
+        ];
 
         foreach ($params as $key => $value) {
             if ($excludeCustomParams) {
@@ -167,9 +167,9 @@ class Zend_Oauth_Http_Utility
      */
     public function parseQueryString($query)
     {
-        $params = array();
+        $params = [];
         if (empty($query)) {
-            return array();
+            return [];
         }
 
         // Not remotely perfect but beats parse_str() which converts

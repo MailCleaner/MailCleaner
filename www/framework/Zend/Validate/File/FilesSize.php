@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: FilesSize.php,v 1.1.2.4 2011-05-30 08:31:03 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/File/Size.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
@@ -44,11 +44,11 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::TOO_BIG      => "All files in sum should have a maximum size of '%max%' but '%size%' were detected",
         self::TOO_SMALL    => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
         self::NOT_READABLE => "One or more files can not be read",
-    );
+    ];
 
     /**
      * Internal file array
@@ -64,17 +64,17 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
      * It also accepts an array with the keys 'min' and 'max'
      *
      * @param  integer|array|Zend_Config $options Options for this validator
-     * @return void
+     * @throws Zend_Validate_Exception
      */
     public function __construct($options)
     {
-        $this->_files = array();
+        $this->_files = [];
         $this->_setSize(0);
 
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (is_scalar($options)) {
-            $options = array('max' => $options);
+            $options = ['max' => $options];
         } elseif (!is_array($options)) {
             require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
@@ -106,7 +106,7 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
     {
         require_once 'Zend/Loader.php';
         if (is_string($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
         $min  = $this->getMin(true);
@@ -155,10 +155,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
             }
         }
 
-        if (count($this->_messages) > 0) {
-            return false;
-        }
-
-        return true;
+        return empty($this->_messages);
     }
 }

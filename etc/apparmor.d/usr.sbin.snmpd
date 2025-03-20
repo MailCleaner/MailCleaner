@@ -1,0 +1,32 @@
+#include <tunables/global>
+
+/usr/sbin/snmpd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/user-tmp>
+
+  capability dac_override,
+
+  capability setgid,
+  capability setuid,
+  capability chown,
+
+  @{PROC}/filesystems r,
+  @{PROC}/[0-9]*/status r,
+
+  /usr/mailcleaner/etc/snmp/** r,
+
+  /etc/snmp/** r,
+  /etc/snmp-mibs-downloader/** r,
+
+  /usr/sbin/snmpd mr,
+
+  /var/mailcleaner/log/snmpd/** krw,
+  /var/mailcleaner/run/snmpd/** krw,
+  /var/mailcleaner/spool/snmpd/** r,
+
+  /tmp/ rw,
+  /tmp/** krw,
+}
+

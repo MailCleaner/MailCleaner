@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filesystem.php,v 1.1.2.3 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Search_Lucene_Storage_File */
@@ -27,7 +27,7 @@ require_once 'Zend/Search/Lucene/Storage/File.php';
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Storage_File
@@ -48,7 +48,6 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
      */
     public function __construct($filename, $mode='r+b')
     {
-        global $php_errormsg;
 
         if (strpos($mode, 'w') === false  &&  !is_readable($filename)) {
             // opening for reading non-readable file
@@ -56,18 +55,15 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
             throw new Zend_Search_Lucene_Exception('File \'' . $filename . '\' is not readable.');
         }
 
-        $trackErrors = ini_get('track_errors');
-        ini_set('track_errors', '1');
 
         $this->_fileHandle = @fopen($filename, $mode);
 
         if ($this->_fileHandle === false) {
-            ini_set('track_errors', $trackErrors);
+            $err = error_get_last();
+            $phpErrormsg = $err['message'];
             require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception($php_errormsg);
+            throw new Zend_Search_Lucene_Exception($phpErrormsg);
         }
-
-        ini_set('track_errors', $trackErrors);
     }
 
     /**

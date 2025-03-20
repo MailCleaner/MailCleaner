@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php,v 1.1.2.3 2011-05-30 08:30:48 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -62,7 +62,7 @@ require_once 'Zend/Gdata/App/Extension/Control.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
@@ -201,7 +201,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * @return Zend_Gdata_App_Entry The updated entry.
      * @throws Zend_Gdata_App_Exception
      */
-    public function save($uri = null, $className = null, $extraHeaders = array())
+    public function save($uri = null, $className = null, $extraHeaders = [])
     {
         return $this->getService()->updateEntry($this,
                                                 $uri,
@@ -227,9 +227,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * by the server, or null if no changes exist. This does not
      * modify the current entry instance.
      *
-     * @param string|null The URI to send requests to, or null if $data
+     * @param string|null $uri The URI to send requests to, or null if $data
      *        contains the URI.
-     * @param string|null The name of the class that should we deserializing
+     * @param string|null $className The name of the class that should we deserializing
      *        the server response. If null, then 'Zend_Gdata_App_Entry' will
      *        be used.
      * @param array $extraHeaders Extra headers to add to the request, as an
@@ -238,7 +238,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      *         null if the server reports that no changes have been made.
      * @throws Zend_Gdata_App_Exception
      */
-    public function reload($uri = null, $className = null, $extraHeaders = array())
+    public function reload($uri = null, $className = null, $extraHeaders = [])
     {
         // Get URI
         $editLink = $this->getEditLink();
@@ -286,7 +286,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * Sets the value of the atom:content element
      *
      * @param Zend_Gdata_App_Extension_Content $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setContent($value)
     {
@@ -310,7 +310,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * This represents the publishing date for an entry
      *
      * @param Zend_Gdata_App_Extension_Published $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setPublished($value)
     {
@@ -332,7 +332,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * Sets the value of the atom:source element
      *
      * @param Zend_Gdata_App_Extension_Source $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setSource($value)
     {
@@ -356,7 +356,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * This represents a textual summary of this entry's content
      *
      * @param Zend_Gdata_App_Extension_Summary $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setSummary($value)
     {
@@ -378,7 +378,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * Sets the value of the app:control element
      *
      * @param Zend_Gdata_App_Extension_Control $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return $this
      */
     public function setControl($value)
     {

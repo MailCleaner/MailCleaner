@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.1 2011-05-30 08:31:08 root Exp $
+ * @version    $Id: Abstract.php 22824 2010-08-09 18:59:54Z renanbr $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Service/Ebay/Finding/Abstract.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses       Zend_Service_Ebay_Finding_Abstract
  */
@@ -108,7 +108,7 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * @return void
@@ -134,7 +134,7 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
 
     /**
      * @param  string $operation
-     * @return Zend_Service_Ebay_Finding_Response_Abstract Provides a fluent interface
+     * @return $this
      */
     public function setOperation($operation)
     {
@@ -153,7 +153,7 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
     /**
      * @param  string|Zend_Config|array $name
      * @param  mixed                    $value
-     * @return Zend_Service_Ebay_Finding_Response_Abstract Provides a fluent interface
+     * @return $this
      */
     public function setOption($name, $value = null)
     {

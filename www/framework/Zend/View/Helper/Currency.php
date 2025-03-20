@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Currency.php,v 1.1.2.1 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_View_Helper_Abstract.php */
@@ -28,7 +28,7 @@ require_once 'Zend/View/Helper/Abstract.php';
  *
  * @category  Zend
  * @package   Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
@@ -61,8 +61,9 @@ class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
     /**
      * Output a formatted currency
      *
-     * @param  integer|float                    $value    Currency value to output
-     * @param  string|Zend_Locale|Zend_Currency $currency OPTIONAL Currency to use for this call
+     * @param  integer|float            $value    Currency value to output
+     * @param  string|Zend_Locale|array $currency OPTIONAL Currency to use for
+     *                                            this call
      * @return string Formatted currency
      */
     public function currency($value = null, $currency = null)
@@ -74,12 +75,12 @@ class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
         if (is_string($currency) || ($currency instanceof Zend_Locale)) {
             require_once 'Zend/Locale.php';
             if (Zend_Locale::isLocale($currency)) {
-                $currency = array('locale' => $currency);
+                $currency = ['locale' => $currency];
             }
         }
 
         if (is_string($currency)) {
-            $currency = array('currency' => $currency);
+            $currency = ['currency' => $currency];
         }
 
         if (is_array($currency)) {

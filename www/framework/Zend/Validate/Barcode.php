@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Barcode.php,v 1.1.2.4 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Loader.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Barcode extends Zend_Validate_Abstract
@@ -42,21 +42,21 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
     const INVALID_CHARS  = 'barcodeInvalidChars';
     const INVALID_LENGTH = 'barcodeInvalidLength';
 
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::FAILED         => "'%value%' failed checksum validation",
         self::INVALID_CHARS  => "'%value%' contains invalid characters",
         self::INVALID_LENGTH => "'%value%' should have a length of %length% characters",
         self::INVALID        => "Invalid type given. String expected",
-    );
+    ];
 
     /**
      * Additional variables available for validation failure messages
      *
      * @var array
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'length' => '_length'
-    );
+    ];
 
     /**
      * Length for the set subtype
@@ -75,9 +75,7 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
     /**
      * Generates the standard validator object
      *
-     * @param  string|Zend_Config|
-     *         Zend_Validate_Barcode_BarcodeAdapter $adapter Barcode adapter to use
-     * @return void
+     * @param  string|Zend_Config|Zend_Validate_Barcode_BarcodeAdapter $adapter Barcode adapter to use
      * @throws Zend_Validate_Exception
      */
     public function __construct($adapter)
@@ -126,7 +124,7 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
      *
      * @param  string|Zend_Validate_Barcode $adapter Barcode adapter to use
      * @param  array  $options Options for this adapter
-     * @return void
+     * @return $this
      * @throws Zend_Validate_Exception
      */
     public function setAdapter($adapter, $options = null)

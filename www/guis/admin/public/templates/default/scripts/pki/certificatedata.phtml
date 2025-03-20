@@ -1,30 +1,31 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<div class="hover_data" id='<?php echo $this->id?>'>
-<?php if ($this->certdata['subject'] != '') {?>
-  <p><strong><?php echo $this->t->_('Subject')?> : </strong><?php echo $this->certdata['subject']?></p>
-<?php }?>
-<?php if ($this->certdata['selfsigned'] != '') {?>
-  <p><strong><?php echo $this->t->_('Self-signed')?> : </strong><?php echo $this->t->_('Yes')?>
-    <?php if ($this->certdata['issuer'] != '') {?> 
-      ( <?php echo $this->certdata['issuer']?> )
-    <?php }?>
-  </p>
-<?php } else if ($this->certdata['issuer'] != '') {?>
-  <p><strong><?php echo $this->t->_('Issued by')?> : </strong><?php echo $this->certdata['issuer']?></p>
-<?php }?>
-<?php if ($this->certdata['until'] != '') {?>
-  <p><strong><?php echo $this->t->_('Expiracy date')?> : </strong><?php echo $this->certdata['until']?></p>
-<?php }?>
+<div class="hover_data" id='<?php echo $this->id ?>'>
+    <?php if ($this->certdata['subject'] != '') { ?>
+        <p><strong><?php echo $this->t->_('Subject') ?> : </strong><?php echo $this->certdata['subject'] ?></p>
+    <?php } ?>
+    <?php if ($this->certdata['selfsigned'] != '') { ?>
+        <p><strong><?php echo $this->t->_('Self-signed') ?> : </strong><?php echo $this->t->_('Yes') ?>
+            <?php if ($this->certdata['issuer'] != '') { ?>
+                ( <?php echo $this->certdata['issuer'] ?> )
+            <?php } ?>
+        </p>
+    <?php } else if ($this->certdata['issuer'] != '') { ?>
+        <p><strong><?php echo $this->t->_('Issued by') ?> : </strong><?php echo $this->certdata['issuer'] ?></p>
+    <?php } ?>
+    <?php if ($this->certdata['until'] != '') { ?>
+        <p><strong><?php echo $this->t->_('Expiracy date') ?> : </strong><?php echo $this->certdata['until'] ?></p>
+    <?php } ?>
 
-<?php if ($this->certdata['error'] != '') {?>
-  <p><strong><?php echo $this->t->_('Error')?> : </strong><?php echo $this->certdata['error']?></p>
-<?php }?>
+    <?php if ($this->certdata['error'] != '') { ?>
+        <p><strong><?php echo $this->t->_('Error') ?> : </strong><?php echo $this->certdata['error'] ?></p>
+    <?php } ?>
 
 </div>

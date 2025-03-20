@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResourceBootstrapper.php,v 1.1.2.4 2011-05-30 08:31:08 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Application_Bootstrap_ResourceBootstrapper
@@ -81,7 +81,7 @@ interface Zend_Application_Bootstrap_ResourceBootstrapper
     /**
      * Set plugin loader to use to fetch resources
      *
-     * @param  Zend_Loader_PluginLoader_Interface Zend_Loader_PluginLoader
+     * @param  Zend_Loader_PluginLoader_Interface $loader Zend_Loader_PluginLoader
      * @return Zend_Application_Bootstrap_ResourceBootstrapper
      */
     public function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader);

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Gz.php,v 1.1.2.1 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Filter/Compress/CompressAbstract.php';
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
@@ -44,11 +44,11 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'level'   => 9,
         'mode'    => 'compress',
         'archive' => null,
-    );
+    ];
 
     /**
      * Class constructor
@@ -182,11 +182,12 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
     {
         $archive = $this->getArchive();
         $mode    = $this->getMode();
-        if (file_exists($content)) {
+        // check $content for NULL bytes or else file_exists will error out
+        if (strpos((string) $content, '/\0/') === false && @file_exists($content)) {
             $archive = $content;
         }
 
-        if (file_exists($archive)) {
+        if (@file_exists($archive)) {
             $handler = fopen($archive, "rb");
             if (!$handler) {
                 require_once 'Zend/Filter/Exception.php';

@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Autoloader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Resource.php,v 1.1.2.4 2011-05-30 08:31:04 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,11 +29,16 @@ require_once 'Zend/Loader/Autoloader/Interface.php';
  * @uses       Zend_Loader_Autoloader_Interface
  * @package    Zend_Loader
  * @subpackage Autoloader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interface
 {
+    /**
+     * @var array<string, mixed>|array<string, object>
+     */
+    protected $_resources;
+
     /**
      * @var string Base path to resource classes
      */
@@ -42,7 +47,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
     /**
      * @var array Components handled within this resource
      */
-    protected $_components = array();
+    protected $_components = [];
 
     /**
      * @var string Default resource/component to use when using object registry
@@ -57,7 +62,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
     /**
      * @var array Available resource types handled by this resource autoloader
      */
-    protected $_resourceTypes = array();
+    protected $_resourceTypes = [];
 
     /**
      * Constructor
@@ -109,7 +114,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
      *
      * @param  string $method
      * @param  array $args
-     * @return mixed
+     * @return object
      * @throws Zend_Loader_Exception if method not beginning with 'get' or not matching a valid resource type is called
      */
     public function __call($method, $args)
@@ -145,7 +150,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
         $namespace         = '';
 
         if (!empty($namespaceTopLevel)) {
-            $namespace = array();
+            $namespace = [];
             $topLevelSegments = count(explode('_', $namespaceTopLevel));
             for ($i = 0; $i < $topLevelSegments; $i++) {
                 $namespace[] = array_shift($segments);
@@ -289,9 +294,9 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
             }
             $namespaceTopLevel = $this->getNamespace();
             $namespace = ucfirst(trim($namespace, '_'));
-            $this->_resourceTypes[$type] = array(
+            $this->_resourceTypes[$type] = [
                 'namespace' => empty($namespaceTopLevel) ? $namespace : $namespaceTopLevel . '_' . $namespace,
-            );
+            ];
         }
         if (!is_string($path)) {
             require_once 'Zend/Loader/Exception.php';
@@ -408,8 +413,8 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
      */
     public function clearResourceTypes()
     {
-        $this->_resourceTypes = array();
-        $this->_components    = array();
+        $this->_resourceTypes = [];
+        $this->_components    = [];
         return $this;
     }
 

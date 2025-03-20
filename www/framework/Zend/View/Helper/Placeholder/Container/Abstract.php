@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,11 +25,17 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObject
 {
+    /**
+     * View object
+     * @var Zend_View_Interface|null
+     */
+    public $view = null;
+
     /**
      * Whether or not to override all contents of placeholder
      * @const string
@@ -97,7 +103,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function __construct()
     {
-        parent::__construct(array(), parent::ARRAY_AS_PROPS);
+        parent::__construct([], parent::ARRAY_AS_PROPS);
     }
 
     /**
@@ -108,7 +114,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function set($value)
     {
-        $this->exchangeArray(array($value));
+        $this->exchangeArray([$value]);
     }
 
     /**
@@ -147,7 +153,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Set prefix for __toString() serialization
      *
      * @param  string $prefix
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function setPrefix($prefix)
     {
@@ -169,7 +175,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Set postfix for __toString() serialization
      *
      * @param  string $postfix
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function setPostfix($postfix)
     {
@@ -193,7 +199,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Used to implode elements in container
      *
      * @param  string $separator
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function setSeparator($separator)
     {
@@ -252,9 +258,10 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Start capturing content to push into placeholder
      *
-     * @param  int $type How to capture content into placeholder; append, prepend, or set
+     * @param int|string $type How to capture content into placeholder; append, prepend, or set
+     * @param null       $key
+     * @throws Zend_View_Helper_Placeholder_Container_Exception
      * @return void
-     * @throws Zend_View_Helper_Placeholder_Exception if nested captures detected
      */
     public function captureStart($type = Zend_View_Helper_Placeholder_Container_Abstract::APPEND, $key = null)
     {
@@ -291,12 +298,12 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
                 if (null !== $key) {
                     $this[$key] = $data;
                 } else {
-                    $this->exchangeArray(array($data));
+                    $this->exchangeArray([$data]);
                 }
                 break;
             case self::PREPEND:
                 if (null !== $key) {
-                    $array  = array($key => $data);
+                    $array  = [$key => $data];
                     $values = $this->getArrayCopy();
                     $final  = $array + $values;
                     $this->exchangeArray($final);
@@ -349,10 +356,16 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Render the placeholder
      *
+     * @param null $indent
      * @return string
      */
     public function toString($indent = null)
     {
+        // Check items
+        if (0 === $this->count()) {
+            return '';
+        }
+
         $indent = ($indent !== null)
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();

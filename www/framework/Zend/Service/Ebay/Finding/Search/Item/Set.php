@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Set.php,v 1.1.2.1 2011-05-30 08:31:06 root Exp $
+ * @version    $Id: Set.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Service/Ebay/Finding/Set/Abstract.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses       Zend_Service_Ebay_Finding_Set_Abstract
  */
@@ -40,6 +40,7 @@ class Zend_Service_Ebay_Finding_Search_Item_Set extends Zend_Service_Ebay_Findin
      *
      * @return Zend_Service_Ebay_Finding_Search_Item
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         // check node

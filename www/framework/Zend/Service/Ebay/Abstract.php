@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.1 2011-05-30 08:30:37 root Exp $
+ * @version    $Id: Abstract.php 22824 2010-08-09 18:59:54Z renanbr $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Ebay_Abstract
@@ -35,7 +35,7 @@ abstract class Zend_Service_Ebay_Abstract
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * @var mixed
@@ -55,7 +55,7 @@ abstract class Zend_Service_Ebay_Abstract
     /**
      * @param  string|Zend_Config|array $name
      * @param  mixed                    $value
-     * @return Zend_Service_Ebay_Abstract Provides a fluent interface
+     * @return $this
      */
     public function setOption($name, $value = null)
     {
@@ -96,7 +96,7 @@ abstract class Zend_Service_Ebay_Abstract
 
     /**
      * @param  mixed $client
-     * @return Zend_Service_Ebay_Abstract Provides a fluent interface
+     * @return $this
      */
     abstract public function setClient($client);
 
@@ -113,7 +113,7 @@ abstract class Zend_Service_Ebay_Abstract
     public static function optionsToArray($options)
     {
         if (null === $options) {
-            $options = array();
+            $options = [];
         } else if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
@@ -192,7 +192,7 @@ abstract class Zend_Service_Ebay_Abstract
     {
         $options  = self::optionsToArray($options);
         ksort($options);
-        $new      = array();
+        $new      = [];
         $runAgain = false;
         foreach ($options as $name => $value) {
             if (is_array($value)) {
@@ -269,9 +269,9 @@ abstract class Zend_Service_Ebay_Abstract
      *
      * @param  string $value
      * @param  string $type
-     * @see    http://developer.ebay.com/DevZone/finding/CallRef/types/simpleTypes.html
+     * @return bool|float|string
      * @throws Zend_Service_Ebay_Finding_Exception When $type is not valid
-     * @return mixed
+     * @see    http://developer.ebay.com/DevZone/finding/CallRef/types/simpleTypes.html
      */
     public static function toPhpValue($value, $type)
     {
@@ -283,7 +283,7 @@ abstract class Zend_Service_Ebay_Abstract
 
             // cast for: Amount, decimal, double, float, MeasureType
             case 'float':
-                $value = floatval((string) $value);
+                $value = (float)(string)$value;
                 break;
 
             // cast for: int, long

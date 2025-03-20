@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Container.php,v 1.1.2.1 2011-05-30 08:31:11 root Exp $
+ * @version    $Id: Container.php 22791 2010-08-04 16:11:47Z renanbr $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Service/Ebay/Finding/Abstract.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses       Zend_Service_Ebay_Finding_Abstract
  */
@@ -90,9 +90,9 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Container extends Zend_Service_
         $this->domainDisplayName = $this->_query(".//$ns:domainDisplayName[1]", 'string');
         $this->domainName        = $this->_query(".//$ns:domainName[1]", 'string');
 
-        $this->_attributes['aspect'] = array(
+        $this->_attributes['aspect'] = [
             'name' => $this->_query(".//$ns:aspect/@name", 'string', true)
-        );
+        ];
 
         $nodes = $this->_xPath->query(".//$ns:aspect", $this->_dom);
         if ($nodes->length > 0) {

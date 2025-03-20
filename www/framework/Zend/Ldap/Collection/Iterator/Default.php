@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Default.php,v 1.1.2.1 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -25,7 +25,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
@@ -132,7 +132,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      * argument and returning the new attribute's name.
      *
      * @param  integer|callback $attributeNameTreatment
-     * @return Zend_Ldap_Collection_Iterator_Default Provides a fluent interface
+     * @return $this
      */
     public function setAttributeNameTreatment($attributeNameTreatment)
     {
@@ -177,7 +177,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return $this->_itemCount;
     }
@@ -189,6 +189,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      * @return array|null
      * @throws Zend_Ldap_Exception
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         if (!is_resource($this->_current)) {
@@ -198,10 +199,9 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
             return null;
         }
 
-        $entry = array('dn' => $this->key());
+        $entry = ['dn' => $this->key()];
         $ber_identifier = null;
-        $name = @ldap_first_attribute($this->_ldap->getResource(), $this->_current,
-            $ber_identifier);
+        $name = @ldap_first_attribute($this->_ldap->getResource(), $this->_current);
         while ($name) {
             $data = @ldap_get_values_len($this->_ldap->getResource(), $this->_current, $name);
             unset($data['count']);
@@ -221,8 +221,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
                     break;
             }
             $entry[$attrName] = $data;
-            $name = @ldap_next_attribute($this->_ldap->getResource(), $this->_current,
-                $ber_identifier);
+            $name = @ldap_next_attribute($this->_ldap->getResource(), $this->_current);
         }
         ksort($entry, SORT_LOCALE_STRING);
         return $entry;
@@ -234,6 +233,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         if (!is_resource($this->_current)) {
@@ -258,9 +258,9 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      *
      * @throws Zend_Ldap_Exception
      */
-    public function next()
+    public function next(): void
     {
-        if (is_resource($this->_current)) {
+        if (is_resource($this->_current) && $this->_itemCount > 0) {
             $this->_current = @ldap_next_entry($this->_ldap->getResource(), $this->_current);
             /** @see Zend_Ldap_Exception */
             require_once 'Zend/Ldap/Exception.php';
@@ -273,6 +273,8 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
                      throw new Zend_Ldap_Exception($this->_ldap, 'getting next entry (' . $msg . ')');
                 }
             }
+        } else {
+            $this->_current = false;
         }
     }
 
@@ -282,7 +284,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      *
      * @throws Zend_Ldap_Exception
      */
-    public function rewind()
+    public function rewind(): void
     {
         if (is_resource($this->_resultId)) {
             $this->_current = @ldap_first_entry($this->_ldap->getResource(), $this->_resultId);
@@ -302,7 +304,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      *
      * @return boolean
      */
-    public function valid()
+    public function valid(): bool
     {
         return (is_resource($this->_current));
     }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Standard.php,v 1.1.2.3 2011-05-30 08:30:35 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Loader */
@@ -30,7 +30,7 @@ require_once 'Zend/Controller/Dispatcher/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abstract
@@ -51,7 +51,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * Controller directory(ies)
      * @var array
      */
-    protected $_controllerDirectory = array();
+    protected $_controllerDirectory = [];
 
     /**
      * Constructor: Set current module to default value
@@ -59,7 +59,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * @param  array $params
      * @return void
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
         $this->_curModule = $this->getDefaultModule();
@@ -93,7 +93,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      */
     public function setControllerDirectory($directory, $module = null)
     {
-        $this->_controllerDirectory = array();
+        $this->_controllerDirectory = [];
 
         if (is_string($directory)) {
             $this->addControllerDirectory($directory, $module);
@@ -116,7 +116,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * If a module is specified, returns just that directory.
      *
      * @param  string $module Module name
-     * @return array|string Returns array of all directories by default, single
+     * @return array|string|null Returns array of all directories by default, single
      * module directory if module argument provided
      */
     public function getControllerDirectory($module = null)
@@ -257,6 +257,19 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         }
 
         /**
+         * If we're in a module or prefixDefaultModule is on, we must add the module name
+         * prefix to the contents of $className, as getControllerClass does not do that automatically.
+         * We must keep a separate variable because modules are not strictly PSR-0: We need the no-module-prefix
+         * class name to do the class->file mapping, but the full class name to insantiate the controller
+         */
+        $moduleClassName = $className;
+        if (($this->_defaultModule != $this->_curModule)
+            || $this->getParam('prefixDefaultModule'))
+        {
+            $moduleClassName = $this->formatClassName($this->_curModule, $className);
+        }
+
+        /**
          * Load the controller class file
          */
         $className = $this->loadClass($className);
@@ -265,12 +278,12 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
          * Instantiate controller with request, response, and invocation
          * arguments; throw exception if it's not an action controller
          */
-        $controller = new $className($request, $this->getResponse(), $this->getParams());
+        $controller = new $moduleClassName($request, $this->getResponse(), $this->getParams());
         if (!($controller instanceof Zend_Controller_Action_Interface) &&
             !($controller instanceof Zend_Controller_Action)) {
             require_once 'Zend/Controller/Dispatcher/Exception.php';
             throw new Zend_Controller_Dispatcher_Exception(
-                'Controller "' . $className . '" is not an instance of Zend_Controller_Action_Interface'
+                'Controller "' . $moduleClassName . '" is not an instance of Zend_Controller_Action_Interface'
             );
         }
 
@@ -293,7 +306,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
 
         try {
             $controller->dispatch($action);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             // Clean output buffer on error
             $curObLevel = ob_get_level();
             if ($curObLevel > $obLevel) {

@@ -13,10 +13,10 @@
  * to padraic dot brady at yahoo dot com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Feed_Writer_Entry_Rss
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @package    Zend_Feed_Writer
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RendererAbstract.php,v 1.1.2.1 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,8 +26,8 @@ require_once 'Zend/Feed/Writer/Extension/RendererInterface.php';
 
  /**
  * @category   Zend
- * @package    Zend_Feed_Writer_Entry_Rss
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @package    Zend_Feed_Writer
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Writer_Extension_RendererAbstract
@@ -96,7 +96,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Get feed encoding
      *
-     * @return void
+     * @return string
      */
     public function getEncoding()
     {

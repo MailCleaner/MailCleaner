@@ -15,9 +15,9 @@
  * @category   ZendX
  * @package    ZendX_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Jquery.php,v 1.1.2.1 2011-05-30 08:31:13 root Exp $
+ * @version    $Id: Jquery.php 20240 2010-01-13 04:51:56Z matthew $
  */
 
 /**
@@ -51,7 +51,7 @@
  * @category   ZendX
  * @package    ZendX_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ZendX_Application_Resource_Jquery
@@ -105,8 +105,6 @@ class ZendX_Application_Resource_Jquery
      */
     protected function _parseOptions(array $options)
     {
-        $options = array_merge($options, array('cdn_ssl' => false));
-
         foreach ($options as $key => $value) {
             switch(strtolower($key)) {
                 case 'noconflictmode':

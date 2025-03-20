@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,7 +26,7 @@ require_once 'Zend/Cloud/StorageService/Exception.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_StorageService_Adapter
@@ -49,7 +49,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -75,12 +75,12 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return false|string
      */
-    public function fetchItem($path, $options = array())
+    public function fetchItem($path, $options = [])
     {
         $filepath = $this->_getFullPath($path);
         $path     = realpath($filepath);
 
-        if (!$path) {
+        if (!$path || !file_exists($path)) {
             return false;
         }
 
@@ -100,11 +100,11 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function storeItem($destinationPath, $data, $options = array())
+    public function storeItem($destinationPath, $data, $options = [])
     {
         $path = $this->_getFullPath($destinationPath);
         file_put_contents($path, $data);
-        chmod($path, 0777);
+        chmod($path, 0775);
     }
 
     /**
@@ -114,7 +114,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function deleteItem($path, $options = array())
+    public function deleteItem($path, $options = [])
     {
         if (!isset($path)) {
             return;
@@ -139,7 +139,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function copyItem($sourcePath, $destinationPath, $options = array())
+    public function copyItem($sourcePath, $destinationPath, $options = [])
     {
         copy($this->_getFullPath($sourcePath), $this->_getFullPath($destinationPath));
     }
@@ -157,7 +157,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function moveItem($sourcePath, $destinationPath, $options = array())
+    public function moveItem($sourcePath, $destinationPath, $options = [])
     {
         rename($this->_getFullPath($sourcePath), $this->_getFullPath($destinationPath));
     }
@@ -194,7 +194,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
         $listing = scandir($this->_getFullPath($path));
 
         // Remove the hidden navigation directories
-        $listing = array_diff($listing, array('.', '..'));
+        $listing = array_diff($listing, ['.', '..']);
 
         return $listing;
     }
@@ -206,7 +206,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return array
      */
-    public function fetchMetadata($path, $options = array())
+    public function fetchMetadata($path, $options = [])
     {
         $fullPath = $this->_getFullPath($path);
         $metadata = null;
@@ -226,7 +226,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function storeMetadata($destinationPath, $metadata, $options = array())
+    public function storeMetadata($destinationPath, $metadata, $options = [])
     {
         require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Storing metadata not implemented');

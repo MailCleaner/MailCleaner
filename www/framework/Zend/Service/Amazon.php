@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Amazon.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,11 +26,14 @@
  */
 require_once 'Zend/Rest/Client.php';
 
+/** @see Zend_Xml_Security */
+require_once 'Zend/Xml/Security.php';
+
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon
@@ -57,12 +60,12 @@ class Zend_Service_Amazon
      *
      * @var array
      */
-    protected $_baseUriList = array('US' => 'http://webservices.amazon.com',
+    protected $_baseUriList = ['US' => 'http://webservices.amazon.com',
                                     'UK' => 'http://webservices.amazon.co.uk',
                                     'DE' => 'http://webservices.amazon.de',
                                     'JP' => 'http://webservices.amazon.co.jp',
                                     'FR' => 'http://webservices.amazon.fr',
-                                    'CA' => 'http://webservices.amazon.ca');
+                                    'CA' => 'http://webservices.amazon.ca'];
 
     /**
      * Reference to REST client object
@@ -78,7 +81,7 @@ class Zend_Service_Amazon
      * @param  string $appId       Developer's Amazon appid
      * @param  string $countryCode Country code for Amazon service; may be US, UK, DE, JP, FR, CA
      * @throws Zend_Service_Exception
-     * @return Zend_Service_Amazon
+     * @return void
      */
     public function __construct($appId, $countryCode = 'US', $secretKey = null)
     {
@@ -104,14 +107,14 @@ class Zend_Service_Amazon
      * @param  array $options Options to use for the Search Query
      * @throws Zend_Service_Exception
      * @return Zend_Service_Amazon_ResultSet
-     * @see http://www.amazon.com/gp/aws/sdk/main.html/102-9041115-9057709?s=AWSEcommerceService&v=2005-10-05&p=ApiReference/ItemSearchOperation
+     * @see http://www.amazon.com/gp/aws/sdk/main.html/102-9041115-9057709?s=AWSEcommerceService&v=2011-08-01&p=ApiReference/ItemSearchOperation
      */
     public function itemSearch(array $options)
     {
         $client = $this->getRestClient();
         $client->setUri($this->_baseUri);
 
-        $defaultOptions = array('ResponseGroup' => 'Small');
+        $defaultOptions = ['ResponseGroup' => 'Small'];
         $options = $this->_prepareOptions('ItemSearch', $options, $defaultOptions);
         $client->getHttpClient()->resetParameters();
         $response = $client->restGet('/onca/xml', $options);
@@ -126,7 +129,7 @@ class Zend_Service_Amazon
         }
 
         $dom = new DOMDocument();
-        $dom->loadXML($response->getBody());
+        $dom = Zend_Xml_Security::scan($response->getBody(), $dom);
         self::_checkErrors($dom);
 
         /**
@@ -142,17 +145,17 @@ class Zend_Service_Amazon
      *
      * @param  string $asin    Amazon ASIN ID
      * @param  array  $options Query Options
-     * @see http://www.amazon.com/gp/aws/sdk/main.html/102-9041115-9057709?s=AWSEcommerceService&v=2005-10-05&p=ApiReference/ItemLookupOperation
+     * @see http://www.amazon.com/gp/aws/sdk/main.html/102-9041115-9057709?s=AWSEcommerceService&v=2011-08-01&p=ApiReference/ItemLookupOperation
      * @throws Zend_Service_Exception
      * @return Zend_Service_Amazon_Item|Zend_Service_Amazon_ResultSet
      */
-    public function itemLookup($asin, array $options = array())
+    public function itemLookup($asin, array $options = [])
     {
         $client = $this->getRestClient();
         $client->setUri($this->_baseUri);
         $client->getHttpClient()->resetParameters();
 
-        $defaultOptions = array('ResponseGroup' => 'Small');
+        $defaultOptions = ['ResponseGroup' => 'Small'];
         $options['ItemId'] = (string) $asin;
         $options = $this->_prepareOptions('ItemLookup', $options, $defaultOptions);
         $response = $client->restGet('/onca/xml', $options);
@@ -168,10 +171,10 @@ class Zend_Service_Amazon
         }
 
         $dom = new DOMDocument();
-        $dom->loadXML($response->getBody());
+        $dom = Zend_Xml_Security::scan($response->getBody(), $dom);
         self::_checkErrors($dom);
         $xpath = new DOMXPath($dom);
-        $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2005-10-05');
+        $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
         $items = $xpath->query('//az:Items/az:Item');
 
         if ($items->length == 1) {
@@ -206,7 +209,7 @@ class Zend_Service_Amazon
     /**
      * Set REST client
      *
-     * @param Zend_Rest_Client
+     * @param Zend_Rest_Client $client
      * @return Zend_Service_Amazon
      */
     public function setRestClient(Zend_Rest_Client $client)
@@ -229,7 +232,7 @@ class Zend_Service_Amazon
         $options['AWSAccessKeyId'] = $this->appId;
         $options['Service']        = 'AWSECommerceService';
         $options['Operation']      = (string) $query;
-        $options['Version']        = '2005-10-05';
+        $options['Version']        = '2011-08-01';
 
         // de-canonicalize out sort key
         if (isset($options['ResponseGroup'])) {
@@ -280,7 +283,7 @@ class Zend_Service_Amazon
     static public function buildRawSignature($baseUri, $options)
     {
         ksort($options);
-        $params = array();
+        $params = [];
         foreach($options AS $k => $v) {
             $params[] = $k."=".rawurlencode($v);
         }
@@ -302,7 +305,7 @@ class Zend_Service_Amazon
     protected static function _checkErrors(DOMDocument $dom)
     {
         $xpath = new DOMXPath($dom);
-        $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2005-10-05');
+        $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
 
         if ($xpath->query('//az:Error')->length >= 1) {
             $code = $xpath->query('//az:Error/az:Code/text()')->item(0)->data;

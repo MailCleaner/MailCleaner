@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Amf3.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
@@ -39,7 +39,7 @@ require_once 'Zend/Amf/Parse/Amf3/Deserializer.php';
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Serializer_Adapter_Amf3 extends Zend_Serializer_Adapter_AdapterAbstract
@@ -52,7 +52,7 @@ class Zend_Serializer_Adapter_Amf3 extends Zend_Serializer_Adapter_AdapterAbstra
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public function serialize($value, array $opts = array())
+    public function serialize($value, array $opts = [])
     {
         try  {
             $stream     = new Zend_Amf_Parse_OutputStream();
@@ -73,7 +73,7 @@ class Zend_Serializer_Adapter_Amf3 extends Zend_Serializer_Adapter_AdapterAbstra
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public function unserialize($value, array $opts = array())
+    public function unserialize($value, array $opts = [])
     {
         try {
             $stream       = new Zend_Amf_Parse_InputStream($value);

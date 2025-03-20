@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SimpleTextarea.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,9 +29,9 @@ require_once 'Zend/Dojo/View/Helper/Dijit.php';
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SimpleTextarea.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
 {
@@ -59,7 +59,7 @@ class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function simpleTextarea($id, $value = null, array $params = array(), array $attribs = array())
+    public function simpleTextarea($id, $value = null, array $params = [], array $attribs = [])
     {
         if (!array_key_exists('id', $attribs)) {
             $attribs['id']    = $id;
@@ -68,10 +68,8 @@ class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
 
         $attribs = $this->_prepareDijit($attribs, $params, 'textarea');
 
-        $html = '<textarea' . $this->_htmlAttribs($attribs) . '>'
+        return '<textarea' . $this->_htmlAttribs($attribs) . '>'
               . $this->view->escape($value)
               . "</textarea>\n";
-
-        return $html;
     }
 }

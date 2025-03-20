@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: USAddressVerification.php,v 1.1.2.4 2011-05-30 08:31:09 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Service_StrikeIron_Base */
@@ -27,19 +27,19 @@ require_once 'Zend/Service/StrikeIron/Base.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_StrikeIron_USAddressVerification extends Zend_Service_StrikeIron_Base
 {
     /**
      * Configuration options
-     * @param array
+     * @var array
      */
-    protected $_options = array('username' => null,
+    protected $_options = ['username' => null,
                                 'password' => null,
                                 'client'   => null,
                                 'options'  => null,
                                 'headers'  => null,
-                                'wsdl'     => 'http://ws.strikeiron.com/zf1.StrikeIron/USAddressVerification4_0?WSDL');
+                                'wsdl'     => 'http://ws.strikeiron.com/zf1.StrikeIron/USAddressVerification4_0?WSDL'];
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Request
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php,v 1.1.2.3 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Amf_Request */
@@ -32,7 +32,7 @@ require_once 'Zend/Amf/Request.php';
  *
  * @package    Zend_Amf
  * @subpackage Request
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Request_Http extends Zend_Amf_Request

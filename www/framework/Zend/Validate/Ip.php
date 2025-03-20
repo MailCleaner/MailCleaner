@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ip.php,v 1.1.2.4 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Validate/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Ip extends Zend_Validate_Abstract
@@ -38,28 +38,27 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::INVALID        => "Invalid type given. String expected",
         self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address",
-    );
+    ];
 
     /**
      * internal options
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'allowipv6' => true,
         'allowipv4' => true
-    );
+    ];
 
     /**
      * Sets validator options
      *
      * @param array $options OPTIONAL Options to set, see the manual for all available options
-     * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -91,6 +90,7 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
      * Sets the options for this validator
      *
      * @param array $options
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_Ip
      */
     public function setOptions($options)
@@ -141,6 +141,7 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
      * Validates an IPv4 address
      *
      * @param string $value
+     * @return bool
      */
     protected function _validateIPv4($value) {
         $ip2long = ip2long($value);
@@ -177,12 +178,13 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         }
 
         $colonCount = substr_count($value, ':');
+
         if ($colonCount < 8) {
             return preg_match('/\A(?::|(?:[a-f0-9]{1,4}:)+):(?:(?:[a-f0-9]{1,4}:)*[a-f0-9]{1,4})?\z/i', $value);
         }
 
         // special case with ending or starting double colon
-        if ($colonCount == 8) {
+        if ($colonCount === 8) {
             return preg_match('/\A(?:::)?(?:[a-f0-9]{1,4}:){6}[a-f0-9]{1,4}(?:::)?\z/i', $value);
         }
 

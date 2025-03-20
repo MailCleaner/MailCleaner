@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResultSet.php,v 1.1.2.4 2011-05-30 08:30:48 root Exp $
+ * @version    $Id$
  */
 
 
@@ -32,7 +32,7 @@ require_once 'Zend/Service/Amazon/Item.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_ResultSet implements SeekableIterator
@@ -75,7 +75,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
     {
         $this->_dom = $dom;
         $this->_xpath = new DOMXPath($dom);
-        $this->_xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2005-10-05');
+        $this->_xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
         $this->_results = $this->_xpath->query('//az:Item');
     }
 
@@ -106,6 +106,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      *
      * @return Zend_Service_Amazon_Item
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return new Zend_Service_Amazon_Item($this->_results->item($this->_currentIndex));
@@ -116,6 +117,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentIndex;
@@ -126,7 +128,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->_currentIndex += 1;
     }
@@ -136,7 +138,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_currentIndex = 0;
     }
@@ -148,7 +150,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      * @throws OutOfBoundsException
      * @return void
      */
-    public function seek($index)
+    public function seek($index): void
     {
         $indexInt = (int) $index;
         if ($indexInt >= 0 && (null === $this->_results || $indexInt < $this->_results->length)) {
@@ -163,7 +165,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
      *
      * @return boolean
      */
-    public function valid()
+    public function valid(): bool
     {
         return null !== $this->_results && $this->_currentIndex < $this->_results->length;
     }

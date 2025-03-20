@@ -1,0 +1,2 @@
+# Depends: mpm_prefork
+LoadModule mpm_itk_module /usr/lib/apache2/modules/mpm_itk.so

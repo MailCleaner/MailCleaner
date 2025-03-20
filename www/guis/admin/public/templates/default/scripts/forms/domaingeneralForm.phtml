@@ -1,65 +1,83 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
+ * @author Olivier Diserens, John Mertz
  * @copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
- *		  2015-2017 Mentor Reka <reka.mentor@gmail.com>
+ *                2015-2017 Mentor Reka <reka.mentor@gmail.com>
+ *                2025 John Mertz <git@john.me.tz>
  */
 ?>
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
-       <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
-       <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
+<?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+<?php echo $this->InputRow($this->form->getElement('panel'), ['field_only' => true, 'nobox' => true]); ?>
+<?php echo $this->InputRow($this->form->getElement('name'), ['field_only' => true, 'nobox' => true]); ?>
 <table class="ftable">
-        <?php $user = Zend_Registry::get('user'); ?>
+    <?php $user = Zend_Registry::get('user'); ?>
+    <tr>
+        <td class='flabel'>Administrator(s):</td>
+        <td class='fvalue'>
+            <?php if (empty($this->domain->getAdmin()) || $this->domain->getAdmin() == NULL) echo "<div><i> no administrator defined for this domain</i></div>"; ?>
+            <?php foreach ($this->domain->getAdmin() as $admin) { ?>
+                <div>
+                    <?php if ($user && $user->getUserType() == 'administrator') { ?>
+                        <a href='/admin/accesses/edit/sname//page/1/username/<?php echo $admin->username ?>'>
+                        <?php } ?>
+                        <?php echo $admin->username; ?><?php if ($admin->can_manage_domains != "1" && $admin->can_manage_host != "1") echo " (hotline)"; ?>
+                        <?php if ($user && $user->getUserType() == 'administrator') { ?>
+                        </a>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <hr />
+        </td>
+    </tr>
+
+    <?php if ($user && $user->getUserType() == 'administrator') { ?>
+        <?php echo $this->InputRow($this->form->getElement("enabledomain")); ?>
         <tr>
-                <td class='flabel'>Administrator(s):</td>
-                <td class='fvalue'>
-                        <?php if (empty($this->domain->getAdmin()) || $this->domain->getAdmin() == NULL) echo "<div><i> no administrator defined for this domain</i></div>"; ?>
-                        <?php foreach ($this->domain->getAdmin() as $admin) {?>
-                                <div>
-					<?php if ($user && $user->getUserType() == 'administrator') {?>
-						<a href='/admin/accesses/edit/sname//page/1/username/<?php echo $admin->username?>'>
-					<?php } ?>
-					<?php echo $admin->username; ?><?php if ($admin->can_manage_domains != "1" && $admin->can_manage_host != "1") echo " (hotline)"; ?>
-					<?php if ($user && $user->getUserType() == 'administrator') {?>
-                                                </a>
-                                        <?php } ?>
-				</div>
-                        <?php }?>
-                </td>
+            <td colspan="2">
+                <hr />
+            </td>
         </tr>
+    <?php } else {
+        echo "<tr><td class='flabel'>Domain is active:</td>";
+        if ($this->domain->getParam('active')) {
+            echo "<td class='fvalue'><div><strong style='color:green'>yes</strong></td></tr>";
+        } elseif ($this->domain->getParam('active') == "0") {
+            echo "<td class='fvalue'><div><strong style='color:red'>no</strong> (Please contact your administrator)</td></tr>";
+        } else {
+            echo "<td class='fvalue'><div><strong style='color:grey'>unchanged</strong></td></tr>";
+        }
+    } ?>
 
-	<tr><td colspan="2"><hr /></td></tr>
+    <?php if ($this->domain->getParam('name') != '__global__') { ?>
+        <?php foreach (['aliases'] as $f) { ?>
+            <?php echo $this->InputRow($this->form->getElement($f), ['label_addclass' => 'flabeltextarea']); ?>
+        <?php } ?>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+    <?php } ?>
+    <?php foreach (['systemsender', 'falseneg_to', 'falsepos_to'] as $f) { ?>
+        <?php echo $this->InputRow($this->form->getElement($f)); ?>
+    <?php } ?>
 
-        <?php if ($user && $user->getUserType() == 'administrator') {?>
-                <?php echo $this->InputRow($this->form->getElement("enabledomain"));?>
-                <tr><td colspan="2"><hr /></td></tr>
-        <?php } else {
-                echo "<tr><td class='flabel'>Domain is active:</td>";
-                if ($this->domain->getParam('active')) {
-                        echo "<td class='fvalue'><div><strong style='color:green'>yes</strong></td></tr>";
-                } elseif ($this->domain->getParam('active') == "0") {
-                        echo "<td class='fvalue'><div><strong style='color:red'>no</strong> (Please contact your administrator)</td></tr>";
-                } else {
-                        echo "<td class='fvalue'><div><strong style='color:grey'>unchanged</strong></td></tr>";
-                }
-         } ?>
-	
-        <?php if ($this->domain->getParam('name') != '__global__') {?>
-          <?php foreach (array('aliases') as $f) {?>
-           <?php echo $this->InputRow($this->form->getElement($f),array('label_addclass'=>'flabeltextarea'));?>
-          <?php }?>
-          <tr><td colspan="2"><hr /></td></tr>
-        <?php }?>      
-          <?php foreach (array('systemsender', 'falseneg_to', 'falsepos_to') as $f) {?>
-           <?php echo $this->InputRow($this->form->getElement($f));?>
-          <?php }?>
-          
-           <tr><td colspan="2"><hr /></td></tr>
-          
-          <?php foreach (array('supportname', 'supportemail') as $f) {?>
-           <?php echo $this->InputRow($this->form->getElement($f));?>
-          <?php }?>
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-       </table>
+    <tr>
+        <td colspan="2">
+            <hr />
+        </td>
+    </tr>
+
+    <?php foreach (['supportname', 'supportemail'] as $f) { ?>
+        <?php echo $this->InputRow($this->form->getElement($f)); ?>
+    <?php } ?>
+    <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+</table>

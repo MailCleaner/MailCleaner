@@ -1,11 +1,12 @@
-<?
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2006, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2006, Olivier Diserens; 2023, John Mertz
  */
- 
+
 $txt['SUBMIT']                      = "submit";
 $txt['CANCEL']                      = "cancel";
 $txt['CLOSE']                       = "close";
@@ -232,7 +233,7 @@ $txt['DAYS']                        = "day(s)";
 $txt['DAILYCRONRUNAT']              = "Daily tasks run at";
 $txt['WEEKLYCRONRUNAT']             = "Weekly tasks run on";
 $txt['MONTHLYCRONRUNAT']            = "Monthly tasks run at day";
-$txt['WEEKDAYS']                    = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+$txt['WEEKDAYS']                    = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 $txt['DOMAINSDEFAULTS']             = "Defaults for domains";
 $txt['QUARANTINES']                 = "Quarantines";
 $txt['PERIODICTASKS']               = "Periodic tasks";
@@ -278,7 +279,7 @@ $txt['LDAPCALLOUT']                 = "LDAP/AD callout configuration";
 $txt['SERVICENEEDRESTART']          = "At least one service needs to be restarted";
 
 $txt['GREYLISTCONFIG']              = "Greylist daemon configuration";
-$txt['GREYRETRYMIN']                = "Minimum retry time"; 
+$txt['GREYRETRYMIN']                = "Minimum retry time";
 $txt['GREYRETRYMAX']                = "Maximum retry time";
 $txt['GREYEXPIRE']                  = "Lifetime of record";
 $txt['AVOIDGREYDOMAINS']            = "Exclude these sender domains";
@@ -345,11 +346,11 @@ $txt['ENABLEWARNLIST']              = "Enable warnlists";
 $txt['ENABLEBLACKLIST']              = "Enable blacklists";
 $txt['ENABLEWWNOTICE']              = "Notice admin on white/warn/black list hit";
 $txt['WARNHIT']                     = "Warnlist hit";
-$txt['BLACKHIT']		    = "Blacklist hit";
+$txt['BLACKHIT']            = "Blacklist hit";
 $txt['WHITELISTWARNING']            = 'Allowing users to manage whitelist can be very dangerous for the filter health.\n' .
-                                      'Refer to the documentation for more information and be sure of what you are doing !';
+    'Refer to the documentation for more information and be sure of what you are doing !';
 $txt['WWHITWARNING']                = 'Enabling admin notification on white/warn/black list hit may be illegal on some countries.\n' .
-                                      'Please check your local legislation on that !';
+    'Please check your local legislation on that !';
 $txt['EDITSYSTEMWHITELIST']         = "edit global whitelist";
 $txt['EDITSYSTEMBLACKLIST']         = "edit global blacklist";
 $txt['EDITSYSTEMWARNLIST']          = "edit global warnlist";
@@ -436,7 +437,7 @@ $txt['BLOCK']                       = "block";
 $txt['DENY']                        = "deny";
 
 $txt['RULE']                        = "Rule";
-$txt['CONFIRMFILENAMEDELETE']		= "Are you sure you want to delete permanently this rule ?";
+$txt['CONFIRMFILENAMEDELETE']        = "Are you sure you want to delete permanently this rule ?";
 
 $txt['EXTERNALACCESSCONFIGURATION'] = "External access configuration (firewall)";
 $txt['WEBGUIACCESS']                = "Web interface access";
@@ -574,4 +575,3 @@ $txt['WARNLISTFOR']                 = "Warn list for __PARAM__";
 $txt['WARNLISTFORGLOBAL']           = "Global warn list";
 $txt['WHITELISTFORGLOBAL']          = "Global white list";
 $txt['BLACKLISTFORGLOBAL']          = "Global black list";
-?>

@@ -15,13 +15,13 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Generator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: XmlWriter.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
- * @var Zend_XmlRpc_Generator_GeneratorAbstract
+ * @see Zend_XmlRpc_Generator_GeneratorAbstract
  */
 require_once 'Zend/XmlRpc/Generator/GeneratorAbstract.php';
 
@@ -76,7 +76,7 @@ class Zend_XmlRpc_Generator_XmlWriter extends Zend_XmlRpc_Generator_GeneratorAbs
      * Close an previously opened XML element
      *
      * @param string $name
-     * @return void
+     * @return Zend_XmlRpc_Generator_XmlWriter
      */
     protected function _closeElement($name)
     {

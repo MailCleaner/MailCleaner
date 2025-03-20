@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ require_once 'Zend/Cloud/DocumentService/QueryAdapter.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
@@ -95,7 +95,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
     {
         if (!empty($value) && !is_array($value)) {
             // fix buglet in Azure - numeric values are quoted unless passed as an array
-            $value = array($value);
+            $value = [$value];
         }
         $this->_azureSelect->where($where, $value, $op);
         return $this;

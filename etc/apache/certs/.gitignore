@@ -1,2 +1,4 @@
 /certificate-chain.pem
 /certificate.pem
+/default.crt
+/default.key

@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Yaml.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -42,7 +42,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      *
      * @var callable
      */
-    protected $_yamlEncoder = array('Zend_Config_Writer_Yaml', 'encode');
+    protected $_yamlEncoder = ['Zend_Config_Writer_Yaml', 'encode'];
 
     /**
      * Get callback for decoding YAML
@@ -58,7 +58,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      * Set callback for decoding YAML
      *
      * @param  callable $yamlEncoder the decoder to set
-     * @return Zend_Config_Yaml
+     * @return Zend_Config_Writer_Yaml
      */
     public function setYamlEncoder($yamlEncoder)
     {
@@ -84,7 +84,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
         $extends     = $this->_config->getExtends();
 
         if (is_string($sectionName)) {
-            $data = array($sectionName => $data);
+            $data = [$sectionName => $data];
         }
 
         foreach ($extends as $section => $parentSection) {

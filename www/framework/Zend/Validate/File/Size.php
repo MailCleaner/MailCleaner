@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Size.php,v 1.1.2.4 2011-05-30 08:31:03 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/Abstract.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_Size extends Zend_Validate_Abstract
@@ -45,20 +45,20 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::TOO_BIG   => "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected",
         self::TOO_SMALL => "Minimum expected size for file '%value%' is '%min%' but '%size%' detected",
         self::NOT_FOUND => "File '%value%' is not readable or does not exist",
-    );
+    ];
 
     /**
      * @var array Error message template variables
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'min'  => '_min',
         'max'  => '_max',
         'size' => '_size',
-    );
+    ];
 
     /**
      * Minimum filesize
@@ -99,13 +99,14 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      * 'bytestring': Use bytestring or real size for messages
      *
      * @param  integer|array $options Options for the adapter
+     * @throws Zend_Validate_Exception
      */
     public function __construct($options)
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (is_string($options) || is_numeric($options)) {
-            $options = array('max' => $options);
+            $options = ['max' => $options];
         } elseif (!is_array($options)) {
             require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception ('Invalid options to validator provided');
@@ -137,7 +138,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      * Returns the minimum filesize
      *
      * @param  boolean $byteString Use bytestring ?
-     * @return integer
+     * @return Zend_Validate_File_Size
      */
     public function setUseByteString($byteString = true)
     {
@@ -176,11 +177,11 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      *
      * @param  integer $min The minimum filesize
      * @throws Zend_Validate_Exception When min is greater than max
-     * @return Zend_Validate_File_Size Provides a fluent interface
+     * @return $this
      */
     public function setMin($min)
     {
-        if (!is_string($min) and !is_numeric($min)) {
+        if (!is_string($min) && !is_numeric($min)) {
             require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception ('Invalid options to validator provided');
         }
@@ -217,8 +218,8 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      * Sets the maximum filesize
      *
      * @param  integer $max The maximum filesize
+     * @return $this
      * @throws Zend_Validate_Exception When max is smaller than min
-     * @return Zend_Validate_StringLength Provides a fluent interface
      */
     public function setMax($max)
     {
@@ -326,7 +327,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      */
     protected function _toByteString($size)
     {
-        $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $sizes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         for ($i=0; $size >= 1024 && $i < 9; $i++) {
             $size /= 1024;
         }
@@ -352,7 +353,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
         if (!is_numeric($value)) {
             $value = substr($value, 0, -1);
         }
-
+        $value = trim((string) $value);
         switch (strtoupper($type)) {
             case 'Y':
                 $value *= (1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024);

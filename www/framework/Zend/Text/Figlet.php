@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Text_Figlet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Figlet.php,v 1.1.2.4 2011-05-30 08:30:50 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category  Zend
  * @package   Zend_Text_Figlet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Text_Figlet
@@ -71,7 +71,7 @@ class Zend_Text_Figlet
      *
      * @var array
      */
-    protected $_charList = array();
+    protected $_charList = [];
 
     /**
      * Indicates if a font was loaded yet
@@ -93,7 +93,7 @@ class Zend_Text_Figlet
      *
      * @var array
      */
-    protected $_germanChars = array(196, 214, 220, 228, 246, 252, 223);
+    protected $_germanChars = [196, 214, 220, 228, 246, 252, 223];
 
     /**
      * Output width, defaults to 80.
@@ -183,7 +183,7 @@ class Zend_Text_Figlet
      *
      * @var array
      */
-    protected $_fontOptions = array();
+    protected $_fontOptions = [];
 
     /**
      * Previous character width
@@ -260,10 +260,10 @@ class Zend_Text_Figlet
      *
      * @var array
      */
-    protected $_skipOptions = array(
+    protected $_skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Instantiate the FIGlet with a specific font. If no font is given, the
@@ -435,7 +435,7 @@ class Zend_Text_Figlet
         }
 
         $this->_output     = '';
-        $this->_outputLine = array();
+        $this->_outputLine = [];
 
         $this->_clearLine();
 
@@ -461,7 +461,7 @@ class Zend_Text_Figlet
                     $nextChar = null;
                 }
 
-                $char = (ctype_space($nextChar)) ? "\n" : ' ';
+                $char = (ctype_space((string) $nextChar)) ? "\n" : ' ';
             }
 
             $lastCharWasEol = (ctype_space($char) && $char !== "\t" && $char !== ' ');
@@ -1089,8 +1089,8 @@ class Zend_Text_Figlet
             // Convert it if required
             if (substr($uniCode, 0, 2) === '0x') {
                 $uniCode = hexdec(substr($uniCode, 2));
-            } else if (substr($uniCode, 0, 1) === '0' and
-                       $uniCode !== '0' or
+            } else if (substr($uniCode, 0, 1) === '0' &&
+                       $uniCode !== '0' ||
                        substr($uniCode, 0, 2) === '-0') {
                 $uniCode = octdec($uniCode);
             } else {
@@ -1183,7 +1183,7 @@ class Zend_Text_Figlet
      */
     protected function _loadChar($fp)
     {
-        $char = array();
+        $char = [];
 
         for ($i = 0; $i < $this->_charHeight; $i++) {
             if (feof($fp)) {

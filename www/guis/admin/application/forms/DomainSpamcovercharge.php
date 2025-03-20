@@ -1,88 +1,95 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
  */
 
-class Default_Form_DomainSpamcovercharge extends Zend_Form {
-	protected $_domain;
-	protected $_panelname = 'spamcovercharge';
-	
-	public function __construct($domain) {
-	    $this->_domain = $domain;
+class Default_Form_DomainSpamcovercharge extends Zend_Form
+{
+    protected $_domain;
+    protected $_panelname = 'spamcovercharge';
 
-	    parent::__construct();
-	}
-	
-	
-	public function init() {
-		$this->setMethod('post');
-			
-		$t = Zend_Registry::get('translate');
-		$user_role = Zend_Registry::get('user')->getUserType();
+    public function __construct($domain)
+    {
+        $this->_domain = $domain;
 
-		$this->setAttrib('id', 'domain_form');
-		$panellist = new Zend_Form_Element_Select('domainpanel', array(
-			'required'   => false,
-			'filters'    => array('StringTrim'))
-		);
-		## TODO: add specific validator
-		$panellist->addValidator(new Zend_Validate_Alnum());
+        parent::__construct();
+    }
 
-		foreach ($this->_domain->getConfigPanels() as $panel => $panelname) {
-			$panellist->addMultiOption($panel, $panelname);
-		}
-		$panellist->setValue($this->_panelname);
-		$this->addElement($panellist);
 
-		$panel = new Zend_Form_Element_Hidden('panel');
-		$panel->setValue($this->_panelname);
-		$this->addElement($panel);
-		$name = new Zend_Form_Element_Hidden('name');
-		$name->setValue($this->_domain->getParam('name'));
-		$this->addElement($name);
+    public function init()
+    {
+        $this->setMethod('post');
 
-		$domainname = new  Zend_Form_Element_Text('domainname', array(
-			'label'   => $t->_('Domain name')." :",
-			'required' => false,
-			'filters'    => array('StringToLower', 'StringTrim'))
-		);
-		$domainname->setValue($this->_domain->getParam('name'));
-		require_once('Validate/DomainName.php');
-		$domainname->addValidator(new Validate_DomainName());
-		$this->addElement($domainname);	
+        $t = Zend_Registry::get('translate');
+        $user_role = Zend_Registry::get('user')->getUserType();
 
-		$wwelement = new Default_Model_WWElement();
+        $this->setAttrib('id', 'domain_form');
+        $panellist = new Zend_Form_Element_Select('domainpanel', [
+            'required'   => false,
+            'filters'    => ['StringTrim']
+        ]);
+        ## TODO: add specific validator
+        $panellist->addValidator(new Zend_Validate_Alnum());
 
-		$spamcovercharge = new Zend_Form_Element_Textarea('spamcovercharge', array(
-			'label'		=>  $t->_('Adjust these SpamC rules :</br>Example :</br>MC_LOTS_OF_MONEY -1.0'),
-			'title'		=> $t->_("You need to enter the exact name of a SpamC rule and an associated score. Keep in mind that the original score will also be applied"),
-			'required'	=> false,
-			'rows'		=> 10,
-			'cols'		=> 30,
-			'filters'	=> array('StringTrim'))
-		);
-		$spamcovercharge->setValue($wwelement->fetchAllField('@'.$this->_domain->getParam('name'), 'SpamC', 'comments'));
-/*	        if ($user_role != 'administrator') {
-			$spamcovercharge->setAttrib('disabled', true);
-			$spamcovercharge->setAttrib('readonly', true);
-		}
-*/		$this->addElement($spamcovercharge);
+        foreach ($this->_domain->getConfigPanels() as $panel => $panelname) {
+            $panellist->addMultiOption($panel, $panelname);
+        }
+        $panellist->setValue($this->_panelname);
+        $this->addElement($panellist);
 
-		$submit = new Zend_Form_Element_Submit('submit', array(
-			'label'    => $t->_('Submit'))
-		);
-	        if ($user_role != 'administrator') {
-			$submit->setAttrib('disabled', true);
-			$submit->setAttrib('readonly', true);
-		}
-		$this->addElement($submit);	
-	}
+        $panel = new Zend_Form_Element_Hidden('panel');
+        $panel->setValue($this->_panelname);
+        $this->addElement($panel);
+        $name = new Zend_Form_Element_Hidden('name');
+        $name->setValue($this->_domain->getParam('name'));
+        $this->addElement($name);
 
-	public function setParams($request, $domain) {
-		$wwelement = new Default_Model_WWElement();
-		$wwelement->setSpamcOvercharge('@'.$domain->getParam('name'), $request->getParam('spamcovercharge'), 'SpamC');
+        $domainname = new  Zend_Form_Element_Text('domainname', [
+            'label'   => $t->_('Domain name') . " :",
+            'required' => false,
+            'filters'    => ['StringToLower', 'StringTrim']
+        ]);
+        $domainname->setValue($this->_domain->getParam('name'));
+        require_once('Validate/DomainName.php');
+        $domainname->addValidator(new Validate_DomainName());
+        $this->addElement($domainname);
 
-		return true;
-	}
+        $wwelement = new Default_Model_WWElement();
+
+        $spamcovercharge = new Zend_Form_Element_Textarea('spamcovercharge', [
+            'label'        =>  $t->_('Adjust these SpamC rules :</br>Example :</br>MC_LOTS_OF_MONEY -1.0'),
+            'title'        => $t->_("You need to enter the exact name of a SpamC rule and an associated score. Keep in mind that the original score will also be applied"),
+            'required'    => false,
+            'rows'        => 10,
+            'cols'        => 30,
+            'filters'    => ['StringTrim']
+        ]);
+        $spamcovercharge->setValue($wwelement->fetchAllField('@' . $this->_domain->getParam('name'), 'SpamC', 'comments'));
+        /*
+        * if ($user_role != 'administrator') {
+        *   $spamcovercharge->setAttrib('disabled', true);
+        *   $spamcovercharge->setAttrib('readonly', true);
+        * }
+        */
+        $this->addElement($spamcovercharge);
+
+        $submit = new Zend_Form_Element_Submit('submit', [
+            'label'    => $t->_('Submit')
+        ]);
+        if ($user_role != 'administrator') {
+            $submit->setAttrib('disabled', true);
+            $submit->setAttrib('readonly', true);
+        }
+        $this->addElement($submit);
+    }
+
+    public function setParams($request, $domain)
+    {
+        $wwelement = new Default_Model_WWElement();
+        $wwelement->setSpamcOvercharge('@' . $domain->getParam('name'), $request->getParam('spamcovercharge'), 'SpamC');
+
+        return true;
+    }
 }

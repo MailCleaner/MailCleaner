@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: InArray.php,v 1.1.2.4 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Validate/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_InArray extends Zend_Validate_Abstract
@@ -37,9 +37,9 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::NOT_IN_ARRAY => "'%value%' was not found in the haystack",
-    );
+    ];
 
     /**
      * Haystack of possible values
@@ -65,8 +65,8 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Sets validator options
      *
-     * @param  array|Zend_Config $haystack
-     * @return void
+     * @param array|Zend_Config $options Validator options
+     * @throws Zend_Validate_Exception
      */
     public function __construct($options)
     {
@@ -77,7 +77,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
             throw new Zend_Validate_Exception('Array expected as parameter');
         } else {
             $count = func_num_args();
-            $temp  = array();
+            $temp  = [];
             if ($count > 1) {
                 $temp['haystack'] = func_get_arg(0);
                 $temp['strict']   = func_get_arg(1);
@@ -85,7 +85,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
             } else {
                 $temp = func_get_arg(0);
                 if (!array_key_exists('haystack', $options)) {
-                    $options = array();
+                    $options = [];
                     $options['haystack'] = $temp;
                 } else {
                     $options = $temp;
@@ -106,7 +106,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Returns the haystack option
      *
-     * @return mixed
+     * @return array
      */
     public function getHaystack()
     {
@@ -117,7 +117,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
      * Sets the haystack option
      *
      * @param  mixed $haystack
-     * @return Zend_Validate_InArray Provides a fluent interface
+     * @return $this
      */
     public function setHaystack(array $haystack)
     {
@@ -139,7 +139,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
      * Sets the strict option
      *
      * @param  boolean $strict
-     * @return Zend_Validate_InArray Provides a fluent interface
+     * @return $this
      */
     public function setStrict($strict)
     {
@@ -161,7 +161,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
      * Sets the recursive option
      *
      * @param  boolean $recursive
-     * @return Zend_Validate_InArray Provides a fluent interface
+     * @return $this
      */
     public function setRecursive($recursive)
     {

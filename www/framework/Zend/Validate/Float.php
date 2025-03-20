@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Float.php,v 1.1.2.4 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Locale/Format.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Float extends Zend_Validate_Abstract
@@ -43,10 +43,10 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::INVALID   => "Invalid type given. String, integer or float expected",
         self::NOT_FLOAT => "'%value%' does not appear to be a float",
-    );
+    ];
 
     protected $_locale;
 
@@ -91,6 +91,7 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
      * Sets the locale to use
      *
      * @param string|Zend_Locale $locale
+     * @return $this
      */
     public function setLocale($locale = null)
     {
@@ -104,7 +105,7 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
      *
      * Returns true if and only if $value is a floating-point value
      *
-     * @param  string $value
+     * @param mixed $value
      * @return boolean
      */
     public function isValid($value)
@@ -114,13 +115,13 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
             return false;
         }
 
-        if (is_float($value)) {
+        if (is_int($value) || is_float($value)) {
             return true;
         }
 
         $this->_setValue($value);
         try {
-            if (!Zend_Locale_Format::isFloat($value, array('locale' => $this->_locale))) {
+            if (!Zend_Locale_Format::isFloat($value, ['locale' => $this->_locale])) {
                 $this->_error(self::NOT_FLOAT);
                 return false;
             }

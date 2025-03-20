@@ -1,102 +1,97 @@
 body {
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;    /* OBLIGATOIRE */
+    font-style: normal;                         /* italic */
+    font-variant: normal;                       /* small-caps */
+    font-weight: normal;                        /* bold bolder lighter */
+    font-size: 11px;                            /* OBLIGATOIRE - % mieux que pt ou px */
+    /* ancien: 75% */
+    text-decoration: none;                      /* underline overline line-trough blink */
+    word-spacing: normal;                       /* normal 2px -1px (val. négatives possibles) */
+    color: #000000;                             /* OBLIGATOIRE - format: #000000 */
 
-	/* TEXTE & POLICE */
-	font-family: Verdana, Arial, sans-serif;  	/* OBLIGATOIRE */
-	font-style: normal;				/* italic */
-	font-variant: normal;				/* small-caps */
-	font-weight: normal;				/* bold bolder lighter */
-	font-size: 11px;				/* OBLIGATOIRE - % mieux que pt ou px */
-	/* ancien: 75% */
-	text-decoration: none;				/* underline overline line-trough blink */
-	word-spacing: normal;				/* normal 2px -1px (val. négatives possibles) */
-	color: #000000;					/* OBLIGATOIRE - format: #000000 */
-
-	/* MARGES */
-	margin: 0px;
+    /* MARGES */
+    margin: 0px;
 }
 
 .smallblacktext {
-	/* TEXTE & POLICE */
-        font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
-        font-style: normal;                             /* italic */
-        font-variant: normal;                           /* small-caps */
-        font-weight: normal;                            /* bold bolder lighter */
-        font-size: 9px;
-	text-decoration: none;                          /* underline overline line-trough blink */
-        word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
-        color: #000000;
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
+    font-style: normal;                             /* italic */
+    font-variant: normal;                           /* small-caps */
+    font-weight: normal;                            /* bold bolder lighter */
+    font-size: 9px;
+    text-decoration: none;                          /* underline overline line-trough blink */
+    word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
+    color: #000000;
 
-	margin: 0px;
+    margin: 0px;
 }
 
 .blocktext {
-        /* TEXTE & POLICE */
-        font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
-        font-style: normal;                             /* italic */
-        font-variant: normal;                           /* small-caps */
-        font-weight: normal;                            /* bold bolder lighter */
-        font-size: 10px;
-        text-decoration: none;                          /* underline overline line-trough blink */
-        word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
-        color: #333333;
-
-        margin: 0px;
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
+    font-style: normal;                             /* italic */
+    font-variant: normal;                           /* small-caps */
+    font-weight: normal;                            /* bold bolder lighter */
+    font-size: 10px;
+    text-decoration: none;                          /* underline overline line-trough blink */
+    word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
+    color: #333333;
+    margin: 0px;
 }
 
 .blocksubtitle {
-        /* TEXTE & POLICE */
-        font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
-        font-style: normal;                             /* italic */
-        font-variant: normal;                           /* small-caps */
-        font-weight: normal;                            /* bold bolder lighter */
-        font-size: 10px;
-        text-decoration: none;                          /* underline overline line-trough blink */
-        word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
-        color: #000000;
-
-        margin: 0px;
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
+    font-style: normal;                             /* italic */
+    font-variant: normal;                           /* small-caps */
+    font-weight: normal;                            /* bold bolder lighter */
+    font-size: 10px;
+    text-decoration: none;                          /* underline overline line-trough blink */
+    word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
+    color: #000000;
+    margin: 0px;
 }
 
 .quartitle {
-        /* TEXTE & POLICE */
-        font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
-        font-style: normal;                             /* italic */
-        font-variant: normal;                           /* small-caps */
-        font-weight: normal;                            /* bold bolder lighter */
-        font-size: 12px;
-        text-decoration: none;                          /* underline overline line-trough blink */
-        word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
-        color: #333333;
-
-        margin: 0px;
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
+    font-style: normal;                             /* italic */
+    font-variant: normal;                           /* small-caps */
+    font-weight: normal;                            /* bold bolder lighter */
+    font-size: 12px;
+    text-decoration: none;                          /* underline overline line-trough blink */
+    word-spacing: normal;                           /* normal 2px -1px (val. négatives possibles) */
+    color: #333333;
+    margin: 0px;
 }
 
 a {
-	text-decoration: none;
-	color: #333333;
+    text-decoration: none;
+    color: #333333;
 }
 a:hover {
-	text-decoration: underline;
-	color: #333333;
+    text-decoration: underline;
+    color: #333333;
 }
 
 .userselect2 {
-        color: #ffffff;
-        background: #333333;
+    color: #ffffff;
+    background: #333333;
 }
 
 .loginfields {
-	/* TEXTE & POLICE */
-        font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
-        font-style: normal;                             /* italic */
-        font-variant: normal;                           /* small-caps */
-        font-weight: normal;                            /* bold bolder lighter */
-        font-size: 12px;
-        text-decoration: none;                          /* underline overline line-trough blink */
-        word-spacing: normal;                           /* normal 2px -1px (val. n\xc3\xa9gatives possibles) */
-        color: #000000;
-
-        margin: 2px;
+    /* TEXTE & POLICE */
+    font-family: Verdana, Arial, sans-serif;        /* OBLIGATOIRE */
+    font-style: normal;                             /* italic */
+    font-variant: normal;                           /* small-caps */
+    font-weight: normal;                            /* bold bolder lighter */
+    font-size: 12px;
+    text-decoration: none;                          /* underline overline line-trough blink */
+    word-spacing: normal;                           /* normal 2px -1px (val. n\xc3\xa9gatives possibles) */
+    color: #000000;
+    margin: 2px;
 }
 
 .blocktext_a:hover {

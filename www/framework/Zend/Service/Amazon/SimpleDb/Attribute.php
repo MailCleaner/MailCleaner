@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Attribute.php,v 1.1.2.1 2011-05-30 08:30:30 root Exp $
+ * @version    $Id: Response.php 17539 2009-08-10 22:51:26Z mikaelkael $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_SimpleDb_Attribute
@@ -47,7 +47,7 @@ class Zend_Service_Amazon_SimpleDb_Attribute
         $this->_name     = $name;
 
         if (!is_array($values)) {
-            $this->_values = array($values);
+            $this->_values = [$values];
         } else {
             $this->_values = $values;
         }
@@ -101,7 +101,7 @@ class Zend_Service_Amazon_SimpleDb_Attribute
     public function setValues($values)
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         $this->_values = $values;
     }

@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Email list</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
@@ -9,90 +11,99 @@
 
     <script language="javascript">
 
-    function rowOverEffect(object) {
-      if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
-    }
+        function rowOverEffect(object) {
+            if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
+        }
 
-    function rowOutEffect(object) {
-      if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
-    }
+        function rowOutEffect(object) {
+            if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
+        }
 
-    __PAGE_JS__
+        __PAGE_JS__
     </script>
-__ENTEREDJS__
+    __ENTEREDJS__
 
 
-  </head>
+</head>
 
 <body>
-<center>
-<br/>
-<table width="99%" border="0" cellpadding="0" cellspacing="0">
- <tr>
-  <td width="40%" valign="top">
-  <!-- EMAIL LIST -->
-__FORM_BEGIN_EMAILSEARCH__
-    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
-       <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
-          <td class="dataTableHeadingContent">__LANG_SEARCH__</td>
-          <td class="dataTableHeadingContent" width="25px">&nbsp;</td>
-          <td class="dataTableHeadingContent" width="25px" align="center">__DOC_EMAILLISTTITLE__</td>
-        </tr>
+    <center>
+        <br />
+        <table width="99%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40%" valign="top">
+                    <!-- EMAIL LIST -->
+                    __FORM_BEGIN_EMAILSEARCH__
+                    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                            <td class="dataTableHeadingContent">__LANG_SEARCH__</td>
+                            <td class="dataTableHeadingContent" width="25px">&nbsp;</td>
+                            <td class="dataTableHeadingContent" width="25px" align="center">__DOC_EMAILLISTTITLE__</td>
+                        </tr>
 
-      <tr class="infoBoxContent">
-        <td class="dataTableRow" align="left" colspan="2"><nobr>__LANG_EMAIL__: __FORM_ESEARCHLOCALPART__@__FORM_ESEARCHDOMAINPART__</nobr></td>
-        <td class="dataTableRow" align="right"><a href="__LINK_DOSEARCH__"><img src="templates/default/images/dosearch.gif" border="0"></a></td>
-      </tr>
+                        <tr class="infoBoxContent">
+                            <td class="dataTableRow" align="left" colspan="2">
+                                <nobr>__LANG_EMAIL__: __FORM_ESEARCHLOCALPART__@__FORM_ESEARCHDOMAINPART__</nobr>
+                            </td>
+                            <td class="dataTableRow" align="right"><a href="__LINK_DOSEARCH__"><img
+                                        src="templates/default/images/dosearch.gif" border="0"></a></td>
+                        </tr>
 
-      <!-- <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                        <!-- <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
         <td class="dataTableHeadingContent" colspan="3">&nbsp;</td>
       </tr> -->
-    </table>
-<br/>
-    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
-      <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
-        <td class="dataTableHeadingContent" colspan="2" align="left">__LANG_RESULTS__</td>
-      </tr>
- <!--    
+                    </table>
+                    <br />
+                    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                            <td class="dataTableHeadingContent" colspan="2" align="left">__LANG_RESULTS__</td>
+                        </tr>
+                        <!--    
     <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)"> 
         <td class="dataTableContent" onclick="__SETTINGSTARGETENTERED__"><div id="entered">&nbsp;</a></td>
 	<td class="dataTableContent" align="right"><a href="__SETTINGSTARGETENTERED__"><img src="templates/default/images/pencil.gif" border="0"></a></td>
       </tr>
 -->
-__TMPL_EMAILLIST_START__
-<tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >
- <td class="dataTableContent" onclick="__SETTINGSTARGET__">__EMAIL__</td>
- <td class="dataTableContent" align="right"><a href="__SETTINGSTARGET__"><img src="templates/default/images/pencil.gif" border="0"></a></td>
-</tr>
-__TMPL_EMAILLIST_STOP__ 
+                        __TMPL_EMAILLIST_START__
+                        <tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+                            <td class="dataTableContent" onclick="__SETTINGSTARGET__">__EMAIL__</td>
+                            <td class="dataTableContent" align="right"><a href="__SETTINGSTARGET__"><img
+                                        src="templates/default/images/pencil.gif" border="0"></a></td>
+                        </tr>
+                        __TMPL_EMAILLIST_STOP__
 
-__EMAILLIST_DRAW__
+                        __EMAILLIST_DRAW__
 
-      <tr bgcolor="#CCCCCC" class="dataTableHeadingRow"> 
-      <td colspan="2">
-       <table width="100%" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-         <td class="dataTableHeadingContent" align="left">__LANG_TOTAL__: __NBEMAILS__ 
-	 __LANG_REGISTEREDEMAILS__</td>
-	__DEFAULT__ sep = |
-         <td class="dataTableHeadingContent" align="right">__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__</td>
-	</tr>
-       </table>
-      </td>
-      </tr>
-    </table>
-__FORM_CLOSE_EMAILSEARCH__
-  </td>
-  <td width="60%" valign="top">
-  <!-- EMAIL EDIT -->
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                            <td colspan="2">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="dataTableHeadingContent" align="left">__LANG_TOTAL__: __NBEMAILS__
+                                            __LANG_REGISTEREDEMAILS__</td>
+                                        __DEFAULT__ sep = |
+                                        <td class="dataTableHeadingContent" align="right">
+                                            __LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__
+                                            __PAGE_SEP__ __NEXT_PAGE__</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    __FORM_CLOSE_EMAILSEARCH__
+                </td>
+                <td width="60%" valign="top">
+                    <!-- EMAIL EDIT -->
 
-__IF__ EMAILSELECTED
-__INCLUDE__(emailedit.tmpl)
-__ELSE__ EMAILSELECTED
- <center><div class="dataTableContent">__LANG_PLEASECHOOSEEMAIL__</div></center>
-__FI__ EMAILSELECTED
-  </td>
- </tr>
-</table>
+                    __IF__ EMAILSELECTED
+                    __INCLUDE__(emailedit.tmpl)
+                    __ELSE__ EMAILSELECTED
+                    <center>
+                        <div class="dataTableContent">__LANG_PLEASECHOOSEEMAIL__</div>
+                    </center>
+                    __FI__ EMAILSELECTED
+                </td>
+            </tr>
+        </table>
 </body>
+
 </html>

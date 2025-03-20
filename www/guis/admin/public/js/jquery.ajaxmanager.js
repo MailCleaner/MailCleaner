@@ -1,5 +1,5 @@
 /**
- * @author alexander.farkas
+ * @author alexander.farkas, John Mertz
  * 
  * @version 2.1
  */

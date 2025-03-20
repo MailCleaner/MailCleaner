@@ -1,29 +1,38 @@
-<?php 
-/**
-* @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
-* @package mailcleaner
-*/
-?>
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
-<fieldset>
-	<?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
-	<?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
-	<table class="ftable">
-		<tr>
-			<td colspan=2 text-align="center" align="center">
+<?php
 
-				<a href="https://support.mailcleaner.net/boards/3/topics/93-spamc-score-adaptation">SpamC rules adjustment</a><br />
-			</td>
-		</tr>
-		<tr><td colspan="2"><hr /></td></tr>
-		<tr>
-			<?php echo $this->InputRow($this->form->getElement('spamcovercharge'),array('label_addclass'=>'flabeltextarea'));?>
-		</tr>
-		<tr><td colspan="2"><hr /></td></tr>
-		<tr>
-			<td colspan="2">
-			<?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-			</td>
-		</tr>
-	</table>
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ */
+?>
+<?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+<fieldset>
+    <?php echo $this->InputRow($this->form->getElement('panel'), ['field_only' => true, 'nobox' => true]); ?>
+    <?php echo $this->InputRow($this->form->getElement('name'), ['field_only' => true, 'nobox' => true]); ?>
+    <table class="ftable">
+        <tr>
+            <td colspan=2 text-align="center" align="center">
+
+                <a href="https://support.mailcleaner.net/boards/3/topics/93-spamc-score-adaptation">SpamC rules adjustment</a><br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+        <tr>
+            <?php echo $this->InputRow($this->form->getElement('spamcovercharge'), ['label_addclass' => 'flabeltextarea']); ?>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+            </td>
+        </tr>
+    </table>
 </fieldset>

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FilteringSelect.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_ComboBox */
@@ -29,7 +29,7 @@ require_once 'Zend/Dojo/View/Helper/ComboBox.php';
  * @uses       Zend_Dojo_View_Helper_ComboBox
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboBox
@@ -56,7 +56,7 @@ class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboB
      * @param  array|null $options Select options
      * @return string
      */
-    public function filteringSelect($id, $value = null, array $params = array(), array $attribs = array(), array $options = null)
+    public function filteringSelect($id, $value = null, array $params = [], array $attribs = [], array $options = null)
     {
         return $this->comboBox($id, $value, $params, $attribs, $options);
     }

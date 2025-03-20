@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Wsdl.php,v 1.1.2.4 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,6 +28,9 @@ require_once "Zend/Soap/Wsdl/Strategy/Interface.php";
  * @see Zend_Soap_Wsdl_Strategy_Abstract
  */
 require_once "Zend/Soap/Wsdl/Strategy/Abstract.php";
+
+/** @see Zend_Xml_Security */
+require_once "Zend/Xml/Security.php";
 
 /**
  * Zend_Soap_Wsdl
@@ -62,7 +65,7 @@ class Zend_Soap_Wsdl
      *
      * @var array
      */
-    private $_includedTypes = array();
+    private $_includedTypes = [];
 
     /**
      * Strategy for detection of complex types
@@ -97,12 +100,11 @@ class Zend_Soap_Wsdl
                     xmlns:soap-enc='http://schemas.xmlsoap.org/soap/encoding/'
                     xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'></definitions>";
         $this->_dom = new DOMDocument();
-        if (!$this->_dom->loadXML($wsdl)) {
+        if (!$this->_dom = Zend_Xml_Security::scan($wsdl, $this->_dom)) {
             require_once 'Zend/Server/Exception.php';
             throw new Zend_Server_Exception('Unable to create DomDocument');
-        } else {
-            $this->_wsdl = $this->_dom->documentElement;
         }
+        $this->_wsdl = $this->_dom->documentElement;
 
         $this->setComplexTypeStrategy($strategy);
     }
@@ -111,7 +113,7 @@ class Zend_Soap_Wsdl
      * Set a new uri for this WSDL
      *
      * @param  string|Zend_Uri_Http $uri
-     * @return Zend_Server_Wsdl
+     * @return Zend_Soap_Wsdl
      */
     public function setUri($uri)
     {
@@ -126,7 +128,7 @@ class Zend_Soap_Wsdl
             $xml = $this->_dom->saveXML();
             $xml = str_replace($oldUri, $uri, $xml);
             $this->_dom = new DOMDocument();
-            $this->_dom->loadXML($xml);
+            $this->_dom = Zend_Xml_Security::scan($xml, $this->_dom);
         }
 
         return $this;
@@ -169,7 +171,7 @@ class Zend_Soap_Wsdl
     /**
      * Get the current complex type strategy
      *
-     * @return Zend_Soap_Wsdl_Strategy_Interface
+     * @return Zend_Soap_Wsdl_Strategy_Interface|null
      */
     public function getComplexTypeStrategy()
     {
@@ -430,7 +432,7 @@ class Zend_Soap_Wsdl
         }
 
         $doc = $this->_dom->createElement('documentation');
-        $doc_cdata = $this->_dom->createTextNode(str_replace(array("\r\n", "\r"), "\n", $documentation));
+        $doc_cdata = $this->_dom->createTextNode(str_replace(["\r\n", "\r"], "\n", $documentation));
         $doc->appendChild($doc_cdata);
 
         if($node->hasChildNodes()) {
@@ -449,10 +451,10 @@ class Zend_Soap_Wsdl
      */
     public function addTypes($types)
     {
-        if ($types instanceof DomDocument) {
+        if ($types instanceof DOMDocument) {
             $dom = $this->_dom->importNode($types->documentElement);
             $this->_wsdl->appendChild($types->documentElement);
-        } elseif ($types instanceof DomNode || $types instanceof DomElement || $types instanceof DomDocumentFragment ) {
+        } elseif ($types instanceof DOMNode || $types instanceof DOMElement || $types instanceof DOMDocumentFragment) {
             $dom = $this->_dom->importNode($types);
             $this->_wsdl->appendChild($dom);
         }
@@ -543,28 +545,24 @@ class Zend_Soap_Wsdl
             case 'string':
             case 'str':
                 return 'xsd:string';
-                break;
+            case 'long':
+                return 'xsd:long';
             case 'int':
             case 'integer':
                 return 'xsd:int';
-                break;
             case 'float':
-            case 'double':
                 return 'xsd:float';
-                break;
+            case 'double':
+                return 'xsd:double';
             case 'boolean':
             case 'bool':
                 return 'xsd:boolean';
-                break;
             case 'array':
                 return 'soap-enc:Array';
-                break;
             case 'object':
                 return 'xsd:struct';
-                break;
             case 'mixed':
                 return 'xsd:anyType';
-                break;
             case 'void':
                 return '';
             default:
@@ -624,7 +622,7 @@ class Zend_Soap_Wsdl
 
         $elementXml = $this->_dom->createElement('xsd:element');
         foreach ($element as $key => $value) {
-            if (in_array($key, array('sequence', 'all', 'choice'))) {
+            if (in_array($key, ['sequence', 'all', 'choice'])) {
                 if (is_array($value)) {
                     $complexType = $this->_dom->createElement('xsd:complexType');
                     if (count($value) > 0) {

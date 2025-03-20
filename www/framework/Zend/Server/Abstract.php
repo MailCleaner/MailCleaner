@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -51,9 +51,9 @@ require_once 'Zend/Server/Method/Parameter.php';
  *
  * @category   Zend
  * @package    Zend_Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:30:53 root Exp $
+ * @version    $Id$
  */
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
 {
@@ -61,7 +61,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
      * @deprecated
      * @var array List of PHP magic methods (lowercased)
      */
-    protected static $magic_methods = array(
+    protected static $magic_methods = [
         '__call',
         '__clone',
         '__construct',
@@ -74,7 +74,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
         '__tostring',
         '__unset',
         '__wakeup',
-    );
+    ];
 
     /**
      * @var bool Flag; whether or not overwriting existing methods is allowed
@@ -176,11 +176,11 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
             $prototype = new Zend_Server_Method_Prototype();
             $prototype->setReturnType($this->_fixType($proto->getReturnType()));
             foreach ($proto->getParameters() as $parameter) {
-                $param = new Zend_Server_Method_Parameter(array(
+                $param = new Zend_Server_Method_Parameter([
                     'type'     => $this->_fixType($parameter->getType()),
                     'name'     => $parameter->getName(),
                     'optional' => $parameter->isOptional(),
-                ));
+                ]);
                 if ($parameter->isDefaultValueAvailable()) {
                     $param->setDefaultValue($parameter->getDefaultValue());
                 }
@@ -216,7 +216,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
         $method = $callback->getMethod();
 
         if ('static' == $type) {
-            return call_user_func_array(array($class, $method), $params);
+            return call_user_func_array([$class, $method], $params);
         }
 
         $object = $invocable->getObject();
@@ -229,7 +229,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
                 $object = new $class;
             }
         }
-        return call_user_func_array(array($object, $method), $params);
+        return call_user_func_array([$object, $method], $params);
     }
 
     /**

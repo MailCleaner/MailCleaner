@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Ntp.php,v 1.1.2.4 2011-05-30 08:31:02 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/TimeSync/Protocol.php';
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
@@ -212,7 +212,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
                 "'$this->_timeserver' on port '$this->_port', reason: 'server timed out'");
         }
 
-        $result = array(
+        $result = [
             'flags'          => $flags,
             'stratum'        => ord(fread($this->_socket, 1)),
             'poll'           => ord(fread($this->_socket, 1)),
@@ -225,7 +225,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
             'receivestamp'   => $this->_getTimestamp(fread($this->_socket, 8)),
             'transmitstamp'  => $this->_getTimestamp(fread($this->_socket, 8)),
             'clientreceived' => microtime(true)
-        );
+        ];
 
         $this->_disconnect();
         return $result;
@@ -424,8 +424,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
         $this->_info['offset'] += $binary['transmitstamp'];
         $this->_info['offset'] -= $binary['clientreceived'];
         $this->_info['offset'] /= 2;
-        $time = (time() - $this->_info['offset']);
 
-        return $time;
+        return (time() - $this->_info['offset']);
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Frame.php,v 1.1.2.1 2011-05-30 08:31:11 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Queue/Stomp/FrameInterface.php';
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Stomp_Frame
@@ -46,7 +46,7 @@ class Zend_Queue_Stomp_Frame
      *
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * The command for the frame
@@ -72,7 +72,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function __construct()
     {
-        $this->setHeaders(array());
+        $this->setHeaders([]);
         $this->setBody(null);
         $this->setCommand(null);
         $this->setAutoContentLength(true);
@@ -86,7 +86,7 @@ class Zend_Queue_Stomp_Frame
      *
      * This is done to make the message sending more reliable.
      *
-     * @return boolean
+     * @return boolean|null
      */
     public function getAutoContentLength()
     {
@@ -237,7 +237,7 @@ class Zend_Queue_Stomp_Frame
     /**
      * Set the body for this frame
      *
-     * @param  string|null
+     * @param  string|null $command
      * @return Zend_Queue_Stomp_Frame
      * @throws Zend_Queue_Exception
      */
@@ -323,7 +323,7 @@ class Zend_Queue_Stomp_Frame
             throw new Zend_Queue_Exception('$frame is not a string');
         }
 
-        $headers = array();
+        $headers = [];
         $body    = null;
         $command = false;
         $header  = '';

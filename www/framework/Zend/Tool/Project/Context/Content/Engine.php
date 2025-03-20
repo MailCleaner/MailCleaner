@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Engine.php,v 1.1.2.1 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -38,7 +38,7 @@ require_once 'Zend/Tool/Project/Context/Content/Engine/Phtml.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Content_Engine
@@ -56,7 +56,7 @@ class Zend_Tool_Project_Context_Content_Engine
     /**
      * @var array
      */
-    protected $_engines = array();
+    protected $_engines = [];
 
     /**
      * __construct()
@@ -66,10 +66,10 @@ class Zend_Tool_Project_Context_Content_Engine
     public function __construct(Zend_Tool_Framework_Client_Storage $storage)
     {
         $this->_storage = $storage;
-        $this->_engines = array(
+        $this->_engines = [
             new Zend_Tool_Project_Context_Content_Engine_CodeGenerator($storage, $this->_keyInStorage),
             new Zend_Tool_Project_Context_Content_Engine_Phtml($storage, $this->_keyInStorage),
-            );
+            ];
     }
 
     /**
@@ -78,7 +78,7 @@ class Zend_Tool_Project_Context_Content_Engine
      * @param Zend_Tool_Project_Context_Interface $context
      * @param string $methodName
      * @param mixed $parameters
-     * @return string
+     * @return false
      */
     public function getContent(Zend_Tool_Project_Context_Interface $context, $methodName, $parameters)
     {

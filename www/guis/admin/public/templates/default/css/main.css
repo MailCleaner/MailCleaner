@@ -4,507 +4,512 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 /** main divs **/
 #container {
-   position:relative;
-   margin:0 auto;
-   height:auto !important;
-   height: 100%;
-   min-height: 100%;
-   width: 100%;
-   min-width: 955px;
+    position:relative;
+    margin:0 auto;
+    height:auto !important;
+    min-height: 100%;
+    width: 100%;
+    min-width: 955px;
 }
 
 #pagehead {
-	overflow: auto;
-	height: 100%;
-   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    overflow: auto;
+    height: 100%;
 }
 
 #mainheader {
-  width: 100%;
-  height: 76px;
-  margin: 0px;
-  background-image:none;
-  background-color: #5C6D99; /*__MAINHEADERBG__*/
-  background-repeat: repeat-x;
-  color: white;
-  text-align: left;
-  vertical-align: top;
-  white-space: nowrap;
-  overflow-y: auto;
-  overflow-x: hidden;
+    width: 100%;
+    height: 76px;
+    margin: 0px;
+    background-image:none;
+    background-color: #e8e8e8; /*__MAINHEADERBG__*/
+    background-repeat: repeat-x;
+    color: white;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #mclogo {
-  float: left;
+    float: left;
 }
 
 /* status panel */
 #statuspanel {
-  background-image:url("../images/status_panel.png");
-  background-repeat: no-repeat;
-  float: right;
-  height: 52px;
-  width: 264px;
-  margin-top: 12px;
-  margin-right: 12px;
+    background-image:url("../images/status_panel.png");
+    background-repeat: no-repeat;
+    float: right;
+    height: 52px;
+    width: 264px;
+    margin-top: 12px;
+    margin-right: 12px;
 }
 
 #statuslist {
-  margin: 0px;
-  margin-left: 108px;
-  margin-top: 7px;
-  padding: 0px;
-  list-style-type: none;
-  color: #C970AC;
+    margin: 0px;
+    margin-left: 108px;
+    font-size: 0.9em;
+    padding: 0px;
+    list-style-type: none;
+    color: #ED7B00;
 }
 
 #statuslist a {
-	color: #FF2F00;
+    color: #FF2F00;
 }
 
 .statusbullet {
-   margin: 0px;
-   margin-right: 8px;
+    margin: 0px;
+    margin-right: 8px;
 }
 
 #statusloadingimg {
-  margin-left: 170px;
-  margin-top: 18px;
+    margin-left: 170px;
+    margin-top: 18px;
 }
 
 #statusreloadimg {
-  float: right;
-  margin-top: 42px;
-  margin-right: -257px;
-  display: none;
+    float: right;
+    margin-top: 42px;
+    margin-right: -257px;
+    display: none;
 }
 
 #pagecontent {
-  padding-bottom: 30px;
-  overflow: auto;
-	border-top: 1px solid #D4D3D2;
-  top:200px;
+    padding-bottom: 40px;
+    overflow: auto;
+    border-top: 1px solid #D4D3D2;
+    top: 200px;
 }
 
 #pagefoot {
-  position: fixed;
-  bottom: 0px;
-  height: 24px;
-  width: 100%;
-  overflow: hidden;
-  background-color: #F5F5F5;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #022971;
 }
+
+#pagefoot a {
+    font-weight: bold;
+    text-decoration: none;
+};
 
 /* legal panel */
 #legalpanel {
-   border-top: 1px solid #CBC1C8;
-   color: #552056;
-   width: 100%;
-   line-height: 22px;
+    width: 100%;
+    line-height: 22px;
 }
+
 #legalpanel p {
-  margin: 0px;
-  padding: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
-   line-height: 22px;
+    padding: 5px;
+    margin: 0px;
+    line-height: 22px;
 }
 
 #copyright {
-  float: left;
-  color: #A589A5;
-  font-size: 11px;
-  display: inline;
-  line-height: 23px;
+    float: left;
 }
 
 #company {
-  display: inline;
-  float:right;
-  font-size: 9px;
-  color: #AA2056;
-  line-height: 23px;
+    float: right;
+    margin-right: 10px;
 }
 
-/* internal parts */
+#company, #copyright {
+    display: inline;
+}
+
+#company a, #copyright a {
+    color: #FFFFFF;
+    line-height: 30px;
+    vertical-align: bottom;
+    font-size: 0.8em;
+}
+
+#copyright img {
+    height: 20px;
+    padding-bottom: 5px;
+    vertical-align: bottom;
+}
+
 #generalconfigpanel {
-  margin: 40px;
-  height: 100%;
-  border: 1px solid #D4D3D2;
-  background: #FFFFFF;
-  overflow: hidden;
-  text-shadow:0px 1px #FFF;
+    margin: 40px;
+    height: 100%;
+    border: 1px solid #D4D3D2;
+    background: #FFFFFF;
+    overflow: hidden;
 }
 
 .contentheadicon {
-  float: left;
-  margin: 0px;
-  padding: 0px;
-  height: 48px;
-  line-height: 48px;
-  width: 184px;
-  background-image:none;
-	background-color: #F5F5F5;
-  border-bottom: 1px solid #D4D3D2;
-  border-right: 1px solid #D4D3D2;
-  overflow: hidden;
-  white-space: nowrap;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    height: 48px;
+    line-height: 48px;
+    width: 184px;
+    background-image:none;
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #D4D3D2;
+    border-right: 1px solid #D4D3D2;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .contentheadicon img {
-  margin-left: 13px;
-  display: inline;
-  border: 0px;
-  vertical-align: middle;
+    margin-left: 13px;
+    display: inline;
+    border: 0px;
+    vertical-align: middle;
 }
 .contentheadtitle {
-  margin: 0px;
-  padding: 0px;
-  padding-left: 54px;
-  height: 48px;
-  line-height: 52px;
-  background-image:none;
-	background-color: #F5F5F5;
-  border-bottom: 1px solid #D4D3D2;
-  overflow: hidden;
-  white-space: nowrap;
-  font-weight: bold;
-  color: #E93A00;
-  font-size: 13px;
-  text-shadow:0px 1px #FFF;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 54px;
+    height: 48px;
+    line-height: 52px;
+    background-image:none;
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #D4D3D2;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #ED7B00;
+    font-size: 13px;
 }
 
 #generalconfigmenu {
-  float: left;
-  list-style:none;
-  margin: 0px;
-	padding: 0px 0px 20px 0px;
-  margin-top: 54px;
-  width: 184px;
-  border-top: 1px solid #D4D3D2;
-  line-height: 18px;
-  overflow: hidden;
-  font-size: 12px;
-	background-color: #FFFFFF;
+    float: left;
+    list-style:none;
+    margin: 0px;
+    padding: 0px 0px 20px 0px;
+    margin-top: 54px;
+    width: 184px;
+    border-top: 1px solid #D4D3D2;
+    line-height: 18px;
+    overflow: hidden;
+    font-size: 12px;
+    background-color: #FFFFFF;
 }
 
 #generalconfigmenu li {
-  height: 28px;
-  margin: -1px 0px 0px 0px;
-  padding: 8px 0px 0px 0px;
-  border-bottom:none;
-  line-height: 24px;
-  padding-left: 13px;
-  text-shadow:0px 1px #FFF;
+    height: 28px;
+    margin: -1px 0px 0px 0px;
+    padding: 8px 0px 0px 0px;
+    border-bottom:none;
+    line-height: 24px;
+    padding-left: 13px;
 }
 
 #generalconfigmenu li a {
-  color: #666666;
-  text-decoration: none;
+    color: #666666;
+    text-decoration: none;
 }
 #generalconfigmenu li:hover {
-  cursor: pointer;
-  background-image:none;
-		background-color: #F5F5F5;
+    cursor: pointer;
+    background-image:none;
+    background-color: #F5F5F5;
 }
 
 .generalconfigmenuselected {
     background-image:none;
-		background-color: #F5f5f5 !important;
-		border-bottom: 1px solid #D4D3D2 !important;
-		border-top: 1px solid #D4D3D2 !important;
+    background-color: #F5f5f5 !important;
+    border-bottom: 1px solid #D4D3D2 !important;
+    border-top: 1px solid #D4D3D2 !important;
     font-weight: bold;
 }
 
 .generalconfigmenuselected a {
-  color: #000000 !important;
+    color: #000000 !important;
 }
 
 #generalconfigcontent {
-  float: left;
-  padding: 0px;
-  margin: 0px;
-  min-height: 450px;
-  margin-top: 0px;
-	padding-top: 54px;
-  padding-bottom: 20px;
-  padding-left: 54px;
-  font-size: 12px;
-  color: #666666;
-  overflow: visible;
-  white-space: normal;
-  max-width: 628px;
-  border-left: 1px solid #D4D3D2;
+    float: left;
+    padding: 0px;
+    margin: 0px;
+    min-height: 450px;
+    margin-top: 0px;
+    padding-top: 54px;
+    padding-bottom: 20px;
+    padding-left: 54px;
+    font-size: 12px;
+    color: #666666;
+    overflow: visible;
+    white-space: normal;
+    max-width: 628px;
+    border-left: 1px solid #D4D3D2;
 }
 
 #generalconfigcontent h1,h2 {
-  color: #000000;
-  text-decoration: underline;
-  font-weight: bold;
-  margin: 0px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0px;
-	background-color: #F5F5F5;
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 0px;
+    background-color: #F5F5F5;
 }
 
 #generalconfigcontent h2 {
-  text-decoration: none;
+    text-decoration: none;
 }
 #generalconfigcontent h4 {
-  display: inline;
-  font-weight: bold;
-  text-decoration: none;
+    display: inline;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #generalconfigcontent p {
-  margin: 0px;
-  margin-top: 2px;
-  text-align: left;
-  padding: 0px;
-  line-height: 16px;
+    margin: 0px;
+    margin-top: 2px;
+    text-align: left;
+    padding: 0px;
+    line-height: 16px;
 }
 
 #generalconfigcontent li {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 #generalconfigcontent img {
-  border: 0px;
-  margin: 0px;
-  padding: 0px;
-  vertical-align: top;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
 }
 
 .actionslist {
-  margin-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 .actions {
-  line-height: 16px;
-  margin-top: 5px !important;
+    line-height: 16px;
+    margin-top: 5px !important;
 }
 
 /* tooltip */
 #tooltip {
-  position: absolute;
-  display: none;
-  top: 0px;
-  padding-left:6px;
-  padding-right: 6px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  background-color: #F5F5F5;
-  border:1px solid #D4D3D2;
-  z-index: 10;
+    position: absolute;
+    display: none;
+    top: 0px;
+    padding-left:6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #F5F5F5;
+    border:1px solid #D4D3D2;
+    z-index: 10;
 }
 
 /* config stuff */
 
 #generalconfigcontent {
-  color: #000000;
-  width: 730px;
+    color: #000000;
+    width: 730px;
 }
 
 #generalconfigcontent h3 {
-  color: #000000;
-  font-weight: normal;
-  margin: 0px;
-  padding: 0px;
-  margin-bottom: 31px;
-  font-size: 12px;
-  line-height: 16px;
-  color: #552056;
-  text-align: left;
+    color: #000000;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 31px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #022971;
+    text-align: left;
 }
 
 .configpanel {
-  width: 628px;
-  padding: 20px;
-  padding-left: 30px;
-  margin: 0px;
-  border: 1px solid #D4D3D2 !important;
-  color: #535353;
+    width: 628px;
+    padding: 20px;
+    padding-left: 30px;
+    margin: 0px;
+    border: 1px solid #D4D3D2 !important;
+    color: #535353;
 }
 
 .configpanel h1 {
-  margin: 0px !important;
-  margin-bottom: 13px !important;
-  padding: 0px !important;
-  padding-left: 16px !important;
-  text-decoration: none !important;
-  height: 52px !important;
-  line-height: 52px;
-	border-bottom: 1px solid #D4D3D2 !important;
-  background-image: none !important;
-	background-color: #F5F5F5 !important;
-  font-size: 12px !important;
-  font-weight: normal !important;
-  color: #000000 !important;
+    margin: 0px !important;
+    margin-bottom: 13px !important;
+    padding: 0px !important;
+    padding-left: 16px !important;
+    text-decoration: none !important;
+    height: 52px !important;
+    line-height: 52px;
+    border-bottom: 1px solid #D4D3D2 !important;
+    background-image: none !important;
+    background-color: #F5F5F5 !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    color: #000000 !important;
 }
 
 .configpanel select {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 fieldset {
-  margin: 0px;
-  padding: 0px;
-  margin-left: 14px;
-  margin-right: 10px;
-  margin-bottom: 0px;
-  border: 0px;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 14px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    border: 0px;
 }
 
 #fieldapplytoall {
-  border: 0px;
+    border: 0px;
 }
 #fieldsubmit {
-  border: 0px;
+    border: 0px;
 }
 .fieldnote {
-  margin-top: 0px;
-  padding-left: 3px;
-  line-height: 12px;
-  padding-top: 0px;
-  line-height: 24px;
+    margin-top: 0px;
+    padding-left: 3px;
+    line-height: 12px;
+    padding-top: 0px;
+    line-height: 24px;
 }
 .fieldnote a {
-	text-decoration: underline !important;
+    text-decoration: underline !important;
 }
 
 #fieldquarparams {
-  border : 0px;
-  margin: 0px;
-  margin-bottom: 20px;
-  padding: 0px;
+    border : 0px;
+    margin: 0px;
+    margin-bottom: 20px;
+    padding: 0px;
 }
 
 .configpanel ul {
-  list-style:none;
-  margin: 0px;
-  margin-bottom: 10px;
-  padding: 0px;
-  padding-left: 10px;
-  line-height: 18px;
-  overflow: hidden;
+    list-style:none;
+    margin: 0px;
+    margin-bottom: 10px;
+    padding: 0px;
+    padding-left: 10px;
+    line-height: 18px;
+    overflow: hidden;
  }
 
 hr {
-  border: none 0;
-  height: 1px;
-  background-color: #D4D3D2;
+    border: none 0;
+    height: 1px;
+    background-color: #D4D3D2;
 }
 .sectionsplit {
-  border: none 0;
-  height: 1px;
-  width: 200px;
-  background-color: #C6ADC6
+    border: none 0;
+    height: 1px;
+    width: 200px;
+    background-color: #C6ADC6
 }
 
 .message {
-  color: #FF0000;
-  text-align: center;
+    color: #FF0000;
+    text-align: center;
 }
 
 /* config stuff */
 .configpanel {
-  padding: 0px;
-  margin: 0px;
-  border: 1px solid #C6ADC6;
-  color: #535353;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid #C6ADC6;
+    color: #535353;
 }
 
 .configpanel h1 {
-  margin: 0px !important;
-  padding: 0px !important;
-  padding-left: 16px !important;
-  text-decoration: none !important;
-  height: 52px !important;
-  line-height: 52px;
-  border-bottom:1px solid #C6ADC6;
-  background-image:url(../images/contentheader_bg52.png);
-  font-size: 12px !important;
-  font-weight: normal !important;
-  color: #000000 !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    padding-left: 16px !important;
+    text-decoration: none !important;
+    height: 52px !important;
+    line-height: 52px;
+    border-bottom:1px solid #C6ADC6;
+    background-image:url(../images/contentheader_bg52.png);
+    font-size: 12px !important;
+    font-weight: normal !important;
+    color: #000000 !important;
 }
 
 .configpanel h1 img {
-  margin-top: 12px !important;
-  margin-right: 20px !important;
+    margin-top: 12px !important;
+    margin-right: 20px !important;
 }
 
 .importanth1 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .domaincontentpanel h1 {
-  height: 48px !important;
-  line-height: 48px;
+    height: 48px !important;
+    line-height: 48px;
 }
 .h1descr {
-	float: left;
-	margin-top: -104px;
+    float: left;
+    margin-top: -104px;
 }
 .h1descr img {
-	vertical-align: middle;
-  margin-right: 20px !important;
+    vertical-align: middle;
+    margin-right: 20px !important;
 }
 .h1action {
     margin-top: -104px;
-	float: right;
+    float: right;
 }
 
 #reloadallnetwork {
-   float: right;
-   margin-right: 30px;
+    float: right;
+    margin-right: 30px;
 }
 
 .texth1 {
-	float: left;
+    float: left;
 }
 
 .configpanel select {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .ftable {
-  border: none 0;
-  border-spacing: 0px;
-  margin-top: 0px !important;
-  line-height: 14px;
-  margin: 0px;
-  padding: 20px 11px 11px 11px;
-  width: 602px;
+    border: none 0;
+    border-spacing: 0px;
+    margin-top: 0px !important;
+    line-height: 14px;
+    margin: 0px;
+    padding: 20px 11px 11px 11px;
+    width: 602px;
 }
 
 .ftable td {
-	padding-top: 5px;
-	padding-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .flabel {
-	width: 48%;
-	text-align: right;
+    width: 48%;
+    text-align: right;
 }
 
 .flabeltextarea {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .flabelstrict {
-	min-width: 271px;
+    min-width: 271px;
 }
 
 .fvalue {
-	width: 52%;
+    width: 52%;
     white-space:nowrap;
-	text-align: left;
+    text-align: left;
 }
 
 .fvalue textarea {
@@ -513,11 +518,11 @@ hr {
 }
 
 .fsublined textarea{
-	display: block;
+    display: block;
 }
 
 .fsingle {
-	text-align: center;
+    text-align: center;
 }
 
 .fsubmit {
@@ -525,88 +530,88 @@ hr {
 }
 
 .fwaiting {
-	text-align: center;
+    text-align: center;
 }
 
 .ferror input {
-	background-color: #FF9999;
+    background-color: #FF9999;
 }
 .ferror textarea {
     background-color: #FF9999;
 }
 
 .ferrorimg {
-	margin: 0 !important;
-	margin-left: 5px !important;
-	margin-top: 6px !important;
-	margin-right: 5px !important;
-	vertical-align: top !important;
-	border: none !important;
+    margin: 0 !important;
+    margin-left: 5px !important;
+    margin-top: 6px !important;
+    margin-right: 5px !important;
+    vertical-align: top !important;
+    border: none !important;
 }
 
 .ferrortooltip {
-	background-color: #FF9999 !important;
-	border: 1px solid red !important;
+    background-color: #FF9999 !important;
+    border: 1px solid red !important;
 }
 
 .error {
-     color: #FF0000;
+    color: #FF0000;
 }
 
 .divnote {
-	line-height: 14px;
-	vertical-align: bottom;
+    line-height: 14px;
+    vertical-align: bottom;
 }
 .divnote img {
-	margin-right: 5px !important;
-	vertical-align: bottom !important;
+    margin-right: 5px !important;
+    vertical-align: bottom !important;
 }
 
 .fmessage {
-	 line-height: 14px;
-     color: #008D00;
-     text-align: center;
+    line-height: 14px;
+    color: #008D00;
+    text-align: center;
 }
 
 #subzonesetwaiting {
-	display:none;
+    display:none;
 }
 
 #flashmessage {
-  position: absolute;
-  display: none;
-  width: 588px !important;
-  text-align: center;
-  padding-left:20px;
-  padding-right: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-left: -1px;
-  margin-top: -11px;
-  background-color: #F3E675;
-  border:1px solid #CDC04B;
-  z-index: 10;
+    position: absolute;
+    display: none;
+    width: 588px !important;
+    text-align: center;
+    padding-left:20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: -1px;
+    margin-top: -11px;
+    background-color: #F3E675;
+    border:1px solid #CDC04B;
+    z-index: 10;
 }
 
 .fmOK {
-  background-color: #F3E675;
+    background-color: #F3E675;
 }
 
 .fmWAIT {
-  background-color: #F3E675;
+    background-color: #F3E675;
 }
 
 .fmNOK {
-  background-color: #F0A2A6 !important;
-  border: 1px solid #E06F6F !important;
+    background-color: #F0A2A6 !important;
+    border: 1px solid #E06F6F !important;
 }
 
 #waitloading {
-   margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 #interfaceformcontent {
-  display: block;
+    display: block;
 }
 
 #configpanelcontent {
@@ -621,44 +626,44 @@ hr {
 }
 
 input#date {
-   width: 80px;
+    width: 80px;
 }
 
 .timefield {
-   width: 20px;
+    width: 20px;
 }
 
 #configpanelinfos {
-  text-align: center;
+    text-align: center;
 }
 
 #reloadtime {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 #reloadtime img {
-   margin-top: 5px;
+    margin-top: 5px;
 }
 
 .serialpartfield {
-  width: 30px;
+    width: 30px;
 }
 
 .retentionfield {
-  width: 30px;
-  text-align: right;
+    width: 30px;
+    text-align: right;
 }
 
 .numberfieldtable td {
-	width: 50% !important;
+    width: 50% !important;
 }
 
 .hidden {
-   display: none;
+    display: none;
 }
 
 .nostrong {
-   font-weight: normal;
+    font-weight: normal;
 }
 
 .bold {
@@ -667,264 +672,263 @@ input#date {
 
 /* sub config menu */
 .subconfigmenu {
-  float: left;
-  margin-bottom: 100px;
+    float: left;
+    margin-bottom: 100px;
 }
 
 .globalsubconfigmenu {
-  margin-top: 24px;
-	width: 184px;
+    margin-top: 24px;
+    width: 184px;
 }
 
 .subconfigmenu ul {
-  list-style:none;
-  margin: 0px;
-  margin-top: 30px;
-  padding: 0px;
-  width: 184px;
-  border-top: 1px solid #D4D3D2;
-  line-height: 18px;
-  overflow: hidden;
-  font-size: 12px;
-  border-right:1px solid #D4D3D2;
+    list-style:none;
+    margin: 0px;
+    margin-top: 30px;
+    padding: 0px;
+    width: 184px;
+    border-top: 1px solid #D4D3D2;
+    line-height: 18px;
+    overflow: hidden;
+    font-size: 12px;
+    border-right:1px solid #D4D3D2;
 }
 
 .subconfigmenu li {
-  height: 23px;
-  margin: -1px 0px 0px 0px;
-  padding: 0px;
-  border-bottom:1px solid #D4D3D2;
-  line-height: 24px;
-  padding-left: 13px;
+    height: 23px;
+    margin: -1px 0px 0px 0px;
+    padding: 0px;
+    border-bottom:1px solid #D4D3D2;
+    line-height: 24px;
+    padding-left: 13px;
 }
 
 .subconfigmenu li a {
-  color: #000000;
-  text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 .subconfigmenu li:hover {
-  cursor: pointer;
-  background-image:none;
-  font-weight: bold;
+    cursor: pointer;
+    background-image:none;
+    font-weight: bold;
 }
 
 .subconfigmenuselected {
-       background-image:url(../images/selected_bg.png) !important;
-       font-weight: bold;
+    background-image:url(../images/selected_bg.png) !important;
+    font-weight: bold;
 }
 
 .subconfigmenuselected a {
-  color: #000000 !important;
+    color: #000000 !important;
 }
 
 .subbedcontentpanel {
-  padding: 0px !important;
-  margin: 0px !important;
-  margin-left: 239px !important;
-  margin-top: 54px !important;
-  min-height: 450px;
-  color: #666666;
-  overflow: visible;
-  white-space: normal;
-  max-width: 630px;
-  font-size: 12px;
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-left: 239px !important;
+    margin-top: 54px !important;
+    min-height: 450px;
+    color: #666666;
+    overflow: visible;
+    white-space: normal;
+    max-width: 630px;
+    font-size: 12px;
 }
 
 .subbedcontentpanel fieldset {
-	margin: 0px;
-	padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .subbedcontentpanel #flashmessage {
-   margin: 0px;
+    margin: 0px;
 }
 
 #adminconfigpanel #flashmessage {
-   margin: 0px;
+    margin: 0px;
 }
 
 #userconfigpanel #flashmessage {
-   margin: 0px;
+    margin: 0px;
 }
 
 #userconfigpanel {
-	width: 630px !important;
+    width: 630px !important;
 }
 
 .subbedcontentpanel .ftable {
-   width: 100%;
-   border: 1px solid #C6ADC6;
-   margin: 0px !important;
-   margin-bottom: 20px !important;
+    width: 100%;
+    border: 1px solid #C6ADC6;
+    margin: 0px !important;
+    margin-bottom: 20px !important;
 }
 
 .subconfigpanel .ftable td {
-	width: 50%;
+    width: 50%;
 }
 
 .fsubmit {
-	text-align: center;
+    text-align: center;
 }
 
 .submenutitle {
-  background-color: #D6D6D6;
-  font-weight: bold;
-  font-size: 11px;
+    background-color: #D6D6D6;
+    font-weight: bold;
+    font-size: 11px;
 }
 
 .submenutitle:hover {
-  background-color: #F5F5F5 !important;
-  background-image: none !important;
-  cursor: default !important;
+    background-color: #F5F5F5 !important;
+    background-image: none !important;
+    cursor: default !important;
 }
 
 .disabledsubmenuitem {
-   font-style: italic;
+    font-style: italic;
 }
 
-
 .configlist {
-  float: left;
-  width: 260px;
-  max-width: 260px;
-  border: 1px solid #D4D3D2;
-  overflow: auto;
-  list-style:none;
-  margin: 0px;
-  padding: 0px;
-  margin-right: 10px;
-  color: #000000;
-  min-height: 240px;
-  max-height: 300px;
+    float: left;
+    width: 260px;
+    max-width: 260px;
+    border: 1px solid #D4D3D2;
+    overflow: auto;
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 10px;
+    color: #000000;
+    min-height: 240px;
+    max-height: 300px;
 }
 
 .shortconfiglist {
-  max-width: 200px;
+    max-width: 200px;
 }
 
 .listinform {
-  padding-top: 10px !important;
+    padding-top: 10px !important;
 }
 
 .configlist li {
-  margin: 0px !important;
-  padding: 5px !important;
-  padding-top: 0px;
-  padding-left: 9px;
-  border-bottom: 1px solid #C6ADC6;
-  white-space: nowrap;
-  line-height: 12px;
-  overflow: hidden;
+    margin: 0px !important;
+    padding: 5px !important;
+    padding-top: 0px;
+    padding-left: 9px;
+    border-bottom: 1px solid #C6ADC6;
+    white-space: nowrap;
+    line-height: 12px;
+    overflow: hidden;
 }
 .configlist input {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
-.sublistelement  {
-  float: right;
-  width: 342px;
-  margin-bottom: 10px;
-  margin-right: -2px;
-  border: 1px solid #D4D3D2;
+.sublistelement    {
+    float: right;
+    width: 342px;
+    margin-bottom: 10px;
+    margin-right: -2px;
+    border: 1px solid #D4D3D2;
 }
 
 #contentfilename_form #flashmessage {
-	margin: 0px;
+    margin: 0px;
 }
 #contentfiletype_form #flashmessage {
     margin: 0px;
 }
 
 .listelementdisabled {
-  font-style: italic;
-  color: #999999;
+    font-style: italic;
+    color: #999999;
 }
 
 .sublistelement h1 {
-  margin: 0px !important;
-  margin-bottom: 12px !important;
-  color: #000000 !important;
-  padding-left: 12px !important;
-  font-weight: normal !important;
-  text-decoration: none !important;
-  font-size: 12px !important;
-  height: 23px !important;
-  line-height: 24px !important;
-  border: 0px !important;
-  border-bottom: 1px solid #D4D3D2 !important;
-  background-image:none !important;
-	background-color: #F5F5F5;
-  font-weight: bold !important;
-  text-align: left !important;
+    margin: 0px !important;
+    margin-bottom: 12px !important;
+    color: #000000 !important;
+    padding-left: 12px !important;
+    font-weight: normal !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    height: 23px !important;
+    line-height: 24px !important;
+    border: 0px !important;
+    border-bottom: 1px solid #D4D3D2 !important;
+    background-image:none !important;
+    background-color: #F5F5F5;
+    font-weight: bold !important;
+    text-align: left !important;
 }
 
 .sublistelement p {
-  margin: 0px !important;
-  margin-bottom: 8px !important;
-  padding: 0px !important;
-  padding-left: 13px !important;
-  padding-right: 13px !important;
-  line-height: 16px !important;
-  text-align: left!important;
+    margin: 0px !important;
+    margin-bottom: 8px !important;
+    padding: 0px !important;
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+    line-height: 16px !important;
+    text-align: left!important;
 }
 
 .sublistelement input {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 .sublistelement table {
-  margin-left: 12px;
-  margin-right: 10px;
+    margin-left: 12px;
+    margin-right: 10px;
 }
 
 .fieldpanel {
-	text-align: right;
+    text-align: right;
 }
 .addelementfield {
-  width: 180px;
+    width: 180px;
 }
 .addcommentfield {
-  width: 160px;
+    width: 160px;
 }
 
 .vertimg {
-  margin-top: 2px !important;
+    margin-top: 2px !important;
 }
 
 .entrycomment {
-  margin: 0px !important;
-  margin-left: 20px !important;
-  margin-right: 10px !important;
-  border-top: 1px solid #C6ADC6;
-  line-height: 23px !important;
+    margin: 0px !important;
+    margin-left: 20px !important;
+    margin-right: 10px !important;
+    border-top: 1px solid #C6ADC6;
+    line-height: 23px !important;
 }
 
 .entrycomment img {
-  padding-top: 4px !important;
-  margin-right: 2px !important;
+    padding-top: 4px !important;
+    margin-right: 2px !important;
 }
 
 .shortline {
-  line-height: 18px !important;
+    line-height: 18px !important;
 }
 
 .hover_data {
-	display: none;
+    display: none;
 }
 
 /* tooltip */
 #tooltip {
-  position: absolute;
-  display: none;
-  padding-left:6px;
-  padding-right: 6px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  background-color: #f5f5f5;
-  border:1px solid #d4d3d2;
-  max-width: 300px;
-  z-index: 10;
-  max-width: 600px;
+    position: absolute;
+    display: none;
+    padding-left:6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #f5f5f5;
+    border:1px solid #d4d3d2;
+    max-width: 300px;
+    z-index: 10;
+    max-width: 600px;
 }
 
 .tooltiptext {
@@ -936,38 +940,38 @@ input#date {
 }
 
 #tooltip p {
-   padding: 0px;
-   margin: 0px;
-   line-height: 16px;
+    padding: 0px;
+    margin: 0px;
+    line-height: 16px;
 }
 
 .clickeable {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .pcode {
-	max-width: 564px;
-	overflow: hidden;
+    max-width: 564px;
+    overflow: hidden;
 }
 
 .centered {
-	text-align: center;
+    text-align: center;
 }
 
 .code {
-  font-family: 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Monaco, Courier, monospace;
-  white-space: pre;
-  max-width: 564px;
-  line-height: 10px;
-  border: 1px dashed #aaa8a8;
-  padding: 5px;
-  font-size: 10px;
-  overflow: auto;
+    font-family: 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Monaco, Courier, monospace;
+    white-space: pre;
+    max-width: 564px;
+    line-height: 10px;
+    border: 1px dashed #aaa8a8;
+    padding: 5px;
+    font-size: 10px;
+    overflow: auto;
 }
 
 #clearcalloutbutton {
-	margin-left: 15px;
-	font-size: 8px;
+    margin-left: 15px;
+    font-size: 8px;
 }
 
 #clearsmtpauthcachebutton {
@@ -976,49 +980,45 @@ input#date {
 }
 
 #informational {
-  position: absolute;
-  display: none;
-  top: 0px;
-  padding: 0px;
-  padding-bottom: 0px;
-  border-top: 0px;
-  left: 299px;
-  background-color: #EEEEEE;
-  width: 620px;
-  max-width: 620px;
-  z-index: 10;
-  border-bottom-left-radius: 5px 5px;
-  border-bottom-right-radius: 5px 5px;
-  -moz-border-bottom-left-radius: 5px 5px;
-  -moz-border-bottom-right-radius: 5px 5px;
+    position: absolute;
+    display: none;
+    top: 0px;
+    border: solid 2px #000000;
+    border-top: 0px;
+    background-color: #E89797;
+    width: 50%;
+    left: 25%;
+    right: 25%;
+    z-index: 10;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 #informational ul {
-	padding: 0px;
-	margin: 5px;
-	list-style-type: none;
+    padding: 0px;
+    margin: 5px;
+    list-style-type: none;
 }
 
 #informational li {
-	padding: 5px;
-	margin: 0px;
+    padding: 5px;
+    margin: 0px;
 }
 
 #informational .infotitle {
-	padding: 3px;
-	background-color: #333333;
-        color: #EEEEEE;
-        text-align: center;
-        text-shadow:0px 1px #666666;
+    padding: 3px;
+    background-color: #333333;
+    color: #EEEEEE;
+    text-align: center;
 }
 
 #informational .close {
-	padding: 0px;
-	padding-right: 5px;
-	margin: 0px;
-	text-align: right;
+    padding: 0px;
+    padding-right: 5px;
+    margin: 0px;
+    text-align: right;
 }
 
 .mark {
-	color: #FF0000;
+    color: #FF0000;
 }

@@ -28,14 +28,14 @@ our %defaultConfigs = (
 our %defaultActions = (
 	#TODO
 	'start'		=> {
-		'desc'		=> 'start service or report if already running',
+		'desc'		=> 'start service or report if already active',
 		'cmd'		=> sub { 
 			my $self = shift;
 			return $self->start();
 		},
 	},
 	'stop'		=> {
-		'desc'		=> 'stop serivce, if running',
+		'desc'		=> 'stop serivce, if active',
 		'cmd'		=> sub {
 			my $self = shift;
 			return $self->stop();
@@ -43,7 +43,7 @@ our %defaultActions = (
 	},
 	#TODO
 	'restart'	=> {
-		'desc'		=> 'stop serivce, if running, then start fresh',
+		'desc'		=> 'stop serivce, if active, then start fresh',
 		'cmd'		=> sub {
 			my $self = shift;
 			return $self->restart();
@@ -79,7 +79,7 @@ our %defaultActions = (
 			}
 			my @pids = $self->pids();
 			if (scalar(@pids)) {
-				return 'running with pid(s) ' . join(', ', @pids);
+				return 'active with pid(s) ' . join(', ', @pids);
 			} else {
 				return 0;
 			}
@@ -126,15 +126,15 @@ sub getCodes
 			'suffix'	=> undef,
 		},
 		0	=> {
-			'verbose'	=> 'critical (not running and required)',
+			'verbose'	=> 'critical (not active and required)',
 			'suffix'	=> 'stopped',
 		},
 		1	=> {
-			'verbose'	=> 'running',
+			'verbose'	=> 'active',
 			'suffix'	=> undef,
 		},
 		2	=> {
-			'verbose'	=> 'stopped (not running but not required)',
+			'verbose'	=> 'stopped (not active but not required)',
 			'suffix'	=> 'stopped',
 		},
 		3	=> {
@@ -554,7 +554,7 @@ sub start
 	}
 
 	if ($self->findProcess()) {
-		$self->doLog( $self->{'service'} . ' already running.', 'daemon' );
+		$self->doLog( $self->{'service'} . ' already active.', 'daemon' );
 		$self->clearFlags(1);
 		return 1;
 	} 
@@ -1138,7 +1138,7 @@ Load package
 
 	use ManageServices;
 
-Create object (enable autoStart for services that are not running)
+Create object (enable autoStart for services that are not active)
 
 	my $manager = ManageServices->( 'autoStart' => 1 ) || die "$!\n";
 

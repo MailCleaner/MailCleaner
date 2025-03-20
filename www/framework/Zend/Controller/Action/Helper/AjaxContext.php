@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AjaxContext.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Controller/Action/Helper/ContextSwitch.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_Helper_ContextSwitch
@@ -53,7 +53,7 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
     public function __construct()
     {
         parent::__construct();
-        $this->addContext('html', array('suffix' => 'ajax'));
+        $this->addContext('html', ['suffix' => 'ajax']);
     }
 
     /**
@@ -68,7 +68,10 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
     {
         $this->_currentContext = null;
 
-        if (!$this->getRequest()->isXmlHttpRequest()) {
+        $request = $this->getRequest();
+        if (!method_exists($request, 'isXmlHttpRequest') ||
+            !$this->getRequest()->isXmlHttpRequest())
+        {
             return;
         }
 

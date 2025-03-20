@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ShippingInfo.php,v 1.1.2.1 2011-05-30 08:31:05 root Exp $
+ * @version    $Id: ShippingInfo.php 22791 2010-08-04 16:11:47Z renanbr $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Service/Ebay/Finding/Abstract.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses       Zend_Service_Ebay_Finding_Abstract
  */
@@ -119,8 +119,8 @@ class Zend_Service_Ebay_Finding_ShippingInfo extends Zend_Service_Ebay_Finding_A
         $this->shippingType        = $this->_query(".//$ns:shippingType[1]", 'string');
         $this->shipToLocations     = $this->_query(".//$ns:shipToLocations", 'string', true);
 
-        $this->_attributes['shippingServiceCost'] = array(
+        $this->_attributes['shippingServiceCost'] = [
             'currencyId' => $this->_query(".//$ns:shippingServiceCost[1]/@currencyId[1]", 'string')
-        );
+        ];
     }
 }

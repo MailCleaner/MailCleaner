@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Search_Lucene
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PriorityQueue.php,v 1.1.2.3 2011-05-30 08:30:47 root Exp $
+ * @version    $Id$
  */
 
 
@@ -32,7 +32,7 @@
  *
  * @category   Zend
  * @package    Zend_Search_Lucene
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Search_Lucene_PriorityQueue
@@ -50,7 +50,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      *
      * @var array
      */
-    private $_heap = array();
+    private $_heap = [];
 
 
     /**
@@ -65,7 +65,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
         $nodeId   = count($this->_heap);
         $parentId = ($nodeId-1) >> 1;   // floor( ($nodeId-1)/2 )
 
-        while ($nodeId != 0  &&  $this->_less($element, $this->_heap[$parentId])) {
+        while ($nodeId !== 0 && $this->_less($element, $this->_heap[$parentId])) {
             // Move parent node down
             $this->_heap[$nodeId] = $this->_heap[$parentId];
 
@@ -88,7 +88,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function top()
     {
-        if (count($this->_heap) == 0) {
+        if (count($this->_heap) === 0) {
             return null;
         }
 
@@ -105,7 +105,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function pop()
     {
-        if (count($this->_heap) == 0) {
+        if (count($this->_heap) === 0) {
             return null;
         }
 
@@ -153,7 +153,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function clear()
     {
-        $this->_heap = array();
+        $this->_heap = [];
     }
 
 

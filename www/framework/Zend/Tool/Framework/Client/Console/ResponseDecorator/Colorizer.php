@@ -14,22 +14,22 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Colorizer.php,v 1.1.2.3 2011-05-30 08:31:05 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Client_Console_ResponseDecorator_Colorizer
     implements Zend_Tool_Framework_Client_Response_ContentDecorator_Interface
 {
 
-    protected $_colorOptions = array(
+    protected $_colorOptions = [
         // blacks
         'black'     => '30m',
         'hiBlack'   => '1;30m',
@@ -62,7 +62,7 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Colorizer
         'white'     => '37m',
         'hiWhite'   => '1;37m',
         'bgWhite'   => '47m'
-        );
+        ];
 
     public function getName()
     {
@@ -72,7 +72,7 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Colorizer
     public function decorate($content, $color)
     {
         if (is_string($color)) {
-            $color = array($color);
+            $color = [$color];
         }
 
         $newContent = '';

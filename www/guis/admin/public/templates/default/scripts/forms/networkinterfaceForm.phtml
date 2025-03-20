@@ -1,37 +1,51 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
-   <fieldset id="ipsettings">
-        <?php echo $this->InputRow($this->form->getElement('interface'),array('fieled_only'=>true,'nobox'=>true));?>
-       <table class="ftable">
-          <?php echo $this->InputRow($this->form->getElement('ipv4mode'));?> 
-          <tr class="ipv4autoaddress"><td class="flabel"><?php echo $this->t->_('Assigned IPv4 address')?> : </td><td class="fvalue"><?php echo $this->form->getInterface()->getIPv4Param('auto_address');?></tr>
-          
-          <?php foreach (array('address', 'netmask', 'gateway') as $el) {?>
-              <?php echo $this->InputRow($this->form->getElement($el), array('row_class'=> 'ipv4configs'));?> 
-          <?php }?>
-          <?php echo $this->InputRow($this->form->getElement('virtual_addresses'),array('label_addclass'=>'flabeltextarea', 'row_class'=> 'ipv4configs'));?>
-	  <tr><td colspan="2"><hr /></td></tr>
+<?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+<fieldset id="ipsettings">
+    <?php echo $this->InputRow($this->form->getElement('interface'), ['fieled_only' => true, 'nobox' => true]); ?>
+    <table class="ftable">
+        <?php echo $this->InputRow($this->form->getElement('ipv4mode')); ?>
+        <tr class="ipv4autoaddress">
+            <td class="flabel"><?php echo $this->t->_('Assigned IPv4 address') ?> : </td>
+            <td class="fvalue"><?php echo $this->form->getInterface()->getIPv4Param('auto_address'); ?>
+        </tr>
 
-		<?php echo $this->InputRow($this->form->getElement('enable_configurator'));?>
+        <?php foreach (['address', 'netmask', 'gateway'] as $el) { ?>
+            <?php echo $this->InputRow($this->form->getElement($el), ['row_class' => 'ipv4configs']); ?>
+        <?php } ?>
+        <?php echo $this->InputRow($this->form->getElement('virtual_addresses'), ['label_addclass' => 'flabeltextarea', 'row_class' => 'ipv4configs']); ?>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
 
-	  <tr><td colspan="2"><hr /></td></tr>
+        <?php echo $this->InputRow($this->form->getElement('enable_configurator')); ?>
 
-          <?php echo $this->InputRow($this->form->getElement('ipv6mode'));?> 
-          <tr class="ipv6autoaddress"><td class="flabel"><?php echo $this->t->_('Assigned IPv6 address')?> : </td><td class="fvalue"><?php echo $this->form->getInterface()->getIPv6Param('auto_address');?></tr>
-          <?php foreach (array('ipv6address', 'ipv6netmask', 'ipv6gateway')as $el) {?>
-               <?php echo $this->InputRow($this->form->getElement($el), array('row_class'=> 'ipv6configs'));?> 
-          <?php }?>  
-          
-        <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-          
-       </table>
-     </fieldset>
-     
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+
+        <?php echo $this->InputRow($this->form->getElement('ipv6mode')); ?>
+        <tr class="ipv6autoaddress">
+            <td class="flabel"><?php echo $this->t->_('Assigned IPv6 address') ?> : </td>
+            <td class="fvalue"><?php echo $this->form->getInterface()->getIPv6Param('auto_address'); ?>
+        </tr>
+        <?php foreach (['ipv6address', 'ipv6netmask', 'ipv6gateway'] as $el) { ?>
+            <?php echo $this->InputRow($this->form->getElement($el), ['row_class' => 'ipv6configs']); ?>
+        <?php } ?>
+
+        <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+
+    </table>
+</fieldset>

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Planet.php,v 1.1.2.1 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,7 +35,7 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
@@ -47,7 +47,7 @@ class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
      * - 1 = complete bar
      * @var array
      */
-    protected $_codingMap = array(
+    protected $_codingMap = [
         0 => "00111",
         1 => "11100",
         2 => "11010",
@@ -58,5 +58,5 @@ class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
         7 => "01110",
         8 => "01101",
         9 => "01011"
-    );
+    ];
 }

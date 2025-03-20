@@ -1,82 +1,100 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php if ($this->loading) {?>
-<div id="dataloading">
-<img src="<?php echo $this->images_path?>/loadinggrey.gif" alt="loading" />
-<p><?php echo $this->t->_('Gathering data, this may take a while...')?></p>
-</div>
-<?php } else {?>
+<?php if ($this->loading) { ?>
+    <div id="dataloading">
+        <img src="<?php echo $this->images_path ?>/loadinggrey.gif" alt="loading" />
+        <p><?php echo $this->t->_('Gathering data, this may take a while...') ?></p>
+    </div>
+<?php } else { ?>
 
-<?php foreach ($this->elements as $e) {?>
+    <?php foreach ($this->elements as $e) { ?>
 
-<table class="stattable">
- <tr>
- <?php if ($e->isGlobal()) {?>
-   <td class="globalstattablehead" colspan="4">
-    <img src="<?php echo $this->images_path?>/statglobal.png" alt="statistics" /><p><?php echo $this->t->_('Total for')?> <?php echo $e->isGlobal()?>
-    &ndash; <span<?php if ($this->params['sort']=='users') { echo ' class="bold"'; }?>><?php echo $e->getValue('users')?> <?php echo $this->t->_('users')?></span></p>
-   </td>
- <?php } else { ?>
-   <td class="stattablehead" colspan="4">
-    <img src="<?php echo $this->images_path?>/stat.png" alt="statistics" />
-     <p><?php echo $e->getWhat()?>
-    <?php if ($e->isDomain()) { ?>
-      &ndash; <span<?php if ($this->params['sort']=='users') { echo ' class="bold"'; }?>><?php echo $e->getValue('users')?> <?php echo $this->t->_('users')?></span>
-    <?php }?>
-    </p>
-   </td>
- <?php }?>
- </tr>
- 
- <tr>
-  <td rowspan="4" class="graphpanel">
-   <div class="bargraph" onclick="javascript:showPie();">
-   <p><?php echo $e->getValue('msgs')?> <?php echo $this->t->_('received messages')?></p>
-   <div class="bar">
-     <div class="virus" style="width: <?php echo $e->getBarWidth('viruses', 300)?>px;"></div> 
-     <div class="spam" style="width: <?php echo $e->getBarWidth('spams', 300)?>px;"></div>
-     <div class="clean" style="width: <?php echo $e->getBarWidth('cleans', 300)?>px;"></div>
-   </div>
-   <p><?php echo $this->t->_('From')?> <?php echo $this->fromdate?> <?php echo $this->t->_('to')?> <?php echo $this->todate?></p>
-   
-   </div>
+        <table class="stattable">
+            <tr>
+                <?php if ($e->isGlobal()) { ?>
+                    <td class="globalstattablehead" colspan="4">
+                        <img src="<?php echo $this->images_path ?>/statglobal.png" alt="statistics" />
+                        <p><?php echo $this->t->_('Total for') ?> <?php echo $e->isGlobal() ?>
+                            &ndash; <span<?php if ($this->params['sort'] == 'users') {
+                                                echo ' class="bold"';
+                                            } ?>><?php echo $e->getValue('users') ?> <?php echo $this->t->_('users') ?></span></p>
+                    </td>
+                <?php } else { ?>
+                    <td class="stattablehead" colspan="4">
+                        <img src="<?php echo $this->images_path ?>/stat.png" alt="statistics" />
+                        <p><?php echo $e->getWhat() ?>
+                            <?php if ($e->isDomain()) { ?>
+                                &ndash; <span<?php if ($this->params['sort'] == 'users') {
+                                                    echo ' class="bold"';
+                                                } ?>><?php echo $e->getValue('users') ?> <?php echo $this->t->_('users') ?></span>
+                                <?php } ?>
+                        </p>
+                    </td>
+                <?php } ?>
+            </tr>
 
-  </td>
-  <td class="countlegend"><?php echo $this->t->_('Messages received')?>: </td>
-  <td colspan="2"><div class="msgslegend">&nbsp;</div>
-     <p<?php if ($this->params['sort']=='msgs') { echo ' class="bold"'; }?>><?php echo $e->getValue('msgs')?></p>
- </td>
- </tr>
- <tr>
-  <td class="countlegend"><?php echo $this->t->_('Viruses and dangerous messages')?>: </td>
-  <td class="countvalue"><img src="<?php echo $this->images_path?>/statbulletvirus.png" alt="virus" />
-     <p<?php if ($this->params['sort']=='viruses') { echo ' class="bold"'; }?>><?php echo $e->getValue('viruses')?></p>
-  </td>
-  <td>
-     <p><?php echo $e->getPercentValue('viruses')?> %</p>
- </td>
- </tr>
- <tr>
-  <td class="countlegend"><?php echo $this->t->_('Spam messages')?>: </td>
-  <td class="countvalue"><img src="<?php echo $this->images_path?>/statbulletspam.png" alt="virus" />
-     <p<?php if ($this->params['sort']=='spams') { echo ' class="bold"'; }?>><?php echo $e->getValue('spams')?></p>
-  </td>
-  <td>
-      <p<?php if ($this->params['sort']=='spamspercent') { echo ' class="bold"'; }?>><?php echo $e->getPercentValue('spams')?> %</p>
- </td>
- </tr>
- <tr>
-  <td class="countlegend"><?php echo $this->t->_('Clean messages')?>: </td>
-  <td class="countvalue"><img src="<?php echo $this->images_path?>/statbulletclean.png" alt="virus" />
-     <p><?php echo $e->getValue('cleans')?></p></td>
-  <td class="countvaluep"><p><?php echo $e->getPercentValue('cleans')?> %</p></td>
- </tr>
-</table>
-<?php }?>
-<?php }?>
+            <tr>
+                <td rowspan="4" class="graphpanel">
+                    <div class="bargraph" onclick="javascript:showPie();">
+                        <p><?php echo $e->getValue('msgs') ?> <?php echo $this->t->_('received messages') ?></p>
+                        <div class="bar">
+                            <div class="virus" style="width: <?php echo $e->getBarWidth('viruses', 300) ?>px;"></div>
+                            <div class="spam" style="width: <?php echo $e->getBarWidth('spams', 300) ?>px;"></div>
+                            <div class="clean" style="width: <?php echo $e->getBarWidth('cleans', 300) ?>px;"></div>
+                        </div>
+                        <p><?php echo $this->t->_('From') ?> <?php echo $this->fromdate ?> <?php echo $this->t->_('to') ?> <?php echo $this->todate ?></p>
+
+                    </div>
+
+                </td>
+                <td class="countlegend"><?php echo $this->t->_('Messages received') ?>: </td>
+                <td colspan="2">
+                    <div class="msgslegend">&nbsp;</div>
+                    <p<?php if ($this->params['sort'] == 'msgs') {
+                            echo ' class="bold"';
+                        } ?>><?php echo $e->getValue('msgs') ?></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="countlegend"><?php echo $this->t->_('Viruses and dangerous messages') ?>: </td>
+                <td class="countvalue"><img src="<?php echo $this->images_path ?>/statbulletvirus.png" alt="virus" />
+                    <p<?php if ($this->params['sort'] == 'viruses') {
+                            echo ' class="bold"';
+                        } ?>><?php echo $e->getValue('viruses') ?></p>
+                </td>
+                <td>
+                    <p><?php echo $e->getPercentValue('viruses') ?> %</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="countlegend"><?php echo $this->t->_('Spam messages') ?>: </td>
+                <td class="countvalue"><img src="<?php echo $this->images_path ?>/statbulletspam.png" alt="virus" />
+                    <p<?php if ($this->params['sort'] == 'spams') {
+                            echo ' class="bold"';
+                        } ?>><?php echo $e->getValue('spams') ?></p>
+                </td>
+                <td>
+                    <p<?php if ($this->params['sort'] == 'spamspercent') {
+                            echo ' class="bold"';
+                        } ?>><?php echo $e->getPercentValue('spams') ?> %</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="countlegend"><?php echo $this->t->_('Clean messages') ?>: </td>
+                <td class="countvalue"><img src="<?php echo $this->images_path ?>/statbulletclean.png" alt="virus" />
+                    <p><?php echo $e->getValue('cleans') ?></p>
+                </td>
+                <td class="countvaluep">
+                    <p><?php echo $e->getPercentValue('cleans') ?> %</p>
+                </td>
+            </tr>
+        </table>
+    <?php } ?>
+<?php } ?>

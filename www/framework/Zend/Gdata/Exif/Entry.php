@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Exif
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php,v 1.1.2.3 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -42,7 +42,7 @@ require_once 'Zend/Gdata/Exif/Extension/Tags.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Exif
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
@@ -117,7 +117,7 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
      * Retrieve the tags for this entry.
      *
      * @see setTags
-     * @return Zend_Gdata_Exif_Extension_Tags The requested object
+     * @return string|null The requested object
      *              or null if not set.
      */
     public function getTags()
@@ -134,7 +134,7 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Exif_Extension_Tags $value The desired value
      *              this element, or null to unset.
-     * @return Zend_Gdata_Exif_Entry Provides a fluent interface
+     * @return $this
      */
     public function setTags($value)
     {

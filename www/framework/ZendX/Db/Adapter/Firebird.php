@@ -15,9 +15,9 @@
  * @category   ZendX
  * @package    ZendX_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Firebird.php,v 1.1.2.3 2011-05-30 08:31:13 root Exp $
+ * @version    $Id: $
  */
 
 /**
@@ -45,7 +45,7 @@ require_once 'ZendX/Db/Statement/Firebird.php';
  * @category   ZendX
  * @package    ZendX_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
@@ -251,11 +251,13 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
         return $desc;
     }
 
-
     /**
      * Format a connection string to connect to database
      *
-     * @return void
+     * @param string $host
+     * @param int    $port
+     * @param string $dbname
+     * @return string
      */
     protected function _formatDbConnString($host, $port, $dbname)
     {
@@ -265,7 +267,6 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
             $dbname = ':' . $dbname;
 
         return $host . $port . $dbname;
-
     }
 
     /**
@@ -397,6 +398,7 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
     /**
      * Commit a transaction.
      *
+     * @throws ZendX_Db_Adapter_Firebird_Exception
      * @return void
      */
     protected function _commit()
@@ -414,6 +416,7 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
     /**
      * Roll-back a transaction.
      *
+     * @throws ZendX_Db_Adapter_Firebird_Exception
      * @return void
      */
     protected function _rollBack()
@@ -432,6 +435,7 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
      * Set the fetch mode.
      *
      * @param int $mode
+     * @throws ZendX_Db_Adapter_Firebird_Exception
      * @return void
      */
     public function setFetchMode($mode)

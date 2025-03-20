@@ -15,30 +15,10 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Insert.php,v 1.1.2.1 2011-05-30 08:31:00 root Exp $
+ * @version    $Id$
  */
-
-/**
- * @see PHPUnit_Extensions_Database_Operation_IDatabaseOperation
- */
-require_once "PHPUnit/Extensions/Database/Operation/IDatabaseOperation.php";
-
-/**
- * @see PHPUnit_Extensions_Database_DB_IDatabaseConnection
- */
-require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
-
-/**
- * @see PHPUnit_Extensions_Database_DataSet_IDataSet
- */
-require_once "PHPUnit/Extensions/Database/DataSet/IDataSet.php";
-
-/**
- * @see PHPUnit_Extensions_Database_Operation_Exception
- */
-require_once "PHPUnit/Extensions/Database/Operation/Exception.php";
 
 /**
  * @see Zend_Test_PHPUnit_Db_Connection
@@ -52,7 +32,7 @@ require_once "Zend/Test/PHPUnit/Db/Connection.php";
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_Operation_Insert implements PHPUnit_Extensions_Database_Operation_IDatabaseOperation
@@ -95,7 +75,7 @@ class Zend_Test_PHPUnit_Db_Operation_Insert implements PHPUnit_Extensions_Databa
      */
     protected function buildInsertValues(PHPUnit_Extensions_Database_DataSet_ITable $table, $rowNum)
     {
-        $values = array();
+        $values = [];
         foreach($table->getTableMetaData()->getColumns() as $columnName) {
             $values[$columnName] = $table->getValue($rowNum, $columnName);
         }

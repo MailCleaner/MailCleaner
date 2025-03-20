@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Upca.php,v 1.1.2.1 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,7 +35,7 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Upca extends Zend_Barcode_Object_Ean13
@@ -72,55 +72,55 @@ class Zend_Barcode_Object_Upca extends Zend_Barcode_Object_Ean13
      */
     protected function _prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
         $height = ($this->_drawText) ? 1.1 : 1;
 
         // Start character (101)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
 
         $textTable = str_split($this->getText());
 
         // First character
         $bars = str_split($this->_codingMap['A'][$textTable[0]]);
         foreach ($bars as $b) {
-            $barcodeTable[] = array($b , $this->_barThinWidth , 0 , $height);
+            $barcodeTable[] = [$b , $this->_barThinWidth , 0 , $height];
         }
 
         // First part
         for ($i = 1; $i < 6; $i++) {
             $bars = str_split($this->_codingMap['A'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = [$b , $this->_barThinWidth , 0 , 1];
             }
         }
 
         // Middle character (01010)
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
 
         // Second part
         for ($i = 6; $i < 11; $i++) {
             $bars = str_split($this->_codingMap['C'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = [$b , $this->_barThinWidth , 0 , 1];
             }
         }
 
         // Last character
         $bars = str_split($this->_codingMap['C'][$textTable[11]]);
         foreach ($bars as $b) {
-            $barcodeTable[] = array($b , $this->_barThinWidth , 0 , $height);
+            $barcodeTable[] = [$b , $this->_barThinWidth , 0 , $height];
         }
 
         // Stop character (101)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
         return $barcodeTable;
     }
 
@@ -134,13 +134,16 @@ class Zend_Barcode_Object_Upca extends Zend_Barcode_Object_Ean13
             $text = $this->getTextToDisplay();
             $characterWidth = (7 * $this->_barThinWidth) * $this->_factor;
             $leftPosition = $this->getQuietZone() - $characterWidth;
+
             for ($i = 0; $i < $this->_barcodeLength; $i ++) {
                 $fontSize = $this->_fontSize;
-                if ($i == 0 || $i == 11) {
+
+                if ($i === 0 || $i === 11) {
                     $fontSize *= 0.8;
                 }
+
                 $this->_addText(
-                    $text{$i},
+                    $text[$i],
                     $fontSize * $this->_factor,
                     $this->_rotate(
                         $leftPosition,

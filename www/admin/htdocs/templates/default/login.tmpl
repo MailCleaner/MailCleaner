@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Mailcleaner admin interface</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
@@ -7,45 +9,50 @@
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
     <meta name="robots" content="noindex" />
-       <script language="JavaScript">
-<!-- 
-    if(top.location != self.location) {
-		top.location.href = "/admin/";
-		top.location.pathname = "/admin/";
-    }
-// -->
-   </script>
-  </head>
+    <script language="JavaScript">
+        <!-- 
+            if(top.location != self.location) {
+                top.location.href = "/admin/";
+                top.location.pathname = "/admin/";
+            }
+        // -->
+    </script>
+</head>
+
 <body>
 
-<center>
-<br/>
-__PRINT_STATUS__
-<br/><br/>
-__LANG_ASKLOGIN__
-<br/><br/>
-__BEGIN_LOGIN_FORM__
-<table border="0" cellpadding="0" cellspacing="2" class="loginfields">
-  <tr valign="center"> <!-- Login fields -->
-    <td width="30%" bgcolor="#cccccc" align="right"><nobr>&nbsp;&nbsp;__LANG_USERNAME__ :&nbsp;</nobr></td>
-    <td width="70%" bgcolor="#ffffff">__LOGIN_FIELD__</td>
-  </tr>
+    <center>
+        <br />
+        __PRINT_STATUS__
+        <br /><br />
+        __LANG_ASKLOGIN__
+        <br /><br />
+        __BEGIN_LOGIN_FORM__
+        <table border="0" cellpadding="0" cellspacing="2" class="loginfields">
+            <tr valign="center"> <!-- Login fields -->
+                <td width="30%" bgcolor="#cccccc" align="right">
+                    <nobr>&nbsp;&nbsp;__LANG_USERNAME__ :&nbsp;</nobr>
+                </td>
+                <td width="70%" bgcolor="#ffffff">__LOGIN_FIELD__</td>
+            </tr>
 
-  <tr valign="center"> <!-- Password fields -->
-    <td width="30%" bgcolor="#cccccc" align="right"><nobr>&nbsp;&nbsp;__LANG_PASSWORD__ :&nbsp;</nobr></td>
-    <td width="70%" bgcolor="#ffffff">__PASSWORD_FIELD__</td>
-  </tr>
+            <tr valign="center"> <!-- Password fields -->
+                <td width="30%" bgcolor="#cccccc" align="right">
+                    <nobr>&nbsp;&nbsp;__LANG_PASSWORD__ :&nbsp;</nobr>
+                </td>
+                <td width="70%" bgcolor="#ffffff">__PASSWORD_FIELD__</td>
+            </tr>
 
 
-  <tr valign="center"> <!-- Buttons -->
-    <td width="30%" bgcolor="#ffffff"></td>
-    <td width="70%" bgcolor="#ffffff" align="right">__SUBMIT_BUTTON__</td>
-  </tr>
-</table>
-__END_LOGIN_FORM__
-<br/>
-</center>
+            <tr valign="center"> <!-- Buttons -->
+                <td width="30%" bgcolor="#ffffff"></td>
+                <td width="70%" bgcolor="#ffffff" align="right">__SUBMIT_BUTTON__</td>
+            </tr>
+        </table>
+        __END_LOGIN_FORM__
+        <br />
+    </center>
 
 </body>
-</html>
 
+</html>

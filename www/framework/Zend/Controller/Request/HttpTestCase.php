@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpTestCase.php,v 1.1.2.3 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -39,7 +39,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      * Request headers
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * Request method
@@ -57,14 +57,15 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      * Valid request method types
      * @var array
      */
-    protected $_validMethodTypes = array(
+    protected $_validMethodTypes = [
         'DELETE',
         'GET',
         'HEAD',
         'OPTIONS',
+        'PATCH',
         'POST',
         'PUT',
-    );
+    ];
 
     /**
      * Clear GET values
@@ -73,7 +74,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      */
     public function clearQuery()
     {
-        $_GET = array();
+        $_GET = [];
         return $this;
     }
 
@@ -84,7 +85,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      */
     public function clearPost()
     {
-        $_POST = array();
+        $_POST = [];
         return $this;
     }
 
@@ -138,7 +139,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      * Set multiple cookies at once
      *
      * @param array $cookies
-     * @return void
+     * @return Zend_Controller_Request_HttpTestCase
      */
     public function setCookies(array $cookies)
     {
@@ -155,7 +156,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      */
     public function clearCookies()
     {
-        $_COOKIE = array();
+        $_COOKIE = [];
         return $this;
     }
 
@@ -247,7 +248,7 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
      */
     public function clearHeaders()
     {
-        $this->_headers = array();
+        $this->_headers = [];
         return $this;
     }
 

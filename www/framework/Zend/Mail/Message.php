@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Mail
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php,v 1.1.2.4 2011-05-30 08:30:34 root Exp $
+ * @version    $Id$
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/Mail/Message/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Mail
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Interface
@@ -42,7 +42,7 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
      * flags for this message
      * @var array
      */
-    protected $_flags = array();
+    protected $_flags = [];
 
     /**
      * Public constructor
@@ -69,11 +69,12 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
             } else {
                 $params['raw'] = stream_get_contents($params['file']);
             }
+            $params['raw'] = preg_replace("/(?<!\r)\n/", "\r\n", $params['raw']);
         }
 
         if (!empty($params['flags'])) {
             // set key and value to the same value for easy lookup
-            $this->_flags = array_combine($params['flags'], $params['flags']);
+            $this->_flags = array_merge($this->_flags, array_combine($params['flags'],$params['flags']));
         }
 
         parent::__construct($params);

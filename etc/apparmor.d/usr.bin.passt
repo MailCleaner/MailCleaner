@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+# PASST - Plug A Simple Socket Transport
+#  for qemu/UNIX domain socket mode
+#
+# PASTA - Pack A Subtle Tap Abstraction
+#  for network namespace/tap device mode
+#
+# contrib/apparmor/usr.bin.passt - AppArmor profile for passt(1)
+#
+# Copyright (c) 2022 Red Hat GmbH
+# Author: Stefano Brivio <sbrivio@redhat.com>
+
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile passt /usr/bin/passt{,.avx2} {
+  include <abstractions/passt>
+
+  # Alternatively: include <abstractions/user-tmp>
+  owner /tmp/**				w,	# tap_sock_unix_open(),
+						# tap_sock_unix_init(), pcap(),
+						# pidfile_open(),
+						# pidfile_write(),
+						# logfile_init()
+
+  owner @{HOME}/**			w,	# pcap(), pidfile_open(),
+						# pidfile_write()
+
+  # Workaround: libvirt's profile comes with a passt subprofile which includes,
+  # in turn, <abstractions/passt>, and adds libvirt-specific rules on top, to
+  # allow passt (when started by libvirtd) to write socket and PID files in the
+  # location requested by libvirtd itself, and to execute passt itself.
+  #
+  # However, when libvirt runs as unprivileged user, the mechanism based on
+  # virt-aa-helper, designed to build per-VM profiles as guests are started,
+  # doesn't work. The helper needs to create and load profiles on the fly, which
+  # can't be done by unprivileged users, of course.
+  #
+  # As a result, libvirtd runs unconfined if guests are started by unprivileged
+  # users, starting passt unconfined as well, which means that passt runs under
+  # its own stand-alone profile (this one), which implies in turn that execve()
+  # of /usr/bin/passt is not allowed, and socket and PID files can't be written.
+  #
+  # Duplicate libvirt-specific rules here as long as this is not solved in
+  # libvirt's profile itself.
+  /usr/bin/passt r,
+  owner @{run}/user/[0-9]*/libvirt/qemu/run/passt/* rw,
+  owner @{run}/libvirt/qemu/passt/* rw,
+}

@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Action.php,v 1.1.2.4 2011-05-30 08:30:32 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ require_once 'Zend/View/Helper/Abstract.php';
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Action extends Zend_View_Helper_Abstract
@@ -115,7 +115,7 @@ class Zend_View_Helper_Action extends Zend_View_Helper_Abstract
      * @param  array $params
      * @return string
      */
-    public function action($action, $controller, $module = null, array $params = array())
+    public function action($action, $controller, $module = null, array $params = [])
     {
         $this->resetObjects();
         if (null === $module) {

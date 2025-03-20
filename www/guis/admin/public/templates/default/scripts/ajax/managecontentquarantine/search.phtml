@@ -1,112 +1,132 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php if ($this->loading) {?>
- <table id="quarantinetable"> 
- 
-   <tr id="quarantinebanner">
-     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
-     <p><strong><?php echo $this->t->_('In content quarantine')?> :</strong></p></td>
-   </tr>
-   
-   <tr id="quarantineheader">
-   <?php foreach ($this->columns as $cname => $c) {?>
-      <td class="c_<?php echo $cname?> c_title"><?php echo $this->t->_($c['label'])?></td>
-      <?php }?>
-   <tr>
-     <td class="loadingrow" colspan="<?php echo count($this->columns);?>">
-        <img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading" />
-        <p><?php echo $this->t->_('Searching...')?></p>
-     </td>
-   </tr>
- </table>
-<?php } else {?>
-<table id="quarantinetable">
- 
-   <tr id="quarantinebanner">
-     <td colspan="<?php echo count($this->columns)?>"><img src="<?php echo $this->images_path;?>/logopmc.png" alt="MailCleaner" />
-     <p><strong><?php echo $this->t->_('In content quarantine')?> :</strong> 
-         <?php echo $this->nbelements?> <?php echo $this->t->_('messages')?>
-         (<?php echo $this->t->_('sorted by')?> <?php echo $this->t->_($this->columns[$this->orderfield]['label2'])?>)</p></td>
-   </tr>
-   
-   <tr id="quarantineheader">
-   <?php foreach ($this->columns as $cname => $c) {?>
-      <td class="c_<?php echo $cname?> c_title<?php if ($cname == $this->orderfield) { echo " c_selected"; }?>">
-        <?php if (isset($c['order'])) {?>
-          <a href="javascript:setOrder('<?php if ($cname == $this->orderfield) { if ($c['order'] == 'asc') { echo $cname."_desc"; } else { echo $cname."_asc"; } } else { echo $cname."_".$c['order']; }?>');">
-            <?php echo $this->t->_($c['label'])?>
-          </a>
-          <?php if ($cname == $this->orderfield) {?>
-          <img src="<?php echo $this->images_path?>/orderby_<?php echo $c['order']?>.png" alt="" />
-          <?php }?>
-          
-        <?php } else {?>
-          <?php echo $this->t->_($c['label'])?>
-        <?php }?>
-      </td>
-   <?php }?>
-   </tr>
-   
-<?php $i=1; foreach ($this->elements as $element) {?>
-<tr class="quarantine_content<?php if ($element->getParam('content_forced')) { echo ' msgforced';}?>" onmouseover="highlightActionIcon('<?php echo $i?>', <?php echo $element->getParam('content_forced')?>, '', '<?php echo $this->images_path?>'); return true;" onmouseout="highlightActionIcon('<?php echo $i?>', <?php echo $element->getParam('content_forced')?>, '_off', '<?php echo $this->images_path?>'); return true;">
-  <td class="c_caction">
-     <a href="javascript:cforce('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/<?php if ($element->getParam('content_forced')) { echo "released_off.png"; } else { echo "release_off.png"; }?>" id="r<?php echo $i;?>" alt="release" /></a>
-     <a href="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path?>/info_off.png" id="v<?php echo $i;?>" class="middleactionincon" alt="info" /></a>
-  </td>
-  <td onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');"><?php echo $element->getParam('date')?>&nbsp;&nbsp;&nbsp;<?php echo $element->getParam('time')?></td>
-  <td onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');"><a href="javascript:;"><?php echo $element->getCleanAddress($element->getDestination())?></a></td>
-  <td onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');"><a href="javascript:;"><?php echo $element->getCleanAddress($element->getSender())?></a></td>
-  <td onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');"><a href="javascript:;"><?php echo $element->getCleanParam('subject')?></a></td>
-  <td class="c_content" onclick="javascript:cinfos('<?php echo $element->getFullId()?>','<?php echo $element->getStoreId()?>');">
-  <?php if ($element->getParam('virusinfected')) {?><img src="<?php echo $this->images_path?>/virus.gif" alt="virus" /><?php }?>
-  <?php if ($element->getParam('nameinfected')) {?><img src="<?php echo $this->images_path?>/name.gif" alt="name" /><?php }?>
-  <?php if ($element->getParam('otherinfected')) {?><img src="<?php echo $this->images_path?>/other.gif" alt="other" /><?php }?>
-  </td>
-</tr>
-<?php $i++; }?>
-   
-   <tr id="pagination">
-       <td id="actual_page" colspan="2"><?php echo $this->t->_('Page')." ".$this->page." ".$this->t->_('of')." ".$this->nbpages?></td>
-       <td id="pages_navigation" colspan="<?php echo count($this->columns)-2?>">
+<?php if ($this->loading) { ?>
+    <table id="quarantinetable">
 
-<?php $nbprevnext = 5;?>
-  <?php if ($this->nbpages > 1) {?>
-    <?php if ($this->page > 1) {?>
-      <a href="javascript:setPage(1);"><img src="<?php echo $this->images_path;?>/pagefirst.png" alt="first" class="pagefirstimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagefirsthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagefirst.png';" /></a>
-      <a href="javascript:setPage(<?php echo $this->page-1?>);"><img src="<?php echo $this->images_path;?>/pageprevious.png" alt="previous" class="pagepreviousimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pageprevioushover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pageprevious.png';" /></a> 
-    <?php }?>
-     
-    <?php $i=$this->page-$nbprevnext; $c=0; while ($c++ < $nbprevnext) { if ($i > 0) { ?><a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a> |
-    <?php }$i++;}?>
-        
-    <?php echo $this->page?>
+        <tr id="quarantinebanner">
+            <td colspan="<?php echo count($this->columns) ?>"><img src="<?php echo $this->images_path; ?>/logopmc.png" alt="MailCleaner" />
+                <p><strong><?php echo $this->t->_('In content quarantine') ?> :</strong></p>
+            </td>
+        </tr>
 
-    <?php $i=$this->page; $c=0; while ($i++ < $this->nbpages && $c++ < $nbprevnext) { ?>
-        | <a href="javascript:setPage(<?php echo $i?>);"><?php echo $i;?></a>
-    <?php }?>     
-      
-    <?php if ($this->page < $this->nbpages) {?>
-      <a href="javascript:setPage(<?php echo $this->page+1?>);"><img src="<?php echo $this->images_path;?>/pagenext.png" alt="next" class="pagepnextimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagenexthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagenext.png';" /></a>
-      <a href="javascript:setPage(<?php echo $this->nbpages?>);"><img src="<?php echo $this->images_path;?>/pagelast.png" alt="last" class="pagelastimg" 
-                    onmouseover="javascript:this.src='<?php echo $this->images_path;?>/pagelasthover.png';"
-                    onmouseout="javascript:this.src='<?php echo $this->images_path;?>/pagelast.png';" /></a> 
-    <?php }?>
-  <?php }?>
+        <tr id="quarantineheader">
+            <?php foreach ($this->columns as $cname => $c) { ?>
+                <td class="c_<?php echo $cname ?> c_title"><?php echo $this->t->_($c['label']) ?></td>
+            <?php } ?>
+        <tr>
+            <td class="loadingrow" colspan="<?php echo count($this->columns); ?>">
+                <img src="<?php echo $this->images_path ?>/loadingwhitebg.gif" alt="loading" />
+                <p><?php echo $this->t->_('Searching...') ?></p>
+            </td>
+        </tr>
+    </table>
+<?php } else { ?>
+    <table id="quarantinetable">
+
+        <tr id="quarantinebanner">
+            <td colspan="<?php echo count($this->columns) ?>"><img src="<?php echo $this->images_path; ?>/logopmc.png" alt="MailCleaner" />
+                <p><strong><?php echo $this->t->_('In content quarantine') ?> :</strong>
+                    <?php echo $this->nbelements ?> <?php echo $this->t->_('messages') ?>
+                    (<?php echo $this->t->_('sorted by') ?> <?php echo $this->t->_($this->columns[$this->orderfield]['label2']) ?>)</p>
+            </td>
+        </tr>
+
+        <tr id="quarantineheader">
+            <?php foreach ($this->columns as $cname => $c) { ?>
+                <td class="c_<?php echo $cname ?> c_title<?php if ($cname == $this->orderfield) {
+                                                                echo " c_selected";
+                                                            } ?>">
+                    <?php if (isset($c['order'])) { ?>
+                        <a href="javascript:setOrder('<?php if ($cname == $this->orderfield) {
+                                                            if ($c['order'] == 'asc') {
+                                                                echo $cname . "_desc";
+                                                            } else {
+                                                                echo $cname . "_asc";
+                                                            }
+                                                        } else {
+                                                            echo $cname . "_" . $c['order'];
+                                                        } ?>');">
+                            <?php echo $this->t->_($c['label']) ?>
+                        </a>
+                        <?php if ($cname == $this->orderfield) { ?>
+                            <img src="<?php echo $this->images_path ?>/orderby_<?php echo $c['order'] ?>.png" alt="" />
+                        <?php } ?>
+
+                    <?php } else { ?>
+                        <?php echo $this->t->_($c['label']) ?>
+                    <?php } ?>
+                </td>
+            <?php } ?>
+        </tr>
+
+        <?php $i = 1;
+        foreach ($this->elements as $element) { ?>
+            <tr class="quarantine_content<?php if ($element->getParam('content_forced')) {
+                                                echo ' msgforced';
+                                            } ?>" onmouseover="highlightActionIcon('<?php echo $i ?>', <?php echo $element->getParam('content_forced') ?>, '', '<?php echo $this->images_path ?>'); return true;" onmouseout="highlightActionIcon('<?php echo $i ?>', <?php echo $element->getParam('content_forced') ?>, '_off', '<?php echo $this->images_path ?>'); return true;">
+                <td class="c_caction">
+                    <a href="javascript:cforce('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');" onmouseover="showHideToolTip(event, true, 'fm', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path ?>/<?php if ($element->getParam('content_forced')) {
+                                                                                                                                                                                                                                                                                                                    echo "released_off.png";
+                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                    echo "release_off.png";
+                                                                                                                                                                                                                                                                                                                } ?>" id="r<?php echo $i; ?>" alt="release" /></a>
+                    <a href="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');" onmouseover="showHideToolTip(event, true, 'vi', 'L'); return true;" onmouseout="showHideToolTip(event, false, '', 'L'); return true;"><img src="<?php echo $this->images_path ?>/info_off.png" id="v<?php echo $i; ?>" class="middleactionincon" alt="info" /></a>
+                </td>
+                <td onclick="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');"><?php echo $element->getParam('date') ?>&nbsp;&nbsp;&nbsp;<?php echo $element->getParam('time') ?></td>
+                <td onclick="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');"><a href="javascript:;"><?php echo $element->getCleanAddress($element->getDestination()) ?></a></td>
+                <td onclick="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');"><a href="javascript:;"><?php echo $element->getCleanAddress($element->getSender()) ?></a></td>
+                <td onclick="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');"><a href="javascript:;"><?php echo $element->getCleanParam('subject') ?></a></td>
+                <td class="c_content" onclick="javascript:cinfos('<?php echo $element->getFullId() ?>','<?php echo $element->getStoreId() ?>');">
+                    <?php if ($element->getParam('virusinfected')) { ?><img src="<?php echo $this->images_path ?>/virus.gif" alt="virus" /><?php } ?>
+                    <?php if ($element->getParam('nameinfected')) { ?><img src="<?php echo $this->images_path ?>/name.gif" alt="name" /><?php } ?>
+                    <?php if ($element->getParam('otherinfected')) { ?><img src="<?php echo $this->images_path ?>/other.gif" alt="other" /><?php } ?>
+                </td>
+            </tr>
+        <?php $i++;
+        } ?>
+
+        <tr id="pagination">
+            <td id="actual_page" colspan="2"><?php echo $this->t->_('Page') . " " . $this->page . " " . $this->t->_('of') . " " . $this->nbpages ?></td>
+            <td id="pages_navigation" colspan="<?php echo count($this->columns) - 2 ?>">
+
+                <?php $nbprevnext = 5; ?>
+                <?php if ($this->nbpages > 1) { ?>
+                    <?php if ($this->page > 1) { ?>
+                        <a href="javascript:setPage(1);"><img src="<?php echo $this->images_path; ?>/pagefirst.png" alt="first" class="pagefirstimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagefirsthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagefirst.png';" /></a>
+                        <a href="javascript:setPage(<?php echo $this->page - 1 ?>);"><img src="<?php echo $this->images_path; ?>/pageprevious.png" alt="previous" class="pagepreviousimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pageprevioushover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pageprevious.png';" /></a>
+                    <?php } ?>
+
+                    <?php $i = $this->page - $nbprevnext;
+                    $c = 0;
+                    while ($c++ < $nbprevnext) {
+                        if ($i > 0) { ?><a href="javascript:setPage(<?php echo $i ?>);"><?php echo $i; ?></a> |
+                    <?php }
+                        $i++;
+                    } ?>
+
+                    <?php echo $this->page ?>
+
+                    <?php $i = $this->page;
+                    $c = 0;
+                    while ($i++ < $this->nbpages && $c++ < $nbprevnext) { ?>
+                        | <a href="javascript:setPage(<?php echo $i ?>);"><?php echo $i; ?></a>
+                    <?php } ?>
+
+                    <?php if ($this->page < $this->nbpages) { ?>
+                        <a href="javascript:setPage(<?php echo $this->page + 1 ?>);"><img src="<?php echo $this->images_path; ?>/pagenext.png" alt="next" class="pagepnextimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagenexthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagenext.png';" /></a>
+                        <a href="javascript:setPage(<?php echo $this->nbpages ?>);"><img src="<?php echo $this->images_path; ?>/pagelast.png" alt="last" class="pagelastimg" onmouseover="javascript:this.src='<?php echo $this->images_path; ?>/pagelasthover.png';" onmouseout="javascript:this.src='<?php echo $this->images_path; ?>/pagelast.png';" /></a>
+                    <?php } ?>
+                <?php } ?>
 
 
-       </td>
-   </tr>
-</table>
-<?php }?>
+            </td>
+        </tr>
+    </table>
+<?php } ?>

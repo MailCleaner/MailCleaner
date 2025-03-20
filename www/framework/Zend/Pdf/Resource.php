@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Resource.php,v 1.1.2.3 2011-05-30 08:30:46 root Exp $
+ * @version    $Id$
  */
 
 
@@ -24,7 +24,7 @@
  * PDF file Resource abstraction
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Resource
@@ -115,10 +115,10 @@ abstract class Zend_Pdf_Resource
      * Clone resource, extract it and dependent objects from the current document,
      * so it can be used within other docs.
      *
-     * @internal
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @param array $processed
-     * @return Zend_Pdf_Page
+     * @return void
+     * @internal
      */
     public function cloneResource($factory, &$processed)
     {

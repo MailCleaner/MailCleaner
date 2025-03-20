@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Method
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Definition.php,v 1.1.2.4 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Method
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Server_Method_Definition
@@ -39,7 +39,7 @@ class Zend_Server_Method_Definition
     /**
      * @var array
      */
-    protected $_invokeArguments = array();
+    protected $_invokeArguments = [];
 
     /**
      * @var string
@@ -59,7 +59,7 @@ class Zend_Server_Method_Definition
     /**
      * @var array Array of Zend_Server_Method_Prototype objects
      */
-    protected $_prototypes = array();
+    protected $_prototypes = [];
 
     /**
      * Constructor
@@ -183,7 +183,7 @@ class Zend_Server_Method_Definition
      */
     public function setPrototypes(array $prototypes)
     {
-        $this->_prototypes = array();
+        $this->_prototypes = [];
         $this->addPrototypes($prototypes);
         return $this;
     }
@@ -276,18 +276,18 @@ class Zend_Server_Method_Definition
     public function toArray()
     {
         $prototypes = $this->getPrototypes();
-        $signatures = array();
+        $signatures = [];
         foreach ($prototypes as $prototype) {
             $signatures[] = $prototype->toArray();
         }
 
-        return array(
+        return [
             'name'            => $this->getName(),
             'callback'        => $this->getCallback()->toArray(),
             'prototypes'      => $signatures,
             'methodHelp'      => $this->getMethodHelp(),
             'invokeArguments' => $this->getInvokeArguments(),
             'object'          => $this->getObject(),
-        );
+        ];
     }
 }

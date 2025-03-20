@@ -1,20 +1,21 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
- <fieldset id="companysettings">
-       <table class="ftable">
-          
-          <?php echo $this->InputRow($this->form->getElement('allowed_ip'),array('label_addclass'=>'flabeltextarea'));?>
-          
-          <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-          
-       </table>
-     </fieldset>
- </form>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
+    <fieldset id="companysettings">
+        <table class="ftable">
+
+            <?php echo $this->InputRow($this->form->getElement('allowed_ip'), ['label_addclass' => 'flabeltextarea']); ?>
+
+            <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+
+        </table>
+    </fieldset>
+</form>

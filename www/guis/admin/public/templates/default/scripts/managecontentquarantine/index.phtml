@@ -1,57 +1,68 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>" id="<?php echo $this->form->getId()?>">
- <fieldset id="filter">
-<div class="addressselectpanel">
-    <?php echo $this->t->_('Address')?> :
-    <?php echo $this->InputRow($this->form->getElement('search'),array('field_only'=>true,'nobox'=>true));?> @ <?php echo $this->InputRow($this->form->getElement('domain'),array('field_only'=>true,'nobox'=>true));?>
+<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction() ?>" id="<?php echo $this->form->getId() ?>">
+    <fieldset id="filter">
+        <div class="addressselectpanel">
+            <?php echo $this->t->_('Address') ?> :
+            <?php echo $this->InputRow($this->form->getElement('search'), ['field_only' => true, 'nobox' => true]); ?> @ <?php echo $this->InputRow($this->form->getElement('domain'), ['field_only' => true, 'nobox' => true]); ?>
 
-  <div class="subadvsearch">
-    <div>
-    <?php echo $this->InputRow($this->form->getElement('mpp'),array('nobox'=>true));?>
+            <div class="subadvsearch">
+                <div>
+                    <?php echo $this->InputRow($this->form->getElement('mpp'), ['nobox' => true]); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="searchpanel contentsearchpanel">
+            <div class="searchfields searchsubmit">
+                <?php echo $this->SubmitRow($this->form->getElement('submit')); ?>
+            </div>
+            <div class="searchfields">
+                <div class="subsearch">
+                    <img src="<?php echo $this->images_path; ?>/loupe.png" alt="<?php echo $this->t->_('search'); ?>" />
+                    <?php echo $this->InputRow($this->form->getElement('sender'), ['nobox' => true]); ?>
+                    <?php echo $this->InputRow($this->form->getElement('subject'), ['nobox' => true]); ?>
+                </div>
+                <div class="subsearch">
+                    <?php echo $this->t->_('From') ?>
+                    <?php echo $this->InputRow($this->form->getElement('fd'), ['field_only' => true, 'nobox' => true]); ?>
+                    <?php echo $this->InputRow($this->form->getElement('fm'), ['field_only' => true, 'nobox' => true]); ?>
+                    <?php echo $this->t->_('to') ?>
+                    <?php echo $this->InputRow($this->form->getElement('td'), ['field_only' => true, 'nobox' => true]); ?>
+                    <?php echo $this->InputRow($this->form->getElement('tm'), ['field_only' => true, 'nobox' => true]); ?>
+                </div>
+
+            </div>
+        </div>
+    </fieldset>
+    <hr class="orhr" />
+
+    <div id="referencefield">
+        <?php echo $this->InputRow(
+            $this->form->getElement('reference'),
+            [
+                'nobox' => true,
+                'post_field_text' => $this->SubmitRow(
+                    $this->form->getElement('submit'),
+                    [
+                        'field_only' => true,
+                        'nobox' => true
+                    ]
+                )
+            ]
+        ); ?>
+
     </div>
-   </div>
-</div>
-
-<div class="searchpanel contentsearchpanel">
-  <div class="searchfields searchsubmit">
-    <?php echo $this->SubmitRow($this->form->getElement('submit'));?>
-  </div>
-  <div class="searchfields">
-    <div class="subsearch">
-        <img src="<?php echo $this->images_path;?>/loupe.png" alt="<?php echo $this->t->_('search');?>" />
-        <?php echo $this->InputRow($this->form->getElement('sender'),array('nobox'=>true));?>
-        <?php echo $this->InputRow($this->form->getElement('subject'),array('nobox'=>true));?>
-    </div>
-    <div class="subsearch">
-      <?php echo $this->t->_('From')?> 
-      <?php echo $this->InputRow($this->form->getElement('fd'),array('field_only'=>true,'nobox'=>true));?>
-      <?php echo $this->InputRow($this->form->getElement('fm'),array('field_only'=>true,'nobox'=>true));?>
-      <?php echo $this->t->_('to')?> 
-      <?php echo $this->InputRow($this->form->getElement('td'),array('field_only'=>true,'nobox'=>true));?>
-      <?php echo $this->InputRow($this->form->getElement('tm'),array('field_only'=>true,'nobox'=>true));?>
-    </div>
-
-  </div>
-</div>
-</fieldset>
-<hr class="orhr" />
-
-<div  id="referencefield">
-      <?php echo $this->InputRow($this->form->getElement('reference'),array('nobox'=>true,
-         'post_field_text'=> $this->SubmitRow($this->form->getElement('submit'),array('field_only'=>true,'nobox'=>true))
-      ));?>
-
-</div>
 
 </form>
 
 <div id="contentquarantine">
- <div></div>
+    <div></div>
 </div>

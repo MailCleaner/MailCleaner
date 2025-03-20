@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResourceAbstract.php,v 1.1.2.4 2011-05-30 08:30:40 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Application/Resource/Resource.php';
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Application_Resource_Resource
@@ -49,17 +49,17 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Option keys to skip when calling setOptions()
      *
      * @var array
      */
-    protected $_skipOptions = array(
+    protected $_skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Create a instance with options
@@ -125,10 +125,10 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
     {
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
-                if (is_array($array2[$key])) {
+                if (is_array($val)) {
                     $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                                  ? $this->mergeOptions($array1[$key], $val)
+                                  : $val;
                 } else {
                     $array1[$key] = $val;
                 }

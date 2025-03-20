@@ -1,0 +1,25 @@
+[Unit]
+Description=MailScanner Anti-Virus daemon for MailCleaner
+Requires=mariadb@slave.service preftdaemon.service
+BindsTo=clamav-daemon.service clamspamd.service exim4@2.service spamd@newsld.service spamd@spamd.service spamd@newsld.service spamhandler.service
+After=mariadb@slave.service
+Before=exim4@2.service
+PartOf=mailcleaner.target
+
+[Service]
+Type=forking
+User=mailcleaner
+Group=mailcleaner
+Restart=unless-stopped
+TimeoutSec=1min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExim=yes
+ExecStartPre=+/usr/mailcleaner/bin/dump_mailscanner_config.pl %I
+ExecStart=/usr/lib/MailScanner/init/ms-init start
+ExecStop=/usr/lib/MailScanner/init/ms-init stop
+PIDFile=/var/mailcleaner/run/mailcleaner.pid
+
+[Install]
+WantedBy=mailcleaner.target

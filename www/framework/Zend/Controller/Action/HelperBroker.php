@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HelperBroker.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Loader.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_HelperBroker
@@ -82,9 +82,9 @@ class Zend_Controller_Action_HelperBroker
     {
         if (null === self::$_pluginLoader) {
             require_once 'Zend/Loader/PluginLoader.php';
-            self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
+            self::$_pluginLoader = new Zend_Loader_PluginLoader([
                 'Zend_Controller_Action_Helper' => 'Zend/Controller/Action/Helper/',
-            ));
+            ]);
         }
         return self::$_pluginLoader;
     }
@@ -325,7 +325,7 @@ class Zend_Controller_Action_HelperBroker
             require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Helper "' . $method . '" does not support overloading via direct()');
         }
-        return call_user_func_array(array($helper, 'direct'), $args);
+        return call_user_func_array([$helper, 'direct'], $args);
     }
 
     /**

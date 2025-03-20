@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2015 Florian Billebault <florian.billebault@gmail.com>
@@ -19,33 +19,21 @@
 #
 #
 #   This script clean mailcleaner old counts file
-#
-#   Usage: mc_counts-cleaner [-hx] [-d 'a*'] [-u '[a-cA-C]'] -o '365'
-#
-#   Options:
-#
-#   -h,	Display help.
-#   -x,	Delete found counts file.
-#   -d,	ex: 'a*' or '*' - Filter Domains following the glob a*
-#   -u,	ex: '[a-C]' - Filter User Directory following the pattern ^[a-C].*$
-#   -o,	Filter file older than X days.
-#
-
 
 PROGNAME='mc_counts-cleaner'
 VERSION='1.0'
 
 usage() {
-  cat <<- _EOF_
-  Usage: $PROGNAME [-hx] [-d 'a*'] [-u '[a-cA-C]'] -o '365'
+    cat <<- _EOF_
+    Usage: $PROGNAME [-hx] [-d 'a*'] [-u '[a-cA-C]'] -o '365'
 
-  Options:
+    Options:
 
-  -h,	Display help.
-  -x,	Delete found counts file.
-  -d,	ex: 'a*' or '*' - Filter Domains following the glob a*
-  -u,	ex: '[a-C]' - Filter User Directory following the pattern ^[a-C].*$
-  -o,	Filter file older than X days.
+    -h  Display help.
+    -x  Delete found counts file.
+    -d  ex: 'a*' or '*' - Filter Domains following the glob a*
+    -u  ex: '[a-C]' - Filter User Directory following the pattern ^[a-C].*$
+    -o  Filter file older than X days.
 
 _EOF_
 }
@@ -55,55 +43,50 @@ dfilter=''
 ufilter=''
 olderthan=''
 
-while getopts ":hxd:u:o:" option
-do
-  case $option in
-    h)
-	usage
-	exit 0
-	;;
-    x)
-	action='-delete '
-	;;
-    d)
-	dfilter=$OPTARG
-	;;
-    u)
-	ufilter=$OPTARG
-	;;
-    o)
-	olderthan=$OPTARG
-	;;
-    :)
-	echo "L'option $OPTARG requiert un argument"
-	exit 1
-	;;
-    ?)
-	echo "$OPTARG : option invalide"
-	exit 1
-	;;
-  esac
+while getopts ":hxd:u:o:" option; do
+    case $option in
+        h)
+            usage
+            exit 0
+            ;;
+        x)
+            action='-delete '
+            ;;
+        d)
+            dfilter=$OPTARG
+            ;;
+        u)
+            ufilter=$OPTARG
+            ;;
+        o)
+            olderthan=$OPTARG
+            ;;
+        :)
+            echo "L'option $OPTARG requiert un argument"
+            exit 1
+            ;;
+        ?)
+            echo "$OPTARG : option invalide"
+            exit 1
+            ;;
+    esac
 done
 
-if [ "$olderthan" == '' ]
-  then
+if [ "$olderthan" == '' ]; then
     usage
     exit 1
 fi
 
-if [ "$dfilter" == '' ]
-  then
+if [ "$dfilter" == '' ]; then
     usage
     exit 1
 fi
 
 cd /var/mailcleaner/spool/mailcleaner/counts
 if [ "$PWD" == "/var/mailcleaner/spool/mailcleaner/counts" ]; then
-  for i in `ls -d $dfilter 2>/dev/null`
-    do
-      for j in `ls $i 2>/dev/null |cut -d/ -f2 |grep "^$ufilter.*$"`
-        do
-          find $i/$j -type f -mtime +$olderthan -print $action
+    for i in `ls -d $dfilter 2>/dev/null`; do
+        for j in `ls $i 2>/dev/null |cut -d/ -f2 |grep "^$ufilter.*$"`; do
+            find $i/$j -type f -mtime +$olderthan -print $action
         done
     done
 fi

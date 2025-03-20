@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Code25interleaved.php,v 1.1.2.1 2011-05-30 08:30:32 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Barcode_Object_Code25 */
@@ -31,7 +31,7 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
@@ -53,8 +53,9 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
 
     /**
      * Activate/deactivate drawing of bearer bars
+     *
      * @param boolean $value
-     * @return Zend_Barcode_Object_Int25
+     * @return Zend_Barcode_Object_Code25interleaved
      */
     public function setWithBearerBars($value)
     {
@@ -80,7 +81,7 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
         $quietZone       = $this->getQuietZone();
         $startCharacter  = (4 * $this->_barThinWidth) * $this->_factor;
         $characterLength = (3 * $this->_barThinWidth + 2 * $this->_barThickWidth) * $this->_factor;
-        $encodedData     = strlen($this->getText()) * $characterLength;
+        $encodedData     = strlen((string) $this->getText()) * $characterLength;
         $stopCharacter   = ($this->_barThickWidth + 2 * $this->_barThinWidth) * $this->_factor;
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
@@ -96,10 +97,11 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
         }
 
         // Start character (0000)
-        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
+        $barcodeTable = [];
+        $barcodeTable[] = [1, $this->_barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->_barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->_barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->_barThinWidth, 0, 1];
 
         // Encoded $text
         $text = $this->getText();
@@ -114,20 +116,20 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
                           ? $this->_barThickWidth
                           : $this->_barThinWidth;
 
-                $barcodeTable[] = array(1, $barWidth, 0, 1);
+                $barcodeTable[] = [1, $barWidth, 0, 1];
 
                 // Left space corresponding to char2 (background color)
                 $barWidth = (substr($this->_codingMap[$char2], $ibar, 1))
                           ? $this->_barThickWidth
                           : $this->_barThinWidth;
-                $barcodeTable[] = array(0, $barWidth, 0 , 1);
+                $barcodeTable[] = [0, $barWidth, 0 , 1];
             }
         }
 
         // Stop character (100)
-        $barcodeTable[] = array(1 , $this->_barThickWidth, 0, 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth,  0, 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth,  0, 1);
+        $barcodeTable[] = [1 , $this->_barThickWidth, 0, 1];
+        $barcodeTable[] = [0 , $this->_barThinWidth,  0, 1];
+        $barcodeTable[] = [1 , $this->_barThinWidth,  0, 1];
         return $barcodeTable;
     }
 
@@ -147,12 +149,12 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
         $point2 = $this->_rotate($this->_calculateWidth() - 1, -1);
         $point3 = $this->_rotate($this->_calculateWidth() - 1, $width - 1);
         $point4 = $this->_rotate(-1, $width - 1);
-        $this->_addPolygon(array(
+        $this->_addPolygon([
             $point1,
             $point2,
             $point3,
             $point4,
-        ));
+        ]);
         $point1 = $this->_rotate(
             0,
             0 + $this->_barHeight * $this->_factor - 1
@@ -169,11 +171,11 @@ class Zend_Barcode_Object_Code25interleaved extends Zend_Barcode_Object_Code25
             0,
             0 + $this->_barHeight * $this->_factor - $width
         );
-        $this->_addPolygon(array(
+        $this->_addPolygon([
             $point1,
             $point2,
             $point3,
             $point4,
-        ));
+        ]);
     }
 }

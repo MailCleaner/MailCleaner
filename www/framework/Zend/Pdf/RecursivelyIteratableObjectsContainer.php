@@ -15,31 +15,35 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Actions
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RecursivelyIteratableObjectsContainer.php,v 1.1.2.1 2011-05-30 08:30:46 root Exp $
+ * @version    $Id$
  */
 
 /**
  * Iteratable objects container
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_RecursivelyIteratableObjectsContainer implements RecursiveIterator, Countable
 {
-    protected $_objects = array();
+    protected $_objects = [];
 
     public function __construct(array $objects) { $this->_objects = $objects; }
 
+    #[\ReturnTypeWillChange]
     public function current()      { return current($this->_objects);            }
+    #[\ReturnTypeWillChange]
     public function key()          { return key($this->_objects);                }
+    #[\ReturnTypeWillChange]
     public function next()         { return next($this->_objects);               }
+    #[\ReturnTypeWillChange]
     public function rewind()       { return reset($this->_objects);              }
-    public function valid()        { return current($this->_objects) !== false;  }
-    public function getChildren()  { return current($this->_objects);            }
-    public function hasChildren()  { return count($this->_objects) > 0;          }
+    public function valid(): bool  { return current($this->_objects) !== false;  }
+    public function getChildren(): ?RecursiveIterator  { return current($this->_objects); }
+    public function hasChildren(): bool  { return count($this->_objects) > 0;    }
 
-    public function count() { return count($this->_objects); }
+    public function count(): int   { return count($this->_objects);              }
 }

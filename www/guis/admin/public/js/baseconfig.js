@@ -1,8 +1,8 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 $(document).ready(function(){
@@ -56,12 +56,6 @@ $(document).ready(function(){
 		   $("#saveandsync").val('Save')
 		 }
 	 });
-	 
-/*	 $("#saveandsync").mousedown(function(event) {
-		$("#saveandsynccontainer").html(loadingimg);
-		$("#dateandtimeform").submit();
-	 });
-*/
 	 
 	 $("#use_syslog").click(function(event) {
 		 setSyslogField();

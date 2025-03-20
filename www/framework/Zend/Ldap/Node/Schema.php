@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Schema.php,v 1.1.2.1 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Ldap/Node/Abstract.php';
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
@@ -51,7 +51,7 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
     public static function create(Zend_Ldap $ldap)
     {
         $dn = $ldap->getRootDse()->getSchemaDn();
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         switch ($ldap->getRootDse()->getServerType()) {
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
                 /**
@@ -91,7 +91,7 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
      *
      * @param  Zend_Ldap_Dn $dn
      * @param  Zend_Ldap    $ldap
-     * @return Zend_Ldap_Node_Schema Provides a fluid interface
+     * @return $this
      */
     protected function _parseSchema(Zend_Ldap_Dn $dn, Zend_Ldap $ldap)
     {
@@ -105,7 +105,7 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
      */
     public function getAttributeTypes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -115,6 +115,6 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
      */
     public function getObjectClasses()
     {
-        return array();
+        return [];
     }
 }

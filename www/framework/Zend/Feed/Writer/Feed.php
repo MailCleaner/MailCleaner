@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php,v 1.1.2.1 2011-05-30 08:30:49 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -59,7 +59,7 @@ require_once 'Zend/Feed/Writer/Feed/FeedAbstract.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Feed extends Zend_Feed_Writer_Feed_FeedAbstract
@@ -71,7 +71,7 @@ implements Iterator, Countable
      *
      * @var array
      */
-    protected $_entries = array();
+    protected $_entries = [];
 
     /**
      * A pointer for the iterator to keep track of the entries array
@@ -181,7 +181,7 @@ implements Iterator, Countable
          * Could do with some improvement for performance perhaps
          */
         $timestamp = time();
-        $entries = array();
+        $entries = [];
         foreach ($this->_entries as $entry) {
             if ($entry->getDateModified()) {
                 $timestamp = (int) $entry->getDateModified()->get(Zend_Date::TIMESTAMP);
@@ -200,7 +200,7 @@ implements Iterator, Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_entries);
     }
@@ -210,6 +210,7 @@ implements Iterator, Countable
      *
      * @return Zend_Feed_Reader_Entry_Interface
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_entries[$this->key()];
@@ -218,8 +219,9 @@ implements Iterator, Countable
     /**
      * Return the current feed key
      *
-     * @return unknown
+     * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_entriesKey;
@@ -230,7 +232,7 @@ implements Iterator, Countable
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         ++$this->_entriesKey;
     }
@@ -240,7 +242,7 @@ implements Iterator, Countable
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_entriesKey = 0;
     }
@@ -250,7 +252,7 @@ implements Iterator, Countable
      *
      * @return boolean
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 <= $this->_entriesKey && $this->_entriesKey < $this->count();
     }

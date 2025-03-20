@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProjectProfileFile.php,v 1.1.2.4 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -48,7 +48,7 @@ require_once 'Zend/Tool/Project/Profile/FileParser/Xml.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_System_ProjectProfileFile
@@ -105,14 +105,14 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
     /**
      * getContents()
      *
-     * @return string
+     * @return string XML
      */
     public function getContents()
     {
         $parser = new Zend_Tool_Project_Profile_FileParser_Xml();
         $profile = $this->_resource->getProfile();
-        $xml = $parser->serialize($profile);
-        return $xml;
+
+        return $parser->serialize($profile);
     }
 
 }

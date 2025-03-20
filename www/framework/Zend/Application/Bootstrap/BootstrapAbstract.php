@@ -15,10 +15,20 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php,v 1.1.2.4 2011-05-30 08:31:08 root Exp $
+ * @version    $Id$
  */
+
+/**
+ * @see Zend_Application_Bootstrap_Bootstrapper
+ */
+require_once 'Zend/Application/Bootstrap/Bootstrapper.php';
+
+/**
+ * @see Zend_Application_Bootstrap_ResourceBootstrapper
+ */
+require_once 'Zend/Application/Bootstrap/ResourceBootstrapper.php';
 
 /**
  * Abstract base class for bootstrap classes
@@ -28,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Bootstrap_BootstrapAbstract
@@ -60,12 +70,12 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @var array
      */
-    protected $_optionKeys = array();
+    protected $_optionKeys = [];
 
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * @var Zend_Loader_PluginLoader_Interface
@@ -75,17 +85,22 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     /**
      * @var array Class-based resource plugins
      */
-    protected $_pluginResources = array();
+    protected $_pluginResources = [];
 
     /**
      * @var array Initializers that have been run
      */
-    protected $_run = array();
+    protected $_run = [];
 
     /**
      * @var array Initializers that have been started but not yet completed (circular dependency detection)
      */
-    protected $_started = array();
+    protected $_started = [];
+
+    /**
+     * @var \Zend_Controller_Front
+     */
+    public $frontController = null;
 
     /**
      * Constructor
@@ -94,7 +109,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      * initializer methods.
      *
      * @param  Zend_Application|Zend_Application_Bootstrap_Bootstrapper $application
-     * @return void
      * @throws Zend_Application_Bootstrap_Exception When invalid application is provided
      */
     public function __construct($application)
@@ -193,10 +207,10 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
-                if (is_array($array2[$key])) {
+                if (is_array($val)) {
                     $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                                  ? $this->mergeOptions($array1[$key], $val)
+                                  : $val;
                 } else {
                     $array1[$key] = $val;
                 }
@@ -208,27 +222,14 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     /**
      * Get class resources (as resource/method pairs)
      *
-     * Uses get_class_methods() by default, reflection on prior to 5.2.6,
-     * as a bug prevents the usage of get_class_methods() there.
-     *
      * @return array
      */
     public function getClassResources()
     {
         if (null === $this->_classResources) {
-            if (version_compare(PHP_VERSION, '5.2.6') === -1) {
-                $class        = new ReflectionObject($this);
-                $classMethods = $class->getMethods();
-                $methodNames  = array();
+            $methodNames = get_class_methods($this);
 
-                foreach ($classMethods as $method) {
-                    $methodNames[] = $method->getName();
-                }
-            } else {
-                $methodNames = get_class_methods($this);
-            }
-
-            $this->_classResources = array();
+            $this->_classResources = [];
             foreach ($methodNames as $method) {
                 if (5 < strlen($method) && '_init' === substr($method, 0, 5)) {
                     $this->_classResources[strtolower(substr($method, 5))] = $method;
@@ -317,8 +318,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     /**
      * Get a registered plugin resource
      *
-     * @param  string $resourceName
-     * @return Zend_Application_Resource_Resource
+     * @param string $resource
+     * @return Zend_Application_Resource_Resource|null
+     * @throws Zend_Application_Bootstrap_Exception
      */
     public function getPluginResource($resource)
     {
@@ -352,7 +354,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 continue;
             }
 
-            if (class_exists($plugin)) { //@SEE ZF-7550
+            if (class_exists($plugin)
+            && is_subclass_of($plugin, 'Zend_Application_Resource_Resource')
+            ) { //@SEE ZF-7550
                 $spec = (array) $spec;
                 $spec['bootstrap'] = $this;
                 $instance = new $plugin($spec);
@@ -413,10 +417,10 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     public function getPluginLoader()
     {
         if ($this->_pluginLoader === null) {
-            $options = array(
+            $options = [
                 'Zend_Application_Resource'  => 'Zend/Application/Resource',
                 'ZendX_Application_Resource' => 'ZendX/Application/Resource'
-            );
+            ];
 
             $this->_pluginLoader = new Zend_Loader_PluginLoader($options);
         }
@@ -429,6 +433,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @param  Zend_Application|Zend_Application_Bootstrap_Bootstrapper $application
      * @return Zend_Application_Bootstrap_BootstrapAbstract
+     * @throws Zend_Application_Bootstrap_Exception
      */
     public function setApplication($application)
     {
@@ -479,6 +484,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @param  object $container
      * @return Zend_Application_Bootstrap_BootstrapAbstract
+     * @throws Zend_Application_Bootstrap_Exception
      */
     public function setContainer($container)
     {
@@ -542,7 +548,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     }
 
     /**
-     * Implement PHP's magic to retrieve a ressource
+     * Implement PHP's magic to retrieve a resource
      * in the bootstrap
      *
      * @param string $prop
@@ -555,7 +561,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
 
     /**
      * Implement PHP's magic to ask for the
-     * existence of a ressource in the bootstrap
+     * existence of a resource in the bootstrap
      *
      * @param string $prop
      * @return bool
@@ -590,7 +596,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @param  string $method
      * @param  array  $args
-     * @return void
+     * @return Zend_Application_Bootstrap_BootstrapAbstract
      * @throws Zend_Application_Bootstrap_Exception On invalid method name
      */
     public function __call($method, $args)

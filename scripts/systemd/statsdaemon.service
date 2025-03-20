@@ -1,0 +1,16 @@
+[Unit]
+Description=Statistics daemon for MailCleaner
+After=mariadb@slave.service
+Requires=mariadb@slave.service
+PartOf=mailcleaner.target
+
+[Service]
+User=mailcleaner
+Group=mailcleaner
+PrivateTmp=false
+Type=forking
+ExecStartPre=+/usr/mailcleaner/bin/dump_stats_daemon.pl %I
+ExecStart=/usr/mailcleaner/bin/daemon_starter.pl StatsDaemon -d start
+
+[Install]
+WantedBy=mailcleaner.target

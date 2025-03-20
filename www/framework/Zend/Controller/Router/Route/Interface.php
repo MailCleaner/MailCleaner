@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Interface.php,v 1.1.2.4 2011-05-30 08:30:58 root Exp $
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,12 +26,14 @@ require_once 'Zend/Config.php';
 /**
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_Controller_Router_Route_Interface {
+interface Zend_Controller_Router_Route_Interface
+{
     public function match($path);
-    public function assemble($data = array(), $reset = false, $encode = false);
+
+    public function assemble($data = [], $reset = false, $encode = false);
+
     public static function getInstance(Zend_Config $config);
 }
-

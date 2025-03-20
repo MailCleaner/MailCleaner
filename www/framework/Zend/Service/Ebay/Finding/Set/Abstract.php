@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.1 2011-05-30 08:31:09 root Exp $
+ * @version    $Id: Abstract.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Ebay
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterator, Countable
@@ -67,7 +67,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      * @throws OutOfBoundsException When $key is not seekable
      * @return void
      */
-    public function seek($key)
+    public function seek($key): void
     {
         if ($key < 0 || $key >= $this->count()) {
             $message = "Position '{$key}' is not seekable.";
@@ -81,6 +81,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_key;
@@ -91,7 +92,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->_key++;
     }
@@ -101,7 +102,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_key = 0;
     }
@@ -111,7 +112,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      *
      * @return boolean
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->_key >= 0 && $this->_key < $this->count();
     }
@@ -121,7 +122,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return $this->_nodes ? $this->_nodes->length : 0;
     }

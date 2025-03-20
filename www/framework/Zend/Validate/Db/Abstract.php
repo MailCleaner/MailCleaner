@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:31:08 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -30,7 +30,7 @@ require_once 'Zend/Validate/Abstract.php';
  * @category   Zend
  * @package    Zend_Validate
  * @uses       Zend_Validate_Abstract
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
@@ -44,10 +44,10 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     /**
      * @var array Message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::ERROR_NO_RECORD_FOUND => "No record matching '%value%' was found",
         self::ERROR_RECORD_FOUND    => "A record matching '%value%' was found",
-    );
+    ];
 
     /**
      * @var string
@@ -72,7 +72,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     /**
      * Database adapter to use. If null isValid() will use Zend_Db::getInstance instead
      *
-     * @var unknown_type
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_adapter = null;
 
@@ -97,6 +97,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      * 'adapter' => An optional database adapter to use
      *
      * @param array|Zend_Config $options Options to use for this validator
+     * @throws Zend_Validate_Exception
      */
     public function __construct($options)
     {
@@ -152,7 +153,8 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     /**
      * Returns the set adapter
      *
-     * @return Zend_Db_Adapter
+     * @return Zend_Db_Adapter_Abstract
+     * @throws Zend_Validate_Exception
      */
     public function getAdapter()
     {
@@ -173,6 +175,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      * Sets a new database adapter
      *
      * @param  Zend_Db_Adapter_Abstract $adapter
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_Db_Abstract
      */
     public function setAdapter($adapter)
@@ -211,7 +214,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     /**
      * Returns the set field
      *
-     * @return string|array
+     * @return string
      */
     public function getField()
     {
@@ -278,6 +281,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      * Sets the select object to be used by the validator
      *
      * @param Zend_Db_Select $select
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_Db_Abstract
      */
     public function setSelect($select)
@@ -306,7 +310,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
              * Build select object
              */
             $select = new Zend_Db_Select($db);
-            $select->from($this->_table, array($this->_field), $this->_schema);
+            $select->from($this->_table, [$this->_field], $this->_schema);
             if ($db->supportsParameters('named')) {
                 $select->where($db->quoteIdentifier($this->_field, true).' = :value'); // named
             } else {
@@ -337,15 +341,12 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     protected function _query($value)
     {
         $select = $this->getSelect();
-        /**
-         * Run query
-         */
-        $result = $select->getAdapter()->fetchRow(
-            $select,
-            array('value' => $value), // this should work whether db supports positional or named params
-            Zend_Db::FETCH_ASSOC
-            );
 
-        return $result;
+        // Run query
+        return $select->getAdapter()->fetchRow(
+            $select,
+            ['value' => $value], // this should work whether db supports positional or named params
+            Zend_Db::FETCH_ASSOC
+        );
     }
 }

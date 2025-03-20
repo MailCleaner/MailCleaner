@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Pending alias request mapper
  */
 
@@ -37,7 +38,7 @@ class Default_Model_RRDGraphicElementMapper
     {
         $query = $this->getDbTable()->select();
         $query->where('id = ?', $elementid);
-        
+
         $result = $this->getDbTable()->fetchAll($query);
         if (0 == count($result)) {
             return;
@@ -57,7 +58,7 @@ class Default_Model_RRDGraphicElementMapper
         $element->setParam('draw_format', $row->draw_format);
         $element->setParam('draw_unit', $row->draw_unit);
     }
-    
+
     public function fetchAll($params)
     {
         $query = $this->getDbTable()->select();
@@ -65,8 +66,8 @@ class Default_Model_RRDGraphicElementMapper
             $query->where('stats_id = ?', $params['graphicid']);
         }
         $query->order('draw_order');
-        
-        $elements = array();
+
+        $elements = [];
         $resultSet = $this->getDbTable()->fetchAll($query);
         foreach ($resultSet as $row) {
             $e = new Default_Model_RRDGraphicElement();
@@ -76,3 +77,4 @@ class Default_Model_RRDGraphicElementMapper
         return $elements;
     }
 }
+

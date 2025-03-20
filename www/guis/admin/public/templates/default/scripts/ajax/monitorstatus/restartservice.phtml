@@ -1,23 +1,24 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php if ($this->status == 0) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus criticalvalue'><?php echo $this->t->_('critical')?></span>
-<?php } else if ($this->status == 1) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus okvalue'><?php echo $this->t->_('running')?></span>
-<?php } else if ($this->status == 3) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus normalvalue'><?php echo $this->t->_('needs restart')?></span>
-<?php } else if ($this->status == 4) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('starting')?>...</span>
-<?php } else if ($this->status == 5) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('stopping')?>...</span>
-<?php } else if ($this->status == 6) {?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('restarting')?>...</span>
+<?php if ($this->status == 0) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus criticalvalue'><?php echo $this->t->_('critical') ?></span>
+<?php } else if ($this->status == 1) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus okvalue'><?php echo $this->t->_('running') ?></span>
+<?php } else if ($this->status == 3) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus normalvalue'><?php echo $this->t->_('needs restart') ?></span>
+<?php } else if ($this->status == 4) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path ?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('starting') ?>...</span>
+<?php } else if ($this->status == 5) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path ?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('stopping') ?>...</span>
+<?php } else if ($this->status == 6) { ?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus normalvalue working'><img src="<?php echo $this->images_path ?>/loadingwhitebg.gif" alt="loading..." /><?php echo $this->t->_('restarting') ?>...</span>
 <?php } else { ?>
-  <span class='<?php echo $this->slaveid."_".$this->process."_pstatus"?> statusvalue pstatus normalvalue'><?php echo $this->t->_('stopped')?></span>
-<?php }?>
+    <span class='<?php echo $this->slaveid . "_" . $this->process . "_pstatus" ?> statusvalue pstatus normalvalue'><?php echo $this->t->_('stopped') ?></span>
+<?php } ?>

@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Angle.php,v 1.1.2.4 2011-05-30 08:30:59 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Angle
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Angle extends Zend_Measure_Abstract
@@ -58,21 +58,21 @@ class Zend_Measure_Angle extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'RADIAN'      => array('1','rad'),
-        'MIL'         => array(array('' => M_PI,'/' => '3200'),   'mil'),
-        'GRAD'        => array(array('' => M_PI,'/' => '200'),    'gr'),
-        'DEGREE'      => array(array('' => M_PI,'/' => '180'),    '°'),
-        'MINUTE'      => array(array('' => M_PI,'/' => '10800'),  "'"),
-        'SECOND'      => array(array('' => M_PI,'/' => '648000'), '"'),
-        'POINT'       => array(array('' => M_PI,'/' => '16'),     'pt'),
-        'CIRCLE_16'   => array(array('' => M_PI,'/' => '8'),      'per 16 circle'),
-        'CIRCLE_10'   => array(array('' => M_PI,'/' => '5'),      'per 10 circle'),
-        'CIRCLE_8'    => array(array('' => M_PI,'/' => '4'),      'per 8 circle'),
-        'CIRCLE_6'    => array(array('' => M_PI,'/' => '3'),      'per 6 circle'),
-        'CIRCLE_4'    => array(array('' => M_PI,'/' => '2'),      'per 4 circle'),
-        'CIRCLE_2'    => array(M_PI,                            'per 2 circle'),
-        'FULL_CIRCLE' => array(array('' => M_PI,'*' => '2'),      'cir'),
+    protected $_units = [
+        'RADIAN'      => ['1','rad'],
+        'MIL'         => [['' => M_PI,'/' => '3200'],   'mil'],
+        'GRAD'        => [['' => M_PI,'/' => '200'],    'gr'],
+        'DEGREE'      => [['' => M_PI,'/' => '180'],    '°'],
+        'MINUTE'      => [['' => M_PI,'/' => '10800'],  "'"],
+        'SECOND'      => [['' => M_PI,'/' => '648000'], '"'],
+        'POINT'       => [['' => M_PI,'/' => '16'],     'pt'],
+        'CIRCLE_16'   => [['' => M_PI,'/' => '8'],      'per 16 circle'],
+        'CIRCLE_10'   => [['' => M_PI,'/' => '5'],      'per 10 circle'],
+        'CIRCLE_8'    => [['' => M_PI,'/' => '4'],      'per 8 circle'],
+        'CIRCLE_6'    => [['' => M_PI,'/' => '3'],      'per 6 circle'],
+        'CIRCLE_4'    => [['' => M_PI,'/' => '2'],      'per 4 circle'],
+        'CIRCLE_2'    => [M_PI,                            'per 2 circle'],
+        'FULL_CIRCLE' => [['' => M_PI,'*' => '2'],      'cir'],
         'STANDARD'    => 'RADIAN'
-    );
+    ];
 }

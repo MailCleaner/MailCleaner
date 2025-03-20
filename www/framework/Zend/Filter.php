@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filter.php,v 1.1.2.4 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Filter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter implements Zend_Filter_Interface
@@ -41,21 +41,21 @@ class Zend_Filter implements Zend_Filter_Interface
      *
      * @var array
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * Default Namespaces
      *
      * @var array
      */
-    protected static $_defaultNamespaces = array();
+    protected static $_defaultNamespaces = [];
 
     /**
      * Adds a filter to the chain
      *
      * @param  Zend_Filter_Interface $filter
      * @param  string $placement
-     * @return Zend_Filter Provides a fluent interface
+     * @return $this
      */
     public function addFilter(Zend_Filter_Interface $filter, $placement = self::CHAIN_APPEND)
     {
@@ -71,7 +71,7 @@ class Zend_Filter implements Zend_Filter_Interface
      * Add a filter to the end of the chain
      *
      * @param  Zend_Filter_Interface $filter
-     * @return Zend_Filter Provides a fluent interface
+     * @return $this
      */
     public function appendFilter(Zend_Filter_Interface $filter)
     {
@@ -82,7 +82,7 @@ class Zend_Filter implements Zend_Filter_Interface
      * Add a filter to the start of the chain
      *
      * @param  Zend_Filter_Interface $filter
-     * @return Zend_Filter Provides a fluent interface
+     * @return $this
      */
     public function prependFilter(Zend_Filter_Interface $filter)
     {
@@ -135,7 +135,7 @@ class Zend_Filter implements Zend_Filter_Interface
     public static function setDefaultNamespaces($namespace)
     {
         if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
+            $namespace = [(string) $namespace];
         }
 
         self::$_defaultNamespaces = $namespace;
@@ -150,7 +150,7 @@ class Zend_Filter implements Zend_Filter_Interface
     public static function addDefaultNamespaces($namespace)
     {
         if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
+            $namespace = [(string) $namespace];
         }
 
         self::$_defaultNamespaces = array_unique(array_merge(self::$_defaultNamespaces, $namespace));
@@ -177,7 +177,7 @@ class Zend_Filter implements Zend_Filter_Interface
      * @return mixed
      * @throws Zend_Filter_Exception
      */
-    public static function get($value, $classBaseName, array $args = array(), $namespaces = array())
+    public static function get($value, $classBaseName, array $args = [], $namespaces = [])
     {
         trigger_error(
             'Zend_Filter::get() is deprecated as of 1.9.0; please update your code to utilize Zend_Filter::filterStatic()',
@@ -204,10 +204,10 @@ class Zend_Filter implements Zend_Filter_Interface
      * @return mixed
      * @throws Zend_Filter_Exception
      */
-    public static function filterStatic($value, $classBaseName, array $args = array(), $namespaces = array())
+    public static function filterStatic($value, $classBaseName, array $args = [], $namespaces = [])
     {
         require_once 'Zend/Loader.php';
-        $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, array('Zend_Filter'));
+        $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, ['Zend_Filter']);
         foreach ($namespaces as $namespace) {
             $className = $namespace . '_' . ucfirst($classBaseName);
             if (!class_exists($className, false)) {

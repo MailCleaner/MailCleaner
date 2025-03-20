@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapFile.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -82,19 +82,19 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
     /**
      * getContents()
      *
-     * @return array
+     * @return string
      */
     public function getContents()
     {
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => 'Bootstrap',
                     'extendedClass' => 'Zend_Application_Bootstrap_Bootstrap',
-                    )),
-                )
-            ));
+                    ]),
+                ]
+            ]);
 
         return $codeGenFile->generate();
     }
@@ -104,7 +104,7 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
         if ($this->_applicationInstance == null) {
             if ($this->_applicationConfigFile->getContext()->exists()) {
                 define('APPLICATION_PATH', $this->_applicationDirectory->getPath());
-                $applicationOptions = array();
+                $applicationOptions = [];
                 $applicationOptions['config'] = $this->_applicationConfigFile->getPath();
 
                 $this->_applicationInstance = new Zend_Application(

@@ -1,149 +1,211 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Base system configuration</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-  </head>
+</head>
 <script language="javascript">
-__INCLUDE_TIME_JS__
+    __INCLUDE_TIME_JS__
 </script>
 
 <body onLoad="useNTPServer();">
-<center>
-<br/>
-<table width="90%" border="0" cellpadding="2" cellspacing="0">
-<tr valign="top">
- <td width="50%">
-  <!-- NETWORK CONFIGRATION -->
+    <center>
+        <br />
+        <table width="90%" border="0" cellpadding="2" cellspacing="0">
+            <tr valign="top">
+                <td width="50%">
+                    <!-- NETWORK CONFIGRATION -->
 
-__FORM_BEGIN_NETWORK__
-   <table width="90%" border="0" cellpadding="2" cellspacing="0">
-    <tr class="infoBoxHeading">
-     <td width="40%" align="left" colspan="2">__LANG_NETWORKCONFIGURATION__&nbsp;&nbsp; __DOC_BASENETCONFIG__</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__NETWORK_SAVE_STATUS__</font></td></tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_INTERFACE__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTINTERFACE__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_IP__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTIP__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_NETMASK__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTNETMASK__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_GATEWAY__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTGATEWAY__</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_DNSSERVERS__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTDNSSERVERS__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_SEARCHDOMAIN__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTSEARCHDOMAIN__</td>
-    </tr>
+                    __FORM_BEGIN_NETWORK__
+                    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+                        <tr class="infoBoxHeading">
+                            <td width="40%" align="left" colspan="2">__LANG_NETWORKCONFIGURATION__&nbsp;&nbsp;
+                                __DOC_BASENETCONFIG__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2" align="center">
+                                <font color="red">__NETWORK_SAVE_STATUS__</font>
+                            </td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_INTERFACE__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTINTERFACE__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_IP__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTIP__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_NETMASK__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTNETMASK__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_GATEWAY__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTGATEWAY__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_DNSSERVERS__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTDNSSERVERS__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_SEARCHDOMAIN__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTSEARCHDOMAIN__</td>
+                        </tr>
 
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif" onclick="__NETSUBMITACTION__"></td></tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="2" align="center"><input type="image" name="submit"
+                                    src="templates/default/images/apply.gif" onclick="__NETSUBMITACTION__"></td>
+                        </tr>
 
-   </table>
-__FORM_CLOSE_NETWORK__
- </td>
- <td width="50%">
-  <!-- TIME CONFIGURATION -->
+                    </table>
+                    __FORM_CLOSE_NETWORK__
+                </td>
+                <td width="50%">
+                    <!-- TIME CONFIGURATION -->
 
-__FORM_BEGIN_DATETIME__
-   <table width="90%" border="0" cellpadding="2" cellspacing="0">
-    <tr class="infoBoxHeading">
-     <td align="left" colspan="2">__LANG_DATETIMECONFIGURATION__&nbsp;&nbsp; __DOC_BASEDATETIMECONFIG__</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__NTP_SAVE_STATUS__</font></td></tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
+                    __FORM_BEGIN_DATETIME__
+                    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+                        <tr class="infoBoxHeading">
+                            <td align="left" colspan="2">__LANG_DATETIMECONFIGURATION__&nbsp;&nbsp;
+                                __DOC_BASEDATETIMECONFIG__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2" align="center">
+                                <font color="red">__NTP_SAVE_STATUS__</font>
+                            </td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
 
-    <tr class="infoBoxContent"><td colspan="2"><b>__LANG_AUTOMATIC__</b></td></tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right"><nobr>__LANG_USENTP__:</nobr></td>
-      <td width="60%" align="left">__FORM_INPUTUSENTP__</td>
-    </tr>
-    <tr class="infoBoxContent">
-       <td width="40%" align="right">__LANG_NTPSERVER__:</td>
-       <td width="60%" align="left">__FORM_INPUTNTPSERVER__</td> 
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxContent"><td colspan="2"><b>__LANG_MANUALLY__</b></td></tr>
-    <tr class="infoBoxContent">
-       <td width="40%" align="right">__LANG_DATE__:</td>
-       <td width="60%" align="left">__FORM_INPUTDAY__ __FORM_INPUTMONTH__ __FORM_INPUTYEAR__</td>
-    </tr>
-    <tr class="infoBoxContent">
-       <td width="40%" align="right">__LANG_TIME__:</td>
-       <td width="60%" align="left">__FORM_INPUTHOUR__:__FORM_INPUTMINUTE__:__FORM_INPUTSECOND__</td>
-    </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2"><b>__LANG_AUTOMATIC__</b></td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">
+                                <nobr>__LANG_USENTP__:</nobr>
+                            </td>
+                            <td width="60%" align="left">__FORM_INPUTUSENTP__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_NTPSERVER__:</td>
+                            <td width="60%" align="left">__FORM_INPUTNTPSERVER__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2"><b>__LANG_MANUALLY__</b></td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_DATE__:</td>
+                            <td width="60%" align="left">__FORM_INPUTDAY__ __FORM_INPUTMONTH__ __FORM_INPUTYEAR__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_TIME__:</td>
+                            <td width="60%" align="left">__FORM_INPUTHOUR__:__FORM_INPUTMINUTE__:__FORM_INPUTSECOND__
+                            </td>
+                        </tr>
 
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
-   </table>
-  __FORM_CLOSE_DATETIME__
- </td>
-</tr>
-<tr valign="top">
- <td width="50%">
- __FORM_BEGIN_PROXIES__
-<table width="90%" border="0" cellpadding="2" cellspacing="0">
-    <tr class="infoBoxHeading">
-     <td width="40%" align="left" colspan="2">__LANG_PROXIESCONFIGURATION__&nbsp;&nbsp; __DOC_BASEPROXIESCONFIG__</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__PROXIES_SAVE_STATUS__</font></td></tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_HTTPPROXY__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTHTTPPROXY__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_SMTPPROXY__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_SMTPPROXY__</td>
-    </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="2" align="center"><input type="image" name="submit"
+                                    src="templates/default/images/apply.gif"></td>
+                        </tr>
+                    </table>
+                    __FORM_CLOSE_DATETIME__
+                </td>
+            </tr>
+            <tr valign="top">
+                <td width="50%">
+                    __FORM_BEGIN_PROXIES__
+                    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+                        <tr class="infoBoxHeading">
+                            <td width="40%" align="left" colspan="2">__LANG_PROXIESCONFIGURATION__&nbsp;&nbsp;
+                                __DOC_BASEPROXIESCONFIG__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2" align="center">
+                                <font color="red">__PROXIES_SAVE_STATUS__</font>
+                            </td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_HTTPPROXY__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTHTTPPROXY__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_SMTPPROXY__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_SMTPPROXY__</td>
+                        </tr>
 
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="2" align="center"><input type="image" name="submit"
+                                    src="templates/default/images/apply.gif"></td>
+                        </tr>
 
-   </table>
-__FORM_CLOSE_PROXIES__
- </td>
- <td width="50%">
+                    </table>
+                    __FORM_CLOSE_PROXIES__
+                </td>
+                <td width="50%">
 
-__FORM_BEGIN_ROOTPASS__
-<table width="90%" border="0" cellpadding="2" cellspacing="0">
-    <tr class="infoBoxHeading">
-     <td width="40%" align="left" colspan="2">__LANG_ROOTPASSWORD__&nbsp;&nbsp; __DOC_BASEROOTPASS__</td>
-    </tr>
-    <tr class="infoBoxContent"><td colspan="2" align="center"><font color="red">__ROOTPASS_SAVE_STATUS__</font></td></tr>
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_PASSWORD__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTROOTPASS__</td>
-    </tr>
-    <tr class="infoBoxContent">
-      <td width="40%" align="right">__LANG_CONFIRM2__:&nbsp;</td>
-      <td width="60%" align="left">__FORM_INPUTCONFIRM__</td>
-    </tr>
+                    __FORM_BEGIN_ROOTPASS__
+                    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+                        <tr class="infoBoxHeading">
+                            <td width="40%" align="left" colspan="2">__LANG_ROOTPASSWORD__&nbsp;&nbsp;
+                                __DOC_BASEROOTPASS__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2" align="center">
+                                <font color="red">__ROOTPASS_SAVE_STATUS__</font>
+                            </td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_PASSWORD__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTROOTPASS__</td>
+                        </tr>
+                        <tr class="infoBoxContent">
+                            <td width="40%" align="right">__LANG_CONFIRM2__:&nbsp;</td>
+                            <td width="60%" align="left">__FORM_INPUTCONFIRM__</td>
+                        </tr>
 
-    <tr class="infoBoxContent"><td colspan="2">&nbsp;</td></tr>
-    <tr class="infoBoxHeading"><td colspan="2" align="center"><input type="image" name="submit" src="templates/default/images/apply.gif"></td></tr>
+                        <tr class="infoBoxContent">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="2" align="center"><input type="image" name="submit"
+                                    src="templates/default/images/apply.gif"></td>
+                        </tr>
 
-   </table>
-__FORM_CLOSE_ROOTPASS__
- </td>
-</tr>
-</table>
+                    </table>
+                    __FORM_CLOSE_ROOTPASS__
+                </td>
+            </tr>
+        </table>
 </body>
+
 </html>

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cmap.php,v 1.1.2.3 2011-05-30 08:30:46 root Exp $
+ * @version    $Id$
  */
 
 
@@ -47,7 +47,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Cmap
@@ -274,12 +274,15 @@ abstract class Zend_Pdf_Cmap
             throw new Zend_Pdf_Exception("Index out of range: $index",
                                          Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
+
         $number = ord($data[$index]);
+
         if (($number & 0x80) == 0x80) {    // negative
             $number = ~((((~ $number) & 0xff) << 8) | ((~ ord($data[++$index])) & 0xff));
         } else {
             $number = ($number << 8) | ord($data[++$index]);
         }
+
         return $number;
     }
 
@@ -301,8 +304,8 @@ abstract class Zend_Pdf_Cmap
             throw new Zend_Pdf_Exception("Index out of range: $index",
                                          Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
-        $number = (ord($data[$index]) << 8) | ord($data[++$index]);
-        return $number;
+
+        return (ord($data[$index]) << 8) | ord($data[++$index]);
     }
 
     /**
@@ -328,9 +331,9 @@ abstract class Zend_Pdf_Cmap
             throw new Zend_Pdf_Exception("Index out of range: $index",
                                          Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
-        $number = (ord($data[$index]) << 24) | (ord($data[++$index]) << 16) |
+
+        return (ord($data[$index]) << 24) | (ord($data[++$index]) << 16) |
                   (ord($data[++$index]) << 8) | ord($data[++$index]);
-        return $number;
     }
 
 }

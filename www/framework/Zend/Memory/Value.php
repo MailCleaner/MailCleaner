@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Value.php,v 1.1.2.3 2011-05-30 08:30:59 root Exp $
+ * @version    $Id$
  */
 
 
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       also implement Countable for PHP 5.1 but not yet to stay 5.0 compatible
  */
@@ -86,7 +86,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * @param integer $offset
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $offset >= 0  &&  $offset < strlen($this->_value);
     }
@@ -98,6 +98,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * @param integer $offset
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->_value[$offset];
@@ -110,7 +111,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * @param integer $offset
      * @param string $char
      */
-    public function offsetSet($offset, $char)
+    public function offsetSet($offset, $char): void
     {
         $this->_value[$offset] = $char;
 
@@ -126,7 +127,7 @@ class Zend_Memory_Value implements ArrayAccess {
      *
      * @param integer $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->_value[$offset]);
 

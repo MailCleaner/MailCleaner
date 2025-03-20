@@ -1,64 +1,64 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * admin application bootstrap
  */
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-	
+
     protected function _initAutoload()
     {
-        $autoloader = new Zend_Application_Module_Autoloader(array(
+        $autoloader = new Zend_Application_Module_Autoloader([
             'namespace' => 'Default_',
             'basePath'  => dirname(__FILE__),
-        ));
+        ]);
         return $autoloader;
     }
-    
+
     protected function _initRegistry()
     {
-    	Zend_Registry::set('gui', 'users');
-    	# Zend_Registry::set('default_language', 'en');
-    	Zend_Registry::set('default_template', 'default');
+        Zend_Registry::set('gui', 'users');
+        # Zend_Registry::set('default_language', 'en');
+        Zend_Registry::set('default_template', 'default');
     }
-    
+
     protected function _initDatabases()
     {
-    	require_once('MailCleaner/Config.php');
-    	$mcconfig = MailCleaner_Config::getInstance();
-    	
-    	$writeConfigDb = new Zend_Db_Adapter_Pdo_Mysql(array(
-    	                      'host'        => 'localhost',
-                              'unix_socket' => $mcconfig->getOption('VARDIR')."/run/mysql_master/mysqld.sock",
-                              'username'    => 'mailcleaner',
-                              'password'    => $mcconfig->getOption('MYMAILCLEANERPWD'),
-                              'dbname'      => 'mc_config'
-                             ));
-                             
-        Zend_Registry::set('writedb', $writeConfigDb);
-        
- 
-        $spoolDb = new Zend_Db_Adapter_Pdo_Mysql(array(
-    	                      'host'        => 'localhost',
-                              'unix_socket' => $mcconfig->getOption('VARDIR')."/run/mysql_master/mysqld.sock",
-                              'username'    => 'mailcleaner',
-                              'password'    => $mcconfig->getOption('MYMAILCLEANERPWD'),
-                              'dbname'      => 'mc_spool'
-                             ));
-                             
-        Zend_Registry::set('spooldb', $spoolDb);
+        require_once('MailCleaner/Config.php');
+        $mcconfig = MailCleaner_Config::getInstance();
 
+        $writeConfigDb = new Zend_Db_Adapter_Pdo_Mysql([
+            'host'        => 'localhost',
+            'unix_socket' => $mcconfig->getOption('VARDIR') . "/run/mysql_master/mysqld.sock",
+            'username'    => 'mailcleaner',
+            'password'    => $mcconfig->getOption('MYMAILCLEANERPWD'),
+            'dbname'      => 'mc_config'
+        ]);
+
+        Zend_Registry::set('writedb', $writeConfigDb);
+
+
+        $spoolDb = new Zend_Db_Adapter_Pdo_Mysql([
+            'host'        => 'localhost',
+            'unix_socket' => $mcconfig->getOption('VARDIR') . "/run/mysql_master/mysqld.sock",
+            'username'    => 'mailcleaner',
+            'password'    => $mcconfig->getOption('MYMAILCLEANERPWD'),
+            'dbname'      => 'mc_spool'
+        ]);
+
+        Zend_Registry::set('spooldb', $spoolDb);
     }
-    
+
     protected function _initAuth()
-    {	        
+    {
         require_once 'user/User.php';
-       
+
         if (!isset($_SESSION['user'])) {
             /*
             $location = 'login.php';
@@ -76,65 +76,63 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             /*
             $session = unserialize($_SESSION['user']);
             Zend_Registry::set('user', $session);
-    		Zend_Registry::set('identity', $session->getID());
-    		*/
+            Zend_Registry::set('identity', $session->getID());
+            */
         }
     }
 
     protected function _initLayout()
-    {        
-    	Zend_Layout::startMvc();
-    	$layout = Zend_Layout::getMvcInstance();
-    	$layout->setLayoutPath(APPLICATION_PATH . '/layouts/scripts/');
-    	$layout->setLayout('layout');
-        
-    	$view = $layout->getView();
-    	
+    {
+        Zend_Layout::startMvc();
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->setLayoutPath(APPLICATION_PATH . '/layouts/scripts/');
+        $layout->setLayout('layout');
+
+        $view = $layout->getView();
+
         $view->doctype('XHTML11');
-    	
+
         # $view->doctype('HTML5');
 
         $view->headTitle('MailCleaner');
 
         return $layout;
     }
-    
-    protected function _initView() 
+
+    protected function _initView()
     {
-    	$view = new Zend_View();
-    	return $view;
+        $view = new Zend_View();
+        return $view;
     }
-   
-    
+
+
     protected function _initLanguage()
     {
         $lang = 'en';
-       
-    	// set users language
-    	if (!empty($_GET['lang'])) {
-            if (in_array($_GET['lang'], array('en', 'fr', 'de', 'es', 'it'))) {
+
+        // set users language
+        if (!empty($_GET['lang'])) {
+            if (in_array($_GET['lang'], ['en', 'fr', 'de', 'es', 'it'])) {
                 $lang = $_GET['lang'];
             } else {
                 $lang = 'en';
             }
         }
-                
-        $translate = new Zend_Translate('array', APPLICATION_PATH . '/languages/' . $lang. '/i18n.php', $lang);
+
+        $translate = new Zend_Translate('array', APPLICATION_PATH . '/languages/' . $lang . '/i18n.php', $lang);
         Zend_Registry::set('translate', $translate);
         Zend_Registry::set('Zend_Translate', $translate);
         Zend_Validate_Abstract::setDefaultTranslator($translate);
-        
+
         $this->bootstrap('layout');
-        $layout=$this->getResource('layout');
-        $view=$layout->getView();
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
         $view->tr = $translate;
-        
+
         // init locale
         $locale = new Zend_Locale();
         $locale->setLocale('en_US');
         Zend_Registry::set('locale', $locale);
         Zend_Registry::set('Zend_Locale', $locale);
     }
-  
 }
-

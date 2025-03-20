@@ -1,23 +1,24 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004-2014 Olivier Diserens <olivier@diserens.ch>
 #   Copyright (C) 2015-2017 Florian Billebault <florian.billebault@gmail.com>
-#   
+#   Copyright (C) 2025 John Mertz <git@john.me.tz>
+#
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
 #   the Free Software Foundation; either version 2 of the License, or
 #   (at your option) any later version.
-#   
+#
 #   This program is distributed in the hope that it will be useful,
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#   
+#
 #
 #   This script will dump the apache config file with the configuration
 #   settings found in the database.
@@ -26,273 +27,345 @@
 #           dump_apache_config.pl
 
 
+use v5.36;
 use strict;
-use DBI();
+use warnings;
+use utf8;
+use IPC::Run;
+use Carp qw( confess );
 
-my $DEBUG = 1;
+our ($SRCDIR, $VARDIR, $HOSTID, $MYMAILCLEANERPWD);
+BEGIN {
+    if ($0 =~ m/(\S*)\/\S+.pl$/) {
+        my $path = $1."/../lib";
+        unshift (@INC, $path);
+    }
+    require ReadConfig;
+    my $conf = ReadConfig::getInstance();
+    $SRCDIR = $conf->getOption('SRCDIR');
+    $VARDIR = $conf->getOption('VARDIR');
+    $HOSTID = $conf->getOption('HOSTID');
+    $MYMAILCLEANERPWD = $conf->getOption('MYMAILCLEANERPWD');
+    unshift(@INC, $SRCDIR."/lib");
+}
 
-my %config = readConfig("/etc/mailcleaner.conf");
-my $HOSTID=$config{HOSTID};
+require DB;
+use lib_utils qw( open_as rmrf detect_ipv6 );
+use File::Touch qw( touch );
+
+our $DEBUG = 1;
+our $uid = getpwnam('www-data');
+our $gid = getgrnam('www-data');
 
 my $lasterror = "";
 
+# Delete old session files
+mkdir('/tmp/php_sessions') unless (-d '/tmp/php_sessions');
+unlink($_) foreach (glob('/tmp/php_sessions/*'));
+unlink('/tmp/php_sessions.sqlite') if (-e '/tmp/php_sessions.sqlite');
+unlink($_) foreach (glob("$VARDIR/www/stats/*.png"));
+
+# Create necessary dirs/files if they don't exist
+touch('/tmp/php_sessions.sqlite') || print("Failed to create /tmp/php_sessions.sqlite\n");
+
+# Set proper permissions
+foreach my $dir (
+    '/tmp/php_sessions/',
+    '/var/mailcleaner/log/apache',
+    '/var/mailcleaner/www/',
+    '/var/mailcleaner/www/mrtg/',
+    '/var/mailcleaner/www/stats/',
+    '/var/mailcleaner/run/apache2',
+    '/etc/apache2',
+) {
+    mkdir($dir) unless (-d $dir);
+    chown($uid, $gid, $dir);
+};
+
+foreach my $file (
+    '/tmp/php_sessions.sqlite',
+    glob('/var/mailcleaner/www/*'),
+    glob('/var/mailcleaner/www/mrtg/*'),
+    glob('/var/mailcleaner/www/stats/*'),
+    '/var/mailcleaner/run/ssl.cache',
+    glob('/var/mailcleaner/run/apache2/*'),
+    glob('/etc/apache2/*'),
+    glob($VARDIR.'/log/apache/*'),
+    glob($SRCDIR.'/etc/apache/sites-available/*'),
+    glob($SRCDIR.'/www/guis/admin/public/tmp/*')
+) {
+    chown($uid, $gid, $file);
+};
+
+# Fix symlinks if broken
+my %links = (
+    '/etc/apache2' => ${SRCDIR}.'/etc/apache',
+);
+foreach my $link (keys(%links)) {
+    if (-e $link) {
+        if (-l $link) {
+            next if (readlink($link) eq $links{$link});
+	    unlink($link);
+        } else {
+            rmrf($link);
+        }
+    }
+    symlink($links{$link}, $link);
+}
+
+# Configure sudoer permissions if they are not already
+mkdir '/etc/sudoers.d' unless (-d '/etc/sudoers.d');
+if (open(my $fh, '>', '/etc/sudoers.d/apache')) {
+    print $fh "
+User_Alias  APACHE = www-data
+Runas_Alias EXIM = mailcleaner
+Cmnd_Alias  CHECKSPOOLS = $SRCDIR/bin/check_spools.sh
+Cmnd_Alias  GETSTATUS = $SRCDIR/bin/get_status.pl -s
+
+APACHE      * = (ROOT) NOPASSWD: SETPINDB
+APACHE      * = (EXIM) NOPASSWD: CHECKSPOOLS
+APACHE      * = (ROOT) NOPASSWD: GETSTATUS
+";
+}
+
+# Add to mailcleaner group if not already a member
+`usermod -a -G mailcleaner www-data` unless (grep(/\bmailcleaner\b/, `groups www-data`));
+
+# SystemD auth causes timeouts
+`sed -iP '/^session.*pam_systemd.so/d' /etc/pam.d/common-session`;
+
+# Remove default AppArmor rules and reload with ours
+if (-e "/etc/apparmor.d/usr.sbin.apache2") {
+    `apparmor_parser -R /etc/apparmor.d/usr.sbin.apache2`;
+    unlink("/etc/apparmor.d/usr.sbin.apache2");
+}
+`apparmor_parser -r ${SRCDIR}/etc/apparmor.d/usr.sbin.apache2` if ( -d '/sys/kernel/security/apparmor' );
+
+# Dump configuration
 my $dbh;
-$dbh = DBI->connect("DBI:mysql:database=mc_config;host=localhost;mysql_socket=$config{VARDIR}/run/mysql_slave/mysqld.sock",
-			"mailcleaner", "$config{MYMAILCLEANERPWD}", {RaiseError => 0, PrintError => 0})
-		or fatal_error("CANNOTCONNECTDB", $dbh->errstr);
+$dbh = DB::connect('slave', 'mc_config');
 
 my %sys_conf = get_system_config() or fatal_error("NOSYSTEMCONFIGURATIONFOUND", "no record found for system configuration");
 
 my %apache_conf;
-%apache_conf = get_apache_config() or fatal_error("NOAPACHECONFIGURATIONFOUND", "no apache configuration found");
+%apache_conf = get_apache_config() or fatal_error("NOAPACHECONFIGURATIONFOUND", "no apache configuration found") and exit(1);
 
-dump_apache_file("/etc/apache/httpd.conf_template", "/etc/apache/httpd.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
+dump_apache_file("${SRCDIR}/etc/apache/apache2.conf_template", "${SRCDIR}/etc/apache/apache2.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
 
-if (-e "$config{'SRCDIR'}/etc/apache/sites/mailcleaner.conf.disabled") {
-    unlink("$config{'SRCDIR'}/etc/apache/sites/mailcleaner.conf");
-} else {
-    dump_apache_file("/etc/apache/sites/mailcleaner.conf_template", "/etc/apache/sites/mailcleaner.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
-}
+dump_apache_file("${SRCDIR}/etc/apache/sites-available/mailcleaner.conf_template", "${SRCDIR}/etc/apache/sites-available/mailcleaner.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
+dump_apache_file("${SRCDIR}/etc/apache/sites-available/soap.conf_template", "${SRCDIR}/etc/apache/sites-available/soap.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
 
-if (-e "$config{'SRCDIR'}/etc/apache/sites/configurator.conf.disabled") {
-    unlink("$config{'SRCDIR'}/etc/apache/sites/configurator.conf");
-} else {
-    dump_apache_file("/etc/apache/sites/configurator.conf_template", "/etc/apache/sites/configurator.conf") or fatal_error("CANNOTDUMPAPACHEFILE", $lasterror);
-}
+dump_soap_wsdl($sys_conf{'HOST'}, $apache_conf{'__USESSL__'}) or fatal_error("CANNOTDUMPWSDLFILE", $lasterror);
 
-dump_soap_wsdl() or fatal_error("CANNOTDUMPWSDLFILE", $lasterror);
-
-dump_certificate($apache_conf{'tls_certificate_data'}, $apache_conf{'tls_certificate_key'}, $apache_conf{'tls_certificate_chain'});
+dump_certificate(${SRCDIR},$apache_conf{'tls_certificate_data'}, $apache_conf{'tls_certificate_key'}, $apache_conf{'tls_certificate_chain'}) if ($apache_conf{'__USESSL__'} eq 'true');
 
 $dbh->disconnect();
 
-print "DUMPSUCCESSFUL";
-
 #############################
-sub dump_apache_file
+sub dump_apache_file($template_file, $target_file)
 {
-        my $filetmpl = shift;
-    	my $filedst = shift;
+    my ($TEMPLATE, $TARGET);
+    unless ( $TEMPLATE = ${open_as($template_file, '<')} ) {
+        confess("Cannot open template file: $template_file");
+    }
+    unless ( $TARGET = ${open_as($target_file)} ) {
+        close $template_file;
+        confess("Cannot open target file: $target_file");
+    }
 
-	my $template_file = "$config{'SRCDIR'}${filetmpl}";
-	my $target_file = "$config{'SRCDIR'}${filedst}";
+    my $ipv6 = detect_ipv6();
 
-	if ( !open(TEMPLATE, $template_file) ) {
-		$lasterror = "Cannot open template file: $template_file";
-		return 0;
-	}
-	if ( !open(TARGET, ">$target_file") ) {
-                $lasterror = "Cannot open target file: $target_file";
-		close $template_file;
-                return 0;
+    my ($inssl, $inipv6) = (0, 0);
+    while(<$TEMPLATE>) {
+        my $line = $_;
+
+        $line =~ s/__VARDIR__/${VARDIR}/g;
+        $line =~ s/__SRCDIR__/${SRCDIR}/g;
+        $line =~ s/__DBPASSWD__/${MYMAILCLEANERPWD}/g;
+
+        foreach my $key (keys %sys_conf) {
+            $line =~ s/$key/$sys_conf{$key}/g;
+        }
+        foreach my $key (keys %apache_conf) {
+            $line =~ s/$key/$apache_conf{$key}/g;
         }
 
-	my $inssl = 0;
-	while(<TEMPLATE>) {
-		my $line = $_;
+        if ($line =~ /^\_\_IFSSLCHAIN\_\_(.*)/) {
+            if ($apache_conf{'tls_certificate_chain'} && $apache_conf{'tls_certificate_chain'} ne '') {
+                print $TARGET $1."\n";
+            }
+            next;
+        } elsif ($line =~ /\_\_IFSSL\_\_/) {
+            $inssl = 1;
+            next;
+        } elsif ($line =~ /\_\_IFIPV6\_\_/) {
+            $inipv6 = 1;
+            next;
+        } elsif ($line =~ /\_\_ENDIFSSL\_\_/) {
+            $inssl = 0;
+            next;
+        } elsif ($line =~ /\_\_ENDIFIPV6\_\_/) {
+            $inipv6 = 0;
+            next;
+        }
 
-		$line =~ s/__VARDIR__/$config{'VARDIR'}/g;
-		$line =~ s/__SRCDIR__/$config{'SRCDIR'}/g;
-		$line =~ s/__DBPASSWD__/$config{'MYMAILCLEANERPWD'}/g;
+        next if ( $inssl && $apache_conf{'__USESSL__'} !~ /(true|1)/);
+        next if ( $inipv6 && ! $ipv6);
 
-		foreach my $key (keys %sys_conf) {
-			$line =~ s/$key/$sys_conf{$key}/g;
-		}
-		foreach my $key (keys %apache_conf) {
-                        $line =~ s/$key/$apache_conf{$key}/g;
-                }
+        print $TARGET $line;
+    }
 
-                if ($line =~ /^\_\_IFSSLCHAIN\_\_(.*)/) {
-                        if ($apache_conf{'tls_certificate_chain'} && $apache_conf{'tls_certificate_chain'} ne '') {
-                          print TARGET $1."\n";
-                        }
-                        next;
-                }
-		if ($line =~ /\_\_IFSSL\_\_/) {
-			$inssl = 1;
-			next;
-		}
+    close $TEMPLATE;
+    close $TARGET;
+    chown($uid, $gid, $target_file);
 
-		if ($line =~ /\_\_ENDIFSSL\_\_/) {
-                        $inssl = 0;
-			$line = "";
-                        next;
-                }
-
-		if ( (! $inssl) || ($apache_conf{'__USESSL__'} =~ /true/) ) {
-			print TARGET $line;
-		}
-	}
-
-	close TEMPLATE;
-	close TARGET;
-	
-	return 1;
+    return 1;
 }
 
-sub dump_soap_wsdl {
-
-        my $template_file = "$config{'SRCDIR'}/www/soap/htdocs/mailcleaner.wsdl_template";
-        my $target_file = "$config{'SRCDIR'}/www/soap/htdocs/mailcleaner.wsdl";
-                 
-        if ( !open(TEMPLATE, $template_file) ) {
-                $lasterror = "Cannot open template file: $template_file";
-                return 0;
-        }
-        if ( !open(TARGET, ">$target_file") ) {
-                $lasterror = "Cannot open target file: $target_file";
-                close $template_file;
-                return 0;
-        }
-        
-        my $inssl = 0;
-        while(<TEMPLATE>) {
-                my $line = $_;
-        
-                $line =~ s/__HOST__/$sys_conf{'HOST'}/g;
-		print TARGET $line;
-                }
-        
-        close TEMPLATE;
-        close TARGET;
-
-        return 1;
-}
-
-#############################
-sub get_system_config
+sub dump_soap_wsdl($host, $use_ssl)
 {
-	my %config;
 
-	my $sth = $dbh->prepare("SELECT hostname, default_domain, sysadmin, clientid FROM system_conf");
-	$sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
-	
-	if ($sth->rows < 1) {
-		return;
-	}
-	my $ref = $sth->fetchrow_hashref() or return;
+    my $template_file = "${SRCDIR}/www/soap/htdocs/mailcleaner.wsdl_template";
+    my $target_file = "${SRCDIR}/www/soap/htdocs/mailcleaner.wsdl";
 
- 	$config{'__PRIMARY_HOSTNAME__'} = $ref->{'hostname'};
-	$config{'__QUALIFY_DOMAIN__'} = $ref->{'default_domain'};
-	$config{'__QUALIFY_RECIPIENT__'} = $ref->{'sysadmin'};
-	$config{'__CLIENTID__'} = $ref->{'clientid'};
+    my $protocol = 'http';
+    $protocol .= 's' if ($use_ssl);
 
-	$sth->finish();	
+    my ($TEMPLATE, $TARGET);
+    if ( !open($TEMPLATE, '<', $template_file) ) {
+        $lasterror = "Cannot open template file: $template_file";
+        return 0;
+    }
+    if ( !open($TARGET, '>', $target_file) ) {
+        $lasterror = "Cannot open target file: $target_file";
+        close $template_file;
+        return 0;
+    }
 
-        $sth = $dbh->prepare("SELECT hostname FROM slave WHERE id=".$HOSTID);
-  	$sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
-	if ($sth->rows < 1) {
-		return;
-	}
-	$ref = $sth->fetchrow_hashref() or return;
-	$config{'HOST'} = $ref->{'hostname'};
-	$sth->finish();
-	
- 	return %config;	
+    my $inssl = 0;
+    while(<$TEMPLATE>) {
+        my $line = $_;
+
+        $line =~ s/__HOST__/$host/g;
+        $line =~ s/__PROTOCOL__/$protocol/g;
+        print $TARGET $line;
+    }
+
+    close $TEMPLATE;
+    close $TARGET;
+    chown($uid, $gid, $target_file);
+
+    return 1;
 }
 
 #############################
-sub get_apache_config{
-	my %config;
-	
-	my $sth = $dbh->prepare("SELECT serveradmin, servername, use_ssl, timeout, keepalivetimeout,
-				min_servers, max_servers, start_servers, http_port, https_port, certificate_file, tls_certificate_data, tls_certificate_key, tls_certificate_chain FROM httpd_config");
-	$sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
-
-	if ($sth->rows < 1) {
-                return;
-        }
-        my $ref = $sth->fetchrow_hashref() or return;
-
-	$config{'__TIMEOUT__'} = $ref->{'timeout'};
-	$config{'__MINSERVERS__'} = $ref->{'min_servers'};
-	$config{'__MAXSERVERS__'} = $ref->{'max_servers'};
-	$config{'__STARTSERVERS__'} = $ref->{'start_servers'};
-	$config{'__KEEPALIVETIMEOUT__'} = $ref->{'keepalivetimeout'};
-	$config{'__HTTPPORT__'} = $ref->{'http_port'};
-	$config{'__HTTPSPORT__'} = $ref->{'https_port'};
-	$config{'__USESSL__'} = $ref->{'use_ssl'};
-	$config{'__SERVERNAME__'} = $ref->{'servername'};
-	$config{'__SERVERADMIN__'} = $ref->{'serveradmin'};
-	$config{'__CERTFILE__'} = $ref->{'certificate_file'};
-        $config{'tls_certificate_data'} = $ref->{'tls_certificate_data'};
-        $config{'tls_certificate_key'} = $ref->{'tls_certificate_key'};
-        $config{'tls_certificate_chain'} = $ref->{'tls_certificate_chain'};
-
-	$sth->finish();
-        return %config;
-}
-
-#############################
-sub fatal_error
+sub get_system_config()
 {
-	my $msg = shift;
-	my $full = shift;
+    my %config;
 
-	print $msg;
-	if ($DEBUG) {
-		print "\n Full information: $full \n";
-	}
-	exit(0);
+    my $sth = $dbh->prepare("SELECT hostname, default_domain, sysadmin, clientid FROM system_conf");
+    $sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
+
+    if ($sth->rows < 1) {
+        return;
+    }
+    my $ref = $sth->fetchrow_hashref() or return;
+
+    $config{'__PRIMARY_HOSTNAME__'} = $ref->{'hostname'};
+    $config{'__QUALIFY_DOMAIN__'} = $ref->{'default_domain'};
+    $config{'__QUALIFY_RECIPIENT__'} = $ref->{'sysadmin'};
+    $config{'__CLIENTID__'} = $ref->{'clientid'};
+
+    $sth->finish();
+
+    $sth = $dbh->prepare("SELECT hostname FROM slave WHERE id=".$HOSTID);
+    $sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
+    if ($sth->rows < 1) {
+        return;
+    }
+    $ref = $sth->fetchrow_hashref() or return;
+    $config{'HOST'} = $ref->{'hostname'};
+    $sth->finish();
+
+    return %config;
+}
+
+#############################
+sub get_apache_config()
+{
+    my %config;
+
+    my $sth = $dbh->prepare("SELECT serveradmin, servername, use_ssl, timeout, keepalivetimeout,
+        min_servers, max_servers, start_servers, http_port, https_port, certificate_file, tls_certificate_data, tls_certificate_key, tls_certificate_chain FROM httpd_config");
+    $sth->execute() or fatal_error("CANNOTEXECUTEQUERY", $dbh->errstr);
+
+    if ($sth->rows < 1) {
+	fatal_error("NOHTTPDCONFIG", "Zero lines fetched from httpd_config on slave");
+    }
+    my $ref = $sth->fetchrow_hashref() or return;
+
+    $config{'__TIMEOUT__'} = $ref->{'timeout'};
+    $config{'__MINSERVERS__'} = $ref->{'min_servers'};
+    $config{'__MAXSERVERS__'} = $ref->{'max_servers'};
+    $config{'__STARTSERVERS__'} = $ref->{'start_servers'};
+    $config{'__KEEPALIVETIMEOUT__'} = $ref->{'keepalivetimeout'};
+    $config{'__HTTPPORT__'} = 80;
+    $config{'__HTTPSPORT__'} = 443;
+    $config{'__USESSL__'} = $ref->{'use_ssl'};
+    $config{'__USESSL__'} = 'false';
+    $config{'__SERVERNAME__'} = $ref->{'servername'};
+    $config{'__SERVERADMIN__'} = $ref->{'serveradmin'};
+    $config{'__CERTFILE__'} = $ref->{'certificate_file'};
+    $config{'tls_certificate_data'} = $ref->{'tls_certificate_data'};
+    $config{'tls_certificate_key'} = $ref->{'tls_certificate_key'};
+    $config{'tls_certificate_chain'} = $ref->{'tls_certificate_chain'};
+    my $php_version;
+    IPC::Run::run(["/usr/bin/php", "--version"], '>', \$php_version);
+    ($php_version) = split('\n', $php_version);
+    $php_version =~ s/PHP (\d+\.\d+).*/$1/;
+    $config{'__PHP_VERSION__'} = $php_version;
+
+    $sth->finish();
+    return %config;
+}
+
+#############################
+sub fatal_error($msg,$full)
+{
+    print $msg . ($DEBUG ? "\nFull information: $full \n" : "\n");
 }
 
 #############################
 sub print_usage
 {
-	print "Bad usage: dump_exim_config.pl [stage-id]\n\twhere stage-id is an integer between 0 and 4 (0 or null for all).\n";
-	exit(0);
+    print "Bad usage: dump_exim_config.pl [stage-id]\n\twhere stage-id is an integer between 0 and 4 (0 or null for all).\n";
+    exit(0);
 }
 
-sub dump_certificate
+sub dump_certificate($srcdir,$cert,$key,$chain)
 {
-  my $cert = shift;
-  my $key = shift;
-  my $chain = shift;
+    my $path = $srcdir."/etc/apache/certs/certificate.pem";
+    my $backup = $srcdir."/etc/apache/certs/default.pem";
+    my $chainpath = $srcdir."/etc/apache/certs/certificate-chain.pem";
 
-  my $path = $config{'SRCDIR'}."/etc/apache/certs/certificate.pem";
-  my $backup = $config{'SRCDIR'}."/etc/apache/certs/default.pem";
-  my $chainpath = $config{'SRCDIR'}."/etc/apache/certs/certificate-chain.pem";
-   
-  if (!$cert || !$key || $cert =~ /^\s+$/ || $key =~ /^\s+$/) {
-      my $cmd = "cp $backup $path";
-      `$cmd`;
-  } else {
-      $cert =~ s/\r\n/\n/g;
-      $key =~ s/\r\n/\n/g;
-      if ( open(FILE, ">$path")) {
-          print FILE $cert."\n";
-          print FILE $key."\n";
-          close FILE;
-      }
-  }
-
-  if ( $chain && $chain ne '' ) {
-     if ( open(FILE, ">$chainpath")) {
-         print FILE $chain."\n";
-         close FILE; 
-     }
-  }
-}
-
-#############################
-sub readConfig
-{
-	my $configfile = shift;
-	my %config;
-        my ($var, $value);
-
-	open CONFIG, $configfile or die "Cannot open $configfile: $!\n";
-        while (<CONFIG>) {
-                chomp;                  # no newline
-                s/#.*$//;                # no comments
-                s/^\*.*$//;             # no comments
-                s/;.*$//;                # no comments
-                s/^\s+//;               # no leading white
-                s/\s+$//;               # no trailing white
-                next unless length;     # anything left?
-                my ($var, $value) = split(/\s*=\s*/, $_, 2);
-                $config{$var} = $value;
+    if (!$cert || !$key || $cert =~ /^\s+$/ || $key =~ /^\s+$/) {
+        my $cmd = "cp $backup $path";
+        `$cmd`;
+    } else {
+        $cert =~ s/\r\n/\n/g;
+        $key =~ s/\r\n/\n/g;
+        if ( open(my $FILE, '>', $path)) {
+            print $FILE $cert."\n";
+            print $FILE $key."\n";
+            close $FILE;
         }
-        close CONFIG;
-	return %config;
+    }
+
+    if ( $chain && $chain ne '' ) {
+        if ( open(my $FILE, '>', $chainpath)) {
+            print $FILE $chain."\n";
+            close $FILE;
+        }
+    }
+    chown($uid, $gid, $path, $backup, $chainpath);
 }

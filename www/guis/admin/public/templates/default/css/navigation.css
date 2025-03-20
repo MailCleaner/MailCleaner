@@ -4,148 +4,140 @@
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 
 /* navigation bar */
 #main_navigation {
-  height: 75px;
-  overflow: hidden;
+    height: 75px;
+    overflow: hidden;
 }
 
 #navigation {
-  width: 100%;
-  height: 37px;
-  min-height: 37px;
-  margin: 0;
-  padding: 0;
-  line-height: 37px;
-  background-image:none;
-	background-color: #000000;
-  background-repeat: repeat-x;
-  color: #FFFFFF;
-  text-indent: 0.5em;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
+    width: 100%;
+    height: 37px;
+    min-height: 37px;
+    margin: 0;
+    padding: 0;
+    background-image:none;
+    background-color: #000000;
+    background-repeat: repeat-x;
+    text-indent: 0.5em;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /* navigation menu */
 #buttonmenu {
-  text-align: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 #buttonmenu li {
-  display: inline;
+    display: inline;
 }
 
 #buttonmenu li .menubutton {
-  display: inline;
-  float: left;
-  background-image: none;
-  width: 100px;
-  line-height: 33px;
-  height: 32px;
-  text-align: center;
-  display: inline;
-	font-size: 1.05em;
-	padding: 3px;
+    float: left;
+    background-image: none;
+    width: 150px;
+    line-height: 33px;
+    height: 32px;
+    font-size: 1em;
+    padding: 3px;
 }
 #buttonmenu li .menuselected {
-  display: inline;
-  float: left;
-  background-image: none;
-	background-color: #E93A00;
-  width: 100px;
-  line-height: 33px;
-  height: 37px;
-  text-align: center;
-  display: inline;
-	font-size: 1.05em;
-	padding: 3px;
+    float: left;
+    background-image: none;
+    background-color: #ED7B00;
+    width: 150px;
+    line-height: 33px;
+    height: 37px;
+    font-size: 1em;
+    padding: 3px;
 }
 
 #navigation a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 #navigation a:hover {
-  color: #FF1500;
-  text-decoration: none;
+    color: #FF1500;
+    text-decoration: none;
 }
 
 .menuselected:hover {
-  color: white !important;
+    color: white !important;
 }
 
 /* username informational field */
 #logged_username {
-  display: inline;
-  margin: 0px;
-  margin-right: 20px;
-  padding: 0px;
-  float: right;
-  line-height: 37px;
-  color: #FFFFFF;
+    margin: 0px;
+    margin-right: 20px;
+    padding: 0px;
+    float: right;
+    line-height: 37px;
+    font-size: 1em;
+    color: #FFFFFF;
 }
 
 /* logout button */
 #logoutbutton {
-  float: right;
-  width: 100px;
-  line-height: 33px;
-  height: 37px;
-  background-image:none;
+    float: right;
+    width: 100px;
+    font-size: 1em;
+    line-height: 37px;
+    height: 37px;
+    background-image: none;
 }
 
-/*  sub navigation */
+/*    sub navigation */
 #subnavigation {
-  text-align: left;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-	padding-top: 10px;
-  height: 100%;
-  line-height: 20px;
-  background-image: none;
-	background-color: #E0E0E0;
+    text-align: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    height: 100%;
+    line-height: 20px;
+    background-image: none;
+    background-color: #E0E0E0;
 }
 
 #subnavigation ul {
-  margin: 0px;
-  padding: 0px;
-  height: 26px;
+    margin: 0px;
+    padding: 0px;
+    height: 26px;
 }
 
 #subnavigation li {
-  display: inline;
-  line-height: 20px;
-  padding: 0 10px;
+    display: inline;
+    font-size: 1em;
+    line-height: 20px;
+    padding: 0 10px;
 }
 
 .submenu {
-  padding-left: 10px;
+    padding-left: 10px;
 }
 .submenuhidden {
-  display: none;
+    display: none;
 }
 .submenuel {
-  padding: 0 5px;
+    padding: 0 5px;
 }
 .submenuel a {
-  color: #000000;
-  text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 .submenuel a:hover {
-  color: #F80000;
-  text-decoration: none;
+    color: #022971;
+    text-decoration: none;
 }
 
 .submenuelselected a {
-  color: #E93A00;
-  font-weight: bold;
-  }
+    color: #ED7B00;
+}

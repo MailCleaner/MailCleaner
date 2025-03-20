@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Analyzer.php,v 1.1.2.3 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 
@@ -63,7 +63,7 @@ if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -103,7 +103,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
     {
         $this->setInput($data, $encoding);
 
-        $tokenList = array();
+        $tokenList = [];
         while (($nextToken = $this->nextToken()) !== null) {
             $tokenList[] = $nextToken;
         }

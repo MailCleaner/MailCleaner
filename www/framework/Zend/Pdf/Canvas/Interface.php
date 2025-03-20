@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php,v 1.1.2.1 2011-05-30 08:30:50 root Exp $
+ * @version    $Id: Style.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -25,7 +25,7 @@
  * page object at specified place.
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Pdf_Canvas_Interface
@@ -132,7 +132,7 @@ interface Zend_Pdf_Canvas_Interface
      * Phase is shift from the beginning of line.
      *
      * @param mixed $pattern
-     * @param array $phase
+     * @param float $phase
      * @return Zend_Pdf_Canvas_Interface
      */
     public function setLineDashingPattern($pattern, $phase = 0);

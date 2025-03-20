@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Builder.php,v 1.1.2.4 2011-05-30 08:30:59 root Exp $
+ * @version    $Id$
  */
 
 
@@ -44,7 +44,7 @@ require_once 'Zend/Feed/Builder/Entry.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
@@ -52,23 +52,23 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
     /**
      * The data of the feed
      *
-     * @var $_data array
+     * @var array $_data
      */
     private $_data;
 
     /**
      * Header of the feed
      *
-     * @var $_header Zend_Feed_Builder_Header
+     * @var Zend_Feed_Builder_Header $_header
      */
     private $_header;
 
     /**
      * List of the entries of the feed
      *
-     * @var $_entries array
+     * @var array $_entries
      */
-    private $_entries = array();
+    private $_entries = [];
 
     /**
      * Constructor. The $data array must conform to the following format:
@@ -214,7 +214,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
      */
     protected function _createHeader(array $data)
     {
-        $mandatories = array('title', 'link', 'charset');
+        $mandatories = ['title', 'link', 'charset'];
         foreach ($mandatories as $mandatory) {
             if (!isset($data[$mandatory])) {
                 /**
@@ -262,7 +262,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
             $this->_header->setRating($data['rating']);
         }
         if (isset($data['cloud'])) {
-            $mandatories = array('domain', 'path', 'registerProcedure', 'protocol');
+            $mandatories = ['domain', 'path', 'registerProcedure', 'protocol'];
             foreach ($mandatories as $mandatory) {
                 if (!isset($data['cloud'][$mandatory])) {
                     /**
@@ -276,7 +276,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
             $this->_header->setCloud($uri_str, $data['cloud']['registerProcedure'], $data['cloud']['protocol']);
         }
         if (isset($data['textInput'])) {
-            $mandatories = array('title', 'description', 'name', 'link');
+            $mandatories = ['title', 'description', 'name', 'link'];
             foreach ($mandatories as $mandatory) {
                 if (!isset($data['textInput'][$mandatory])) {
                     /**
@@ -343,7 +343,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
     protected function _createEntries(array $data)
     {
         foreach ($data as $row) {
-            $mandatories = array('title', 'link', 'description');
+            $mandatories = ['title', 'link', 'description'];
             foreach ($mandatories as $mandatory) {
                 if (!isset($row[$mandatory])) {
                     /**
@@ -373,7 +373,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
                 $entry->setCommentsRssUrl($row['commentRss']);
             }
             if (isset($row['source'])) {
-                $mandatories = array('title', 'url');
+                $mandatories = ['title', 'url'];
                 foreach ($mandatories as $mandatory) {
                     if (!isset($row['source'][$mandatory])) {
                         /**

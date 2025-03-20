@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MailCleaner
  *
@@ -18,4 +19,3 @@ class ErrorController extends Zend_Controller_Action
         die(var_dump($this->view->errors));
     }
 }
-

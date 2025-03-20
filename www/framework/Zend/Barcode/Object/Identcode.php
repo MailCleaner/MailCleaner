@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Identcode.php,v 1.1.2.1 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,7 +35,7 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleaved
@@ -64,13 +64,14 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
 
     /**
      * Check allowed characters
+     *
      * @param string $value
-     * @return string
-     * @throw Zend_Barcode_Object_Exception
+     * @return void
+     * @throws Zend_Barcode_Object_Exception
      */
     public function validateText($value)
     {
-        $this->_validateText($value, array('validator' => $this->getType()));
+        $this->_validateText($value, ['validator' => $this->getType()]);
     }
 
     /**
@@ -85,7 +86,7 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
         $checksum = 0;
 
         for ($i = strlen($text); $i > 0; $i --) {
-            $checksum += intval($text{$i - 1}) * (($i % 2) ? 4 : 9);
+            $checksum += (int)$text[$i - 1] * (($i % 2) ? 4 : 9);
         }
 
         $checksum = (10 - ($checksum % 10)) % 10;

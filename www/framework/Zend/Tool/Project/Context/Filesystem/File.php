@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php,v 1.1.2.4 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Project/Context/Filesystem/Abstract.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Context_Filesystem_Abstract
@@ -83,7 +83,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
      */
     public function getPersistentAttributes()
     {
-        $returnAttrs = array();
+        $returnAttrs = [];
         if ($this->_filesystemName !== null) {
             $returnAttrs['filesystemName'] = $this->_filesystemName;
         }
@@ -93,7 +93,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
     /**
      * setResource()
      *
-     * @param unknown_type $resource
+     * @param Zend_Tool_Project_Profile_Resource $resource
      */
     public function setResource(Zend_Tool_Project_Profile_Resource $resource)
     {
@@ -163,7 +163,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
         if ($this->_resource->hasAttribute('defaultContentCallback')) {
             $contentFunc = $this->_resource->getAttribute('defaultContentCallback');
             if (is_callable($contentFunc)) {
-                $this->_content = call_user_func_array($contentFunc, array($this));
+                $this->_content = call_user_func_array($contentFunc, [$this]);
             }
         }
         if ($this->_filesystemName == null) {

@@ -28,13 +28,13 @@ ISMASTER=`grep 'ISMASTER' /etc/mailcleaner.conf | cut -d ' ' -f3`
 
 NAME=mailcleaner
 FW=firewall
-EXIM1=exim_stage1
-EXIM2=exim_stage2
-EXIM4=exim_stage4
+EXIM1=exim4@1
+EXIM2=exim4@2
+EXIM4=exim4@4
 MS=mailscanner
-MYSLAVE=mysql_slave
-MYMASTER=mysql_master
-APACHE=apache
+MYSLAVE=mariadb@slave
+MYMASTER=mariadb@master
+APACHE=apache2
 SNMP=snmpd
 GREYLISTD=greylistd
 PREFDAEMON=prefdaemon
@@ -62,25 +62,12 @@ case "$1" in
       echo "done"
     fi
 
-    ## checking for opt binaries
-    for i in mysql4 mysql5 MailScanner bogofilter clamav exim4 mailcleaner php5; do
-     if [ ! -d /opt/$i ]; then
-      ln -s /usr/$i /opt/$i >/dev/null 2>&1
-     fi
-    done
-    if [ ! -d /opt/apache2 ]; then
-      ln -s /usr/apache /opt/apache2 >/dev/null 2>&1
-    fi
-
     $INITDIR/$MYMASTER start
     $INITDIR/$MYSLAVE start
     # Restart FW in background so that Fail2Ban does not hold up other processes
     $INITDIR/$FW restart &
     sleep 5
 
-    echo -n "  Resyncing DB... "
-    $INITDIR/$MYSLAVE restart 2>&1 > /dev/null
-    echo "done."
     $INITDIR/$SNMP start
     $INITDIR/$STATSDAEMON start
     $INITDIR/$PREFTDAEMON start

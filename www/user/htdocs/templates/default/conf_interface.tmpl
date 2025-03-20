@@ -1,58 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
+<html>
 
-<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <title>MailCleaner &ndash; __LANG_CONFIGURATIONMENU__</title>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <meta name="Author" content="Olivier Diserens" />
-  <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html" />
-__INCLUDE__(config_meta.tmpl)
-    
-<!--[if gt IE 5]>
-<link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" />
-<![endif]-->
-<!--[if lt IE 7]>
-<link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" />
-<![endif]-->
+<head>
+    <title>MailCleaner &ndash; __LANG_CONFIGURATIONMENU__</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="Author" content="Olivier Diserens" />
+    <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html" />
+    __INCLUDE__(config_meta.tmpl)
+</head>
 
- </head>
 <body>
 
-<div id="container">
+    <div id="container">
 
-__INCLUDE__(header.tmpl)
-<div id="pagecontent">
-<div id="generalconfigpanel">
-__INCLUDE__(config_menu.tmpl)
- 
- <div id="generalconfigcontent">
+        __INCLUDE__(header.tmpl)
+        <div id="pagecontent">
+            <div id="generalconfigpanel">
+                __INCLUDE__(config_menu.tmpl)
 
-__IF__ ISCOMMUNITY
-  <h3>
-  Your language is missing ? We would love everybody to be able to use MailCleaner in a language that they understand. 
-  Please <a href="https://www.mailcleaner.org/translations/" target="_blank">help</a> us to translate MailCleaner in your Language.
-  </h3>
-__FI__ ISCOMMUNITY
+                <div id="generalconfigcontent">
 
-  <div id="languageconfigpanel" class="configpanel">
-__BEGIN_PREFS_FORM__
-<p class="message">__MESSAGE__</p>
-<p>__LANG_CHOOSELANGUAGE__:</p>
-<fieldset>
-__SELECTOR_LANG__
-</fieldset>
-<fieldset>
-__SAVE_BUTTON__
-</fieldset>
-__END_PREFS_FORM__
-  </div>
- </div>
-</div>
-</div>
+                    __IF__ ISCOMMUNITY
+                    <h3>
+                        Your language is missing ? We would love everybody to be able to use MailCleaner in a language
+                        that they understand.
+                        Please <a href="https://www.mailcleaner.org/translations/" target="_blank">help</a> us to
+                        translate MailCleaner in your Language.
+                    </h3>
+                    __FI__ ISCOMMUNITY
 
-__INCLUDE__(footer.tmpl)
+                    <div id="languageconfigpanel" class="configpanel">
+                        __BEGIN_PREFS_FORM__
+                        <p class="message">__MESSAGE__</p>
+                        <p>__LANG_CHOOSELANGUAGE__:</p>
+                        <fieldset>
+                            __SELECTOR_LANG__
+                        </fieldset>
+                        <fieldset>
+                            __SAVE_BUTTON__
+                        </fieldset>
+                        __END_PREFS_FORM__
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <div id="pagefoot">
+            <div id="legalpanel">
+                <p id="copyright"><a href="https://__COPYRIGHTLINK__" target="_blank">__COPYRIGHTTEXT__</a></p>
+                __INCLUDE__(company.tmpl)
+            </div>
+        </div>
+
+    </div>
 </body>
+
 </html>

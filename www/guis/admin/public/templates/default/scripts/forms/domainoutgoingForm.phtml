@@ -1,64 +1,82 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>&nbsp;
-<?php echo $this->partial('layouts/message.phtml', array('message' => $this->message, 't' => $this->t)); ?>
+<?php echo $this->partial('layouts/message.phtml', ['message' => $this->message, 't' => $this->t]); ?>
 <fieldset>
-       <?php echo $this->InputRow($this->form->getElement('panel'),array('field_only'=>true,'nobox'=>true));?>
-       <?php echo $this->InputRow($this->form->getElement('name'),array('field_only'=>true,'nobox'=>true));?>
-       <table class="ftable">
-          <?php echo $this->InputRow($this->form->getElement('smtpauth'));?>
-          <?php echo $this->InputRow($this->form->getElement('smtp_auth_cachetime'), array('row_class' => 'smtp_auth_cachetime', 'post_field_text' => $this->t->_('seconds').'<input type="button" id="clearsmtpauthcachebutton" value="'.$this->t->_('Clear cache now...').'" />'));?>
-          <?php echo $this->InputRow($this->form->getElement('require_outgoing_tls'));?>
-          <tr>
-            <td colspan="2"><hr /></td>
-          </tr>
-          <?php foreach (array('batv_check', 'batv_secret') as $f) {?>
-            <?php echo $this->InputRow($this->form->getElement($f));?>
-          <?php }?>
-          <tr>
-            <td colspan="2"><hr /></td>
-          </tr>
-
-          <?php echo $this->InputRow($this->form->getElement('dkim_signature'));?>          
-          <?php echo $this->InputRow($this->form->getElement('dkim_domain'),array('row_class'=>'dkim_domain_fieldset'));?>
-          <?php echo $this->InputRow($this->form->getElement('dkim_selector'),array('row_class'=>'dkim_selandkey_fieldset'));?>
-          <?php echo $this->InputRow($this->form->getElement('dkim_pkey'),array('row_class'=>'dkim_selandkey_fieldset','label_addclass'=>'flabeltextarea'));?>
-          
-          <tr class="dkim_selandkey_fieldset">
-            <td class="flabel flabelstrict"></td>
-            <td class="fvalue fieldnote"><a id="generatepkey" href="javascript:generatePKI('rsa',2048);"><?php echo $this->t->_('Generate new private key')?>...</a></td>
-          </tr>
-          <?php if (isset($this->form->dkim_domain) && ($this->form->dkim_domain == 'default' || ( isset($this->form->dkim_selector) && isset($this->form->dkim_pubkey)))) {?>
-          <tr class="dkim_help_field">
+    <?php echo $this->InputRow($this->form->getElement('panel'), ['field_only' => true, 'nobox' => true]); ?>
+    <?php echo $this->InputRow($this->form->getElement('name'), ['field_only' => true, 'nobox' => true]); ?>
+    <table class="ftable">
+        <?php echo $this->InputRow($this->form->getElement('smtpauth')); ?>
+        <?php echo $this->InputRow(
+            $this->form->getElement('smtp_auth_cachetime'),
+            [
+                'row_class' =>
+                'smtp_auth_cachetime',
+                'post_field_text' =>
+                $this->t->_('seconds') .
+                    '<input type="button" id="clearsmtpauthcachebutton" value="' .
+                    $this->t->_('Clear cache now...') .
+                    '" />'
+            ]
+        ); ?>
+        <?php echo $this->InputRow($this->form->getElement('require_outgoing_tls')); ?>
+        <tr>
             <td colspan="2">
-              <p><?php echo $this->t->_('The domain ')." <strong>".$this->form->dkim_domain."</strong> ".$this->t->_('should have a TXT record like this in its DNS')?> :</p>
-              <pre class="code"><?php echo $this->form->dkim_selector?>._domainkey.<?php echo $this->form->dkim_domain?>. IN TXT "v=DKIM1;k=rsa;p=<?php echo $this->form->dkim_pubkey?>"</pre>
+                <hr />
             </td>
-          </tr>
-          <?php } else {?>
-          <tr class="dkim_help_field">
-            <td colspan="2" class="centered"><?php echo $this->t->_('Domain, selector and/or private key are currently not set or not saved.');?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><hr /></td>
-          </tr>
-          <?php }?>
+        </tr>
+        <?php foreach (['batv_check', 'batv_secret'] as $f) { ?>
+            <?php echo $this->InputRow($this->form->getElement($f)); ?>
+        <?php } ?>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
 
-          <?php
-		echo $this->InputRow($this->form->getElement('relay_smarthost'));
-		if ($this->form->getElement('relay_smarthost')->isChecked() ) {
-			echo $this->InputRow($this->form->getElement('servers_smarthost'),array('label_addclass'=>'flabeltextarea'));
+        <?php echo $this->InputRow($this->form->getElement('dkim_signature')); ?>
+        <?php echo $this->InputRow($this->form->getElement('dkim_domain'), ['row_class' => 'dkim_domain_fieldset']); ?>
+        <?php echo $this->InputRow($this->form->getElement('dkim_selector'), ['row_class' => 'dkim_selandkey_fieldset']); ?>
+        <?php echo $this->InputRow($this->form->getElement('dkim_pkey'), ['row_class' => 'dkim_selandkey_fieldset', 'label_addclass' => 'flabeltextarea']); ?>
 
-			foreach (array('port_smarthost', 'multiple_smarthost') as $f) {
-				echo $this->InputRow($this->form->getElement($f));
-			}
-		}
-		echo $this->SubmitRow($this->form->getElement('submit'));
-          ?>
-       </table>
+        <tr class="dkim_selandkey_fieldset">
+            <td class="flabel flabelstrict"></td>
+            <td class="fvalue fieldnote"><a id="generatepkey" href="javascript:generatePKI('ecdsa',2048);"><?php echo $this->t->_('Generate new private key') ?>...</a></td>
+        </tr>
+        <?php if (isset($this->form->dkim_domain) && ( $this->form->dkim_domain == 'default' || ( isset($this->form->dkim_selector) && isset($this->form->dkim_pubkey) ) )) { ?>
+            <tr class="dkim_help_field">
+                <td colspan="2">
+                    <p><?php echo $this->t->_('The domain ') . " <strong>" . $this->form->dkim_domain . "</strong> " . $this->t->_('should have a TXT record like this in its DNS') ?> :</p>
+                    <pre class="code"><?php echo $this->form->dkim_selector ?>._domainkey.<?php echo $this->form->dkim_domain ?>. IN TXT "v=DKIM1;k=rsa;p=<?php echo $this->form->dkim_pubkey ?>"</pre>
+                </td>
+            </tr>
+        <?php } else { ?>
+            <tr class="dkim_help_field">
+                <td colspan="2" class="centered"><?php echo $this->t->_('Domain, selector and/or private key are currently not set or not saved.'); ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+        <?php } ?>
+
+        <?php
+        echo $this->InputRow($this->form->getElement('relay_smarthost'));
+        if ($this->form->getElement('relay_smarthost')->isChecked()) {
+            echo $this->InputRow($this->form->getElement('servers_smarthost'), ['label_addclass' => 'flabeltextarea']);
+
+            foreach (['port_smarthost', 'multiple_smarthost'] as $f) {
+                echo $this->InputRow($this->form->getElement($f));
+            }
+        }
+        echo $this->SubmitRow($this->form->getElement('submit'));
+        ?>
+    </table>
 </fieldset>

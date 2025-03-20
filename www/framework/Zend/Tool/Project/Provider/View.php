@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: View.php,v 1.1.2.4 2011-05-30 08:30:51 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Tool/Project/Provider/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstract
@@ -55,13 +55,13 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
             throw new Zend_Tool_Project_Provider_Exception('Zend_Tool_Project_Provider_View::createResource() expects \"controllerName\" is the name of a controller resource to create.');
         }
 
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
             $noModuleSearch = null;
         } else {
-            $noModuleSearch = array('modulesDirectory');
+            $noModuleSearch = ['modulesDirectory'];
         }
 
         $profileSearchParams[] = 'viewsDirectory';
@@ -72,16 +72,14 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
             throw new Zend_Tool_Project_Provider_Exception('This project does not have a viewScriptsDirectory resource.');
         }
 
-        $profileSearchParams['viewControllerScriptsDirectory'] = array('forControllerName' => $controllerName);
+        $profileSearchParams['viewControllerScriptsDirectory'] = ['forControllerName' => $controllerName];
 
         // @todo check if below is failing b/c of above search params
         if (($viewControllerScriptsDirectory = $viewScriptsDirectory->search($profileSearchParams)) === false) {
-            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', array('forControllerName' => $controllerName));
+            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', ['forControllerName' => $controllerName]);
         }
 
-        $newViewScriptFile = $viewControllerScriptsDirectory->createResource('ViewScriptFile', array('forActionName' => $actionName));
-
-        return $newViewScriptFile;
+        return $viewControllerScriptsDirectory->createResource('ViewScriptFile', ['forActionName' => $actionName]);
     }
 
     /**
@@ -90,7 +88,7 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
      * @param string $controllerName
      * @param string $actionNameOrSimpleName
      */
-    public function create($controllerName, $actionNameOrSimpleName)
+    public function create($controllerName, $actionNameOrSimpleName, $module = null)
     {
 
         if ($controllerName == '' || $actionNameOrSimpleName == '') {
@@ -100,7 +98,7 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
 
         $profile = $this->_loadProfile();
 
-        $view = self::createResource($profile, $actionNameOrSimpleName, $controllerName);
+        $view = self::createResource($profile, $actionNameOrSimpleName, $controllerName, $module);
 
         if ($this->_registry->getRequest()->isPretend()) {
             $this->_registry->getResponse(

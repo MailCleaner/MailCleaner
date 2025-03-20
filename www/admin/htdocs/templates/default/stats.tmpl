@@ -1,56 +1,73 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>mailcleaner</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
-  </head>
+</head>
+
 <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
-<center>
-<br/>
-<table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="#000000"><tr><td>
-<table width="100%" border="0" cellpadding="2" cellspacing="2" class="blocktitle" bgcolor="#FFFFFF"> 
-__FORM_BEGIN_FILTER__
-<tr bgcolor="#CCCCCC" class="blocktitle">
- <td colspan="4">__LANG_FILTER__&nbsp;&nbsp; __DOC_STATSTITLE__</td>
-</tr>
-<tr>
- <td>__LANG_HOST__: __HOSTLIST__</td>
- <td>__LANG_STATS__: __STATSLIST__</td>
- <td>__LANG_TIMEPERIOD__: __PERIODLIST__</td>
- <td>__REFRESH_BUTTON__</td>
-</tr>
-__FORM_CLOSE_FILTER__
-</table></td></tr>
-</table><br/>
+    <center>
+        <br />
+        <table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="#000000">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="2" cellspacing="2" class="blocktitle" bgcolor="#FFFFFF">
+                        __FORM_BEGIN_FILTER__
+                        <tr bgcolor="#CCCCCC" class="blocktitle">
+                            <td colspan="4">__LANG_FILTER__&nbsp;&nbsp; __DOC_STATSTITLE__</td>
+                        </tr>
+                        <tr>
+                            <td>__LANG_HOST__: __HOSTLIST__</td>
+                            <td>__LANG_STATS__: __STATSLIST__</td>
+                            <td>__LANG_TIMEPERIOD__: __PERIODLIST__</td>
+                            <td>__REFRESH_BUTTON__</td>
+                        </tr>
+                        __FORM_CLOSE_FILTER__
+                    </table>
+                </td>
+            </tr>
+        </table><br />
 
-__TMPL_PERIODS_START__
-<td valign="top" align="left">__PERIODNAME__: <br/><img src="__IMAGE__" border="0" align="abs_bottom"></td>
-__TMPL_PERIODS_STOP__
+        __TMPL_PERIODS_START__
+        <td valign="top" align="left">__PERIODNAME__: <br /><img src="__IMAGE__" border="0" align="abs_bottom"></td>
+        __TMPL_PERIODS_STOP__
 
-__TMPL_STAT_START__
-<tr valign="top"><td>
-<table width="100%" border="0" cellpadding="5" cellspacing="5" class="blocktitle">
-<tr valign="top"><td width="20%"><b>__STATNAME__</b>&nbsp;__HELPPERIOD__</td>
-__PERIODS__
-</tr>
-</table>
-</tr></td>
-__TMPL_STAT_STOP__
+        __TMPL_STAT_START__
+        <tr valign="top">
+            <td>
+                <table width="100%" border="0" cellpadding="5" cellspacing="5" class="blocktitle">
+                    <tr valign="top">
+                        <td width="20%"><b>__STATNAME__</b>&nbsp;__HELPPERIOD__</td>
+                        __PERIODS__
+                    </tr>
+                </table>
+        </tr>
+        </td>
+        __TMPL_STAT_STOP__
 
-__TMPL_HOST_START__
-<table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="#000000"><tr><td>
-<table width="100%" border="0" cellpadding="1" cellspacing="2" class="blocktitle" bgcolor="#EDEDED">
-<tr valign="top"><td>__LANG_HOST__: __HOSTNAME__</td></tr>
-__STAT__
-</table></td></tr>
-</table><br/>
-__TMPL_HOST_STOP__
+        __TMPL_HOST_START__
+        <table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="#000000">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="1" cellspacing="2" class="blocktitle" bgcolor="#EDEDED">
+                        <tr valign="top">
+                            <td>__LANG_HOST__: __HOSTNAME__</td>
+                        </tr>
+                        __STAT__
+                    </table>
+                </td>
+            </tr>
+        </table><br />
+        __TMPL_HOST_STOP__
 
-__HOSTLIST_DRAW__
+        __HOSTLIST_DRAW__
 
 
 </body>
+
 </html>

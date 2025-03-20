@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage ReCaptcha
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,9 +34,9 @@ require_once 'Zend/Service/ReCaptcha/Response.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage ReCaptcha
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ReCaptcha.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version    $Id$
  */
 class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 {
@@ -87,13 +87,13 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'ssl' => false, /* Use SSL or not when generating the recaptcha */
         'error' => null, /* The error message to display in the recaptcha */
         'xhtml' => false /* Enable XHTML output (this will not be XHTML Strict
                             compliant since the IFRAME is necessary when
                             Javascript is disabled) */
-    );
+    ];
 
     /**
      * Options for tailoring reCaptcha
@@ -102,10 +102,11 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      *
      * @var array
      */
-    protected $_options = array(
-        'theme' => 'red',
-        'lang' => 'en',
-    );
+    protected $_options = [
+        'theme'               => 'red',
+        'lang'                => 'en',
+        'custom_translations' => [],
+    ];
 
     /**
      * Response from the verify server
@@ -373,10 +374,11 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      *
      * This method uses the public key to fetch a recaptcha form.
      *
+     * @param  null|string $name Base name for recaptcha form elements
      * @return string
      * @throws Zend_Service_ReCaptcha_Exception
      */
-    public function getHtml()
+    public function getHtml($name = null)
     {
         if ($this->_publicKey === null) {
             /** @see Zend_Service_ReCaptcha_Exception */
@@ -415,6 +417,12 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 </script>
 SCRIPT;
         }
+        $challengeField = 'recaptcha_challenge_field';
+        $responseField  = 'recaptcha_response_field';
+        if (!empty($name)) {
+            $challengeField = $name . '[' . $challengeField . ']';
+            $responseField  = $name . '[' . $responseField . ']';
+        }
 
         $return = $reCaptchaOptions;
         $return .= <<<HTML
@@ -426,9 +434,9 @@ HTML;
 <noscript>
    <iframe src="{$host}/noscript?k={$this->_publicKey}{$errorPart}"
        height="300" width="500" frameborder="0"></iframe>{$htmlBreak}
-   <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+   <textarea name="{$challengeField}" rows="3" cols="40">
    </textarea>
-   <input type="hidden" name="recaptcha_response_field"
+   <input type="hidden" name="{$responseField}"
        value="manual_challenge"{$htmlInputClosing}
 </noscript>
 HTML;
@@ -460,26 +468,14 @@ HTML;
             throw new Zend_Service_ReCaptcha_Exception('Missing ip address');
         }
 
-        if (empty($challengeField)) {
-            /** @see Zend_Service_ReCaptcha_Exception */
-            require_once 'Zend/Service/ReCaptcha/Exception.php';
-            throw new Zend_Service_ReCaptcha_Exception('Missing challenge field');
-        }
-
-        if (empty($responseField)) {
-            /** @see Zend_Service_ReCaptcha_Exception */
-            require_once 'Zend/Service/ReCaptcha/Exception.php';
-
-            throw new Zend_Service_ReCaptcha_Exception('Missing response field');
-        }
-
         /* Fetch an instance of the http client */
         $httpClient = self::getHttpClient();
+        $httpClient->resetParameters(true);
 
-        $postParams = array('privatekey' => $this->_privateKey,
+        $postParams = ['privatekey' => $this->_privateKey,
                             'remoteip'   => $this->_ip,
                             'challenge'  => $challengeField,
-                            'response'   => $responseField);
+                            'response'   => $responseField];
 
         /* Make the POST and return the response */
         return $httpClient->setUri(self::VERIFY_SERVER)

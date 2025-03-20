@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Term.php,v 1.1.2.3 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Index_Term
@@ -67,6 +67,7 @@ class Zend_Search_Lucene_Index_Term
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->field . chr(0) . $this->text;
@@ -83,10 +84,13 @@ class Zend_Search_Lucene_Index_Term
     {
         $prefixBytes = 0;
         $prefixChars = 0;
+
         while ($prefixBytes < strlen($str)  &&  $prefixChars < $length) {
             $charBytes = 1;
+
             if ((ord($str[$prefixBytes]) & 0xC0) == 0xC0) {
                 $charBytes++;
+
                 if (ord($str[$prefixBytes]) & 0x20 ) {
                     $charBytes++;
                     if (ord($str[$prefixBytes]) & 0x10 ) {
@@ -111,7 +115,7 @@ class Zend_Search_Lucene_Index_Term
      * Get UTF-8 string length
      *
      * @param string $str
-     * @return string
+     * @return int
      */
     public static function getLength($str)
     {

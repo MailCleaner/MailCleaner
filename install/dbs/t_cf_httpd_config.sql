@@ -6,7 +6,7 @@ CREATE TABLE httpd_config (
   set_id			int(11) NOT NULL DEFAULT 1,
   serveradmin			varchar(150) NOT NULL DEFAULT 'postmaster@localhost',
   servername			varchar(150) NOT NULL DEFAULT 'localhost',
-  use_ssl			enum('true','false') NOT NULL DEFAULT 'true',
+  use_ssl			enum('true','false') NOT NULL DEFAULT 'false',
   timeout			int(5) NOT NULL DEFAULT 300,
   keepalivetimeout		int(5) NOT NULL DEFAULT 100,
   min_servers			int(5) NOT NULL DEFAULT 3,

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Provides compatibility with SystemD sockets using old init script paths.
+# Running this directly will not work, since $0 must be the name of a real
+# socket. Instead, each socket should be symlinked here.
+
+SERVICE=$(echo $0 | sed -r 's/(.*\/)?([^\/]*)$/\2/')
+SOCKET=$SERVICE.socket
+ACTION=$1
+
+echo -n "$ACTION $SOCKET: "
+if [[ $ACTION == 'restart' ]]; then
+    systemctl stop $SERVICE
+    systemctl stop $SOCKET
+    systemctl start $SOCKET 
+    systemctl start $SERVICE 
+else
+    systemctl $@ $SERVICE 2>/dev/null
+    systemctl $@ $SOCKET 2>/dev/null
+fi
+STATUS=$(systemctl is-active $SERVICE)
+echo $STATUS

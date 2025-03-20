@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FeedAbstract.php,v 1.1.2.1 2011-05-30 08:31:09 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -55,17 +55,22 @@ require_once 'Zend/Validate/EmailAddress.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Feed_FeedAbstract
 {
     /**
+     * @var array
+     */
+    protected $_extensions = [];
+
+    /**
      * Contains all Feed level date to append in feed output
      *
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -91,11 +96,11 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      * Set a single author
      *
      * @param  int $index
-     * @return string|null
+     * @return void
      */
     public function addAuthor($name, $email = null, $uri = null)
     {
-        $author = array();
+        $author = [];
         if (is_array($name)) {
             if (!array_key_exists('name', $name) || empty($name['name']) || !is_string($name['name'])) {
                 require_once 'Zend/Feed/Exception.php';
@@ -117,7 +122,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
                 $author['uri'] = $name['uri'];
             }
         } else {
-            if (empty($name['name']) || !is_string($name['name'])) {
+            if (empty($name) || !is_string($name)) {
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string value');
             }
@@ -143,7 +148,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set an array with feed authors
      *
-     * @return array
+     * @return void
      */
     public function addAuthors(array $authors)
     {
@@ -155,7 +160,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the copyright entry
      *
-     * @return string|null
+     * @return void
      */
     public function setCopyright($copyright)
     {
@@ -169,17 +174,17 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed creation date
      *
-     * @param null|integer|Zend_Date
+     * @param null|integer|Zend_Date $date
      */
     public function setDateCreated($date = null)
     {
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -190,17 +195,17 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed modification date
      *
-     * @param null|integer|Zend_Date
+     * @param null|integer|Zend_Date $date
      */
     public function setDateModified($date = null)
     {
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -211,17 +216,17 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed last-build date. Ignored for Atom 1.0.
      *
-     * @param null|integer|Zend_Date
+     * @param null|integer|Zend_Date $date
      */
     public function setLastBuildDate($date = null)
     {
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -232,7 +237,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed description
      *
-     * @return string|null
+     * @return void
      */
     public function setDescription($description)
     {
@@ -246,7 +251,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed generator entry
      *
-     * @return string|null
+     * @return void
      */
     public function setGenerator($name, $version = null, $uri = null)
     {
@@ -256,7 +261,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string');
             }
-            $generator = array('name' => $data['name']);
+            $generator = ['name' => $data['name']];
             if (isset($data['version'])) {
                 if (empty($data['version']) || !is_string($data['version'])) {
                     require_once 'Zend/Feed/Exception.php';
@@ -276,7 +281,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string');
             }
-            $generator = array('name' => $name);
+            $generator = ['name' => $name];
             if (isset($version)) {
                 if (empty($version) || !is_string($version)) {
                     require_once 'Zend/Feed/Exception.php';
@@ -322,16 +327,21 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (preg_match('/^tag:(?<name>.*),(?<date>\d{4}-?\d{0,2}-?\d{0,2}):(?<specific>.*)(.*:)*$/', $id, $matches)) {
             $dvalid = false;
             $nvalid = false;
+
             $date = $matches['date'];
             $d6 = strtotime($date);
-            if ((strlen($date) == 4) && $date <= date('Y')) {
+            $lenDate = strlen($date);
+
+            if (($lenDate === 4) && $date <= date('Y')) {
                 $dvalid = true;
-            } elseif ((strlen($date) == 7) && ($d6 < strtotime("now"))) {
+            } elseif (($lenDate === 7) && ($d6 < time())) {
                 $dvalid = true;
-            } elseif ((strlen($date) == 10) && ($d6 < strtotime("now"))) {
+            } elseif (($lenDate === 10) && ($d6 < time())) {
                 $dvalid = true;
             }
+
             $validator = new Zend_Validate_EmailAddress;
+
             if ($validator->isValid($matches['name'])) {
                 $nvalid = true;
             } else {
@@ -383,7 +393,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed language
      *
-     * @return string|null
+     * @return void
      */
     public function setLanguage($language)
     {
@@ -411,7 +421,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set a link to an XML feed for any feed type/version
      *
-     * @return string|null
+     * @return void
      */
     public function setFeedLink($link, $type)
     {
@@ -419,7 +429,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "link"" must be a non-empty string and valid URI/IRI');
         }
-        if (!in_array(strtolower($type), array('rss', 'rdf', 'atom'))) {
+        if (!in_array(strtolower($type), ['rss', 'rdf', 'atom'])) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "type"; You must declare the type of feed the link points to, i.e. RSS, RDF or Atom');
         }
@@ -429,7 +439,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set the feed title
      *
-     * @return string|null
+     * @return void
      */
     public function setTitle($title)
     {
@@ -482,7 +492,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             . ' must be a non-empty string and valid URI/IRI');
         }
         if (!isset($this->_data['hubs'])) {
-            $this->_data['hubs'] = array();
+            $this->_data['hubs'] = [];
         }
         $this->_data['hubs'][] = $url;
     }
@@ -523,7 +533,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             }
         }
         if (!isset($this->_data['categories'])) {
-            $this->_data['categories'] = array();
+            $this->_data['categories'] = [];
         }
         $this->_data['categories'][] = $category;
     }
@@ -796,7 +806,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      */
     public function reset()
     {
-        $this->_data = array();
+        $this->_data = [];
     }
 
     /**
@@ -845,7 +855,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         foreach ($this->_extensions as $extension) {
             try {
-                return call_user_func_array(array($extension, $method), $args);
+                return call_user_func_array([$extension, $method], $args);
             } catch (Zend_Feed_Writer_Exception_InvalidMethodException $e) {
             }
         }

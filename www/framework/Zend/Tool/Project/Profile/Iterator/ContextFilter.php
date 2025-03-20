@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ContextFilter.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -25,36 +25,40 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIterator
 {
+    /**
+     * @var mixed|\ReflectionClass
+     */
+    public $ref;
 
     /**
      * @var array
      */
-    protected $_acceptTypes = array();
+    protected $_acceptTypes = [];
 
     /**
      * @var array
      */
-    protected $_denyTypes   = array();
+    protected $_denyTypes   = [];
 
     /**
      * @var array
      */
-    protected $_acceptNames = array();
+    protected $_acceptNames = [];
 
     /**
      * @var array
      */
-    protected $_denyNames   = array();
+    protected $_denyNames   = [];
 
     /**
      * @var array
      */
-    protected $_rawOptions = array();
+    protected $_rawOptions = [];
 
     /**
      * __construct()
@@ -62,7 +66,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
      * @param RecursiveIterator $iterator
      * @param array $options
      */
-    public function __construct(RecursiveIterator $iterator, $options = array())
+    public function __construct(RecursiveIterator $iterator, $options = [])
     {
         parent::__construct($iterator);
         $this->_rawOptions = $options;
@@ -97,7 +101,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     public function setAcceptTypes($acceptTypes)
     {
         if (!is_array($acceptTypes)) {
-            $acceptTypes = array($acceptTypes);
+            $acceptTypes = [$acceptTypes];
         }
 
         $this->_acceptTypes = $acceptTypes;
@@ -113,7 +117,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     public function setDenyTypes($denyTypes)
     {
         if (!is_array($denyTypes)) {
-            $denyTypes = array($denyTypes);
+            $denyTypes = [$denyTypes];
         }
 
         $this->_denyTypes = $denyTypes;
@@ -129,7 +133,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     public function setAcceptNames($acceptNames)
     {
         if (!is_array($acceptNames)) {
-            $acceptNames = array($acceptNames);
+            $acceptNames = [$acceptNames];
         }
 
         foreach ($acceptNames as $n => $v) {
@@ -149,7 +153,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     public function setDenyNames($denyNames)
     {
         if (!is_array($denyNames)) {
-            $denyNames = array($denyNames);
+            $denyNames = [$denyNames];
         }
 
         foreach ($denyNames as $n => $v) {
@@ -165,7 +169,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
      *
      * @return bool
      */
-    public function accept()
+    public function accept(): bool
     {
         $currentItem = $this->current();
 
@@ -194,11 +198,12 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
      * getChildren()
      *
      * This is here due to a bug/design issue in PHP
+     *
+     * @return object
      * @link
      *
-     * @return unknown
      */
-    function getChildren()
+    function getChildren(): ?\RecursiveFilterIterator
     {
 
         if (empty($this->ref)) {

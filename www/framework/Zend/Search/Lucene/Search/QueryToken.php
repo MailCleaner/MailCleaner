@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryToken.php,v 1.1.2.3 2011-05-30 08:30:31 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_QueryToken
@@ -61,7 +61,7 @@ class Zend_Search_Lucene_Search_QueryToken
      */
     public static function getTypes()
     {
-        return array(   self::TT_WORD,
+        return [   self::TT_WORD,
                         self::TT_PHRASE,
                         self::TT_FIELD,
                         self::TT_FIELD_INDICATOR,
@@ -80,7 +80,7 @@ class Zend_Search_Lucene_Search_QueryToken
                         self::TT_NOT_LEXEME,
                         self::TT_TO_LEXEME,
                         self::TT_NUMBER
-                     );
+                     ];
     }
 
 

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php,v 1.1.2.4 2011-05-30 08:30:41 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Application/Resource/ResourceAbstract.php';
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Session extends Zend_Application_Resource_ResourceAbstract
@@ -50,7 +50,7 @@ class Zend_Application_Resource_Session extends Zend_Application_Resource_Resour
      *
      * @param  array|string|Zend_Session_SaveHandler_Interface $saveHandler
      * @return Zend_Application_Resource_Session
-     * @throws Zend_Application_Resource_Exception When $saveHandler is no valid save handler
+     * @throws Zend_Application_Resource_Exception When $saveHandler is not a valid save handler
      */
     public function setSaveHandler($saveHandler)
     {
@@ -62,6 +62,7 @@ class Zend_Application_Resource_Session extends Zend_Application_Resource_Resour
      * Get session save handler
      *
      * @return Zend_Session_SaveHandler_Interface
+     * @throws Zend_Application_Resource_Exception
      */
     public function getSaveHandler()
     {
@@ -70,7 +71,7 @@ class Zend_Application_Resource_Session extends Zend_Application_Resource_Resour
                 if (!array_key_exists('class', $this->_saveHandler)) {
                     throw new Zend_Application_Resource_Exception('Session save handler class not provided in options');
                 }
-                $options = array();
+                $options = [];
                 if (array_key_exists('options', $this->_saveHandler)) {
                     $options = $this->_saveHandler['options'];
                 }

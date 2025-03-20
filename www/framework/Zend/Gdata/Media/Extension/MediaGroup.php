@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Media
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: MediaGroup.php,v 1.1.2.3 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -106,7 +106,7 @@ require_once 'Zend/Gdata/Media/Extension/MediaTitle.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Media
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
@@ -118,12 +118,12 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     /**
      * @var array
      */
-    protected $_content = array();
+    protected $_content = [];
 
     /**
      * @var array
      */
-    protected $_category = array();
+    protected $_category = [];
 
     /**
      * @var Zend_Gdata_Media_Extension_MediaCopyright
@@ -133,7 +133,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     /**
      * @var array
      */
-    protected $_credit = array();
+    protected $_credit = [];
 
     /**
      * @var Zend_Gdata_Media_Extension_MediaDescription
@@ -143,7 +143,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     /**
      * @var array
      */
-    protected $_hash = array();
+    protected $_hash = [];
 
     /**
      * @var Zend_Gdata_Media_Extension_MediaKeywords
@@ -153,27 +153,27 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     /**
      * @var array
      */
-    protected $_player = array();
+    protected $_player = [];
 
     /**
      * @var array
      */
-    protected $_rating = array();
+    protected $_rating = [];
 
     /**
      * @var array
      */
-    protected $_restriction = array();
+    protected $_restriction = [];
 
     /**
      * @var array
      */
-    protected $_mediaText = array();
+    protected $_mediaText = [];
 
     /**
      * @var array
      */
-    protected $_thumbnail = array();
+    protected $_thumbnail = [];
 
     /**
      * @var string
@@ -339,7 +339,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Media_MediaGroup Provides a fluent interface
+     * @return $this
      */
     public function setContent($value)
     {
@@ -402,7 +402,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @return Zend_Gdata_Media_Extension_MediaTitle
+     * @return string|null
      */
     public function getTitle()
     {
@@ -465,7 +465,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Media_Extension_MediaGroup Provides a fluent interface
+     * @return $this
      */
     public function setKeywords($value)
     {
@@ -482,7 +482,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array
+     * @param array $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setPlayer($value)
@@ -500,7 +500,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array
+     * @param array $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setRating($value)
@@ -518,7 +518,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array
+     * @param array $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setRestriction($value)
@@ -536,7 +536,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array
+     * @param array $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setThumbnail($value)
@@ -554,7 +554,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array
+     * @param array $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setMediaText($value)

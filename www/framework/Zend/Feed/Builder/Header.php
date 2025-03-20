@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Header.php,v 1.1.2.4 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -39,7 +39,7 @@ require_once 'Zend/Uri.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Builder_Header extends ArrayObject
@@ -323,9 +323,9 @@ class Zend_Feed_Builder_Header extends ArrayObject
         if (!$uri->getPort()) {
             $uri->setPort(80);
         }
-        $this->offsetSet('cloud', array('uri' => $uri,
+        $this->offsetSet('cloud', ['uri' => $uri,
                                         'procedure' => $procedure,
-                                        'protocol' => $protocol));
+                                        'protocol' => $protocol]);
         return $this;
     }
 
@@ -341,10 +341,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      */
     public function setTextInput($title, $description, $name, $link)
     {
-        $this->offsetSet('textInput', array('title' => $title,
+        $this->offsetSet('textInput', ['title' => $title,
                                             'description' => $description,
                                             'name' => $name,
-                                            'link' => $link));
+                                            'link' => $link]);
         return $this;
     }
 
@@ -395,7 +395,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             require_once 'Zend/Feed/Builder/Exception.php';
             throw new Zend_Feed_Builder_Exception("you can not have more than 7 days in the skipDays property");
         }
-        $valid = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+        $valid = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         foreach ($days as $day) {
             if (!in_array(strtolower($day), $valid)) {
                 /**

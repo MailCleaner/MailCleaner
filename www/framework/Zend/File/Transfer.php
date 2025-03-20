@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Transfer.php,v 1.1.2.4 2011-05-30 08:31:09 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Loader.php';
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_File_Transfer
@@ -39,7 +39,7 @@ class Zend_File_Transfer
      *
      * @var array
      */
-    protected $_adapter = array();
+    protected $_adapter = [];
 
     /**
      * Creates a file processing handler
@@ -49,7 +49,7 @@ class Zend_File_Transfer
      * @param  array   $options   OPTIONAL Options to set for this adapter
      * @throws Zend_File_Transfer_Exception
      */
-    public function __construct($adapter = 'Http', $direction = false, $options = array())
+    public function __construct($adapter = 'Http', $direction = false, $options = [])
     {
         $this->setAdapter($adapter, $direction, $options);
     }
@@ -62,7 +62,7 @@ class Zend_File_Transfer
      * @param  array   $options   OPTIONAL Options to set for this adapter
      * @throws Zend_File_Transfer_Exception
      */
-    public function setAdapter($adapter, $direction = false, $options = array())
+    public function setAdapter($adapter, $direction = false, $options = [])
     {
         if (Zend_Loader::isReadable('Zend/File/Transfer/Adapter/' . ucfirst($adapter). '.php')) {
             $adapter = 'Zend_File_Transfer_Adapter_' . ucfirst($adapter);
@@ -116,7 +116,7 @@ class Zend_File_Transfer
         }
 
         if (method_exists($this->_adapter[$direction], $method)) {
-            return call_user_func_array(array($this->_adapter[$direction], $method), $options);
+            return call_user_func_array([$this->_adapter[$direction], $method], $options);
         }
 
         require_once 'Zend/File/Transfer/Exception.php';

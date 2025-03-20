@@ -1,56 +1,60 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="generalconfigpanel">
-  <p class="contentheadicon"><img src="<?php echo $this->images_path?>/config_icon.png" alt="" />&nbsp;</p>
-  <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu)?> : <?php echo $this->t->_('Administrators')?></p>
+    <p class="contentheadicon"><img src="<?php echo $this->images_path ?>/config_icon.png" alt="" />&nbsp;</p>
+    <p class="contentheadtitle"><?php echo $this->t->_($this->selectedSubMenu) ?> : <?php echo $this->t->_('Administrators') ?></p>
 
-  <div id="domainnavigpanel">
-    <ul id="domainnavoptions">
-      <li class="domainoptiontop" onclick="javascript:loadurl('<?php echo $this->addurl?>')"><span><a href="<?php echo $this->addurl?>"><?php echo $this->t->_('New administrator');?></a></span><img src="<?php echo $this->images_path?>/domainaddbutton.png" alt="add" /></li>
-    </ul>
- 
-    <div id="searchpanel">
-      <form id="searchform" action="">
-        <p id="searchlabel"><?php echo $this->t->_('Administrator specific settings')?></p>
-        <div><input type="text" id="sname" value="<?php echo $this->sname?>" /></div>
-      </form>
+    <div id="domainnavigpanel">
+        <ul id="domainnavoptions">
+            <li class="domainoptiontop" onclick="javascript:loadurl('<?php echo $this->addurl ?>')"><span><a href="<?php echo $this->addurl ?>"><?php echo $this->t->_('New administrator'); ?></a></span><img src="<?php echo $this->images_path ?>/domainaddbutton.png" alt="add" /></li>
+        </ul>
+
+        <div id="searchpanel">
+            <form id="searchform" action="">
+                <p id="searchlabel"><?php echo $this->t->_('Administrator specific settings') ?></p>
+                <div><input type="text" id="sname" value="<?php echo $this->sname ?>" /></div>
+            </form>
+        </div>
+        <div id="resultpanel">
+            <?php echo $this->partial(
+                'ajax/accesses/search.phtml',
+                [
+                    'admins' => $this->admins,
+                    'adminscount' => $this->adminscount,
+                    'page' => $this->page,
+                    'lastpage' => $this->lastpage,
+                    'images_path' => $this->images_path,
+                    'sname' => $this->sname,
+                    'username' => $this->username,
+                    'searchurl' => $this->searchurl,
+                    't' => $this->t,
+                ]
+            ); ?>
+        </div>
     </div>
-    <div id="resultpanel">
-<?php echo $this->partial('ajax/accesses/search.phtml', array(
-                         'admins' => $this->admins,
-                         'adminscount' => $this->adminscount,
-                         'page' => $this->page,
-                         'lastpage' => $this->lastpage,
-                         'images_path' => $this->images_path,
-                         'sname' => $this->sname,
-                         'username' => $this->username,
-                         'searchurl' => $this->searchurl,
-                         't' => $this->t,
-)); ?>   
+
+
+    <div id="domaincontentpanel">
+        <div id="adminconfigpanel" class="domainconfigpanel">
+
+            <h1><img class="importantimg" src="<?php echo $this->images_path ?>/warning.png" alt="warning" /><?php echo $this->t->_('Removing administrator') ?>
+                <span class="removedomainlink"><a href="<?php echo $this->backurl ?>"><?php echo $this->t->_('Back...') ?></a></span>
+            </h1>
+            <div id="domainalertcontent">
+                <h3><?php echo $this->t->_('Username'); ?> : <strong><?php echo $this->admin->getParam('username') ?></strong>
+                </h3>
+                <p><?php echo $this->t->_('You are about to remove an administrator'); ?></p>
+                <div class="removedomain" id="removedomainonly"><a href="<?php echo $this->removeurldomain; ?>"><?php echo $this->t->_('Remove administrator'); ?></a></div>
+            </div>
+
+        </div>
+
     </div>
-  </div>
- 
- 
-  <div id="domaincontentpanel">
-    <div id="adminconfigpanel" class="domainconfigpanel">
-  
-     <h1><img class="importantimg" src="<?php echo $this->images_path?>/warning.png" alt="warning" /><?php echo $this->t->_('Removing administrator')?>
-          <span class="removedomainlink"><a href="<?php echo $this->backurl?>"><?php echo $this->t->_('Back...')?></a></span> 
-     </h1>
-    <div id="domainalertcontent">
-    <h3><?php echo $this->t->_('Username');?> : <strong><?php echo $this->admin->getParam('username')?></strong>
-    </h3>
-    <p><?php echo $this->t->_('You are about to remove an administrator');?></p>
-    <div class="removedomain" id="removedomainonly"><a href="<?php echo $this->removeurldomain;?>"><?php echo $this->t->_('Remove administrator');?></a></div>
-    </div>
-    
-   </div>
-   
- </div>
 </div>

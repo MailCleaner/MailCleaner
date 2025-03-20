@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Editor.php,v 1.1.2.3 2011-05-30 08:30:50 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_Form_Element_Dijit */
@@ -30,7 +30,7 @@ require_once 'Zend/Dojo/Form/Element/Dijit.php';
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
@@ -94,7 +94,7 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
     public function getCaptureEvents()
     {
         if (!$this->hasDijitParam('captureEvents')) {
-            return array();
+            return [];
         }
         return $this->getDijitParam('captureEvents');
     }
@@ -193,7 +193,7 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
     public function getEvents()
     {
         if (!$this->hasDijitParam('events')) {
-            return array();
+            return [];
         }
         return $this->getDijitParam('events');
     }
@@ -291,7 +291,7 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
     public function getPlugins()
     {
         if (!$this->hasDijitParam('plugins')) {
-            return array();
+            return [];
         }
         return $this->getDijitParam('plugins');
     }
@@ -483,7 +483,7 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
         } elseif (!empty($stylesheets)) {
             $stylesheets = (array) $stylesheets;
         } else {
-            $stylesheets = array();
+            $stylesheets = [];
         }
         if (!in_array($styleSheet, $stylesheets)) {
             $stylesheets[] = (string) $styleSheet;
@@ -595,5 +595,103 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
              return 200;
         }
         return $this->getDijitParam('updateInterval');
+    }
+
+    /**
+     * Add a single editor extra plugin.
+     *
+     * @param  string $plugin
+     * @return Zend_Dojo_Form_Element_Editor
+     */
+    public function addExtraPlugin($plugin)
+    {
+        $plugin = (string) $plugin;
+        $extraPlugins = $this->getExtraPlugins();
+        if (in_array($plugin, $extraPlugins)) {
+            return $this;
+        }
+
+        $extraPlugins[] = (string) $plugin;
+        $this->setDijitParam('extraPlugins', $extraPlugins);
+        return $this;
+    }
+
+    /**
+     * Add multiple extra plugins.
+     *
+     * @param  array $extraPlugins
+     * @return Zend_Dojo_Form_Element_Editor
+     */
+    public function addExtraPlugins(array $plugins)
+    {
+        foreach ($plugins as $plugin) {
+            $this->addExtraPlugin($plugin);
+        }
+        return $this;
+    }
+
+    /**
+     * Overwrite many extra plugins at once.
+     *
+     * @param  array $plugins
+     * @return Zend_Dojo_Form_Element_Editor
+     */
+    public function setExtraPlugins(array $plugins)
+    {
+        $this->clearExtraPlugins();
+        $this->addExtraPlugins($plugins);
+        return $this;
+    }
+
+    /**
+     * Get all extra plugins.
+     *
+     * @return array
+     */
+    public function getExtraPlugins()
+    {
+        if (!$this->hasDijitParam('extraPlugins')) {
+            return [];
+        }
+        return $this->getDijitParam('extraPlugins');
+    }
+
+    /**
+     * Is a given extra plugin registered?
+     *
+     * @param  string $plugin
+     * @return bool
+     */
+    public function hasExtraPlugin($plugin)
+    {
+        $extraPlugins = $this->getExtraPlugins();
+        return in_array((string) $plugin, $extraPlugins);
+    }
+
+    /**
+     * Remove a given extra plugin.
+     *
+     * @param  string $plugin
+     * @return Zend_Dojo_Form_Element_Editor
+     */
+    public function removeExtraPlugin($plugin)
+    {
+        $extraPlugins = $this->getExtraPlugins();
+        if (false === ($index = array_search($plugin, $extraPlugins))) {
+            return $this;
+        }
+        unset($extraPlugins[$index]);
+        $this->setDijitParam('extraPlugins', $extraPlugins);
+        return $this;
+    }
+
+    /**
+     * Clear all extra plugins.
+     *
+     * @return Zend_Dojo_Form_Element_Editor
+     */
+    public function clearExtraPlugins()
+    {
+        return $this->removeDijitParam('extraPlugins');
     }
 }

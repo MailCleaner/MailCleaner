@@ -1,49 +1,51 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php if ($this->loading) {?>
-<div id="dataloading">
-<img src="<?php echo $this->images_path?>/loadinggrey.gif" alt="loading" />
-<p><?php echo $this->t->_('Gathering data, this may take a while...')?></p>
-</div>
-<?php } else {?>
+<?php if ($this->loading) { ?>
+    <div id="dataloading">
+        <img src="<?php echo $this->images_path ?>/loadinggrey.gif" alt="loading" />
+        <p><?php echo $this->t->_('Gathering data, this may take a while...') ?></p>
+    </div>
+<?php } else { ?>
 
- <?php foreach ($this->log->getCategories() as $c) {?>
- 
-  <table class="stattable logtable">
-  <tr>
-   <td class="stattablehead logtablehead" colspan="2">
-     <p><?php echo $this->t->_($c)?></p>
-   </td>
- </tr>
- <?php foreach ($this->slaves as $slave) {?>
- 
- <?php if (count($this->slaves) > 1) {?>
- <tr class="logrow">
-   <td class="loghostfield"><?php echo $this->t->_('Host ID')?> : <?php echo $slave->getId()?></td>
-   <td></td>
- </tr>
- <?php }?>
-   <?php foreach ($this->logs as $log) {
-     if ($log->getParam('category') == $c && $log->getParam('slave_id') == $slave->getId()) {
-   	?>
-    <tr class="logrow">
-      <td class="lognamefield"><?php echo $log->getParam('name');?> : </td>
-      <?php if ($log->getParam('file') != '') {?>
-      <td class="loglinksfield"><a href="javascript:openLog('<?php echo $this->viewLink."f/".$slave->getId()."-".$log->getParam('shortfile')?>');"><?php echo $this->t->_('view')?></a> | <a href="<?php echo $this->downloadLink."f/".$slave->getId()."-".$log->getParam('shortfile')?>"><?php echo $this->t->_('download')?></a> (<?php echo $log->getSize();?>)</td>
-      <?php } else {?>
-      <td class="loglinksfield"><?php echo $this->t->_('N/A')?></td>
-      <?php }?>
-    </tr>
-   <?php }}?>
- <?php }?>
- 
- 
- </table>
- <?php }?>
-<?php }?>
+    <?php foreach ($this->log->getCategories() as $c) { ?>
+
+        <table class="stattable logtable">
+            <tr>
+                <td class="stattablehead logtablehead" colspan="2">
+                    <p><?php echo $this->t->_($c) ?></p>
+                </td>
+            </tr>
+            <?php foreach ($this->slaves as $slave) { ?>
+
+                <?php if (count($this->slaves) > 1) { ?>
+                    <tr class="logrow">
+                        <td class="loghostfield"><?php echo $this->t->_('Host ID') ?> : <?php echo $slave->getId() ?></td>
+                        <td></td>
+                    </tr>
+                <?php } ?>
+                <?php foreach ($this->logs as $log) {
+                    if ($log->getParam('category') == $c && $log->getParam('slave_id') == $slave->getId()) {
+                ?>
+                        <tr class="logrow">
+                            <td class="lognamefield"><?php echo $log->getParam('name'); ?> : </td>
+                            <?php if ($log->getParam('file') != '') { ?>
+                                <td class="loglinksfield"><a href="javascript:openLog('<?php echo $this->viewLink . "f/" . $slave->getId() . "-" . $log->getParam('shortfile') ?>');"><?php echo $this->t->_('view') ?></a> | <a href="<?php echo $this->downloadLink . "f/" . $slave->getId() . "-" . $log->getParam('shortfile') ?>"><?php echo $this->t->_('download') ?></a> (<?php echo $log->getSize(); ?>)</td>
+                            <?php } else { ?>
+                                <td class="loglinksfield"><?php echo $this->t->_('N/A') ?></td>
+                            <?php } ?>
+                        </tr>
+                <?php }
+                } ?>
+            <?php } ?>
+
+
+        </table>
+    <?php } ?>
+<?php } ?>

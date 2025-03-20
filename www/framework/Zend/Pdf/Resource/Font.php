@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Font.php,v 1.1.2.3 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Pdf_Resource */
@@ -44,7 +44,7 @@ require_once 'Zend/Pdf/Font.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
@@ -62,7 +62,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
      * Array containing descriptive names for the font. See {@link fontName()}.
      * @var array
      */
-    protected $_fontNames = array();
+    protected $_fontNames = [];
 
     /**
      * Flag indicating whether or not this font is bold.
@@ -524,6 +524,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
         if ($this->_unitsPerEm == 1000) {
             return $value;
         }
+
         return ceil(($value / $this->_unitsPerEm) * 1000);    // always round up
     }
 }

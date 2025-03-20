@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rsa.php,v 1.1.2.1 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Oauth_Signature_SignatureAbstract */
@@ -28,7 +28,7 @@ require_once 'Zend/Crypt/Rsa.php';
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Oauth_Signature_Rsa extends Zend_Oauth_Signature_SignatureAbstract
@@ -45,12 +45,12 @@ class Zend_Oauth_Signature_Rsa extends Zend_Oauth_Signature_SignatureAbstract
     {
         $rsa = new Zend_Crypt_Rsa;
         $rsa->setHashAlgorithm($this->_hashAlgorithm);
-        $sign = $rsa->sign(
+
+        return $rsa->sign(
             $this->_getBaseSignatureString($params, $method, $url),
             $this->_key,
             Zend_Crypt_Rsa::BASE64
         );
-        return $sign;
     }
 
     /**

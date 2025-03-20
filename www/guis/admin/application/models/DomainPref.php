@@ -1,17 +1,18 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * Domain preferences
  */
 
 class Default_Model_DomainPref
 {
     protected $_id;
-    protected $_values = array(
+    protected $_values = [
         'auth_param' => '',
         'systemsender' => '',
         'falseneg_to' => '',
@@ -51,8 +52,8 @@ class Default_Model_DomainPref
         'report_template' => 'default',
         'batv_check' => 0,
         'batv_secret' => '',
-	'prevent_spoof' => 0,
-	'reject_capital_domain' => 0,
+        'prevent_spoof' => 0,
+        'reject_capital_domain' => 0,
         'dkim_domain' => '',
         'dkim_selector' => '',
         'dkim_pkey' => '',
@@ -60,50 +61,57 @@ class Default_Model_DomainPref
         'require_outgoing_tls' => 0,
         'archive_mail' => 0,
         'copyto_mail' => '',
-        
+
         ### newsl
         'allow_newsletters' => '0',
-    );
-	
-	protected $_mapper;
-	
-	public function setId($id) {
-	   $this->_id = $id;	
-	}
-	public function getId() {
-		return $this->_id;
-	}
-	
-	public function copy($prefs) {
-		foreach ($this->_values as $key => $value) {
-			$this->setParam($key, $prefs->getParam($key));
-		}
-	}
-	
-	public function setParam($param, $value) {
-		if (array_key_exists($param, $this->_values)) {
-			$this->_values[$param] = $value;
-		}
-	}
-	
-	public function getParam($param) {
-		if (array_key_exists($param, $this->_values)) {
-			return $this->_values[$param];
-		}
-		return null;
-	}
-	
-	public function getAvailableParams() {
-		$ret = array();
-		foreach ($this->_values as $key => $value) {
-			$ret[]=$key;
-		}
-		return $ret;
-	}
-	
-	public function getParamArray() {
-		return $this->_values;
-	}
+    ];
+
+    protected $_mapper;
+
+    public function setId($id)
+    {
+        $this->_id = $id;
+    }
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    public function copy($prefs)
+    {
+        foreach ($this->_values as $key => $value) {
+            $this->setParam($key, $prefs->getParam($key));
+        }
+    }
+
+    public function setParam($param, $value)
+    {
+        if (array_key_exists($param, $this->_values)) {
+            $this->_values[$param] = $value;
+        }
+    }
+
+    public function getParam($param)
+    {
+        if (array_key_exists($param, $this->_values)) {
+            return $this->_values[$param];
+        }
+        return null;
+    }
+
+    public function getAvailableParams()
+    {
+        $ret = [];
+        foreach ($this->_values as $key => $value) {
+            $ret[] = $key;
+        }
+        return $ret;
+    }
+
+    public function getParamArray()
+    {
+        return $this->_values;
+    }
 
     public function setMapper($mapper)
     {
@@ -119,21 +127,23 @@ class Default_Model_DomainPref
         return $this->_mapper;
     }
 
-    public function load() {
-    	return $this->find(1);
+    public function load()
+    {
+        return $this->find(1);
     }
     public function find($id)
     {
         $this->getMapper()->find($id, $this);
         return $this;
     }
-   
+
     public function save($global = false)
     {
         return $this->getMapper()->save($this, $global);
     }
- 
-    public function delete() {
-    	return $this->getmapper()->delete($this);
+
+    public function delete()
+    {
+        return $this->getmapper()->delete($this);
     }
 }

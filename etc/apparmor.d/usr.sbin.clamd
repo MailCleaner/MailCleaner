@@ -1,0 +1,119 @@
+#include <tunables/global>
+
+/usr/bin/freshclam flags=(attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/openssl>
+
+  capability dac_override,
+
+  capability chown,
+  capability setgid,
+  capability setuid,
+
+  @{PROC}/filesystems r,
+  owner @{PROC}/[0-9]*/status r,
+
+  /usr/mailcleaner/etc/clamav/clamd.conf r,
+  /usr/mailcleaner/etc/clamav/freshclam.conf r,
+
+  /etc/clamav/clamd.conf r,
+  /etc/clamav/freshclam.conf r,
+  /etc/clamav/onerrorexecute.d/* mr,
+  /etc/clamav/onupdateexecute.d/* mr,
+  /etc/clamav/virusevent.d/* mr,
+
+  owner @{HOME}/.clamtk/db/ rw,
+  owner @{HOME}/.clamtk/db/** rwk,
+
+  owner @{HOME}/.klamav/database/ rw,
+  owner @{HOME}/.klamav/database/** rwk,
+
+  /usr/bin/freshclam mr,
+
+  /var/lib/clamav/ r,
+  /var/lib/clamav/** krw,
+  /var/log/clamav/* krw,
+
+  /var/mailcleaner/log/clamav/** krw,
+  /var/mailcleaner/spool/clamav/** krw,
+
+  /{,var/}run/clamav/freshclam.pid w,
+  /{,var/}run/clamav/clamd.ctl rw,
+  /{,var/}run/clamav/clamd.pid r,
+
+  /tmp/ rw,
+  /tmp/** krw,
+
+  /var/spool/clamsmtp/* r,
+
+  /var/spool/qpsmtpd/* r,
+
+  /var/spool/p3scan/children/** r,
+
+  /var/spool/havp/** r,
+
+  deny /{,var/}run/samba/{gencache,unexpected}.tdb mrwkl,
+}
+
+
+/usr/sbin/clamd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/user-tmp>
+
+  capability dac_override,
+
+  capability setgid,
+  capability setuid,
+  capability chown,
+
+  @{PROC}/filesystems r,
+  @{PROC}/[0-9]*/status r,
+
+  /usr/mailcleaner/etc/clamav/clamd.conf r,
+  /usr/mailcleaner/etc/clamav/clamav.conf r,
+  /usr/mailcleaner/etc/clamav/clamspamd.conf r,
+
+  /etc/clamav/clamd.conf r,
+  /etc/clamav/onerrorexecute.d/* mr,
+  /etc/clamav/onupdateexecute.d/* mr,
+  /etc/clamav/virusevent.d/* mr,
+
+  owner @{HOME}/.clamtk/db/ rw,
+  owner @{HOME}/.clamtk/db/** rwk,
+
+  owner @{HOME}/.klamav/database/ rw,
+  owner @{HOME}/.klamav/database/** rwk,
+
+  /usr/sbin/clamd mr,
+
+  /var/lib/clamav/ r,
+  /var/lib/clamav/** krw,
+  /var/log/clamav/* krw,
+
+  /var/mailcleaner/log/clamav/** krw,
+  /var/mailcleaner/run/clamav/** krw,
+  /var/mailcleaner/spool/** r,
+
+  /{,var/}run/clamav/clamd.ctl w,
+  /{,var/}run/clamav/clamd.pid w,
+
+  /tmp/ rw,
+  /tmp/** krw,
+
+  /var/spool/clamsmtp/* r,
+
+  /var/spool/qpsmtpd/* r,
+
+  /var/spool/p3scan/children/** r,
+
+  /var/spool/havp/** r,
+
+  /var/mailcleaner/spool/exim_stage2/** r,
+  /var/mailcleaner/spool/mailscanner/** r,
+
+  deny /{,var/}run/samba/{gencache,unexpected}.tdb mrwkl,
+}

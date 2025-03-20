@@ -1,0 +1,3 @@
+meta       ARC_SIGNED  ( __ARC_AAR && __ARC_AS && __ARC_AMS && T_DKIM_INVALID )
+score          T_DKIM_INVALID 1.4
+score          ARC_SIGNED     -2.0

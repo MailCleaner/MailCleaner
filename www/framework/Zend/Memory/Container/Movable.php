@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Movable.php,v 1.1.2.3 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Memory_Container */
@@ -32,7 +32,7 @@ require_once 'Zend/Memory/Value.php';
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory_Container_Movable extends Zend_Memory_Container {
@@ -115,7 +115,7 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
     /**
      * Return true if object is locked
      *
-     * @return boolean
+     * @return int
      */
     public function isLocked()
     {
@@ -129,7 +129,7 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
      * Swaps objects from the bottom of loaded objects list, if necessary.
      *
      * @param string $property
-     * @return string
+     * @return Zend_Memory_Value
      * @throws Zend_Memory_Exception
      */
     public function __get($property)
@@ -262,8 +262,8 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
     /**
      * Check if object is marked as swapped
      *
+     * @return int
      * @internal
-     * @return boolean
      */
     public function isSwapped()
     {

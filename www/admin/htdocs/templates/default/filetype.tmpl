@@ -1,63 +1,79 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>File type settings</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
- <script language="javascript">
+    <script language="javascript">
 
-    function rowOverEffect(object) {
-      if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
-    }
+        function rowOverEffect(object) {
+            if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
+        }
 
-    function rowOutEffect(object) {
-      if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
-    }
- </script>
+        function rowOutEffect(object) {
+            if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
+        }
+    </script>
 
-  </head>
+</head>
+
 <body onLoad="__RELOAD_NAV_JS__">
-<center>
-<br/><br/>
-<table width="85%" border="0" cellpadding="1" cellspacing="0" bgcolor="black"><tr><td>
-<table width="100%" border="0" cellpadding="3" cellspacing="0" class="blocktext">
+    <center>
+        <br /><br />
+        <table width="85%" border="0" cellpadding="1" cellspacing="0" bgcolor="black">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="blocktext">
 
-  <tr class="infoBoxHeading">
-    <td>&nbsp;</td>
-    <td>__LANG_ACTION__</td>
-    <td>__LANG_TYPE__</td>
-    <td>__LANG_DESCRIPTION__</td>
-    <td>&nbsp;</td>
-  </tr>
+                        <tr class="infoBoxHeading">
+                            <td>&nbsp;</td>
+                            <td>__LANG_ACTION__</td>
+                            <td>__LANG_TYPE__</td>
+                            <td>__LANG_DESCRIPTION__</td>
+                            <td>&nbsp;</td>
+                        </tr>
 
-  <tr class="dataTableRow"><td colspan="5" align="center"><font color="red">__SAVE_STATUS__</font></td></tr>
+                        <tr class="dataTableRow">
+                            <td colspan="5" align="center">
+                                <font color="red">__SAVE_STATUS__</font>
+                            </td>
+                        </tr>
 
-__TMPL_EXTENTIONLIST_START__
+                        __TMPL_EXTENTIONLIST_START__
 
-__FORM_BEGIN_EDIT__
-<tr class="dataTableRow"  onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
- <td>&nbsp;<a name="__RULE_ID__"></a></td>
- <td>__STATUS__</td>
- <td><nobr>__TYPE__</nobr></td>
- <td>__DESCRIPTION__</td>
- __IF_NOTSELECTED__<td align="right" onClick="__SELECTLINE_LINK__"><img src="templates/default/images/pencil.gif" border="0"></td>__FI__
- __IF_SELECTED__<td align="right"><img onClick="__SUBMIT_EDIT_LINK__" src="templates/default/images/dosearch.gif" border="0"></td>__FI__
-</tr>
-__FORM_CLOSE_EDIT__
+                        __FORM_BEGIN_EDIT__
+                        <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+                            <td>&nbsp;<a name="__RULE_ID__"></a></td>
+                            <td>__STATUS__</td>
+                            <td>
+                                <nobr>__TYPE__</nobr>
+                            </td>
+                            <td>__DESCRIPTION__</td>
+                            __IF_NOTSELECTED__<td align="right" onClick="__SELECTLINE_LINK__"><img
+                                    src="templates/default/images/pencil.gif" border="0"></td>__FI__
+                            __IF_SELECTED__<td align="right"><img onClick="__SUBMIT_EDIT_LINK__"
+                                    src="templates/default/images/dosearch.gif" border="0"></td>__FI__
+                        </tr>
+                        __FORM_CLOSE_EDIT__
 
-__TMPL_EXTENTIONLIST_STOP__
+                        __TMPL_EXTENTIONLIST_STOP__
 
-__FILENAMELIST_DRAW__
+                        __FILENAMELIST_DRAW__
 
-  <tr class="infoBoxHeading">
-    <td colspan="5" align="center"><a href="javascript:window.close()">close</a></td> 
-  </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="5" align="center"><a href="javascript:window.close()">close</a></td>
+                        </tr>
 
-</table></td></tr>
-</table>
-<br/><br/>
-</center>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+    </center>
 </body>
+
 </html>

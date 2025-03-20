@@ -1,0 +1,2 @@
+user/htdocs/templates/*
+!user/htdocs/templates/default

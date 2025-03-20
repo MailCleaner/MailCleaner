@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.3 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Request_Abstract
@@ -73,7 +73,7 @@ abstract class Zend_Controller_Request_Abstract
      * Request parameters
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Retrieve the module name
@@ -312,7 +312,7 @@ abstract class Zend_Controller_Request_Abstract
     {
         $this->_params = $this->_params + (array) $array;
 
-        foreach ($this->_params as $key => $value) {
+        foreach ($array as $key => $value) {
             if (null === $value) {
                 unset($this->_params[$key]);
             }
@@ -328,7 +328,7 @@ abstract class Zend_Controller_Request_Abstract
      */
     public function clearParams()
     {
-        $this->_params = array();
+        $this->_params = [];
         return $this;
     }
 

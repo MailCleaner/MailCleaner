@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Item.php,v 1.1.2.1 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
@@ -53,7 +53,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      * Sets the data
      *
      * @param  array $data
-     * @return Zend_Ldap_Node_Schema_Item Provides a fluid interface
+     * @return $this
      */
     public function setData(array $data)
     {
@@ -108,7 +108,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      * @return null
      * @throws BadMethodCallException
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
         throw new BadMethodCallException();
     }
@@ -119,6 +119,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      * @param  string $name
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->__get($name);
@@ -134,7 +135,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      * @return null
      * @throws BadMethodCallException
      */
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         throw new BadMethodCallException();
     }
@@ -145,7 +146,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      * @param  string $name
      * @return boolean
      */
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return $this->__isset($name);
     }
@@ -156,7 +157,7 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_data);
     }

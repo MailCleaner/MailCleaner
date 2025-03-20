@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  *
  * Slave host
  */
@@ -18,27 +19,34 @@ class Default_Model_Slave
 
     protected $_mapper;
 
-    public function setId($id) {
-       $this->_id = $id;
+    public function setId($id)
+    {
+        $this->_id = $id;
     }
-    public function getId() {
+
+    public function getId()
+    {
         return $this->_id;
     }
 
-    public function setHostname($hostname, $port = 3307) {
-       $this->_hostname = $hostname;
-       $this->_port = $port;
+    public function setHostname($hostname, $port = 3307)
+    {
+        $this->_hostname = $hostname;
+        $this->_port = $port;
     }
 
-    public function getHostname() {
+    public function getHostname()
+    {
         return $this->_hostname;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->_password = $password;
     }
 
-    public function getPassword($password) {
+    public function getPassword($password)
+    {
         $this->_password = $password;
     }
 
@@ -56,12 +64,15 @@ class Default_Model_Slave
         return $this->_mapper;
     }
 
-    public function getSoapUrl() {
+    public function getSoapUrl()
+    {
         $url = 'http://';
-        $url .= $this->getHostname().":5132/soap/index.php?wsdl";
+        $url .= $this->getHostname() . ":5132/soap/index.php?wsdl";
         return $url;
     }
-    public function sendSoap($service, $params = NULL) {
+
+    public function sendSoap($service, $params = NULL)
+    {
         $url = $this->getSoapUrl();
         $client = new Zend_Soap_Client($url);
         try {
@@ -74,13 +85,13 @@ class Default_Model_Slave
             }
             ini_set('default_socket_timeout', $timeout);
             if ($params) {
-              $result = $client->$service($params);
+                $result = $client->$service($params);
             } else {
-              $result = $client->$service();
+                $result = $client->$service();
             }
             return $result;
         } catch (Exception $e) {
-            return array('error' => 'Unexpected answer or timeout from '.$this->getHostname(), 'message' => $e->getMessage());
+            return ['error' => 'Unexpected answer or timeout from ' . $this->getHostname(), 'message' => $e->getMessage()];
         }
     }
 
@@ -95,13 +106,14 @@ class Default_Model_Slave
         return $this->getMapper()->fetchAll();
     }
 
-    public function sendSoapToAll($service, $params = NULL) {
+    public function sendSoapToAll($service, $params = NULL)
+    {
         $slaves = $this->fetchAll();
         $message = 'OK soapsenttoall';
         foreach ($slaves as $slave) {
             $status = $slave->sendSoap($service, $params);
             if (!is_array($status) && !preg_match('/^OK/', $status)) {
-                $message = "NOK (slave ".$slave->getId().") got : ".$status;
+                $message = "NOK (slave " . $slave->getId() . ") got : " . $status;
             }
             if (is_array($status)) {
                 $message = $status;
@@ -110,20 +122,28 @@ class Default_Model_Slave
         return $message;
     }
 
-    public function getStatus($what) {
+    public function getStatus($what)
+    {
 
         if ($what == 'hardware') {
-            $get = [ 'disksusage' ];
+            $get = ['disksusage'];
         } elseif ($what == 'load') {
-            $get = [ 'loadavg05', 'memoryusage' ];
-    } else {
-            $get = [ $what ];
+            $get = ['loadavg05', 'memoryusage'];
+        } else {
+            $get = [$what];
         }
-        $data = $this->sendSoapRequest('Status_getStatusValues', $get)['data'];
-    switch ($what) {
+        $soap = $this->sendSoapRequest('Status_getStatusValues', $get);
+        if (!isset($soap['data'])) {
+            return ['status' => 'critical', 'message' => 'soap error', 'value' => 'SOAP request did not return data: ' . print_r($soap)];
+        }
+        $data = $soap['data'];
+        switch ($what) {
             case 'hardware':
-                $ret = array('status' => 'ok', 'message' => 'healthy', 'value' => '');
-            foreach ($data['disksusage'] as $disk) {
+                $ret = ['status' => 'ok', 'message' => 'healthy', 'value' => ''];
+                if (!isset($data['disksusage'])) {
+                    return ['status' => 'critical', 'message' => 'no disks', 'value' => 'SOAP request returned no disks'];
+                }
+                foreach ($data['disksusage'] as $disk) {
                     if ($disk['puse'] >= 80) {
                         if ($disk['puse'] >= 90) {
                             $ret['status'] = 'critical';
@@ -142,7 +162,10 @@ class Default_Model_Slave
             case 'spools':
                 $stages = ['1' => 'Incoming', 2 => 'Filtering', 4 => 'Outgoing'];
                 $queues = [];
-                $ret = array('status' => 'ok', 'message' => 'spoolslow', 'value' => $data['spools']);
+                $ret = ['status' => 'ok', 'message' => 'spoolslow', 'value' => $data['spools']];
+                if (!isset($data['spools'])) {
+                    return ['status' => 'critical', 'message' => 'no spools', 'value' => 'SOAP request returned no spools'];
+                }
                 foreach ($data['spools'] as $stage => $count) {
                     if ($count >= 100) {
                         $ret['status'] = 'critical';
@@ -157,10 +180,13 @@ class Default_Model_Slave
                     }
                     $ret['value'] = preg_replace('/, $/', '', $ret['value']);
                 }
-            break;
+                break;
 
             case 'load':
-                $ret = array('status' => 'ok', 'message' => 'loadlow', 'value' => '');
+                $ret = ['status' => 'ok', 'message' => 'loadlow', 'value' => ''];
+                if (!isset($data['loadavg05'])) {
+                    return ['status' => 'critical', 'message' => 'no loadavg05', 'value' => 'SOAP request returned no loadavg05'];
+                }
                 if ($data['loadavg05'] >= 4.00) {
                     $ret['message'] = 'cpu';
                     if ($data['loadavg05'] >= 8.00) {
@@ -170,7 +196,10 @@ class Default_Model_Slave
                     }
                     $ret['value'] = "Last 5m CPU => " . $data['loadavg05'];
                 }
-                $mempct = $data['memoryusage']['memfree']/$data['memoryusage']['memfree'];
+                if (!isset($data['memoryusage'])) {
+                    return ['status' => 'critical', 'message' => 'no memoryusage', 'value' => 'SOAP request returned no memoryusage'];
+                }
+                $mempct = $data['memoryusage']['memfree'] / $data['memoryusage']['memfree'];
                 if ($mempct < 0.10) {
                     if ($ret['message'] == 'cpu') {
                         $ret['message'] .= ', ram';
@@ -182,18 +211,22 @@ class Default_Model_Slave
                     } elseif ($ret['status'] != 'critical') {
                         $ret['status'] = 'warning';
                     }
-                    $ret['value'] .= ($ret['value'] ? ', ' : '') . "RAM Free => " . sprintf("%2d", $mempct*100) . "%";
+                    $ret['value'] .= ($ret['value'] ? ', ' : '') . "RAM Free => " . sprintf("%2d", $mempct * 100) . "%";
                 }
                 break;
-
+            default:
+                $ret['status'] = 'error';
+                $ret['message'] = 'invalid';
+                $ret['value'] = 'unknown status type requested';
         }
 
         return $ret;
     }
 
-    public function sendSoapRequest($service, $params = null, $limit = 0) {
+    public function sendSoapRequest($service, $params = null, $limit = 0)
+    {
         $url = 'http://';
-        $url .= $this->getHostname().":5132/soap/index.php?wsdl";
+        $url .= $this->getHostname() . ":5132/soap/index.php?wsdl";
 
         $client = new Zend_Soap_Client($url);
         try {
@@ -205,33 +238,35 @@ class Default_Model_Slave
             $result = $client->$service($params, $limit);
             return $result;
         } catch (Exception $e) {
-            return array('error' => 'Unexpected answer or timeout from '.$this->getHostname(), 'message' => $e->getMessage());
+            return ['error' => 'Unexpected answer or timeout from ' . $this->getHostname(), 'message' => $e->getMessage()];
         }
-
     }
 
-    public function getStatusValues() {
+    public function getStatusValues()
+    {
         if (!empty($this->_statusvalues)) {
             return $this->_statusvalues;
         }
-        $params = array('loadavg05', 'loadavg10', 'loadavg15', 'disksusage', 'memoryusage', 'spools', 'processes');
+        $params = ['loadavg05', 'loadavg10', 'loadavg15', 'disksusage', 'memoryusage', 'spools', 'processes'];
         $values = $this->sendSoapRequest('Status_getStatusValues', $params);
         $this->_statusvalues = $values['data'];
         return $this->_statusvalues;
     }
 
-    public function getInformationalMessages() {
-        $values = $this->sendSoapRequest('Status_getInformationalMessages', array());
+    public function getInformationalMessages()
+    {
+        $values = $this->sendSoapRequest('Status_getInformationalMessages', []);
         if (isset($values['error']) && $values['error'] != '') {
             $msg = new Default_Model_InformationalMessage_Unresponsive($this->getHostname());
-            return array($msg);
+            return [$msg];
         }
         return $values;
     }
 
-    public function getTodayStats($what = null) {
-        $ret = array();
-        $datares = $this->sendSoapRequest('Status_getTodayStats', array());
+    public function getTodayStats($what = null)
+    {
+        $ret = [];
+        $datares = $this->sendSoapRequest('Status_getTodayStats', []);
         if (!isset($datares['data'])) {
             return $ret;
         }
@@ -241,20 +276,23 @@ class Default_Model_Slave
         return $datares['data'];
     }
 
-    public function getTodaySNMPStats($what = null) {
+    public function getTodaySNMPStats($what = null)
+    {
         $timeout = 1000000;
         $retries = 5;
-        $ret = array();
+        $ret = [];
 
-        if (!isset($what['stats']) ||!is_array($what['stats'])) {
-            $what['stats'] = array('cleans' => 'globalCleanCount',
-                                   'spams'=>  'globalSpamCount',
-                                   'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount');
+        if (!isset($what['stats']) || !is_array($what['stats'])) {
+            $what['stats'] = [
+                'cleans' => 'globalCleanCount',
+                'spams' => 'globalSpamCount',
+                'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount'
+            ];
         }
 
         if (!$this->_mib_loaded) {
             $config = new MailCleaner_Config();
-            $mibfile = $config->getOption('SRCDIR')."/www/guis/admin/public/downloads/MAILCLEANER-MIB.txt";
+            $mibfile = $config->getOption('SRCDIR') . "/www/guis/admin/public/downloads/MAILCLEANER-MIB.txt";
             if (snmp_read_mib($mibfile)) {
                 $this->_mib_loaded = true;
             }
@@ -262,7 +300,7 @@ class Default_Model_Slave
         $snmpdconfig = new Default_Model_SnmpdConfig();
         $snmpdconfig->find(1);
 
-        $domainIndexes = array('');
+        $domainIndexes = [''];
         if (isset($what['domain']) && !is_array($what['domain'])) {
             $domainIndexes = preg_split('/[,:;]/', $what['domain']);
         } elseif (isset($what['domain']) && is_array($what['domain'])) {
@@ -271,10 +309,10 @@ class Default_Model_Slave
         foreach ($what['stats'] as $text => $stat) {
             $full_value = 0;
             foreach (preg_split('/\+/', $stat) as $lstats) {
-                $oid = 'MAILCLEANER-MIB::'.$lstats;
+                $oid = 'MAILCLEANER-MIB::' . $lstats;
                 foreach ($domainIndexes as $domainIndex) {
                     if ($domainIndex && $domainIndex != '') {
-                        $oid .= '.'.$domainIndex;
+                        $oid .= '.' . $domainIndex;
                     }
                     $value = snmp2_get($this->getHostname(), $snmpdconfig->getParam('community'), $oid, $timeout, $retries);
                     if (preg_match('/\S+: (\d+)/', $value, $matches)) {
@@ -287,7 +325,8 @@ class Default_Model_Slave
         return $ret;
     }
 
-    private function getSNMPValue($oid) {
+    private function getSNMPValue($oid)
+    {
         $timeout = 1000000;
         $retries = 5;
 
@@ -301,85 +340,106 @@ class Default_Model_Slave
         return '';
     }
 
-    public function getHostVersion() {
+    public function getHostVersion()
+    {
         return $this->getSNMPValue('MAILCLEANER-MIB::productVersion');
     }
 
-    public function getHostPatchLevel() {
+    public function getHostPatchLevel()
+    {
         return $this->getSNMPValue('MAILCLEANER-MIB::patchLevel');
     }
 
-    public function getTodayGlobalPie() {
-        $what = array();
-        $what['stats'] = array('cleans' => 'globalCleanCount',
-                               'spams'=>  'globalRefusedCount+globalSpamCount',
-                               'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount',
-                               'outgoing' => 'globalRelayedCount');
+    public function getTodayGlobalPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'cleans' => 'globalCleanCount',
+            'spams' => 'globalRefusedCount+globalSpamCount',
+            'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount',
+            'outgoing' => 'globalRelayedCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodaySessionsPie() {
-        $what = array();
-        $what['stats'] = array('accepted' => 'globalMsgCount',
-                               'refused'=>  'globalRefusedCount',
-                               'delayed' => 'globalDelayedCount',
-                               'relayed' => 'globalRelayedCount');
+    public function getTodaySessionsPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'accepted' => 'globalMsgCount',
+            'refused' => 'globalRefusedCount',
+            'delayed' => 'globalDelayedCount',
+            'relayed' => 'globalRelayedCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodayAcceptedPie() {
-        $what = array();
-        $what['stats'] = array('cleans' => 'globalCleanCount',
-                               'spams'=>  'globalSpamCount',
-                               'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount');
+    public function getTodayAcceptedPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'cleans' => 'globalCleanCount',
+            'spams' => 'globalSpamCount',
+            'dangerous' => 'globalVirusCount+globalNameCount+globalOtherCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodayRefusedPie() {
-        $what = array();
-        $what['stats'] = array('rbl' => 'globalRefusedRBLCount+globalRefusedBackscatterCount',
-                               'blacklists'=>  'globalRefusedHostCount+globalRefusedBadSenderCount',
-                               'relay' => 'globalRefusedRelayCount',
-                               'bad signature' => 'globalRefusedBATVCount+globalRefusedBadSPFCount+globalRefusedBadRDNSCount',
-                               'callout' => 'globalRefusedCalloutCount',
-                               'syntax' => 'globalRefusedLocalpartCount');
+    public function getTodayRefusedPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'rbl' => 'globalRefusedRBLCount+globalRefusedBackscatterCount',
+            'blacklists' => 'globalRefusedHostCount+globalRefusedBadSenderCount',
+            'relay' => 'globalRefusedRelayCount',
+            'bad signature' => 'globalRefusedBATVCount+globalRefusedBadSPFCount+globalRefusedBadRDNSCount',
+            'callout' => 'globalRefusedCalloutCount',
+            'syntax' => 'globalRefusedLocalpartCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodayDelayedPie() {
-        $what = array();
-        $what['stats'] = array('greylisted' => 'globalDelayedGreylistCount',
-                               'rate limited'=>  'globalDelayedRatelimitCount');
+    public function getTodayDelayedPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'greylisted' => 'globalDelayedGreylistCount',
+            'rate limited' => 'globalDelayedRatelimitCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodayRelayedPie() {
-        $what = array();
-        $what['stats'] = array('by hosts' => 'globalRelayedHostCount',
-                               'authentified'=>  'globalRelayedAuthenticatedCount',
-                               'refused' => 'globalRelayedRefusedCount',
-                               'virus' => 'globalRelayedVirusCount');
+    public function getTodayRelayedPie()
+    {
+        $what = [];
+        $what['stats'] = [
+            'by hosts' => 'globalRelayedHostCount',
+            'authentified' =>  'globalRelayedAuthenticatedCount',
+            'refused' => 'globalRelayedRefusedCount',
+            'virus' => 'globalRelayedVirusCount'
+        ];
         $ret = $this->getTodaySNMPStats($what);
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$ret,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $ret, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getTodayStatsPie($data = null, $params = null) {
+    public function getTodayStatsPie($data = null, $params = null)
+    {
         $this->getTodaySNMPStats();
 
         ini_set('display_errors', 1);
         if (!$data || is_array($data)) {
-            $datares = $this->sendSoapRequest('Status_getTodayStats', array());
+            $datares = $this->sendSoapRequest('Status_getTodayStats', []);
             if (!isset($datares['data'])) {
                 header("HTTP/1.0 404 Not Found");
                 echo "No data found";
@@ -387,26 +447,29 @@ class Default_Model_Slave
             }
             $data = $datares['data'];
         }
-        $fdata = array('cleans'=> (int)$data['cleans'], 'spams'=>(int)$data['spams'],'dangerous'=>$data['viruses']+$data['contents']);
+        $fdata = ['cleans' => (int)$data['cleans'], 'spams' => (int)$data['spams'], 'dangerous' => $data['viruses'] + $data['contents']];
         $stats = new Default_Model_ReportingStats();
-        $stats->createPieChart(0,$fdata,array('render'=>true, 'label_orientation'=>'vertical'));
+        $stats->createPieChart(0, $fdata, ['render' => true, 'label_orientation' => 'vertical']);
     }
 
-    public function getSpool($spoolid = 1, $params = array()) {
-       $params['spoolid'] = $spoolid;
-       $params['soap_timeout'] = 20;
-       $values = $this->sendSoapRequest('Status_getSpool', $params);
-       return $values;
+    public function getSpool($spoolid = 1, $params = [])
+    {
+        $params['spoolid'] = $spoolid;
+        $params['soap_timeout'] = 20;
+        $values = $this->sendSoapRequest('Status_getSpool', $params);
+        return $values;
     }
 
-    public function deleteSpoolMessage($spoolid, $msgid) {
+    public function deleteSpoolMessage($spoolid, $msgid)
+    {
         $params['spool'] = $spoolid;
         $params['msg'] = $msgid;
         $params['soap_timeout'] = 5;
         return $this->sendSoapRequest('Status_spoolDelete', $params);
     }
 
-    public function trySpoolMessage($spoolid, $msgid) {
+    public function trySpoolMessage($spoolid, $msgid)
+    {
         $params['spool'] = $spoolid;
         $params['msg'] = $msgid;
         $params['soap_timeout'] = 5;

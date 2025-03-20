@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringToUpper.php,v 1.1.2.4 2011-05-30 08:30:54 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Filter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_StringToUpper implements Zend_Filter_Interface
@@ -50,7 +50,7 @@ class Zend_Filter_StringToUpper implements Zend_Filter_Interface
             $options = $options->toArray();
         } else if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp    = [];
             if (!empty($options)) {
                 $temp['encoding'] = array_shift($options);
             }
@@ -80,7 +80,7 @@ class Zend_Filter_StringToUpper implements Zend_Filter_Interface
      * Set the input encoding for the given string
      *
      * @param  string $encoding
-     * @return Zend_Filter_StringToUpper Provides a fluent interface
+     * @return $this
      * @throws Zend_Filter_Exception
      */
     public function setEncoding($encoding = null)

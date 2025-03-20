@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpResponse.php,v 1.1.2.1 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Feed/Pubsubhubbub.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Pubsubhubbub_HttpResponse
@@ -44,7 +44,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      *
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * HTTP response code to use in headers
@@ -116,11 +116,11 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
                 }
             }
         }
-        $this->_headers[] = array(
+        $this->_headers[] = [
             'name'    => $name,
             'value'   => $value,
             'replace' => $replace,
-        );
+        ];
 
         return $this;
     }
@@ -172,6 +172,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      * Set HTTP response code to use with headers
      *
      * @param  int $code
+     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return Zend_Feed_Pubsubhubbub_HttpResponse
      */
     public function setHttpResponseCode($code)
@@ -226,7 +227,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      */
     protected function _normalizeHeader($name)
     {
-        $filtered = str_replace(array('-', '_'), ' ', (string) $name);
+        $filtered = str_replace(['-', '_'], ' ', (string) $name);
         $filtered = ucwords(strtolower($filtered));
         $filtered = str_replace(' ', '-', $filtered);
         return $filtered;

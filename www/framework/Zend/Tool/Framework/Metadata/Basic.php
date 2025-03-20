@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Basic.php,v 1.1.2.4 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Framework/Metadata/Attributable.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Metadata_Basic
@@ -65,7 +65,7 @@ class Zend_Tool_Framework_Metadata_Basic
      *
      * @param array $options
      */
-    public function __construct(Array $options = array())
+    public function __construct(Array $options = [])
     {
         if ($options) {
             $this->setOptions($options);
@@ -116,7 +116,7 @@ class Zend_Tool_Framework_Metadata_Basic
     /**
      * getName()
      *
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -148,7 +148,7 @@ class Zend_Tool_Framework_Metadata_Basic
     /**
      * setValue()
      *
-     * @param unknown_type $Value
+     * @param string $Value
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setValue($value)
@@ -190,7 +190,7 @@ class Zend_Tool_Framework_Metadata_Basic
     {
         $thisReflection = new ReflectionObject($this);
 
-        $metadataPairValues = array();
+        $metadataPairValues = [];
 
         foreach (get_object_vars($this) as $varName => $varValue) {
             if ($type == self::ATTRIBUTES_NO_PARENT && ($thisReflection->getProperty($varName)->getDeclaringClass()->getName() == 'Zend_Tool_Framework_Metadata_Basic')) {

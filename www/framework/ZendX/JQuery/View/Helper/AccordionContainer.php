@@ -15,9 +15,9 @@
  * @category    ZendX
  * @package     ZendX_JQuery
  * @subpackage  View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: AccordionContainer.php,v 1.1.2.3 2011-05-30 08:31:03 root Exp $
+ * @version     $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
  * @uses 	   Zend_Json
  * @package    ZendX_JQuery
  * @subpackage View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Helper_UiWidget
@@ -52,6 +52,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      * @param  string $id
      * @param  string $name
      * @param  string $content
+     * @param  array  $options
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
     public function addPane($id, $name, $content, array $options=array())
@@ -155,6 +156,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      * Set the accordion element template
      *
      * @param  string $htmlTemplate
+     * @throws ZendX_JQuery_View_Exception
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
     public function setElementHtmlTemplate($htmlTemplate)

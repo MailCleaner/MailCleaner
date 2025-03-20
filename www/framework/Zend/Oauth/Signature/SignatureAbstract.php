@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SignatureAbstract.php,v 1.1.2.1 2011-05-30 08:30:38 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Oauth_Http_Utility */
@@ -28,7 +28,7 @@ require_once 'Zend/Uri/Http.php';
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Oauth_Signature_SignatureAbstract
@@ -114,7 +114,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
      */
     protected function _assembleKey()
     {
-        $parts = array($this->_consumerSecret);
+        $parts = [$this->_consumerSecret];
         if ($this->_tokenSecret !== null) {
             $parts[] = $this->_tokenSecret;
         }
@@ -134,12 +134,12 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
      */
     protected function _getBaseSignatureString(array $params, $method = null, $url = null)
     {
-        $encodedParams = array();
+        $encodedParams = [];
         foreach ($params as $key => $value) {
             $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] =
                 Zend_Oauth_Http_Utility::urlEncode($value);
         }
-        $baseStrings = array();
+        $baseStrings = [];
         if (isset($method)) {
             $baseStrings[] = strtoupper($method);
         }
@@ -166,7 +166,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
      */
     protected function _toByteValueOrderedQueryString(array $params)
     {
-        $return = array();
+        $return = [];
         uksort($params, 'strnatcmp');
         foreach ($params as $key => $value) {
             if (is_array($value)) {

@@ -1,7 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 #
 #   Mailcleaner - SMTP Antivirus/Antispam Gateway
 #   Copyright (C) 2004 Olivier Diserens <olivier@diserens.ch>
+#   Copyright (C) 2025 John Mertz <git@john.me.tz>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -16,13 +17,15 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#
-#
 
 package StatsDaemon::Backend::Sqlite;
 
-require Exporter;
+use v5.36;
 use strict;
+use warnings;
+use utf8;
+
+require Exporter;
 use threads;
 use threads::shared;
 use File::Copy;
@@ -31,26 +34,24 @@ require ReadConfig;
 use File::Path qw(mkpath);
 use Fcntl qw(:flock SEEK_END);
 
-our @ISA        = qw(Exporter);
-our @EXPORT     = qw(new threadInit accessFlatElement stabilizeFlatElement getStats announceMonthChange announceDayChange);
-our $VERSION    = 1.0;
+our @ISA = qw(Exporter);
+our @EXPORT = qw(new threadInit accessFlatElement stabilizeFlatElement getStats announceMonthChange announceDayChange);
+our $VERSION = 1.0;
 
 my $shema = "
 CREATE TABLE stat (
-  date       int,
-  key        varchar(100),
-  value      int,
-  UNIQUE (date, key)
+    date       int,
+    key        varchar(100),
+    value      int,
+    UNIQUE (date, key)
 );
 ";
 
-sub new {
-    my $class = shift;
-    my $daemon = shift;
- 
+sub new($class,$daemon)
+{
     my $conf = ReadConfig::getInstance();
-     
-    my $this = {    
+
+    my $self = {
         'class' => $class,
         'daemon' => $daemon,
         'data' => undef,
@@ -60,161 +61,136 @@ sub new {
         'history_avoid_keys_a' => [],
         'template_database' => $conf->getOption('SRCDIR').'/lib/StatsDaemon/Backend/data/stat_template.sqlite'
     };
-    
-    bless $this, $class;
-    
-    foreach my $option (keys %{ $this->{daemon} }) {
-    	if (defined($this->{$option})) {
-    		$this->{$option} = $this->{daemon}->{$option};
-    	}
+
+    bless $self, $class;
+
+    foreach my $option (keys %{ $self->{daemon} }) {
+        if (defined($self->{$option})) {
+            $self->{$option} = $self->{daemon}->{$option};
+        }
     }
-    foreach my $o (split(/\s*,\s*/, $this->{history_avoid_keys})) {
-    	push @{$this->{history_avoid_keys_a}}, $o;
+    foreach my $o (split(/\s*,\s*/, $self->{history_avoid_keys})) {
+        push @{$self->{history_avoid_keys_a}}, $o;
     }
-    if (! -d $this->{basepath}) {
-    	mkpath($this->{basepath});
-    	$this->doLog("base path created: ".$this->{basepath});
+    if (! -d $self->{basepath}) {
+        mkpath($self->{basepath});
+        $self->doLog("base path created: ".$self->{basepath});
     }
-    $this->doLog("backend loaded", 'statsdaemon');
-    
-    $this->{data} = $StatsDaemon::data_;
-    return $this;
+    $self->doLog("backend loaded", 'statsdaemon');
+
+    $self->{data} = $StatsDaemon::data_;
+    return $self;
 }
 
-sub threadInit {
-    my $this = shift;
-    
-    $this->doLog("backend thread initialization", 'statsdaemon');
+sub threadInit($self)
+{
+    $self->doLog("backend thread initialization", 'statsdaemon');
 }
 
-sub accessFlatElement {	
-	my $this = shift;
-    my $element = shift;
-
+sub accessFlatElement($self,$element)
+{
     my $value = 0;
-    
-    my ($path, $file, $base, $el_key) = $this->getPathFileBaseAndKeyFromElement($element);
+
+    my ($path, $file, $base, $el_key) = $self->getPathFileBaseAndKeyFromElement($element);
     if (! -f $file) {
-    	return $value;
+        return $value;
     }
-    my $dbh = $this->connectToDB($file);
+    my $dbh = $self->connectToDB($file);
     if (defined($dbh)) {
-    	my $current_date = sprintf( '%.4d%.2d%.2d', 
-    	                       $this->{daemon}->getCurrentDate()->{'year'}, 
-    	                       $this->{daemon}->getCurrentDate()->{'month'}, 
-    	                       $this->{daemon}->getCurrentDate()->{'day'});
-    	my $query = 'SELECT value FROM stat WHERE date='.$current_date.' AND key=\''.$el_key.'\'';
-    	my $res = $dbh->selectrow_hashref($query);
-    	$this->{daemon}->addStat( 'backend_read', 1 );
-    	if (defined($res) && defined($res->{'value'})) {
-    		$value = $res->{'value'};
-    	}
-    	$dbh->disconnect;
+        my $current_date = sprintf( '%.4d%.2d%.2d',
+                               $self->{daemon}->getCurrentDate()->{'year'},
+                               $self->{daemon}->getCurrentDate()->{'month'},
+                               $self->{daemon}->getCurrentDate()->{'day'});
+        my $query = 'SELECT value FROM stat WHERE date='.$current_date.' AND key=\''.$el_key.'\'';
+        my $res = $dbh->selectrow_hashref($query);
+        $self->{daemon}->addStat( 'backend_read', 1 );
+        if (defined($res) && defined($res->{'value'})) {
+            $value = $res->{'value'};
+        }
+        $dbh->disconnect;
     } else {
-    	$this->doLog( "Cannot connect to database: " . $file, 'statsdaemon',
+        $self->doLog( "Cannot connect to database: " . $file, 'statsdaemon',
             'error' );
     }
     return $value;
 }
 
-sub stabilizeFlatElement {
-    my $this = shift;
-    my $element = shift;
-    
-    my ($path, $file, $base, $el_key) = $this->getPathFileBaseAndKeyFromElement($element);
-    foreach my $unwantedkey ( @{ $this->{history_avoid_keys_a} } ) {
+sub stabilizeFlatElement($self,$element)
+{
+    my ($path, $file, $base, $el_key) = $self->getPathFileBaseAndKeyFromElement($element);
+    foreach my $unwantedkey ( @{ $self->{history_avoid_keys_a} } ) {
         if ($el_key eq $unwantedkey) {
             return 'UNWANTEDKEY';
         }
     }
-    
+
     if (! -d $path) {
         mkpath($path);
     }
-    
-    my $dbh = $this->connectToDB($file);
+
+    my $dbh = $self->connectToDB($file);
     if (defined($dbh)) {
-    	my $current_date = sprintf( '%.4d%.2d%.2d', 
-                               $this->{daemon}->getCurrentDate()->{'year'}, 
-                               $this->{daemon}->getCurrentDate()->{'month'}, 
-                               $this->{daemon}->getCurrentDate()->{'day'});
+        my $current_date = sprintf( '%.4d%.2d%.2d',
+                               $self->{daemon}->getCurrentDate()->{'year'},
+                               $self->{daemon}->getCurrentDate()->{'month'},
+                               $self->{daemon}->getCurrentDate()->{'day'});
         my $query = 'REPLACE INTO stat (date,key,value) VALUES(?,?,?)';
-        my $nbrows =  $dbh->do($query, undef, $current_date, $el_key, $this->{daemon}->getElementValueByName($element, 'value'));
+        my $nbrows =  $dbh->do($query, undef, $current_date, $el_key, $self->{daemon}->getElementValueByName($element, 'value'));
         if (!defined($nbrows)) {
-        	$this->doLog( "Could not update database: " . $query, 'statsdaemon', 'error' );
+            $self->doLog( "Could not update database: " . $query, 'statsdaemon', 'error' );
         }
         $dbh->disconnect;
-        $this->{daemon}->addStat( 'backend_write', 1 );
+        $self->{daemon}->addStat( 'backend_write', 1 );
     } else {
-        $this->doLog( "Cannot connect to database: " . $file, 'statsdaemon', 'error' );
+        $self->doLog( "Cannot connect to database: " . $file, 'statsdaemon', 'error' );
         return '_CANNOTCONNECTDB';
     }
-    
+
     return 'STABILIZED';
 }
 
-sub getStats {
-    my $this = shift;
-    my $start = shift;
-    my $stop = shift;
-    my $what = shift;
-    my $data = shift;
-    
+sub getStats($self,$start,$stop,$what,$data)
+{
     return 'OK';
 }
 
-sub announceMonthChange {
-    my $this = shift;	
+sub announceMonthChange($self)
+{
+    return;
 }
 
-sub doLog {
-    my $this = shift;
-    my $message   = shift;
-    my $given_set = shift;
-    my $priority  = shift;
-    
-    my $msg = $this->{class}." ".$message;
-    if ($this->{daemon}) {
-        $this->{daemon}->doLog($msg, $given_set, $priority); 
+sub doLog($self,$message,$given_set,$priority='info')
+{
+    my $msg = $self->{class}." ".$message;
+    if ($self->{daemon}) {
+        $self->{daemon}->doLog($msg, $given_set, $priority);
     }
 }
 
-##
-sub getPathFileBaseAndKeyFromElement {
-	my $this = shift;
-	my $element = shift;
-	
-	my @els = split(/:/, $element);
+sub getPathFileBaseAndKeyFromElement($self,$element)
+{
+    my @els = split(/:/, $element);
     my $key = pop @els;
-    
-    my $path = $this->{basepath}.'/'.join('/',@els);
-    my $file = $path.'/'.$this->{dbfilename};
+
+    my $path = $self->{basepath}.'/'.join('/',@els);
+    my $file = $path.'/'.$self->{dbfilename};
     my $base = join(':', @els);
     return (lc($path), lc($file), lc($base), lc($key));
 }
 
-sub connectToDB {
-	my $this = shift;
-	my $file = shift;
-	
-	#my $create = 0;
-	if (! -f $file) {
-		copy($this->{template_database}, $file);
-	#	$create = 1;
-	}
-	
-	my $dbh = DBI->connect("dbi:SQLite:dbname=".$file,"","");
-	if (!$dbh) {
-		$this->doLog( "Cannot create database: " . $file, 'statsdaemon',
-            'error' );
-		return undef;
-	}
+sub connectToDB($self,$file)
+{
+    if (! -f $file) {
+        copy($self->{template_database}, $file);
+    }
 
-    #if ($create) {
-    #	$dbh->do($shema);
-    #    $this->doLog( "Table created in $file", 'debug' );
-    #}
-	
-	return $dbh;
+    my $dbh = DBI->connect("dbi:SQLite:dbname=".$file,"","");
+    if (!$dbh) {
+        $self->doLog( "Cannot create database: " . $file, 'statsdaemon',
+            'error' );
+        return undef;
+    }
+
+    return $dbh;
 }
 1;

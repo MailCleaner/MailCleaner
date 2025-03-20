@@ -1,11 +1,5 @@
-@CHARSET "UTF-8";
-
-body {
-
-}
-
 #allowed, #denied {
-	min-height: 500px;
+    min-height: 500px;
 }
 
 #allowed {
@@ -20,15 +14,15 @@ body {
 }
 
 #allowed table, #denied table {
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
 #allowed thead, #denied thead {
-	margin: 0px;
-	padding: 0px;
-	text-align: left;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
 }
 
 #allowed tbody, #denied tbody {
@@ -43,46 +37,46 @@ body {
 }
 
 #allowed th, #denied th {
-	padding-left: 5px;
+    padding-left: 5px;
     height: 40px;
     font-weight: normal;
     font-size: 11px;
 }
 
 #allowed td, #denied td {
-	border-bottom: 1px solid #eee;
-	padding-left: 5px;
-	height: 40px;
+    border-bottom: 1px solid #eee;
+    padding-left: 5px;
+    height: 40px;
 }
 
 #allowed caption {
-	color: green;
+    color: green;
 }
 
 #denied caption {
-	color: red;
+    color: red;
 }
 
 div.button {
-	margin-top: 20px;
-	text-align: center;
+    margin-top: 20px;
+    text-align: center;
 }
 
 #rules {
-	float: left; 
-	margin: 0px; 
-	padding: 0px;
+    float: left; 
+    margin: 0px; 
+    padding: 0px;
 }
 .configpanel h1 {
-	margin: 0px;
-	padding: 0px;
-	margin-bottom: 0px !important;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 0px !important;
 }
 
 .toggle {
-	vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }

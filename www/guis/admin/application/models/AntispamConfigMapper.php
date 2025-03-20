@@ -1,16 +1,17 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
- * 
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ *
  * AntiSpam configuration mapper
  */
 
 class Default_Model_AntispamConfigMapper
 {
-	
+
     protected $_dbTable;
 
     public function setDbTable($dbTable)
@@ -32,7 +33,7 @@ class Default_Model_AntispamConfigMapper
         }
         return $this->_dbTable;
     }
-    
+
     public function find($id, Default_Model_AntispamConfig $mta)
     {
         $result = $this->getDbTable()->find($id);
@@ -42,14 +43,14 @@ class Default_Model_AntispamConfigMapper
         $row = $result->current();
         $mta->setId($id);
         foreach ($mta->getParamArray() as $key => $value) {
-        	$mta->setParam($key, $row[$key]);
+            $mta->setParam($key, $row[$key]);
         }
     }
-    
+
     public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();
-        $entries   = array();
+        $entries   = [];
         foreach ($resultSet as $row) {
             $entry = new Default_Model_MtaConfig();
             $entry->setId($row->id);
@@ -57,15 +58,16 @@ class Default_Model_AntispamConfigMapper
         }
         return $entries;
     }
-    
-    public function save(Default_Model_AntispamConfig $mta) {
-       $data = $mta->getParamArray();
-       $res = '';
-       if (null === ($id = $mta->getId())) {
+
+    public function save(Default_Model_AntispamConfig $mta)
+    {
+        $data = $mta->getParamArray();
+        $res = '';
+        if (null === ($id = $mta->getId())) {
             unset($data['id']);
             $res = $this->getDbTable()->insert($data);
         } else {
-            $res = $this->getDbTable()->update($data, array('set_id = ?' => $id));
+            $res = $this->getDbTable()->update($data, ['set_id = ?' => $id]);
         }
         return $res;
     }

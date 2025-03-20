@@ -1,19 +1,24 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
-<?php foreach (array('panel', 'address') as $f) {
-  echo $this->InputRow($this->form->getElement($f),array('field_only'=>true,'nobox'=>true));
-  }?>
-<?php echo $this->partial('forms/manageuser/email'.strtolower($this->panel).'Form.phtml', array(
-                                        'form' => $this->form,
-                                        't' => $this->t, 
-                                        'images_path' => $this->images_path,
-                                        'message' => $this->message,
-                                        'email' => $this->email,
-                                        'urls' => $this->urls,
-                                        'address' => $this->address ) ); ?>
+<?php foreach (['panel', 'address'] as $f) {
+    echo $this->InputRow($this->form->getElement($f), ['field_only' => true, 'nobox' => true]);
+} ?>
+<?php echo $this->partial(
+    'forms/manageuser/email' . strtolower($this->panel) . 'Form.phtml',
+    [
+        'form' => $this->form,
+        't' => $this->t,
+        'images_path' => $this->images_path,
+        'message' => $this->message,
+        'email' => $this->email,
+        'urls' => $this->urls,
+        'address' => $this->address
+    ]
+); ?>

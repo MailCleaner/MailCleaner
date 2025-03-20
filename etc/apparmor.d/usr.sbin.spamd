@@ -1,0 +1,39 @@
+#include <tunables/global>
+
+/usr/sbin/spamd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/user-tmp>
+
+  capability dac_override,
+
+  capability setgid,
+  capability setuid,
+  capability chown,
+
+  @{PROC}/filesystems r,
+  @{PROC}/[0-9]*/status r,
+
+  /usr/mailcleaner/etc/mailscanner/spamd.conf r,
+  /usr/mailcleaner/etc/mailscanner/newsld.conf r,
+
+  /usr/sbin/spamd mr,
+
+  /var/mailcleaner/log/mailscanner/spamd.log krw,
+  /var/mailcleaner/log/mailscanner/newsld.log krw,
+
+  /var/mailcleaner/spool/spamd/spamd.sock krw,
+  /var/mailcleaner/spool/spamd/newsld.sock krw,
+
+  /var/mailcleaner/run/spamd/spamd.pid krw,
+  /var/mailcleaner/run/spamd/newsld.pid krw,
+
+  /var/mailcleaner/spool/exim_stage2/** r,
+  /var/mailcleaner/spool/mailscanner/** r,
+
+  /var/lib/dcc/map rw,
+
+  #include <local/usr.sbin.spamd>
+}
+

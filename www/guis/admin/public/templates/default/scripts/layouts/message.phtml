@@ -1,18 +1,19 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <?php if (preg_match('/^\s*(NOK|OK|WAIT)\s+(.*)/', $this->message, $matches)) {
-  if ($matches[1] == 'OK') { ?>
-    <div id="flashmessage" class="fmOK"><?php echo $this->t->_($matches[2]);?></div>
-  <?php } elseif ($matches[1] == 'WAIT') {?>
-    <div id="flashmessage" class="fmWAIT"><?php echo $this->t->_($matches[2]);?></div>
-  <?php } else { ?>
-    <div id="flashmessage" class="fmNOK"><?php echo $this->t->_('an error occurred')." : ".$this->t->_($matches[2]);?></div>
-  <?php }
-  }
+    if ($matches[1] == 'OK') { ?>
+        <div id="flashmessage" class="fmOK"><?php echo $this->t->_($matches[2]); ?></div>
+    <?php } elseif ($matches[1] == 'WAIT') { ?>
+        <div id="flashmessage" class="fmWAIT"><?php echo $this->t->_($matches[2]); ?></div>
+    <?php } else { ?>
+        <div id="flashmessage" class="fmNOK"><?php echo $this->t->_('an error occurred') . " : " . $this->t->_($matches[2]); ?></div>
+<?php }
+}
 ?>

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php,v 1.1.2.3 2011-05-30 08:30:55 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Pdf_FileParserDataSource */
@@ -34,7 +34,7 @@ require_once 'Zend/Pdf/FileParserDataSource.php';
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_FileParserDataSource_File extends Zend_Pdf_FileParserDataSource
@@ -182,12 +182,15 @@ class Zend_Pdf_FileParserDataSource_File extends Zend_Pdf_FileParserDataSource
             return;    // Not moving; do nothing.
         }
         parent::moveToOffset($offset);
+
         $result = @fseek($this->_fileResource, $offset, SEEK_SET);
+
         if ($result !== 0) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Error while setting new file position',
                                          Zend_Pdf_Exception::CANT_SET_FILE_POSITION);
         }
+
         if (feof($this->_fileResource)) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Moved beyond the end of the file',

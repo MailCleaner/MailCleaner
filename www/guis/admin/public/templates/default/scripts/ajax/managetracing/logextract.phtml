@@ -1,12 +1,24 @@
-<td colspan="9" class="tracelogmsg_<?php echo $this->slave.'_'.$this->msgid;?> searched">
-<table class="logextracttable">
-<?php foreach (array('log_stage1', 'log_stage2', 'log_engine', 'log_stage4', 'log_spamhandler', 'log_finalstage4') as $l) {?>
-<?php if (is_array($this->logs[$l])) {  ?>
-<tr>
-<td class="logextracttitle"><?php echo $this->t->_($l);?>: </td>
-<td class="logextractlog"><?php while (count($this->logs[$l])) { $line = array_shift($this->logs[$l]); echo htmlentities($line)."<br />"; }?></td>
-</tr>
-<?php } ?>
-<?php } ?>
-</table>
+<?php
+
+/**
+ * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
+ * @package mailcleaner
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
+ */
+?>
+<td colspan="9" class="tracelogmsg_<?php echo $this->slave . '_' . $this->msgid; ?> searched">
+    <table class="logextracttable">
+        <?php foreach (['log_stage1', 'log_stage2', 'log_engine', 'log_stage4', 'log_spamhandler', 'log_finalstage4'] as $l) { ?>
+            <?php if (is_array($this->logs[$l])) {  ?>
+                <tr>
+                    <td class="logextracttitle"><?php echo $this->t->_($l); ?>: </td>
+                    <td class="logextractlog"><?php while (count($this->logs[$l])) {
+                                                    $line = array_shift($this->logs[$l]);
+                                                    echo htmlentities($line) . "<br />";
+                                                } ?></td>
+                </tr>
+            <?php } ?>
+        <?php } ?>
+    </table>
 </td>

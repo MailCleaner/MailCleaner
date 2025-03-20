@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
  * @author Olivier Diserens, John Mertz
- * @copyright 2006, Olivier Diserens; 2020, John Mertz
+ * @copyright 2006, Olivier Diserens; 2023, John Mertz
  *
  * This is the users interface settings
  */
@@ -13,7 +14,8 @@
  *
  * @package mailcleaner
  */
-class ConfigUserWWList {
+class ConfigUserWWList
+{
 
     private $form_;
     private $message_;
@@ -21,7 +23,8 @@ class ConfigUserWWList {
     private $wwlist_;
     private $type_ = 'warn';
 
-    public function __construct() {
+    public function __construct()
+    {
         global $user_;
 
         if ($_GET['t'] && $_GET['t'] == 'white') {
@@ -37,13 +40,14 @@ class ConfigUserWWList {
             $this->type_ = 'warn';
         }
 
-        $this->selform_ = new Form('selectadd', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
-        $this->addform_ = new Form('add', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
-        $this->remform_ = new Form('rem', 'post', $_SERVER['PHP_SELF']."?t=".$this->type_);
+        $this->selform_ = new Form('selectadd', 'post', $_SERVER['PHP_SELF'] . "?t=" . $this->type_);
+        $this->addform_ = new Form('add', 'post', $_SERVER['PHP_SELF'] . "?t=" . $this->type_);
+        $this->remform_ = new Form('rem', 'post', $_SERVER['PHP_SELF'] . "?t=" . $this->type_);
         $this->add_ = $user_->getPref('gui_default_address');
     }
 
-    public function processInput() {
+    public function processInput()
+    {
         global $lang_;
         global $user_;
 
@@ -74,14 +78,15 @@ class ConfigUserWWList {
                 require_once('user/WWEntry.php');
                 $new = new WWEntry();
                 $regex_cleaned = preg_replace('/[\^\$]/', '', $addposted['entry']);
-                if (!filter_var($regex_cleaned, FILTER_VALIDATE_EMAIL) // Valid email
+                if (
+                    !filter_var($regex_cleaned, FILTER_VALIDATE_EMAIL) // Valid email
                     && !preg_match('/^@?([a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/', $regex_cleaned) // Valid domain; FILTER_VALIDATE_DOMAIN requires PHP >= 7
                     && !preg_match('/^(\.[a-zA-Z]{2,})+$/', $regex_cleaned) // Valid TLD
-                    && !filter_var($regex_cleaned.'domain.com', FILTER_VALIDATE_EMAIL) // Valid username@
+                    && !filter_var($regex_cleaned . 'domain.com', FILTER_VALIDATE_EMAIL) // Valid username@
 
                     && !preg_match('/(.\*|\*.)/', $regex_cleaned) // Wildcard with any one other character; prevents just '*'
                 ) {
-                    $this->message_ = 'Add ' . $addposted['entry'] . ' failed (invalid sender)'; 
+                    $this->message_ = 'Add ' . $addposted['entry'] . ' failed (invalid sender)';
                 } else {
                     $sender = $addposted['entry'];
 
@@ -90,10 +95,11 @@ class ConfigUserWWList {
                         foreach ($user_->getAddresses() as $address => $ismain) {
                             $dup = 0;
                             foreach ($this->wwlist_->getElements() as $entry) {
-                                if ( $entry->getPref('sender') == $sender &&
+                                if (
+                                    $entry->getPref('sender') == $sender &&
                                     $entry->getPref('recipient') == $address &&
-                                    $entry->getPref('type') == $this->type_ )
-                                {
+                                    $entry->getPref('type') == $this->type_
+                                ) {
                                     $dup = 1;
                                     break;
                                 }
@@ -118,10 +124,11 @@ class ConfigUserWWList {
                     } else {
                         $dup = 0;
                         foreach ($this->wwlist_->getElements() as $entry) {
-                             if ( $entry->getPref('sender') == $sender &&
+                            if (
+                                $entry->getPref('sender') == $sender &&
                                 $entry->getPref('recipient') == $this->add_ &&
-                                $entry->getPref('type') == $this->type_ )
-                            {
+                                $entry->getPref('type') == $this->type_
+                            ) {
                                 $dup = 1;
                                 break;
                             }
@@ -148,11 +155,11 @@ class ConfigUserWWList {
 
         if ($this->remform_->shouldSave()) {
             foreach ($remposted as $key => $val) {
-                $matches = array();
+                $matches = [];
                 if ($val == 1 && preg_match("/^ent_(\S+)/", $key, $matches)) {
                     if (preg_match('/_cb$/', $key)) {
-                        $matches[1] = preg_replace('/_cb$/','',$matches[1]);
-			$add = $this->wwlist_->decodeVarName($matches[1]);
+                        $matches[1] = preg_replace('/_cb$/', '', $matches[1]);
+                        $add = $this->wwlist_->decodeVarName($matches[1]);
                         if ($remposted['wantdisable'] && $remposted['wantdisable'] > 0) {
                             $ent = $this->wwlist_->getEntryByPref('sender', $add);
                             if ($ent->getPref('status') < 1) {
@@ -171,7 +178,8 @@ class ConfigUserWWList {
         }
     }
 
-    public function addReplace($replace, $template) {
+    public function addReplace($replace, $template)
+    {
         global $lang_;
         global $user_;
 
@@ -180,7 +188,7 @@ class ConfigUserWWList {
         $replace['__BEGIN_SELECT_FORM__'] = $this->selform_->open();
         $replace['__END_SELECT_FORM__'] = $this->selform_->close();
         $replace['__INPUT_SELECTADDRESS__'] = $this->selform_->select('sa', $user_->getAddressesForSelect(), $this->add_, '');
-        $replace['__BEGIN_ADD_FORM__'] = $this->addform_->open().$this->addform_->hidden('sa', $this->add_);
+        $replace['__BEGIN_ADD_FORM__'] = $this->addform_->open() . $this->addform_->hidden('sa', $this->add_);
         $replace['__END_ADD_FORM__'] = $this->addform_->close();
 
         # get antispam global prefs
@@ -188,22 +196,22 @@ class ConfigUserWWList {
         $antispam_ = new AntiSpam();
         $antispam_->load();
 
-        if ($this->type_ == "white" && $antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('enable_whitelists'))  {
+        if ($this->type_ == "white" && $antispam_->getPref('enable_whitelists') && $user_->getDomain()->getPref('enable_whitelists')) {
             $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
             $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
             $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
             $replace['__INPUT_ADDTOGROUP__'] = $this->addform_->submit('togroup', $lang_->print_txt('ADDTOGROUP'), '');
-        } else if ($this->type_ == "black" && $antispam_->getPref('enable_blacklists') && $user_->getDomain()->getPref('enable_blacklists'))  {
+        } else if ($this->type_ == "black" && $antispam_->getPref('enable_blacklists') && $user_->getDomain()->getPref('enable_blacklists')) {
             $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
             $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
             $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
             $replace['__INPUT_ADDTOGROUP__'] = $this->addform_->submit('togroup', $lang_->print_txt('ADDTOGROUP'), '');
-        } else if ($this->type_ == "wnews")  {
+        } else if ($this->type_ == "wnews") {
             $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
             $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
             $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
             $replace['__INPUT_ADDTOGROUP__'] = $this->addform_->submit('togroup', $lang_->print_txt('ADDTOGROUP'), '');
-        } else if ($this->type_ == "warn" && $antispam_->getPref('enable_warnlists') && $user_->getDomain()->getPref('enable_warnlists'))  {
+        } else if ($this->type_ == "warn" && $antispam_->getPref('enable_warnlists') && $user_->getDomain()->getPref('enable_warnlists')) {
             $replace['__INPUT_ADDADDRESS__'] = $this->addform_->input('entry', 38, '');
             $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->input('comment', 35, '');
             $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submit('addentry', $lang_->print_txt('ADDTHEENTRY'), '');
@@ -211,33 +219,34 @@ class ConfigUserWWList {
         } else {
             $replace['__INPUT_ADDADDRESS__'] = $this->addform_->inputDisabled('entry', 38, '');
             $replace['__INPUT_ADDCOMMENT__'] = $this->addform_->inputDisabled('comment', 35, '');
-            $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submitDisabled('none', $lang_->print_txt('ADDTHEENTRY'), '') . '<p style="color:red;">'.$lang_->print_txt('SPAM_WHITELIST_DISABLED').'</p>';
+            $replace['__INPUT_ADDSUBMIT__']  = $this->addform_->submitDisabled('none', $lang_->print_txt('ADDTHEENTRY'), '') . '<p style="color:red;">' . $lang_->print_txt('SPAM_WHITELIST_DISABLED') . '</p>';
             $replace['__INPUT_ADDTOGROUP__'] = $this->addform_->submit('togroup', $lang_->print_txt('ADDTOGROUP'), '');
         }
 
-        $replace['__BEGIN_REM_FORM__'] = $this->remform_->open().$this->remform_->hidden('sa', $this->add_).$this->remform_->hidden('wantdisable', 0);
+        $replace['__BEGIN_REM_FORM__'] = $this->remform_->open() . $this->remform_->hidden('sa', $this->add_) . $this->remform_->hidden('wantdisable', 0);
         $replace['__END_REM_FORM__'] = $this->remform_->close();
         $replace['__INPUT_REMSUBMIT__'] = $this->remform_->submit('rementry', $lang_->print_txt('REMTHEENTRY'), '');
-        $replace['__INPUT_DISABLESUBMIT__'] = $this->remform_->button('disableentry', $lang_->print_txt('DISABLETHEENTRY'), 'window.document.forms[\''.$this->remform_->getName().'\'].'.$this->remform_->getName().'_wantdisable.value=\'1\';');
+        $replace['__INPUT_DISABLESUBMIT__'] = $this->remform_->button('disableentry', $lang_->print_txt('DISABLETHEENTRY'), 'window.document.forms[\'' . $this->remform_->getName() . '\'].' . $this->remform_->getName() . '_wantdisable.value=\'1\';');
 
         $replace['__MESSAGE__'] = $lang_->print_txt_param($this->message_, $this->add_);
         return $replace;
     }
 
-    private function getEntryListInTemplate($template, $f) {
+    private function getEntryListInTemplate($template, $f)
+    {
         global $user_;
         global $lang_;
 
         $ret = "";
         foreach ($this->wwlist_->getElements() as $entry) {
-            if (! $entry instanceof WWEntry ) {
+            if (!$entry instanceof WWEntry) {
                 continue;
             }
             $t = $template->getTemplate('ENTRY');
             $entrytext = htmlentities($entry->getPref('sender'));
             $cleanentry = $this->wwlist_->encodeVarName($entrytext);
             $t = str_replace('__ENTRY__', $entrytext, $t);
-            $t = str_replace('__INPUT_CHECKBOXENTRY__', $f->checkbox('ent_'.$cleanentry, 1, 0, '', 1).$f->hidden('id', $entry->getPref('id')), $t);
+            $t = str_replace('__INPUT_CHECKBOXENTRY__', $f->checkbox('ent_' . $cleanentry, 1, 0, '', 1) . $f->hidden('id', $entry->getPref('id')), $t);
 
             $t = str_replace('__COMMENT__', htmlentities($entry->getPref('comments')), $t);
             if ($entry->getPref('comments') != "") {
@@ -250,7 +259,7 @@ class ConfigUserWWList {
             $comment_icon = $template->getDefaultValue('COMMENTICONACTIVE');
             if ($entry->getPref('status') < 1) {
                 $active_class = 'entryinactive';
-            $comment_icon = $template->getDefaultValue('COMMENTICONINACTIVE');
+                $comment_icon = $template->getDefaultValue('COMMENTICONINACTIVE');
             }
             $t = str_replace('__COMMENTICON__', $comment_icon, $t);
             $t = str_replace('__ACTIVECLASS__', $active_class, $t);
@@ -259,6 +268,4 @@ class ConfigUserWWList {
 
         return $ret;
     }
-
 }
-?>

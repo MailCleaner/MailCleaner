@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Page
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Uri.php,v 1.1.2.3 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Navigation/Page.php';
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Page
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
@@ -47,7 +47,7 @@ class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
      * Sets page URI
      *
      * @param  string $uri                page URI, must a string or null
-     * @return Zend_Navigation_Page_Uri   fluent interface, returns self
+     * @return $this
      * @throws Zend_Navigation_Exception  if $uri is invalid
      */
     public function setUri($uri)
@@ -79,7 +79,18 @@ class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
      */
     public function getHref()
     {
-        return $this->getUri();
+        $uri = $this->getUri();
+
+        $fragment = $this->getFragment();
+        if (null !== $fragment) {
+            if ('#' == substr($uri, -1)) {
+                return $uri . $fragment;
+            } else {
+                return $uri . '#' . $fragment;
+            }
+        }
+
+        return $uri;
     }
 
     // Public methods:
@@ -93,8 +104,8 @@ class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
     {
         return array_merge(
             parent::toArray(),
-            array(
+            [
                 'uri' => $this->getUri()
-            ));
+            ]);
     }
 }

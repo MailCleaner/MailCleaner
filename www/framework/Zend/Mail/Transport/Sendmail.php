@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sendmail.php,v 1.1.2.4 2011-05-30 08:30:57 root Exp $
+ * @version    $Id$
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/Mail/Transport/Abstract.php';
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
@@ -98,7 +98,7 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
     public function _sendMail()
     {
         if ($this->parameters === null) {
-            set_error_handler(array($this, '_handleMailErrors'));
+            set_error_handler([$this, '_handleMailErrors']);
             $result = mail(
                 $this->recipients,
                 $this->_mail->getSubject(),
@@ -119,14 +119,20 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
                 );
             }
 
-            set_error_handler(array($this, '_handleMailErrors'));
-            $result = mail(
-                $this->recipients,
-                $this->_mail->getSubject(),
-                $this->body,
-                $this->header,
-                $this->parameters);
-            restore_error_handler();
+            $fromEmailHeader = str_replace(' ', '', $this->parameters);
+            // Sanitize the From header
+            if (!Zend_Validate::is($fromEmailHeader, 'EmailAddress')) {
+                throw new Zend_Mail_Transport_Exception('Potential code injection in From header');
+            } else {
+                set_error_handler([$this, '_handleMailErrors']);
+                $result = mail(
+                    $this->recipients,
+                    $this->_mail->getSubject(),
+                    $this->body,
+                    $this->header,
+                    $fromEmailHeader);
+                restore_error_handler();
+            }
         }
 
         if ($this->_errstr !== null || !$result) {

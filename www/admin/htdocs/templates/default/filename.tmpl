@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Filename and extension settings</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
@@ -7,80 +9,96 @@
     <meta name="Author" content="Olivier Diserens">
     <meta name="Copyright" content="Mailcleaner Public License http://www.mailcleaner.net/open/licence_en.html">
 
- <script language="javascript">
+    <script language="javascript">
 
-    function rowOverEffect(object) {
-      if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
-    }
+        function rowOverEffect(object) {
+            if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
+        }
 
-    function rowOutEffect(object) {
-      if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
-    }
+        function rowOutEffect(object) {
+            if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
+        }
 
-   function delete_confirm(id, rule) {
-       if (confirm("__LANG_RULE__: "+ rule + 
-             "\n__LANG_CONFIRMFILENAMEDELETE__ ")) {
-         str = "__REMOVE_FULLLINK__"+id;
-         window.location.href=str;
-       }
-    } 
- </script>
+        function delete_confirm(id, rule) {
+            if (confirm("__LANG_RULE__: " + rule +
+                "\n__LANG_CONFIRMFILENAMEDELETE__ ")) {
+                str = "__REMOVE_FULLLINK__" + id;
+                window.location.href = str;
+            }
+        } 
+    </script>
 
-  </head>
+</head>
+
 <body onLoad="__RELOAD_NAV_JS__">
-<center>
-<br/><br/>
-<table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="black"><tr><td>
-<table width="100%" border="0" cellpadding="3" cellspacing="0" class="blocktext">
+    <center>
+        <br /><br />
+        <table width="95%" border="0" cellpadding="1" cellspacing="0" bgcolor="black">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="blocktext">
 
-  <tr class="infoBoxHeading">
-    <td>&nbsp;</td>
-    <td>__LANG_ACTION__</td>
-    <td>__LANG_RULE__</td>
-    <td>__LANG_NAME__</td>
-    <td>__LANG_DESCRIPTION__</td>
-    <td colspan="2">&nbsp;</td>
-  </tr>
+                        <tr class="infoBoxHeading">
+                            <td>&nbsp;</td>
+                            <td>__LANG_ACTION__</td>
+                            <td>__LANG_RULE__</td>
+                            <td>__LANG_NAME__</td>
+                            <td>__LANG_DESCRIPTION__</td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
 
-  <tr class="dataTableRow"><td colspan="7" align="center"><font color="red">__SAVE_STATUS__</font></td></tr>
+                        <tr class="dataTableRow">
+                            <td colspan="7" align="center">
+                                <font color="red">__SAVE_STATUS__</font>
+                            </td>
+                        </tr>
 
-__TMPL_EXTENTIONLIST_START__
+                        __TMPL_EXTENTIONLIST_START__
 
-__FORM_BEGIN_EDIT__
-<tr class="dataTableRow"  onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
- <td>&nbsp;<a name="__RULE_ID__"></a></td>
- <td>__STATUS__</td>
- <td><nobr>__RULE__</nobr></td>
- <td>__NAME__</td>
- <td>__DESCRIPTION__</td>
- __IF_NOTSELECTED__<td onClick="__SELECTLINE_LINK__"><img src="templates/default/images/pencil.gif" border="0"></td>__FI__
- __IF_NOTSELECTED__<td><img onClick="__DELETELINE_LINK__" src="templates/default/images/erase.gif" border="0"></td>__FI__
- __IF_SELECTED__<td colspan="2" align="right"><img onClick="__SUBMIT_EDIT_LINK__" src="templates/default/images/dosearch.gif" border="0"></td>__FI__
-</tr>
-__FORM_CLOSE_EDIT__
+                        __FORM_BEGIN_EDIT__
+                        <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+                            <td>&nbsp;<a name="__RULE_ID__"></a></td>
+                            <td>__STATUS__</td>
+                            <td>
+                                <nobr>__RULE__</nobr>
+                            </td>
+                            <td>__NAME__</td>
+                            <td>__DESCRIPTION__</td>
+                            __IF_NOTSELECTED__<td onClick="__SELECTLINE_LINK__"><img
+                                    src="templates/default/images/pencil.gif" border="0"></td>__FI__
+                            __IF_NOTSELECTED__<td><img onClick="__DELETELINE_LINK__"
+                                    src="templates/default/images/erase.gif" border="0"></td>__FI__
+                            __IF_SELECTED__<td colspan="2" align="right"><img onClick="__SUBMIT_EDIT_LINK__"
+                                    src="templates/default/images/dosearch.gif" border="0"></td>__FI__
+                        </tr>
+                        __FORM_CLOSE_EDIT__
 
-__TMPL_EXTENTIONLIST_STOP__
+                        __TMPL_EXTENTIONLIST_STOP__
 
-__FILENAMELIST_DRAW__
+                        __FILENAMELIST_DRAW__
 
-__FORM_BEGIN_NEW__
-  <tr class="dataTableRow">
-    <td>&nbsp;</td>
-    <td>__FORM_INPUTALLOWDENY__</td>
-    <td>__FORM_INPUTRULE__</td>
-    <td>__FORM_INPUTNAME__</td>
-    <td>__FORM_INPUTDESCRIPTION__</td>
-    <td colspan="2" align="right"><a href="javascript:__SUBMITNEW_LINK__"><img src="templates/default/images/dosearch.gif" border="0"></a></td>
-  </tr> 
-__FORM_CLOSE_NEW__
+                        __FORM_BEGIN_NEW__
+                        <tr class="dataTableRow">
+                            <td>&nbsp;</td>
+                            <td>__FORM_INPUTALLOWDENY__</td>
+                            <td>__FORM_INPUTRULE__</td>
+                            <td>__FORM_INPUTNAME__</td>
+                            <td>__FORM_INPUTDESCRIPTION__</td>
+                            <td colspan="2" align="right"><a href="javascript:__SUBMITNEW_LINK__"><img
+                                        src="templates/default/images/dosearch.gif" border="0"></a></td>
+                        </tr>
+                        __FORM_CLOSE_NEW__
 
-  <tr class="infoBoxHeading">
-    <td colspan="8" align="center"><a href="javascript:window.close()">close</a></td> 
-  </tr>
+                        <tr class="infoBoxHeading">
+                            <td colspan="8" align="center"><a href="javascript:window.close()">close</a></td>
+                        </tr>
 
-</table></td></tr>
-</table>
-<br/><br/>
-</center>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+    </center>
 </body>
+
 </html>

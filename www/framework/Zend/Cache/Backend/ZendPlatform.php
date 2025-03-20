@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ZendPlatform.php,v 1.1.2.3 2011-05-30 08:30:59 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/Cache/Backend/Interface.php';
  *
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
@@ -54,7 +54,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (!function_exists('accelerator_license_info')) {
             Zend_Cache::throwException('The Zend Platform extension must be loaded for using this backend !');
@@ -127,22 +127,24 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @return boolean true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (!($specificLifetime === false)) {
             $this->_log("Zend_Cache_Backend_ZendPlatform::save() : non false specifc lifetime is unsuported for this backend");
         }
 
         $lifetime = $this->_directives['lifetime'];
-        $result1  = output_cache_put($id, array($data, time()));
-        $result2  = (count($tags) == 0);
+        $result1  = output_cache_put($id, [$data, time()]);
+        $result2  = (count($tags) === 0);
 
         foreach ($tags as $tag) {
             $tagid = self::TAGS_PREFIX.$tag;
             $old_tags = output_cache_get($tagid, $lifetime);
+
             if ($old_tags === false) {
-                $old_tags = array();
+                $old_tags = [];
             }
+
             $old_tags[$id] = $id;
             output_cache_remove_key($tagid);
             $result2 = output_cache_put($tagid, $old_tags);
@@ -182,7 +184,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * @throws Zend_Cache_Exception
      * @return boolean True if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         switch ($mode) {
             case Zend_Cache::CLEANING_MODE_ALL:
@@ -203,12 +205,14 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
                     } else {
                         $idlist = $next_idlist;
                     }
-                    if (count($idlist) == 0) {
+
+                    if (count($idlist) === 0) {
                         // if ID list is already empty - we may skip checking other IDs
                         $idlist = null;
                         break;
                     }
                 }
+
                 if ($idlist) {
                     foreach ($idlist as $id) {
                         output_cache_remove_key($id);
@@ -229,12 +233,14 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
                     } else {
                         $idlist = $next_idlist;
                     }
-                    if (count($idlist) == 0) {
+
+                    if (count($idlist) === 0) {
                         // if ID list is already empty - we may skip checking other IDs
                         $idlist = null;
                         break;
                     }
                 }
+
                 if ($idlist) {
                     foreach ($idlist as $id) {
                         output_cache_remove_key($id);

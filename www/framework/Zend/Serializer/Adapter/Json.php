@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Json.php,v 1.1.2.1 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
@@ -30,7 +30,7 @@ require_once 'Zend/Json.php';
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstract
@@ -38,11 +38,11 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
     /**
      * @var array Default options
      */
-    protected $_options = array(
+    protected $_options = [
         'cycleCheck'           => false,
         'enableJsonExprFinder' => false,
         'objectDecodeType'     => Zend_Json::TYPE_ARRAY,
-    );
+    ];
 
     /**
      * Serialize PHP value to JSON
@@ -52,7 +52,7 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
      * @return string
      * @throws Zend_Serializer_Exception on JSON encoding exception
      */
-    public function serialize($value, array $opts = array())
+    public function serialize($value, array $opts = [])
     {
         $opts = $opts + $this->_options;
 
@@ -71,21 +71,18 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
      * @param  array $opts
      * @return mixed
      */
-    public function unserialize($json, array $opts = array())
+    public function unserialize($json, array $opts = [])
     {
         $opts = $opts + $this->_options;
 
         try {
             $ret = Zend_Json::decode($json, $opts['objectDecodeType']);
+        } catch (Zend_Json_Exception $e) {
+            require_once 'Zend/Serializer/Exception.php';
+            throw new Zend_Serializer_Exception('Invalid json data');
         } catch (Exception $e) {
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('Unserialization failed by previous error', 0, $e);
-        }
-
-        // json_decode returns null for invalid JSON
-        if ($ret === null && $json !== 'null') {
-            require_once 'Zend/Serializer/Exception.php';
-            throw new Zend_Serializer_Exception('Invalid json data');
         }
 
         return $ret;

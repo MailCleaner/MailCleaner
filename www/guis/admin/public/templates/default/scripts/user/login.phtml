@@ -1,38 +1,40 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <div id="loginpanel">
 
-  <img id="mclogo" src="<?php echo $this->images_path; ?>/login_header.png" alt="" />
-  <p id="badlogin">
-<?php echo $this->error; ?>
-  </p>
-   
-<?php
-$this->form->setAction($this->url());
-echo $this->form;
+    <img id="mclogo" src="<?php echo $this->images_path; ?>/logo_name.png" alt="" />
+    <p id="badlogin">
+        <?php echo $this->error; ?>
+    </p>
 
-// Check if this is a registered version
-require_once('system/SystemConfig.php');
-$sysconf_ = SystemConfig :: getInstance();
-require_once ('helpers/DataManager.php');
-$file_conf = DataManager :: getFileConfig($sysconf_ :: $CONFIGFILE_);
+    <?php
+    $this->form->setAction($this->url());
+    echo $this->form;
 
-$is_enterprise = $file_conf['REGISTERED'] == '1';
-if ($is_enterprise)
-        $mclink="www.mailcleaner.net";
-else
-        $mclink="www.mailcleaner.org";
+    // Check if this is a registered version
+    require_once('system/SystemConfig.php');
+    $sysconf_ = SystemConfig::getInstance();
+    require_once('helpers/DataManager.php');
+    $file_conf = DataManager::getFileConfig($sysconf_::$CONFIGFILE_);
 
+    if (isset($file_conf['REGISTERED']) && $file_conf['REGISTERED'] == '1') {
+        $mclink = "https://www.mailcleaner.net";
+        $mclinklabel = 'MailCleaner, an <img src="/templates/default/images/alinto.png"> Company';
+    } else {
+        $mclink = "https://www.mailcleaner.org";
+        $mclinklabel = 'MailCleaner, the Open Source email filter from <img src="/templates/default/images/alinto.png">';
+    }
 
-?>
+    ?>
 
-  <div id="loginfooter">
-    <div class="copyright">&copy; <a href="https://<?php echo $mclink;?>"><?php echo $mclink; ?></a></div>
-  </div>
+    <div id="loginfooter">
+        <div class="copyright">&copy; <a href="<?php echo $mclink; ?>"><?php echo $mclinklabel; ?></a></div>
+    </div>
 </div>

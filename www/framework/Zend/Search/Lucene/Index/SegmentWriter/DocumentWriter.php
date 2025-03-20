@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DocumentWriter.php,v 1.1.2.3 2011-05-30 08:31:01 root Exp $
+ * @version    $Id$
  */
 
 /** Zend_Search_Lucene_Index_SegmentWriter */
@@ -27,7 +27,7 @@ require_once 'Zend/Search/Lucene/Index/SegmentWriter.php';
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_Lucene_Index_SegmentWriter
@@ -58,8 +58,8 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
     {
         parent::__construct($directory, $name);
 
-        $this->_termDocs       = array();
-        $this->_termDictionary = array();
+        $this->_termDocs       = [];
+        $this->_termDictionary = [];
     }
 
 
@@ -74,8 +74,8 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
         /** Zend_Search_Lucene_Search_Similarity */
         require_once 'Zend/Search/Lucene/Search/Similarity.php';
 
-        $storedFields = array();
-        $docNorms     = array();
+        $storedFields = [];
+        $docNorms     = [];
         $similarity   = Zend_Search_Lucene_Search_Similarity::getDefault();
 
         foreach ($document->getFieldNames() as $fieldName) {
@@ -108,11 +108,11 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                         if (!isset($this->_termDictionary[$termKey])) {
                             // New term
                             $this->_termDictionary[$termKey] = $term;
-                            $this->_termDocs[$termKey] = array();
-                            $this->_termDocs[$termKey][$this->_docCount] = array();
+                            $this->_termDocs[$termKey] = [];
+                            $this->_termDocs[$termKey][$this->_docCount] = [];
                         } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                             // Existing term, but new term entry
-                            $this->_termDocs[$termKey][$this->_docCount] = array();
+                            $this->_termDocs[$termKey][$this->_docCount] = [];
                         }
                         $position += $token->getPositionIncrement();
                         $this->_termDocs[$termKey][$this->_docCount][] = $position;
@@ -139,11 +139,11 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                     if (!isset($this->_termDictionary[$termKey])) {
                         // New term
                         $this->_termDictionary[$termKey] = $term;
-                        $this->_termDocs[$termKey] = array();
-                        $this->_termDocs[$termKey][$this->_docCount] = array();
+                        $this->_termDocs[$termKey] = [];
+                        $this->_termDocs[$termKey][$this->_docCount] = [];
                     } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                         // Existing term, but new term entry
-                        $this->_termDocs[$termKey][$this->_docCount] = array();
+                        $this->_termDocs[$termKey][$this->_docCount] = [];
                     }
                     $this->_termDocs[$termKey][$this->_docCount][] = 0; // position
 

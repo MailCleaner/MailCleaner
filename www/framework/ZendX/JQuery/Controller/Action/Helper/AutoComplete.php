@@ -15,9 +15,9 @@
  * @category    ZendX
  * @package     ZendX_JQuery
  * @subpackage  View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: AutoComplete.php,v 1.1.2.3 2011-05-30 08:31:04 root Exp $
+ * @version     $Id$
  */
 
 require_once "Zend/Controller/Action/Helper/AutoComplete/Abstract.php";
@@ -45,6 +45,7 @@ extends Zend_Controller_Action_Helper_AutoComplete_Abstract
      *
      * @param  mixed   $data
      * @param  boolean $keepLayouts
+     * @throws Zend_Controller_Action_Exception
      * @return mixed
      */
     public function prepareAutoCompletion($data, $keepLayouts = false)

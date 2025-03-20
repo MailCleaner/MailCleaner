@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 __DEFAULT__ elementPerPage = 100
 <html>
-  <head>
+
+<head>
     <title>Domain list</title>
     <link type="text/css" rel="stylesheet" href="templates/default/styles/main.css">
     <link type="text/css" rel="stylesheet" href="templates/default/styles/list.css">
@@ -10,76 +12,95 @@ __DEFAULT__ elementPerPage = 100
 
     <script language="javascript">
 
-    function rowOverEffect(object) {
-      if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
-    }
+        function rowOverEffect(object) {
+            if (object.className == 'dataTableRow') object.className = 'dataTableRowOver';
+        }
 
-    function rowOutEffect(object) {
-      if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
-    }
+        function rowOutEffect(object) {
+            if (object.className == 'dataTableRowOver') object.className = 'dataTableRow';
+        }
 
-    function confirm_delete(id, name) {
-       if (confirm("__LANG_DOMAIN__: "+ name + 
-               "\n__LANG_CONFIRMDOMAINDELETE__ ")) {
-         str = "__REMOVE_FULLLINK__"+id;
-         window.location.href=str;
-       }
-    }
+        function confirm_delete(id, name) {
+            if (confirm("__LANG_DOMAIN__: " + name +
+                "\n__LANG_CONFIRMDOMAINDELETE__ ")) {
+                str = "__REMOVE_FULLLINK__" + id;
+                window.location.href = str;
+            }
+        }
 
-    __INCLUDE_USEMX_JS__
-    
-    __PAGE_JS__
+        __INCLUDE_USEMX_JS__
+
+        __PAGE_JS__
     </script>
-  </head>
+</head>
 
 <body>
-<center>
-<br/>
-<table width="99%" border="0" cellpadding="0" cellspacing="0">
- <tr>
-  <td width="40%" valign="top">
-  <!-- DOMAIN LIST -->
-  __FORM_BEGIN_DOMAINSEARCH__
-   <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
-     <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
-       <td class="dataTableHeadingContent">__LANG_DOMAINNAME__ __DOC_DOMAINLISTTITLE__</td>
-       <td class="dataTableHeadingContent">__LANG_DESTINATION__</td>
-       <td class="dataTableHeadingContent" align="right"><a href="__LINK_ADDDOMAIN__">__LANG_ADDADOMAIN__ </a></td>
-	   <td class="dataTableHeadingContent" width="25px" align="center"><a href="__LINK_ADDDOMAIN__"><img src="templates/default/images/add.gif" border="0" align="absmiddle"></a></td>
-     </tr>
+    <center>
+        <br />
+        <table width="99%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40%" valign="top">
+                    <!-- DOMAIN LIST -->
+                    __FORM_BEGIN_DOMAINSEARCH__
+                    <table width="100%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFFF" class="blocktext">
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow">
+                            <td class="dataTableHeadingContent">__LANG_DOMAINNAME__ __DOC_DOMAINLISTTITLE__</td>
+                            <td class="dataTableHeadingContent">__LANG_DESTINATION__</td>
+                            <td class="dataTableHeadingContent" align="right"><a
+                                    href="__LINK_ADDDOMAIN__">__LANG_ADDADOMAIN__ </a></td>
+                            <td class="dataTableHeadingContent" width="25px" align="center"><a
+                                    href="__LINK_ADDDOMAIN__"><img src="templates/default/images/add.gif" border="0"
+                                        align="absmiddle"></a></td>
+                        </tr>
 
-     <tr bgcolor="#CCCCCC" class="dataTableRow">
-       <td class="dataTableContent" colspan="4" align="center"><font color="red">__DELETE_STATUS____ADD_STATUS__</font></td>
-     </tr>
+                        <tr bgcolor="#CCCCCC" class="dataTableRow">
+                            <td class="dataTableContent" colspan="4" align="center">
+                                <font color="red">__DELETE_STATUS____ADD_STATUS__</font>
+                            </td>
+                        </tr>
 
-__TMPL_DOMAINLIST_START__
-<tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >
- <td class="dataTableContent"><nobr>__NAME__</nobr></td>
- <td class="dataTableContent"><nobr>__DESTINATION__</nobr></td>
- <td class="dataTableContent" align="right"><a href="__DOMAINSETTINGSTARGET__"><img src="templates/default/images/pencil.gif" border="0"></a></td>
- <td class="dataTableContent" align="center"><img onClick="confirm_delete(__ID__, '__NAME__');" src="templates/default/images/erase.gif" border="0"></td>
-</tr>
-__TMPL_DOMAINLIST_STOP__
+                        __TMPL_DOMAINLIST_START__
+                        <tr class="__ROWSTYLE__" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+                            <td class="dataTableContent">
+                                <nobr>__NAME__</nobr>
+                            </td>
+                            <td class="dataTableContent">
+                                <nobr>__DESTINATION__</nobr>
+                            </td>
+                            <td class="dataTableContent" align="right"><a href="__DOMAINSETTINGSTARGET__"><img
+                                        src="templates/default/images/pencil.gif" border="0"></a></td>
+                            <td class="dataTableContent" align="center"><img
+                                    onClick="confirm_delete(__ID__, '__NAME__');"
+                                    src="templates/default/images/erase.gif" border="0"></td>
+                        </tr>
+                        __TMPL_DOMAINLIST_STOP__
 
-     __DOMAINLIST_DRAW__
-__DEFAULT__ sep = |
-      <tr bgcolor="#CCCCCC" class="dataTableHeadingRow" valign="absmiddle">
-        <td class="dataTableHeadingContent" colspan="2" align="left">__LANG_TOTAL__: __NBDOMAINS__</td>
-	<td class="dataTableHeadingContent" colspan="2" align="right"><nobr>__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__ __PAGE_SEP__ __NEXT_PAGE__</nobr></td>
-      </tr>
+                        __DOMAINLIST_DRAW__
+                        __DEFAULT__ sep = |
+                        <tr bgcolor="#CCCCCC" class="dataTableHeadingRow" valign="absmiddle">
+                            <td class="dataTableHeadingContent" colspan="2" align="left">__LANG_TOTAL__: __NBDOMAINS__
+                            </td>
+                            <td class="dataTableHeadingContent" colspan="2" align="right">
+                                <nobr>__LANG_PAGE__&nbsp;__ACTUAL_PAGE__/__TOTAL_PAGES__ - __PREVIOUS_PAGE__
+                                    __PAGE_SEP__ __NEXT_PAGE__</nobr>
+                            </td>
+                        </tr>
 
-   </table>
-   __FORM_CLOSE_DOMAINSEARCH__
-  </td>
-  <td width="60%" valign="top">
-  <!-- DOMAIN EDIT -->
-__IF__ DOMAINSELECTED
-  __INCLUDE__(domainedit.tmpl) 
-__ELSE__ DOMAINSELECTED
-  <center><div class="dataTableContent">__LANG_PLEASECHOOSEADOMAIN__</div></center>
-__FI__ DOMAINSELECTED
-  </td>
- </tr>
-</table>
+                    </table>
+                    __FORM_CLOSE_DOMAINSEARCH__
+                </td>
+                <td width="60%" valign="top">
+                    <!-- DOMAIN EDIT -->
+                    __IF__ DOMAINSELECTED
+                    __INCLUDE__(domainedit.tmpl)
+                    __ELSE__ DOMAINSELECTED
+                    <center>
+                        <div class="dataTableContent">__LANG_PLEASECHOOSEADOMAIN__</div>
+                    </center>
+                    __FI__ DOMAINSELECTED
+                </td>
+            </tr>
+        </table>
 </body>
+
 </html>

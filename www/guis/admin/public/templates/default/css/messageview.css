@@ -1,153 +1,153 @@
 /* URL source ---> http://gate-pp2-jessie.mailcleaner.net/templates/default/css/messageview.css */
 
 #container {
-  background-color: #ffffff;
-  width: 100%;
-  min-width: 100%;
-  height: 100%;
-  overflow: auto;
+    background-color: #ffffff;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    overflow: auto;
 }
 
 #viewheader {
-  height: 34px;
-  max-height: 34px;
-  line-height: 34px;
-  background-image:url(../images/header_message_bg.png);
-  background-color: #F5F5F5;
-  background-repeat: repeat-x;
-  color: white;text-align: left;
-  font-size: 13px;
-  white-space: nowrap;
-  border-bottom: 1px solid #D4D3D2;
-  overflow: auto;
+    height: 34px;
+    max-height: 34px;
+    line-height: 34px;
+    background-image:url(../images/header_message_bg.png);
+    background-color: #F5F5F5;
+    background-repeat: repeat-x;
+    color: white;text-align: left;
+    font-size: 13px;
+    white-space: nowrap;
+    border-bottom: 1px solid #D4D3D2;
+    overflow: auto;
 }
 
 #viewheader p {
-  display: inline;
+    display: inline;
 }
 
 #viewheader img {
-  border: 0px;
-  vertical-align: middle;
-  margin-bottom: 3px;
-  margin-left: 15px;
-  margin-right: 15px;
+    border: 0px;
+    vertical-align: middle;
+    margin-bottom: 3px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 #actionpanel {
-  position: absolute;
-  top: 47px;
-  right: 10px;
-  margin: 0px;
-  padding: 0px;
+    position: absolute;
+    top: 47px;
+    right: 10px;
+    margin: 0px;
+    padding: 0px;
 }
 
 #actionpanel img {
-  border: 0px;
-  margin: 0px;
-  padding: 0px;
-  margin-right: 7px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 7px;
 }
 
 table {
-  width: 100%;
-  white-space: nowrap;
-  border-spacing: 0px;
-  margin: 0px;
-  padding: 0px;
-  border-collapse: collapse;
-  border-bottom: solid 1px #D4D3D2;
-  line-height: 14px;
+    width: 100%;
+    white-space: nowrap;
+    border-spacing: 0px;
+    margin: 0px;
+    padding: 0px;
+    border-collapse: collapse;
+    border-bottom: solid 1px #D4D3D2;
+    line-height: 14px;
 }
 
 td {
-  border-spacing: 0px;
-  margin: 0px;
-  padding-left: 10px;
-  font-size: 11px;
-  font-weight: normal;
-  vertical-align: middle;
-  line-height: 14px;
+    border-spacing: 0px;
+    margin: 0px;
+    padding-left: 10px;
+    font-size: 11px;
+    font-weight: normal;
+    vertical-align: middle;
+    line-height: 14px;
 }
 
 .fieldname {
-  border-right: solid 1px #D4D3D2;
-  padding: 0px;
-  margin: 0px;
-  width: 183px;
-  text-align: right;
-  background-color: #F5F5F5;
-  font-weight: bold !important;
-  padding-right: 10px;
-  vertical-align: top;
+    border-right: solid 1px #D4D3D2;
+    padding: 0px;
+    margin: 0px;
+    width: 183px;
+    text-align: right;
+    background-color: #F5F5F5;
+    font-weight: bold !important;
+    padding-right: 10px;
+    vertical-align: top;
 }
 
 .infotitle {
-  line-height: 25px;
-  height: 25px;
-  background-image:none;
-  background-color: #F5F5F5;
-  border-bottom: 1px solid #D4D3D2;
-  overflow: hidden;
-  white-space: nowrap;
-  text-decoration: none;
-  color: #000000;
+    line-height: 25px;
+    height: 25px;
+    background-image:none;
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #D4D3D2;
+    overflow: hidden;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #000000;
 }
 
 .infotitle img {
-  margin-left: 10px;
-  vertical-align: middle;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
 .infotitle p {
-  display: inline;
-  margin-left: 10px;
+    display: inline;
+    margin-left: 10px;
 }
 
 #msgbody {
-  padding: 10px;
-  overflow: auto;
+    padding: 10px;
+    overflow: auto;
 }
 .htmltag {
-  color: #CCCCCC !important;
+    color: #CCCCCC !important;
 }
 
 #msgheaders .fieldname {
-  background-color: #F8F8F8;
+    background-color: #F8F8F8;
 }
 
 .openclosepanel {
-  display: none;
-  visibility: hidden;
+    display: none;
+    visibility: hidden;
 }
 
 #sascores {
-  margin-left: 0px;
-  margin-right: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 #sascores .fieldname {
-  background-color: #F8F8F8;
+    background-color: #F8F8F8;
 }
 
 #sascores td {
-  font-weight: normal !important;
+    font-weight: normal !important;
 }
 
 #scorehead td {
-  font-weight: bold !important;
-  text-decoration: underline;
+    font-weight: bold !important;
+    text-decoration: underline;
 }
 #scorefoot td {
-  font-weight: bold !important;
+    font-weight: bold !important;
 }
 
 #scorefoot .fieldname {
-	border-top: 1px solid #C6ADC6;
+    border-top: 1px solid #C6ADC6;
 }
 
 .newsletter{
-    border: solid 1px #E93A00;
-    color: #E93A00;
+    border: solid 1px #ED7B00;
+    color: #ED7B00;
     padding: 0px 20px 0px 20px;
 }

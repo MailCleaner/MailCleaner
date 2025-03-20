@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Entity
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Subscription.php,v 1.1.2.1 2011-05-30 08:31:10 root Exp $
+ * @version    $Id$
  */
 
 /** @see Zend_Feed_Pubsubhubbub_Model_ModelAbstract */
@@ -33,7 +33,7 @@ require_once 'Zend/Date.php';
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Entity
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Pubsubhubbub_Model_Subscription
@@ -44,7 +44,9 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
     /**
      * Save subscription to RDMBS
      *
-     * @param array $data
+     * @param  array $data
+     * @throws Zend_Db_Table_Exception
+     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return bool
      */
     public function setSubscription(array $data)
@@ -78,6 +80,8 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
      * Get subscription by ID/key
      *
      * @param  string $key
+     * @throws Zend_Db_Table_Exception
+     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return array
      */
     public function getSubscription($key)
@@ -98,6 +102,8 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
      * Determine if a subscription matching the key exists
      *
      * @param  string $key
+     * @throws Zend_Db_Table_Exception
+     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return bool
      */
     public function hasSubscription($key)
@@ -108,7 +114,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
                 .' of "' . $key . '" must be a non-empty string');
         }
         $result = $this->_db->find($key);
-        if (count($result)) {
+        if (count($result ?? [])) {
             return true;
         }
         return false;
@@ -117,7 +123,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
     /**
      * Delete a subscription
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function deleteSubscription($key)

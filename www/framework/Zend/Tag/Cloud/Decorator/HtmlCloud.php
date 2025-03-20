@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tag
  * @subpackage Cloud
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlCloud.php,v 1.1.2.4 2011-05-30 08:30:34 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Tag/Cloud/Decorator/Cloud.php';
  * @category  Zend
  * @package   Zend_Tag
  * @uses      Zend_Tag_Cloud_Decorator_Cloud
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
@@ -46,9 +46,9 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
      *
      * @var array
      */
-    protected $_htmlTags = array(
-        'ul' => array('class' => 'Zend_Tag_Cloud')
-    );
+    protected $_htmlTags = [
+        'ul' => ['class' => 'Zend_Tag_Cloud']
+    ];
 
     /**
      * Separator for the single tags
@@ -70,7 +70,7 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     /**
      * Set encoding
      *
-     * @param string
+     * @param string $value
      * @return Zend_Tag_Cloud_Decorator_HtmlCloud
      */
     public function setEncoding($value)
@@ -104,7 +104,7 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     /**
      * Set the separator between the single tags
      *
-     * @param  string
+     * @param  string $separator
      * @return Zend_Tag_Cloud_Decorator_HtmlCloud
      */
     public function setSeparator($separator)

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EventEntry.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -92,21 +92,21 @@ require_once 'Zend/Gdata/Extension/EntryLink.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 {
-    protected $_who = array();
-    protected $_when = array();
-    protected $_where = array();
+    protected $_who = [];
+    protected $_when = [];
+    protected $_where = [];
     protected $_recurrence = null;
     protected $_eventStatus = null;
     protected $_comments = null;
     protected $_transparency = null;
     protected $_visibility = null;
-    protected $_recurrenceException = array();
-    protected $_extendedProperty = array();
+    protected $_recurrenceException = [];
+    protected $_extendedProperty = [];
     protected $_originalEvent = null;
     protected $_entryLink = null;
 
@@ -244,7 +244,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setWhen($value)
     {
@@ -259,7 +259,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setWhere($value)
     {
@@ -274,7 +274,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setWho($value)
     {
@@ -289,7 +289,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setRecurrence($value)
     {
@@ -304,7 +304,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setEventStatus($value)
     {
@@ -319,7 +319,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setComments($value)
     {
@@ -334,7 +334,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Transparency $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setTransparency($value)
     {
@@ -349,7 +349,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Visibility $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setVisibility($value)
     {
@@ -364,7 +364,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setRecurrenceException($value)
     {
@@ -379,7 +379,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setExtendedProperty($value)
     {
@@ -394,7 +394,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Extension_OriginalEvent $value
-     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
+     * @return $this
      */
     public function setOriginalEvent($value)
     {
@@ -405,7 +405,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
     /**
      * Get this entry's EntryLink element.
      *
-     * @return Zend_Gdata_Extension_EntryLink The requested entry.
+     * @return Zend_Gdata_Extension_EntryLink|null The requested entry.
      */
     public function getEntryLink()
     {
@@ -416,7 +416,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
      * Set the child's EntryLink element.
      *
      * @param Zend_Gdata_Extension_EntryLink $value The desired value for this attribute.
-     * @return Zend_Gdata_Extension_Who The element being modified.
+     * @return Zend_Gdata_Kind_EventEntry The element being modified.
      */
     public function setEntryLink($value)
     {

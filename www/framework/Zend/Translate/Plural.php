@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Plural.php,v 1.1.2.1 2011-05-30 08:31:02 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Plural
@@ -34,7 +34,7 @@ class Zend_Translate_Plural
      *
      * @var string
      */
-    protected static $_plural = array();
+    protected static $_plural = [];
 
     /**
      * Returns the plural definition to use
@@ -65,6 +65,7 @@ class Zend_Translate_Plural
         }
 
         switch($locale) {
+            case 'az':
             case 'bo':
             case 'dz':
             case 'id':
@@ -83,7 +84,6 @@ class Zend_Translate_Plural
                 break;
 
             case 'af':
-            case 'az':
             case 'bn':
             case 'bg':
             case 'ca':

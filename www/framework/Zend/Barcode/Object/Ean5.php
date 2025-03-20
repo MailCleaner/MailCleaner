@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ean5.php,v 1.1.2.1 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,24 +35,24 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
 {
 
-    protected $_parities = array(
-        0 => array('B','B','A','A','A'),
-        1 => array('B','A','B','A','A'),
-        2 => array('B','A','A','B','A'),
-        3 => array('B','A','A','A','B'),
-        4 => array('A','B','B','A','A'),
-        5 => array('A','A','B','B','A'),
-        6 => array('A','A','A','B','B'),
-        7 => array('A','B','A','B','A'),
-        8 => array('A','B','A','A','B'),
-        9 => array('A','A','B','A','B')
-    );
+    protected $_parities = [
+        0 => ['B','B','A','A','A'],
+        1 => ['B','A','B','A','A'],
+        2 => ['B','A','A','B','A'],
+        3 => ['B','A','A','A','B'],
+        4 => ['A','B','B','A','A'],
+        5 => ['A','A','B','B','A'],
+        6 => ['A','A','A','B','B'],
+        7 => ['A','B','A','B','A'],
+        8 => ['A','B','A','A','B'],
+        9 => ['A','A','B','A','B']
+    ];
 
     /**
      * Default options for Ean5 barcode
@@ -82,14 +82,14 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
      */
     protected function _prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
 
         // Start character (01011)
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , 1];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , 1];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , 1];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , 1];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , 1];
 
         $firstCharacter = true;
         $textTable = str_split($this->getText());
@@ -100,12 +100,12 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
                 $firstCharacter = false;
             } else {
                 // Intermediate character (01)
-                $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-                $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = [0 , $this->_barThinWidth , 0 , 1];
+                $barcodeTable[] = [1 , $this->_barThinWidth , 0 , 1];
             }
             $bars = str_split($this->_codingMap[$this->_getParity($i)][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = [$b , $this->_barThinWidth , 0 , 1];
             }
         }
 
@@ -124,7 +124,7 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
         $checksum = 0;
 
         for ($i = 0 ; $i < $this->_barcodeLength; $i ++) {
-            $checksum += intval($text{$i}) * ($i % 2 ? 9 : 3);
+            $checksum += (int)$text[$i] * ($i % 2 ? 9 : 3);
         }
 
         return ($checksum % 10);

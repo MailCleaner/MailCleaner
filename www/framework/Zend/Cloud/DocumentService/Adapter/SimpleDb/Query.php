@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ require_once 'Zend/Cloud/DocumentService/Query.php';
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
@@ -102,7 +102,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
                     }
                     break;
                 case self::QUERY_WHEREID:
-                    $statement = $this->_parseWhere('ItemName() = ?', array($args));
+                    $statement = $this->_parseWhere('ItemName() = ?', [$args]);
                     if (null === $where) {
                         $where = $statement;
                     } else {

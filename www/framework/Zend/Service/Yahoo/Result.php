@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Result.php,v 1.1.2.4 2011-05-30 08:30:31 root Exp $
+ * @version    $Id$
  */
 
 
@@ -26,11 +26,18 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Yahoo_Result
 {
+    protected $_namespace;
+
+    /**
+     * @var \Zend_Service_Yahoo_Image|null
+     */
+    public $Thumbnail;
+
     /**
      * The title of the search entry
      *
@@ -83,7 +90,7 @@ class Zend_Service_Yahoo_Result
     public function __construct(DOMElement $result)
     {
         // default fields for all search results:
-        $fields = array('Title', 'Url', 'ClickUrl');
+        $fields = ['Title', 'Url', 'ClickUrl'];
 
         // merge w/ child's fields
         $this->_fields = array_merge($this->_fields, $fields);
@@ -96,6 +103,7 @@ class Zend_Service_Yahoo_Result
         foreach ($this->_fields as $f) {
             $query = "./yh:$f/text()";
             $node = $this->_xpath->query($query, $result);
+
             if ($node->length == 1) {
                 $this->{$f} = $node->item(0)->data;
             }
@@ -113,6 +121,7 @@ class Zend_Service_Yahoo_Result
     protected function _setThumbnail()
     {
         $node = $this->_xpath->query('./yh:Thumbnail', $this->_result);
+
         if ($node->length == 1) {
             /**
              * @see Zend_Service_Yahoo_Image

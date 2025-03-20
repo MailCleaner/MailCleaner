@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Font.php,v 1.1.2.3 2011-05-30 08:31:03 root Exp $
+ * @version    $Id$
  */
 
 /** Internally used classes */
@@ -36,7 +36,7 @@ require_once 'Zend/Pdf/FileParser.php';
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_FileParser_Font extends Zend_Pdf_FileParser
@@ -49,7 +49,7 @@ abstract class Zend_Pdf_FileParser_Font extends Zend_Pdf_FileParser
      * {@link __set()}.
      * @var array
      */
-    private $_fontProperties = array();
+    private $_fontProperties = [];
 
     /**
      * Flag indicating whether or not debug logging is active.

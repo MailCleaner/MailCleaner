@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1.2.4 2011-05-30 08:31:06 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -41,7 +41,7 @@ require_once 'Zend/Service/Amazon/Ec2/Exception.php';
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abstract
@@ -86,7 +86,7 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
      *
      * @var array
      */
-    protected static $_validEc2Regions = array('eu-west-1', 'us-east-1');
+    protected static $_validEc2Regions = ['eu-west-1', 'us-east-1'];
 
     /**
      * Create Amazon client.
@@ -142,24 +142,24 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
     /**
      * Sends a HTTP request to the queue service using Zend_Http_Client
      *
-     * @param array $params         List of parameters to send with the request
+     * @param  array $params List of parameters to send with the request
      * @return Zend_Service_Amazon_Ec2_Response
      * @throws Zend_Service_Amazon_Ec2_Exception
      */
-    protected function sendRequest(array $params = array())
+    protected function sendRequest(array $params = [])
     {
         $url = 'https://' . $this->_getRegion() . $this->_ec2Endpoint . '/';
 
         $params = $this->addRequiredParameters($params);
 
         try {
-            /* @var $request Zend_Http_Client */
+            /* @var Zend_Http_Client $request */
             $request = self::getHttpClient();
             $request->resetParameters();
 
-            $request->setConfig(array(
+            $request->setConfig([
                 'timeout' => $this->_httpTimeout
-            ));
+            ]);
 
             $request->setUri($url);
             $request->setMethod(Zend_Http_Client::POST);
@@ -238,7 +238,7 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
         uksort($paramaters, 'strcmp');
         unset($paramaters['Signature']);
 
-        $arrData = array();
+        $arrData = [];
         foreach($paramaters as $key => $value) {
             $arrData[] = $key . '=' . str_replace("%7E", "~", rawurlencode($value));
         }

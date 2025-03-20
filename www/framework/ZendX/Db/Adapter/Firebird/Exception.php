@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    ZendX_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php,v 1.1.2.3 2011-05-30 08:31:12 root Exp $
+ * @version    $Id: $
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Db/Adapter/Exception.php';
  * @category   ZendX
  * @package    ZendX_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ZendX_Db_Adapter_Firebird_Exception extends Zend_Db_Adapter_Exception

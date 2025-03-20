@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Gravatar.php,v 1.1.2.1 2011-05-30 08:30:31 root Exp $
+ * @version    $Id: Doctype.php 16971 2009-07-22 18:05:45Z mikaelkael $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -66,12 +66,12 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'img_size'    => 80,
         'default_img' => self::DEFAULT_MM,
         'rating'      => self::RATING_G,
         'secure'      => null,
-    );
+    ];
 
     /**
      * Email Adress
@@ -103,7 +103,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      * @param  array $attribs Attributes for image tag (title, alt etc.)
      * @return Zend_View_Helper_Gravatar
      */
-    public function gravatar($email = "", $options = array(), $attribs = array())
+    public function gravatar($email = "", $options = [], $attribs = [])
     {
         $this->setEmail($email);
         $this->setOptions($options);
@@ -308,16 +308,15 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      */
     protected function _getAvatarUrl()
     {
-        $src = $this->_getGravatarUrl()
+        return $this->_getGravatarUrl()
              . '/'
-             . md5($this->getEmail())
+             . md5(strtolower(trim($this->getEmail() ?: '')))
              . '?s='
              . $this->getImgSize()
              . '&d='
              . $this->getDefaultImg()
              . '&r='
              . $this->getRating();
-        return $src;
     }
 
     /**
@@ -343,11 +342,10 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     public function getImgTag()
     {
         $this->_setSrcAttribForImg();
-        $html = '<img'
+
+        return '<img'
               . $this->_htmlAttribs($this->getAttribs())
               . $this->getClosingBracket();
-
-        return $html;
     }
 
     /**

@@ -1,36 +1,41 @@
-<?php 
+<?php
+
 /**
  * @license http://www.mailcleaner.net/open/licence_en.html Mailcleaner Public License
  * @package mailcleaner
- * @author Olivier Diserens
- * @copyright 2009, Olivier Diserens
+ * @author Olivier Diserens, John Mertz
+ * @copyright 2009, Olivier Diserens; 2023, John Mertz
  */
 ?>
 <td colspan="2">
-<table class="callouttesttable">
+    <table class="callouttesttable">
 
-<tr>
-  <td class="flabel"><?php echo $this->t->_('result')?> : </td>
-  <td class="fvalue<?php 
-    if ($this->data['status'] == 'OK') { echo ' passedtest'; } elseif ($this->data['status'] == 'NOK') { echo ' failedtest'; }?>">
-    <?php echo $this->data['message']?>
-  </td>
-</tr>
-<?php if (count($this->data['addresses']) > 0) {?>
-  <td class="flabel"><?php echo $this->t->_('addresses')?> : </td>
-  <td class="fvalue">
-  <?php foreach ($this->data['addresses'] as $a) { ?>
-	<?php echo $a?><br />
-  <?php }?>
-  </td>
-<?php }?>
-<?php if (count($this->data['errors']) > 0) {?>
-  <td class="flabel"><?php echo $this->t->_('errors')?> : </td>
-  <td class="fvalue">
-  <?php foreach ($this->data['errors'] as $e) { ?>
-	<?php echo $e?><br />
-  <?php }?>
-  </td>
-<?php }?>
-</table>
+        <tr>
+            <td class="flabel"><?php echo $this->t->_('result') ?> : </td>
+            <td class="fvalue<?php
+                                if ($this->data['status'] == 'OK') {
+                                    echo ' passedtest';
+                                } elseif ($this->data['status'] == 'NOK') {
+                                    echo ' failedtest';
+                                } ?>">
+                <?php echo $this->data['message'] ?>
+            </td>
+        </tr>
+        <?php if (count($this->data['addresses']) > 0) { ?>
+            <td class="flabel"><?php echo $this->t->_('addresses') ?> : </td>
+            <td class="fvalue">
+                <?php foreach ($this->data['addresses'] as $a) { ?>
+                    <?php echo $a ?><br />
+                <?php } ?>
+            </td>
+        <?php } ?>
+        <?php if (count($this->data['errors']) > 0) { ?>
+            <td class="flabel"><?php echo $this->t->_('errors') ?> : </td>
+            <td class="fvalue">
+                <?php foreach ($this->data['errors'] as $e) { ?>
+                    <?php echo $e ?><br />
+                <?php } ?>
+            </td>
+        <?php } ?>
+    </table>
 </td>

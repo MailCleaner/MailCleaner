@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Source.php,v 1.1.2.1 2011-05-30 08:30:56 root Exp $
+ * @version    $Id$
  */
 
 require_once 'Zend/Feed/Writer/Renderer/Feed/Atom/AtomAbstract.php';
@@ -24,7 +24,7 @@ require_once 'Zend/Feed/Writer/Renderer/Feed/Atom/AtomAbstract.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Renderer_Feed_Atom_Source
@@ -46,7 +46,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
     /**
      * Render Atom Feed Metadata (Source element)
      *
-     * @return Zend_Feed_Writer_Renderer_Feed_Atom
+     * @return Zend_Feed_Writer_Renderer_Feed_Atom_Source
      */
     public function render()
     {

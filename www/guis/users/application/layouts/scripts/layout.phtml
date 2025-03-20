@@ -1,18 +1,21 @@
 <?php echo $this->doctype() ?>
 <html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-  <title>MailCleaner</title>
+
+<head>
+    <title>MailCleaner</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl('images/favicon.ico') ?>"/>
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseUrl('images/favicon.ico') ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/main.css'); ?>" media="screen" />
     <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/navigation.css'); ?> " media="screen" />
     <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/popup.css'); ?>" media="screen" />
     <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/unlogged.css'); ?>" media="screen" />
     <script src="<?php echo $this->baseUrl('scripts/popup.js'); ?>" type="text/javascript" charset="utf-8"></script>
-  </head>
-  <body onload="disableCloseWithoutReferrer();">
-       <div id="container">
-           <?php echo $this->layout()->content ?>
-       </div>
-  </body>
+</head>
+
+<body onload="disableCloseWithoutReferrer();">
+    <div id="container">
+        <?php echo $this->layout()->content ?>
+    </div>
+</body>
+
 </html>

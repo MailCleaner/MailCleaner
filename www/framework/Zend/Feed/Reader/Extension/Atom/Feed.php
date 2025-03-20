@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php,v 1.1.2.1 2011-05-30 08:31:04 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -42,7 +42,7 @@ require_once 'Zend/Feed/Reader/Collection/Author.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Extension_Atom_Feed
@@ -78,7 +78,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
 
         $list = $this->_xpath->query('//atom:author');
 
-        $authors = array();
+        $authors = [];
 
         if ($list->length) {
             foreach ($list as $author) {
@@ -89,7 +89,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
             }
         }
 
-        if (count($authors) == 0) {
+        if (count($authors) === 0) {
             $authors = null;
         } else {
             $authors = new Zend_Feed_Reader_Collection_Author(
@@ -308,7 +308,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (!$imageUrl) {
             $image = null;
         } else {
-            $image = array('uri'=>$imageUrl);
+            $image = ['uri'=>$imageUrl];
         }
 
         $this->_data['image'] = $image;
@@ -332,7 +332,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (!$imageUrl) {
             $image = null;
         } else {
-            $image = array('uri'=>$imageUrl);
+            $image = ['uri'=>$imageUrl];
         }
 
         $this->_data['icon'] = $image;
@@ -419,7 +419,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (array_key_exists('hubs', $this->_data)) {
             return $this->_data['hubs'];
         }
-        $hubs = array();
+        $hubs = [];
 
         $list = $this->_xpath->query($this->getXpathPrefix()
             . '//atom:link[@rel="hub"]/@href');
@@ -485,11 +485,11 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if ($list->length) {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->getAttribute('term'),
                     'scheme' => $category->getAttribute('scheme'),
                     'label' => $category->getAttribute('label')
-                );
+                ];
             }
         } else {
             return new Zend_Feed_Reader_Collection_Category;
@@ -504,11 +504,11 @@ class Zend_Feed_Reader_Extension_Atom_Feed
      * Get an author entry in RSS format
      *
      * @param  DOMElement $element
-     * @return string
+     * @return array|null
      */
     protected function _getAuthor(DOMElement $element)
     {
-        $author = array();
+        $author = [];
 
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');

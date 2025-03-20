@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Protocol.php,v 1.1.2.4 2011-05-30 08:31:02 root Exp $
+ * @version   $Id$
  */
 
 /**
@@ -24,11 +24,18 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_TimeSync_Protocol
 {
+    /**
+     * Port number for this timeserver
+     *
+     * @var integer
+     */
+    protected $_port = 0;
+
     /**
      * Holds the current socket connection
      *
@@ -55,7 +62,7 @@ abstract class Zend_TimeSync_Protocol
      *
      * @var array
      */
-    protected $_info = array();
+    protected $_info = [];
 
     /**
      * Abstract method that prepares the data to send to the timeserver
@@ -142,7 +149,6 @@ abstract class Zend_TimeSync_Protocol
         $this->_write($this->_prepare());
         $timestamp = $this->_extract($this->_read());
 
-        $date = new Zend_Date($this, null, $locale);
-        return $date;
+        return new Zend_Date($this, null, $locale);
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Plugin
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PutHandler.php,v 1.1.2.1 2011-05-30 08:30:30 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -35,7 +35,7 @@ require_once 'Zend/Controller/Request/Http.php';
  *
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Plugin
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Plugin_PutHandler extends Zend_Controller_Plugin_Abstract
@@ -52,7 +52,7 @@ class Zend_Controller_Plugin_PutHandler extends Zend_Controller_Plugin_Abstract
         }
 
         if ($this->_request->isPut()) {
-            $putParams = array();
+            $putParams = [];
             parse_str($this->_request->getRawBody(), $putParams);
             $request->setParams($putParams);
         }

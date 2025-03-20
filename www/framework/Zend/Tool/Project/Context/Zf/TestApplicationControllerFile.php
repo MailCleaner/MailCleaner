@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TestApplicationControllerFile.php,v 1.1.2.4 2011-05-30 08:30:33 root Exp $
+ * @version    $Id$
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/Tool/Project/Context/Filesystem/File.php';
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -70,11 +70,11 @@ class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_To
     /**
      * getPersistentAttributes()
      *
-     * @return unknown
+     * @return array
      */
     public function getPersistentAttributes()
     {
-        $attributes = array();
+        $attributes = [];
 
         if ($this->_forControllerName) {
             $attributes['forControllerName'] = $this->getForControllerName();
@@ -82,12 +82,12 @@ class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_To
 
         return $attributes;
     }
-    
+
     public function getForControllerName()
     {
         return $this->_forControllerName;
     }
-    
+
     /**
      * getContents()
      *
@@ -99,31 +99,31 @@ class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_To
         $filter = new Zend_Filter_Word_DashToCamelCase();
 
         $className = $filter->filter($this->_forControllerName) . 'ControllerTest';
-        
-        /* @var $controllerDirectoryResource Zend_Tool_Project_Profile_Resource */
+
+        /* @var Zend_Tool_Project_Profile_Resource $controllerDirectoryResource */
         $controllerDirectoryResource = $this->_resource->getParentResource();
         if ($controllerDirectoryResource->getParentResource()->getName() == 'TestApplicationModuleDirectory') {
-            $className = ucfirst($controllerDirectoryResource->getParentResource()->getForModuleName())
+            $className = $filter->filter(ucfirst($controllerDirectoryResource->getParentResource()->getForModuleName()))
                 . '_' . $className;
-        }        
-        
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+        }
+
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'Zend_Test_PHPUnit_ControllerTestCase',
-                    'methods' => array(
-                        new Zend_CodeGenerator_Php_Method(array(
+                    'methods' => [
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'setUp',
                             'body' => <<<EOS
 \$this->bootstrap = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
 parent::setUp();
 EOS
-                            ))
-                        )
-                    ))
-                )
-            ));
+                            ])
+                        ]
+                    ])
+                ]
+            ]);
 
         return $codeGenFile->generate();
     }

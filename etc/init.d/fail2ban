@@ -226,20 +226,20 @@ log_end_msg_wrapper()
 command="$1"
 case "$command" in
 	start|force-start)
-		[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+		[ "$VERBOSE" != no ] && log_daemon_msg "start $DESC: " "$NAME"
 		do_start "$command"
 		log_end_msg_wrapper $? 2 "$VERBOSE"
 		;;
 
 	stop)
-		[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+		[ "$VERBOSE" != no ] && log_daemon_msg "stop $DESC: " "$NAME"
 		do_stop
 		log_end_msg_wrapper $? 2 "$VERBOSE"
 		;;
 
 	restart|force-reload)
 		touch $VARDIR/run/fail2ban.restart.rs
-		log_daemon_msg "Restarting $DESC" "$NAME"
+		log_daemon_msg "restart $DESC:" "$NAME"
 		do_stop
 		case "$?" in
 			0|1)
